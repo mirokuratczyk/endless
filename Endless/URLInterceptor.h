@@ -48,5 +48,6 @@
 #ifdef USE_DUMMY_URLINTERCEPTOR
 @interface DummyURLInterceptor : NSURLProtocol
 @property (nonatomic, strong) NSURLConnection *connection;
+@property (assign) BOOL isOrigin;
 @end
 #endif
