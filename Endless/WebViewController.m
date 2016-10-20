@@ -868,7 +868,6 @@
 	
 	[popover beginThemeUpdates];
 	[popover setTheme:[WYPopoverTheme themeForIOS7]];
-	[popover.theme setDimsBackgroundViewsTintColor:NO];
 	[popover.theme setOuterCornerRadius:4];
 	[popover.theme setOuterShadowBlurRadius:8];
 	[popover.theme setOuterShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.75]];
