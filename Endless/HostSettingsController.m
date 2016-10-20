@@ -194,12 +194,6 @@ NSString *firstMatch;
 	[i addObjectsFromArray:@[ HOST_SETTINGS_TLS_12, HOST_SETTINGS_TLS_AUTO ]];
 	[tls setValues:i];
 	
-	i = [[NSMutableArray alloc] init];
-	if (![host isDefault])
-		[i addObject:NSLocalizedString(@"Default", nil)];
-	[i addObjectsFromArray:@[ NSLocalizedString(@"TLS 1.2", nil), NSLocalizedString(@"Any TLS", nil)]];
-	[tls setShortItems:i];
-	
 	[tls setTitle:NSLocalizedString(@"TLS version", nil)];
 	NSString *tlsval = [host setting:HOST_SETTINGS_KEY_TLS];
 	
@@ -232,12 +226,6 @@ NSString *firstMatch;
 		[i addObject:HOST_SETTINGS_DEFAULT];
 	[i addObjectsFromArray:@[ HOST_SETTINGS_CSP_OPEN, HOST_SETTINGS_CSP_BLOCK_CONNECT, HOST_SETTINGS_CSP_STRICT ]];
 	[csp setValues:i];
-	
-	i = [[NSMutableArray alloc] init];
-	if (![host isDefault])
-		[i addObject:NSLocalizedString(@"Default", nil)];
-	[i addObjectsFromArray:@[ NSLocalizedString(@"Open", nil), NSLocalizedString(@"No-Connect", nil), NSLocalizedString(@"Strict", nil)]];
-	[csp setShortItems:i];
 	
 	[csp setTitle:NSLocalizedString(@"Content policy", nil)];
 	NSString *cspval = [host setting:HOST_SETTINGS_KEY_CSP];
