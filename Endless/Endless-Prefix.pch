@@ -34,9 +34,6 @@
 /* bypass most of URLInterceptor for troubleshooting */
 #undef USE_DUMMY_URLINTERCEPTOR
 
-/* bypass most of URLInterceptor for troubleshooting */
-# undef USE_DUMMY_URLINTERCEPTOR
-
 #endif
 
 #endif

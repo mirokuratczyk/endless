@@ -21,8 +21,10 @@ NSMutableArray *sortedCookieHosts;
 
 	sortedCookieHosts = [NSMutableArray arrayWithArray:[[appDelegate cookieJar] sortedHostCounts]];
 
-	self.title = @"Cookies and Local Storage";
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
+	self.title = NSLocalizedString(@"Cookies and Local Storage", nil);
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+                                                                             style:UIBarButtonItemStyleDone target:self.navigationController
+                                                                            action:@selector(dismissModalViewControllerAnimated:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,7 +57,8 @@ NSMutableArray *sortedCookieHosts;
 	int ccount = [[ccounts objectForKey:@"cookies"] intValue];
 	int lscount = [[ccounts objectForKey:@"localStorage"] intValue];
 
-	if (ccount) {
+	//TODO: i18n below
+    if (ccount) {
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%d cookie%@", ccount, (ccount == 1 ? @"" : @"s")];
 	}
 	if (lscount) {

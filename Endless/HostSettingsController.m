@@ -23,9 +23,11 @@ NSString *firstMatch;
 	
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	
-	self.title = @"Host Settings";
+	self.title = NSLocalizedString(@"Host Settings", nil);
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addHost:)];
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+                                                                             style:UIBarButtonItemStyleDone target:self.navigationController
+                                                                            action:@selector(dismissModalViewControllerAnimated:)];
 	
 	/* most likely the user is wanting to define the site they are currently on, so feed that as a reasonable default the first time around */
 	if ([[appDelegate webViewController] curWebViewTab] != nil) {
@@ -103,7 +105,9 @@ NSString *firstMatch;
 
 - (void)addHost:sender
 {
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Host settings" message:@"Enter the host/domain to define settings for" preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Host settings", nil)
+                                                                             message:NSLocalizedString(@"Enter the host/domain to define settings for", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
 		textField.placeholder = @"example.com";
 		
@@ -158,14 +162,14 @@ NSString *firstMatch;
 	
 	QEntryElement *hostname;
 	if ([host isDefault]) {
-		QLabelElement *label = [[QLabelElement alloc] initWithTitle:@"Host/domain" Value:HOST_SETTINGS_HOST_DEFAULT_LABEL];
+		QLabelElement *label = [[QLabelElement alloc] initWithTitle:NSLocalizedString(@"Host/domain", nil) Value:HOST_SETTINGS_HOST_DEFAULT_LABEL];
 		[section addElement:label];
-		[section setFooter:@"These settings will be used as defaults for all hosts unless overridden"];
+		[section setFooter:NSLocalizedString(@"These settings will be used as defaults for all hosts unless overridden", nil)];
 	}
 	else {
-		hostname = [[QEntryElement alloc] initWithTitle:@"Host/domain" Value:[host hostname] Placeholder:@"example.com"];
+		hostname = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Host/domain", nil) Value:[host hostname] Placeholder:@"example.com"];
 		[section addElement:hostname];
-		[section setFooter:@"These settings will apply to all hosts under this domain"];
+		[section setFooter:NSLocalizedString(@"These settings will apply to all hosts under this domain", nil)];
 	}
 	
 	[root addSection:section];
@@ -173,14 +177,14 @@ NSString *firstMatch;
 	/* security section */
 	
 	section = [[QSection alloc] init];
-	[section setTitle:@"Security"];
+	[section setTitle:NSLocalizedString(@"Security", nil)];
 	
 	/* tls version */
 	
 	NSMutableArray *i = [[NSMutableArray alloc] init];
 	if (![host isDefault])
-		[i addObject:@"Default"];
-	[i addObjectsFromArray:@[ @"TLS 1.2 Only", @"TLS 1.2, 1.1, or 1.0" ]];
+		[i addObject:NSLocalizedString(@"Default", nil)];
+	[i addObjectsFromArray:@[ NSLocalizedString(@"TLS 1.2 Only", nil), NSLocalizedString(@"TLS 1.2, 1.1, or 1.0", nil) ]];
 
 	QRadioElement *tls = [[QRadioElement alloc] initWithItems:i selected:0];
 	
@@ -192,17 +196,23 @@ NSString *firstMatch;
 	
 	i = [[NSMutableArray alloc] init];
 	if (![host isDefault])
-		[i addObject:@"Default"];
-	[i addObjectsFromArray:@[ @"TLS 1.2", @"Any TLS" ]];
+		[i addObject:NSLocalizedString(@"Default", nil)];
+	[i addObjectsFromArray:@[ NSLocalizedString(@"TLS 1.2", nil), NSLocalizedString(@"Any TLS", nil)]];
 	[tls setShortItems:i];
 	
-	[tls setTitle:@"TLS version"];
+	[tls setTitle:NSLocalizedString(@"TLS version", nil)];
 	NSString *tlsval = [host setting:HOST_SETTINGS_KEY_TLS];
-	if (tlsval == nil)
+	
+    if (tlsval == nil)
 		[tls setSelectedValue:HOST_SETTINGS_DEFAULT];
 	else
 		[tls setSelectedValue:tlsval];
-	[section setFooter:[NSString stringWithFormat:@"Minimum version of TLS required by %@ to negotiate HTTPS connections", ([host isDefault] ? @"hosts" : @"this host")]];
+    
+    if ([host isDefault])
+        [section setFooter:NSLocalizedString(@"Minimum version of TLS required by hosts to negotiate HTTPS connections", nil)];
+    else
+        [section setFooter:NSLocalizedString(@"Minimum version of TLS required by this host to negotiate HTTPS connections", nil)];
+    
 	[section addElement:tls];
 	[root addSection:section];
 	
@@ -212,8 +222,8 @@ NSString *firstMatch;
 	
 	i = [[NSMutableArray alloc] init];
 	if (![host isDefault])
-		[i addObject:@"Default"];
-	[i addObjectsFromArray:@[ @"Open (normal browsing mode)", @"No XHR/WebSockets/Video connections", @"Strict (no JavaScript, video, etc.)" ]];
+		[i addObject:NSLocalizedString(@"Default", nil)];
+	[i addObjectsFromArray:@[ NSLocalizedString(@"Open (normal browsing mode)", nil), NSLocalizedString(@"No XHR/WebSockets/Video connections", nil),NSLocalizedString( @"Strict (no JavaScript, video, etc.)", nil)]];
 	
 	QRadioElement *csp = [[QRadioElement alloc] initWithItems:i selected:0];
 	
@@ -225,17 +235,20 @@ NSString *firstMatch;
 	
 	i = [[NSMutableArray alloc] init];
 	if (![host isDefault])
-		[i addObject:@"Default"];
-	[i addObjectsFromArray:@[ @"Open", @"No-Connect", @"Strict" ]];
+		[i addObject:NSLocalizedString(@"Default", nil)];
+	[i addObjectsFromArray:@[ NSLocalizedString(@"Open", nil), NSLocalizedString(@"No-Connect", nil), NSLocalizedString(@"Strict", nil)]];
 	[csp setShortItems:i];
 	
-	[csp setTitle:@"Content policy"];
+	[csp setTitle:NSLocalizedString(@"Content policy", nil)];
 	NSString *cspval = [host setting:HOST_SETTINGS_KEY_CSP];
 	if (cspval == nil)
 		[csp setSelectedValue:HOST_SETTINGS_DEFAULT];
 	else
 		[csp setSelectedValue:cspval];
-	[section setFooter:[NSString stringWithFormat:@"Restrictions on resources loaded from web pages%@", ([host isDefault] ? @"" : @" at this host")]];
+    if([host isDefault])
+        [section setFooter:NSLocalizedString(@"Restrictions on resources loaded from web pages", nil)];
+    else
+        [section setFooter:NSLocalizedString(@"Restrictions on resources loaded from web pages at this host", nil)];
 	[section addElement:csp];
 	[root addSection:section];
 	
@@ -244,37 +257,43 @@ NSString *firstMatch;
 	section = [[QSection alloc] init];
 	
 	QRadioElement *exlan = [self yesNoRadioElementWithDefault:(![host isDefault])];
-	[exlan setTitle:@"Block external LAN requests"];
+	[exlan setTitle:NSLocalizedString(@"Block external LAN requests", nil)];
 	NSString *val = [host setting:HOST_SETTINGS_KEY_BLOCK_LOCAL_NETS];
 	if (val == nil)
 		val = HOST_SETTINGS_DEFAULT;
 	[exlan setSelectedValue:val];
 	[section addElement:exlan];
-	[section setFooter:[NSString stringWithFormat:@"Resources loaded from %@ will be blocked from loading page elements or making requests to LAN hosts (192.168.0.0/16, 172.16.0.0/12, etc.)", ([host isDefault] ? @"hosts" : @"this host")]];
+    if([host isDefault])
+        [section setFooter:NSLocalizedString(@"Resources loaded from hosts will be blocked from loading page elements or making requests to LAN hosts (192.168.0.0/16, 172.16.0.0/12, etc.)", nil)] ;
+    else
+        [section setFooter:NSLocalizedString(@"Resources loaded from this host will be blocked from loading page elements or making requests to LAN hosts (192.168.0.0/16, 172.16.0.0/12, etc.)", nil)] ;
 	[root addSection:section];
 	
 	/* mixed-mode resources */
 	
 	section = [[QSection alloc] init];
 	QRadioElement *allowmixedmode = [self yesNoRadioElementWithDefault:(![host isDefault])];
-	[allowmixedmode setTitle:@"Allow mixed-mode resources"];
+	[allowmixedmode setTitle:NSLocalizedString(@"Allow mixed-mode resources", nil)];
 	val = [host setting:HOST_SETTINGS_KEY_ALLOW_MIXED_MODE];
 	if (val == nil)
 		val = HOST_SETTINGS_DEFAULT;
 	[allowmixedmode setSelectedValue:val];
 	[section addElement:allowmixedmode];
-	[section setFooter:[NSString stringWithFormat:@"Allow %@ to load page resources from non-HTTPS hosts (useful for RSS readers and other aggregators)", ([host isDefault] ? @"HTTPS hosts" : @"this HTTPS host")]];
+    if([host isDefault])
+	[section setFooter:NSLocalizedString(@"Allow HTTPS hosts to load page resources from non-HTTPS hosts (useful for RSS readers and other aggregators)", nil)];
+        else
+            [section setFooter:NSLocalizedString(@"Allow this HTTPS host to load page resources from non-HTTPS hosts (useful for RSS readers and other aggregators)", nil)];
 	[root addSection:section];
 	
 	/* privacy section */
 	
 	section = [[QSection alloc] init];
-	[section setTitle:@"Privacy"];
+	[section setTitle:NSLocalizedString(@"Privacy", nil)];
 	
 	/* whitelist cookies */
 	
 	QRadioElement *whitelistCookies = [self yesNoRadioElementWithDefault:(![host isDefault])];
-	[whitelistCookies setTitle:@"Allow persistent cookies"];
+	[whitelistCookies setTitle:NSLocalizedString(@"Allow persistent cookies", nil)];
 	val = [host setting:HOST_SETTINGS_KEY_WHITELIST_COOKIES];
 	if (val == nil)
 		val = HOST_SETTINGS_DEFAULT;
@@ -300,15 +319,15 @@ NSString *firstMatch;
 	}];
 	
 	[[self navigationController] pushViewController:qdc animated:YES];
-	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Hosts" style:UIBarButtonItemStylePlain target:nil action:nil];
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Hosts", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (QRadioElement *)yesNoRadioElementWithDefault:(BOOL)withDefault
 {
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	if (withDefault)
-		[items addObject:@"Default"];
-	[items addObjectsFromArray:@[ @"Yes", @"No" ]];
+		[items addObject:NSLocalizedString(@"Default", @"Setting value for Default/Yes/No radiobutton group")];
+	[items addObjectsFromArray:@[ NSLocalizedString(@"Yes", @"Setting value for Default/Yes/No radiobutton group"), NSLocalizedString(@"No", @"Setting value for Default/Yes/No radiobutton group")]];
 	
 	QRadioElement *opt = [[QRadioElement alloc] initWithItems:items selected:0];
 	
