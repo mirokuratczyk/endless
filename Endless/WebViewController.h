@@ -12,7 +12,6 @@
 
 @interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, IASKSettingsDelegate, WYPopoverControllerDelegate>
 
-@property BOOL toolbarOnBottom;
 @property BOOL darkInterface;
 
 - (NSMutableArray *)webViewTabs;

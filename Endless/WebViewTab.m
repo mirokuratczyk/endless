@@ -183,18 +183,10 @@ AppDelegate *appDelegate;
 - (void)updateFrame:(CGRect)frame
 {
 	[self.viewHolder setFrame:frame];
-	[self.webView setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-	
-	if ([[appDelegate webViewController] toolbarOnBottom]) {
-		[self.titleHolder setFrame:CGRectMake(0, frame.size.height, frame.size.width, 32)];
-		[self.closer setFrame:CGRectMake(3, frame.size.height + 8, 18, 18)];
-		[self.title setFrame:CGRectMake(22, frame.size.height + 8, frame.size.width - 22 - 22, 18)];
-	}
-	else {
-		[self.titleHolder setFrame:CGRectMake(0, -26, frame.size.width, 32)];
-		[self.closer setFrame:CGRectMake(3, -22, 18, 18)];
-		[self.title setFrame:CGRectMake(22, -22, frame.size.width - 22 - 22, 18)];
-	}
+    [self.webView setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    [self.titleHolder setFrame:CGRectMake(0, -26, frame.size.width, 32)];
+    [self.closer setFrame:CGRectMake(3, -22, 18, 18)];
+    [self.title setFrame:CGRectMake(22, -22, frame.size.width - 22 - 22, 18)];
 }
 
 - (void)prepareForNewURL:(NSURL *)URL

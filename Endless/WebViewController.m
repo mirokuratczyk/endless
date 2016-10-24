@@ -14,7 +14,7 @@
 #import "WebViewMenuController.h"
 #import "WYPopoverController.h"
 
-#define TOOLBAR_HEIGHT 46
+#define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
 #define TOOLBAR_BUTTON_SIZE 30
 
@@ -26,7 +26,7 @@
 	int curTabIndex;
 	NSMutableArray *webViewTabs;
 	
-	UIView *toolbar;
+	UIView *navigationBar;
 	UITextField *urlField;
 	UIButton *lockIcon;
 	UIButton *brokenLockIcon;
@@ -34,6 +34,8 @@
 	UIToolbar *tabToolbar;
 	UILabel *tabCount;
 	int keyboardHeight;
+    
+    UIToolbar *bottomToolBar;
 	
 	UIButton *backButton;
 	UIButton *forwardButton;
@@ -59,7 +61,7 @@
 
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate setWebViewController:self];
-	
+    
 	[appDelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
 	
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
@@ -72,11 +74,16 @@
 	[tabScroller setScrollEnabled:NO];
 	[[self view] addSubview:tabScroller];
 	
-	toolbar = [[UIView alloc] init];
-	[toolbar setClipsToBounds:YES];
-	[[self view] addSubview:toolbar];
+	navigationBar = [[UIView alloc] init];
+	[navigationBar setClipsToBounds:YES];
+	[[self view] addSubview:navigationBar];
+    
+    
+    bottomToolBar = [[UIToolbar alloc] init];
+    [bottomToolBar setClipsToBounds:YES];
+    [[self view] addSubview:bottomToolBar];
+    
 	
-	self.toolbarOnBottom = [userDefaults boolForKey:@"toolbar_on_bottom"];
 	self.darkInterface = [userDefaults boolForKey:@"dark_interface"];
 
 	keyboardHeight = 0;
@@ -85,20 +92,8 @@
 	[progressBar setTrackTintColor:[UIColor clearColor]];
 	[progressBar setTintColor:self.view.window.tintColor];
 	[progressBar setProgress:0.0];
-	[toolbar addSubview:progressBar];
-	
-	backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImage *backImage = [[UIImage imageNamed:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	[backButton setImage:backImage forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	[toolbar addSubview:backButton];
-	
-	forwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImage *forwardImage = [[UIImage imageNamed:@"forward"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	[forwardButton setImage:forwardImage forState:UIControlStateNormal];
-	[forwardButton addTarget:self action:@selector(goForward:) forControlEvents:UIControlEventTouchUpInside];
-	[toolbar addSubview:forwardButton];
-	
+	[navigationBar addSubview:progressBar];
+
 	urlField = [[UITextField alloc] init];
 	[urlField setBorderStyle:UITextBorderStyleRoundedRect];
 	[urlField setKeyboardType:UIKeyboardTypeWebSearch];
@@ -111,7 +106,7 @@
 	[urlField setAutocorrectionType:UITextAutocorrectionTypeNo];
 	[urlField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 	[urlField setDelegate:self];
-	[toolbar addSubview:urlField];
+	[navigationBar addSubview:urlField];
 	
 	lockIcon = [UIButton buttonWithType:UIButtonTypeCustom];
 	[lockIcon setFrame:CGRectMake(0, 0, 24, 16)];
@@ -124,27 +119,53 @@
 	[brokenLockIcon setImage:[UIImage imageNamed:@"broken_lock"] forState:UIControlStateNormal];
 	[[brokenLockIcon imageView] setContentMode:UIViewContentModeScaleAspectFit];
 	[brokenLockIcon addTarget:self action:@selector(showSSLCertificate) forControlEvents:UIControlEventTouchUpInside];
+    
+    backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backImage = [[UIImage imageNamed:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [backButton setImage:backImage forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
+    
+    forwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *forwardImage = [[UIImage imageNamed:@"forward"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [forwardButton setImage:forwardImage forState:UIControlStateNormal];
+    [forwardButton addTarget:self action:@selector(goForward:) forControlEvents:UIControlEventTouchUpInside];
+    [forwardButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
+
 
 	tabsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *tabsImage = [[UIImage imageNamed:@"tabs"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	[tabsButton setImage:tabsImage forState:UIControlStateNormal];
 	[tabsButton setTintColor:[progressBar tintColor]];
 	[tabsButton addTarget:self action:@selector(showTabs:) forControlEvents:UIControlEventTouchUpInside];
-	[toolbar addSubview:tabsButton];
+    [tabsButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
 	
 	tabCount = [[UILabel alloc] init];
 	[tabCount setText:@""];
 	[tabCount setTextAlignment:NSTextAlignmentCenter];
 	[tabCount setFont:[UIFont systemFontOfSize:11]];
 	[tabCount setTextColor:[progressBar tintColor]];
-	[toolbar addSubview:tabCount];
+    [tabCount setFrame:CGRectMake(7, 11, 12, 12)];
+    [tabsButton addSubview:tabCount];
 	
 	settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *settingsImage = [[UIImage imageNamed:@"settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	[settingsButton setImage:settingsImage forState:UIControlStateNormal];
 	[settingsButton setTintColor:[progressBar tintColor]];
 	[settingsButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
-	[toolbar addSubview:settingsButton];
+    [settingsButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
+    
+    
+    bottomToolBar.items = [NSArray arrayWithObjects:
+                        [[UIBarButtonItem alloc] initWithCustomView:backButton ],
+                        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                        [[UIBarButtonItem alloc] initWithCustomView:forwardButton],
+                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                           [[UIBarButtonItem alloc] initWithCustomView:settingsButton],
+                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                           [[UIBarButtonItem alloc] initWithCustomView:tabsButton],
+                        nil];
+
 	
 	[tabScroller setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
 	[tabScroller setAutoresizesSubviews:NO];
@@ -158,17 +179,17 @@
 	[tabChooser setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin)];
 	[tabChooser addTarget:self action:@selector(slideToCurrentTab:) forControlEvents:UIControlEventValueChanged];
 	[tabChooser setNumberOfPages:0];
-	[self.view insertSubview:tabChooser aboveSubview:toolbar];
+	[self.view insertSubview:tabChooser aboveSubview:navigationBar];
 	[tabChooser setHidden:true];
 	
 	tabToolbar = [[UIToolbar alloc] init];
 	[tabToolbar setClipsToBounds:YES];
 	[tabToolbar setHidden:true];
-	[self.view insertSubview:tabToolbar aboveSubview:toolbar];
+	[self.view insertSubview:tabToolbar aboveSubview:navigationBar];
 	
 	tabAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTabFromToolbar:)];
 	tabDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWithTabsButton:)];
-	tabDoneButton.title = @"Done";
+	tabDoneButton.title = NSLocalizedString(@"Done", nil);
 
 	tabToolbar.items = [NSArray arrayWithObjects:
 			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
@@ -308,33 +329,26 @@
 
 	/* main background view starts at 0,0, but actual content starts at 0,(app frame origin y to account for status bar/location warning) */
 	self.view.frame = CGRectMake(0, 0, size.width, size.height + statusBarHeight);
-	
-	/* things relative to the main view */
-	if (self.toolbarOnBottom) {
-		tabChooser.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - 20, self.view.frame.size.width, 24);
+    
+    tabChooser.frame = CGRectMake(0, TOOLBAR_HEIGHT + 20, self.view.frame.size.width, 24);
 
-		toolbar.frame = tabToolbar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - keyboardHeight, size.width, TOOLBAR_HEIGHT + keyboardHeight);
-		progressBar.frame = CGRectMake(0, 0, toolbar.frame.size.width, 2);
-		
-		tabScroller.frame = CGRectMake(0, self.view.frame.origin.y + statusBarHeight, toolbar.frame.size.width, self.view.frame.size.height - toolbar.frame.size.height - statusBarHeight);
-	}
-	else {
-		tabChooser.frame = CGRectMake(0, TOOLBAR_HEIGHT + 20, self.view.frame.size.width, 24);
+    
+    navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
+    bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - keyboardHeight, size.width, TOOLBAR_HEIGHT + keyboardHeight);
 
-		toolbar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
-		progressBar.frame = CGRectMake(0, toolbar.frame.size.height - 2, toolbar.frame.size.width, 2);
-		
-		tabScroller.frame = CGRectMake(0, toolbar.frame.origin.y + toolbar.frame.size.height, toolbar.frame.size.width, self.view.frame.size.height - toolbar.frame.size.height);
-	}
 
+    progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
+    
+    tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height);
 	if (self.darkInterface) {
 		[self.view setBackgroundColor:[UIColor darkGrayColor]];
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
 		[tabScroller setBackgroundColor:[UIColor grayColor]];
 		[tabToolbar setBarTintColor:[UIColor grayColor]];
-		[toolbar setBackgroundColor:[UIColor darkGrayColor]];
+		[navigationBar setBackgroundColor:[UIColor darkGrayColor]];
 		[urlField setBackgroundColor:[UIColor grayColor]];
+        [bottomToolBar setBarTintColor:[UIColor darkGrayColor]];
 		
 		[tabAddButton setTintColor:[UIColor lightTextColor]];
 		[tabDoneButton setTintColor:[UIColor lightTextColor]];
@@ -351,8 +365,9 @@
 		
 		[tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 		[tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-		[toolbar setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+		[navigationBar setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 		[urlField setBackgroundColor:[UIColor whiteColor]];
+        [bottomToolBar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
 		
 		[tabAddButton setTintColor:[progressBar tintColor]];
 		[tabDoneButton setTintColor:[progressBar tintColor]];
@@ -363,27 +378,21 @@
 		[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
 		[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
 	}
-	
-	/* tabScroller.frame is now our actual webview viewing area */
-
-	for (int i = 0; i < webViewTabs.count; i++) {
-		WebViewTab *wvt = webViewTabs[i];
-		[wvt updateFrame:[self frameForTabIndex:i]];
-	}
-	
-	/* things relative to the toolbar */
+    
+    [self adjustWebViewTabsLayout];
+    
+    /* things relative to the toolbar */
 	float y = ((TOOLBAR_HEIGHT - TOOLBAR_BUTTON_SIZE) / 2);
 
 	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
 	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	
-	backButton.frame = CGRectMake(TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
-	forwardButton.frame = CGRectMake(backButton.frame.origin.x + backButton.frame.size.width + TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
+//	backButton.frame = CGRectMake(TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
+//	forwardButton.frame = CGRectMake(backButton.frame.origin.x + backButton.frame.size.width + TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
 	
-	settingsButton.frame = CGRectMake(size.width - backButton.frame.size.width - TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
-	tabsButton.frame = CGRectMake(settingsButton.frame.origin.x - backButton.frame.size.width - TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
+//	settingsButton.frame = CGRectMake(size.width - backButton.frame.size.width - TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
+//	tabsButton.frame = CGRectMake(settingsButton.frame.origin.x - backButton.frame.size.width - TOOLBAR_PADDING, y, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE);
 	
-	tabCount.frame = CGRectMake(tabsButton.frame.origin.x + 6, tabsButton.frame.origin.y + 12, 14, 10);
 	urlField.frame = [self frameForUrlField];
 	
 	[self updateSearchBarDetails];
@@ -397,21 +406,10 @@
 
 - (CGRect)frameForUrlField
 {
-	float x = forwardButton.frame.origin.x + forwardButton.frame.size.width + TOOLBAR_PADDING;
-	float y = (TOOLBAR_HEIGHT - tabsButton.frame.size.height) / 2;
-	float w = tabsButton.frame.origin.x - TOOLBAR_PADDING - forwardButton.frame.origin.x - forwardButton.frame.size.width - TOOLBAR_PADDING;
-	float h = tabsButton.frame.size.height;
-	
-	if (backButton.hidden || [urlField isFirstResponder]) {
-		x -= backButton.frame.size.width + TOOLBAR_PADDING;
-		w += backButton.frame.size.width + TOOLBAR_PADDING;
-	}
-	
-	if (forwardButton.hidden || [urlField isFirstResponder]) {
-		x -= forwardButton.frame.size.width + TOOLBAR_PADDING;
-		w += forwardButton.frame.size.width + TOOLBAR_PADDING;
-	}
-	
+	float x = TOOLBAR_PADDING;
+	float y = TOOLBAR_PADDING;
+	float w = navigationBar.frame.size.width - 2* TOOLBAR_PADDING;
+	float h = TOOLBAR_HEIGHT - 2*TOOLBAR_PADDING;
 	return CGRectMake(x, y, w, h);
 }
 
@@ -464,7 +462,7 @@
 
 	[tabScroller setContentSize:CGSizeMake(wvt.viewHolder.frame.size.width * tabChooser.numberOfPages, wvt.viewHolder.frame.size.height)];
 	[tabScroller addSubview:wvt.viewHolder];
-	[tabScroller bringSubviewToFront:toolbar];
+	[tabScroller bringSubviewToFront:navigationBar];
 
 	if (showingTabs)
 		[wvt zoomOut];
@@ -623,7 +621,7 @@
 					[urlField setTextColor:[UIColor colorWithRed:0 green:(183.0/255.0) blue:(82.0/255.0) alpha:1.0]];
 			
 					if ([self.curWebViewTab.SSLCertificate evOrgName] == nil)
-						[urlField setText:@"Unknown Organization"];
+						[urlField setText:NSLocalizedString(@"Unknown Organization", nil)];
 					else
 						[urlField setText:self.curWebViewTab.SSLCertificate.evOrgName];
 					
@@ -667,7 +665,7 @@
 		[backButton setTintColor:[UIColor grayColor]];
 	}
 
-	forwardButton.hidden = !(self.curWebViewTab && self.curWebViewTab.canGoForward);
+	forwardButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoForward);
 	if (forwardButton.enabled) {
 		[forwardButton setTintColor:(self.darkInterface ? [UIColor lightTextColor] : [progressBar tintColor])];
 	}
@@ -742,21 +740,13 @@
 	if (bookmarks == nil) {
 		bookmarks = [[BookmarkController alloc] init];
 		bookmarks.embedded = true;
-		
-		if (self.toolbarOnBottom)
-			/* we can't size according to keyboard height because we don't know it yet, so we'll just put it full height below the toolbar */
-			bookmarks.view.frame = CGRectMake(0, tabScroller.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-		else
-			bookmarks.view.frame = CGRectMake(0, toolbar.frame.size.height + toolbar.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-
+        bookmarks.view.frame = CGRectMake(0, navigationBar.frame.size.height + navigationBar.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 		[self addChildViewController:bookmarks];
-		[self.view insertSubview:[bookmarks view] belowSubview:toolbar];
+		[self.view insertSubview:[bookmarks view] belowSubview:navigationBar];
 	}
 	
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 		[urlField setTextAlignment:NSTextAlignmentNatural];
-		[backButton setHidden:true];
-		[forwardButton setHidden:true];
 		[urlField setFrame:[self frameForUrlField]];
 	} completion:^(BOOL finished) {
 		[urlField performSelector:@selector(selectAll:) withObject:nil afterDelay:0.1];
@@ -781,8 +771,6 @@
 
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 		[urlField setTextAlignment:NSTextAlignmentCenter];
-		[backButton setHidden:false];
-		[forwardButton setHidden:!(self.curWebViewTab && self.curWebViewTab.canGoForward)];
 		[urlField setFrame:[self frameForUrlField]];
 	} completion:nil];
 
@@ -824,6 +812,60 @@
 
 	if (enteredURL != nil)
 		[[self curWebViewTab] loadURL:enteredURL];
+}
+
+- (void) adjustToolBarsLayout:(UIScrollView*) scrollView
+{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    CGFloat navBarOffsetY  = 0.0;
+    CGFloat bottomBarOffsetY = 0.0;
+    CGRect navBarFrame = navigationBar.frame;
+    CGRect bottomToolBarFrame = bottomToolBar.frame;
+    float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    
+    if(offsetY > 0){
+        if(offsetY < TOOLBAR_HEIGHT) {
+            navBarOffsetY = statusBarHeight - offsetY;
+            bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT + offsetY;
+        }
+        else {
+            navBarOffsetY = statusBarHeight - TOOLBAR_HEIGHT;
+            bottomBarOffsetY = self.view.frame.size.height;
+        }
+    }
+    else {
+        navBarOffsetY = statusBarHeight ;
+        bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT;
+    }
+    
+    navBarFrame.origin.y = navBarOffsetY;
+    bottomToolBarFrame.origin.y = bottomBarOffsetY;
+    
+    CGFloat toolBarAlpha = 1.0f - (statusBarHeight-navBarOffsetY)/statusBarHeight;
+    
+    [UIView animateWithDuration: 0.1 animations:^{
+        
+        navigationBar.frame = navBarFrame;
+        bottomToolBar.frame = bottomToolBarFrame;
+        navigationBar.alpha = toolBarAlpha;
+        bottomToolBar.alpha = toolBarAlpha;
+
+        tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height));
+        [self adjustWebViewTabsLayout];
+    }];
+}
+
+- (void) adjustWebViewTabsLayout {
+    for (int i = 0; i < webViewTabs.count; i++) {
+        WebViewTab *wvt = webViewTabs[i];
+        [wvt updateFrame:[self frameForTabIndex:i]];
+    }
+}
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == tabScroller)
+        return;
+    [self adjustToolBarsLayout:scrollView];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -875,7 +917,7 @@
 	[popover.theme setOverlayColor:[UIColor clearColor]];
 	[popover endThemeUpdates];
 	
-	[popover presentPopoverFromRect:CGRectMake(settingsButton.frame.origin.x, toolbar.frame.origin.y + settingsButton.frame.origin.y + settingsButton.frame.size.height - 30, settingsButton.frame.size.width, settingsButton.frame.size.height) inView:self.view permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES options:WYPopoverAnimationOptionFadeWithScale];
+	[popover presentPopoverFromRect:CGRectMake(settingsButton.frame.origin.x, navigationBar.frame.origin.y + settingsButton.frame.origin.y + settingsButton.frame.size.height - 30, settingsButton.frame.size.width, settingsButton.frame.size.height) inView:self.view permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES options:WYPopoverAnimationOptionFadeWithScale];
 }
 
 - (void)dismissPopover
@@ -896,7 +938,6 @@
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"send_dnt"]];
 	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"old_data_sweep_mins"]]];
 	
-	self.toolbarOnBottom = [userDefaults boolForKey:@"toolbar_on_bottom"];
 	self.darkInterface = [userDefaults boolForKey:@"dark_interface"];
 
 	[self adjustLayout];
@@ -921,7 +962,7 @@
 			}
 			
 			tabChooser.hidden = false;
-			toolbar.hidden = true;
+			navigationBar.hidden = true;
 			tabToolbar.hidden = false;
 			progressBar.alpha = 0.0;
 		} completion:block];
@@ -943,7 +984,7 @@
 			}
 			
 			tabChooser.hidden = true;
-			toolbar.hidden = false;
+			navigationBar.hidden = false;
 			tabToolbar.hidden = true;
 			progressBar.alpha = (progressBar.progress > 0.0 && progressBar.progress < 1.0 ? 1.0 : 0.0);
 		} completion:block];
