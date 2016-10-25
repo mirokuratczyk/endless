@@ -345,7 +345,7 @@
 	
 	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
 	
-	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height);
+	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height - bottomToolBar.frame.size.height - statusBarHeight);
 	if (self.darkInterface) {
 		[self.view setBackgroundColor:[UIColor darkGrayColor]];
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -847,7 +847,7 @@
 		navigationBar.alpha = toolBarAlpha;
 		bottomToolBar.alpha = toolBarAlpha;
 		
-		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height));
+		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
 		[self adjustWebViewTabsLayout];
 	}];
 }
