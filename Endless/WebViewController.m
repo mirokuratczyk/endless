@@ -46,7 +46,9 @@
 	UIBarButtonItem *tabDoneButton;
 	UIBarButtonItem *bookmarkAddButton;
 	
-	float lastWebViewScrollOffset;
+	float currentWebViewScrollOffsetY;
+	BOOL isShowingToolBars;
+	
 	BOOL showingTabs;
 	BOOL webViewScrollIsDecelerating;
 	BOOL webViewScrollIsDragging;
@@ -328,6 +330,44 @@
 	} completion:nil];
 }
 
+
+- (void) showToolBars:(BOOL) show {
+	CGFloat navBarOffsetY  = 0.0;
+	CGFloat bottomBarOffsetY = 0.0;
+	CGRect navBarFrame = navigationBar.frame;
+	CGRect bottomToolBarFrame = bottomToolBar.frame;
+	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+
+	if (isShowingToolBars == show) {
+		return;
+	}
+	
+	if(show) {
+		navBarOffsetY = statusBarHeight ;
+		bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT;
+		isShowingToolBars = YES;
+	}
+	else {
+		navBarOffsetY = statusBarHeight - TOOLBAR_HEIGHT;
+		bottomBarOffsetY = self.view.frame.size.height;
+		isShowingToolBars = NO;
+	}
+	
+	navBarFrame.origin.y = navBarOffsetY;
+	bottomToolBarFrame.origin.y = bottomBarOffsetY;
+
+	CGFloat toolBarAlpha = show ? 1.0f : 0.0f;
+	[UIView animateWithDuration: 0.1 animations:^{
+		navigationBar.frame = navBarFrame;
+		bottomToolBar.frame = bottomToolBarFrame;
+		navigationBar.alpha = toolBarAlpha;
+		bottomToolBar.alpha = toolBarAlpha;
+		
+		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
+		[self adjustWebViewTabsLayout];
+	}];
+}
+
 - (void)adjustLayout
 {
 	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
@@ -338,7 +378,10 @@
 	
 	tabChooser.frame = CGRectMake(0, TOOLBAR_HEIGHT + 20, self.view.frame.size.width, 24);
 	
-	
+	UIWebView *wv = [[self curWebViewTab] webView];
+	currentWebViewScrollOffsetY = wv.scrollView.contentOffset.y;
+
+
 	navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
 	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - keyboardHeight, size.width, TOOLBAR_HEIGHT + keyboardHeight);
 	
@@ -387,11 +430,11 @@
     
 	[self adjustWebViewTabsLayout];
 	
+	
 	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
 	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	
 	urlField.frame = [self frameForUrlField];
-	
 	[self updateSearchBarDetails];
 	[self.view setNeedsDisplay];
 }
@@ -671,6 +714,7 @@
 	}
 
 	[urlField setFrame:[self frameForUrlField]];
+	[self showToolBars:YES];
 }
 
 - (void)updateProgress
@@ -811,47 +855,6 @@
 		[[self curWebViewTab] loadURL:enteredURL];
 }
 
-- (void) adjustToolBarsLayout:(UIScrollView*) scrollView
-{
-	CGFloat offsetY = scrollView.contentOffset.y;
-	CGFloat navBarOffsetY  = 0.0;
-	CGFloat bottomBarOffsetY = 0.0;
-	CGRect navBarFrame = navigationBar.frame;
-	CGRect bottomToolBarFrame = bottomToolBar.frame;
-	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-	
-	if(offsetY > 0){
-		if(offsetY < TOOLBAR_HEIGHT) {
-			navBarOffsetY = statusBarHeight - offsetY;
-			bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT + offsetY;
-		}
-		else {
-			navBarOffsetY = statusBarHeight - TOOLBAR_HEIGHT;
-			bottomBarOffsetY = self.view.frame.size.height;
-		}
-	}
-	else {
-		navBarOffsetY = statusBarHeight ;
-		bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT;
-	}
-	
-	navBarFrame.origin.y = navBarOffsetY;
-	bottomToolBarFrame.origin.y = bottomBarOffsetY;
-	
-	CGFloat toolBarAlpha = 1.0f - (statusBarHeight-navBarOffsetY)/statusBarHeight;
-	
-	[UIView animateWithDuration: 0.1 animations:^{
-		
-		navigationBar.frame = navBarFrame;
-		bottomToolBar.frame = bottomToolBarFrame;
-		navigationBar.alpha = toolBarAlpha;
-		bottomToolBar.alpha = toolBarAlpha;
-		
-		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
-		[self adjustWebViewTabsLayout];
-	}];
-}
-
 - (void) adjustWebViewTabsLayout {
 	for (int i = 0; i < webViewTabs.count; i++) {
 		WebViewTab *wvt = webViewTabs[i];
@@ -860,9 +863,30 @@
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-	if (scrollView == tabScroller)
+	if (scrollView == tabScroller) {
 		return;
-	[self adjustToolBarsLayout:scrollView];
+	}
+	
+	CGFloat contentOffsetY = scrollView.contentOffset.y;
+	CGFloat scrollViewHeight = scrollView.frame.size.height;
+	CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
+	
+
+	if (contentOffsetY <= 0.0) {
+		return;
+	}
+	
+	if (self->currentWebViewScrollOffsetY >= contentOffsetY) {
+		[self showToolBars:YES];
+	}
+	else {
+		[self showToolBars:NO];
+	}
+	
+	// check if scrolled beyond the scrollView bounds
+	if(contentOffsetY + scrollViewHeight < scrollContentSizeHeight) {
+		self->currentWebViewScrollOffsetY = contentOffsetY;
+	}
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
