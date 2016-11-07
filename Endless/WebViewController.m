@@ -13,6 +13,7 @@
 #import "WebViewTab.h"
 #import "WebViewMenuController.h"
 #import "WYPopoverController.h"
+#import "PsiphonConnectionIndicator.h"
 
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
@@ -28,6 +29,7 @@
 	
 	UIView *navigationBar;
 	UITextField *urlField;
+	UIView *connectionIndicatorView;
 	UIButton *lockIcon;
 	UIButton *brokenLockIcon;
 	UIProgressView *progressBar;
@@ -110,6 +112,15 @@
 	[urlField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 	[urlField setDelegate:self];
 	[navigationBar addSubview:urlField];
+	
+
+	connectionIndicatorView = [[PsiphonConnectionIndicator alloc]initWithFrame:
+							   CGRectMake(TOOLBAR_PADDING,
+										  TOOLBAR_PADDING,
+										  TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+										  TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING)];
+	[navigationBar addSubview:connectionIndicatorView];
+	
 	
 	lockIcon = [UIButton buttonWithType:UIButtonTypeCustom];
 	[lockIcon setFrame:CGRectMake(0, 0, 24, 16)];
@@ -446,10 +457,10 @@
 
 - (CGRect)frameForUrlField
 {
-	float x = TOOLBAR_PADDING;
+	float x = 2 * TOOLBAR_PADDING + TOOLBAR_BUTTON_SIZE;
 	float y = TOOLBAR_PADDING;
-	float w = navigationBar.frame.size.width - 2* TOOLBAR_PADDING;
-	float h = TOOLBAR_HEIGHT - 2*TOOLBAR_PADDING;
+	float w = navigationBar.frame.size.width - 3 * TOOLBAR_PADDING - TOOLBAR_BUTTON_SIZE;
+	float h = TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING;
 	return CGRectMake(x, y, w, h);
 }
 
@@ -870,9 +881,8 @@
 	CGFloat contentOffsetY = scrollView.contentOffset.y;
 	CGFloat scrollViewHeight = scrollView.frame.size.height;
 	CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
-	
 
-	if (contentOffsetY <= 0.0) {
+	if (contentOffsetY < 0.0) {
 		return;
 	}
 	
