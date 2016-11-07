@@ -14,10 +14,12 @@
 AppDelegate *appDelegate;
 UIBarButtonItem *addItem;
 UIBarButtonItem *leftItem;
+BOOL isRTL;
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 	
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	
@@ -73,7 +75,13 @@ UIBarButtonItem *leftItem;
 		int buttonSize = tableViewHeaderFooterView.frame.size.height - 8;
 		
 		UIButton *b = [[UIButton alloc] init];
-		[b setFrame:CGRectMake(tableViewHeaderFooterView.frame.size.width - buttonSize - 6, 3, buttonSize, buttonSize)];
+		CGRect frame;
+		if(isRTL) {
+			frame = CGRectMake(buttonSize + 6, 3, buttonSize, buttonSize);
+		} else {
+			frame = CGRectMake(tableViewHeaderFooterView.frame.size.width - buttonSize - 6, 3, buttonSize, buttonSize);
+		}
+		[b setFrame:frame];
 		[b setBackgroundColor:[UIColor lightGrayColor]];
 		[b setTitle:@"X" forState:UIControlStateNormal];
 		[[b titleLabel] setFont:[UIFont boldSystemFontOfSize:12]];

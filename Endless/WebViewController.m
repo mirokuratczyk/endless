@@ -32,6 +32,7 @@
 	UIView *connectionIndicatorView;
 	UIButton *lockIcon;
 	UIButton *brokenLockIcon;
+	UIButton *refreshButton;
 	UIProgressView *progressBar;
 	UIToolbar *tabToolbar;
 	UILabel *tabCount;
@@ -58,10 +59,14 @@
 	WYPopoverController *popover;
 	
 	BookmarkController *bookmarks;
+	
+	BOOL isRTL;
 }
 
 - (void)loadView
 {
+	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
+
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -107,6 +112,7 @@
 	[urlField setClearButtonMode:UITextFieldViewModeWhileEditing];
 	[urlField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 	[urlField setLeftViewMode:UITextFieldViewModeAlways];
+	[urlField setRightViewMode:UITextFieldViewModeAlways];
 	[urlField setSpellCheckingType:UITextSpellCheckingTypeNo];
 	[urlField setAutocorrectionType:UITextAutocorrectionTypeNo];
 	[urlField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
@@ -114,11 +120,21 @@
 	[navigationBar addSubview:urlField];
 	
 
+	CGRect indicatorFrame;
+	if(isRTL) {
+		indicatorFrame = CGRectMake(self.view.bounds.size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	} else {
+		indicatorFrame = CGRectMake(TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	}
 	connectionIndicatorView = [[PsiphonConnectionIndicator alloc]initWithFrame:
-							   CGRectMake(TOOLBAR_PADDING,
-										  TOOLBAR_PADDING,
-										  TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-										  TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING)];
+							   indicatorFrame];
+	
 	[navigationBar addSubview:connectionIndicatorView];
 	
 	
@@ -133,15 +149,23 @@
 	[brokenLockIcon setImage:[UIImage imageNamed:@"broken_lock"] forState:UIControlStateNormal];
 	[[brokenLockIcon imageView] setContentMode:UIViewContentModeScaleAspectFit];
 	[brokenLockIcon addTarget:self action:@selector(showSSLCertificate) forControlEvents:UIControlEventTouchUpInside];
-    
+
+	refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[refreshButton setFrame:CGRectMake(0, 0, 24, 16)];
+	[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+	[[refreshButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
+	[refreshButton addTarget:self action:@selector(forceRefresh) forControlEvents:UIControlEventTouchUpInside];
+
 	backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImage *backImage = [[UIImage imageNamed:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	UIImage *backImage = [[UIImage imageNamed: isRTL ? @"arrow_right" : @"arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	[backImage imageFlippedForRightToLeftLayoutDirection];
 	[backButton setImage:backImage forState:UIControlStateNormal];
 	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
 	[backButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
 	
 	forwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImage *forwardImage = [[UIImage imageNamed:@"forward"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	UIImage *forwardImage = [[UIImage imageNamed: isRTL ? @"arrow_left" : @"arrow_right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	[forwardImage imageFlippedForRightToLeftLayoutDirection];
 	[forwardButton setImage:forwardImage forState:UIControlStateNormal];
 	[forwardButton addTarget:self action:@selector(goForward:) forControlEvents:UIControlEventTouchUpInside];
 	[forwardButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
@@ -457,7 +481,12 @@
 
 - (CGRect)frameForUrlField
 {
-	float x = 2 * TOOLBAR_PADDING + TOOLBAR_BUTTON_SIZE;
+	float x;
+	if(isRTL) {
+		x = TOOLBAR_PADDING;
+	} else {
+		x = 2 * TOOLBAR_PADDING + TOOLBAR_BUTTON_SIZE;
+	}
 	float y = TOOLBAR_PADDING;
 	float w = navigationBar.frame.size.width - 3 * TOOLBAR_PADDING - TOOLBAR_BUTTON_SIZE;
 	float h = TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING;
@@ -659,9 +688,11 @@
 		/* focused, don't muck with the URL while it's being edited */
 		[urlField setTextAlignment:NSTextAlignmentNatural];
 		[urlField setLeftView:nil];
+		[urlField setRightView:nil];
 	}
 	else {
 		[urlField setTextAlignment:NSTextAlignmentCenter];
+		[urlField setRightView:refreshButton];
 		BOOL isEV = NO;
 		if (self.curWebViewTab && self.curWebViewTab.secureMode >= WebViewTabSecureModeSecure) {
 			[urlField setLeftView:lockIcon];
