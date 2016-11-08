@@ -885,6 +885,10 @@
 	CGFloat contentOffsetY = scrollView.contentOffset.y;
 	CGFloat scrollViewHeight = scrollView.frame.size.height;
 	CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
+    
+    if(scrollViewHeight >= scrollContentSizeHeight && isShowingToolBars) {
+        return;
+    }
 
 	if (contentOffsetY < 0.0) {
 		return;
