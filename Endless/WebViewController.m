@@ -94,8 +94,6 @@
 	[[self view] addSubview:bottomToolBar];
 	
 	
-	self.darkInterface = [userDefaults boolForKey:@"dark_interface"];
-
 	keyboardHeight = 0;
 	
 	progressBar = [[UIProgressView alloc] init];
@@ -158,14 +156,12 @@
 
 	backButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *backImage = [[UIImage imageNamed: isRTL ? @"arrow_right" : @"arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	[backImage imageFlippedForRightToLeftLayoutDirection];
 	[backButton setImage:backImage forState:UIControlStateNormal];
 	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
 	[backButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
 	
 	forwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *forwardImage = [[UIImage imageNamed: isRTL ? @"arrow_left" : @"arrow_right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	[forwardImage imageFlippedForRightToLeftLayoutDirection];
 	[forwardButton setImage:forwardImage forState:UIControlStateNormal];
 	[forwardButton addTarget:self action:@selector(goForward:) forControlEvents:UIControlEventTouchUpInside];
 	[forwardButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
@@ -424,44 +420,24 @@
 	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
 	
 	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height - bottomToolBar.frame.size.height - statusBarHeight);
-	if (self.darkInterface) {
-		[self.view setBackgroundColor:[UIColor darkGrayColor]];
-		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-		[tabScroller setBackgroundColor:[UIColor grayColor]];
-		[tabToolbar setBarTintColor:[UIColor grayColor]];
-		[navigationBar setBackgroundColor:[UIColor darkGrayColor]];
-		[urlField setBackgroundColor:[UIColor grayColor]];
-		[bottomToolBar setBarTintColor:[UIColor darkGrayColor]];
-		
-		[tabAddButton setTintColor:[UIColor lightTextColor]];
-		[tabDoneButton setTintColor:[UIColor lightTextColor]];
-		[settingsButton setTintColor:[UIColor lightTextColor]];
-		[tabsButton setTintColor:[UIColor lightTextColor]];
-		[tabCount setTextColor:[UIColor lightTextColor]];
-		
-		[tabChooser setPageIndicatorTintColor:[UIColor lightGrayColor]];
-		[tabChooser setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
-	}
-	else {
-		[self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-		
-		[tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-		[tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-		[navigationBar setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-		[urlField setBackgroundColor:[UIColor whiteColor]];
-		[bottomToolBar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-		
-		[tabAddButton setTintColor:[progressBar tintColor]];
-		[tabDoneButton setTintColor:[progressBar tintColor]];
-		[settingsButton setTintColor:[progressBar tintColor]];
-		[tabsButton setTintColor:[progressBar tintColor]];
-		[tabCount setTextColor:[progressBar tintColor]];
-		
-		[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
-		[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
-	}
+    
+    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    [tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+    [navigationBar setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [urlField setBackgroundColor:[UIColor whiteColor]];
+    [bottomToolBar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+    
+    [tabAddButton setTintColor:[progressBar tintColor]];
+    [tabDoneButton setTintColor:[progressBar tintColor]];
+    [settingsButton setTintColor:[progressBar tintColor]];
+    [tabsButton setTintColor:[progressBar tintColor]];
+    [tabCount setTextColor:[progressBar tintColor]];
+    
+    [tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
+    [tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
     
 	[self adjustWebViewTabsLayout];
 	
@@ -679,10 +655,7 @@
 {
 	/* TODO: cache curURL and only do anything here if it changed, these changes might be expensive */
 
-	if (self.darkInterface)
-		[urlField setTextColor:[UIColor lightTextColor]];
-	else
-		[urlField setTextColor:[UIColor darkTextColor]];
+    [urlField setTextColor:[UIColor darkTextColor]];
 
 	if (urlField.isFirstResponder) {
 		/* focused, don't muck with the URL while it's being edited */
@@ -741,7 +714,7 @@
 	
 	backButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoBack);
 	if (backButton.enabled) {
-		[backButton setTintColor:(self.darkInterface ? [UIColor lightTextColor] : [progressBar tintColor])];
+		[backButton setTintColor:([progressBar tintColor])];
 	}
 	else {
 		[backButton setTintColor:[UIColor grayColor]];
@@ -749,7 +722,7 @@
 
 	forwardButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoForward);
 	if (forwardButton.enabled) {
-		[forwardButton setTintColor:(self.darkInterface ? [UIColor lightTextColor] : [progressBar tintColor])];
+		[forwardButton setTintColor:([progressBar tintColor])];
 	}
 	else {
 		[forwardButton setTintColor:[UIColor grayColor]];
@@ -1000,8 +973,6 @@
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"send_dnt"]];
 	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"old_data_sweep_mins"]]];
 	
-	self.darkInterface = [userDefaults boolForKey:@"dark_interface"];
-
 	[self adjustLayout];
 }
 
