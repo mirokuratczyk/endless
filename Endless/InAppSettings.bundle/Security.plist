@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>HTTPS</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>HTTPS_EVERYWHERE</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>httpsEverywhere</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>MIN_SSL_TLS_VERSION_FOOTER</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>MinTLSSettings</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Title</key>
+			<string>MIN_SSL_TLS_VERSION</string>
+			<key>Key</key>
+			<string>minTlsVersion</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+	</array>
+</dict>
+</plist>

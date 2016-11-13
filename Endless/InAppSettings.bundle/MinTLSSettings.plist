@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>TLS_1_2</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tls0</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>ShortTitle</key>
+			<string>TLS 1.2</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TLS_1_1_OR_1_2</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tls1</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+			<key>ShortTitle</key>
+			<string>TLS 1.1+</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TLS_1_0_OR_1_1_OR_1_2</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tls2</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+			<key>ShortTitle</key>
+			<string>TLS 1.0+</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>AUTO_NEGOTIATE</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tls3</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+			<key>ShortTitle</key>
+			<string>Auto</string>
+		</dict>
+	</array>
+</dict>
+</plist>

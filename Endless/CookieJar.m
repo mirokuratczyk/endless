@@ -63,7 +63,7 @@ AppDelegate *appDelegate;
 	}
 	
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[self setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"old_data_sweep_mins"]]];
+	[self setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
 	
 	return self;
 }
