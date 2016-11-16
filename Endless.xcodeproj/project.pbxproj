@@ -61,6 +61,10 @@
 		01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		440786A21DD0E4D300E00A23 /* PsiphonConnectionIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 440786A01DD0E4D300E00A23 /* PsiphonConnectionIndicator.m */; };
+		44E778FA1DDB723900854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E778F81DDB723900854379 /* PsiphonTunnel.framework */; };
+		44E778FE1DDB73B200854379 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E778F81DDB723900854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44E779001DDB76B000854379 /* PsiphonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */; };
+		44E779041DDCC9F600854379 /* psiphon_config in Resources */ = {isa = PBXBuildFile; fileRef = 44E779031DDCC9F600854379 /* psiphon_config */; };
 		59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */; };
 		BF746B2CD72A306F0316B40B /* libPods-Endless Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */; };
 /* End PBXBuildFile section */
@@ -74,6 +78,19 @@
 			remoteInfo = Endless;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44E778FD1DDB73A500854379 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				44E778FE1DDB73B200854379 /* PsiphonTunnel.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		010EEA641A43A536001E8B65 /* CookieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieController.h; sourceTree = "<group>"; };
@@ -161,6 +178,10 @@
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
 		440786A01DD0E4D300E00A23 /* PsiphonConnectionIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonConnectionIndicator.m; sourceTree = "<group>"; };
 		440786A11DD0E4D300E00A23 /* PsiphonConnectionIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonConnectionIndicator.h; sourceTree = "<group>"; };
+		44E778F81DDB723900854379 /* PsiphonTunnel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PsiphonTunnel.framework; sourceTree = "<group>"; };
+		44E778FC1DDB72E800854379 /* PsiphonWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PsiphonWebViewController.h; sourceTree = "<group>"; };
+		44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonWebViewController.m; sourceTree = "<group>"; };
+		44E779031DDCC9F600854379 /* psiphon_config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = psiphon_config; path = Psiphon/psiphon_config; sourceTree = "<group>"; };
 		523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F000EBDB20709D482560EE0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +200,7 @@
 			files = (
 				019516D11B7D8B400078586A /* libz.dylib in Frameworks */,
 				016B2FCD1A5648AE002D2730 /* WebKit.framework in Frameworks */,
+				44E778FA1DDB723900854379 /* PsiphonTunnel.framework in Frameworks */,
 				59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +219,7 @@
 		01801E891A32CA2A002B4718 = {
 			isa = PBXGroup;
 			children = (
+				44E778F71DDB723900854379 /* Psiphon */,
 				01801E941A32CA2A002B4718 /* Endless */,
 				01801EC11A3360B1002B4718 /* Resources */,
 				01AFEB4A1B4F2A5F00A02482 /* External */,
@@ -284,6 +307,7 @@
 		01801EC11A3360B1002B4718 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				44E779031DDCC9F600854379 /* psiphon_config */,
 				01F8794A1A41232E00A63654 /* credits.html */,
 				016B2FCA1A53466D002D2730 /* hsts_preload.plist */,
 				018333E71A35746500670CD1 /* https-everywhere_rules.plist */,
@@ -353,6 +377,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		44E778F71DDB723900854379 /* Psiphon */ = {
+			isa = PBXGroup;
+			children = (
+				44E778F81DDB723900854379 /* PsiphonTunnel.framework */,
+				44E778FC1DDB72E800854379 /* PsiphonWebViewController.h */,
+				44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */,
+			);
+			path = Psiphon;
+			sourceTree = "<group>";
+		};
 		6CC21620E2AE7B4037C6401B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +414,7 @@
 				01801E901A32CA2A002B4718 /* Resources */,
 				F1123B8772DD1017FF7AD4C0 /* [CP] Copy Pods Resources */,
 				10F4056FB52682AF9841FCE7 /* [CP] Embed Pods Frameworks */,
+				44E778FD1DDB73A500854379 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -466,6 +501,7 @@
 				01D7412C1A45F8EB007B7033 /* injected.js in Resources */,
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
+				44E779041DDCC9F600854379 /* psiphon_config in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
 				016B2FCB1A53466D002D2730 /* hsts_preload.plist in Resources */,
 				01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */,
@@ -599,6 +635,7 @@
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
+				44E779001DDB76B000854379 /* PsiphonWebViewController.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
@@ -728,11 +765,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q6HLNEX92A;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Psiphon",
+				);
 				INFOPLIST_FILE = Endless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Endless;
 				PROVISIONING_PROFILE = "";
+				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -745,11 +788,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q6HLNEX92A;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Psiphon",
+				);
 				INFOPLIST_FILE = Endless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Endless;
 				PROVISIONING_PROFILE = "";
+				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

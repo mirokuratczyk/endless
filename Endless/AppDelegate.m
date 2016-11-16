@@ -27,8 +27,8 @@
 	[self initializeDefaults];
 	
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-	self.window.rootViewController = [[WebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+	self.window.rootViewController = [[PsiphonWebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"PsiphonWebViewController";
 	
 	return YES;
 }
