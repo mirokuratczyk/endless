@@ -7,11 +7,16 @@
 
 #import "AppDelegate.h"
 #import "BookmarkController.h"
+#import "HTTPSEverywhereRuleController.h"
+#import "HostSettings.h"
+#import "HostSettingsController.h"
+#import "IASKSettingsReader.h"
+#import "IASKSpecifierValuesViewController.h"
+#import "SettingsViewController.h"
 #import "SSLCertificateViewController.h"
 #import "URLInterceptor.h"
 #import "WebViewController.h"
 #import "WebViewTab.h"
-#import "WebViewMenuController.h"
 #import "WYPopoverController.h"
 #import "PsiphonConnectionIndicator.h"
 
@@ -56,7 +61,7 @@
 	BOOL webViewScrollIsDecelerating;
 	BOOL webViewScrollIsDragging;
 	
-	WYPopoverController *popover;
+	SettingsViewController *appSettingsViewController;
 	
 	BookmarkController *bookmarks;
 	
@@ -186,7 +191,7 @@
 	UIImage *settingsImage = [[UIImage imageNamed:@"settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	[settingsButton setImage:settingsImage forState:UIControlStateNormal];
 	[settingsButton setTintColor:[progressBar tintColor]];
-	[settingsButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
+    [settingsButton addTarget:self action:@selector(openSettingsMenu:) forControlEvents:UIControlEventTouchUpInside];
 	[settingsButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
 	
 	bookmarkAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(addBookmarkFromBottomToolbar:)];
@@ -356,7 +361,6 @@
 		if (showingTabs)
 			[self showTabsWithCompletionBlock:nil];
 		
-		[self dismissPopover];
 		[self adjustLayout];
 	} completion:nil];
 }
@@ -397,6 +401,23 @@
 		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
 		[self adjustWebViewTabsLayout];
 	}];
+	[self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+		
+	[tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+	[tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+	[urlField setBackgroundColor:[UIColor whiteColor]];
+		
+	[tabAddButton setTintColor:[progressBar tintColor]];
+	[tabDoneButton setTintColor:[progressBar tintColor]];
+	[settingsButton setTintColor:[progressBar tintColor]];
+	[tabsButton setTintColor:[progressBar tintColor]];
+	[tabCount setTextColor:[progressBar tintColor]];
+		
+	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
+	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
+	
+	/* tabScroller.frame is now our actual webview viewing area */
 }
 
 - (void)adjustLayout
@@ -480,6 +501,16 @@
 		return webViewTabs[curTabIndex];
 	else
 		return nil;
+}
+
+- (HostSettings*)curWebViewTabHostSettings
+{
+    return [HostSettings settingsOrDefaultsForHost:[[[self curWebViewTab] url] host]];
+}
+
+- (long)curWebViewTabHttpsRulesCount
+{
+    return [[[self curWebViewTab] applicableHTTPSEverywhereRules] count];
 }
 
 - (void)setCurTabIndex:(int)tab
@@ -714,7 +745,7 @@
 	
 	backButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoBack);
 	if (backButton.enabled) {
-		[backButton setTintColor:([progressBar tintColor])];
+		[backButton setTintColor:[progressBar tintColor]];
 	}
 	else {
 		[backButton setTintColor:[UIColor grayColor]];
@@ -722,7 +753,7 @@
 
 	forwardButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoForward);
 	if (forwardButton.enabled) {
-		[forwardButton setTintColor:([progressBar tintColor])];
+        [forwardButton setTintColor:[progressBar tintColor]];
 	}
 	else {
 		[forwardButton setTintColor:[UIColor grayColor]];
@@ -942,42 +973,48 @@
 	[[self curWebViewTab] forceRefresh];
 }
 
-- (void)showPopover:(id)_id
+- (void)openSettingsMenu:(id)_id
 {
-	popover = [[WYPopoverController alloc] initWithContentViewController:[[WebViewMenuController alloc] init]];
-	[popover setDelegate:self];
-	
-	[popover beginThemeUpdates];
-	[popover setTheme:[WYPopoverTheme themeForIOS7]];
-	[popover.theme setOuterCornerRadius:4];
-	[popover.theme setOuterShadowBlurRadius:8];
-	[popover.theme setOuterShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.75]];
-	[popover.theme setOuterShadowOffset:CGSizeMake(0, 2)];
-	[popover.theme setOverlayColor:[UIColor clearColor]];
-	[popover endThemeUpdates];
-	
-	[popover presentPopoverFromRect:CGRectMake(settingsButton.frame.origin.x, navigationBar.frame.origin.y + settingsButton.frame.origin.y + settingsButton.frame.size.height - 30, settingsButton.frame.size.width, settingsButton.frame.size.height) inView:self.view permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES options:WYPopoverAnimationOptionFadeWithScale];
+    if (appSettingsViewController == nil) {
+        appSettingsViewController = [[SettingsViewController alloc] init];
+        appSettingsViewController.delegate = appSettingsViewController;
+        appSettingsViewController.showCreditsFooter = NO;
+        appSettingsViewController.showDoneButton = YES;
+        appSettingsViewController.webViewController = self;
+    }
+
+    // These keys correspond to settings in PsiphonOptions.plist
+    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:useUpstreamProxy];
+    BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:useProxyAuthentication];
+
+    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:upstreamProxyHostAddress, upstreamProxyPort, useProxyAuthentication, nil];
+    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:proxyUsername, proxyPassword, proxyDomain, nil];
+
+    // Hide configurable fields until user chooses to use upstream proxy
+    NSMutableSet *hiddenKeys = upstreamProxyEnabled ? nil : [NSMutableSet setWithArray:upstreamProxyKeys];
+
+    // Hide authentication fields until user chooses to use upstream proxy with authentication
+    if (!useUpstreamProxyAuthentication) {
+        if (hiddenKeys == nil) {
+            hiddenKeys = [NSMutableSet setWithArray:proxyAuthenticationKeys];
+        } else {
+            [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
+        }
+    }
+
+    appSettingsViewController.hiddenKeys = hiddenKeys;
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
-- (void)dismissPopover
-{
-	[popover dismissPopoverAnimated:YES];
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller
-{
-	return YES;
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+- (void)settingsViewControllerDidEnd
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"send_dnt"]];
-	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"old_data_sweep_mins"]]];
-	
-	[self adjustLayout];
+	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
+	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
 }
 
 - (void)showTabs:(id)_id

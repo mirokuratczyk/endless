@@ -54,7 +54,7 @@
 		[[self hstsCache] persist];
 	}
 	
-	if ([userDefaults boolForKey:@"clear_on_background"]) {
+	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
 		[[self webViewController] removeAllTabs];
 		[[self cookieJar] clearAllNonWhitelistedData];
 	}
@@ -119,39 +119,43 @@
 		return NO;
 	
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	if ([userDefaults boolForKey:@"clear_on_background"])
+	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"])
 		return NO;
 
 	return YES;
 }
 
+-(void)initializeDefaultsFor:(NSString*)plist
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:plist];
+    NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+
+    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
+        NSString *key = [pref objectForKey:@"Key"];
+        if (key == nil)
+            continue;
+
+        if ([userDefaults objectForKey:key] == NULL) {
+            NSObject *val = [pref objectForKey:@"DefaultValue"];
+            if (val == nil)
+                continue;
+
+            [userDefaults setObject:val forKey:key];
+#ifdef TRACE
+            NSLog(@"initialized default preference for %@ to %@", key, val);
+#endif
+        }
+    }
+    [userDefaults synchronize];
+}
+
 - (void)initializeDefaults
 {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	
-	NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"Root.inApp.plist"];
-	NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-
-	for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-		NSString *key = [pref objectForKey:@"Key"];
-		if (key == nil)
-			continue;
-
-		if ([userDefaults objectForKey:key] == NULL) {
-			NSObject *val = [pref objectForKey:@"DefaultValue"];
-			if (val == nil)
-				continue;
-			
-			[userDefaults setObject:val forKey:key];
-#ifdef TRACE
-			NSLog(@"initialized default preference for %@ to %@", key, val);
-#endif
-		}
-	}
-	
-	[userDefaults synchronize];
-	
-	_searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
+    [self initializeDefaultsFor:@"Root.inApp.plist"];
+    [self initializeDefaultsFor:@"Security.plist"];
+    _searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
 }
 
 - (BOOL)areTesting

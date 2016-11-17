@@ -6,9 +6,25 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>User Interface</string>
+			<string>PSIPHON_AND_BROWSER</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>PsiphonSettings</string>
+			<key>Title</key>
+			<string>PSIPHON_SETTINGS</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Notifications</string>
+			<key>Title</key>
+			<string>NOTIFICATIONS</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -21,120 +37,98 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>DuckDuckGo</string>
-				<string>Google</string>
-				<string>Startpage</string>
+				<string>DUCKDUCKGO</string>
+				<string>GOOGLE</string>
+				<string>START_PAGE</string>
 			</array>
 			<key>Key</key>
 			<string>search_engine</string>
 			<key>Title</key>
-			<string>Search engine</string>
+			<string>SEARCH_ENGINE</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
+			<key>File</key>
 			<string>Privacy</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>Cookies and local storage data from non-whitelisted hosts will be cleared after not being accessed by any tabs for this many minutes</string>
-		</dict>
-		<dict>
-			<key>IASKViewControllerClass</key>
-			<string>CookieController</string>
 			<key>Title</key>
-			<string>Edit cookies and local storage</string>
+			<string>PRIVACY</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>old_data_sweep_mins</string>
-			<key>Title</key>
-			<string>Cookie auto-sweep interval</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>DefaultValue</key>
-			<integer>30</integer>
-			<key>KeyboardType</key>
-			<string>NumberPad</string>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentRight</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string></string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>When switching to another app, close all tabs and non-whitelisted cookies</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>clear_on_background</string>
-			<key>Title</key>
-			<string>Clear all when backgrounded</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string></string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>send_dnt</string>
-			<key>Title</key>
-			<string>Send Do-Not-Track</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Miscellaneous</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>open_app_store</string>
-			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
-			<key>Title</key>
-			<string>Rate on App Store</string>
 			<key>File</key>
-			<string>itms-apps://itunes.apple.com/app/id974745755</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>open_github_issues</string>
-			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
+			<string>Security</string>
 			<key>Title</key>
-			<string>Report a bug</string>
-			<key>File</key>
-			<string>endlesshttps://github.com/jcs/endless/issues</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>credits.html</string>
-			<key>IASKViewControllerClass</key>
-			<string>IASKAppSettingsWebViewController</string>
-			<key>IASKViewControllerSelector</key>
-			<string>initWithFile:specifier:</string>
-			<key>Title</key>
-			<string>About</string>
+			<string>SECURITY</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
-			<key>IASKChildTitle</key>
-			<string>About Endless</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>HELP</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>SUBMIT_FEEDBACK</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>FAQ</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>PRIVACY_POLICY</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TERMS_OF_USE</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>ABOUT</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TUTORIAL</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>SOCIAL</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>SHARE_ON_FACEBOOK</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>SHARE_ON_TWITTER</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>RATE_US</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

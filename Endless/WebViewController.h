@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import "IASKAppSettingsViewController.h"
+#import "SettingsViewController.h"
 #import "WebViewTab.h"
-#import "WYPopoverController.h"
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, IASKSettingsDelegate, WYPopoverControllerDelegate>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
@@ -29,7 +29,6 @@
 - (void)updateSearchBarDetails;
 - (void)refresh;
 - (void)forceRefresh;
-- (void)dismissPopover;
 - (void)prepareForNewURLFromString:(NSString *)url;
 
 @end
