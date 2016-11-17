@@ -18,8 +18,10 @@
  */
 
 #import "HTTPSEverywhereRuleController.h"
+#import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
+#import "IASKTextField.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
 
@@ -73,7 +75,7 @@
 
     cell.userInteractionEnabled = YES;
 
-    if ([specifier.key isEqualToString:@"httpsEverywhere"]) {
+    if ([specifier.key isEqualToString:httpsEverywhere]) {
         [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
         [cell.textLabel setText:specifier.title];
 
@@ -104,9 +106,70 @@
         if (selected) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
+    } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+        cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+
+        cell.textLabel.text = specifier.title;
+
+        NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+        if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
+             textValue = [NSString stringWithFormat:@"%@", textValue];
+        }
+        IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
+        textField.text = textValue;
+        textField.key = specifier.key;
+        textField.delegate = self;
+        textField.keyboardType = specifier.keyboardType;
+        textField.autocapitalizationType = specifier.autocapitalizationType;
+        textField.autocorrectionType = specifier.autoCorrectionType;
+        textField.textAlignment = specifier.textAlignment;
+        textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+        [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
     }
 
     return cell;
+}
+
+- (BOOL)isValidPort:(NSString *)port {
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    if ([port rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+    {
+        NSInteger portNumber = [port integerValue];
+        return (portNumber >= 1 && portNumber <= 65535);
+    } else {
+        return NO;
+    }
+}
+
+- (void)IASKTextFieldDidEndEditing:(id)sender {
+    NSString *senderKey = [sender key];
+    IASKTextField *text = sender;
+    NSString *currentValue = [text text];
+
+    void (^validateNewInput)(BOOL, NSString *, NSString *) = ^void(BOOL isValid, NSString *alertTitle, NSString *alertText) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if (isValid) {
+            [userDefaults setObject:currentValue forKey:senderKey];
+        } else {
+            [self showAlert:alertTitle withAlertText:alertText];
+            NSString *oldValue = [[NSUserDefaults standardUserDefaults] stringForKey:senderKey];
+            [userDefaults setObject:oldValue forKey:senderKey];
+            [text setText:oldValue];
+        }
+    };
+
+    // If user has inputted an invalid setting notify them and then reset to last valid value or default
+    if ([senderKey isEqualToString:upstreamProxyPort]) {
+        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters an invalid port number")];
+        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid port # (1-65535)", "Alert text when user enters invalid port number")];
+
+        validateNewInput([self isValidPort:currentValue], alertTitle, alertText);
+    } if ([senderKey isEqualToString:upstreamProxyHostAddress]) {
+        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters invalid host address")];
+        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid hostname or IP", "Alert text when user enters invalid host address")];
+
+        validateNewInput(currentValue.length != 0, alertTitle, alertText);
+    }
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier {
@@ -143,13 +206,20 @@
         NSUInteger indexOfSelection = [tlsVersions indexOfObject: specifier.key];
         [userDefaults setInteger:indexOfSelection forKey:minTlsVersion]; // Update settings
 
-        NSUInteger newIndex[2];
-        newIndex[0] = 0;
-        newIndex[1] = indexOfSelection;
-        NSIndexPath *newIndexPath = [[NSIndexPath alloc] initWithIndexes:newIndex length:2];
+        NSIndexPath *newIndexPath = [tableView indexPathForSelectedRow];
         UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];
         newlySelectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
         [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
+    } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+        // Focus on textfield if cell pressed
+        NSIndexPath *indexPath = [tableView indexPathForSelectedRow];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]]) {
+            IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
+            if ([textField.key isEqualToString:specifier.key]) {
+                [textField becomeFirstResponder];
+            }
+        }
     }
 }
 
@@ -184,8 +254,9 @@
     NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:upstreamProxyHostAddress, upstreamProxyPort, useProxyAuthentication, nil];
     NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:proxyUsername, proxyPassword, proxyDomain, nil];
 
-    // If user has chosen to alter upstream proxy settings
-    if ([notification.userInfo.allKeys.firstObject isEqual:useUpstreamProxy]) {
+    NSString *fieldName = notification.userInfo.allKeys.firstObject;
+
+    if ([fieldName isEqual:useUpstreamProxy]) {
         IASKAppSettingsViewController *activeController = notification.object;
         BOOL upstreamProxyEnabled = (BOOL)[[notification.userInfo objectForKey:useUpstreamProxy] intValue];
 
@@ -212,7 +283,7 @@
             [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
             [activeController setHiddenKeys:hiddenKeys animated:YES];
         }
-    } else if ([notification.userInfo.allKeys.firstObject isEqual:useProxyAuthentication]) {
+    } else if ([fieldName isEqual:useProxyAuthentication]) {
         // useProxyAuthentication toggled, show or hide proxy authentication fields
         IASKAppSettingsViewController *activeController = notification.object;
         BOOL enabled = (BOOL)[[notification.userInfo objectForKey:useProxyAuthentication] intValue];
@@ -228,15 +299,14 @@
                 [hiddenKeys addObject:key];
             }
         }
-
         [activeController setHiddenKeys:hiddenKeys animated:YES];
     }
 }
 
 - (void)menuHTTPSEverywhere
 {
-    HTTPSEverywhereRuleController *httpsEverywhere = [[HTTPSEverywhereRuleController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:httpsEverywhere];
+    HTTPSEverywhereRuleController *viewController = [[HTTPSEverywhereRuleController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:navController animated:YES completion:nil];
 }
 
@@ -244,6 +314,17 @@
 {
     [self.webViewController settingsViewControllerDidEnd];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showAlert:(NSString *)alertTitle withAlertText:(NSString *)alertText {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                   message:alertText
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Text on button used to acknowledge the receipt of and dismiss UIAlert") style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [alert addAction:defaultAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
