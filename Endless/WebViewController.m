@@ -17,7 +17,6 @@
 #import "URLInterceptor.h"
 #import "WebViewController.h"
 #import "WebViewTab.h"
-#import "WYPopoverController.h"
 #import "PsiphonConnectionIndicator.h"
 
 #define TOOLBAR_HEIGHT 44
@@ -331,7 +330,7 @@
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
 		
-		[self addNewTabForURL:[NSURL URLWithString:[se objectForKey:@"homepage_url"]]];
+        [self addNewTabForURL:[NSURL URLWithString:[se objectForKey:@"homepage_url"]]];
 	}
 	
 	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */

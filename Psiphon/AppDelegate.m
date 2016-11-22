@@ -27,8 +27,14 @@
 	[self initializeDefaults];
 	
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-	self.window.rootViewController = [[PsiphonWebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"PsiphonWebViewController";
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+    
+    _isPsiphonConnected = FALSE;
+    _socksProxyPort = -1;
+    _psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
+    [_psiphonTunnel start : nil];
+
 	
 	return YES;
 }
@@ -163,4 +169,49 @@
 	return (NSClassFromString(@"XCTestProbe") != nil);
 }
 
+// MARK: TunneledAppDelegate protocol implementation
+
+- (NSString *) getPsiphonConfig {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSString *bundledConfigPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psiphon_config"];
+    if(![fileManager fileExistsAtPath:bundledConfigPath]) {
+        NSLog(@"Config file not found. Aborting now.");
+        abort();
+    }
+    
+    //Read in psiphon_config JSON
+    NSData *jsonData = [fileManager contentsAtPath:bundledConfigPath];
+    NSError *e = nil;
+    NSDictionary *readOnly = [NSJSONSerialization JSONObjectWithData: jsonData options: kNilOptions error: &e];
+    
+    NSMutableDictionary *mutableConfigCopy = [readOnly mutableCopy];
+    
+    if(e) {
+        NSLog(@"Failed to parse config JSON. Aborting now.");
+        abort();
+    }
+    
+    mutableConfigCopy[@"X-Test-Flag"] = @"X-Test-Value";
+    
+    
+    jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
+                                               options:0 // non-pretty printing
+                                                 error:&e];
+    if(e) {
+        NSLog(@"Failed to create JSON data from config object. Aborting now.");
+        abort();
+    }
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+- (void) onDiagnosticMessage : (NSString*) message {
+    NSLog(@"onDiagnosticMessage: %@", message);
+}
+
+- (void) onListeningSocksProxyPort:(NSInteger)port {
+    _socksProxyPort = port;
+}
+
 @end
+

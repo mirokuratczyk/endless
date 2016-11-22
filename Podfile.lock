@@ -57,7 +57,6 @@ PODS:
   - QuickDialog (1.0.2):
     - QuickDialog/Core (= 1.0.2)
   - QuickDialog/Core (1.0.2)
-  - WYPopoverController (0.1.8)
 
 DEPENDENCIES:
   - DTFoundation
@@ -65,21 +64,15 @@ DEPENDENCIES:
   - OCMock
   - OrderedDictionary
   - QuickDialog (from `https://github.com/Psiphon-Inc/QuickDialog.git`)
-  - WYPopoverController (from `https://github.com/Psiphon-Inc/WYPopoverController.git`)
 
 EXTERNAL SOURCES:
   QuickDialog:
     :git: https://github.com/Psiphon-Inc/QuickDialog.git
-  WYPopoverController:
-    :git: https://github.com/Psiphon-Inc/WYPopoverController.git
 
 CHECKOUT OPTIONS:
   QuickDialog:
     :commit: 9947f43797a1e2d8979d43a219d92172dee251ed
     :git: https://github.com/Psiphon-Inc/QuickDialog.git
-  WYPopoverController:
-    :commit: a5fc1276f3e7ae9bfbf97f5e7b504f18005f5e92
-    :git: https://github.com/Psiphon-Inc/WYPopoverController.git
 
 SPEC CHECKSUMS:
   DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
@@ -87,8 +80,7 @@ SPEC CHECKSUMS:
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
   QuickDialog: f0c3e254c91182fa3f91fdb479ccac4a11b459e1
-  WYPopoverController: a7f420833d355d868e5836415ba07ce0dbec1a27
 
-PODFILE CHECKSUM: f7ed71d5fce0d3c07305f243dd5be187e8fad1a4
+PODFILE CHECKSUM: 118e9611f9cb7f37eff5be62d0e057a3f1e16460
 
 COCOAPODS: 1.1.1

@@ -14,7 +14,6 @@
 		016B2FCB1A53466D002D2730 /* hsts_preload.plist in Resources */ = {isa = PBXBuildFile; fileRef = 016B2FCA1A53466D002D2730 /* hsts_preload.plist */; };
 		016B2FCD1A5648AE002D2730 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016B2FCC1A5648AE002D2730 /* WebKit.framework */; };
 		01801E981A32CA2A002B4718 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801E971A32CA2A002B4718 /* main.m */; };
-		01801E9B1A32CA2A002B4718 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801E9A1A32CA2A002B4718 /* AppDelegate.m */; };
 		01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801EA01A32CA2A002B4718 /* WebViewController.m */; };
 		01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01801EA51A32CA2A002B4718 /* Images.xcassets */; };
 		01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801EBF1A335BEC002B4718 /* URLInterceptor.m */; };
@@ -57,11 +56,14 @@
 		01F8794E1A412F8E00A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
-		440786A21DD0E4D300E00A23 /* PsiphonConnectionIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 440786A01DD0E4D300E00A23 /* PsiphonConnectionIndicator.m */; };
 		44E778FA1DDB723900854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E778F81DDB723900854379 /* PsiphonTunnel.framework */; };
 		44E778FE1DDB73B200854379 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E778F81DDB723900854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		44E779001DDB76B000854379 /* PsiphonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */; };
 		44E779041DDCC9F600854379 /* psiphon_config in Resources */ = {isa = PBXBuildFile; fileRef = 44E779031DDCC9F600854379 /* psiphon_config */; };
+		44E7790A1DE4A99900854379 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E779061DE4A99900854379 /* AppDelegate.m */; };
+		44E7790B1DE4A99900854379 /* PsiphonConnectionIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E779091DE4A99900854379 /* PsiphonConnectionIndicator.m */; };
+		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
+		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
+		44E779301DE4DCD400854379 /* OnePasswordExtension.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E779321DE4DCD400854379 /* OnePasswordExtension.strings */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
 		59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */; };
@@ -104,8 +106,6 @@
 		01801E921A32CA2A002B4718 /* Endless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Endless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01801E961A32CA2A002B4718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01801E971A32CA2A002B4718 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		01801E991A32CA2A002B4718 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		01801E9A1A32CA2A002B4718 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		01801E9F1A32CA2A002B4718 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		01801EA01A32CA2A002B4718 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		01801EA51A32CA2A002B4718 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Endless/Resources/Images.xcassets; sourceTree = "<group>"; };
@@ -169,12 +169,18 @@
 		01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = urlblocker_targets.plist; path = Endless/Resources/urlblocker_targets.plist; sourceTree = "<group>"; };
 		01FC0E561B38FB6B00955D9A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Endless/Resources/Launch Screen.xib"; sourceTree = "<group>"; };
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
-		440786A01DD0E4D300E00A23 /* PsiphonConnectionIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonConnectionIndicator.m; sourceTree = "<group>"; };
-		440786A11DD0E4D300E00A23 /* PsiphonConnectionIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonConnectionIndicator.h; sourceTree = "<group>"; };
 		44E778F81DDB723900854379 /* PsiphonTunnel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PsiphonTunnel.framework; sourceTree = "<group>"; };
-		44E778FC1DDB72E800854379 /* PsiphonWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PsiphonWebViewController.h; sourceTree = "<group>"; };
-		44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonWebViewController.m; sourceTree = "<group>"; };
 		44E779031DDCC9F600854379 /* psiphon_config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = psiphon_config; path = Psiphon/psiphon_config; sourceTree = "<group>"; };
+		44E779051DE4A99900854379 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		44E779061DE4A99900854379 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		44E779081DE4A99900854379 /* PsiphonConnectionIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonConnectionIndicator.h; sourceTree = "<group>"; };
+		44E779091DE4A99900854379 /* PsiphonConnectionIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonConnectionIndicator.m; sourceTree = "<group>"; };
+		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44E779311DE4DCD400854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		44E779341DE4DD1F00854379 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		44E779351DE4DD1F00854379 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44E779361DE4DD1F00854379 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
 		4E1175171DD6310A009527EB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
@@ -240,10 +246,6 @@
 		01801E941A32CA2A002B4718 /* Endless */ = {
 			isa = PBXGroup;
 			children = (
-				440786A01DD0E4D300E00A23 /* PsiphonConnectionIndicator.m */,
-				440786A11DD0E4D300E00A23 /* PsiphonConnectionIndicator.h */,
-				01801E991A32CA2A002B4718 /* AppDelegate.h */,
-				01801E9A1A32CA2A002B4718 /* AppDelegate.m */,
 				01AFEB471B4ED48000A02482 /* Bookmark.h */,
 				01AFEB481B4ED48000A02482 /* Bookmark.m */,
 				01AFEB351B4DBA8D00A02482 /* BookmarkController.h */,
@@ -302,6 +304,7 @@
 		01801EC11A3360B1002B4718 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				44E779331DE4DCE300854379 /* Localizables */,
 				44E779031DDCC9F600854379 /* psiphon_config */,
 				01F8794A1A41232E00A63654 /* credits.html */,
 				016B2FCA1A53466D002D2730 /* hsts_preload.plist */,
@@ -375,11 +378,24 @@
 		44E778F71DDB723900854379 /* Psiphon */ = {
 			isa = PBXGroup;
 			children = (
+				44E779051DE4A99900854379 /* AppDelegate.h */,
+				44E779061DE4A99900854379 /* AppDelegate.m */,
+				44E779081DE4A99900854379 /* PsiphonConnectionIndicator.h */,
+				44E779091DE4A99900854379 /* PsiphonConnectionIndicator.m */,
 				44E778F81DDB723900854379 /* PsiphonTunnel.framework */,
-				44E778FC1DDB72E800854379 /* PsiphonWebViewController.h */,
-				44E778FF1DDB76B000854379 /* PsiphonWebViewController.m */,
 			);
 			path = Psiphon;
+			sourceTree = "<group>";
+		};
+		44E779331DE4DCE300854379 /* Localizables */ = {
+			isa = PBXGroup;
+			children = (
+				44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */,
+				44E7792F1DE4DCCF00854379 /* Localizable.strings */,
+				44E779321DE4DCD400854379 /* OnePasswordExtension.strings */,
+			);
+			name = Localizables;
+			path = Endless;
 			sourceTree = "<group>";
 		};
 		6CC21620E2AE7B4037C6401B /* Frameworks */ = {
@@ -472,7 +488,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				ar,
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -499,7 +515,10 @@
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
 				44E779041DDCC9F600854379 /* psiphon_config in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
+				44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */,
+				44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */,
 				016B2FCB1A53466D002D2730 /* hsts_preload.plist in Resources */,
+				44E779301DE4DCD400854379 /* OnePasswordExtension.strings in Resources */,
 				01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -621,15 +640,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				440786A21DD0E4D300E00A23 /* PsiphonConnectionIndicator.m in Sources */,
+				44E7790B1DE4A99900854379 /* PsiphonConnectionIndicator.m in Sources */,
 				01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */,
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
-				01801E9B1A32CA2A002B4718 /* AppDelegate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
-				44E779001DDB76B000854379 /* PsiphonWebViewController.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
@@ -643,6 +660,7 @@
 				0135F47F1A3E548F005A8F16 /* WebViewTab.m in Sources */,
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
+				44E7790A1DE4A99900854379 /* AppDelegate.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
@@ -673,11 +691,42 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44E7792B1DE4DCCA00854379 /* en */,
+				44E779341DE4DD1F00854379 /* ar */,
+			);
+			name = IASKLocalizable.strings;
+			sourceTree = "<group>";
+		};
+		44E7792F1DE4DCCF00854379 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44E7792E1DE4DCCF00854379 /* en */,
+				44E779351DE4DD1F00854379 /* ar */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		44E779321DE4DCD400854379 /* OnePasswordExtension.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44E779311DE4DCD400854379 /* en */,
+				44E779361DE4DD1F00854379 /* ar */,
+			);
+			name = OnePasswordExtension.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		01801EB61A32CA2A002B4718 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -720,6 +769,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
