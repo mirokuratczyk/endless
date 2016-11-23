@@ -10,7 +10,7 @@
 #import "SettingsViewController.h"
 #import "WebViewTab.h"
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, IASKSettingsDelegate, SettingsViewControllerDelegate>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate>
 
 @property BOOL toolbarOnBottom;
 
