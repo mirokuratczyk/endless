@@ -26,7 +26,6 @@
 		018333EA1A35746500670CD1 /* https-everywhere_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018333E81A35746500670CD1 /* https-everywhere_targets.plist */; };
 		019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 019516CB1B7D858C0078586A /* CKHTTPConnection.m */; };
 		019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 019516CE1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m */; };
-		019516D11B7D8B400078586A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 019516D01B7D8B400078586A /* libz.dylib */; };
 		01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB361B4DBA8D00A02482 /* BookmarkController.m */; };
 		01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB481B4ED48000A02482 /* Bookmark.m */; };
 		01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */; };
@@ -67,8 +66,6 @@
 		44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
-		59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */; };
-		BF746B2CD72A306F0316B40B /* libPods-Endless Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -133,7 +130,6 @@
 		019516CB1B7D858C0078586A /* CKHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKHTTPConnection.m; sourceTree = "<group>"; };
 		019516CD1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CocoaDevUsersAdditions.h"; sourceTree = "<group>"; };
 		019516CE1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CocoaDevUsersAdditions.m"; sourceTree = "<group>"; };
-		019516D01B7D8B400078586A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		01AFEB351B4DBA8D00A02482 /* BookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkController.h; sourceTree = "<group>"; };
 		01AFEB361B4DBA8D00A02482 /* BookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkController.m; sourceTree = "<group>"; };
 		01AFEB471B4ED48000A02482 /* Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bookmark.h; sourceTree = "<group>"; };
@@ -191,11 +187,7 @@
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
 		4E664E9C1DDBB41C001BCE93 /* HostSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostSettings.m; sourceTree = "<group>"; };
-		523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
-		5F000EBDB20709D482560EE0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C148194A51760B930A369C0 /* libPods-Endless Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -212,9 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */,
-				019516D11B7D8B400078586A /* libz.dylib in Frameworks */,
 				016B2FCD1A5648AE002D2730 /* WebKit.framework in Frameworks */,
-				59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */,
 				3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,7 +213,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF746B2CD72A306F0316B40B /* libPods-Endless Tests.a in Frameworks */,
 				D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,13 +408,8 @@
 		6CC21620E2AE7B4037C6401B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				019516D01B7D8B400078586A /* libz.dylib */,
 				016B2FCC1A5648AE002D2730 /* WebKit.framework */,
 				018333EB1A357D8B00670CD1 /* libPods-OCMock.a */,
-				5F000EBDB20709D482560EE0 /* libPods.a */,
-				78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */,
-				7C148194A51760B930A369C0 /* libPods-Endless Tests.a */,
-				523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */,
 				80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */,
 				0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */,
 			);
@@ -838,6 +822,7 @@
 				INFOPLIST_FILE = Endless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = "Psiphon Browser";
 				PROVISIONING_PROFILE = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
@@ -861,6 +846,7 @@
 				INFOPLIST_FILE = Endless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = "Psiphon Browser";
 				PROVISIONING_PROFILE = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
