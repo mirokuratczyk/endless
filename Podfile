@@ -1,12 +1,12 @@
 platform :ios, "7.0"
 
-target "Endless" do 
+target "Psiphon Browser" do 
 	pod "InAppSettingsKit"
 	pod "DTFoundation"
 	pod "OrderedDictionary"
 	pod "QuickDialog", :git => "https://github.com/Psiphon-Inc/QuickDialog.git"
 end
 
-target "Endless Tests" do
+target "Psiphon Browser Tests" do
 	pod "OCMock"
 end
