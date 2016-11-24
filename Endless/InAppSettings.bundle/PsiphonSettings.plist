@@ -44,19 +44,27 @@
 			<key>Title</key>
 			<string>HOST_ADDRESS</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>AutoCorrectionType</key>
-			<string>no</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>IASKPlaceholder</key>
+			<string>example.com</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>upstreamProxyPort</string>
 			<key>Title</key>
 			<string>PORT</string>
+			<key>Key</key>
+			<string>upstreamProxyPort</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>AutoCorrectionType</key>
-			<string>no</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>12345</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -75,8 +83,10 @@
 			<string>PROXY_USERNAME</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
-			<key>AutoCorrectionType</key>
-			<string>no</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>username</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -87,8 +97,6 @@
 			<string>PROXY_PASSWORD</string>
 			<key>Key</key>
 			<string>proxyPassword</string>
-			<key>AutoCorrectionType</key>
-			<string>no</string>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -97,8 +105,10 @@
 			<string>PROXY_DOMAIN</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
-			<key>AutoCorrectionType</key>
-			<string>no</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>example.com</string>
 		</dict>
 	</array>
 </dict>
