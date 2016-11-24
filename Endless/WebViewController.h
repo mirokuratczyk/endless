@@ -31,4 +31,8 @@
 - (void)forceRefresh;
 - (void)prepareForNewURLFromString:(NSString *)url;
 
+- (void) showConnectedStatus;
+- (void) showConnectingStatus;
+- (void) showDisconnectedStatus;
+
 @end

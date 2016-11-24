@@ -30,12 +30,6 @@
 	self.window.rootViewController = [[WebViewController alloc] init];
 	self.window.rootViewController.restorationIdentifier = @"WebViewController";
     
-    _isPsiphonConnected = FALSE;
-    _socksProxyPort = -1;
-    _psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
-    [_psiphonTunnel start : nil];
-
-	
 	return YES;
 }
 
@@ -43,6 +37,11 @@
 {
 	[self.window makeKeyAndVisible];
 
+    _socksProxyPort = -1;
+    _psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
+    [_psiphonTunnel start : nil];
+    [self onConnecting];
+    
 	return YES;
 }
 
@@ -79,6 +78,7 @@
 {
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
+    [_psiphonTunnel stop];
 	
 	[application ignoreSnapshotOnNextApplicationLaunch];
 }
@@ -212,6 +212,25 @@
 - (void) onListeningSocksProxyPort:(NSInteger)port {
     _socksProxyPort = port;
 }
+
+- (void) onConnecting {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_webViewController showConnectingStatus];
+    });
+}
+
+- (void) onConnected {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_webViewController showConnectedStatus];
+    });
+}
+
+- (void) onExiting {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_webViewController showDisconnectedStatus];
+    });
+}
+
 
 @end
 

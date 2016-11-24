@@ -33,7 +33,7 @@
 	
 	UIView *navigationBar;
 	UITextField *urlField;
-	UIView *connectionIndicatorView;
+	PsiphonConnectionIndicator *psiphonConnectionIndicator;
 	UIButton *lockIcon;
 	UIButton *brokenLockIcon;
 	UIButton *refreshButton;
@@ -134,10 +134,10 @@
 									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
 									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
 	}
-	connectionIndicatorView = [[PsiphonConnectionIndicator alloc]initWithFrame:
+	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]initWithFrame:
 							   indicatorFrame];
 	
-	[navigationBar addSubview:connectionIndicatorView];
+	[navigationBar addSubview:psiphonConnectionIndicator];
 	
 	
 	lockIcon = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -459,7 +459,9 @@
     [tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
     [tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
     
-	[self adjustWebViewTabsLayout];
+    if(!showingTabs) {
+        [self adjustWebViewTabsLayout];
+    }
 	
 	
 	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
@@ -1162,6 +1164,19 @@
 	}
 
 	return [uapieces componentsJoinedByString:@" "];
+}
+
+- (void) showConnectedStatus {
+    [psiphonConnectionIndicator displayConnected];
+}
+
+- (void) showConnectingStatus {
+    [psiphonConnectionIndicator displayConnecting];
+}
+
+- (void) showDisconnectedStatus {
+    [psiphonConnectionIndicator displayDisconnected];
+    
 }
 
 @end

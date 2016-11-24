@@ -24,7 +24,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (strong, atomic) WebViewController *webViewController;
+@property (strong, nonatomic) WebViewController *webViewController;
 @property (strong, atomic) CookieJar *cookieJar;
 @property (strong, atomic) HSTSCache *hstsCache;
 
@@ -37,7 +37,7 @@
 
 @property(strong, nonatomic) PsiphonTunnel* psiphonTunnel;
 @property NSInteger socksProxyPort;
-@property BOOL isPsiphonConnected;
+@property BOOL isFirstRun;
 
 
 @end
