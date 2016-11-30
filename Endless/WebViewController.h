@@ -31,8 +31,5 @@
 - (void)forceRefresh;
 - (void)prepareForNewURLFromString:(NSString *)url;
 
-- (void) showConnectedStatus;
-- (void) showConnectingStatus;
-- (void) showDisconnectedStatus;
-
+- (void) showPsiphonConnectionState:(PsiphonConnectionState)state;
 @end

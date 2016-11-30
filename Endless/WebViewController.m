@@ -1166,17 +1166,8 @@
 	return [uapieces componentsJoinedByString:@" "];
 }
 
-- (void) showConnectedStatus {
-    [psiphonConnectionIndicator displayConnected];
-}
-
-- (void) showConnectingStatus {
-    [psiphonConnectionIndicator displayConnecting];
-}
-
-- (void) showDisconnectedStatus {
-    [psiphonConnectionIndicator displayDisconnected];
-    
+- (void) showPsiphonConnectionState: (PsiphonConnectionState)state {
+	[psiphonConnectionIndicator displayConnectionState:state];
 }
 
 @end

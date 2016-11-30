@@ -37,7 +37,7 @@
 {
 	[self.window makeKeyAndVisible];
 
-    _socksProxyPort = -1;
+    _socksProxyPort = 0;
     _psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
     [_psiphonTunnel start : nil];
     [self onConnecting];
@@ -214,23 +214,39 @@
 }
 
 - (void) onConnecting {
+	_socksProxyPort = 0;
+	[_homePages removeAllObjects];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_webViewController showConnectingStatus];
+		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateConnecting];
     });
 }
 
 - (void) onConnected {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_webViewController showConnectedStatus];
+		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateConnecting];
+
+		for (NSString* page in [self getHomePages]) {
+			[_webViewController addNewTabForURL: [NSURL URLWithString:page]];
+		}
     });
 }
 
 - (void) onExiting {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_webViewController showDisconnectedStatus];
+		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateDisconnected];
     });
 }
 
+- (void) onHomepage:(NSString *)url {
+	if (!_homePages) {
+		_homePages = [NSMutableArray new];
+	}
+	[_homePages addObject:url];
+}
+
+- (NSArray*) getHomePages {
+	return [_homePages copy];	
+}
 
 @end
 

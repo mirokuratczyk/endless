@@ -38,7 +38,7 @@
 @property(strong, nonatomic) PsiphonTunnel* psiphonTunnel;
 @property NSInteger socksProxyPort;
 @property BOOL isFirstRun;
-
+@property (strong, nonatomic) NSMutableArray *homePages;
 
 @end
 

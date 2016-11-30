@@ -43,45 +43,47 @@ UIActivityIndicatorView *activityIndicator;
 	imgConnected.alpha = imgDisconnected.alpha = activityIndicator.alpha = 0.0;
 	imgConnected.center = imgDisconnected.center = activityIndicator.center = CGPointMake(self.bounds.size.width  / 2,
 										 self.bounds.size.height / 2);
-	[self displayDisconnected];
+	[self displayConnectionState:PsiphonConnectionStateDisconnected];
 	return self;
 }
 
-- (void) displayConnected {
-	[UIView animateWithDuration:0.1
-					 animations:^{
-						 activityIndicator.alpha = 0.0;
-						 imgConnected.alpha = 1.0;
-						 imgDisconnected.alpha = 0.0;
-					 }
-					 completion:^(BOOL finished){
-						 [activityIndicator stopAnimating];
-					 }];
+- (void) displayConnectionState:(PsiphonConnectionState)state {
 	
-}
+	CGFloat activityIndicatorAlpha, imgConnectedAlpha, imgDisconnectedAlpha = 0.0f;
+	void (^animationCompleted)(BOOL finished);
+	
+	switch (state) {
+		case PsiphonConnectionStateConnected:
+			activityIndicatorAlpha = 0.0f;
+			imgConnectedAlpha = 1.0f;
+			imgDisconnectedAlpha = 0.0f;
+			animationCompleted = ^(BOOL finished){
+				[activityIndicator stopAnimating];
+			};
+		case PsiphonConnectionStateConnecting:
+			activityIndicatorAlpha = 1.0f;
+			imgConnectedAlpha = 1.0f;
+			imgDisconnectedAlpha = 0.2f;
+			animationCompleted = ^(BOOL finished){
+				[activityIndicator startAnimating];
+			};
+		case PsiphonConnectionStateDisconnected:
+			activityIndicatorAlpha = 0.0f;
+			imgConnectedAlpha = 0.0f;
+			imgDisconnectedAlpha = 1.0f;
+			animationCompleted = ^(BOOL finished){
+				[activityIndicator stopAnimating];
+			};
+	}
 
-- (void)displayDisconnected {
 	[UIView animateWithDuration:0.1
 					 animations:^{
-						 activityIndicator.alpha = 0.0;
-						 imgConnected.alpha = 0.0;
-						 imgDisconnected.alpha = 1.0;
+						 activityIndicator.alpha = activityIndicatorAlpha;
+						 imgConnected.alpha = imgConnectedAlpha;
+						 imgDisconnected.alpha = imgDisconnectedAlpha;
 					 }
-					 completion:^(BOOL finished){
-						 [activityIndicator stopAnimating];
-					 }];
-}
-
-- (void) displayConnecting {
-	[UIView animateWithDuration:0.1
-					 animations:^{
-						 activityIndicator.alpha = 1.0;
-						 imgConnected.alpha = 0.0;
-						 imgDisconnected.alpha = 0.2;
-					 }
-					 completion:^(BOOL finished){
-						 [activityIndicator startAnimating];
-					 }];
+					 completion: animationCompleted];
+	
 }
 
 @end

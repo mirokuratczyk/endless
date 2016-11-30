@@ -179,7 +179,23 @@ static NSString *_javascriptToInject;
  */
 - (void)startLoading
 {
-	NSMutableURLRequest *newRequest = [self.request mutableCopy];
+	NSMutableURLRequest *newRequest;
+	
+	//handle 'psiphon:' scheme by redirecting to local index.html resource
+	if ([[[[[self request] URL] scheme] lowercaseString] isEqualToString:@"psiphon"]) {
+		NSURL *url;
+		NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+		resourcePath = [resourcePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];
+		resourcePath = [resourcePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+		url = [NSURL URLWithString: [NSString stringWithFormat:@"file:/%@/index.html",resourcePath]];
+		newRequest = [NSMutableURLRequest requestWithURL:url];
+		NSURLConnection *con = [NSURLConnection connectionWithRequest:newRequest delegate:self];
+		[self setConnection:(CKHTTPConnection *)con];
+		return;
+	}
+	
+	newRequest = [self.request mutableCopy];
+
 	[newRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 	[newRequest setHTTPShouldUsePipelining:YES];
 	

@@ -21,7 +21,5 @@
 
 @interface PsiphonConnectionIndicator : UIView
 - (id) initWithFrame:(CGRect)frame;
-- (void) displayConnected;
-- (void) displayDisconnected;
-- (void) displayConnecting;
+- (void) displayConnectionState:(PsiphonConnectionState) state;
 @end
