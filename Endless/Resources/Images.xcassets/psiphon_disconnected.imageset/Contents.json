@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "psiphon_disconnected.png",
+      "filename" : "logo-and-icon-disconnected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "psiphon_disconnected@2x.png",
       "scale" : "2x"
     },
     {

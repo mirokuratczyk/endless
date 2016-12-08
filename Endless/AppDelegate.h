@@ -38,7 +38,10 @@
 @property(strong, nonatomic) PsiphonTunnel* psiphonTunnel;
 @property NSInteger socksProxyPort;
 @property BOOL isFirstRun;
+@property PsiphonConnectionState psiphonConectionState;
 @property (strong, nonatomic) NSMutableArray *homePages;
+
+- (void) reloadRootViewController;
 
 @end
 

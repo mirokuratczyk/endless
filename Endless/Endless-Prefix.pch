@@ -39,9 +39,9 @@
 @import Foundation;
 
 /* Psiphon connection states */
-typedef NS_ENUM(NSUInteger, PsiphonConnectionState)
+typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 {
-	PsiphonConnectionStateDisconnected = 0,
+	PsiphonConnectionStateDisconnected,
 	PsiphonConnectionStateConnecting,
 	PsiphonConnectionStateConnected
 };

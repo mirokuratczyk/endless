@@ -327,10 +327,13 @@
 - (void)viewIsVisible
 {
 	if (webViewTabs.count == 0 && ![appDelegate areTesting]) {
+        /*
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
 		
         [self addNewTabForURL:[NSURL URLWithString:[se objectForKey:@"homepage_url"]]];
+         */
+        [self addNewTabForURL:[NSURL URLWithString:@"about:blank"]];
 	}
 	
 	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
@@ -1168,6 +1171,16 @@
 
 - (void) showPsiphonConnectionState: (PsiphonConnectionState)state {
 	[psiphonConnectionIndicator displayConnectionState:state];
+}
+
+- (void) stopLoading {
+    for (WebViewTab *wvt in webViewTabs) {
+        if (wvt.webView.isLoading) {
+            [wvt.webView stopLoading];
+            [wvt setProgress:@(0.0f)];
+        }
+    }
+    [self updateProgress];
 }
 
 @end

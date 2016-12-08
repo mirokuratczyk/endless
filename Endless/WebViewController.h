@@ -32,4 +32,5 @@
 - (void)prepareForNewURLFromString:(NSString *)url;
 
 - (void) showPsiphonConnectionState:(PsiphonConnectionState)state;
+- (void) stopLoading;
 @end

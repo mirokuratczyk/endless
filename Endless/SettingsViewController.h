@@ -20,6 +20,9 @@
 #import <UIKit/UIKit.h>
 #import "IASKAppSettingsViewController.h"
 
+//app language key
+#define appLanguage              @"appLanguage"
+
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
 #define minTlsVersion            @"minTlsVersion"
 #define useUpstreamProxy         @"useUpstreamProxy"

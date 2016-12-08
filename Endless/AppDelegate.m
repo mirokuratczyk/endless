@@ -9,8 +9,15 @@
 #import "Bookmark.h"
 #import "HTTPSEverywhere.h"
 #import "URLInterceptor.h"
+#import "NSBundle+Language.h"
+#import <CoreFoundation/CFSocket.h>
+#import <sys/socket.h>
+#import <netinet/in.h>
+#import <arpa/inet.h>
 
 @implementation AppDelegate
+
+NSThread *psiphonThread;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -25,24 +32,33 @@
 	[Bookmark retrieveList];
 	
 	[self initializeDefaults];
-	
-	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-	self.window.rootViewController = [[WebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"WebViewController";
-    
-	return YES;
+
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = [[WebViewController alloc] init];
+    self.window.rootViewController.restorationIdentifier = @"WebViewController";
 	[self.window makeKeyAndVisible];
-
-    _socksProxyPort = 0;
-    _psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
-    [_psiphonTunnel start : nil];
-    [self onConnecting];
+    
+    self.socksProxyPort = 0;
+    self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
     
 	return YES;
+}
+
+- (void) startPsiphon {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+        
+        if( ! [self.psiphonTunnel start : nil] ) {
+            self.psiphonConectionState = PsiphonConnectionStateDisconnected;
+            [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+        }
+    });
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -71,7 +87,27 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-	[[self webViewController] viewIsVisible];
+    if (self.socksProxyPort > 0) {
+        //check if SOCKS local proxy is still accessible
+        CFSocketRef sockfd;
+        sockfd = CFSocketCreate(NULL, AF_INET, SOCK_STREAM, IPPROTO_TCP,0, NULL,NULL);
+        struct sockaddr_in servaddr;
+        memset(&servaddr, 0, sizeof(servaddr));
+        servaddr.sin_len = sizeof(servaddr);
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_port = htons([self socksProxyPort]);
+        inet_pton(AF_INET, [@"127.0.0.1" cStringUsingEncoding:NSUTF8StringEncoding], &servaddr.sin_addr);
+        CFDataRef connectAddr = CFDataCreate(NULL, (unsigned char *)&servaddr, sizeof(servaddr));
+        if (CFSocketConnectToAddress(sockfd, connectAddr, 1) != kCFSocketSuccess) {
+            [self startPsiphon];
+            
+        }
+        CFSocketInvalidate(sockfd);
+        CFRelease(sockfd);
+        
+    } else {
+        [self startPsiphon];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -79,7 +115,8 @@
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
     [_psiphonTunnel stop];
-	
+    self.psiphonConectionState = PsiphonConnectionStateDisconnected;
+    [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
 	[application ignoreSnapshotOnNextApplicationLaunch];
 }
 
@@ -210,30 +247,48 @@
 }
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
-    _socksProxyPort = port;
+    self.socksProxyPort = port;
 }
 
 - (void) onConnecting {
-	_socksProxyPort = 0;
+	self.socksProxyPort = 0;
 	[_homePages removeAllObjects];
     dispatch_async(dispatch_get_main_queue(), ^{
-		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateConnecting];
+        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+		[self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+        [self.webViewController stopLoading];
+
     });
 }
 
 - (void) onConnected {
     dispatch_async(dispatch_get_main_queue(), ^{
-		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateConnecting];
+        self.psiphonConectionState = PsiphonConnectionStateConnected;
+        [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+        NSMutableArray * openURLs = [NSMutableArray new];
+        NSArray * wvTabs = [self.webViewController webViewTabs];
+        
+        for (WebViewTab *wvt in wvTabs) {
+            if ( wvt.url != nil) {
+                [openURLs addObject:wvt.url];
+            }
+        }
 
-		for (NSString* page in [self getHomePages]) {
-			[_webViewController addNewTabForURL: [NSURL URLWithString:page]];
-		}
+        NSArray *homepages = [self getHomePages];
+		for (NSString* page in homepages) {
+            NSURL *url = [NSURL URLWithString:page];
+            if(! [openURLs containsObject:url]) {
+                [self.webViewController addNewTabForURL: url];
+            }
+        }
     });
+ 
 }
 
 - (void) onExiting {
     dispatch_async(dispatch_get_main_queue(), ^{
-		[_webViewController showPsiphonConnectionState:PsiphonConnectionStateDisconnected];
+        [_homePages removeAllObjects];
+        [self.webViewController stopLoading];
     });
 }
 
@@ -241,12 +296,31 @@
 	if (!_homePages) {
 		_homePages = [NSMutableArray new];
 	}
-	[_homePages addObject:url];
+    if(![_homePages containsObject:url]) {
+        [_homePages addObject:url];
+    }
 }
 
 - (NSArray*) getHomePages {
 	return [_homePages copy];	
 }
 
+
+- (void) reloadRootViewController {
+    NSMutableArray * reloadURLS = [NSMutableArray new];
+    NSArray * wvTabs = [self.webViewController webViewTabs];
+    
+    for (WebViewTab *wvt in wvTabs) {
+        if ( wvt.url != nil) {
+            [reloadURLS addObject:wvt.url];
+        }
+    }
+    self.window.rootViewController = [[WebViewController alloc] init];
+
+    for (NSURL* url in reloadURLS) {
+        [self.webViewController addNewTabForURL: url];
+    }
+    [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+}
 @end
 

@@ -220,10 +220,12 @@ static NSString *_javascriptToInject;
 	if (self.isOrigin) {
 		[LocalNetworkChecker clearCache];
 	}
+#ifdef USE_URLBLOCK
 	else if ([URLBlocker shouldBlockURL:[newRequest URL] fromMainDocumentURL:[newRequest mainDocumentURL]]) {
 		cancelLoading();
 		return;
 	}
+#endif
 	
 	/* some rules act on the host we're connecting to, and some act on the origin host */
 	self.hostSettings = [HostSettings settingsOrDefaultsForHost:[[[self request] URL] host]];

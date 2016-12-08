@@ -24,6 +24,9 @@
 #import "IASKTextField.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
+#import "NSBundle+Language.h"
+
+static AppDelegate *appDelegate;
 
 @implementation SettingsViewController {
     NSMutableArray *tlsVersions;
@@ -300,7 +303,14 @@
             }
         }
         [activeController setHiddenKeys:hiddenKeys animated:YES];
+    } else if  ([fieldName isEqual:appLanguage]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [NSBundle setLanguage:[notification.userInfo objectForKey:appLanguage]];
+        appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate reloadRootViewController];
     }
+    
+    
 }
 
 - (void)menuHTTPSEverywhere

@@ -60,20 +60,25 @@ UIActivityIndicatorView *activityIndicator;
 			animationCompleted = ^(BOOL finished){
 				[activityIndicator stopAnimating];
 			};
+            break;
 		case PsiphonConnectionStateConnecting:
 			activityIndicatorAlpha = 1.0f;
-			imgConnectedAlpha = 1.0f;
+			imgConnectedAlpha = 0.0f;
 			imgDisconnectedAlpha = 0.2f;
 			animationCompleted = ^(BOOL finished){
 				[activityIndicator startAnimating];
 			};
+            break;
 		case PsiphonConnectionStateDisconnected:
-			activityIndicatorAlpha = 0.0f;
-			imgConnectedAlpha = 0.0f;
-			imgDisconnectedAlpha = 1.0f;
-			animationCompleted = ^(BOOL finished){
-				[activityIndicator stopAnimating];
-			};
+            activityIndicatorAlpha = 0.0f;
+            imgConnectedAlpha = 0.0f;
+            imgDisconnectedAlpha = 1.0f;
+            animationCompleted = ^(BOOL finished){
+                [activityIndicator stopAnimating];
+            };
+            break;
+        default:
+            break;
 	}
 
 	[UIView animateWithDuration:0.1

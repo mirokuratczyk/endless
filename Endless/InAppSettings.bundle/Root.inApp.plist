@@ -11,6 +11,28 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>system</string>
+			<key>Values</key>
+			<array>
+				<string>default</string>
+				<string>en</string>
+				<string>ar</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>DEFAULT_LANGUAGE</string>
+				<string>ENGLISH</string>
+				<string>ARABIC</string>
+			</array>
+			<key>Key</key>
+			<string>appLanguage</string>
+			<key>Title</key>
+			<string>APPLICATION_LANGUAGE</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+		</dict>
+		<dict>
 			<key>File</key>
 			<string>PsiphonSettings</string>
 			<key>Title</key>

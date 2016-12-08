@@ -56,6 +56,7 @@
 		01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
+		4412BD271DF7450100C18B97 /* NSBundle+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4412BD261DF7450100C18B97 /* NSBundle+Localization.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
 		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
 		44E779301DE4DCD400854379 /* OnePasswordExtension.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E779321DE4DCD400854379 /* OnePasswordExtension.strings */; };
@@ -169,6 +170,8 @@
 		01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = urlblocker_targets.plist; path = Endless/Resources/urlblocker_targets.plist; sourceTree = "<group>"; };
 		01FC0E561B38FB6B00955D9A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Endless/Resources/Launch Screen.xib"; sourceTree = "<group>"; };
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
+		4412BD251DF744E000C18B97 /* NSBundle+Language.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSBundle+Language.h"; path = "Endless/NSBundle+Language.h"; sourceTree = SOURCE_ROOT; };
+		4412BD261DF7450100C18B97 /* NSBundle+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+Localization.m"; path = "Endless/NSBundle+Localization.m"; sourceTree = SOURCE_ROOT; };
 		44E779031DDCC9F600854379 /* psiphon_config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = psiphon_config; path = Psiphon/psiphon_config; sourceTree = "<group>"; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				44E7793F1DE6031A00854379 /* PsiphonConnectionIndicator.h */,
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
 				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
+				4412BD251DF744E000C18B97 /* NSBundle+Language.h */,
+				4412BD261DF7450100C18B97 /* NSBundle+Localization.m */,
 			);
 			path = Psiphon;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
+				4412BD271DF7450100C18B97 /* NSBundle+Localization.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				44E779431DE6031A00854379 /* PsiphonConnectionIndicator.m in Sources */,
