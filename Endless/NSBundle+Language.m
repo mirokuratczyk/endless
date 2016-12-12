@@ -21,29 +21,28 @@
 
 #import <objc/runtime.h>
 
-static const char _bundle=0;
-
-@interface BundleEx : NSBundle
-@end
-
-@implementation BundleEx
--(NSString*)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName
-{
-    NSBundle* bundle=objc_getAssociatedObject(self, &_bundle);
-    return bundle ? [bundle localizedStringForKey:key value:value table:tableName] : [super localizedStringForKey:key value:value table:tableName];
-}
-@end
-
 @implementation NSBundle (Language)
+
+static NSBundle *languageBundle = nil;
+
++ (void)load
+{
+	method_exchangeImplementations(class_getInstanceMethod(self, @selector(localizedStringForKey:value:table:)), class_getInstanceMethod(self, @selector(swizzled_localizedStringForKey:value:table:)));
+}
 
 +(void)setLanguage:(NSString*)language
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-                  {
-                      object_setClass([NSBundle mainBundle],[BundleEx class]);
-                  });
-    objc_setAssociatedObject([NSBundle mainBundle], &_bundle, language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	languageBundle = language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil;
+}
+
+- (NSString *)swizzled_localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName NS_FORMAT_ARGUMENT(1);
+{
+	if (languageBundle)
+	{
+		return [languageBundle swizzled_localizedStringForKey:key value:value table:tableName];
+	}
+	
+	return [self swizzled_localizedStringForKey:key value:value table:tableName];
 }
 
 @end
