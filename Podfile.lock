@@ -51,36 +51,31 @@ PODS:
     - DTFoundation/Core
   - DTFoundation/UIKit_BlocksAdditions (1.7.11):
     - DTFoundation/Core
-  - InAppSettingsKit (2.8)
+  - InAppSettingsKit (2.8.1)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
-  - QuickDialog (1.0.2):
-    - QuickDialog/Core (= 1.0.2)
-  - QuickDialog/Core (1.0.2)
 
 DEPENDENCIES:
   - DTFoundation
-  - InAppSettingsKit
+  - InAppSettingsKit (from `https://github.com/Psiphon-Inc/InAppSettingsKit.git`)
   - OCMock
   - OrderedDictionary
-  - QuickDialog (from `https://github.com/Psiphon-Inc/QuickDialog.git`)
 
 EXTERNAL SOURCES:
-  QuickDialog:
-    :git: https://github.com/Psiphon-Inc/QuickDialog.git
+  InAppSettingsKit:
+    :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
 
 CHECKOUT OPTIONS:
-  QuickDialog:
-    :commit: 9947f43797a1e2d8979d43a219d92172dee251ed
-    :git: https://github.com/Psiphon-Inc/QuickDialog.git
+  InAppSettingsKit:
+    :commit: 2dcb598d18a64a61509e418079bc448ce6b5268a
+    :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
 
 SPEC CHECKSUMS:
   DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
-  InAppSettingsKit: fe3e73f8f9530cdd6270065cd7df7b3773f557e6
+  InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
-  QuickDialog: f0c3e254c91182fa3f91fdb479ccac4a11b459e1
 
-PODFILE CHECKSUM: b8f27dddea8682166fa6c8b403645d22ade9cc42
+PODFILE CHECKSUM: 34ae75f07cfee5889aec1a227db3398f697c4320
 
 COCOAPODS: 1.1.1
