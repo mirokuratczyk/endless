@@ -305,9 +305,8 @@ static AppDelegate *appDelegate;
         [activeController setHiddenKeys:hiddenKeys animated:YES];
     } else if  ([fieldName isEqual:appLanguage]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [NSBundle setLanguage:[notification.userInfo objectForKey:appLanguage]];
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate reloadRootViewController];
+		[appDelegate setAppLanguageAndReloadSettings:[notification.userInfo objectForKey:appLanguage]];
     }
     
     

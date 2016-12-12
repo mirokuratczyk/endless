@@ -41,7 +41,7 @@
 @property PsiphonConnectionState psiphonConectionState;
 @property (strong, nonatomic) NSMutableArray *homePages;
 
-- (void) reloadRootViewController;
+- (void) setAppLanguageAndReloadSettings : (NSString*)language;
 
 @end
 

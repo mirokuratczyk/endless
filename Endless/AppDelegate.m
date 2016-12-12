@@ -32,6 +32,9 @@ NSThread *psiphonThread;
 	[Bookmark retrieveList];
 	
 	[self initializeDefaults];
+	
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[NSBundle setLanguage:[userDefaults objectForKey:appLanguage]];
 
     return YES;
 }
@@ -306,7 +309,9 @@ NSThread *psiphonThread;
 }
 
 
-- (void) reloadRootViewController {
+- (void) setAppLanguageAndReloadSettings:(NSString *)language {
+	[NSBundle setLanguage:language];
+
     NSMutableArray * reloadURLS = [NSMutableArray new];
     NSArray * wvTabs = [self.webViewController webViewTabs];
     
@@ -321,6 +326,7 @@ NSThread *psiphonThread;
         [self.webViewController addNewTabForURL: url];
     }
     [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 @end
 
