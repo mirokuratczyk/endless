@@ -33,6 +33,9 @@ static NSBundle *languageBundle = nil;
 +(void)setLanguage:(NSString*)language
 {
 	languageBundle = language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil;
+    if (languageBundle == nil) {
+        languageBundle = [NSBundle mainBundle];
+    }
 }
 
 - (NSString *)swizzled_localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName NS_FORMAT_ARGUMENT(1);

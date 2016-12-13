@@ -71,8 +71,6 @@
 {
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate setWebViewController:self];
 	
