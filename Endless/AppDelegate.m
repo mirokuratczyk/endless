@@ -61,6 +61,7 @@ NSThread *psiphonThread;
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
             [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
         }
+        [self postConnectivityChangedNotification];
     });
 }
 
@@ -118,8 +119,6 @@ NSThread *psiphonThread;
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
     [_psiphonTunnel stop];
-    self.psiphonConectionState = PsiphonConnectionStateDisconnected;
-    [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
 	[application ignoreSnapshotOnNextApplicationLaunch];
 }
 
@@ -260,6 +259,7 @@ NSThread *psiphonThread;
         self.psiphonConectionState = PsiphonConnectionStateConnecting;
 		[self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
         [self.webViewController stopLoading];
+        [self postConnectivityChangedNotification];
 
     });
 }
@@ -268,6 +268,8 @@ NSThread *psiphonThread;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.psiphonConectionState = PsiphonConnectionStateConnected;
         [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+        [self postConnectivityChangedNotification];
+
         NSMutableArray * openURLs = [NSMutableArray new];
         NSArray * wvTabs = [self.webViewController webViewTabs];
         
@@ -292,6 +294,7 @@ NSThread *psiphonThread;
     dispatch_async(dispatch_get_main_queue(), ^{
         [_homePages removeAllObjects];
         [self.webViewController stopLoading];
+        [self postConnectivityChangedNotification];
     });
 }
 
@@ -328,5 +331,13 @@ NSThread *psiphonThread;
     [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
 	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
+
+- (void) postConnectivityChangedNotification {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:kPsiphonConnectivityChanged
+     object:self
+     userInfo:@{@"PsiphonConnectionState": @(self.psiphonConectionState)}];
+}
+
 @end
 
