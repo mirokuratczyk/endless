@@ -647,7 +647,6 @@
 	else {
 		[self setCurTabIndex:futureFocusNumber];
 	}
-	
 	[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		tabScroller.contentSize = CGSizeMake(self.view.frame.size.width * tabChooser.numberOfPages, self.view.frame.size.height);
 
@@ -660,11 +659,6 @@
 		}
 	} completion:^(BOOL finished) {
 		[self setCurTabIndex:curTabIndex];
-
-		[self slideToCurrentTabWithCompletionBlock:^(BOOL finished) {
-			showingTabs = true;
-			[self showTabs:nil];
-		}];
 	}];
 }
 
