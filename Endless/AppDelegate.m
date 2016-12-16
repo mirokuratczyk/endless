@@ -54,14 +54,12 @@ NSThread *psiphonThread;
 
 - (void) startPsiphon {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
-        [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
-        
+		[_homePages removeAllObjects];
+		self.shouldOpenHomePages = true;
         if( ! [self.psiphonTunnel start : nil] ) {
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
-            [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+			[self notifyPsiphonConnectionState];
         }
-        [self postConnectivityChangedNotification];
     });
 }
 
@@ -91,8 +89,14 @@ NSThread *psiphonThread;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (self.socksProxyPort > 0) {
-        //check if SOCKS local proxy is still accessible
+	BOOL needStart = false;
+	
+	// Auto start if not connected
+	if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
+		needStart = true;
+	} else if (self.socksProxyPort > 0) {
+        // check if SOCKS local proxy is still accessible
+		
         CFSocketRef sockfd;
         sockfd = CFSocketCreate(NULL, AF_INET, SOCK_STREAM, IPPROTO_TCP,0, NULL,NULL);
         struct sockaddr_in servaddr;
@@ -103,15 +107,19 @@ NSThread *psiphonThread;
         inet_pton(AF_INET, [@"127.0.0.1" cStringUsingEncoding:NSUTF8StringEncoding], &servaddr.sin_addr);
         CFDataRef connectAddr = CFDataCreate(NULL, (unsigned char *)&servaddr, sizeof(servaddr));
         if (CFSocketConnectToAddress(sockfd, connectAddr, 1) != kCFSocketSuccess) {
-            [self startPsiphon];
-            
+			needStart = true;
         }
         CFSocketInvalidate(sockfd);
         CFRelease(sockfd);
-        
     } else {
-        [self startPsiphon];
-    }
+		needStart = true;
+	}
+	
+	if(needStart) {
+		self.psiphonConectionState = PsiphonConnectionStateConnecting;
+		[self notifyPsiphonConnectionState];
+		[self startPsiphon];
+	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -253,49 +261,40 @@ NSThread *psiphonThread;
 }
 
 - (void) onConnecting {
-	self.socksProxyPort = 0;
-	[_homePages removeAllObjects];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.psiphonConectionState = PsiphonConnectionStateConnecting;
-		[self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
         [self.webViewController stopLoading];
-        [self postConnectivityChangedNotification];
+        [self notifyPsiphonConnectionState];
 
     });
 }
 
 - (void) onConnected {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateConnected;
-        [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
-        [self postConnectivityChangedNotification];
-
-        NSMutableArray * openURLs = [NSMutableArray new];
-        NSArray * wvTabs = [self.webViewController webViewTabs];
-        
-        for (WebViewTab *wvt in wvTabs) {
-            if ( wvt.url != nil) {
-                [openURLs addObject:wvt.url];
-            }
-        }
-
-        NSArray *homepages = [self getHomePages];
-		for (NSString* page in homepages) {
-            NSURL *url = [NSURL URLWithString:page];
-            if(! [openURLs containsObject:url]) {
-                [self.webViewController addNewTabForURL: url];
-            }
-        }
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.psiphonConectionState = PsiphonConnectionStateConnected;
+		[self notifyPsiphonConnectionState];
+		
+		if(self.shouldOpenHomePages) {
+			NSMutableArray * openURLs = [NSMutableArray new];
+			NSArray * wvTabs = [self.webViewController webViewTabs];
+			
+			for (WebViewTab *wvt in wvTabs) {
+				if ( wvt.url != nil) {
+					[openURLs addObject:wvt.url];
+				}
+			}
+			
+			NSArray *homepages = [self getHomePages];
+			for (NSString* page in homepages) {
+				NSURL *url = [NSURL URLWithString:page];
+				if(! [openURLs containsObject:url]) {
+					[self.webViewController addNewTabForURL: url];
+				}
+			}
+			self.shouldOpenHomePages = false;
+		}
     });
- 
-}
 
-- (void) onExiting {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_homePages removeAllObjects];
-        [self.webViewController stopLoading];
-        [self postConnectivityChangedNotification];
-    });
 }
 
 - (void) onHomepage:(NSString *)url {
@@ -328,15 +327,15 @@ NSThread *psiphonThread;
     for (NSURL* url in reloadURLS) {
         [self.webViewController addNewTabForURL: url];
     }
-    [self.webViewController showPsiphonConnectionState:self.psiphonConectionState];
+    [self notifyPsiphonConnectionState];
 	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void) postConnectivityChangedNotification {
+- (void) notifyPsiphonConnectionState {
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:kPsiphonConnectivityChanged
+     postNotificationName:kPsiphonConnectionStateNotification
      object:self
-     userInfo:@{@"PsiphonConnectionState": @(self.psiphonConectionState)}];
+     userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
 }
 
 @end

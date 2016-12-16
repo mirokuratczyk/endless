@@ -39,7 +39,11 @@
 #define SETTINGS_TLS_10       2
 #define SETTINGS_TLS_AUTO     3
 // Custom view specifier keys
-#define httpsEverywhere       @"httpsEverywhere"
+#define httpsEverywhere          @"httpsEverywhere"
+#define aboutUs                  @"aboutUs"
+#define FAQ                      @"FAQ"
+#define privacyPolicy            @"privacyPolicy"
+#define termsOfUse               @"termsOfUse"
 
 @protocol SettingsViewControllerDelegate <NSObject>
 - (long)curWebViewTabHttpsRulesCount;

@@ -99,30 +99,40 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>FAQ</string>
 			<key>Title</key>
 			<string>FAQ</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>privacyPolicy</string>
 			<key>Title</key>
 			<string>PRIVACY_POLICY</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>termsOfUse</string>
 			<key>Title</key>
 			<string>TERMS_OF_USE</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>aboutUs</string>
 			<key>Title</key>
 			<string>ABOUT</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>tutorial</string>
 			<key>Title</key>
 			<string>TUTORIAL</string>
 			<key>Type</key>

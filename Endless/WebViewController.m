@@ -242,11 +242,19 @@
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
 	
 	[self adjustLayout];
 	[self updateSearchBarDetails];
 	
 	[self.view.window makeKeyAndVisible];
+}
+
+- (void) dealloc {
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+	[center removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	[center removeObserver:self name:kPsiphonConnectionStateNotification object:nil];
 }
 
 - (id)settingsButton
@@ -1161,7 +1169,9 @@
 	return [uapieces componentsJoinedByString:@" "];
 }
 
-- (void) showPsiphonConnectionState: (PsiphonConnectionState)state {
+
+- (void) psiphonConnectionStateNotified:(NSNotification *)notification {
+	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
 	[psiphonConnectionIndicator displayConnectionState:state];
 }
 

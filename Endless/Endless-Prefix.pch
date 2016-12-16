@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 	PsiphonConnectionStateConnected
 };
 
-#define kPsiphonConnectivityChanged @"kPsiphonConnectivityChanged"
+#define kPsiphonConnectionStateNotification @"kPsiphonConnectionStateNotification"
+#define kPsiphonConnectionState @"kPsiphonConnectionState"
 
 #endif

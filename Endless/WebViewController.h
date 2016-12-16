@@ -31,6 +31,6 @@
 - (void)forceRefresh;
 - (void)prepareForNewURLFromString:(NSString *)url;
 
-- (void) showPsiphonConnectionState:(PsiphonConnectionState)state;
 - (void) stopLoading;
+- (void) setEnabled:(BOOL)enabled;
 @end

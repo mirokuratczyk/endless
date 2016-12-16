@@ -33,14 +33,27 @@ static AppDelegate *appDelegate;
     NSMutableArray *tlsShortTitles;
 }
 
+
+static NSArray *links;
+BOOL linksEnabled;
+
 @synthesize webViewController;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		links = @[FAQ, privacyPolicy, termsOfUse, aboutUs];
+	});
+	
+	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	linksEnabled = (appDelegate.psiphonConectionState == PsiphonConnectionStateConnected);
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+	[center addObserver:self selector:@selector(updateLinksState:) name:kPsiphonConnectionStateNotification object:nil];
 
     // Get TLS keys and short (preview) titles from MinTLSSettings.plist
     NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"MinTLSSettings.plist"];
@@ -77,7 +90,7 @@ static AppDelegate *appDelegate;
     }
 
     cell.userInteractionEnabled = YES;
-
+	
     if ([specifier.key isEqualToString:httpsEverywhere]) {
         [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
         [cell.textLabel setText:specifier.title];
@@ -128,7 +141,15 @@ static AppDelegate *appDelegate;
         textField.textAlignment = specifier.textAlignment;
         textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
         [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
-    }
+	} else if ([links containsObject:specifier.key] ) {
+		[cell.textLabel setText:specifier.title];
+		cell.userInteractionEnabled = linksEnabled;
+		cell.textLabel.enabled = linksEnabled;
+		cell.detailTextLabel.enabled = linksEnabled;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
+		
+
 
     return cell;
 }
@@ -334,6 +355,16 @@ static AppDelegate *appDelegate;
     [alert addAction:defaultAction];
 
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) updateLinksState:(NSNotification*) notification {
+	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
+	if(state == PsiphonConnectionStateConnected) {
+		linksEnabled = true;
+	} else {
+		linksEnabled = false;
+	}
+	[[self tableView] reloadData];
 }
 
 @end
