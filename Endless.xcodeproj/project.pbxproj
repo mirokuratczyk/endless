@@ -58,7 +58,20 @@
 		01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
+		4E3F7BED1E00F91F0058E38D /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F7BEC1E00F91F0058E38D /* LogViewController.m */; };
+		4E4C104B1DE621160046F5D8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C104A1DE621160046F5D8 /* Common.swift */; };
+		4E4C104F1DE621670046F5D8 /* PsiphonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C104E1DE621670046F5D8 /* PsiphonData.swift */; };
+		4E4C10511DE6217F0046F5D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C10501DE6217F0046F5D8 /* Constants.swift */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
+		4E8EE2081DF62FAC00AEF819 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */; };
+		4E96E1251DF9C8B1005A4AB9 /* FeedbackThumbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */; };
+		4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */; };
+		4ECFADE11DECEBAE00979558 /* thumbs-down-grayscale.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFADE01DECEBAE00979558 /* thumbs-down-grayscale.png */; };
+		4ECFADE31DECEBBA00979558 /* thumbs-up-grayscale.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFADE21DECEBBA00979558 /* thumbs-up-grayscale.png */; };
+		4ECFADE51DEE016D00979558 /* thumbs-down-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFADE41DEE016D00979558 /* thumbs-down-color.png */; };
+		4ECFADE71DEE01A200979558 /* thumbs-up-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFADE61DEE01A200979558 /* thumbs-up-color.png */; };
+		4EEE09B91DF755EF00CEA8C2 /* psiphon-logo-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09B81DF755EF00CEA8C2 /* psiphon-logo-48.png */; };
+		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
 		59444D13FEE3A74D66733BBC /* libPods-Endless.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */; };
 		BF746B2CD72A306F0316B40B /* libPods-Endless Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */; };
 /* End PBXBuildFile section */
@@ -153,8 +166,25 @@
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
 		4E1175171DD6310A009527EB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		4E3F7BEB1E00F90F0058E38D /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		4E3F7BEC1E00F91F0058E38D /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		4E4C10471DE620D80046F5D8 /* Endless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Endless-Bridging-Header.h"; sourceTree = "<group>"; };
+		4E4C104A1DE621160046F5D8 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		4E4C104E1DE621670046F5D8 /* PsiphonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PsiphonData.swift; sourceTree = "<group>"; };
+		4E4C10501DE6217F0046F5D8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
 		4E664E9C1DDBB41C001BCE93 /* HostSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostSettings.m; sourceTree = "<group>"; };
+		4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		4E8EE2091DF62FBB00AEF819 /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		4E96E1231DF9C885005A4AB9 /* FeedbackThumbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackThumbsCell.h; sourceTree = "<group>"; };
+		4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackThumbsCell.m; sourceTree = "<group>"; };
+		4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackUpload.swift; sourceTree = "<group>"; };
+		4ECFADE01DECEBAE00979558 /* thumbs-down-grayscale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbs-down-grayscale.png"; sourceTree = "<group>"; };
+		4ECFADE21DECEBBA00979558 /* thumbs-up-grayscale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbs-up-grayscale.png"; sourceTree = "<group>"; };
+		4ECFADE41DEE016D00979558 /* thumbs-down-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbs-down-color.png"; sourceTree = "<group>"; };
+		4ECFADE61DEE01A200979558 /* thumbs-up-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbs-up-color.png"; sourceTree = "<group>"; };
+		4EEE09B81DF755EF00CEA8C2 /* psiphon-logo-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-logo-48.png"; sourceTree = "<group>"; };
+		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
 		523F577ECC5C3A6F2146EC6B /* libPods-Endless.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F000EBDB20709D482560EE0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E95B84E061F9B319EB8E8B /* libPods-Endless Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Endless Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +266,10 @@
 				0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */,
 				4E1175171DD6310A009527EB /* SettingsViewController.h */,
 				4E1175181DD63123009527EB /* SettingsViewController.m */,
+				4E8EE2091DF62FBB00AEF819 /* FeedbackViewController.h */,
+				4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */,
+				4E96E1231DF9C885005A4AB9 /* FeedbackThumbsCell.h */,
+				4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */,
 				01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */,
 				01F2AE381B7FEF5E00D5651A /* SSLCertificate.m */,
 				01F2AE3E1B82666900D5651A /* SSLCertificateViewController.h */,
@@ -248,6 +282,13 @@
 				01801EA01A32CA2A002B4718 /* WebViewController.m */,
 				0135F47D1A3E548F005A8F16 /* WebViewTab.h */,
 				0135F47E1A3E548F005A8F16 /* WebViewTab.m */,
+				4E3F7BEB1E00F90F0058E38D /* LogViewController.h */,
+				4E3F7BEC1E00F91F0058E38D /* LogViewController.m */,
+				4E4C10471DE620D80046F5D8 /* Endless-Bridging-Header.h */,
+				4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */,
+				4E4C104A1DE621160046F5D8 /* Common.swift */,
+				4E4C104E1DE621670046F5D8 /* PsiphonData.swift */,
+				4E4C10501DE6217F0046F5D8 /* Constants.swift */,
 			);
 			path = Endless;
 			sourceTree = "<group>";
@@ -275,6 +316,12 @@
 			isa = PBXGroup;
 			children = (
 				01F8794A1A41232E00A63654 /* credits.html */,
+				4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */,
+				4ECFADE01DECEBAE00979558 /* thumbs-down-grayscale.png */,
+				4ECFADE21DECEBBA00979558 /* thumbs-up-grayscale.png */,
+				4ECFADE41DEE016D00979558 /* thumbs-down-color.png */,
+				4ECFADE61DEE01A200979558 /* thumbs-up-color.png */,
+				4EEE09B81DF755EF00CEA8C2 /* psiphon-logo-48.png */,
 				016B2FCA1A53466D002D2730 /* hsts_preload.plist */,
 				018333E71A35746500670CD1 /* https-everywhere_rules.plist */,
 				018333E81A35746500670CD1 /* https-everywhere_targets.plist */,
@@ -413,6 +460,7 @@
 					01801E911A32CA2A002B4718 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = Q6HLNEX92A;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
@@ -452,12 +500,18 @@
 			files = (
 				0135F4761A3D2931005A8F16 /* SearchEngines.plist in Resources */,
 				018333EA1A35746500670CD1 /* https-everywhere_targets.plist in Resources */,
+				4ECFADE31DECEBBA00979558 /* thumbs-up-grayscale.png in Resources */,
 				018333E91A35746500670CD1 /* https-everywhere_rules.plist in Resources */,
+				4ECFADE11DECEBAE00979558 /* thumbs-down-grayscale.png in Resources */,
 				01801EC31A3360F8002B4718 /* InAppSettings.bundle in Resources */,
 				01D7412C1A45F8EB007B7033 /* injected.js in Resources */,
+				4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */,
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
+				4ECFADE71DEE01A200979558 /* thumbs-up-color.png in Resources */,
+				4EEE09B91DF755EF00CEA8C2 /* psiphon-logo-48.png in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
+				4ECFADE51DEE016D00979558 /* thumbs-down-color.png in Resources */,
 				016B2FCB1A53466D002D2730 /* hsts_preload.plist in Resources */,
 				01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */,
 			);
@@ -584,8 +638,11 @@
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01801E9B1A32CA2A002B4718 /* AppDelegate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
+				4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */,
+				4E4C10511DE6217F0046F5D8 /* Constants.swift in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
+				4E4C104F1DE621670046F5D8 /* PsiphonData.swift in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
@@ -593,18 +650,22 @@
 				4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */,
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
+				4E4C104B1DE621160046F5D8 /* Common.swift in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				01F7CB4E1A52FC4E00F42B73 /* NSString+IPAddress.m in Sources */,
+				4E96E1251DF9C8B1005A4AB9 /* FeedbackThumbsCell.m in Sources */,
 				0135F47F1A3E548F005A8F16 /* WebViewTab.m in Sources */,
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
+				4E8EE2081DF62FAC00AEF819 /* FeedbackViewController.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				4E1175191DD63123009527EB /* SettingsViewController.m in Sources */,
+				4E3F7BED1E00F91F0058E38D /* LogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +695,7 @@
 		01801EB61A32CA2A002B4718 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -676,6 +738,7 @@
 		01801EB71A32CA2A002B4718 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -714,6 +777,7 @@
 			baseConfigurationReference = 0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q6HLNEX92A;
@@ -722,6 +786,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Endless;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -731,6 +798,7 @@
 			baseConfigurationReference = 9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q6HLNEX92A;
@@ -739,6 +807,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Endless;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -747,6 +817,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DDC76BC31EB8F9AAFB8BEE31 /* Pods-Endless Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -777,6 +848,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D5539BB6B9C413DCDBDB86C7 /* Pods-Endless Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

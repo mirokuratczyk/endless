@@ -10,6 +10,8 @@
 #import "HTTPSEverywhere.h"
 #import "URLInterceptor.h"
 
+#import "Endless-Swift.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,6 +37,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [PsiphonData sharedInstance]; // TODO: integrate or remove
 	[self.window makeKeyAndVisible];
 
 	return YES;

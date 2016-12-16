@@ -73,32 +73,44 @@
 		<dict>
 			<key>Title</key>
 			<string>SUBMIT_FEEDBACK</string>
+			<key>File</key>
+			<string>Feedback</string>
+			<key>Key</key>
+			<string>feedback</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
 			<string>FAQ</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>faq</string>
 		</dict>
 		<dict>
 			<key>Title</key>
 			<string>PRIVACY_POLICY</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>privacyPolicy</string>
 		</dict>
 		<dict>
 			<key>Title</key>
 			<string>TERMS_OF_USE</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>termsOfUse</string>
 		</dict>
 		<dict>
 			<key>Title</key>
 			<string>ABOUT</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>about</string>
 		</dict>
 		<dict>
 			<key>Title</key>
