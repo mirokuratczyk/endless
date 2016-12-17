@@ -14,12 +14,14 @@
 #import <sys/socket.h>
 #import <netinet/in.h>
 #import <arpa/inet.h>
+#import "DTReachability.h"
 
 #import "PsiphonBrowser-Swift.h"
 
+
 @implementation AppDelegate
 
-NSThread *psiphonThread;
+BOOL needsResume;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -51,8 +53,35 @@ NSThread *psiphonThread;
     
     self.socksProxyPort = 0;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
+	
+	self.needsResume = false;
+	__weak AppDelegate *weakself = self;
+	
+	[[DTReachability defaultReachability] addReachabilityObserverWithBlock:^(DTReachabilityInformation *reachabilityInfo) {
+		AppDelegate *appDelegate = weakself;
+
+		SCNetworkReachabilityFlags connectionFlags = reachabilityInfo.reachabilityFlags;
+		BOOL isReachable = ((connectionFlags & kSCNetworkFlagsReachable) != 0);
+		BOOL needsConnection = ((connectionFlags & kSCNetworkFlagsConnectionRequired) != 0);
+		BOOL hasConnection = (isReachable && !needsConnection);
+		
+		if (hasConnection)
+		{
+			if(appDelegate.needsResume){
+				[appDelegate startPsiphon];
+			}
+		} else {
+			if(appDelegate.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+				appDelegate.needsResume = true;
+				appDelegate.psiphonConectionState = PsiphonConnectionStateConnecting;
+				[appDelegate notifyPsiphonConnectionState];
+				[appDelegate.psiphonTunnel stop];
+			}
+		}
+	}];
     return YES;
 }
+
 
 - (void) startPsiphon {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -265,7 +294,6 @@ NSThread *psiphonThread;
 - (void) onConnecting {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.psiphonConectionState = PsiphonConnectionStateConnecting;
-        [self.webViewController stopLoading];
         [self notifyPsiphonConnectionState];
 
     });

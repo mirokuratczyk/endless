@@ -1173,6 +1173,9 @@
 - (void) psiphonConnectionStateNotified:(NSNotification *)notification {
 	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
 	[psiphonConnectionIndicator displayConnectionState:state];
+	if(state != PsiphonConnectionStateConnected) {
+		[self stopLoading];
+	}
 }
 
 - (void) stopLoading {
