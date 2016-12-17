@@ -15,6 +15,8 @@
 #import <netinet/in.h>
 #import <arpa/inet.h>
 
+#import "PsiphonBrowser-Swift.h"
+
 @implementation AppDelegate
 
 NSThread *psiphonThread;
@@ -44,12 +46,12 @@ NSThread *psiphonThread;
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
-	[self.window makeKeyAndVisible];
+    [PsiphonData sharedInstance]; // TODO: integrate or remove
+    [self.window makeKeyAndVisible];
     
     self.socksProxyPort = 0;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
-    
-	return YES;
+    return YES;
 }
 
 - (void) startPsiphon {

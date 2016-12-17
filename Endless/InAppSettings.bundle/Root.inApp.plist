@@ -11,28 +11,6 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>system</string>
-			<key>Values</key>
-			<array>
-				<string>default</string>
-				<string>en</string>
-				<string>ar</string>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>DEFAULT_LANGUAGE</string>
-				<string>ENGLISH</string>
-				<string>ARABIC</string>
-			</array>
-			<key>Key</key>
-			<string>appLanguage</string>
-			<key>Title</key>
-			<string>APPLICATION_LANGUAGE</string>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-		</dict>
-		<dict>
 			<key>File</key>
 			<string>PsiphonSettings</string>
 			<key>Title</key>
@@ -95,44 +73,46 @@
 		<dict>
 			<key>Title</key>
 			<string>SUBMIT_FEEDBACK</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
+			<key>File</key>
+			<string>Feedback</string>
 			<key>Key</key>
-			<string>FAQ</string>
-			<key>Title</key>
-			<string>FAQ</string>
+			<string>feedback</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
+			<key>Title</key>
+			<string>FAQ</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>
-			<string>privacyPolicy</string>
+			<string>faq</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>PRIVACY_POLICY</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>privacyPolicy</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>termsOfUse</string>
 			<key>Title</key>
 			<string>TERMS_OF_USE</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>termsOfUse</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>aboutUs</string>
 			<key>Title</key>
 			<string>ABOUT</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>about</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>tutorial</string>
 			<key>Title</key>
 			<string>TUTORIAL</string>
 			<key>Type</key>

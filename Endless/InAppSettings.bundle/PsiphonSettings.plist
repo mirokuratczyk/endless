@@ -110,6 +110,20 @@
 			<key>IASKPlaceholder</key>
 			<string>example.com</string>
 		</dict>
+		<dict>
+			<key>Title</key>
+			<string>ADVANCED</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>LOGS</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>logs</string>
+		</dict>
 	</array>
 </dict>
 </plist>

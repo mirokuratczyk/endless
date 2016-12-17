@@ -17,16 +17,28 @@
  *
  */
 
+#import "PsiphonBrowser-Swift.h"
+
+#import "FeedbackViewController.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "LogViewController.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
 #import "NSBundle+Language.h"
 
 static AppDelegate *appDelegate;
+
+#define kAboutSpecifierKey @"about"
+#define kFAQSpecifierKey @"faq"
+#define kFeedbackSpecifierKey @"feedback"
+#define kHttpsEverywhereSpecifierKey @"httpsEverywhere"
+#define kLogsSpecifierKey @"logs"
+#define kPrivacyPolicySpecifierKey @"privacyPolicy"
+#define kTermsOfUseSpecifierKey @"termsOfUse"
 
 @implementation SettingsViewController {
     NSMutableArray *tlsVersions;
@@ -45,7 +57,7 @@ BOOL linksEnabled;
 	
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		links = @[FAQ, privacyPolicy, termsOfUse, aboutUs];
+		links = @[kAboutSpecifierKey, kFAQSpecifierKey, kPrivacyPolicySpecifierKey, kTermsOfUseSpecifierKey];
 	});
 	
 	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -82,7 +94,8 @@ BOOL linksEnabled;
 
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
-    NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d", specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
+    NSString *identifier = [NSString stringWithFormat:@"%@-%@-%ld-%d", specifier.key, specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 
     if (!cell) {
@@ -90,9 +103,9 @@ BOOL linksEnabled;
     }
 
     cell.userInteractionEnabled = YES;
-	
-    if ([specifier.key isEqualToString:httpsEverywhere]) {
-        [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+
+    if ([specifier.key isEqualToString:kHttpsEverywhereSpecifierKey]) {
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         [cell.textLabel setText:specifier.title];
 
         // Set detail text label to # of https everywhere rules in use for current browser tab
@@ -115,7 +128,7 @@ BOOL linksEnabled;
         cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:specifier.title attributes:nil];
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
-
+        
         // Checkmark cell of currently chosen minTlsVersion option
         BOOL selected = [tlsVersions[[[NSUserDefaults standardUserDefaults] integerForKey:minTlsVersion]] isEqualToString:specifier.key];
 
@@ -123,6 +136,7 @@ BOOL linksEnabled;
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+        
         cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 
         cell.textLabel.text = specifier.title;
@@ -141,16 +155,16 @@ BOOL linksEnabled;
         textField.textAlignment = specifier.textAlignment;
         textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
         [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
-	} else if ([links containsObject:specifier.key] ) {
-		[cell.textLabel setText:specifier.title];
+    } else if ([specifier.key isEqualToString:kLogsSpecifierKey] || [specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = specifier.title;
+	}
+	
+	if ([links containsObject:specifier.key] ) {
 		cell.userInteractionEnabled = linksEnabled;
 		cell.textLabel.enabled = linksEnabled;
 		cell.detailTextLabel.enabled = linksEnabled;
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-		
-
-
     return cell;
 }
 
@@ -197,7 +211,21 @@ BOOL linksEnabled;
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier {
-    if ([specifier.key isEqualToString:@"httpsEverywhere"]) {
+    if ([specifier.key isEqualToString:kFeedbackSpecifierKey]) {
+        FeedbackViewController *targetViewController = [[FeedbackViewController alloc] init];
+        
+        targetViewController.delegate = targetViewController;
+        targetViewController.file = specifier.file;
+        targetViewController.settingsStore = self.settingsStore;
+        targetViewController.showDoneButton = NO;
+        targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
+        targetViewController.title = specifier.title;
+        
+        IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:targetViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    } else if ([specifier.key isEqualToString:kHttpsEverywhereSpecifierKey]) {
         [self menuHTTPSEverywhere];
     } else if ([specifier.key isEqualToString:minTlsVersion]) {
         // Push new IASK view controller for custom minTlsVersion menu
@@ -244,7 +272,39 @@ BOOL linksEnabled;
                 [textField becomeFirstResponder];
             }
         }
+    } else if ([specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) { // make this a hashmap, check if key exists
+        [self loadUrlForSpecifier:specifier.key];
+    } else if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
+        LogViewController *vc = [[LogViewController alloc] init];
+        vc.title = NSLocalizedString(@"Logs", @"Title screen displaying logs");
+        [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (void)loadUrlForSpecifier:(NSString *)key
+{
+    NSString *url;
+    if ([key isEqualToString:kAboutSpecifierKey]) { // make this a hashmap
+        url = NSLocalizedString(@"https://psiphon.ca/en/about.html", "");
+    } else if ([key isEqualToString:kFAQSpecifierKey]) {
+        url = NSLocalizedString(@"https://psiphon.ca/en/faq.html", "");
+    } else if ([key isEqualToString:kPrivacyPolicySpecifierKey]) {
+        url = NSLocalizedString(@"https://psiphon.ca/en/privacy.html", "");
+    } else if ([key isEqualToString:kTermsOfUseSpecifierKey]) {
+        url = NSLocalizedString(@"https://psiphon.ca/en/license.html", "");
+    }
+    [self loadUrlInWebview:url];
+}
+
+- (void)loadUrlInWebview:(NSString *)url
+{
+    UIViewController *vc = [[UIViewController alloc] init];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.navigationController.view.bounds];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    
+    [vc.view addSubview:webView];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
