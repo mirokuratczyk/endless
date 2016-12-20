@@ -22,56 +22,71 @@
 #import "LogViewController.h"
 #import "PsiphonBrowser-Swift.h"
 
-
 @implementation LogViewController {
-    UITableView *tableView;
+    NSArray *logs;
+    UITableView *table;
 }
 
 - (void)viewDidLoad
 {
-    tableView = [[UITableView alloc] init];
-    tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:tableView];
-    
+    [super viewDidLoad];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(newLogsAdded:) //note the ":" - should take an NSNotification as parameter
+                                             selector:@selector(newLogAdded:)
                                                  name:@"DisplayLogEntry"
                                                object:nil];
+
+    logs = [[PsiphonData sharedInstance] getDiagnosticLogs];
+
+    table = [[UITableView alloc] init];
+    table.dataSource = self;
+    table.delegate = self;
+    table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
+    [self.view addSubview:table];
+    [self scrollToBottom];
 }
 
--(void)newLogsAdded:(id)sender
+#pragma mark - UITableView delegate methods
+
+// Scroll to bottom of UITableView
+-(void)scrollToBottom
 {
-    [tableView reloadData];
-    
-    // Scroll to bottom
-    NSIndexPath* ipath = [NSIndexPath indexPathForRow: [[[PsiphonData sharedInstance] getStatusHistory] count]-1 inSection: 0];
-    [tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *myIndexPath = [NSIndexPath indexPathForRow:[logs count]-1 inSection:0];
+        [table selectRowAtIndexPath:myIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    });
 }
 
+// Reload data and scroll to bottom of UITableView
+-(void)newLogAdded:(id)sender
+{
+    logs = [[PsiphonData sharedInstance] getDiagnosticLogs];
+    [table reloadData];
+    [self scrollToBottom];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = [[[PsiphonData sharedInstance] getStatusHistory] count];
-    return count;
+    return [logs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"cell";
+    NSString *statusEntryForDisplay = logs[indexPath.row];
     
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:statusEntryForDisplay];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:statusEntryForDisplay];
+    }
 
-    NSArray *statusEntries = [[PsiphonData sharedInstance] getStatusHistoryForDisplay];
-    NSString *statusEntryForDisplay = statusEntries[indexPath.row];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
     cell.textLabel.text = statusEntryForDisplay;
-    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    [cell.textLabel setNumberOfLines:0];
-    [cell.textLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     
     return cell;
 }

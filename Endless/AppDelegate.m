@@ -285,6 +285,8 @@ BOOL needsResume;
 
 - (void) onDiagnosticMessage : (NSString*) message {
     NSLog(@"onDiagnosticMessage: %@", message);
+    DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
+    [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
 }
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
