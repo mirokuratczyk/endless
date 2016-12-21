@@ -198,6 +198,11 @@ static NSString *_javascriptToInject;
 
 	[newRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 	[newRequest setHTTPShouldUsePipelining:YES];
+    
+    // TODO: invetigate this
+    // fix double free error as per
+    // https://github.com/AFNetworking/AFNetworking/issues/2334#issuecomment-191946535
+    //[newRequest HTTPBody];
 	
 	[self setActualRequest:newRequest];
 	

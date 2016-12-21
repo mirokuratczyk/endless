@@ -53,32 +53,30 @@ BOOL needsResume;
     
     self.socksProxyPort = 0;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
-	
-	self.needsResume = false;
-	__weak AppDelegate *weakself = self;
-	
-	[[DTReachability defaultReachability] addReachabilityObserverWithBlock:^(DTReachabilityInformation *reachabilityInfo) {
-		AppDelegate *appDelegate = weakself;
-
-		SCNetworkReachabilityFlags connectionFlags = reachabilityInfo.reachabilityFlags;
-		BOOL isReachable = ((connectionFlags & kSCNetworkFlagsReachable) != 0);
-		BOOL needsConnection = ((connectionFlags & kSCNetworkFlagsConnectionRequired) != 0);
-		BOOL hasConnection = (isReachable && !needsConnection);
-		
-		if (hasConnection)
-		{
-			if(appDelegate.needsResume){
-				[appDelegate startPsiphon];
-			}
-		} else {
-			if(appDelegate.psiphonConectionState != PsiphonConnectionStateDisconnected) {
-				appDelegate.needsResume = true;
-				appDelegate.psiphonConectionState = PsiphonConnectionStateConnecting;
-				[appDelegate notifyPsiphonConnectionState];
-				[appDelegate.psiphonTunnel stop];
-			}
-		}
-	}];
+    
+    self.needsResume = false;
+    __weak AppDelegate *weakself = self;
+    
+    [[DTReachability defaultReachability] addReachabilityObserverWithBlock:^(DTReachabilityInformation *reachabilityInfo) {
+        AppDelegate *appDelegate = weakself;
+        
+        SCNetworkReachabilityFlags connectionFlags = reachabilityInfo.reachabilityFlags;
+        BOOL isReachable = ((connectionFlags & kSCNetworkFlagsReachable) != 0);
+        BOOL needsConnection = ((connectionFlags & kSCNetworkFlagsConnectionRequired) != 0);
+        BOOL hasConnection = (isReachable && !needsConnection);
+        
+        if (hasConnection)
+        {
+            if(appDelegate.needsResume){
+                [appDelegate startPsiphon];
+            }
+        } else {
+            if(appDelegate.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+                appDelegate.needsResume = true;
+                [appDelegate stopPsiphon];
+            }
+        }
+    }];
     return YES;
 }
 
@@ -91,6 +89,14 @@ BOOL needsResume;
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
         }
+    });
+}
+
+- (void) stopPsiphon {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        [self notifyPsiphonConnectionState];
+        [self.psiphonTunnel stop];
     });
 }
 
@@ -284,11 +290,15 @@ BOOL needsResume;
 }
 
 - (void) onDiagnosticMessage : (NSString*) message {
-    NSLog(@"onDiagnosticMessage: %@", message);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"onDiagnosticMessage: %@", message);
+    });
 }
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
-    self.socksProxyPort = port;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.socksProxyPort = port;
+    });
 }
 
 - (void) onConnecting {
@@ -362,10 +372,12 @@ BOOL needsResume;
 }
 
 - (void) notifyPsiphonConnectionState {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:kPsiphonConnectionStateNotification
-     object:self
-     userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:kPsiphonConnectionStateNotification
+         object:self
+         userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
+    });
 }
 
 @end

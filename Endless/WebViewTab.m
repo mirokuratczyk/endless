@@ -613,7 +613,7 @@ AppDelegate *appDelegate;
 	if (popover) {
 		popover.sourceView = [[appDelegate webViewController] view];
 		popover.sourceRect = [[[appDelegate webViewController] view] bounds];
-		popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+		popover.permittedArrowDirections = 0;
 	}
 	
 	[[appDelegate webViewController] presentViewController:alertController animated:YES completion:nil];
