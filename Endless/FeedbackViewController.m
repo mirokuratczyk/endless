@@ -267,7 +267,7 @@
     
     if (feedbackEmailTextRange.location != NSNotFound) {
         [footer addAttribute:NSLinkAttributeName
-                       value:[[NSURL alloc] initWithString:feedbackEmail]
+                       value:[[NSURL alloc] initWithString:[@"mailto:" stringByAppendingString:feedbackEmail]]
                        range:feedbackEmailTextRange];
     }
     if (privacyPolicyTextRange.location != NSNotFound) {
@@ -285,8 +285,12 @@
 #pragma mark - UITextView delegate methods
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([[URL scheme] containsString:@"mailto"]) { // User has clicked feedback email address
+        return YES;
+    }
     UIViewController *wvc = [[UIViewController alloc] init];
     UIWebView *wv = [[UIWebView alloc] initWithFrame:self.navigationController.view.bounds];
+    wv.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     [wv loadRequest:[NSURLRequest requestWithURL:URL]];
     [wvc.view addSubview:wv];
