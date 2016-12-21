@@ -151,6 +151,8 @@ BOOL needsResume;
 		[self notifyPsiphonConnectionState];
 		[self startPsiphon];
 	}
+
+    [[self webViewController] viewIsVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
