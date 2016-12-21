@@ -153,7 +153,7 @@
 
 
 	/* set SSL protocol version enforcement before opening, when using kCFStreamSSLLevel */
-	NSURL *url = (__bridge NSURL *)(CFHTTPMessageCopyRequestURL([self HTTPRequest]));
+	NSURL *url = (__bridge_transfer NSURL *)(CFHTTPMessageCopyRequestURL([self HTTPRequest]));
 	if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSInteger tlsVersion = [userDefaults integerForKey:minTlsVersion];
@@ -265,6 +265,9 @@ alldone:
 	}
 	
 	status = SSLSetEnabledCiphers(sslContext, enabled, numEnabled);
+	free(supported);
+	free(enabled);
+
 	if (status != noErr) {
 		NSLog(@"[CKHTTPConnection] failed setting enabled ciphers on %@: %d", sslContext, status);
 		return NO;
@@ -463,9 +466,10 @@ process:
 	}
 
 	NSData *body = [self HTTPBody];
+
 	if (body)
 		CFHTTPMessageSetBody(result, (__bridge_retained CFDataRef)body);
-	
+
 	return result;
 }
 
