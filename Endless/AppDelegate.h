@@ -43,6 +43,7 @@
 @property (strong, nonatomic) NSMutableArray *homePages;
 
 - (void) setAppLanguageAndReloadSettings : (NSString*)language;
+- (NSString *) getPsiphonConfig;
 
 @end
 

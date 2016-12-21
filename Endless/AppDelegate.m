@@ -157,6 +157,8 @@ BOOL needsResume;
 		[self notifyPsiphonConnectionState];
 		[self startPsiphon];
 	}
+
+    [[self webViewController] viewIsVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -292,6 +294,8 @@ BOOL needsResume;
 - (void) onDiagnosticMessage : (NSString*) message {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"onDiagnosticMessage: %@", message);
+        DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
+        [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
     });
 }
 

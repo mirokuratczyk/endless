@@ -17,6 +17,7 @@
  *
  */
 
+#import "AppDelegate.h"
 #import "FeedbackViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKTextField.h"
@@ -88,29 +89,24 @@
 
 - (void)sendFeedback:(id)sender
 {
-    NSLog(@"Uploading feedback");
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSInteger selectedThumbIndex = _thumbsCell.segmentedControl.selectedSegmentIndex;
-    NSString *comments = _comments.textView.text;
+    NSString *comments = (_comments.textView.textColor == [UIColor blackColor]) ? _comments.textView.text: @""; // textview contains placeholder text, user has inputted nothing
     NSString *emailAddress = [userDefaults stringForKey:kEmailSpecifierKey];
     BOOL uploadDiagnostics = [userDefaults boolForKey:kSendDiagnosticsSpecifierKey];
     
-    NSLog(@"selected thumb index: %ld", (long)selectedThumbIndex);
-    NSLog(@"comments: %@", comments);
-    NSLog(@"email address: %@", emailAddress);
-    NSLog(@"upload diagnostics: %hhd", uploadDiagnostics);
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSString *psiphonConfig = [appDelegate getPsiphonConfig];
     
-    // TODO: maybe some input validation here
     dispatch_async(dispatch_get_main_queue(), ^{
         [FeedbackUpload generateAndSendFeedbackWithThumbIndex:selectedThumbIndex
                                                      comments:comments
                                                         email:emailAddress
-                                           sendDiagnosticInfo:uploadDiagnostics];
+                                           sendDiagnosticInfo:uploadDiagnostics
+                                                psiphonConfig:psiphonConfig];
     });
     [self dismissViewControllerAnimated:YES completion:nil];
-    // TODO: pop up async feedback has been uploaded notification?
 }
 
 #pragma mark - IASK UITableView delegate methods
@@ -271,7 +267,7 @@
     
     if (feedbackEmailTextRange.location != NSNotFound) {
         [footer addAttribute:NSLinkAttributeName
-                       value:[[NSURL alloc] initWithString:feedbackEmail]
+                       value:[[NSURL alloc] initWithString:[@"mailto:" stringByAppendingString:feedbackEmail]]
                        range:feedbackEmailTextRange];
     }
     if (privacyPolicyTextRange.location != NSNotFound) {
@@ -289,8 +285,12 @@
 #pragma mark - UITextView delegate methods
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([[URL scheme] containsString:@"mailto"]) { // User has clicked feedback email address
+        return YES;
+    }
     UIViewController *wvc = [[UIViewController alloc] init];
     UIWebView *wv = [[UIWebView alloc] initWithFrame:self.navigationController.view.bounds];
+    wv.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     [wv loadRequest:[NSURLRequest requestWithURL:URL]];
     [wvc.view addSubview:wv];

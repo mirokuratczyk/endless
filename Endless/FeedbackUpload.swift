@@ -22,6 +22,23 @@ import UIKit
 import WebKit
 import Security
 
+struct FeedbackFormConstants {
+    static let thumbIndexUnselected = -1
+    static let questionHash = "24f5c290039e5b0a2fd17bfcdb8d3108"
+    static let questionTitle = "Overall satisfaction"
+}
+
+func jsonToDictionary(string: String) -> [String: AnyObject]? {
+    if let data = string.data(using: .utf8) {
+        do {
+            return try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    return nil
+}
+
 @objc class FeedbackUpload : NSObject {
     class func valOrNull(opt: AnyObject?) -> AnyObject {
         if let val = opt {
@@ -41,35 +58,38 @@ import Security
         }
     }
     
-    // Received javascript callback with feedback form info
     // Form and send feedback blob which conforms to structure
     // expected by the feedback template for ios,
     // https://bitbucket.org/psiphon/psiphon-circumvention-system/src/default/EmailResponder/FeedbackDecryptor/templates/?at=default
     // Matching format used by android client,
     // https://bitbucket.org/psiphon/psiphon-circumvention-system/src/default/Android/app/src/main/java/com/psiphon3/psiphonlibrary/Diagnostics.java
-    class func generateAndSendFeedback(thumbIndex: Int, comments: String, email: String, sendDiagnosticInfo: Bool) {
+    class func generateAndSendFeedback(thumbIndex: Int, comments: String, email: String, sendDiagnosticInfo: Bool, psiphonConfig: String) {
         do {
-            var feedbackBlob: [String:AnyObject] = [:]
+            var config: [String: AnyObject] = [:]
             
+            // Serialize psiphon config file
+            if let dict = jsonToDictionary(string: psiphonConfig) {
+                config = dict
+            } else {
+                throw PsiphonError.Runtime(NSLocalizedString("Failed to serialize psiphon_config", comment: "Error message generated when serializing psiphon_config to dictionary fails"))
+            }
+
+            var feedbackBlob: [String:AnyObject] = [:]
+
             // Ensure valid survey response
             if (thumbIndex < -1 || thumbIndex > 1) {
-                // TODO: test String(describing: self)
-                //let entry = StatusEntry(id: String(describing: self), formatArgs: [], throwable: Throwable(message: "Invalid survey response", stackTrace: Thread.callStackSymbols), sensitivity: StatusEntry.SensitivityLevel.NOT_SENSITIVE, priority: StatusEntry.PriorityLevel.ERROR)
-                //PsiphonData.sharedInstance.addStatusEntry(entry: entry)
+                throw PsiphonError.Runtime(NSLocalizedString("Invalid feedback input", comment: "Error message generated when invalid feedback form input is received"))
             }
 
             // Ensure either feedback or survey response was completed
             if (thumbIndex == -1 && sendDiagnosticInfo == false && comments.characters.count == 0 && email.characters.count == 0) {
-                throw PsiphonError.Runtime("Submitted empty feedback")
+                throw PsiphonError.Runtime(NSLocalizedString("User submitted empty feedback", comment: "Error message generated when user attempts to submit an empty feedback form"))
             }
 
             // Check survey response
             var surveyResponse = ""
-            let questionHash = "24f5c290039e5b0a2fd17bfcdb8d3108"
-            let questionTitle = "Overall satisfaction"
-            
-            if (thumbIndex != -1) { // more input validation? constant?
-                surveyResponse = Feedback(title: questionTitle, question: questionHash, answer: thumbIndex).description // more input validation?
+            if (thumbIndex != FeedbackFormConstants.thumbIndexUnselected) {
+                surveyResponse = Feedback(title: FeedbackFormConstants.questionTitle, question: FeedbackFormConstants.questionHash, answer: thumbIndex).description
             }
             
             feedbackBlob["Feedback"] = [
@@ -116,8 +136,8 @@ import Security
                         "Build": gatherDeviceInfo(),
                         "PsiphonInfo": [
                             "CLIENT_VERSION": Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
-                            "PROPAGATION_CHANNEL_ID": "tmp", // PsiphonConfig.sharedInstance.getField(field: "PropagationChannelId"),
-                            "SPONSOR_ID": "tmp" //PsiphonConfig.sharedInstance.getField(field: "SponsorId")
+                            "PROPAGATION_CHANNEL_ID": config["PropagationChannelId"] as! String,
+                            "SPONSOR_ID": config["SponsorId"] as! String
                         ],
                         "isAppStoreBuild": true,//isAppStoreBuild(),
                         "isJailbroken": false,//isJailBroken(),
@@ -149,26 +169,23 @@ import Security
             let jsonData = try JSONSerialization.data(withJSONObject: feedbackBlob)
             let jsonString = String(data: jsonData, encoding: String.Encoding.utf8)!
             
-            sendFeedback(feedbackData: jsonString)
+            // Get feedback upload config
+            let pubKey = config["FEEDBACK_ENCRYPTION_PUBLIC_KEY"] as! String
+            let uploadServer = config["FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_SERVER"] as! String
+            let uploadPath = config["FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_PATH"] as! String
+            let uploadServerHeaders = config["FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_SERVER_HEADERS"] as! String
+
+            // Async upload
+            DispatchQueue.global().async(execute: {
+                PsiphonTunnel.sendFeedback(jsonString, connectionConfig: psiphonConfig, publicKey: pubKey, uploadServer: uploadServer, uploadPath: uploadPath, uploadServerHeaders: uploadServerHeaders)
+            })
         } catch PsiphonError.Runtime(let error) {
-            //PsiphonData.sharedInstance.addStatusEntry(id: self.description, formatArgs: [], throwable: Throwable(message: error, stackTrace: Thread.callStackSymbols),
-            //sensitivity: StatusEntry.SensitivityLevel.NOT_SENSITIVE, priority: StatusEntry.PriorityLevel.ERROR)
+            let statusEntry = StatusEntry(id: self.description(), formatArgs: [], throwable: Throwable(message: error, stackTrace: Thread.callStackSymbols), sensitivity: StatusEntry.SensitivityLevel.NOT_SENSITIVE, priority: StatusEntry.PriorityLevel.ERROR)
+            PsiphonData.sharedInstance.addStatusEntry(entry:statusEntry)
         } catch(let unknownError) {
-            //PsiphonData.sharedInstance.addStatusEntry(id: self.description, formatArgs: [], throwable: Throwable(message: unknownError.localizedDescription, stackTrace: Thread.callStackSymbols),
-            //sensitivity: StatusEntry.SensitivityLevel.NOT_SENSITIVE, priority: StatusEntry.PriorityLevel.ERROR)
+            let statusEntry = StatusEntry(id: self.description(), formatArgs: [], throwable: Throwable(message: unknownError.localizedDescription, stackTrace: Thread.callStackSymbols), sensitivity: StatusEntry.SensitivityLevel.NOT_SENSITIVE, priority: StatusEntry.PriorityLevel.ERROR)
+            PsiphonData.sharedInstance.addStatusEntry(entry:statusEntry)
         }
-    }
-    
-    class func sendFeedback(feedbackData: String) {
-        /*let pubKey = PsiphonConfig.sharedInstance.getField(field: "FEEDBACK_ENCRYPTION_PUBLIC_KEY") as! String
-        let uploadServer = PsiphonConfig.sharedInstance.getField(field: "FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_SERVER") as! String
-        let uploadPath = PsiphonConfig.sharedInstance.getField(field: "FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_PATH") as! String
-        let uploadServerHeaders = PsiphonConfig.sharedInstance.getField(field: "FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_SERVER_HEADERS") as! String
-        */
-        // Async upload
-        /*DispatchQueue.global().async(execute: {
-         Psi.sendFeedback(PsiphonConfig.sharedInstance.getConfig(), diagnostics: feedbackData, b64EncodedPublicKey: pubKey, uploadServer: uploadServer, uploadPath: uploadPath, uploadServerHeaders: uploadServerHeaders)
-         })*/
     }
     
     class func gatherDeviceInfo() -> Dictionary<String, String> {

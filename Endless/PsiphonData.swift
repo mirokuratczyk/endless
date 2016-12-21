@@ -225,8 +225,12 @@ class PsiphonData: NSObject {
         return self.diagnosticHistory
     }
     
+    func getDiagnosticLogs() -> [String] {
+        return getDiagnosticLogs(n: nil)
+    }
+
     // Get last `n` diagnostic logs for display
-    func getDiagnosticLogs(n: Int? = nil) -> [String] {
+    func getDiagnosticLogs(n: Int?) -> [String] {
         var entries: [DiagnosticEntry] = []
         
         if let numEntries = n {
