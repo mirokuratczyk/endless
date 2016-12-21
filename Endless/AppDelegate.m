@@ -148,6 +148,8 @@ BOOL needsResume;
         }
         CFSocketInvalidate(sockfd);
         CFRelease(sockfd);
+        CFRelease(connectAddr);
+        
     } else {
 		needStart = true;
 	}
