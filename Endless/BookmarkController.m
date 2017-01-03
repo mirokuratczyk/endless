@@ -5,13 +5,11 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "Bookmark.h"
 #import "BookmarkController.h"
 
 @implementation BookmarkController
 
-AppDelegate *appDelegate;
 UIBarButtonItem *addItem;
 UIBarButtonItem *leftItem;
 BOOL isRTL;
@@ -20,8 +18,6 @@ BOOL isRTL;
 {
 	[super viewDidLoad];
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
-	
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	
 	self.title = NSLocalizedString(@"Bookmarks", nil);
 	self.navigationItem.rightBarButtonItem = addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem:)];
@@ -113,7 +109,7 @@ BOOL isRTL;
 	Bookmark *bookmark = [Bookmark list][[indexPath row]];
 	
 	if (self.embedded)
-		[[appDelegate webViewController] prepareForNewURLFromString:[bookmark urlString]];
+		[[Appdelegate webViewController] prepareForNewURLFromString:[bookmark urlString]];
 	else {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		

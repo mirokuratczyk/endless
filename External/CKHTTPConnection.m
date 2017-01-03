@@ -16,7 +16,6 @@
 #import "CKHTTPConnection.h"
 #import "SettingsViewController.h"
 #import "SSLCertificate.h"
-#import "AppDelegate.h"
 
 /* disable keep-alives for now, as they cause problems with ssl connection options */
 #undef USE_KEEPALIVES
@@ -141,8 +140,7 @@
 	CFReadStreamSetProperty((__bridge CFReadStreamRef)(_HTTPStream), kCFStreamPropertyHTTPAttemptPersistentConnection, kCFBooleanFalse);
 #endif
 	
-	AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-	NSInteger proxyPort = appDelegate.socksProxyPort;
+	NSInteger proxyPort = Appdelegate.socksProxyPort;
 	
 	NSMutableDictionary *socksProxy = [NSMutableDictionary
 									   dictionaryWithObjectsAndKeys:@"127.0.0.1",(NSString *)kCFStreamPropertySOCKSProxyHost,

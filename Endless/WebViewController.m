@@ -5,7 +5,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "BookmarkController.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "HostSettings.h"
@@ -24,7 +23,6 @@
 #define TOOLBAR_BUTTON_SIZE 30
 
 @implementation WebViewController {
-	AppDelegate *appDelegate;
 
 	UIScrollView *tabScroller;
 	UIPageControl *tabChooser;
@@ -71,10 +69,9 @@
 {
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appDelegate setWebViewController:self];
+	[Appdelegate setWebViewController:self];
 	
-	[appDelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
+	[Appdelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
 	
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
 	curTabIndex = 0;
@@ -332,7 +329,7 @@
 /* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![appDelegate areTesting]) {
+	if (webViewTabs.count == 0 && ![Appdelegate areTesting]) {
         /*
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
@@ -593,8 +590,11 @@
 
 - (void)addNewTabFromToolbar:(id)_id
 {
+    //avoid capturing 'self'
+    UITextField *localURLField = urlField;
+    
 	[self addNewTabForURL:nil forRestoration:NO withCompletionBlock:^(BOOL finished) {
-		[urlField becomeFirstResponder];
+		[localURLField becomeFirstResponder];
 	}];
 }
 
@@ -629,7 +629,7 @@
 	[wvt close];
 	wvt = nil;
 	
-	[[appDelegate cookieJar] clearNonWhitelistedDataForTab:wvtHash];
+	[[Appdelegate cookieJar] clearNonWhitelistedDataForTab:wvtHash];
 
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
@@ -645,8 +645,12 @@
 			}
 			else {
 				/* no tabs left, add one and zoom out */
-				[self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
-					[urlField becomeFirstResponder];
+                
+                //avoid capturing 'self'
+                UITextField *localURLField = urlField;
+				
+                [self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
+					[localURLField becomeFirstResponder];
 				}];
 				return;
 			}
@@ -881,7 +885,7 @@
 - (void)prepareForNewURLFromString:(NSString *)url
 {
 	/* user is shifting to a new place, probably a good time to clear old data */
-	[[appDelegate cookieJar] clearAllOldNonWhitelistedData];
+	[[Appdelegate cookieJar] clearAllOldNonWhitelistedData];
 	
 	NSURL *enteredURL = [NSURL URLWithString:url];
 	
@@ -1018,7 +1022,7 @@
 	
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
-	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
+	[[Appdelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
 }
 
 - (void)showTabs:(id)_id
@@ -1084,7 +1088,7 @@
 - (void) addBookmarkFromBottomToolbar:(id)_id {
 	BookmarkController *bc = [[BookmarkController alloc] init];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:bc];
-	[[appDelegate webViewController] presentViewController:navController animated:YES completion:nil];
+	[[Appdelegate webViewController] presentViewController:navController animated:YES completion:nil];
 }
 
 

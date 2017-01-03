@@ -5,21 +5,18 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "CookieController.h"
 
 @implementation CookieController
 
-AppDelegate *appDelegate;
 NSMutableArray *sortedCookieHosts;
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
-	sortedCookieHosts = [NSMutableArray arrayWithArray:[[appDelegate cookieJar] sortedHostCounts]];
+	sortedCookieHosts = [NSMutableArray arrayWithArray:[[Appdelegate cookieJar] sortedHostCounts]];
 
 	self.title = NSLocalizedString(@"Cookies and Local Storage", nil);
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
@@ -86,7 +83,7 @@ NSMutableArray *sortedCookieHosts;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[[appDelegate cookieJar] clearAllDataForHost:[[sortedCookieHosts objectAtIndex:[indexPath row]] allKeys][0]];
+		[[Appdelegate cookieJar] clearAllDataForHost:[[sortedCookieHosts objectAtIndex:[indexPath row]] allKeys][0]];
 		[sortedCookieHosts removeObjectAtIndex:[indexPath row]];
 		
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

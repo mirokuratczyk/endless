@@ -17,7 +17,6 @@
  *
  */
 
-#import "AppDelegate.h"
 #import "FeedbackViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKTextField.h"
@@ -96,8 +95,7 @@
     NSString *emailAddress = [userDefaults stringForKey:kEmailSpecifierKey];
     BOOL uploadDiagnostics = [userDefaults boolForKey:kSendDiagnosticsSpecifierKey];
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSString *psiphonConfig = [appDelegate getPsiphonConfig];
+    NSString *psiphonConfig = [Appdelegate getPsiphonConfig];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [FeedbackUpload generateAndSendFeedbackWithThumbIndex:selectedThumbIndex

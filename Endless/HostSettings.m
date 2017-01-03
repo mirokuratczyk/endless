@@ -5,7 +5,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "HostSettings.h"
 
 @implementation HostSettings
@@ -57,7 +56,7 @@ NSMutableDictionary *_hosts;
 
 + (void)persist
 {
-	if ([(AppDelegate *)[[UIApplication sharedApplication] delegate] areTesting])
+	if ([Appdelegate areTesting])
 		abort();
 		
 	NSMutableDictionary *td = [[NSMutableDictionary alloc] initWithCapacity:[[self hosts] count]];

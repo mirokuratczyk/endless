@@ -8,7 +8,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
 #import "LocalNetworkChecker.h"
@@ -21,7 +20,6 @@
 
 @implementation URLInterceptor
 
-static AppDelegate *appDelegate;
 static BOOL sendDNT = true;
 static NSMutableArray *tmpAllowed;
 
@@ -101,9 +99,6 @@ static NSString *_javascriptToInject;
 		/* can't do anything for these URLs */
 		return NO;
 	
-	if (appDelegate == nil)
-		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	
 	return YES;
 }
 
@@ -128,7 +123,7 @@ static NSString *_javascriptToInject;
 		wvthash = [NSString stringWithFormat:@"%lu", [(NSNumber *)[NSURLProtocol propertyForKey:WVT_KEY inRequest:request] longValue]];
 
 	if (wvthash != nil && ![wvthash isEqualToString:@""]) {
-		for (WebViewTab *_wvt in [[appDelegate webViewController] webViewTabs]) {
+		for (WebViewTab *_wvt in [[Appdelegate webViewController] webViewTabs]) {
 			if ([[NSString stringWithFormat:@"%lu", (unsigned long)[_wvt hash]] isEqualToString:wvthash]) {
 				wvt = _wvt;
 				break;
@@ -137,7 +132,7 @@ static NSString *_javascriptToInject;
 	}
 	
 	if (wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]])
-		wvt = [[[appDelegate webViewController] webViewTabs] firstObject];
+		wvt = [[[Appdelegate webViewController] webViewTabs] firstObject];
 	
 	if (wvt == nil) {
 		NSLog(@"[URLInterceptor] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
@@ -159,7 +154,7 @@ static NSString *_javascriptToInject;
 				[alertController addAction:cancelAction];
 				[alertController addAction:okAction];
 				
-				[[appDelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+				[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
 			}
 		}
 		
@@ -241,7 +236,7 @@ static NSString *_javascriptToInject;
 		self.originHostSettings = [HostSettings settingsOrDefaultsForHost:oHost];
 
 	/* check HSTS cache first to see if scheme needs upgrading */
-	[newRequest setURL:[[appDelegate hstsCache] rewrittenURI:[[self request] URL]]];
+	[newRequest setURL:[[Appdelegate hstsCache] rewrittenURI:[[self request] URL]]];
 	
 	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
 	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[[self request] URL] host]];
@@ -283,7 +278,7 @@ static NSString *_javascriptToInject;
 	
 	/* we're handling cookies ourself */
 	[newRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[appDelegate cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
+	NSArray *cookies = [[Appdelegate cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
 	if (cookies != nil && [cookies count] > 0) {
 #ifdef TRACE_COOKIES
 		NSLog(@"[URLInterceptor] [Tab %@] sending %lu cookie(s) to %@", wvt.tabIndex, [cookies count], [newRequest URL]);
@@ -382,15 +377,15 @@ static NSString *_javascriptToInject;
 	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
 	
 	/* save any cookies we just received */
-	[[appDelegate cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
+	[[Appdelegate cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
 	
 	/* in case of localStorage */
-	[[appDelegate cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
+	[[Appdelegate cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
 	
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
 		if (hsts != nil && ![hsts isEqualToString:@""]) {
-			[[appDelegate hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
+			[[Appdelegate hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
 		}
 	}
 	
@@ -566,7 +561,7 @@ static NSString *_javascriptToInject;
 				[[challenge sender] useCredential:nsuc forAuthenticationChallenge:challenge];
 			}]];
 			
-			[[appDelegate webViewController] presentViewController:uiac animated:YES completion:nil];
+			[[Appdelegate webViewController] presentViewController:uiac animated:YES completion:nil];
 		});
 	}
 	else {

@@ -5,12 +5,10 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "Bookmark.h"
 
 @implementation Bookmark
 
-static AppDelegate *appDelegate;
 static NSMutableArray *_list;
 
 NSString * const BOOKMARK_KEY_NAME = @"name";
@@ -29,7 +27,6 @@ const int BOOKMARK_FILE_VERSION = 1;
 
 + (void)retrieveList
 {
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	_list = nil;
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -116,7 +113,7 @@ const int BOOKMARK_FILE_VERSION = 1;
 
 + (UIAlertController *)addBookmarkDialogWithOkCallback:(void (^)(void))callback
 {
-	WebViewTab *wvt = [[appDelegate webViewController] curWebViewTab];
+	WebViewTab *wvt = [[Appdelegate webViewController] curWebViewTab];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add Bookmark", nil)
                                                                              message:NSLocalizedString(@"Enter the details of the URL to bookmark:", nil)

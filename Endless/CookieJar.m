@@ -5,7 +5,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "CookieJar.h"
 #import "HostSettings.h"
 #import "HTTPSEverywhere.h"
@@ -25,14 +24,10 @@
 
 @implementation CookieJar
 
-AppDelegate *appDelegate;
-
 - (CookieJar *)init
 {
 	self = [super init];
 	
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
 	_cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 	[_cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain];
 
