@@ -957,7 +957,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -989,7 +988,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0046D8AA27B31019AEAC6C00 /* Pods-Psiphon Browser Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
