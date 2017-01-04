@@ -23,7 +23,7 @@
 
 @implementation NSBundle (Language)
 
-static NSBundle *languageBundle = nil;
+static NSString *_language = nil;
 
 + (void)load
 {
@@ -32,20 +32,33 @@ static NSBundle *languageBundle = nil;
 
 +(void)setLanguage:(NSString*)language
 {
-	languageBundle = language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil;
-    if (languageBundle == nil) {
-        languageBundle = [NSBundle mainBundle];
-    }
+    _language = language;
 }
 
 - (NSString *)swizzled_localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName NS_FORMAT_ARGUMENT(1);
 {
-	if (languageBundle)
-	{
-		return [languageBundle swizzled_localizedStringForKey:key value:value table:tableName];
-	}
-	
-	return [self swizzled_localizedStringForKey:key value:value table:tableName];
+    NSBundle *currentBundle = nil;
+    NSBundle *languageBundle  = nil;
+    
+    // Use default localization if language is not set
+    if( _language == nil) {
+        return [self swizzled_localizedStringForKey:key value:value table:tableName];
+    } else {
+        // Determine if self bundle is one of our own, either main or IASK
+        if ([[self bundlePath] isEqualToString:[[NSBundle mainBundle] bundlePath]] ||
+            [[self bundlePath] isEqualToString:([[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"])]) {
+            currentBundle = [NSBundle mainBundle];
+            
+        } else {
+            currentBundle = self;
+        }
+    }
+    
+    languageBundle = [NSBundle bundleWithPath:[currentBundle pathForResource:_language ofType:@"lproj"]];
+    if (languageBundle == nil) {
+        languageBundle = currentBundle;
+    }
+    return [languageBundle swizzled_localizedStringForKey:key value:value table:tableName];
 }
 
 @end
