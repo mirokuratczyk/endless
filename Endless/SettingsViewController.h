@@ -23,6 +23,8 @@
 //app language key
 #define appLanguage              @"appLanguage"
 
+// Globally used specifier keys
+#define kRegionSelectionSpecifierKey @"regionSelection"
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
 #define minTlsVersion            @"minTlsVersion"
 #define useUpstreamProxy         @"useUpstreamProxy"

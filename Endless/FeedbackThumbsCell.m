@@ -22,10 +22,10 @@
 #define kThumbsUpIndex 0
 #define kThumbsDownIndex 1
 
-#define kThumbsUpGrayscale @"thumbs-up-grayscale.png"
-#define kThumbsUpColor @"thumbs-up-color.png"
-#define kThumbsDownGrayscale @"thumbs-down-grayscale.png"
-#define kThumbsDownColor @"thumbs-down-color.png"
+#define kThumbsUpGrayscale @"thumbs-up-grayscale"
+#define kThumbsUpColor @"thumbs-up-color"
+#define kThumbsDownGrayscale @"thumbs-down-grayscale"
+#define kThumbsDownColor @"thumbs-down-color"
 
 #define kTextToButtonSizeRatio 7.0/16
 #define kTopToImageOffset 20.0

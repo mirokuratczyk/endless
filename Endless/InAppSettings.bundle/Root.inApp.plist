@@ -12,6 +12,18 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>RegionSelection</string>
+			<key>Title</key>
+			<string>CHANGE_REGION</string>
+			<key>Key</key>
+			<string>regionSelection</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>best-performance</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>PsiphonSettings</string>
 			<key>Title</key>
 			<string>PSIPHON_SETTINGS</string>

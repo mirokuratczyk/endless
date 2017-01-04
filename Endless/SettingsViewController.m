@@ -26,6 +26,7 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
 #import "LogViewController.h"
+#import "RegionSelectionViewController.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
 #import "NSBundle+Language.h"
@@ -43,6 +44,13 @@ static AppDelegate *appDelegate;
 @implementation SettingsViewController {
     NSMutableArray *tlsVersions;
     NSMutableArray *tlsShortTitles;
+
+    UITableViewCell *flagCell;
+    UIImageView *flagImage;
+    UIImageView *flagText;
+    NSMutableDictionary *regionCodeToTitle;
+
+    BOOL isRTL;
 }
 
 
@@ -54,7 +62,8 @@ BOOL linksEnabled;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
+
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		links = @[kAboutSpecifierKey, kFAQSpecifierKey, kPrivacyPolicySpecifierKey, kTermsOfUseSpecifierKey];
@@ -89,6 +98,17 @@ BOOL linksEnabled;
                 [tlsShortTitles addObject:shortTitle];
             }
         }
+    }
+
+    // Setup dictionary of region code to region name for display
+    plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"RegionSelection.plist"];
+    settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    regionCodeToTitle = [[NSMutableDictionary alloc] init];
+
+    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
+        NSString *key = [pref objectForKey:@"Key"];
+        NSString *detailText = [self.settingsReader.settingsBundle localizedStringForKey:[pref objectForKey:@"Title"] value:[pref objectForKey:@"Title"]  table:self.settingsReader.localizationTable];
+        [regionCodeToTitle setObject:detailText forKey:key];
     }
 }
 
@@ -158,7 +178,37 @@ BOOL linksEnabled;
     } else if ([specifier.key isEqualToString:kLogsSpecifierKey] || [specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = specifier.title;
-	}
+    } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
+        // Prevent coalescing of region titles and flags by removing any existing subviews from the cell's content view
+        [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+        // Get currently selected region
+        NSString *selectedRegion = [[NSUserDefaults standardUserDefaults] stringForKey:kRegionSelectionSpecifierKey];
+        NSString *detailText = [regionCodeToTitle objectForKey:selectedRegion];
+
+        // Style and layout cell
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell.textLabel setText:specifier.title];
+
+        UIImage *thumbs = [UIImage imageNamed:[@"flag-" stringByAppendingString:selectedRegion]]; // Images are "flag-" appened with the corresponding region code
+        flagImage = [[UIImageView alloc] initWithImage:thumbs];
+        flagText = [[UIImageView alloc] initWithImage:[self createTextImage:detailText sizedTo:thumbs cellFont:cell.detailTextLabel.font]];
+
+        // Size and place flag image. Text is sized and placed in viewDidLayoutSubviews
+        if (isRTL) {
+            flagImage.frame = CGRectMake(1, (cell.frame.size.height - flagImage.frame.size.height) / 2 , thumbs.size.width, thumbs.size.height);
+        } else {
+            flagImage.frame = CGRectMake(cell.contentView.frame.size.width - flagImage.frame.size.width, (cell.frame.size.height - flagImage.frame.size.height) / 2, thumbs.size.width, thumbs.size.height);
+        }
+
+        flagImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+
+        // Add flag and region name to detailTextLabel section of cell
+        [cell.contentView addSubview:flagImage];
+        [cell.contentView addSubview:flagText];
+
+        flagCell = cell;
+    }
 	
 	if ([links containsObject:specifier.key] ) {
 		cell.userInteractionEnabled = linksEnabled;
@@ -166,6 +216,56 @@ BOOL linksEnabled;
 		cell.detailTextLabel.enabled = linksEnabled;
 	}
     return cell;
+}
+
+- (void)viewDidLayoutSubviews {
+    // Resize detailText of region selection cell for new layout
+    CGFloat newWidth;
+    CGFloat xOffset;
+
+    if (isRTL) {
+        newWidth =  MIN(flagText.frame.size.width, flagCell.textLabel.frame.origin.x - flagImage.frame.size.width);
+        xOffset = flagImage.frame.size.width;
+    } else {
+        newWidth =  MIN(flagText.frame.size.width, flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width);
+        xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth;
+    }
+
+    flagText.frame = CGRectMake(xOffset, (flagCell.frame.size.height - flagImage.frame.size.height) / 2, newWidth, flagText.image.size.height);
+    [flagCell setNeedsDisplay];
+}
+
+-(UIImage*)createTextImage:(NSString*)text sizedTo:(UIImage*)image cellFont:(UIFont*)font
+{
+    CGFloat leftAndRightPadding = 10.0f;
+    CGRect r = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0)
+                                  options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:@{NSFontAttributeName:font}
+                                  context:nil];
+
+    // Size of the new image
+    CGSize size = CGSizeMake(r.size.width + leftAndRightPadding * 2, image.size.height);
+
+    // Begin rendering image
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+
+    // Text styling
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.alignment = NSTextAlignmentCenter;
+
+    // Draw text inbetween padding
+    UIColor *detailTextLabelColor = [[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"] detailTextLabel] textColor];
+    [text drawInRect:CGRectMake(leftAndRightPadding, image.size.height/8, r.size.width, r.size.height)
+      withAttributes:@{NSFontAttributeName: font,
+                       NSParagraphStyleAttributeName: style,
+                       NSForegroundColorAttributeName: detailTextLabelColor}];
+
+    // Return the rendered image
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return [newImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (BOOL)isValidPort:(NSString *)port {
@@ -272,12 +372,27 @@ BOOL linksEnabled;
                 [textField becomeFirstResponder];
             }
         }
-    } else if ([specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) { // make this a hashmap, check if key exists
+    } else if ([links containsObject:specifier.key]) {
         [self loadUrlForSpecifier:specifier.key];
     } else if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
         LogViewController *vc = [[LogViewController alloc] init];
         vc.title = NSLocalizedString(@"Logs", @"Title screen displaying logs");
         [self.navigationController pushViewController:vc animated:YES];
+    } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
+        // Push new IASK view controller for custom region selection menu
+        RegionSelectionViewController *targetViewController = [[RegionSelectionViewController alloc] init];
+
+        targetViewController.delegate = targetViewController;
+        targetViewController.file = specifier.file;
+        targetViewController.hiddenKeys = self.hiddenKeys;
+        targetViewController.settingsStore = self.settingsStore;
+        targetViewController.showDoneButton = NO;
+        targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
+        targetViewController.title = specifier.title;
+
+        IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
+
+        [self.navigationController pushViewController:targetViewController animated:YES];
     }
 }
 
@@ -307,7 +422,8 @@ BOOL linksEnabled;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier
+{
     IASK_IF_IOS7_OR_GREATER
     (
      NSDictionary *rowHeights = @{UIContentSizeCategoryExtraSmall: @(44),
@@ -334,7 +450,8 @@ BOOL linksEnabled;
     return 44;
 }
 
-- (void)settingDidChange:(NSNotification*)notification {
+- (void)settingDidChange:(NSNotification*)notification
+{
     NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:upstreamProxyHostAddress, upstreamProxyPort, useProxyAuthentication, nil];
     NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:proxyUsername, proxyPassword, proxyDomain, nil];
 
@@ -389,8 +506,6 @@ BOOL linksEnabled;
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		[appDelegate setAppLanguageAndReloadSettings:[notification.userInfo objectForKey:appLanguage]];
     }
-    
-    
 }
 
 - (void)menuHTTPSEverywhere
