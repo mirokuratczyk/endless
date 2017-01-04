@@ -18,8 +18,8 @@ NSMutableArray *sortedCookieHosts;
 
 	sortedCookieHosts = [NSMutableArray arrayWithArray:[[Appdelegate cookieJar] sortedHostCounts]];
 
-	self.title = NSLocalizedString(@"Cookies and Local Storage", nil);
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+	self.title = NSLocalizedString(@"Cookies and Local Storage", @"'Cookies and Local Storage' dialog title");
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Cookies and Local Storage 'Done button title, dismisses the controller")
                                                                              style:UIBarButtonItemStyleDone target:self.navigationController
                                                                             action:@selector(dismissModalViewControllerAnimated:)];
 }

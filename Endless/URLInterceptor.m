@@ -530,7 +530,7 @@ static NSString *_javascriptToInject;
 	/* no credentials, prompt the user */
 	if (nsuc == nil) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			UIAlertController *uiac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", nil) message:@"" preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertController *uiac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"Authentication Required alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
 
 			if ([[challenge protectionSpace] realm] != nil && ![[[challenge protectionSpace] realm] isEqualToString:@""])
 				[uiac setMessage:[NSString stringWithFormat:@"%@: \"%@\"", [[challenge protectionSpace] host], [[challenge protectionSpace] realm]]];
@@ -546,7 +546,7 @@ static NSString *_javascriptToInject;
 				 textField.secureTextEntry = YES;
 			}];
 			
-			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 				[[challenge sender] cancelAuthenticationChallenge:challenge];
 				[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
 			}]];

@@ -7,8 +7,6 @@
 
 #import "BookmarkController.h"
 #import "HTTPSEverywhereRuleController.h"
-#import "HostSettings.h"
-//#import "HostSettingsController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "SettingsViewController.h"
@@ -227,7 +225,7 @@
 	
 	tabAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTabFromToolbar:)];
 	tabDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWithTabsButton:)];
-	tabDoneButton.title = NSLocalizedString(@"Done", nil);
+	tabDoneButton.title = NSLocalizedString(@"Done", @"Done button title, dismisses the tab chooser");
 
 	tabToolbar.items = [NSArray arrayWithObjects:
 			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
@@ -508,11 +506,6 @@
 		return webViewTabs[curTabIndex];
 	else
 		return nil;
-}
-
-- (HostSettings*)curWebViewTabHostSettings
-{
-    return [HostSettings settingsOrDefaultsForHost:[[[self curWebViewTab] url] host]];
 }
 
 - (long)curWebViewTabHttpsRulesCount

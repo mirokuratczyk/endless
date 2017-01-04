@@ -19,9 +19,9 @@ BOOL isRTL;
 	[super viewDidLoad];
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 	
-	self.title = NSLocalizedString(@"Bookmarks", nil);
+	self.title = NSLocalizedString(@"Bookmarks", @"Bookmarks main dialog title");
 	self.navigationItem.rightBarButtonItem = addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem:)];
-	self.navigationItem.leftBarButtonItem = leftItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+	self.navigationItem.leftBarButtonItem = leftItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Bookmarks dialog 'Done' button title, dismisses the dialog")
                                                                                         style:UIBarButtonItemStyleDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
 	
 	UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
@@ -56,7 +56,7 @@ BOOL isRTL;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if (self.embedded)
-		return NSLocalizedString(@"Bookmarks", nil);
+		return NSLocalizedString(@"Bookmarks", @"Bookmarks table header title");
 	else
 		return nil;
 }
@@ -113,15 +113,15 @@ BOOL isRTL;
 	else {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Edit Bookmark", nil)
-                                                                                 message:NSLocalizedString(@"Enter the details of the URL to bookmark:", nil)
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Edit Bookmark", @"Edit Bookmark dialog title")
+                                                                                 message:NSLocalizedString(@"Enter the details of the URL to bookmark:", @"Edit Bookmark dialog title text")
                                                                           preferredStyle:UIAlertControllerStyleAlert];
 		[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-			textField.placeholder = NSLocalizedString(@"URL", nil);
+			textField.placeholder = NSLocalizedString(@"URL", @"'Edit Bookmark' dialog URL field");
 			textField.text = bookmark.urlString;
 		}];
 		[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-			textField.placeholder = NSLocalizedString(@"Page Name (leave blank to use URL)", nil);
+			textField.placeholder = NSLocalizedString(@"Page Name (leave blank to use URL)", @"'Edit Bookmark' dialog page name field");
 			textField.text = bookmark.name;
 		}];
 		

@@ -74,7 +74,7 @@
 	[_title setFont:[UIFont boldSystemFontOfSize:16.0]];
 	[_title setLineBreakMode:NSLineBreakByTruncatingTail];
 	[_title setTextAlignment:NSTextAlignmentCenter];
-	[_title setText:@"New Tab"];
+	[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
 	
 	_closer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[_closer setTextColor:[UIColor whiteColor]];
@@ -328,7 +328,7 @@
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Allow this page to close its tab?" preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 		
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 			[[Appdelegate webViewController] removeTab:[self tabIndex]];
@@ -559,19 +559,19 @@
 	
 	alertController = [UIAlertController alertControllerWithTitle:href message:alt preferredStyle:UIAlertControllerStyleActionSheet];
 	
-	UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Open" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[self loadURL:[NSURL URLWithString:href]];
 	}];
 	
-	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:@"Open in a New Tab" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in a New Tab", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[Appdelegate webViewController] addNewTabForURL:[NSURL URLWithString:href]];
 	}];
 	
-	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:@"Open in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:href]];
 	}];
 
-	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:@"Save Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Save Image", @"Action title for long press on image dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		NSURL *imgurl = [NSURL URLWithString:img];
 		[URLInterceptor temporarilyAllow:imgurl];
 		NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
@@ -580,12 +580,12 @@
 			UIImageWriteToSavedPhotosAlbum(i, self, nil, nil);
 		}
 		else {
-			UIAlertView *m = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"An error occurred downloading image %@", img] delegate:self cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+			UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Error alert message text"), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
 			[m show];
 		}
 	}];
 	
-	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:@"Copy URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Copy URL", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIPasteboard generalPasteboard] setString:(href ? href : img)];
 	}];
 	
