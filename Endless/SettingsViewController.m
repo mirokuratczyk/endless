@@ -28,7 +28,6 @@
 #import "LogViewController.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
-#import "NSBundle+Language.h"
 
 static AppDelegate *appDelegate;
 
@@ -387,7 +386,7 @@ BOOL linksEnabled;
     } else if  ([fieldName isEqual:appLanguage]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-		[appDelegate setAppLanguageAndReloadSettings:[notification.userInfo objectForKey:appLanguage]];
+		[appDelegate reloadAndOpenSettings];
     }
     
     

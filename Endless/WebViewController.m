@@ -474,6 +474,19 @@
 	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	
 	urlField.frame = [self frameForUrlField];
+	CGRect indicatorFrame;
+	if(isRTL) {
+		indicatorFrame = CGRectMake(size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	} else {
+		indicatorFrame = CGRectMake(TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	}
+	psiphonConnectionIndicator.frame = indicatorFrame;
 	[self updateSearchBarDetails];
 	[self.view setNeedsDisplay];
 }

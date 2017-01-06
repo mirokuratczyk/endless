@@ -9,7 +9,6 @@
 #import "Bookmark.h"
 #import "HTTPSEverywhere.h"
 #import "URLInterceptor.h"
-#import "NSBundle+Language.h"
 #import <CoreFoundation/CFSocket.h>
 #import <sys/socket.h>
 #import <netinet/in.h>
@@ -37,9 +36,6 @@ BOOL needsResume;
 	
 	[self initializeDefaults];
 	
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[NSBundle setLanguage:[userDefaults objectForKey:appLanguage]];
-
     return YES;
 }
 
@@ -357,9 +353,7 @@ BOOL needsResume;
 }
 
 
-- (void) setAppLanguageAndReloadSettings:(NSString *)language {
-	[NSBundle setLanguage:language];
-
+- (void) reloadAndOpenSettings {
     NSMutableArray * reloadURLS = [NSMutableArray new];
     NSArray * wvTabs = [self.webViewController webViewTabs];
     
