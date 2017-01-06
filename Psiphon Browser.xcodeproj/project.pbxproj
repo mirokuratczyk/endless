@@ -58,6 +58,7 @@
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
 		4412BD271DF7450100C18B97 /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 4412BD261DF7450100C18B97 /* NSBundle+Language.m */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
+		44C7B2081E2040A700432BBB /* UIUserInterfaceLayout+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* UIUserInterfaceLayout+Swizzle.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
 		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
 		44E779301DE4DCD400854379 /* OnePasswordExtension.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E779321DE4DCD400854379 /* OnePasswordExtension.strings */; };
@@ -188,6 +189,7 @@
 		4412BD261DF7450100C18B97 /* NSBundle+Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+Language.m"; path = "Endless/NSBundle+Language.m"; sourceTree = SOURCE_ROOT; };
 		446CB0A01DFF613900AEC0A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Root.strings; sourceTree = "<group>"; };
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
+		44C7B2071E2040A700432BBB /* UIUserInterfaceLayout+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIUserInterfaceLayout+Swizzle.m"; path = "Endless/UIUserInterfaceLayout+Swizzle.m"; sourceTree = SOURCE_ROOT; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44E779311DE4DCD400854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
 				4412BD251DF744E000C18B97 /* NSBundle+Language.h */,
 				4412BD261DF7450100C18B97 /* NSBundle+Language.m */,
+				44C7B2071E2040A700432BBB /* UIUserInterfaceLayout+Swizzle.m */,
 			);
 			path = Psiphon;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 				0135F47F1A3E548F005A8F16 /* WebViewTab.m in Sources */,
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
+				44C7B2081E2040A700432BBB /* UIUserInterfaceLayout+Swizzle.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
 				4E8EE2081DF62FAC00AEF819 /* FeedbackViewController.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
