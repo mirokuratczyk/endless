@@ -50,6 +50,10 @@
 - (UIUserInterfaceLayoutDirection) swizzled_userInterfaceLayoutDirection {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
+	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
+		language = nil;
+	}
+	
 	if (language == nil) {
 		return [self swizzled_userInterfaceLayoutDirection];
 	}
@@ -76,6 +80,10 @@
 - (UISemanticContentAttribute) swizzled_semanticContentAttribute {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
+	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
+		language = nil;
+	}
+	
 	
 	if (language == nil) {
 		return [self swizzled_semanticContentAttribute];
@@ -85,16 +93,7 @@
 	if ([AppLanguageHelper isRTLLanguage:language]) {
 		return UISemanticContentAttributeForceRightToLeft;
 	}
-	UISemanticContentAttribute originalSemanticAttribute = [self swizzled_semanticContentAttribute];
-	if (originalSemanticAttribute == UISemanticContentAttributeForceLeftToRight)
-	{
-		// override if in-app language is RTL
-		if ([AppLanguageHelper isRTLLanguage:language]) {
-			return UISemanticContentAttributeForceRightToLeft;
-		}
-	}
-	
-	return originalSemanticAttribute;
+	return UISemanticContentAttributeForceLeftToRight;
 }
 
 @end
@@ -120,7 +119,6 @@
 	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
 		language = nil;
 	}
-	
 	
 	// Use default localization if language is not set
 	if( language == nil) {
