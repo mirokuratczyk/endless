@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Psiphon Inc.
+ * Copyright (c) 2017, Psiphon Inc.
  * All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -120,19 +120,20 @@
 		language = nil;
 	}
 	
-	// Use default localization if language is not set
-	if( language == nil) {
-		return [self swizzled_localizedStringForKey:key value:value table:tableName];
-	} else {
-		// Determine if self bundle is one of our own, either main or IASK
-		if ([[self bundlePath] isEqualToString:[[NSBundle mainBundle] bundlePath]] ||
-			[[self bundlePath] isEqualToString:([[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"])]) {
-			currentBundle = [NSBundle mainBundle];
-		} else {
-			currentBundle = self;
-		}
-	}
-	
+    // Determine if self bundle is one of our own, either main or IASK
+    // Override self with main bundle if that's the case
+    if ([[self bundlePath] isEqualToString:[[NSBundle mainBundle] bundlePath]] ||
+        [[self bundlePath] isEqualToString:([[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"])]) {
+        currentBundle = [NSBundle mainBundle];
+    } else {
+        currentBundle = self;
+    }
+    
+    // Use default localization if language is not set
+    if( language == nil) {
+        return [currentBundle swizzled_localizedStringForKey:key value:value table:tableName];
+    }
+    
 	languageBundle = [NSBundle bundleWithPath:[currentBundle pathForResource:language ofType:@"lproj"]];
 	if (languageBundle == nil) {
 		languageBundle = currentBundle;
