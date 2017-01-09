@@ -280,9 +280,6 @@ BOOL needsResume;
         abort();
     }
     
-    mutableConfigCopy[@"X-Test-Flag"] = @"X-Test-Value";
-    
-    
     jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
                                                options:0 // non-pretty printing
                                                  error:&e];
