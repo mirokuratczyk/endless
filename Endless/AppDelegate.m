@@ -14,6 +14,7 @@
 #import <netinet/in.h>
 #import <arpa/inet.h>
 #import "DTReachability.h"
+#import <AudioToolbox/AudioServices.h>
 
 #import "PsiphonBrowser-Swift.h"
 
@@ -318,6 +319,16 @@ BOOL needsResume;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		self.psiphonConectionState = PsiphonConnectionStateConnected;
 		[self notifyPsiphonConnectionState];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        if ([userDefaults boolForKey:@"vibrate_notification"]) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
+        if ([userDefaults boolForKey:@"sound_notification"]) {
+            //TODO: play sound
+        }
+        
 		
 		if(self.shouldOpenHomePages) {
 			NSMutableArray * openURLs = [NSMutableArray new];
