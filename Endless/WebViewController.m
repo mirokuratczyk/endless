@@ -114,21 +114,8 @@
 	[urlField setDelegate:self];
 	[navigationBar addSubview:urlField];
 	
-
-	CGRect indicatorFrame;
-	if(isRTL) {
-		indicatorFrame = CGRectMake(self.view.bounds.size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
-	} else {
-		indicatorFrame = CGRectMake(TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
-	}
 	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]initWithFrame:
-							   indicatorFrame];
+							   [self frameForConnectionIndicator]];
 	
 	[navigationBar addSubview:psiphonConnectionIndicator];
 	
@@ -472,6 +459,7 @@
 	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	
 	urlField.frame = [self frameForUrlField];
+	psiphonConnectionIndicator.frame = [self frameForConnectionIndicator];
 	[self updateSearchBarDetails];
 	[self.view setNeedsDisplay];
 }
@@ -479,6 +467,24 @@
 - (CGRect)frameForTabIndex:(NSUInteger)number
 {
 	return CGRectMake((self.view.frame.size.width * number), 0, self.view.frame.size.width, tabScroller.frame.size.height);
+}
+
+- (CGRect) frameForConnectionIndicator {
+	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+	CGRect frame;
+	if(isRTL) {
+		frame = CGRectMake(size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	} else {
+		frame = CGRectMake(TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	}
+	return frame;
+	
 }
 
 - (CGRect)frameForUrlField

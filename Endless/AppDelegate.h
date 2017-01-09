@@ -42,7 +42,7 @@
 @property PsiphonConnectionState psiphonConectionState;
 @property (strong, nonatomic) NSMutableArray *homePages;
 
-- (void) setAppLanguageAndReloadSettings : (NSString*)language;
+- (void) reloadAndOpenSettings;
 - (NSString *) getPsiphonConfig;
 
 @end
