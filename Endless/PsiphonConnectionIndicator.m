@@ -18,6 +18,8 @@
  */
 
 #import "PsiphonConnectionIndicator.h"
+#import <AudioToolbox/AudioServices.h>
+
 
 @implementation PsiphonConnectionIndicator
 
@@ -48,12 +50,19 @@ UIActivityIndicatorView *activityIndicator;
 }
 
 - (void) displayConnectionState:(PsiphonConnectionState)state {
-	
+    
 	CGFloat activityIndicatorAlpha, imgConnectedAlpha, imgDisconnectedAlpha = 0.0f;
 	void (^animationCompleted)(BOOL finished);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	
 	switch (state) {
 		case PsiphonConnectionStateConnected:
+            if ((BOOL)[userDefaults objectForKey:@"sound_notification"] == YES) {
+                //TODO: play sound
+            }
+            if ((BOOL)[userDefaults objectForKey:@"vibrate_notification"] == YES) {
+                //TODO: vibrate
+            }
 			activityIndicatorAlpha = 0.0f;
 			imgConnectedAlpha = 1.0f;
 			imgDisconnectedAlpha = 0.0f;
@@ -88,7 +97,6 @@ UIActivityIndicatorView *activityIndicator;
 						 imgDisconnected.alpha = imgDisconnectedAlpha;
 					 }
 					 completion: animationCompleted];
-	
 }
 
 @end

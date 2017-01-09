@@ -388,8 +388,6 @@ BOOL linksEnabled;
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		[appDelegate reloadAndOpenSettings];
     }
-    
-    
 }
 
 - (void)menuHTTPSEverywhere

@@ -199,7 +199,6 @@
 		44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionIndicator.m; path = Endless/PsiphonConnectionIndicator.m; sourceTree = SOURCE_ROOT; };
 		44E779411DE6031A00854379 /* PsiphonTunnel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PsiphonTunnel.framework; path = Endless/PsiphonTunnel.framework; sourceTree = SOURCE_ROOT; };
 		44E779451DE6038000854379 /* psiphon_config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = psiphon_config; path = Endless/psiphon_config; sourceTree = SOURCE_ROOT; };
-		44E779491DE6046C00854379 /* psiphon_config */ = {isa = PBXFileReference; lastKnownFileType = text; name = psiphon_config; path = Endless/psiphon_config; sourceTree = "<group>"; };
 		4E1175171DD6310A009527EB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E3F7BEB1E00F90F0058E38D /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
@@ -257,7 +256,6 @@
 		01801E891A32CA2A002B4718 = {
 			isa = PBXGroup;
 			children = (
-				44E779491DE6046C00854379 /* psiphon_config */,
 				44E778F71DDB723900854379 /* Psiphon */,
 				01801E941A32CA2A002B4718 /* Endless */,
 				01801EC11A3360B1002B4718 /* Resources */,
@@ -439,8 +437,8 @@
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
 				44E7793F1DE6031A00854379 /* PsiphonConnectionIndicator.h */,
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
-				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
 				44C7B2071E2040A700432BBB /* L18n+Swizzling.m */,
+				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
 			);
 			path = Psiphon;
 			sourceTree = "<group>";

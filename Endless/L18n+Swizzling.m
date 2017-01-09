@@ -19,31 +19,13 @@
 
 #import <objc/runtime.h>
 
-@interface AppLanguageHelper : NSObject
-+ (BOOL) isRTLLanguage:(NSString*)language;
-@end
-
-@implementation AppLanguageHelper
-
-+ (BOOL) isRTLLanguage:(NSString*)language {
-	static NSArray *rtlLanguages;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		rtlLanguages = @[@"ar", @"fa", @"he"];
-	});
-	
-	BOOL ret = [rtlLanguages containsObject:language];
-	return ret;
-}
-@end
-
 @implementation UIApplication (UIInterfaceDirection)
 
 + (void)load
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-	method_exchangeImplementations(class_getInstanceMethod(self, @selector(userInterfaceLayoutDirection)), class_getInstanceMethod(self, @selector(swizzled_userInterfaceLayoutDirection)));
+        method_exchangeImplementations(class_getInstanceMethod(self, @selector(userInterfaceLayoutDirection)), class_getInstanceMethod(self, @selector(swizzled_userInterfaceLayoutDirection)));
 	});
 }
 
@@ -58,11 +40,7 @@
 		return [self swizzled_userInterfaceLayoutDirection];
 	}
 	
-	if ([AppLanguageHelper isRTLLanguage:language]) {
-		return UIUserInterfaceLayoutDirectionRightToLeft;
-	}
-	
-	return UIUserInterfaceLayoutDirectionLeftToRight;
+    return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UIUserInterfaceLayoutDirectionRightToLeft : UIUserInterfaceLayoutDirectionLeftToRight;
 }
 
 @end
@@ -73,7 +51,7 @@
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-	method_exchangeImplementations(class_getInstanceMethod(self, @selector(semanticContentAttribute)), class_getInstanceMethod(self, @selector(swizzled_semanticContentAttribute)));
+        method_exchangeImplementations(class_getInstanceMethod(self, @selector(semanticContentAttribute)), class_getInstanceMethod(self, @selector(swizzled_semanticContentAttribute)));
 	});
 }
 
@@ -89,11 +67,7 @@
 		return [self swizzled_semanticContentAttribute];
 	}
 	
-	// override if in-app language is RTL
-	if ([AppLanguageHelper isRTLLanguage:language]) {
-		return UISemanticContentAttributeForceRightToLeft;
-	}
-	return UISemanticContentAttributeForceLeftToRight;
+    return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
 }
 
 @end

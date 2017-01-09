@@ -245,6 +245,9 @@ BOOL needsResume;
 {
     [self initializeDefaultsFor:@"Root.inApp.plist"];
     [self initializeDefaultsFor:@"Security.plist"];
+    [self initializeDefaultsFor:@"Notifications~iphone.plist"];
+    [self initializeDefaultsFor:@"Notifications~ipad.plist"];
+    
     _searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
 }
 
