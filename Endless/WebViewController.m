@@ -9,11 +9,12 @@
 #import "BookmarkController.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "HostSettings.h"
-//#import "HostSettingsController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
+#import "RegionAdapter.h"
 #import "SettingsViewController.h"
 #import "SSLCertificateViewController.h"
+#import "UpstreamProxySettings.h"
 #import "URLInterceptor.h"
 #import "WebViewController.h"
 #import "WebViewTab.h"
@@ -65,6 +66,8 @@
 	BookmarkController *bookmarks;
 	
 	BOOL isRTL;
+    
+    NSMutableDictionary *preferencesSnapshot;
 }
 
 - (void)loadView
@@ -979,6 +982,9 @@
 
 - (void)openSettingsMenu:(id)_id
 {
+    // Take a snapshot of current user settings
+    preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+
     if (appSettingsViewController == nil) {
         appSettingsViewController = [[SettingsViewController alloc] init];
         appSettingsViewController.delegate = appSettingsViewController;
@@ -988,11 +994,11 @@
     }
 
     // These keys correspond to settings in PsiphonOptions.plist
-    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:useUpstreamProxy];
-    BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:useProxyAuthentication];
+    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
+    BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
 
-    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:upstreamProxyHostAddress, upstreamProxyPort, useProxyAuthentication, nil];
-    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:proxyUsername, proxyPassword, proxyDomain, nil];
+    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
+    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
 
     // Hide configurable fields until user chooses to use upstream proxy
     NSMutableSet *hiddenKeys = upstreamProxyEnabled ? nil : [NSMutableSet setWithArray:upstreamProxyKeys];
@@ -1014,11 +1020,90 @@
 
 - (void)settingsViewControllerDidEnd
 {
+    // Update relevant ivars to match current settings
 	[self dismissViewControllerAnimated:YES completion:nil];
-	
+
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
 	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
+
+    // Check if settings which have changed require a tunnel service restart to take effect
+    if ([self isSettingsRestartRequired]) {
+        [appDelegate scheduleRunningTunnelServiceRestart];
+    }
+}
+
+- (BOOL)isSettingsRestartRequired
+{
+    UpstreamProxySettings *proxySettings = [UpstreamProxySettings sharedInstance];
+    
+    if (preferencesSnapshot) {
+        // Cannot use isEqualToString becase strings may be nil
+        BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+            return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+        };
+
+        // Check if "disable timeouts" has changed
+        BOOL disableTimeouts = [[preferencesSnapshot objectForKey:kDisableTimeouts] boolValue];
+
+        if (disableTimeouts != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts]) {
+            return YES;
+        }
+
+        // Check if the selected region has changed
+        NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+
+        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+            return YES;
+        }
+
+        // Check if "use proxy" has changed
+        BOOL useUpstreamProxy = [preferencesSnapshot objectForKey:kUseUpstreamProxy];
+
+        if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
+            return YES;
+        }
+
+        // No further checking if "use proxy" is off and has not
+        // changed
+        if (!useUpstreamProxy) {
+            return NO;
+        }
+
+        // If "use proxy" is selected, check if host || port have changed
+        NSString *hostAddress = [preferencesSnapshot objectForKey:kUpstreamProxyHostAddress];
+        NSString *proxyPort = [preferencesSnapshot objectForKey:kUpstreamProxyPort];
+
+        if (!safeStringsEqual(hostAddress, [proxySettings getCustomProxyHost]) || !safeStringsEqual(proxyPort, [proxySettings getCustomProxyPort])) {
+            return YES;
+        }
+
+        // Check if "use proxy authentication" has changed
+        BOOL useProxyAuthentication = [[preferencesSnapshot objectForKey:kUseProxyAuthentication] boolValue];
+
+        if (useProxyAuthentication != [proxySettings getUseProxyAuthentication]) {
+            return YES;
+        }
+
+        // No further checking if "use proxy authentication" is off
+        // and has not changed
+        if (!useProxyAuthentication) {
+            return NO;
+        }
+
+        // "use proxy authentication" is checked, check if
+        // username || password || domain have changed
+        NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
+        NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
+        NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
+
+        if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
+            !safeStringsEqual(password, [proxySettings getProxyPassword]) ||
+            !safeStringsEqual(domain, [proxySettings getProxyDomain])) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)showTabs:(id)_id

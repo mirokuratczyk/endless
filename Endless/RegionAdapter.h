@@ -17,9 +17,20 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import "IASKAppSettingsViewController.h"
+@interface Region : NSObject {
+}
 
-@interface RegionSelectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) UITableView *table;
+@property NSString *code;
+@property NSString *flagResourceId;
+@property NSString *title;
+@property BOOL serverExists;
+
+@end
+
+@interface RegionAdapter : NSObject
++ (instancetype)sharedInstance;
+- (void)onAvailableEgressRegions: (NSArray*)availableEgressRegions;
+- (NSArray*)getRegions;
+- (Region*)getSelectedRegion;
+- (void)setSelectedRegion:(NSString*)regionCode;
 @end

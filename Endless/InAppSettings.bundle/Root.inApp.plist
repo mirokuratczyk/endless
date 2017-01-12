@@ -11,8 +11,6 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>RegionSelection</string>
 			<key>Title</key>
 			<string>CHANGE_REGION</string>
 			<key>Key</key>

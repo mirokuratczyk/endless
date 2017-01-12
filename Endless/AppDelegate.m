@@ -16,12 +16,16 @@
 #import <arpa/inet.h>
 #import "DTReachability.h"
 
+#import "RegionAdapter.h"
+#import "UpstreamProxySettings.h"
+
 #import "PsiphonBrowser-Swift.h"
 
 
 @implementation AppDelegate
 
 BOOL needsResume;
+RegionAdapter *regionAdapter;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -49,6 +53,7 @@ BOOL needsResume;
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
     [PsiphonData sharedInstance]; // TODO: integrate or remove
+    regionAdapter = [RegionAdapter sharedInstance];
     [self.window makeKeyAndVisible];
     
     self.socksProxyPort = 0;
@@ -249,6 +254,12 @@ BOOL needsResume;
 	return (NSClassFromString(@"XCTestProbe") != nil);
 }
 
+- (void)scheduleRunningTunnelServiceRestart {
+    self.psiphonConectionState = PsiphonConnectionStateConnecting;
+    [self notifyPsiphonConnectionState];
+    [self startPsiphon];
+}
+
 // MARK: TunneledAppDelegate protocol implementation
 
 - (NSString *) getPsiphonConfig {
@@ -272,8 +283,23 @@ BOOL needsResume;
         abort();
     }
     
-    mutableConfigCopy[@"X-Test-Flag"] = @"X-Test-Value";
+    NSString *selectedRegionCode = [regionAdapter getSelectedRegion].code;
+    mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
     
+    NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
+    mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
+
+    BOOL disableTimeouts = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts];
+    if (disableTimeouts) {
+        mutableConfigCopy[@"TunnelConnectTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"TunnelPortForwardDialTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"TunnelSshKeepAliveProbeTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"TunnelSshKeepAlivePeriodicTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"FetchRemoteServerListTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"PsiphonApiServerTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"FetchRoutesTimeoutSeconds"] = 0;
+        mutableConfigCopy[@"HttpProxyOriginServerTimeoutSeconds"] = 0;
+    }
     
     jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
                                                options:0 // non-pretty printing
@@ -285,8 +311,11 @@ BOOL needsResume;
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
+- (void) onAvailableEgressRegions:(NSArray *)regions {
+    [regionAdapter onAvailableEgressRegions:regions];
+}
+
 - (void) onDiagnosticMessage : (NSString*) message {
-    NSLog(@"onDiagnosticMessage: %@", message);
     DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
     [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
 }
@@ -299,7 +328,6 @@ BOOL needsResume;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.psiphonConectionState = PsiphonConnectionStateConnecting;
         [self notifyPsiphonConnectionState];
-
     });
 }
 

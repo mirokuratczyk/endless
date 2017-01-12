@@ -16,7 +16,7 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
-			<string>DisableTimeouts</string>
+			<string>disableTimeouts</string>
 			<key>Title</key>
 			<string>DISABLE_TIMEOUTS</string>
 			<key>Type</key>

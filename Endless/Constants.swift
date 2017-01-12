@@ -26,7 +26,7 @@ struct Constants {
         static let DisplayLogEntry = "DisplayLogEntry"
         static let NewLogEntry = "NewLogEntryPosted"
     }
-    
+
     struct Keys {
         static let LastId = "LastId"
         static let LogEntry = "LogEntryKey"

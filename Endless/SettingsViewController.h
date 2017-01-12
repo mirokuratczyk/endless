@@ -26,14 +26,15 @@
 // Globally used specifier keys
 #define kRegionSelectionSpecifierKey @"regionSelection"
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
-#define minTlsVersion            @"minTlsVersion"
-#define useUpstreamProxy         @"useUpstreamProxy"
-#define useProxyAuthentication   @"useProxyAuthentication"
-#define proxyUsername            @"proxyUsername"
-#define proxyPassword            @"proxyPassword"
-#define proxyDomain              @"proxyDomain"
-#define upstreamProxyHostAddress @"upstreamProxyHostAddress"
-#define upstreamProxyPort        @"upstreamProxyPort"
+#define kDisableTimeouts          @"disableTimeouts"
+#define kMinTlsVersion            @"minTlsVersion"
+#define kUseUpstreamProxy         @"useUpstreamProxy"
+#define kUseProxyAuthentication   @"useProxyAuthentication"
+#define kProxyUsername            @"proxyUsername"
+#define kProxyPassword            @"proxyPassword"
+#define kProxyDomain              @"proxyDomain"
+#define kUpstreamProxyHostAddress @"upstreamProxyHostAddress"
+#define kUpstreamProxyPort        @"upstreamProxyPort"
 // These numbers correspond to the option's index in MinTLSSettings.plist
 // `minTLSVersion` is set to the index of the chosen option in Security.plist
 #define SETTINGS_TLS_12       0

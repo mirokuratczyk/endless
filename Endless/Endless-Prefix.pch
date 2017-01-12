@@ -48,5 +48,7 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 
 #define kPsiphonConnectionStateNotification @"kPsiphonConnectionStateNotification"
 #define kPsiphonConnectionState @"kPsiphonConnectionState"
+#define kPsiphonAvailableRegionsNotification @"kPsiphonAvailableRegionsNotification"
+#define kPsiphonRegionBestPerformance @""
 
 #endif

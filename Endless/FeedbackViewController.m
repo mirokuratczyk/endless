@@ -251,7 +251,7 @@
 
 - (NSAttributedString*)generateFooterString {
     NSString *privacyPolicyPhrase = NSLocalizedString(@"Privacy Policy", "Privacy Policy link text");
-    NSString *feedbackEmail = NSLocalizedString(@"feedback.ios@psiphon.ca", "Email address for user feedback");
+    NSString *feedbackEmail = @"feedback.ios@psiphon.ca";
     
     NSString *localizedTextPart1 = [NSLocalizedString(@"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly.", @"Feedback footer text.") stringByAppendingString:@"\n\n"];
     NSString *footerTextPart2 = [NSLocalizedString(@"Learn more about the data we collect in our %@", @"Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed.") stringByAppendingString:@"\n\n"];

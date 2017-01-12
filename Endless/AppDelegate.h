@@ -44,6 +44,7 @@
 
 - (void) setAppLanguageAndReloadSettings : (NSString*)language;
 - (NSString *) getPsiphonConfig;
+- (void) scheduleRunningTunnelServiceRestart;
 
 @end
 

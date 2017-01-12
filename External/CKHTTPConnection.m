@@ -156,7 +156,7 @@
 	NSURL *url = (__bridge_transfer NSURL *)(CFHTTPMessageCopyRequestURL([self HTTPRequest]));
 	if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSInteger tlsVersion = [userDefaults integerForKey:minTlsVersion];
+        NSInteger tlsVersion = [userDefaults integerForKey:kMinTlsVersion];
 
         if (tlsVersion == SETTINGS_TLS_12) {
 			/* kTLSProtocol12 allows lower protocols, so use kCFStreamSSLLevel to force 1.2 */
@@ -183,7 +183,7 @@
 			SSLGetSessionState(sslContext, &sslState);
 			
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSInteger tlsVersion = [userDefaults integerForKey:minTlsVersion];
+            NSInteger tlsVersion = [userDefaults integerForKey:kMinTlsVersion];
             
             if (tlsVersion != SETTINGS_TLS_12) {
                 void (^setTlsMaxMin)(SSLProtocol, SSLProtocol) =

@@ -32,5 +32,4 @@
 - (void)prepareForNewURLFromString:(NSString *)url;
 
 - (void) stopLoading;
-- (void) setEnabled:(BOOL)enabled;
 @end

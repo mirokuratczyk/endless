@@ -1,4 +1,3 @@
-//
 /*
  * Copyright (c) 2016, Psiphon Inc.
  * All rights reserved.
@@ -43,6 +42,8 @@
     table.delegate = self;
     table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    table.estimatedRowHeight = 60;
+    table.rowHeight = UITableViewAutomaticDimension;
 
     [self.view addSubview:table];
     [self scrollToBottom];

@@ -17,47 +17,43 @@
  *
  */
 
-#import "IASKPSTextFieldSpecifierViewCell.h"
-#import "IASKSettingsReader.h"
-#import "IASKTextField.h"
-#import "IASKTextViewCell.h"
+#import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
-#import "SettingsViewController.h"
 
 @implementation RegionSelectionViewController {
-    NSMutableArray *flags;
+    RegionAdapter *regionAdapter;
     NSString *selectedRegion;
+    NSMutableArray *regions;
+    NSInteger selectedRow;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Get currently selected region
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    selectedRegion = [userDefaults stringForKey:kRegionSelectionSpecifierKey];
+    regionAdapter = [RegionAdapter sharedInstance];
+    regions = [[NSMutableArray alloc] initWithArray:[regionAdapter getRegions]];
 
-    // Create an array of region keys which correspond to region flag images
-    NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"RegionSelection.plist"];
-    NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
 
-    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-        NSString *key = [pref objectForKey:@"Key"];
-        if (key != nil) {
-            if (flags == nil) {
-                flags = [NSMutableArray arrayWithObjects: key, nil];
-            } else {
-                [flags addObject:key];
-            }
-        }
-    }
+    self.table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.table.delegate = self;
+    self.table.dataSource = self;
+
+    self.table.tableHeaderView = nil;
+    self.table.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.table.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+
+    [self.view addSubview:self.table];
 }
 
-#pragma mark - IASK UITableView delegate methods
+#pragma mark - UITableView delegate methods
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Region *r = [regions objectAtIndex:indexPath.row];
 
-    NSString *identifier = [NSString stringWithFormat:@"%@-%@-%ld-%d", specifier.key, specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
+    NSString *identifier = [NSString stringWithFormat:@"%@", r.code];
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 
@@ -65,11 +61,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
 
-    cell.imageView.image = [UIImage imageNamed:[@"flag-" stringByAppendingString:specifier.key]];
-    cell.textLabel.text = specifier.title;
+    cell.imageView.image = [UIImage imageNamed:r.flagResourceId];
+    cell.textLabel.text = r.title;
     cell.userInteractionEnabled = YES;
+    cell.hidden = !r.serverExists;
 
-    if ([specifier.key isEqualToString:selectedRegion]) {
+    if ([r.code isEqualToString:[regionAdapter getSelectedRegion].code]) {
+        selectedRow = indexPath.row;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -78,21 +76,22 @@
     return cell;
 }
 
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // New region was selected update tableview cells
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-    // De-select currently selected option
+    // De-select cell of currently selected region
     NSUInteger currentIndex[2];
     currentIndex[0] = 0;
-    currentIndex[1] = [flags indexOfObject:selectedRegion];
+    currentIndex[1] = selectedRow;
     NSIndexPath *currentIndexPath = [[NSIndexPath alloc] initWithIndexes:currentIndex length:2];
     UITableViewCell *currentlySelectedCell = [tableView cellForRowAtIndexPath:currentIndexPath];
     currentlySelectedCell.accessoryType = UITableViewStylePlain; // Remove checkmark
 
-    // Select newly chosen option
-    selectedRegion = specifier.key;
-    [userDefaults setObject:specifier.key forKey:kRegionSelectionSpecifierKey]; // Update settings
+    // Select cell of newly chosen region
+    Region *r = [regions objectAtIndex:indexPath.row];
+    selectedRow = indexPath.row;
+    selectedRegion = r.code;
+    [regionAdapter setSelectedRegion:selectedRegion];
 
     NSIndexPath *newIndexPath = [tableView indexPathForSelectedRow];
     UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];
@@ -100,15 +99,24 @@
     [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
-    return 44.0f;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Region *r = [regions objectAtIndex:indexPath.row];
+    return r.serverExists ? 44.0f : 0;
 }
 
-#pragma mark - IASK delegate methods
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    return regions.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+#pragma mark - Notifications
+
+- (void) updateAvailableRegions:(NSNotification*) notification {
+    [self.table reloadData];
 }
 
 @end

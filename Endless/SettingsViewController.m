@@ -31,6 +31,8 @@
 #import "URLInterceptor.h"
 #import "NSBundle+Language.h"
 
+#import "RegionAdapter.h"
+
 static AppDelegate *appDelegate;
 
 #define kAboutSpecifierKey @"about"
@@ -47,8 +49,7 @@ static AppDelegate *appDelegate;
 
     UITableViewCell *flagCell;
     UIImageView *flagImage;
-    UIImageView *flagText;
-    NSMutableDictionary *regionCodeToTitle;
+    UILabel *flagLabel;
 
     BOOL isRTL;
 }
@@ -75,6 +76,7 @@ BOOL linksEnabled;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 	[center addObserver:self selector:@selector(updateLinksState:) name:kPsiphonConnectionStateNotification object:nil];
+    [center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
 
     // Get TLS keys and short (preview) titles from MinTLSSettings.plist
     NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"MinTLSSettings.plist"];
@@ -98,17 +100,6 @@ BOOL linksEnabled;
                 [tlsShortTitles addObject:shortTitle];
             }
         }
-    }
-
-    // Setup dictionary of region code to region name for display
-    plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"RegionSelection.plist"];
-    settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    regionCodeToTitle = [[NSMutableDictionary alloc] init];
-
-    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-        NSString *key = [pref objectForKey:@"Key"];
-        NSString *detailText = [self.settingsReader.settingsBundle localizedStringForKey:[pref objectForKey:@"Title"] value:[pref objectForKey:@"Title"]  table:self.settingsReader.localizationTable];
-        [regionCodeToTitle setObject:detailText forKey:key];
     }
 }
 
@@ -136,12 +127,12 @@ BOOL linksEnabled;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld rule%@ in use", ruleCount, (ruleCount == 1 ? @"" : @"s")];
             cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
         }
-    } else if ([specifier.key isEqualToString:minTlsVersion]) {
+    } else if ([specifier.key isEqualToString:kMinTlsVersion]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.textLabel setText:specifier.title];
         cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
         // Set detail text label to preview text of currently chosen minTlsVersion option
-        cell.detailTextLabel.text = tlsShortTitles[[[NSUserDefaults standardUserDefaults] integerForKey:minTlsVersion]];
+        cell.detailTextLabel.text = tlsShortTitles[[[NSUserDefaults standardUserDefaults] integerForKey:kMinTlsVersion]];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
     } else if ([tlsVersions containsObject:specifier.key]) {
         [cell.textLabel setText:specifier.title];
@@ -150,12 +141,12 @@ BOOL linksEnabled;
         cell.textLabel.numberOfLines = 0;
         
         // Checkmark cell of currently chosen minTlsVersion option
-        BOOL selected = [tlsVersions[[[NSUserDefaults standardUserDefaults] integerForKey:minTlsVersion]] isEqualToString:specifier.key];
+        BOOL selected = [tlsVersions[[[NSUserDefaults standardUserDefaults] integerForKey:kMinTlsVersion]] isEqualToString:specifier.key];
 
         if (selected) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-    } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+    } else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
         
         cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 
@@ -183,34 +174,41 @@ BOOL linksEnabled;
         [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
         // Get currently selected region
-        NSString *selectedRegion = [[NSUserDefaults standardUserDefaults] stringForKey:kRegionSelectionSpecifierKey];
-        NSString *detailText = [regionCodeToTitle objectForKey:selectedRegion];
+        Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
+        NSString *detailText = selectedRegion.title;
 
         // Style and layout cell
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         [cell.textLabel setText:specifier.title];
 
-        UIImage *thumbs = [UIImage imageNamed:[@"flag-" stringByAppendingString:selectedRegion]]; // Images are "flag-" appened with the corresponding region code
-        flagImage = [[UIImageView alloc] initWithImage:thumbs];
-        flagText = [[UIImageView alloc] initWithImage:[self createTextImage:detailText sizedTo:thumbs cellFont:cell.detailTextLabel.font]];
+        UIImage *flag = [UIImage imageNamed:selectedRegion.flagResourceId];
+        flagImage = [[UIImageView alloc] initWithImage:flag];
+        flagLabel = [[UILabel alloc] init];
+        flagLabel.adjustsFontSizeToFitWidth = YES;
+        flagLabel.text = detailText;
+        flagLabel.textColor = cell.detailTextLabel.textColor; // Get normal detailText color
+        flagLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
 
         // Size and place flag image. Text is sized and placed in viewDidLayoutSubviews
         if (isRTL) {
-            flagImage.frame = CGRectMake(1, (cell.frame.size.height - flagImage.frame.size.height) / 2 , thumbs.size.width, thumbs.size.height);
+            flagImage.frame = CGRectMake(1, (cell.frame.size.height - flagImage.frame.size.height) / 2 , flag.size.width, flag.size.height);
         } else {
-            flagImage.frame = CGRectMake(cell.contentView.frame.size.width - flagImage.frame.size.width, (cell.frame.size.height - flagImage.frame.size.height) / 2, thumbs.size.width, thumbs.size.height);
+            flagImage.frame = CGRectMake(cell.contentView.frame.size.width - flagImage.frame.size.width, (cell.frame.size.height - flagImage.frame.size.height) / 2, flag.size.width, flag.size.height);
         }
 
         flagImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
         // Add flag and region name to detailTextLabel section of cell
         [cell.contentView addSubview:flagImage];
-        [cell.contentView addSubview:flagText];
+        [cell.contentView addSubview:flagLabel];
+
+        cell.userInteractionEnabled = linksEnabled;
+        cell.textLabel.enabled = linksEnabled;
 
         flagCell = cell;
     }
 	
-	if ([links containsObject:specifier.key] ) {
+	if ([links containsObject:specifier.key]) {
 		cell.userInteractionEnabled = linksEnabled;
 		cell.textLabel.enabled = linksEnabled;
 		cell.detailTextLabel.enabled = linksEnabled;
@@ -222,50 +220,18 @@ BOOL linksEnabled;
     // Resize detailText of region selection cell for new layout
     CGFloat newWidth;
     CGFloat xOffset;
+    CGFloat offsetFromSides = 10.0f;
 
     if (isRTL) {
-        newWidth =  MIN(flagText.frame.size.width, flagCell.textLabel.frame.origin.x - flagImage.frame.size.width);
-        xOffset = flagImage.frame.size.width;
+        newWidth =  flagCell.textLabel.frame.origin.x - flagImage.frame.size.width - offsetFromSides * 2;
+        xOffset = flagImage.frame.size.width + offsetFromSides;
     } else {
-        newWidth =  MIN(flagText.frame.size.width, flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width);
-        xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth;
+        newWidth =  flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width - offsetFromSides * 2;
+        xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth - offsetFromSides;
     }
 
-    flagText.frame = CGRectMake(xOffset, (flagCell.frame.size.height - flagImage.frame.size.height) / 2, newWidth, flagText.image.size.height);
-    [flagCell setNeedsDisplay];
-}
-
--(UIImage*)createTextImage:(NSString*)text sizedTo:(UIImage*)image cellFont:(UIFont*)font
-{
-    CGFloat leftAndRightPadding = 10.0f;
-    CGRect r = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0)
-                                  options:NSStringDrawingUsesLineFragmentOrigin
-                               attributes:@{NSFontAttributeName:font}
-                                  context:nil];
-
-    // Size of the new image
-    CGSize size = CGSizeMake(r.size.width + leftAndRightPadding * 2, image.size.height);
-
-    // Begin rendering image
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
-
-    // Text styling
-    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    style.alignment = NSTextAlignmentCenter;
-
-    // Draw text inbetween padding
-    UIColor *detailTextLabelColor = [[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"] detailTextLabel] textColor];
-    [text drawInRect:CGRectMake(leftAndRightPadding, image.size.height/8, r.size.width, r.size.height)
-      withAttributes:@{NSFontAttributeName: font,
-                       NSParagraphStyleAttributeName: style,
-                       NSForegroundColorAttributeName: detailTextLabelColor}];
-
-    // Return the rendered image
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return [newImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    flagLabel.frame = CGRectMake(xOffset, 0, newWidth, flagCell.contentView.frame.size.height);
+    [flagLabel setNeedsDisplay];
 }
 
 - (BOOL)isValidPort:(NSString *)port {
@@ -287,7 +253,10 @@ BOOL linksEnabled;
     void (^validateNewInput)(BOOL, NSString *, NSString *) = ^void(BOOL isValid, NSString *alertTitle, NSString *alertText) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         if (isValid) {
-            [userDefaults setObject:currentValue forKey:senderKey];
+            NSArray *components = [currentValue componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSString *trimmedText = [components componentsJoinedByString:@""];
+            [userDefaults setObject:trimmedText forKey:senderKey];
+            [text setText:trimmedText];
         } else {
             [self showAlert:alertTitle withAlertText:alertText];
             NSString *oldValue = [[NSUserDefaults standardUserDefaults] stringForKey:senderKey];
@@ -297,16 +266,16 @@ BOOL linksEnabled;
     };
 
     // If user has inputted an invalid setting notify them and then reset to last valid value or default
-    if ([senderKey isEqualToString:upstreamProxyPort]) {
+    if ([senderKey isEqualToString:kUpstreamProxyPort]) {
         NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters an invalid port number")];
         NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid port # (1-65535)", "Alert text when user enters invalid port number")];
 
-        validateNewInput([self isValidPort:currentValue], alertTitle, alertText);
-    } if ([senderKey isEqualToString:upstreamProxyHostAddress]) {
+        validateNewInput(currentValue.length == 0 || [self isValidPort:currentValue], alertTitle, alertText);
+    } if ([senderKey isEqualToString:kUpstreamProxyHostAddress]) {
         NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters invalid host address")];
         NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid hostname or IP", "Alert text when user enters invalid host address")];
 
-        validateNewInput(currentValue.length != 0, alertTitle, alertText);
+        validateNewInput(YES, alertTitle, alertText);
     }
 }
 
@@ -327,7 +296,7 @@ BOOL linksEnabled;
         [self presentViewController:navController animated:YES completion:nil];
     } else if ([specifier.key isEqualToString:kHttpsEverywhereSpecifierKey]) {
         [self menuHTTPSEverywhere];
-    } else if ([specifier.key isEqualToString:minTlsVersion]) {
+    } else if ([specifier.key isEqualToString:kMinTlsVersion]) {
         // Push new IASK view controller for custom minTlsVersion menu
         IASKAppSettingsViewController *targetViewController = [[IASKAppSettingsViewController alloc] init];
 
@@ -349,20 +318,20 @@ BOOL linksEnabled;
         // De-select currently selected option
         NSUInteger currentIndex[2];
         currentIndex[0] = 0;
-        currentIndex[1] = [userDefaults integerForKey:minTlsVersion];
+        currentIndex[1] = [userDefaults integerForKey:kMinTlsVersion];
         NSIndexPath *currentIndexPath = [[NSIndexPath alloc] initWithIndexes:currentIndex length:2];
         UITableViewCell *currentlySelectedCell = [tableView cellForRowAtIndexPath:currentIndexPath];
         currentlySelectedCell.accessoryType = UITableViewStylePlain; // Remove checkmark
 
         // Select newly chosen option
         NSUInteger indexOfSelection = [tlsVersions indexOfObject: specifier.key];
-        [userDefaults setInteger:indexOfSelection forKey:minTlsVersion]; // Update settings
+        [userDefaults setInteger:indexOfSelection forKey:kMinTlsVersion]; // Update settings
 
         NSIndexPath *newIndexPath = [tableView indexPathForSelectedRow];
         UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];
         newlySelectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
         [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
-    } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+    } else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
         // Focus on textfield if cell pressed
         NSIndexPath *indexPath = [tableView indexPathForSelectedRow];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -379,19 +348,7 @@ BOOL linksEnabled;
         vc.title = NSLocalizedString(@"Logs", @"Title screen displaying logs");
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
-        // Push new IASK view controller for custom region selection menu
         RegionSelectionViewController *targetViewController = [[RegionSelectionViewController alloc] init];
-
-        targetViewController.delegate = targetViewController;
-        targetViewController.file = specifier.file;
-        targetViewController.hiddenKeys = self.hiddenKeys;
-        targetViewController.settingsStore = self.settingsStore;
-        targetViewController.showDoneButton = NO;
-        targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
-        targetViewController.title = specifier.title;
-
-        IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
-
         [self.navigationController pushViewController:targetViewController animated:YES];
     }
 }
@@ -452,16 +409,15 @@ BOOL linksEnabled;
 
 - (void)settingDidChange:(NSNotification*)notification
 {
-    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:upstreamProxyHostAddress, upstreamProxyPort, useProxyAuthentication, nil];
-    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:proxyUsername, proxyPassword, proxyDomain, nil];
+    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
+    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
 
     NSString *fieldName = notification.userInfo.allKeys.firstObject;
 
-    if ([fieldName isEqual:useUpstreamProxy]) {
-        IASKAppSettingsViewController *activeController = notification.object;
-        BOOL upstreamProxyEnabled = (BOOL)[[notification.userInfo objectForKey:useUpstreamProxy] intValue];
+    if ([fieldName isEqual:kUseUpstreamProxy]) {
+        BOOL upstreamProxyEnabled = (BOOL)[[notification.userInfo objectForKey:kUseUpstreamProxy] intValue];
 
-        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[activeController hiddenKeys]];
+        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[self hiddenKeys]];
 
         if (upstreamProxyEnabled) {
             // Display proxy configuration fields
@@ -469,7 +425,7 @@ BOOL linksEnabled;
                 [hiddenKeys removeObject:key];
             }
 
-            BOOL useUpstreamProxyAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:useProxyAuthentication];
+            BOOL useUpstreamProxyAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
 
             if (useUpstreamProxyAuthentication) {
                 // Display proxy authentication fields
@@ -478,16 +434,16 @@ BOOL linksEnabled;
                 }
             }
 
-            [activeController setHiddenKeys:hiddenKeys animated:YES];
+            [self setHiddenKeys:hiddenKeys animated:YES];
         } else {
             NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:upstreamProxyKeys];
             [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
-            [activeController setHiddenKeys:hiddenKeys animated:YES];
+            [self setHiddenKeys:hiddenKeys animated:YES];
         }
-    } else if ([fieldName isEqual:useProxyAuthentication]) {
+    } else if ([fieldName isEqual:kUseProxyAuthentication]) {
         // useProxyAuthentication toggled, show or hide proxy authentication fields
         IASKAppSettingsViewController *activeController = notification.object;
-        BOOL enabled = (BOOL)[[notification.userInfo objectForKey:useProxyAuthentication] intValue];
+        BOOL enabled = (BOOL)[[notification.userInfo objectForKey:kUseProxyAuthentication] intValue];
 
         NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[activeController hiddenKeys]];
 
@@ -532,6 +488,10 @@ BOOL linksEnabled;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void) updateAvailableRegions:(NSNotification*) notification {
+    [self.tableView reloadData];
+}
+
 - (void) updateLinksState:(NSNotification*) notification {
 	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
 	if(state == PsiphonConnectionStateConnected) {
@@ -539,7 +499,7 @@ BOOL linksEnabled;
 	} else {
 		linksEnabled = false;
 	}
-	[[self tableView] reloadData];
+	[self.tableView reloadData];
 }
 
 @end

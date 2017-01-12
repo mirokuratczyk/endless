@@ -17,9 +17,15 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import "IASKAppSettingsViewController.h"
+@interface UpstreamProxySettings : NSObject
++ (instancetype)sharedInstance;
 
-@interface RegionSelectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) UITableView *table;
+- (NSString*)getUpstreamProxyUrl;
+- (BOOL)getUseCustomProxySettings;
+- (NSString*)getCustomProxyHost;
+- (NSString*)getCustomProxyPort;
+- (BOOL)getUseProxyAuthentication;
+- (NSString*)getProxyUsername;
+- (NSString*)getProxyPassword;
+- (NSString*)getProxyDomain;
 @end
