@@ -57,6 +57,7 @@
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
+		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44C7B2081E2040A700432BBB /* L18n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L18n+Swizzling.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
 		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
@@ -64,7 +65,6 @@
 		44E779421DE6031A00854379 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E7793E1DE6031A00854379 /* AppDelegate.m */; };
 		44E779431DE6031A00854379 /* PsiphonConnectionIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */; };
 		44E779461DE6038000854379 /* psiphon_config in Resources */ = {isa = PBXBuildFile; fileRef = 44E779451DE6038000854379 /* psiphon_config */; };
-		44E779471DE603D900854379 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
 		4E3F7BED1E00F91F0058E38D /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F7BEC1E00F91F0058E38D /* LogViewController.m */; };
@@ -101,7 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44E779471DE603D900854379 /* PsiphonTunnel.framework in CopyFiles */,
+				44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,6 +912,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = PsiphonBrowser;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -942,6 +943,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = PsiphonBrowser;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

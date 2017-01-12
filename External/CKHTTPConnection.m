@@ -238,6 +238,7 @@ alldone:
 	status = SSLGetSupportedCiphers(sslContext, supported, &numSupported);
 	if (status != noErr) {
 		NSLog(@"failed getting supported ciphers");
+        free(supported);
 		return NO;
 	}
 	
@@ -466,7 +467,7 @@ process:
 	NSData *body = [self HTTPBody];
 
 	if (body)
-		CFHTTPMessageSetBody(result, (__bridge_retained CFDataRef)body);
+		CFHTTPMessageSetBody(result, (__bridge CFDataRef)body);
 
 	return result;
 }
