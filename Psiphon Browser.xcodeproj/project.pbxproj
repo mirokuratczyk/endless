@@ -30,7 +30,6 @@
 		01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB481B4ED48000A02482 /* Bookmark.m */; };
 		01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */; };
 		01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */; };
-		01D741281A44DF1C007B7033 /* WebViewMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741271A44DF1C007B7033 /* WebViewMenuController.m */; };
 		01D7412A1A45EDD1007B7033 /* CookieJar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741291A45EDD1007B7033 /* CookieJar_Tests.m */; };
 		01D7412C1A45F8EB007B7033 /* injected.js in Resources */ = {isa = PBXBuildFile; fileRef = 01D7412B1A45F8EB007B7033 /* injected.js */; };
 		01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */; };
@@ -59,6 +58,7 @@
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
+		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44C7B2081E2040A700432BBB /* L18n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L18n+Swizzling.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
@@ -153,10 +153,7 @@
 		01AFEB481B4ED48000A02482 /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bookmark.m; sourceTree = "<group>"; };
 		01AFEB4C1B4F2A5F00A02482 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePasswordExtension.h; sourceTree = "<group>"; };
 		01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnePasswordExtension.m; sourceTree = "<group>"; };
-		01D42C3B1E0A37DB00566022 /* Endless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Endless.entitlements; sourceTree = "<group>"; };
 		01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLInterceptor_Tests.m; sourceTree = "<group>"; };
-		01D741261A44DF1C007B7033 /* WebViewMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewMenuController.h; sourceTree = "<group>"; };
-		01D741271A44DF1C007B7033 /* WebViewMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewMenuController.m; sourceTree = "<group>"; };
 		01D741291A45EDD1007B7033 /* CookieJar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieJar_Tests.m; sourceTree = "<group>"; };
 		01D7412B1A45F8EB007B7033 /* injected.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = injected.js; path = Endless/Resources/injected.js; sourceTree = "<group>"; };
 		01D7412D1A466AF0007B7033 /* NSString+JavascriptEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JavascriptEscape.h"; sourceTree = "<group>"; };
@@ -192,6 +189,7 @@
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
 		446CB0A01DFF613900AEC0A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Root.strings; sourceTree = "<group>"; };
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
+		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
 		44C7B2071E2040A700432BBB /* L18n+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "L18n+Swizzling.m"; path = "Endless/L18n+Swizzling.m"; sourceTree = SOURCE_ROOT; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -357,6 +355,7 @@
 			children = (
 				44E779331DE4DCE300854379 /* Strings */,
 				01F8794A1A41232E00A63654 /* credits.html */,
+				44AA65C61E29640300C9976D /* blip1.wav */,
 				4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */,
 				4ECFADE01DECEBAE00979558 /* thumbs-down-grayscale.png */,
 				4ECFADE21DECEBBA00979558 /* thumbs-up-grayscale.png */,
@@ -581,6 +580,7 @@
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
 				4ECFADE71DEE01A200979558 /* thumbs-up-color.png in Resources */,
+				44AA65C71E29640300C9976D /* blip1.wav in Resources */,
 				4EEE09B91DF755EF00CEA8C2 /* psiphon-logo-48.png in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
 				44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */,

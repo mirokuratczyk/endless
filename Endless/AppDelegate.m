@@ -22,6 +22,8 @@
 @implementation AppDelegate
 
 BOOL needsResume;
+SystemSoundID notificationSound;
+
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -36,7 +38,10 @@ BOOL needsResume;
 	[Bookmark retrieveList];
 	
 	[self initializeDefaults];
-	
+
+	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
+	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &notificationSound);
+
     return YES;
 }
 
@@ -305,7 +310,7 @@ BOOL needsResume;
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
         if ([userDefaults boolForKey:@"sound_notification"]) {
-            //TODO: play sound
+			AudioServicesPlaySystemSound (notificationSound);
         }
         
 		
