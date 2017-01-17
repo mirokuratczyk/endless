@@ -52,28 +52,8 @@ BOOL needsResume;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
     
     self.needsResume = false;
-    __weak AppDelegate *weakself = self;
-    
-    [[DTReachability defaultReachability] addReachabilityObserverWithBlock:^(DTReachabilityInformation *reachabilityInfo) {
-        AppDelegate *appDelegate = weakself;
-        
-        SCNetworkReachabilityFlags connectionFlags = reachabilityInfo.reachabilityFlags;
-        BOOL isReachable = ((connectionFlags & kSCNetworkFlagsReachable) != 0);
-        BOOL needsConnection = ((connectionFlags & kSCNetworkFlagsConnectionRequired) != 0);
-        BOOL hasConnection = (isReachable && !needsConnection);
-        
-        if (hasConnection)
-        {
-            if(appDelegate.needsResume){
-                [appDelegate startPsiphon];
-            }
-        } else {
-            if(appDelegate.psiphonConectionState != PsiphonConnectionStateDisconnected) {
-                appDelegate.needsResume = true;
-                [appDelegate stopPsiphon];
-            }
-        }
-    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    [[Reachability reachabilityForInternetConnection] startNotifier];
     return YES;
 }
 
@@ -165,7 +145,9 @@ BOOL needsResume;
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
     [_psiphonTunnel stop];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -389,6 +371,21 @@ BOOL needsResume;
          object:self
          userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
     });
+}
+
+- (void) internetReachabilityChanged:(NSNotification *)note
+{
+    Reachability* currentReachability = [note object];
+    if([currentReachability currentReachabilityStatus] == NotReachable) {
+        if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+            self.needsResume = true;
+            [self stopPsiphon];
+        }
+    } else {
+        if(self.needsResume){
+            [self startPsiphon];
+        }
+    }
 }
 
 @end
