@@ -225,6 +225,42 @@
 		4EEE09B81DF755EF00CEA8C2 /* psiphon-logo-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-logo-48.png"; sourceTree = "<group>"; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
+		6685BDDA1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDDB1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDDC1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDDD1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDDE1E314EAF00F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDDF1E314EAF00F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE01E314EB000F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE11E314EB000F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDE21E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDE31E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE41E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE51E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDE61E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDE71E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE81E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE91E314EDD00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDEA1E314EEC00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDEB1E314EEC00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDEC1E314EED00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDED1E314EED00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDEE1E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDEF1E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDF01E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDF11E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDF61E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Root.strings"; sourceTree = "<group>"; };
+		6685BDF71E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		6685BDF81E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6685BDF91E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/OnePasswordExtension.strings"; sourceTree = "<group>"; };
+		6685BDFA1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDFB1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDFC1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDFD1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDFE1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Root.strings"; sourceTree = "<group>"; };
+		6685BDFF1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		6685BE001E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6685BE011E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/OnePasswordExtension.strings"; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -550,6 +586,15 @@
 			knownRegions = (
 				en,
 				ar,
+				de,
+				fa,
+				fr,
+				hr,
+				id,
+				nl,
+				"zh-Hant",
+				es,
+				"pt-PT",
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -775,6 +820,15 @@
 			children = (
 				446CB0A01DFF613900AEC0A9 /* en */,
 				446CB0A21DFF614600AEC0A9 /* ar */,
+				6685BDDA1E314BF700F0E414 /* de */,
+				6685BDDE1E314EAF00F0E414 /* fa */,
+				6685BDE21E314EC500F0E414 /* fr */,
+				6685BDE61E314EDC00F0E414 /* hr */,
+				6685BDEA1E314EEC00F0E414 /* id */,
+				6685BDEE1E314EF700F0E414 /* nl */,
+				6685BDF61E314F1300F0E414 /* zh-Hant */,
+				6685BDFA1E314FB100F0E414 /* es */,
+				6685BDFE1E315E1B00F0E414 /* pt-PT */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -784,6 +838,15 @@
 			children = (
 				44E7792B1DE4DCCA00854379 /* en */,
 				44E779341DE4DD1F00854379 /* ar */,
+				6685BDDB1E314BF700F0E414 /* de */,
+				6685BDDF1E314EAF00F0E414 /* fa */,
+				6685BDE31E314EC500F0E414 /* fr */,
+				6685BDE71E314EDC00F0E414 /* hr */,
+				6685BDEB1E314EEC00F0E414 /* id */,
+				6685BDEF1E314EF700F0E414 /* nl */,
+				6685BDF71E314F1300F0E414 /* zh-Hant */,
+				6685BDFB1E314FB100F0E414 /* es */,
+				6685BDFF1E315E1B00F0E414 /* pt-PT */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -793,6 +856,15 @@
 			children = (
 				44E7792E1DE4DCCF00854379 /* en */,
 				44E779351DE4DD1F00854379 /* ar */,
+				6685BDDC1E314BF700F0E414 /* de */,
+				6685BDE01E314EB000F0E414 /* fa */,
+				6685BDE41E314EC500F0E414 /* fr */,
+				6685BDE81E314EDC00F0E414 /* hr */,
+				6685BDEC1E314EED00F0E414 /* id */,
+				6685BDF01E314EF700F0E414 /* nl */,
+				6685BDF81E314F1300F0E414 /* zh-Hant */,
+				6685BDFC1E314FB100F0E414 /* es */,
+				6685BE001E315E1B00F0E414 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -802,6 +874,15 @@
 			children = (
 				44E779311DE4DCD400854379 /* en */,
 				44E779361DE4DD1F00854379 /* ar */,
+				6685BDDD1E314BF700F0E414 /* de */,
+				6685BDE11E314EB000F0E414 /* fa */,
+				6685BDE51E314EC500F0E414 /* fr */,
+				6685BDE91E314EDD00F0E414 /* hr */,
+				6685BDED1E314EED00F0E414 /* id */,
+				6685BDF11E314EF700F0E414 /* nl */,
+				6685BDF91E314F1300F0E414 /* zh-Hant */,
+				6685BDFD1E314FB100F0E414 /* es */,
+				6685BE011E315E1B00F0E414 /* pt-PT */,
 			);
 			name = OnePasswordExtension.strings;
 			sourceTree = "<group>";
