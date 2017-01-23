@@ -28,13 +28,13 @@
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
 #define kDisableTimeouts          @"disableTimeouts"
 #define kMinTlsVersion            @"minTlsVersion"
-#define kUseUpstreamProxy         @"useUpstreamProxy"
+#define kUseProxy                 @"useProxy"
 #define kUseProxyAuthentication   @"useProxyAuthentication"
 #define kProxyUsername            @"proxyUsername"
 #define kProxyPassword            @"proxyPassword"
 #define kProxyDomain              @"proxyDomain"
-#define kUpstreamProxyHostAddress @"upstreamProxyHostAddress"
-#define kUpstreamProxyPort        @"upstreamProxyPort"
+#define kProxyHostAddress         @"proxyHostAddress"
+#define kProxyPort                @"proxyPort"
 // These numbers correspond to the option's index in MinTLSSettings.plist
 // `minTLSVersion` is set to the index of the chosen option in Security.plist
 #define SETTINGS_TLS_12       0

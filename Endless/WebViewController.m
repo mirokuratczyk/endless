@@ -994,10 +994,10 @@
     }
 
     // These keys correspond to settings in PsiphonOptions.plist
-    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
+    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxy];
     BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
 
-    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
+    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kProxyHostAddress, kProxyPort, kUseProxyAuthentication, nil];
     NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
 
     // Hide configurable fields until user chooses to use upstream proxy
@@ -1058,7 +1058,7 @@
         }
 
         // Check if "use proxy" has changed
-        BOOL useUpstreamProxy = [preferencesSnapshot objectForKey:kUseUpstreamProxy];
+        BOOL useUpstreamProxy = [[preferencesSnapshot objectForKey:kUseProxy] boolValue];
 
         if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
             return YES;
@@ -1071,8 +1071,8 @@
         }
 
         // If "use proxy" is selected, check if host || port have changed
-        NSString *hostAddress = [preferencesSnapshot objectForKey:kUpstreamProxyHostAddress];
-        NSString *proxyPort = [preferencesSnapshot objectForKey:kUpstreamProxyPort];
+        NSString *hostAddress = [preferencesSnapshot objectForKey:kProxyHostAddress];
+        NSString *proxyPort = [preferencesSnapshot objectForKey:kProxyPort];
 
         if (!safeStringsEqual(hostAddress, [proxySettings getCustomProxyHost]) || !safeStringsEqual(proxyPort, [proxySettings getCustomProxyPort])) {
             return YES;

@@ -54,19 +54,31 @@ PODS:
   - InAppSettingsKit (2.8)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
+  - XLForm (3.3.0)
 
 DEPENDENCIES:
   - DTFoundation
   - InAppSettingsKit
   - OCMock
   - OrderedDictionary
+  - XLForm (from `https://github.com/jcs/XLForm.git`)
+
+EXTERNAL SOURCES:
+  XLForm:
+    :git: https://github.com/jcs/XLForm.git
+
+CHECKOUT OPTIONS:
+  XLForm:
+    :commit: 03bab2d19c94366ea993bf0b3983820cc1f45cf8
+    :git: https://github.com/jcs/XLForm.git
 
 SPEC CHECKSUMS:
   DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
   InAppSettingsKit: fe3e73f8f9530cdd6270065cd7df7b3773f557e6
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
+  XLForm: d5c391dfc62865927b5bcab0a5a0dbfb3e02b0ec
 
-PODFILE CHECKSUM: 7d30585d6a7cb06688d0872b7e3bcfc84d9d4251
+PODFILE CHECKSUM: b88fb5307ffe56162584ff78db8108b859814871
 
 COCOAPODS: 1.1.1

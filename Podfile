@@ -4,6 +4,7 @@ target "Psiphon Browser" do
 	pod "DTFoundation"
 	pod "OrderedDictionary"
 	pod "InAppSettingsKit"
+	pod "XLForm", :git => "https://github.com/jcs/XLForm.git"
 end
 
 target "Psiphon Browser Tests" do

@@ -30,6 +30,7 @@
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
 #import "NSBundle+Language.h"
+#import "PsiphonSettings.h"
 
 #import "RegionAdapter.h"
 
@@ -41,6 +42,7 @@ static AppDelegate *appDelegate;
 #define kHttpsEverywhereSpecifierKey @"httpsEverywhere"
 #define kLogsSpecifierKey @"logs"
 #define kPrivacyPolicySpecifierKey @"privacyPolicy"
+#define kPsiphonSettingsSpecifierKey @"psiphonSettings"
 #define kTermsOfUseSpecifierKey @"termsOfUse"
 
 @implementation SettingsViewController {
@@ -103,7 +105,6 @@ BOOL linksEnabled;
     }
 }
 
-
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
     NSString *identifier = [NSString stringWithFormat:@"%@-%@-%ld-%d", specifier.key, specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
     
@@ -146,27 +147,7 @@ BOOL linksEnabled;
         if (selected) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-    } else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
-        
-        cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
-
-        cell.textLabel.text = specifier.title;
-
-        NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
-        if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
-             textValue = [NSString stringWithFormat:@"%@", textValue];
-        }
-        IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
-        textField.text = textValue;
-        textField.key = specifier.key;
-        textField.delegate = self;
-        textField.keyboardType = specifier.keyboardType;
-        textField.autocapitalizationType = specifier.autocapitalizationType;
-        textField.autocorrectionType = specifier.autoCorrectionType;
-        textField.textAlignment = specifier.textAlignment;
-        textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
-        [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
-    } else if ([specifier.key isEqualToString:kLogsSpecifierKey] || [specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
+    } else if ([specifier.key isEqualToString:kLogsSpecifierKey] || [specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey] || [specifier.key isEqualToString:kPsiphonSettingsSpecifierKey]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = specifier.title;
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
@@ -245,42 +226,12 @@ BOOL linksEnabled;
     }
 }
 
-- (void)IASKTextFieldDidEndEditing:(id)sender {
-    NSString *senderKey = [sender key];
-    IASKTextField *text = sender;
-    NSString *currentValue = [text text];
-
-    void (^validateNewInput)(BOOL, NSString *, NSString *) = ^void(BOOL isValid, NSString *alertTitle, NSString *alertText) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        if (isValid) {
-            NSArray *components = [currentValue componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *trimmedText = [components componentsJoinedByString:@""];
-            [userDefaults setObject:trimmedText forKey:senderKey];
-            [text setText:trimmedText];
-        } else {
-            [self showAlert:alertTitle withAlertText:alertText];
-            NSString *oldValue = [[NSUserDefaults standardUserDefaults] stringForKey:senderKey];
-            [userDefaults setObject:oldValue forKey:senderKey];
-            [text setText:oldValue];
-        }
-    };
-
-    // If user has inputted an invalid setting notify them and then reset to last valid value or default
-    if ([senderKey isEqualToString:kUpstreamProxyPort]) {
-        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters an invalid port number")];
-        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid port # (1-65535)", "Alert text when user enters invalid port number")];
-
-        validateNewInput(currentValue.length == 0 || [self isValidPort:currentValue], alertTitle, alertText);
-    } if ([senderKey isEqualToString:kUpstreamProxyHostAddress]) {
-        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters invalid host address")];
-        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid hostname or IP", "Alert text when user enters invalid host address")];
-
-        validateNewInput(YES, alertTitle, alertText);
-    }
-}
-
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier {
-    if ([specifier.key isEqualToString:kFeedbackSpecifierKey]) {
+    if ([specifier.key isEqualToString:kPsiphonSettingsSpecifierKey]) {
+        PsiphonSettingsViewController *vc = [[PsiphonSettingsViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:navController animated:YES completion:nil];
+    } if ([specifier.key isEqualToString:kFeedbackSpecifierKey]) {
         FeedbackViewController *targetViewController = [[FeedbackViewController alloc] init];
         
         targetViewController.delegate = targetViewController;
@@ -331,21 +282,11 @@ BOOL linksEnabled;
         UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];
         newlySelectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
         [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
-    } else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
-        // Focus on textfield if cell pressed
-        NSIndexPath *indexPath = [tableView indexPathForSelectedRow];
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]]) {
-            IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
-            if ([textField.key isEqualToString:specifier.key]) {
-                [textField becomeFirstResponder];
-            }
-        }
     } else if ([links containsObject:specifier.key]) {
         [self loadUrlForSpecifier:specifier.key];
     } else if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
         LogViewController *vc = [[LogViewController alloc] init];
-        vc.title = NSLocalizedString(@"Logs", @"Title screen displaying logs");
+        vc.title = NSLocalizedString(@"Logs", @"Title of screen displaying logs");
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
         RegionSelectionViewController *targetViewController = [[RegionSelectionViewController alloc] init];
@@ -409,55 +350,9 @@ BOOL linksEnabled;
 
 - (void)settingDidChange:(NSNotification*)notification
 {
-    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
-    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
-
     NSString *fieldName = notification.userInfo.allKeys.firstObject;
 
-    if ([fieldName isEqual:kUseUpstreamProxy]) {
-        BOOL upstreamProxyEnabled = (BOOL)[[notification.userInfo objectForKey:kUseUpstreamProxy] intValue];
-
-        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[self hiddenKeys]];
-
-        if (upstreamProxyEnabled) {
-            // Display proxy configuration fields
-            for (NSString *key in upstreamProxyKeys) {
-                [hiddenKeys removeObject:key];
-            }
-
-            BOOL useUpstreamProxyAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
-
-            if (useUpstreamProxyAuthentication) {
-                // Display proxy authentication fields
-                for (NSString *key in proxyAuthenticationKeys) {
-                    [hiddenKeys removeObject:key];
-                }
-            }
-
-            [self setHiddenKeys:hiddenKeys animated:YES];
-        } else {
-            NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:upstreamProxyKeys];
-            [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
-            [self setHiddenKeys:hiddenKeys animated:YES];
-        }
-    } else if ([fieldName isEqual:kUseProxyAuthentication]) {
-        // useProxyAuthentication toggled, show or hide proxy authentication fields
-        IASKAppSettingsViewController *activeController = notification.object;
-        BOOL enabled = (BOOL)[[notification.userInfo objectForKey:kUseProxyAuthentication] intValue];
-
-        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[activeController hiddenKeys]];
-
-        if (enabled) {
-            for (NSString *key in proxyAuthenticationKeys) {
-                [hiddenKeys removeObject:key];
-            }
-        } else {
-            for (NSString *key in proxyAuthenticationKeys) {
-                [hiddenKeys addObject:key];
-            }
-        }
-        [activeController setHiddenKeys:hiddenKeys animated:YES];
-    } else if  ([fieldName isEqual:appLanguage]) {
+    if  ([fieldName isEqual:appLanguage]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		[appDelegate setAppLanguageAndReloadSettings:[notification.userInfo objectForKey:appLanguage]];
@@ -475,17 +370,6 @@ BOOL linksEnabled;
 {
     [self.webViewController settingsViewControllerDidEnd];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)showAlert:(NSString *)alertTitle withAlertText:(NSString *)alertText {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                   message:alertText
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Text on button used to acknowledge the receipt of and dismiss UIAlert") style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {}];
-    [alert addAction:defaultAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) updateAvailableRegions:(NSNotification*) notification {

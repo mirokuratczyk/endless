@@ -86,16 +86,16 @@ static AppDelegate *appDelegate;
 }
 
 - (BOOL)getUseCustomProxySettings {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxy];
 }
 
 - (NSString*)getCustomProxyHost {
-    NSString *hostAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyHostAddress];
+    NSString *hostAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kProxyHostAddress];
     return hostAddress.length == 0 ? @"" : hostAddress;
 }
 
 - (NSString*)getCustomProxyPort {
-    NSString *proxyPort = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyPort];
+    NSString *proxyPort = [[NSUserDefaults standardUserDefaults] stringForKey:kProxyPort];
     return proxyPort.length == 0 ? @"" : proxyPort;
 }
 

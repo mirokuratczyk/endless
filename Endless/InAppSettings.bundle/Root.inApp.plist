@@ -18,15 +18,15 @@
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>DefaultValue</key>
-			<string>best-performance</string>
+			<string></string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>PsiphonSettings</string>
 			<key>Title</key>
 			<string>PSIPHON_SETTINGS</string>
+			<key>Key</key>
+			<string>psiphonSettings</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 		</dict>
 		<dict>
 			<key>File</key>
