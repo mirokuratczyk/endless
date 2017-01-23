@@ -162,36 +162,6 @@
 			<key>Key</key>
 			<string>about</string>
 		</dict>
-		<dict>
-			<key>Title</key>
-			<string>TUTORIAL</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>SOCIAL</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>SHARE_ON_FACEBOOK</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>SHARE_ON_TWITTER</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>RATE_US</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
