@@ -290,6 +290,11 @@ SystemSoundID notificationSound;
         NSLog(@"Failed to create JSON data from config object. Aborting now.");
         abort();
     }
+	
+	mutableConfigCopy[@"ClientPlatform"] = [NSString stringWithFormat:@"%@%@",
+										   [[UIDevice currentDevice] systemName],
+										   [[UIDevice currentDevice]systemVersion]];
+	
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
