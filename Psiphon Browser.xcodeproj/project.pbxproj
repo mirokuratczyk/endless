@@ -58,6 +58,7 @@
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
+		4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */; };
 		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44C7B2081E2040A700432BBB /* L18n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L18n+Swizzling.m */; };
@@ -189,6 +190,8 @@
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
 		446CB0A01DFF613900AEC0A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Root.strings; sourceTree = "<group>"; };
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
+		4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonSettingsTextFieldViewCell.h; sourceTree = SOURCE_ROOT; };
+		4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonSettingsTextFieldViewCell.m; sourceTree = SOURCE_ROOT; };
 		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
 		44C7B2071E2040A700432BBB /* L18n+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "L18n+Swizzling.m"; path = "Endless/L18n+Swizzling.m"; sourceTree = SOURCE_ROOT; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 		44E778F71DDB723900854379 /* Psiphon */ = {
 			isa = PBXGroup;
 			children = (
+				4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */,
+				4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */,
 				44E779451DE6038000854379 /* psiphon_config */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
@@ -770,6 +775,7 @@
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
 				4E4C104B1DE621160046F5D8 /* Common.swift in Sources */,
+				4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,

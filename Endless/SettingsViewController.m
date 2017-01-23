@@ -28,6 +28,7 @@
 #import "LogViewController.h"
 #import "SettingsViewController.h"
 #import "URLInterceptor.h"
+#import "PsiphonSettingsTextFieldViewCell.h"
 
 static AppDelegate *appDelegate;
 
@@ -134,9 +135,13 @@ BOOL linksEnabled;
         if (selected) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-    } else if ([specifier.key isEqualToString:upstreamProxyPort] || [specifier.key isEqualToString:upstreamProxyHostAddress]) {
+    } else if ([specifier.key isEqualToString:upstreamProxyPort]
+			   || [specifier.key isEqualToString:upstreamProxyHostAddress]
+			   || [specifier.key isEqualToString:proxyUsername]
+			   || [specifier.key isEqualToString:proxyDomain]
+			   || [specifier.key isEqualToString:proxyPassword]) {
         
-        cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+        cell = [[PsiphonSettingsTextFieldViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 
         cell.textLabel.text = specifier.title;
 
@@ -147,6 +152,7 @@ BOOL linksEnabled;
         IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
         textField.text = textValue;
         textField.key = specifier.key;
+        textField.placeholder = specifier.placeholder;
         textField.delegate = self;
         textField.keyboardType = specifier.keyboardType;
         textField.autocapitalizationType = specifier.autocapitalizationType;
