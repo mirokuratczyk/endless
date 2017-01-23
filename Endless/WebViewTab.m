@@ -5,7 +5,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "URLInterceptor.h"
 #import "WebViewTab.h"
 
@@ -15,11 +14,9 @@
 
 @implementation WebViewTab
 
-AppDelegate *appDelegate;
-
 + (WebViewTab *)openedWebViewTabByRandID:(NSString *)randID
 {
-	for (WebViewTab *wvt in [[appDelegate webViewController] webViewTabs]) {
+	for (WebViewTab *wvt in [[Appdelegate webViewController] webViewTabs]) {
 		if ([wvt randID] != nil && [[wvt randID] isEqualToString:randID]) {
 			return wvt;
 		}
@@ -37,12 +34,10 @@ AppDelegate *appDelegate;
 {
 	self = [super init];
 	
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	
 	_viewHolder = [[UIView alloc] initWithFrame:frame];
 	
 	/* re-register user agent with our hash, which should only affect this UIWebView */
-	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [appDelegate defaultUserAgent], self.hash] }];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [Appdelegate defaultUserAgent], self.hash] }];
 	
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	_needsRefresh = FALSE;
@@ -79,7 +74,7 @@ AppDelegate *appDelegate;
 	[_title setFont:[UIFont boldSystemFontOfSize:16.0]];
 	[_title setLineBreakMode:NSLineBreakByTruncatingTail];
 	[_title setTextAlignment:NSTextAlignmentCenter];
-	[_title setText:@"New Tab"];
+	[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
 	
 	_closer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[_closer setTextColor:[UIColor whiteColor]];
@@ -216,11 +211,11 @@ AppDelegate *appDelegate;
 - (void)searchFor:(NSString *)query
 {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
+	NSDictionary *se = [[Appdelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
 	
 	if (se == nil)
 		/* just pick the first search engine */
-		se = [[appDelegate searchEngines] objectForKey:[[[appDelegate searchEngines] allKeys] firstObject]];
+		se = [[Appdelegate searchEngines] objectForKey:[[[Appdelegate searchEngines] allKeys] firstObject]];
 	
 	NSDictionary *pp = [se objectForKey:@"post_params"];
 	NSString *urls;
@@ -319,7 +314,7 @@ AppDelegate *appDelegate;
 	else if ([action isEqualToString:@"window.open"]) {
 		/* only allow windows to be opened from mouse/touch events, like a normal browser's popup blocker */
 		if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-			WebViewTab *newtab = [[appDelegate webViewController] addNewTabForURL:nil];
+			WebViewTab *newtab = [[Appdelegate webViewController] addNewTabForURL:nil];
 			newtab.randID = param;
 			newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
 			
@@ -327,23 +322,23 @@ AppDelegate *appDelegate;
 		}
 		else {
 			/* TODO: show a "popup blocked" warning? */
-			NSLog(@"[Tab %@] blocked non-touch window.open() (nav type %ul)", self.tabIndex, navigationType);
+			NSLog(@"[Tab %@] blocked non-touch window.open() (nav type %ld)", self.tabIndex, (long)navigationType);
 			
 			[self webView:__webView callbackWith:[NSString stringWithFormat:@"__endless.openedTabs[\"%@\"].opened = false;", param]];
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Allow this page to close its tab?" preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 		
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			[[appDelegate webViewController] removeTab:[self tabIndex]];
+			[[Appdelegate webViewController] removeTab:[self tabIndex]];
 		}];
 		
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
 		[alertController addAction:cancelAction];
 		[alertController addAction:okAction];
 		
-		[[appDelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+		[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
 		
 		[self webView:__webView callbackWith:@""];
 	}
@@ -381,7 +376,7 @@ AppDelegate *appDelegate;
 		
 		/* actions */
 		else if ([action isEqualToString:@"fakeWindow.close"]) {
-			[[appDelegate webViewController] removeTab:[wvt tabIndex]];
+			[[Appdelegate webViewController] removeTab:[wvt tabIndex]];
 			[self webView:__webView callbackWith:@""];
 		}
 	}
@@ -500,7 +495,7 @@ AppDelegate *appDelegate;
 - (void)setProgress:(NSNumber *)pr
 {
 	_progress = pr;
-	[[appDelegate webViewController] updateProgress];
+	[[Appdelegate webViewController] updateProgress];
 }
 
 - (void)swipeRightAction:(UISwipeGestureRecognizer *)gesture
@@ -515,7 +510,7 @@ AppDelegate *appDelegate;
 
 - (void)webViewTouched:(UIEvent *)event
 {
-	[[appDelegate webViewController] webViewTouched];
+	[[Appdelegate webViewController] webViewTouched];
 }
 
 - (void)longPressMenu:(UILongPressGestureRecognizer *)sender {
@@ -564,19 +559,19 @@ AppDelegate *appDelegate;
 	
 	alertController = [UIAlertController alertControllerWithTitle:href message:alt preferredStyle:UIAlertControllerStyleActionSheet];
 	
-	UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Open" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[self loadURL:[NSURL URLWithString:href]];
 	}];
 	
-	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:@"Open in a New Tab" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		[[appDelegate webViewController] addNewTabForURL:[NSURL URLWithString:href]];
+	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in a New Tab", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		[[Appdelegate webViewController] addNewTabForURL:[NSURL URLWithString:href]];
 	}];
 	
-	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:@"Open in Safari" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:href]];
 	}];
 
-	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:@"Save Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Save Image", @"Action title for long press on image dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		NSURL *imgurl = [NSURL URLWithString:img];
 		[URLInterceptor temporarilyAllow:imgurl];
 		NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
@@ -585,12 +580,12 @@ AppDelegate *appDelegate;
 			UIImageWriteToSavedPhotosAlbum(i, self, nil, nil);
 		}
 		else {
-			UIAlertView *m = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"An error occurred downloading image %@", img] delegate:self cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+			UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Error alert message text"), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
 			[m show];
 		}
 	}];
 	
-	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:@"Copy URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Copy URL", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIPasteboard generalPasteboard] setString:(href ? href : img)];
 	}];
 	
@@ -608,15 +603,16 @@ AppDelegate *appDelegate;
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
 	[alertController addAction:cancelAction];
 	
-	UIPopoverPresentationController *popover = alertController.popoverPresentationController;
-	
+	UIPopoverPresentationController *popover = [alertController popoverPresentationController];
 	if (popover) {
-		popover.sourceView = [[appDelegate webViewController] view];
-		popover.sourceRect = [[[appDelegate webViewController] view] bounds];
+		popover.sourceView = [sender view];
+		CGPoint loc = [sender locationInView:[sender view]];
+		/* offset for width of the finger */
+		popover.sourceRect = CGRectMake(loc.x + 35, loc.y, 1, 1);
 		popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
 	}
 	
-	[[appDelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+	[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (BOOL)canGoBack
@@ -635,14 +631,14 @@ AppDelegate *appDelegate;
 		[[self webView] goBack];
 	}
 	else if (self.openedByTabHash) {
-		for (WebViewTab *wvt in [[appDelegate webViewController] webViewTabs]) {
+		for (WebViewTab *wvt in [[Appdelegate webViewController] webViewTabs]) {
 			if ([wvt hash] == [self.openedByTabHash longValue]) {
-				[[appDelegate webViewController] removeTab:self.tabIndex andFocusTab:[wvt tabIndex]];
+				[[Appdelegate webViewController] removeTab:self.tabIndex andFocusTab:[wvt tabIndex]];
 				return;
 			}
 		}
 		
-		[[appDelegate webViewController] removeTab:self.tabIndex];
+		[[Appdelegate webViewController] removeTab:self.tabIndex];
 	}
 }
 

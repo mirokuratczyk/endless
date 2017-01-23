@@ -82,7 +82,7 @@
 			<key>Title</key>
 			<string>PROXY_USERNAME</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>IASKPlaceholder</key>
@@ -90,7 +90,7 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 			<key>IsSecure</key>
 			<true/>
 			<key>Title</key>
@@ -104,7 +104,7 @@
 			<key>Title</key>
 			<string>PROXY_DOMAIN</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>IASKCustomViewSpecifier</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>IASKPlaceholder</key>

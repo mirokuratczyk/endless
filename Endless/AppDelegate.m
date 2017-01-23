@@ -1,31 +1,47 @@
 /*
+ * Copyright (c) 2017, Psiphon Inc.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  * Endless
  * Copyright (c) 2014-2015 joshua stein <jcs@jcs.org>
  *
  * See LICENSE file for redistribution terms.
  */
 
+#import <arpa/inet.h>
+#import <netinet/in.h>
+#import <sys/socket.h>
+#import <AudioToolbox/AudioServices.h>
+#import <CoreFoundation/CFSocket.h>
+
 #import "AppDelegate.h"
 #import "Bookmark.h"
-#import "HTTPSEverywhere.h"
-#import "URLInterceptor.h"
-#import "NSBundle+Language.h"
-#import <CoreFoundation/CFSocket.h>
-#import <sys/socket.h>
-#import <netinet/in.h>
-#import <arpa/inet.h>
 #import "DTReachability.h"
-
+#import "HTTPSEverywhere.h"
+#import "PsiphonBrowser-Swift.h"
 #import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
-
-#import "PsiphonBrowser-Swift.h"
+#import "URLInterceptor.h"
 
 
 @implementation AppDelegate
 
 BOOL needsResume;
 RegionAdapter *regionAdapter;
+SystemSoundID notificationSound;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -40,9 +56,9 @@ RegionAdapter *regionAdapter;
 	[Bookmark retrieveList];
 	
 	[self initializeDefaults];
-	
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[NSBundle setLanguage:[userDefaults objectForKey:appLanguage]];
+
+	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
+	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &notificationSound);
 
     return YES;
 }
@@ -58,32 +74,10 @@ RegionAdapter *regionAdapter;
     
     self.socksProxyPort = 0;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
-	
-	self.needsResume = false;
-	__weak AppDelegate *weakself = self;
-	
-	[[DTReachability defaultReachability] addReachabilityObserverWithBlock:^(DTReachabilityInformation *reachabilityInfo) {
-		AppDelegate *appDelegate = weakself;
-
-		SCNetworkReachabilityFlags connectionFlags = reachabilityInfo.reachabilityFlags;
-		BOOL isReachable = ((connectionFlags & kSCNetworkFlagsReachable) != 0);
-		BOOL needsConnection = ((connectionFlags & kSCNetworkFlagsConnectionRequired) != 0);
-		BOOL hasConnection = (isReachable && !needsConnection);
-		
-		if (hasConnection)
-		{
-			if(appDelegate.needsResume){
-				[appDelegate startPsiphon];
-			}
-		} else {
-			if(appDelegate.psiphonConectionState != PsiphonConnectionStateDisconnected) {
-				appDelegate.needsResume = true;
-				appDelegate.psiphonConectionState = PsiphonConnectionStateConnecting;
-				[appDelegate notifyPsiphonConnectionState];
-				[appDelegate.psiphonTunnel stop];
-			}
-		}
-	}];
+    
+    self.needsResume = false;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    [[Reachability reachabilityForInternetConnection] startNotifier];
     return YES;
 }
 
@@ -96,6 +90,14 @@ RegionAdapter *regionAdapter;
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
         }
+    });
+}
+
+- (void) stopPsiphon {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        [self notifyPsiphonConnectionState];
+        [self.psiphonTunnel stop];
     });
 }
 
@@ -147,6 +149,8 @@ RegionAdapter *regionAdapter;
         }
         CFSocketInvalidate(sockfd);
         CFRelease(sockfd);
+        CFRelease(connectAddr);
+        
     } else {
 		needStart = true;
 	}
@@ -165,7 +169,9 @@ RegionAdapter *regionAdapter;
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
     [_psiphonTunnel stop];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -246,6 +252,9 @@ RegionAdapter *regionAdapter;
 {
     [self initializeDefaultsFor:@"Root.inApp.plist"];
     [self initializeDefaultsFor:@"Security.plist"];
+    [self initializeDefaultsFor:@"Notifications~iphone.plist"];
+    [self initializeDefaultsFor:@"Notifications~ipad.plist"];
+    
     _searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
 }
 
@@ -264,28 +273,28 @@ RegionAdapter *regionAdapter;
 
 - (NSString *) getPsiphonConfig {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
+
     NSString *bundledConfigPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psiphon_config"];
     if(![fileManager fileExistsAtPath:bundledConfigPath]) {
         NSLog(@"Config file not found. Aborting now.");
         abort();
     }
-    
+
     //Read in psiphon_config JSON
     NSData *jsonData = [fileManager contentsAtPath:bundledConfigPath];
     NSError *e = nil;
     NSDictionary *readOnly = [NSJSONSerialization JSONObjectWithData: jsonData options: kNilOptions error: &e];
-    
+
     NSMutableDictionary *mutableConfigCopy = [readOnly mutableCopy];
-    
+
     if(e) {
         NSLog(@"Failed to parse config JSON. Aborting now.");
         abort();
     }
-    
+
     NSString *selectedRegionCode = [regionAdapter getSelectedRegion].code;
     mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
-    
+
     NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
     mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
 
@@ -300,7 +309,7 @@ RegionAdapter *regionAdapter;
         mutableConfigCopy[@"FetchRoutesTimeoutSeconds"] = 0;
         mutableConfigCopy[@"HttpProxyOriginServerTimeoutSeconds"] = 0;
     }
-    
+
     jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
                                                options:0 // non-pretty printing
                                                  error:&e];
@@ -312,16 +321,23 @@ RegionAdapter *regionAdapter;
 }
 
 - (void) onAvailableEgressRegions:(NSArray *)regions {
-    [regionAdapter onAvailableEgressRegions:regions];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [regionAdapter onAvailableEgressRegions:regions];
+    });
 }
 
 - (void) onDiagnosticMessage : (NSString*) message {
-    DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
-    [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"onDiagnosticMessage: %@", message);
+        DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
+        [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
+    });
 }
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
-    self.socksProxyPort = port;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.socksProxyPort = port;
+    });
 }
 
 - (void) onConnecting {
@@ -335,6 +351,16 @@ RegionAdapter *regionAdapter;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		self.psiphonConectionState = PsiphonConnectionStateConnected;
 		[self notifyPsiphonConnectionState];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        if ([userDefaults boolForKey:@"vibrate_notification"]) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
+        if ([userDefaults boolForKey:@"sound_notification"]) {
+			AudioServicesPlaySystemSound (notificationSound);
+        }
+        
 		
 		if(self.shouldOpenHomePages) {
 			NSMutableArray * openURLs = [NSMutableArray new];
@@ -373,9 +399,7 @@ RegionAdapter *regionAdapter;
 }
 
 
-- (void) setAppLanguageAndReloadSettings:(NSString *)language {
-	[NSBundle setLanguage:language];
-
+- (void) reloadAndOpenSettings {
     NSMutableArray * reloadURLS = [NSMutableArray new];
     NSArray * wvTabs = [self.webViewController webViewTabs];
     
@@ -394,10 +418,27 @@ RegionAdapter *regionAdapter;
 }
 
 - (void) notifyPsiphonConnectionState {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:kPsiphonConnectionStateNotification
-     object:self
-     userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:kPsiphonConnectionStateNotification
+         object:self
+         userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
+    });
+}
+
+- (void) internetReachabilityChanged:(NSNotification *)note
+{
+    Reachability* currentReachability = [note object];
+    if([currentReachability currentReachabilityStatus] == NotReachable) {
+        if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+            self.needsResume = true;
+            [self stopPsiphon];
+        }
+    } else {
+        if(self.needsResume){
+            [self startPsiphon];
+        }
+    }
 }
 
 @end

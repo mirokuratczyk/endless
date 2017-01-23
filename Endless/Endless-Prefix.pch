@@ -51,4 +51,7 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 #define kPsiphonAvailableRegionsNotification @"kPsiphonAvailableRegionsNotification"
 #define kPsiphonRegionBestPerformance @""
 
+#import "AppDelegate.h"
+#define Appdelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
 #endif

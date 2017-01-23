@@ -6,11 +6,9 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 
-@interface RuleEditorController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDelegate>
+@interface RuleEditorController : UITableViewController <UISearchBarDelegate, UISearchResultsUpdating, UITableViewDelegate>
 
-@property AppDelegate *appDelegate;
 @property NSMutableArray *sortedRuleNames;
 @property NSMutableArray *inUseRuleNames;
 

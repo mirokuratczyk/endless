@@ -5,12 +5,10 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "Bookmark.h"
 
 @implementation Bookmark
 
-static AppDelegate *appDelegate;
 static NSMutableArray *_list;
 
 NSString * const BOOKMARK_KEY_NAME = @"name";
@@ -29,7 +27,6 @@ const int BOOKMARK_FILE_VERSION = 1;
 
 + (void)retrieveList
 {
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	_list = nil;
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -116,19 +113,19 @@ const int BOOKMARK_FILE_VERSION = 1;
 
 + (UIAlertController *)addBookmarkDialogWithOkCallback:(void (^)(void))callback
 {
-	WebViewTab *wvt = [[appDelegate webViewController] curWebViewTab];
+	WebViewTab *wvt = [[Appdelegate webViewController] curWebViewTab];
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add Bookmark", nil)
-                                                                             message:NSLocalizedString(@"Enter the details of the URL to bookmark:", nil)
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add Bookmark", @"'Add bookmark' dialog title")
+                                                                             message:NSLocalizedString(@"Enter the details of the URL to bookmark:", @"'Add bookmark' dialog text")
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-		textField.placeholder = NSLocalizedString(@"URL", nil);
+		textField.placeholder = NSLocalizedString(@"URL", @"Add bookmark URL field");
 		
 		if (wvt && [wvt url])
 			textField.text = [[wvt url] absoluteString];
 	}];
 	[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-		textField.placeholder = NSLocalizedString(@"Page Name (leave blank to use URL)", nil);
+		textField.placeholder = NSLocalizedString(@"Page Name (leave blank to use URL)", @"Add bookmark page name field");
 		
 		if (wvt && [wvt url])
 			textField.text = [[wvt title] text];

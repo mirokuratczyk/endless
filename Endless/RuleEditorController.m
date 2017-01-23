@@ -9,13 +9,11 @@
 
 @implementation RuleEditorController
 
-UISearchDisplayController *searchDisplayController;
+UISearchController *searchController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	self = [super initWithStyle:style];
-	
-	self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	
 	self.sortedRuleNames = [[NSMutableArray alloc] init];
 	self.inUseRuleNames = [[NSMutableArray alloc] init];
@@ -31,15 +29,13 @@ UISearchDisplayController *searchDisplayController;
 	
 	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 	
-	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-	searchDisplayController.delegate = self;
-	searchDisplayController.searchResultsDataSource = self;
-	
-	[[self tableView] setTableHeaderView:self.searchBar];
-}
+    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    searchController.searchResultsUpdater = self;
+    searchController.dimsBackgroundDuringPresentation = NO;
+    searchController.searchBar.delegate = self;
+	[[self tableView] setTableHeaderView:searchController.searchBar];
+    [searchController.searchBar sizeToFit];
 
-- (void)viewWillDisappear:(BOOL)animated
-{
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,7 +63,7 @@ UISearchDisplayController *searchDisplayController;
 {
 	if (section == 0)
 		return [self.inUseRuleNames count];
-	else if (tableView == self.searchDisplayController.searchResultsTableView)
+	else if (searchController.active && ![searchController.searchBar.text  isEqual:@""])
 		return [self.searchResult count];
 	else
 		return [self.sortedRuleNames count];
@@ -127,18 +123,18 @@ UISearchDisplayController *searchDisplayController;
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-	[self.searchResult removeAllObjects];
-	
-	for (NSString *ruleName in self.sortedRuleNames) {
-		NSRange range = [ruleName rangeOfString:searchString options:NSCaseInsensitiveSearch];
-			
-		if (range.length > 0)
-			[self.searchResult addObject:ruleName];
-	}
-	
-	return YES;
+    NSString *searchString = searchController.searchBar.text;
+    [self.searchResult removeAllObjects];
+    
+    for (NSString *ruleName in self.sortedRuleNames) {
+        NSRange range = [ruleName rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        
+        if (range.length > 0)
+            [self.searchResult addObject:ruleName];
+    }
+    [self.tableView reloadData];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,7 +152,7 @@ UISearchDisplayController *searchDisplayController;
 	
 	if ([indexPath section] == 0)
 		group = [self inUseRuleNames];
-	else if (tableView == self.searchDisplayController.searchResultsTableView)
+    else if (searchController.active && ![searchController.searchBar.text  isEqual:@""])
 		group = [self searchResult];
 	else
 		group = [self sortedRuleNames];

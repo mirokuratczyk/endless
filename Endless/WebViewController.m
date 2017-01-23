@@ -5,10 +5,9 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "BookmarkController.h"
-#import "HTTPSEverywhereRuleController.h"
 #import "HostSettings.h"
+#import "HTTPSEverywhereRuleController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "RegionAdapter.h"
@@ -25,7 +24,6 @@
 #define TOOLBAR_BUTTON_SIZE 30
 
 @implementation WebViewController {
-	AppDelegate *appDelegate;
 
 	UIScrollView *tabScroller;
 	UIPageControl *tabChooser;
@@ -74,10 +72,9 @@
 {
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appDelegate setWebViewController:self];
+	[Appdelegate setWebViewController:self];
 	
-	[appDelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
+	[Appdelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
 	
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
 	curTabIndex = 0;
@@ -122,21 +119,8 @@
 	[urlField setDelegate:self];
 	[navigationBar addSubview:urlField];
 	
-
-	CGRect indicatorFrame;
-	if(isRTL) {
-		indicatorFrame = CGRectMake(self.view.bounds.size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
-	} else {
-		indicatorFrame = CGRectMake(TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
-	}
 	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]initWithFrame:
-							   indicatorFrame];
+							   [self frameForConnectionIndicator]];
 	
 	[navigationBar addSubview:psiphonConnectionIndicator];
 	
@@ -233,7 +217,7 @@
 	
 	tabAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTabFromToolbar:)];
 	tabDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWithTabsButton:)];
-	tabDoneButton.title = NSLocalizedString(@"Done", nil);
+	tabDoneButton.title = NSLocalizedString(@"Done", @"Done button title, dismisses the tab chooser");
 
 	tabToolbar.items = [NSArray arrayWithObjects:
 			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
@@ -335,7 +319,7 @@
 /* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![appDelegate areTesting]) {
+	if (webViewTabs.count == 0 && ![Appdelegate areTesting]) {
         /*
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
@@ -480,6 +464,7 @@
 	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	
 	urlField.frame = [self frameForUrlField];
+	psiphonConnectionIndicator.frame = [self frameForConnectionIndicator];
 	[self updateSearchBarDetails];
 	[self.view setNeedsDisplay];
 }
@@ -487,6 +472,24 @@
 - (CGRect)frameForTabIndex:(NSUInteger)number
 {
 	return CGRectMake((self.view.frame.size.width * number), 0, self.view.frame.size.width, tabScroller.frame.size.height);
+}
+
+- (CGRect) frameForConnectionIndicator {
+	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+	CGRect frame;
+	if(isRTL) {
+		frame = CGRectMake(size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	} else {
+		frame = CGRectMake(TOOLBAR_PADDING,
+									TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+	}
+	return frame;
+	
 }
 
 - (CGRect)frameForUrlField
@@ -514,11 +517,6 @@
 		return webViewTabs[curTabIndex];
 	else
 		return nil;
-}
-
-- (HostSettings*)curWebViewTabHostSettings
-{
-    return [HostSettings settingsOrDefaultsForHost:[[[self curWebViewTab] url] host]];
 }
 
 - (long)curWebViewTabHttpsRulesCount
@@ -596,8 +594,11 @@
 
 - (void)addNewTabFromToolbar:(id)_id
 {
+    //avoid capturing 'self'
+    UITextField *localURLField = urlField;
+    
 	[self addNewTabForURL:nil forRestoration:NO withCompletionBlock:^(BOOL finished) {
-		[urlField becomeFirstResponder];
+		[localURLField becomeFirstResponder];
 	}];
 }
 
@@ -632,7 +633,7 @@
 	[wvt close];
 	wvt = nil;
 	
-	[[appDelegate cookieJar] clearNonWhitelistedDataForTab:wvtHash];
+	[[Appdelegate cookieJar] clearNonWhitelistedDataForTab:wvtHash];
 
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
@@ -648,8 +649,12 @@
 			}
 			else {
 				/* no tabs left, add one and zoom out */
-				[self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
-					[urlField becomeFirstResponder];
+                
+                //avoid capturing 'self'
+                UITextField *localURLField = urlField;
+				
+                [self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
+					[localURLField becomeFirstResponder];
 				}];
 				return;
 			}
@@ -659,7 +664,7 @@
 		[self setCurTabIndex:futureFocusNumber];
 	}
 	[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-		tabScroller.contentSize = CGSizeMake(self.view.frame.size.width * tabChooser.numberOfPages, self.view.frame.size.height);
+		tabScroller.contentSize = CGSizeMake(self.view.frame.size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
 
 		for (int i = 0; i < webViewTabs.count; i++) {
 			WebViewTab *wvt = webViewTabs[i];
@@ -884,7 +889,7 @@
 - (void)prepareForNewURLFromString:(NSString *)url
 {
 	/* user is shifting to a new place, probably a good time to clear old data */
-	[[appDelegate cookieJar] clearAllOldNonWhitelistedData];
+	[[Appdelegate cookieJar] clearAllOldNonWhitelistedData];
 	
 	NSURL *enteredURL = [NSURL URLWithString:url];
 	
@@ -1025,11 +1030,11 @@
 
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
-	[[appDelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
+	[[Appdelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
 
     // Check if settings which have changed require a tunnel service restart to take effect
     if ([self isSettingsRestartRequired]) {
-        [appDelegate scheduleRunningTunnelServiceRestart];
+        [Appdelegate scheduleRunningTunnelServiceRestart];
     }
 }
 
@@ -1169,7 +1174,7 @@
 - (void) addBookmarkFromBottomToolbar:(id)_id {
 	BookmarkController *bc = [[BookmarkController alloc] init];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:bc];
-	[[appDelegate webViewController] presentViewController:navController animated:YES completion:nil];
+	[[Appdelegate webViewController] presentViewController:navController animated:YES completion:nil];
 }
 
 

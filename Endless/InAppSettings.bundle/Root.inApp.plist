@@ -18,7 +18,47 @@
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>DefaultValue</key>
-			<string>best-performance</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>APPLICATION_LANGUAGE</string>
+			<key>Key</key>
+			<string>appLanguage</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Values</key>
+			<array>
+				<string></string>
+				<string>en</string>
+				<string>fa</string>
+				<string>zh-Hant</string>
+				<string>ar</string>
+				<string>de</string>
+				<string>es</string>
+				<string>fr</string>
+				<string>hr</string>
+				<string>id</string>
+				<string>nl</string>
+				<string>pt-PT</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>DEFAULT_LANGUAGE</string>
+				<string>English</string>
+				<string>فارسی</string>
+				<string>繁体中文</string>
+				<string>العربية</string>
+				<string>Deutsch</string>
+				<string>Español</string>
+				<string>Français</string>
+				<string>Hrvatski</string>
+				<string>Bahasa Indonesia</string>
+				<string>Nederlands</string>
+				<string>Português (Portugal)</string>
+			</array>
 		</dict>
 		<dict>
 			<key>File</key>

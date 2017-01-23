@@ -8,7 +8,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
 #import "LocalNetworkChecker.h"
@@ -21,7 +20,6 @@
 
 @implementation URLInterceptor
 
-static AppDelegate *appDelegate;
 static BOOL sendDNT = true;
 static NSMutableArray *tmpAllowed;
 
@@ -75,17 +73,6 @@ static NSString *_javascriptToInject;
 	return request;
 }
 
-- (NSMutableData *)data {
-	return _data;
-}
-
-- (void)appendData:(NSData *)newData {
-	if (_data == nil)
-		_data = [[NSMutableData alloc] initWithData:newData];
-	else
-		[_data appendData:newData];
-}
-
 /*
  * Start the show: WebView will ask NSURLConnection if it can handle this request, and will eventually hit this registered handler.
  * We will intercept all requests except for data: and file:// URLs.  WebView will then call our initWithRequest.
@@ -101,10 +88,51 @@ static NSString *_javascriptToInject;
 		/* can't do anything for these URLs */
 		return NO;
 	
-	if (appDelegate == nil)
-		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	
 	return YES;
+}
+
++ (NSString *)prependDirectives:(NSDictionary *)directives inCSPHeader:(NSString *)header
+{
+	/*
+	 * CSP guide says apostrophe can't be in a bare string, so it should be safe to assume
+	 * splitting on ; will not catch any ; inside of an apostrophe-enclosed value, since those
+	 * can only be constant things like 'self', 'unsafe-inline', etc.
+	 *
+	 * https://www.w3.org/TR/CSP2/#source-list-parsing
+	 */
+ 
+	NSMutableDictionary *curDirectives = [[NSMutableDictionary alloc] init];
+	NSArray *td = [header componentsSeparatedByString:@";"];
+	for (int i = 0; i < [td count]; i++) {
+		NSString *t = [(NSString *)[td objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSRange r = [t rangeOfString:@" "];
+		if (r.length > 0) {
+			NSString *dir = [[t substringToIndex:r.location] lowercaseString];
+			NSString *val = [[t substringFromIndex:r.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			[curDirectives setObject:val forKey:dir];
+		}
+	}
+	
+	for (NSString *newDir in [directives allKeys]) {
+		NSString *newval = [directives objectForKey:newDir];
+		NSString *curval = [curDirectives objectForKey:newDir];
+		if (curval) {
+			/*
+			 * CSP spec says if 'none' is encountered to ignore anything else, so if
+			 * 'none' is there, just replace it with newval rather than prepending
+			 */
+			if (![curval containsString:@"'none'"])
+				newval = [NSString stringWithFormat:@"%@ %@", newval, curval];
+		}
+		
+		[curDirectives setObject:newval forKey:newDir];
+	}
+	
+	NSMutableString *ret = [[NSMutableString alloc] init];
+	for (NSString *dir in [[curDirectives allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)])
+		[ret appendString:[NSString stringWithFormat:@"%@%@ %@;", ([ret length] > 0 ? @" " : @""), dir, [curDirectives objectForKey:dir]]];
+	
+	return [NSString stringWithString:ret];
 }
 
 /*
@@ -128,7 +156,7 @@ static NSString *_javascriptToInject;
 		wvthash = [NSString stringWithFormat:@"%lu", [(NSNumber *)[NSURLProtocol propertyForKey:WVT_KEY inRequest:request] longValue]];
 
 	if (wvthash != nil && ![wvthash isEqualToString:@""]) {
-		for (WebViewTab *_wvt in [[appDelegate webViewController] webViewTabs]) {
+		for (WebViewTab *_wvt in [[Appdelegate webViewController] webViewTabs]) {
 			if ([[NSString stringWithFormat:@"%lu", (unsigned long)[_wvt hash]] isEqualToString:wvthash]) {
 				wvt = _wvt;
 				break;
@@ -137,7 +165,7 @@ static NSString *_javascriptToInject;
 	}
 	
 	if (wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]])
-		wvt = [[[appDelegate webViewController] webViewTabs] firstObject];
+		wvt = [[[Appdelegate webViewController] webViewTabs] firstObject];
 	
 	if (wvt == nil) {
 		NSLog(@"[URLInterceptor] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
@@ -159,7 +187,7 @@ static NSString *_javascriptToInject;
 				[alertController addAction:cancelAction];
 				[alertController addAction:okAction];
 				
-				[[appDelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+				[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
 			}
 		}
 		
@@ -170,6 +198,19 @@ static NSString *_javascriptToInject;
 	NSLog(@"[URLInterceptor] [Tab %@] initializing %@ to %@ (via %@)", wvt.tabIndex, [request HTTPMethod], [[request URL] absoluteString], [request mainDocumentURL]);
 #endif
 	return self;
+}
+
+- (NSMutableData *)data
+{
+	return _data;
+}
+
+- (void)appendData:(NSData *)newData
+{
+	if (_data == nil)
+		_data = [[NSMutableData alloc] initWithData:newData];
+	else
+		[_data appendData:newData];
 }
 
 /*
@@ -198,6 +239,11 @@ static NSString *_javascriptToInject;
 
 	[newRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 	[newRequest setHTTPShouldUsePipelining:YES];
+    
+    // TODO: invetigate this
+    // fix double free error as per
+    // https://github.com/AFNetworking/AFNetworking/issues/2334#issuecomment-191946535
+    //[newRequest HTTPBody];
 	
 	[self setActualRequest:newRequest];
 	
@@ -236,7 +282,7 @@ static NSString *_javascriptToInject;
 		self.originHostSettings = [HostSettings settingsOrDefaultsForHost:oHost];
 
 	/* check HSTS cache first to see if scheme needs upgrading */
-	[newRequest setURL:[[appDelegate hstsCache] rewrittenURI:[[self request] URL]]];
+	[newRequest setURL:[[Appdelegate hstsCache] rewrittenURI:[[self request] URL]]];
 	
 	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
 	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[[self request] URL] host]];
@@ -278,7 +324,7 @@ static NSString *_javascriptToInject;
 	
 	/* we're handling cookies ourself */
 	[newRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[appDelegate cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
+	NSArray *cookies = [[Appdelegate cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
 	if (cookies != nil && [cookies count] > 0) {
 #ifdef TRACE_COOKIES
 		NSLog(@"[URLInterceptor] [Tab %@] sending %lu cookie(s) to %@", wvt.tabIndex, [cookies count], [newRequest URL]);
@@ -319,7 +365,7 @@ static NSString *_javascriptToInject;
 	firstChunk = YES;
 
 	contentType = CONTENT_TYPE_OTHER;
-	NSString *ctype = [self caseInsensitiveHeader:@"content-type" inResponse:response];
+	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:response] lowercaseString];
 	if (ctype != nil) {
 		if ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"])
 			contentType = CONTENT_TYPE_HTML;
@@ -334,18 +380,21 @@ static NSString *_javascriptToInject;
 	NSString *CSPmode = [self.originHostSettings setting:HOST_SETTINGS_KEY_CSP];
 
 	if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
-		CSPheader = @"script-src 'none'; media-src 'none'; object-src 'none'; connect-src 'none'; font-src 'none'; sandbox allow-forms allow-top-navigation; style-src 'unsafe-inline' *; report-uri;";
+		CSPheader = @"child-src endlessipc:; frame-src endlessipc:; script-src 'none'; media-src 'none'; object-src 'none'; connect-src 'none'; font-src 'none'; sandbox allow-forms allow-top-navigation; style-src 'unsafe-inline' *; report-uri;";
 	else if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_BLOCK_CONNECT])
-		CSPheader = @"connect-src 'none'; media-src 'none'; object-src 'none'; report-uri;";
+		CSPheader = @"child-src endlessipc:; frame-src endlessipc:; connect-src 'none'; media-src 'none'; object-src 'none'; report-uri;";
 	else
 		CSPheader = nil;
 	
-#ifdef TRACE_HOST_SETTINGS
-	NSLog(@"[HostSettings] [Tab %@] setting CSP for %@ to %@ (via %@)", wvt.tabIndex, [[[self actualRequest] URL] host], CSPmode, [[[self actualRequest] mainDocumentURL] host]);
-#endif
+	NSString *curCSP = [self caseInsensitiveHeader:@"content-security-policy" inResponse:response];
 	
+#ifdef TRACE_HOST_SETTINGS
+	NSLog(@"[HostSettings] [Tab %@] setting CSP for %@ to %@ (via %@) (currently %@)", wvt.tabIndex, [[[self actualRequest] URL] host], CSPmode, [[[self actualRequest] mainDocumentURL] host], curCSP);
+#endif
+
 	NSMutableDictionary *mHeaders = [[NSMutableDictionary alloc] initWithDictionary:[response allHeaderFields]];
-	if (CSPheader != nil) {
+	
+	if (CSPheader != nil || curCSP != nil) {
 		BOOL foundCSP = false;
 		
 		for (id h in [mHeaders allKeys]) {
@@ -355,11 +404,19 @@ static NSString *_javascriptToInject;
 				if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
 					/* disregard the existing policy since ours will be the most strict anyway */
 					hv = CSPheader;
-				else
-					hv = [NSString stringWithFormat:@"connect-src 'none';media-src 'none';object-src 'none';%@", hv];
+				else if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_BLOCK_CONNECT])
+					/* prepend our 'none's to the existing policy */
+					hv = [NSString stringWithFormat:@"%@ %@", CSPheader, hv];
+				else {
+					/* edit this existing policy just to allow our ipc URLs */
+					hv = [URLInterceptor prependDirectives:@{ @"child-src": @"endlessipc:", @"frame-src": @"endlessipc:" } inCSPHeader:hv];
+				}
 				
 				[mHeaders setObject:hv forKey:h];
 				foundCSP = true;
+#ifdef TRACE_HOST_SETTINGS
+				NSLog(@"[HostSettings] [Tab %@] CSP header is now %@", wvt.tabIndex, hv);
+#endif
 			}
 			else if ([[h lowercaseString] isEqualToString:@"cache-control"]) {
 				/* ignore */
@@ -368,24 +425,24 @@ static NSString *_javascriptToInject;
 				[mHeaders setObject:hv forKey:h];
 		}
 		
-		if (!foundCSP) {
+		if (!foundCSP && CSPheader) {
 			[mHeaders setObject:CSPheader forKey:@"Content-Security-Policy"];
 			[mHeaders setObject:CSPheader forKey:@"X-WebKit-CSP"];
 		}
 	}
-		
+
 	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
 	
 	/* save any cookies we just received */
-	[[appDelegate cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
+	[[Appdelegate cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
 	
 	/* in case of localStorage */
-	[[appDelegate cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
+	[[Appdelegate cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
 	
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
 		if (hsts != nil && ![hsts isEqualToString:@""]) {
-			[[appDelegate hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
+			[[Appdelegate hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
 		}
 	}
 	
@@ -397,7 +454,7 @@ static NSString *_javascriptToInject;
 	}
 	
 	/* handle HTTP-level redirects */
-	if ((response.statusCode == 301) || (response.statusCode == 302) || (response.statusCode == 307)) {
+	if ((response.statusCode == 301) || (response.statusCode == 302) || (response.statusCode == 303) || (response.statusCode == 307)) {
 		NSString *newURL = [self caseInsensitiveHeader:@"location" inResponse:response];
 		if (newURL == nil || [newURL isEqualToString:@""])
 			NSLog(@"[URLInterceptor] [Tab %@] got %ld redirect at %@ but no location header", wvt.tabIndex, (long)response.statusCode, [[self actualRequest] URL]);
@@ -530,7 +587,7 @@ static NSString *_javascriptToInject;
 	/* no credentials, prompt the user */
 	if (nsuc == nil) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			UIAlertController *uiac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", nil) message:@"" preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertController *uiac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"Authentication Required alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
 
 			if ([[challenge protectionSpace] realm] != nil && ![[[challenge protectionSpace] realm] isEqualToString:@""])
 				[uiac setMessage:[NSString stringWithFormat:@"%@: \"%@\"", [[challenge protectionSpace] host], [[challenge protectionSpace] realm]]];
@@ -546,7 +603,7 @@ static NSString *_javascriptToInject;
 				 textField.secureTextEntry = YES;
 			}];
 			
-			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 				[[challenge sender] cancelAuthenticationChallenge:challenge];
 				[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
 			}]];
@@ -561,7 +618,7 @@ static NSString *_javascriptToInject;
 				[[challenge sender] useCredential:nsuc forAuthenticationChallenge:challenge];
 			}]];
 			
-			[[appDelegate webViewController] presentViewController:uiac animated:YES completion:nil];
+			[[Appdelegate webViewController] presentViewController:uiac animated:YES completion:nil];
 		});
 	}
 	else {

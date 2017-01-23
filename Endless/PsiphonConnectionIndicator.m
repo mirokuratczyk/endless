@@ -47,11 +47,9 @@ UIActivityIndicatorView *activityIndicator;
 	return self;
 }
 
-- (void) displayConnectionState:(PsiphonConnectionState)state {
-	
+- (void) displayConnectionState:(PsiphonConnectionState)state {    
 	CGFloat activityIndicatorAlpha, imgConnectedAlpha, imgDisconnectedAlpha = 0.0f;
 	void (^animationCompleted)(BOOL finished);
-	
 	switch (state) {
 		case PsiphonConnectionStateConnected:
 			activityIndicatorAlpha = 0.0f;
@@ -88,7 +86,6 @@ UIActivityIndicatorView *activityIndicator;
 						 imgDisconnected.alpha = imgDisconnectedAlpha;
 					 }
 					 completion: animationCompleted];
-	
 }
 
 @end

@@ -5,7 +5,6 @@
  * See LICENSE file for redistribution terms.
  */
 
-#import "AppDelegate.h"
 #import "HSTSCache.h"
 #import "NSString+IPAddress.h"
 
@@ -16,7 +15,6 @@
 @implementation HSTSCache
 
 static NSDictionary *_preloadedHosts;
-AppDelegate *appDelegate;
 
 + (NSString *)hstsCachePath
 {
@@ -27,10 +25,7 @@ AppDelegate *appDelegate;
 - (HSTSCache *)init
 {
 	self = [super init];
-	
 	_dict = [[NSMutableDictionary alloc] init];
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	
 	return self;
 }
 

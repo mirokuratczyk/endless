@@ -29,6 +29,7 @@
 		01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB361B4DBA8D00A02482 /* BookmarkController.m */; };
 		01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB481B4ED48000A02482 /* Bookmark.m */; };
 		01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */; };
+		01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */; };
 		01D7412A1A45EDD1007B7033 /* CookieJar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741291A45EDD1007B7033 /* CookieJar_Tests.m */; };
 		01D7412C1A45F8EB007B7033 /* injected.js in Resources */ = {isa = PBXBuildFile; fileRef = 01D7412B1A45F8EB007B7033 /* injected.js */; };
 		01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */; };
@@ -56,15 +57,17 @@
 		01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */; };
 		01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FC0E561B38FB6B00955D9A /* Launch Screen.xib */; };
 		3A2F3E91C803B63ED1039CBC /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */; };
-		4412BD271DF7450100C18B97 /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 4412BD261DF7450100C18B97 /* NSBundle+Language.m */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
+		4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */; };
+		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
+		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44C7B2081E2040A700432BBB /* L18n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L18n+Swizzling.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
 		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
 		44E779301DE4DCD400854379 /* OnePasswordExtension.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E779321DE4DCD400854379 /* OnePasswordExtension.strings */; };
 		44E779421DE6031A00854379 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E7793E1DE6031A00854379 /* AppDelegate.m */; };
 		44E779431DE6031A00854379 /* PsiphonConnectionIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */; };
 		44E779461DE6038000854379 /* psiphon_config in Resources */ = {isa = PBXBuildFile; fileRef = 44E779451DE6038000854379 /* psiphon_config */; };
-		44E779471DE603D900854379 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
@@ -99,7 +102,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44E779471DE603D900854379 /* PsiphonTunnel.framework in CopyFiles */,
+				44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +152,7 @@
 		01AFEB481B4ED48000A02482 /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bookmark.m; sourceTree = "<group>"; };
 		01AFEB4C1B4F2A5F00A02482 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePasswordExtension.h; sourceTree = "<group>"; };
 		01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnePasswordExtension.m; sourceTree = "<group>"; };
+		01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLInterceptor_Tests.m; sourceTree = "<group>"; };
 		01D741291A45EDD1007B7033 /* CookieJar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieJar_Tests.m; sourceTree = "<group>"; };
 		01D7412B1A45F8EB007B7033 /* injected.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = injected.js; path = Endless/Resources/injected.js; sourceTree = "<group>"; };
 		01D7412D1A466AF0007B7033 /* NSString+JavascriptEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JavascriptEscape.h"; sourceTree = "<group>"; };
@@ -182,10 +186,12 @@
 		01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = urlblocker_targets.plist; path = Endless/Resources/urlblocker_targets.plist; sourceTree = "<group>"; };
 		01FC0E561B38FB6B00955D9A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Endless/Resources/Launch Screen.xib"; sourceTree = "<group>"; };
 		0CD14E361B8198320473A2FF /* Pods-Endless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.debug.xcconfig"; sourceTree = "<group>"; };
-		4412BD251DF744E000C18B97 /* NSBundle+Language.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSBundle+Language.h"; path = "Endless/NSBundle+Language.h"; sourceTree = SOURCE_ROOT; };
-		4412BD261DF7450100C18B97 /* NSBundle+Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+Language.m"; path = "Endless/NSBundle+Language.m"; sourceTree = SOURCE_ROOT; };
 		446CB0A01DFF613900AEC0A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Root.strings; sourceTree = "<group>"; };
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
+		4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonSettingsTextFieldViewCell.h; sourceTree = SOURCE_ROOT; };
+		4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonSettingsTextFieldViewCell.m; sourceTree = SOURCE_ROOT; };
+		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
+		44C7B2071E2040A700432BBB /* L18n+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "L18n+Swizzling.m"; path = "Endless/L18n+Swizzling.m"; sourceTree = SOURCE_ROOT; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44E779311DE4DCD400854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
@@ -198,7 +204,6 @@
 		44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionIndicator.m; path = Endless/PsiphonConnectionIndicator.m; sourceTree = SOURCE_ROOT; };
 		44E779411DE6031A00854379 /* PsiphonTunnel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PsiphonTunnel.framework; path = Endless/PsiphonTunnel.framework; sourceTree = SOURCE_ROOT; };
 		44E779451DE6038000854379 /* psiphon_config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = psiphon_config; path = Endless/psiphon_config; sourceTree = SOURCE_ROOT; };
-		44E779491DE6046C00854379 /* psiphon_config */ = {isa = PBXFileReference; lastKnownFileType = text; name = psiphon_config; path = Endless/psiphon_config; sourceTree = "<group>"; };
 		4E1175171DD6310A009527EB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
@@ -222,6 +227,43 @@
 		4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackUpload.swift; path = Endless/FeedbackUpload.swift; sourceTree = SOURCE_ROOT; };
 		4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PsiphonData.swift; path = Endless/PsiphonData.swift; sourceTree = SOURCE_ROOT; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
+		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
+		6685BDDA1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDDB1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDDC1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDDD1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDDE1E314EAF00F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDDF1E314EAF00F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE01E314EB000F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE11E314EB000F0E414 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDE21E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDE31E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE41E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE51E314EC500F0E414 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDE61E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDE71E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDE81E314EDC00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDE91E314EDD00F0E414 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDEA1E314EEC00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDEB1E314EEC00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDEC1E314EED00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDED1E314EED00F0E414 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDEE1E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDEF1E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDF01E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDF11E314EF700F0E414 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDF61E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Root.strings"; sourceTree = "<group>"; };
+		6685BDF71E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		6685BDF81E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6685BDF91E314F1300F0E414 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/OnePasswordExtension.strings"; sourceTree = "<group>"; };
+		6685BDFA1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Root.strings; sourceTree = "<group>"; };
+		6685BDFB1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		6685BDFC1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6685BDFD1E314FB100F0E414 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
+		6685BDFE1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Root.strings"; sourceTree = "<group>"; };
+		6685BDFF1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		6685BE001E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6685BE011E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/OnePasswordExtension.strings"; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -257,7 +299,6 @@
 		01801E891A32CA2A002B4718 = {
 			isa = PBXGroup;
 			children = (
-				44E779491DE6046C00854379 /* psiphon_config */,
 				44E778F71DDB723900854379 /* Psiphon */,
 				01801E941A32CA2A002B4718 /* Endless */,
 				01801EC11A3360B1002B4718 /* Resources */,
@@ -342,6 +383,7 @@
 			children = (
 				44E779331DE4DCE300854379 /* Strings */,
 				01F8794A1A41232E00A63654 /* credits.html */,
+				44AA65C61E29640300C9976D /* blip1.wav */,
 				4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */,
 				016B2FCA1A53466D002D2730 /* hsts_preload.plist */,
 				018333E71A35746500670CD1 /* https-everywhere_rules.plist */,
@@ -360,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				01D741291A45EDD1007B7033 /* CookieJar_Tests.m */,
+				01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */,
 				01F7CB4A1A526B9C00F42B73 /* HSTSCache_Tests.m */,
 				018333DB1A35727C00670CD1 /* HTTPSEverywhere_Tests.m */,
 				01F2AE411B827BC200D5651A /* SSLCertificate_Tests.m */,
@@ -418,6 +461,8 @@
 		44E778F71DDB723900854379 /* Psiphon */ = {
 			isa = PBXGroup;
 			children = (
+				4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */,
+				4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */,
 				44E779451DE6038000854379 /* psiphon_config */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
@@ -427,6 +472,7 @@
 				4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */,
 				44E7793F1DE6031A00854379 /* PsiphonConnectionIndicator.h */,
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
+				44C7B2071E2040A700432BBB /* L18n+Swizzling.m */,
 				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
 				4412BD251DF744E000C18B97 /* NSBundle+Language.h */,
 				4412BD261DF7450100C18B97 /* NSBundle+Language.m */,
@@ -521,7 +567,7 @@
 		01801E8A1A32CA2A002B4718 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = jcs;
 				TargetAttributes = {
 					01801E911A32CA2A002B4718 = {
@@ -548,6 +594,15 @@
 			knownRegions = (
 				en,
 				ar,
+				de,
+				fa,
+				fr,
+				hr,
+				id,
+				nl,
+				"zh-Hant",
+				es,
+				"pt-PT",
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -575,6 +630,9 @@
 				4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */,
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
+				4ECFADE71DEE01A200979558 /* thumbs-up-color.png in Resources */,
+				44AA65C71E29640300C9976D /* blip1.wav in Resources */,
+				4EEE09B91DF755EF00CEA8C2 /* psiphon-logo-48.png in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
 				44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */,
 				44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */,
@@ -720,8 +778,8 @@
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */,
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
+				4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
-				4412BD271DF7450100C18B97 /* NSBundle+Language.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				44E779431DE6031A00854379 /* PsiphonConnectionIndicator.m in Sources */,
@@ -732,6 +790,7 @@
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */,
 				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
+				44C7B2081E2040A700432BBB /* L18n+Swizzling.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
@@ -746,6 +805,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F7CB4B1A526B9C00F42B73 /* HSTSCache_Tests.m in Sources */,
+				01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */,
 				01F879411A4112E500A63654 /* URLBlocker_Tests.m in Sources */,
 				01D7412A1A45EDD1007B7033 /* CookieJar_Tests.m in Sources */,
 				018333DC1A35727C00670CD1 /* HTTPSEverywhere_Tests.m in Sources */,
@@ -769,6 +829,15 @@
 			children = (
 				446CB0A01DFF613900AEC0A9 /* en */,
 				446CB0A21DFF614600AEC0A9 /* ar */,
+				6685BDDA1E314BF700F0E414 /* de */,
+				6685BDDE1E314EAF00F0E414 /* fa */,
+				6685BDE21E314EC500F0E414 /* fr */,
+				6685BDE61E314EDC00F0E414 /* hr */,
+				6685BDEA1E314EEC00F0E414 /* id */,
+				6685BDEE1E314EF700F0E414 /* nl */,
+				6685BDF61E314F1300F0E414 /* zh-Hant */,
+				6685BDFA1E314FB100F0E414 /* es */,
+				6685BDFE1E315E1B00F0E414 /* pt-PT */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -778,6 +847,15 @@
 			children = (
 				44E7792B1DE4DCCA00854379 /* en */,
 				44E779341DE4DD1F00854379 /* ar */,
+				6685BDDB1E314BF700F0E414 /* de */,
+				6685BDDF1E314EAF00F0E414 /* fa */,
+				6685BDE31E314EC500F0E414 /* fr */,
+				6685BDE71E314EDC00F0E414 /* hr */,
+				6685BDEB1E314EEC00F0E414 /* id */,
+				6685BDEF1E314EF700F0E414 /* nl */,
+				6685BDF71E314F1300F0E414 /* zh-Hant */,
+				6685BDFB1E314FB100F0E414 /* es */,
+				6685BDFF1E315E1B00F0E414 /* pt-PT */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -787,6 +865,15 @@
 			children = (
 				44E7792E1DE4DCCF00854379 /* en */,
 				44E779351DE4DD1F00854379 /* ar */,
+				6685BDDC1E314BF700F0E414 /* de */,
+				6685BDE01E314EB000F0E414 /* fa */,
+				6685BDE41E314EC500F0E414 /* fr */,
+				6685BDE81E314EDC00F0E414 /* hr */,
+				6685BDEC1E314EED00F0E414 /* id */,
+				6685BDF01E314EF700F0E414 /* nl */,
+				6685BDF81E314F1300F0E414 /* zh-Hant */,
+				6685BDFC1E314FB100F0E414 /* es */,
+				6685BE001E315E1B00F0E414 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -796,6 +883,15 @@
 			children = (
 				44E779311DE4DCD400854379 /* en */,
 				44E779361DE4DD1F00854379 /* ar */,
+				6685BDDD1E314BF700F0E414 /* de */,
+				6685BDE11E314EB000F0E414 /* fa */,
+				6685BDE51E314EC500F0E414 /* fr */,
+				6685BDE91E314EDD00F0E414 /* hr */,
+				6685BDED1E314EED00F0E414 /* id */,
+				6685BDF11E314EF700F0E414 /* nl */,
+				6685BDF91E314F1300F0E414 /* zh-Hant */,
+				6685BDFD1E314FB100F0E414 /* es */,
+				6685BE011E315E1B00F0E414 /* pt-PT */,
 			);
 			name = OnePasswordExtension.strings;
 			sourceTree = "<group>";
@@ -818,15 +914,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "Endless/Endless-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -862,8 +962,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -871,6 +973,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Endless/Endless-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -881,6 +984,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -906,6 +1010,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = PsiphonBrowser;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -936,6 +1041,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.psiphon3.browser;
 				PRODUCT_NAME = PsiphonBrowser;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -947,7 +1053,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -969,6 +1074,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.psiphon3.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Psiphon Browser Tests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Psiphon Browser.app/Psiphon Browser";
 			};
@@ -978,7 +1084,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0046D8AA27B31019AEAC6C00 /* Pods-Psiphon Browser Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -996,6 +1101,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.psiphon3.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Psiphon Browser Tests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Psiphon Browser.app/Psiphon Browser";
 			};
