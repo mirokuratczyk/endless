@@ -1063,7 +1063,7 @@
         }
 
         // Check if "use proxy" has changed
-        BOOL useUpstreamProxy = [preferencesSnapshot objectForKey:kUseUpstreamProxy];
+        BOOL useUpstreamProxy = [[preferencesSnapshot objectForKey:kUseUpstreamProxy] boolValue];
 
         if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
             return YES;
