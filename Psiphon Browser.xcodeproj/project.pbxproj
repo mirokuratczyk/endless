@@ -77,6 +77,8 @@
 		4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */; };
 		4EE6424B1E1DC6BB00935CED /* RegionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6424A1E1DC6BB00935CED /* RegionSelectionViewController.m */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
+		4EFB34711E366B840067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34701E366B840067C7C3 /* RegionAdapter.m */; };
+		4EFB34741E366B950067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +217,10 @@
 		4EE642491E1DC6BB00935CED /* RegionSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionSelectionViewController.h; sourceTree = "<group>"; };
 		4EE6424A1E1DC6BB00935CED /* RegionSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionSelectionViewController.m; sourceTree = "<group>"; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
+		4EFB346F1E366B840067C7C3 /* RegionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionAdapter.h; sourceTree = "<group>"; };
+		4EFB34701E366B840067C7C3 /* RegionAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionAdapter.m; sourceTree = "<group>"; };
+		4EFB34721E366B950067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpstreamProxySettings.h; sourceTree = "<group>"; };
+		4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpstreamProxySettings.m; sourceTree = "<group>"; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -276,6 +282,10 @@
 		01801E941A32CA2A002B4718 /* Endless */ = {
 			isa = PBXGroup;
 			children = (
+				4EFB34721E366B950067C7C3 /* UpstreamProxySettings.h */,
+				4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */,
+				4EFB346F1E366B840067C7C3 /* RegionAdapter.h */,
+				4EFB34701E366B840067C7C3 /* RegionAdapter.m */,
 				01AFEB471B4ED48000A02482 /* Bookmark.h */,
 				01AFEB481B4ED48000A02482 /* Bookmark.m */,
 				01AFEB351B4DBA8D00A02482 /* BookmarkController.h */,
@@ -694,7 +704,9 @@
 				01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */,
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
+				4EFB34711E366B840067C7C3 /* RegionAdapter.m in Sources */,
 				4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */,
+				4EFB34741E366B950067C7C3 /* UpstreamProxySettings.m in Sources */,
 				4E4C10511DE6217F0046F5D8 /* Constants.swift in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
