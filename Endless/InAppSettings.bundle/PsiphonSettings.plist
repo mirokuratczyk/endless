@@ -112,12 +112,6 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>ADVANCED</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
 			<string>LOGS</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>

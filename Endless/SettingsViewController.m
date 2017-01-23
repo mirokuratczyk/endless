@@ -165,8 +165,13 @@ BOOL linksEnabled;
         textField.autocorrectionType = specifier.autoCorrectionType;
         textField.textAlignment = specifier.textAlignment;
         textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
-        [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
-    } else if ([specifier.key isEqualToString:kLogsSpecifierKey] || [specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
+    } else if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = specifier.title;
+#ifndef DEBUGLOGS
+        cell.hidden = YES;
+#endif
+    } else if ([specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = specifier.title;
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
@@ -242,40 +247,6 @@ BOOL linksEnabled;
         return (portNumber >= 1 && portNumber <= 65535);
     } else {
         return NO;
-    }
-}
-
-- (void)IASKTextFieldDidEndEditing:(id)sender {
-    NSString *senderKey = [sender key];
-    IASKTextField *text = sender;
-    NSString *currentValue = [text text];
-
-    void (^validateNewInput)(BOOL, NSString *, NSString *) = ^void(BOOL isValid, NSString *alertTitle, NSString *alertText) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        if (isValid) {
-            NSArray *components = [currentValue componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *trimmedText = [components componentsJoinedByString:@""];
-            [userDefaults setObject:trimmedText forKey:senderKey];
-            [text setText:trimmedText];
-        } else {
-            [self showAlert:alertTitle withAlertText:alertText];
-            NSString *oldValue = [[NSUserDefaults standardUserDefaults] stringForKey:senderKey];
-            [userDefaults setObject:oldValue forKey:senderKey];
-            [text setText:oldValue];
-        }
-    };
-
-    // If user has inputted an invalid setting notify them and then reset to last valid value or default
-    if ([senderKey isEqualToString:kUpstreamProxyPort]) {
-        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters an invalid port number")];
-        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid port # (1-65535)", "Alert text when user enters invalid port number")];
-
-        validateNewInput(currentValue.length == 0 || [self isValidPort:currentValue], alertTitle, alertText);
-    } if ([senderKey isEqualToString:kUpstreamProxyHostAddress]) {
-        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Invalid Input", "Alert title when user enters invalid host address")];
-        NSString *alertText = [NSString stringWithFormat:NSLocalizedString(@"Please enter a valid hostname or IP", "Alert text when user enters invalid host address")];
-
-        validateNewInput(YES, alertTitle, alertText);
     }
 }
 
@@ -381,6 +352,11 @@ BOOL linksEnabled;
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier
 {
+    if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
+#ifndef DEBUGLOGS
+        return 0;
+#endif
+    }
     IASK_IF_IOS7_OR_GREATER
     (
      NSDictionary *rowHeights = @{UIContentSizeCategoryExtraSmall: @(44),
@@ -475,17 +451,6 @@ BOOL linksEnabled;
 {
     [self.webViewController settingsViewControllerDidEnd];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)showAlert:(NSString *)alertTitle withAlertText:(NSString *)alertText {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                   message:alertText
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Text on button used to acknowledge the receipt of and dismiss UIAlert") style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {}];
-    [alert addAction:defaultAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) updateAvailableRegions:(NSNotification*) notification {

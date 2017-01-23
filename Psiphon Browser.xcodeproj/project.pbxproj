@@ -67,18 +67,18 @@
 		44E779471DE603D900854379 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
-		4E3F7BED1E00F91F0058E38D /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F7BEC1E00F91F0058E38D /* LogViewController.m */; };
-		4E4C104B1DE621160046F5D8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C104A1DE621160046F5D8 /* Common.swift */; };
-		4E4C104F1DE621670046F5D8 /* PsiphonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C104E1DE621670046F5D8 /* PsiphonData.swift */; };
-		4E4C10511DE6217F0046F5D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C10501DE6217F0046F5D8 /* Constants.swift */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
-		4E8EE2081DF62FAC00AEF819 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */; };
-		4E96E1251DF9C8B1005A4AB9 /* FeedbackThumbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */; };
-		4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */; };
-		4EE6424B1E1DC6BB00935CED /* RegionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6424A1E1DC6BB00935CED /* RegionSelectionViewController.m */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
-		4EFB34711E366B840067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34701E366B840067C7C3 /* RegionAdapter.m */; };
-		4EFB34741E366B950067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */; };
+		4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */; };
+		4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34791E366C370067C7C3 /* RegionAdapter.m */; };
+		4EFB347D1E366C370067C7C3 /* RegionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB347B1E366C370067C7C3 /* RegionSelectionViewController.m */; };
+		4EFB34801E366C6F0067C7C3 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB347F1E366C6F0067C7C3 /* FeedbackViewController.m */; };
+		4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */; };
+		4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34851E366E4D0067C7C3 /* LogViewController.m */; };
+		4EFB348C1E366E6B0067C7C3 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34881E366E6B0067C7C3 /* Common.swift */; };
+		4EFB348D1E366E6B0067C7C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34891E366E6B0067C7C3 /* Constants.swift */; };
+		4EFB348E1E366E6B0067C7C3 /* FeedbackUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */; };
+		4EFB348F1E366E6B0067C7C3 /* PsiphonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -201,26 +201,26 @@
 		44E779491DE6046C00854379 /* psiphon_config */ = {isa = PBXFileReference; lastKnownFileType = text; name = psiphon_config; path = Endless/psiphon_config; sourceTree = "<group>"; };
 		4E1175171DD6310A009527EB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		4E3F7BEB1E00F90F0058E38D /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
-		4E3F7BEC1E00F91F0058E38D /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		4E4C10471DE620D80046F5D8 /* Endless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Endless-Bridging-Header.h"; sourceTree = "<group>"; };
-		4E4C104A1DE621160046F5D8 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		4E4C104E1DE621670046F5D8 /* PsiphonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PsiphonData.swift; sourceTree = "<group>"; };
-		4E4C10501DE6217F0046F5D8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
 		4E664E9C1DDBB41C001BCE93 /* HostSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostSettings.m; sourceTree = "<group>"; };
-		4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		4E8EE2091DF62FBB00AEF819 /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
-		4E96E1231DF9C885005A4AB9 /* FeedbackThumbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackThumbsCell.h; sourceTree = "<group>"; };
-		4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackThumbsCell.m; sourceTree = "<group>"; };
-		4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackUpload.swift; sourceTree = "<group>"; };
-		4EE642491E1DC6BB00935CED /* RegionSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionSelectionViewController.h; sourceTree = "<group>"; };
-		4EE6424A1E1DC6BB00935CED /* RegionSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionSelectionViewController.m; sourceTree = "<group>"; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
-		4EFB346F1E366B840067C7C3 /* RegionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionAdapter.h; sourceTree = "<group>"; };
-		4EFB34701E366B840067C7C3 /* RegionAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionAdapter.m; sourceTree = "<group>"; };
-		4EFB34721E366B950067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpstreamProxySettings.h; sourceTree = "<group>"; };
-		4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpstreamProxySettings.m; sourceTree = "<group>"; };
+		4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpstreamProxySettings.h; path = Endless/UpstreamProxySettings.h; sourceTree = SOURCE_ROOT; };
+		4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpstreamProxySettings.m; path = Endless/UpstreamProxySettings.m; sourceTree = SOURCE_ROOT; };
+		4EFB34781E366C370067C7C3 /* RegionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionAdapter.h; path = Endless/RegionAdapter.h; sourceTree = SOURCE_ROOT; };
+		4EFB34791E366C370067C7C3 /* RegionAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionAdapter.m; path = Endless/RegionAdapter.m; sourceTree = SOURCE_ROOT; };
+		4EFB347A1E366C370067C7C3 /* RegionSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionSelectionViewController.h; path = Endless/RegionSelectionViewController.h; sourceTree = SOURCE_ROOT; };
+		4EFB347B1E366C370067C7C3 /* RegionSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionSelectionViewController.m; path = Endless/RegionSelectionViewController.m; sourceTree = SOURCE_ROOT; };
+		4EFB347E1E366C6F0067C7C3 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackViewController.h; path = Endless/FeedbackViewController.h; sourceTree = SOURCE_ROOT; };
+		4EFB347F1E366C6F0067C7C3 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackViewController.m; path = Endless/FeedbackViewController.m; sourceTree = SOURCE_ROOT; };
+		4EFB34811E366E1D0067C7C3 /* FeedbackThumbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackThumbsCell.h; path = Endless/FeedbackThumbsCell.h; sourceTree = SOURCE_ROOT; };
+		4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackThumbsCell.m; path = Endless/FeedbackThumbsCell.m; sourceTree = SOURCE_ROOT; };
+		4EFB34841E366E4D0067C7C3 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Endless/LogViewController.h; sourceTree = SOURCE_ROOT; };
+		4EFB34851E366E4D0067C7C3 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = Endless/LogViewController.m; sourceTree = SOURCE_ROOT; };
+		4EFB34871E366E5A0067C7C3 /* Endless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Endless-Bridging-Header.h"; path = "Endless/Endless-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		4EFB34881E366E6B0067C7C3 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = Endless/Common.swift; sourceTree = SOURCE_ROOT; };
+		4EFB34891E366E6B0067C7C3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Endless/Constants.swift; sourceTree = SOURCE_ROOT; };
+		4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackUpload.swift; path = Endless/FeedbackUpload.swift; sourceTree = SOURCE_ROOT; };
+		4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PsiphonData.swift; path = Endless/PsiphonData.swift; sourceTree = SOURCE_ROOT; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -282,10 +282,6 @@
 		01801E941A32CA2A002B4718 /* Endless */ = {
 			isa = PBXGroup;
 			children = (
-				4EFB34721E366B950067C7C3 /* UpstreamProxySettings.h */,
-				4EFB34731E366B950067C7C3 /* UpstreamProxySettings.m */,
-				4EFB346F1E366B840067C7C3 /* RegionAdapter.h */,
-				4EFB34701E366B840067C7C3 /* RegionAdapter.m */,
 				01AFEB471B4ED48000A02482 /* Bookmark.h */,
 				01AFEB481B4ED48000A02482 /* Bookmark.m */,
 				01AFEB351B4DBA8D00A02482 /* BookmarkController.h */,
@@ -306,12 +302,6 @@
 				0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */,
 				4E1175171DD6310A009527EB /* SettingsViewController.h */,
 				4E1175181DD63123009527EB /* SettingsViewController.m */,
-				4EE642491E1DC6BB00935CED /* RegionSelectionViewController.h */,
-				4EE6424A1E1DC6BB00935CED /* RegionSelectionViewController.m */,
-				4E8EE2091DF62FBB00AEF819 /* FeedbackViewController.h */,
-				4E8EE2071DF62FAC00AEF819 /* FeedbackViewController.m */,
-				4E96E1231DF9C885005A4AB9 /* FeedbackThumbsCell.h */,
-				4E96E1241DF9C8B1005A4AB9 /* FeedbackThumbsCell.m */,
 				01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */,
 				01F2AE381B7FEF5E00D5651A /* SSLCertificate.m */,
 				01F2AE3E1B82666900D5651A /* SSLCertificateViewController.h */,
@@ -324,13 +314,6 @@
 				01801EA01A32CA2A002B4718 /* WebViewController.m */,
 				0135F47D1A3E548F005A8F16 /* WebViewTab.h */,
 				0135F47E1A3E548F005A8F16 /* WebViewTab.m */,
-				4E3F7BEB1E00F90F0058E38D /* LogViewController.h */,
-				4E3F7BEC1E00F91F0058E38D /* LogViewController.m */,
-				4E4C10471DE620D80046F5D8 /* Endless-Bridging-Header.h */,
-				4EB1E3401E00B2DF007A6F5D /* FeedbackUpload.swift */,
-				4E4C104A1DE621160046F5D8 /* Common.swift */,
-				4E4C104E1DE621670046F5D8 /* PsiphonData.swift */,
-				4E4C10501DE6217F0046F5D8 /* Constants.swift */,
 			);
 			path = Endless;
 			sourceTree = "<group>";
@@ -438,11 +421,28 @@
 				44E779451DE6038000854379 /* psiphon_config */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
+				4EFB347E1E366C6F0067C7C3 /* FeedbackViewController.h */,
+				4EFB347F1E366C6F0067C7C3 /* FeedbackViewController.m */,
+				4EFB34811E366E1D0067C7C3 /* FeedbackThumbsCell.h */,
+				4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */,
 				44E7793F1DE6031A00854379 /* PsiphonConnectionIndicator.h */,
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
 				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
 				4412BD251DF744E000C18B97 /* NSBundle+Language.h */,
 				4412BD261DF7450100C18B97 /* NSBundle+Language.m */,
+				4EFB34781E366C370067C7C3 /* RegionAdapter.h */,
+				4EFB34791E366C370067C7C3 /* RegionAdapter.m */,
+				4EFB347A1E366C370067C7C3 /* RegionSelectionViewController.h */,
+				4EFB347B1E366C370067C7C3 /* RegionSelectionViewController.m */,
+				4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */,
+				4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */,
+				4EFB34841E366E4D0067C7C3 /* LogViewController.h */,
+				4EFB34851E366E4D0067C7C3 /* LogViewController.m */,
+				4EFB34871E366E5A0067C7C3 /* Endless-Bridging-Header.h */,
+				4EFB34881E366E6B0067C7C3 /* Common.swift */,
+				4EFB34891E366E6B0067C7C3 /* Constants.swift */,
+				4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */,
+				4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */,
 			);
 			path = Psiphon;
 			sourceTree = "<group>";
@@ -702,42 +702,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */,
+				4EFB34801E366C6F0067C7C3 /* FeedbackViewController.m in Sources */,
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
-				4EFB34711E366B840067C7C3 /* RegionAdapter.m in Sources */,
-				4EB1E3411E00B2DF007A6F5D /* FeedbackUpload.swift in Sources */,
-				4EFB34741E366B950067C7C3 /* UpstreamProxySettings.m in Sources */,
-				4E4C10511DE6217F0046F5D8 /* Constants.swift in Sources */,
+				4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */,
+				4EFB348E1E366E6B0067C7C3 /* FeedbackUpload.swift in Sources */,
+				4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
-				4E4C104F1DE621670046F5D8 /* PsiphonData.swift in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
+				4EFB348F1E366E6B0067C7C3 /* PsiphonData.swift in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
+				4EFB348D1E366E6B0067C7C3 /* Constants.swift in Sources */,
 				4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */,
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
+				4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */,
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
-				4E4C104B1DE621160046F5D8 /* Common.swift in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
 				4412BD271DF7450100C18B97 /* NSBundle+Language.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				44E779431DE6031A00854379 /* PsiphonConnectionIndicator.m in Sources */,
 				01F7CB4E1A52FC4E00F42B73 /* NSString+IPAddress.m in Sources */,
-				4E96E1251DF9C8B1005A4AB9 /* FeedbackThumbsCell.m in Sources */,
 				0135F47F1A3E548F005A8F16 /* WebViewTab.m in Sources */,
+				4EFB347D1E366C370067C7C3 /* RegionSelectionViewController.m in Sources */,
+				4EFB348C1E366E6B0067C7C3 /* Common.swift in Sources */,
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
+				4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */,
 				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
-				4E8EE2081DF62FAC00AEF819 /* FeedbackViewController.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				4E1175191DD63123009527EB /* SettingsViewController.m in Sources */,
-				4E3F7BED1E00F91F0058E38D /* LogViewController.m in Sources */,
-				4EE6424B1E1DC6BB00935CED /* RegionSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

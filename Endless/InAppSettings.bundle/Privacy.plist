@@ -15,14 +15,6 @@
 			<string>COOKIE_CONTROL_FOOTER</string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>CookieWhitelist</string>
-			<key>Title</key>
-			<string>COOKIE_WHITELIST</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<string>30</string>
 			<key>Values</key>
