@@ -19,7 +19,7 @@
 
 
 #import "FeedbackUpload.h"
-#import "PsiphonBrowser-Swift.h"
+#import "PsiphonData.h"
 
 #define kThumbIndexUnselected -1
 #define kQuestionHash "24f5c290039e5b0a2fd17bfcdb8d3108"
@@ -85,39 +85,39 @@
     if (sendDiagnosticInfo == YES) {
         NSMutableArray *diagnosticHistoryArray = [[NSMutableArray alloc] init];
 
-        for (DiagnosticEntry *d in [[PsiphonData sharedInstance] getDiagnosticHistory]) {
+        for (DiagnosticEntry *d in [[PsiphonData sharedInstance] diagnosticHistory]) {
             NSDictionary *entry = @{
-                                    @"data": [d getData],
-                                    @"msg": [d getMsg],
-                                    @"timestamp!!timestamp": [d getTimestamp]
+                                    @"data": [d data],
+                                    @"msg": [d message],
+                                    @"timestamp!!timestamp": [d getTimestampISO8601]
                                     };
             [diagnosticHistoryArray addObject:entry];
         }
 
         NSMutableArray *statusHistoryArray = [[NSMutableArray alloc] init];
 
-        for (StatusEntry *s in [[PsiphonData sharedInstance] getStatusHistory]) {
+        for (StatusEntry *s in [[PsiphonData sharedInstance] statusHistory]) {
             // Don't send any sensitive logs or debug logs
-            if ([s getSensitivity] == SensitivityLevelSENSITIVE_LOG || [s getPriority] == PriorityLevelDEBUG) {
+            if (s.sensitivity == SensitivityLevelSensitiveLog || s.priority == PriorityDebug) {
                 continue;
             }
             NSMutableDictionary *entry =
             [NSMutableDictionary dictionaryWithDictionary: @{
-                                                             @"id": [s getId],
-                                                             @"timestamp!!timestamp": [s getTimestamp],
-                                                             @"priority": @([s getPriority])
+                                                             @"id": s.id,
+                                                             @"timestamp!!timestamp": [s getTimestampISO8601],
+                                                             @"priority": @(s.priority)
                                                              }];
 
-            NSArray *f = [s getFormatArgs];
-            if ([f count] > 0 && [s getSensitivity] != SensitivityLevelSENSITIVE_FORMAT_ARGS) {
+            NSArray *f = s.formatArgs;
+            if ([f count] > 0 && s.sensitivity != SensitivityLevelSensitiveFormatArgs) {
                 [entry setObject:f forKey:@"formatArgs"];
             }
 
-            Throwable *t = [s getThrowable];
+            Throwable *t = s.throwable;
             if (t != nil) {
                 NSDictionary *throwable = @{
-                                            @"message": [t getMessage],
-                                            @"stack": [t getStackTrace]
+                                            @"message": t.message,
+                                            @"stack": t.stackTrace
                                             };
                 [entry setObject:throwable forKey:@"throwable"];
             }

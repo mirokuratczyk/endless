@@ -24,7 +24,6 @@
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKTextViewCell.h"
 #import "FeedbackThumbsCell.h"
-#import "PsiphonBrowser-Swift.h"
 
 #define kCommentsFrameHeight 44*3
 
