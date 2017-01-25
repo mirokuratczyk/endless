@@ -310,6 +310,14 @@ SystemSoundID notificationSound;
         mutableConfigCopy[@"HttpProxyOriginServerTimeoutSeconds"] = 0;
     }
 
+    mutableConfigCopy[@"ClientVersion"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    mutableConfigCopy[@"ClientPlatform"] = [NSString stringWithFormat:@"%@_%@",
+                                            [[UIDevice currentDevice] systemName],
+                                            [[UIDevice currentDevice]systemVersion]];
+    
+    mutableConfigCopy[@"EmitDiagnosticNotices"] = [NSNumber numberWithBool:TRUE];
+
     jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
                                                options:0 // non-pretty printing
                                                  error:&e];
@@ -317,11 +325,6 @@ SystemSoundID notificationSound;
         NSLog(@"Failed to create JSON data from config object. Aborting now.");
         abort();
     }
-	
-	mutableConfigCopy[@"ClientPlatform"] = [NSString stringWithFormat:@"%@%@",
-										   [[UIDevice currentDevice] systemName],
-										   [[UIDevice currentDevice]systemVersion]];
-	
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
