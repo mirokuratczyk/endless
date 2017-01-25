@@ -17,6 +17,7 @@
  *
  */
 
+#import "FeedbackUpload.h"
 #import "FeedbackViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKTextField.h"
@@ -98,11 +99,11 @@
     NSString *psiphonConfig = [Appdelegate getPsiphonConfig];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [FeedbackUpload generateAndSendFeedbackWithThumbIndex:selectedThumbIndex
-                                                     comments:comments
-                                                        email:emailAddress
-                                           sendDiagnosticInfo:uploadDiagnostics
-                                                psiphonConfig:psiphonConfig];
+        [FeedbackUpload generateAndSendFeedback:selectedThumbIndex
+                                       comments:comments
+                                          email:emailAddress
+                             sendDiagnosticInfo:uploadDiagnostics
+                              withPsiphonConfig:psiphonConfig];
     });
     [self dismissViewControllerAnimated:YES completion:nil];
 }

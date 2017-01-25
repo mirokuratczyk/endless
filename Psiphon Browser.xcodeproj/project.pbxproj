@@ -71,6 +71,7 @@
 		44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; };
 		4E1175191DD63123009527EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1175181DD63123009527EB /* SettingsViewController.m */; };
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
+		4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9610111E36A32C00CDE62E /* FeedbackUpload.m */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
 		4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */; };
 		4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34791E366C370067C7C3 /* RegionAdapter.m */; };
@@ -80,7 +81,6 @@
 		4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34851E366E4D0067C7C3 /* LogViewController.m */; };
 		4EFB348C1E366E6B0067C7C3 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34881E366E6B0067C7C3 /* Common.swift */; };
 		4EFB348D1E366E6B0067C7C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34891E366E6B0067C7C3 /* Constants.swift */; };
-		4EFB348E1E366E6B0067C7C3 /* FeedbackUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */; };
 		4EFB348F1E366E6B0067C7C3 /* PsiphonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
@@ -208,6 +208,8 @@
 		4E1175181DD63123009527EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
 		4E664E9C1DDBB41C001BCE93 /* HostSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostSettings.m; sourceTree = "<group>"; };
+		4E9610101E36A32C00CDE62E /* FeedbackUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackUpload.h; path = Endless/FeedbackUpload.h; sourceTree = SOURCE_ROOT; };
+		4E9610111E36A32C00CDE62E /* FeedbackUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackUpload.m; path = Endless/FeedbackUpload.m; sourceTree = SOURCE_ROOT; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
 		4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpstreamProxySettings.h; path = Endless/UpstreamProxySettings.h; sourceTree = SOURCE_ROOT; };
 		4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpstreamProxySettings.m; path = Endless/UpstreamProxySettings.m; sourceTree = SOURCE_ROOT; };
@@ -224,9 +226,7 @@
 		4EFB34871E366E5A0067C7C3 /* Endless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Endless-Bridging-Header.h"; path = "Endless/Endless-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		4EFB34881E366E6B0067C7C3 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = Endless/Common.swift; sourceTree = SOURCE_ROOT; };
 		4EFB34891E366E6B0067C7C3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Endless/Constants.swift; sourceTree = SOURCE_ROOT; };
-		4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackUpload.swift; path = Endless/FeedbackUpload.swift; sourceTree = SOURCE_ROOT; };
 		4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PsiphonData.swift; path = Endless/PsiphonData.swift; sourceTree = SOURCE_ROOT; };
-		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
 		5AAC3264F09D2F9AB445D0B8 /* Pods-Psiphon Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser.release.xcconfig"; sourceTree = "<group>"; };
 		6685BDDA1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Root.strings; sourceTree = "<group>"; };
 		6685BDDB1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
@@ -474,8 +474,6 @@
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
 				44C7B2071E2040A700432BBB /* L18n+Swizzling.m */,
 				44E779411DE6031A00854379 /* PsiphonTunnel.framework */,
-				4412BD251DF744E000C18B97 /* NSBundle+Language.h */,
-				4412BD261DF7450100C18B97 /* NSBundle+Language.m */,
 				4EFB34781E366C370067C7C3 /* RegionAdapter.h */,
 				4EFB34791E366C370067C7C3 /* RegionAdapter.m */,
 				4EFB347A1E366C370067C7C3 /* RegionSelectionViewController.h */,
@@ -487,7 +485,8 @@
 				4EFB34871E366E5A0067C7C3 /* Endless-Bridging-Header.h */,
 				4EFB34881E366E6B0067C7C3 /* Common.swift */,
 				4EFB34891E366E6B0067C7C3 /* Constants.swift */,
-				4EFB348A1E366E6B0067C7C3 /* FeedbackUpload.swift */,
+				4E9610101E36A32C00CDE62E /* FeedbackUpload.h */,
+				4E9610111E36A32C00CDE62E /* FeedbackUpload.m */,
 				4EFB348B1E366E6B0067C7C3 /* PsiphonData.swift */,
 			);
 			path = Psiphon;
@@ -630,9 +629,7 @@
 				4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */,
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
-				4ECFADE71DEE01A200979558 /* thumbs-up-color.png in Resources */,
 				44AA65C71E29640300C9976D /* blip1.wav in Resources */,
-				4EEE09B91DF755EF00CEA8C2 /* psiphon-logo-48.png in Resources */,
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
 				44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */,
 				44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */,
@@ -764,13 +761,13 @@
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
 				4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */,
-				4EFB348E1E366E6B0067C7C3 /* FeedbackUpload.swift in Sources */,
 				4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
+				4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */,
 				4EFB348F1E366E6B0067C7C3 /* PsiphonData.swift in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				4EFB348D1E366E6B0067C7C3 /* Constants.swift in Sources */,
