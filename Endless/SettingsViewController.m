@@ -17,7 +17,6 @@
  *
  */
 
-#import "PsiphonBrowser-Swift.h"
 
 #import "FeedbackViewController.h"
 #import "HTTPSEverywhereRuleController.h"

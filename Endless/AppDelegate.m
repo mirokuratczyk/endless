@@ -31,7 +31,7 @@
 #import "Bookmark.h"
 #import "DTReachability.h"
 #import "HTTPSEverywhere.h"
-#import "PsiphonBrowser-Swift.h"
+#import "PsiphonData.h"
 #import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
 #import "URLInterceptor.h"
@@ -68,7 +68,6 @@ SystemSoundID notificationSound;
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
-    [PsiphonData sharedInstance]; // TODO: integrate or remove
     regionAdapter = [RegionAdapter sharedInstance];
     [self.window makeKeyAndVisible];
     
@@ -337,8 +336,8 @@ SystemSoundID notificationSound;
 - (void) onDiagnosticMessage : (NSString*) message {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"onDiagnosticMessage: %@", message);
-        DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] initWithMsg:message];
-        [[PsiphonData sharedInstance] addDiagnosticEntryWithDiagnosticEntry:newDiagnosticEntry];
+        DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] init:message];
+        [[PsiphonData sharedInstance] addDiagnosticEntry:newDiagnosticEntry];
     });
 }
 

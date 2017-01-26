@@ -17,13 +17,13 @@
  *
  */
 
+#import "FeedbackUpload.h"
 #import "FeedbackViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKTextField.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKTextViewCell.h"
 #import "FeedbackThumbsCell.h"
-#import "PsiphonBrowser-Swift.h"
 
 #define kCommentsFrameHeight 44*3
 
@@ -98,11 +98,11 @@
     NSString *psiphonConfig = [Appdelegate getPsiphonConfig];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [FeedbackUpload generateAndSendFeedbackWithThumbIndex:selectedThumbIndex
-                                                     comments:comments
-                                                        email:emailAddress
-                                           sendDiagnosticInfo:uploadDiagnostics
-                                                psiphonConfig:psiphonConfig];
+        [FeedbackUpload generateAndSendFeedback:selectedThumbIndex
+                                       comments:comments
+                                          email:emailAddress
+                             sendDiagnosticInfo:uploadDiagnostics
+                              withPsiphonConfig:psiphonConfig];
     });
     [self dismissViewControllerAnimated:YES completion:nil];
 }
