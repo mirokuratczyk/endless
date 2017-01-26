@@ -523,6 +523,7 @@
 				F1123B8772DD1017FF7AD4C0 /* [CP] Copy Pods Resources */,
 				10F4056FB52682AF9841FCE7 /* [CP] Embed Pods Frameworks */,
 				44E778FD1DDB73A500854379 /* CopyFiles */,
+				440FB7731E3A9ADC00B10B9E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -682,6 +683,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		440FB7731E3A9ADC00B10B9E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PsiphonTunnel.framework/strip-frameworks.sh\"";
 		};
 		AD6CC348A4A754780C9FF2A3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
