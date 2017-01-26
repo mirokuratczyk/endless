@@ -37,11 +37,15 @@
 #import "URLInterceptor.h"
 
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    BOOL _needsResume;
+    BOOL _shouldOpenHomePages;
+    NSMutableArray *_homePages;
 
-BOOL needsResume;
-RegionAdapter *regionAdapter;
-SystemSoundID notificationSound;
+
+    RegionAdapter *_regionAdapter;
+    SystemSoundID _notificationSound;
+}
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -58,7 +62,7 @@ SystemSoundID notificationSound;
 	[self initializeDefaults];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
-	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &notificationSound);
+	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 
     return YES;
 }
@@ -69,13 +73,13 @@ SystemSoundID notificationSound;
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
     [PsiphonData sharedInstance]; // TODO: integrate or remove
-    regionAdapter = [RegionAdapter sharedInstance];
+    _regionAdapter = [RegionAdapter sharedInstance];
     [self.window makeKeyAndVisible];
     
     self.socksProxyPort = 0;
     self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
     
-    self.needsResume = false;
+    _needsResume = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     [[Reachability reachabilityForInternetConnection] startNotifier];
     return YES;
@@ -85,7 +89,7 @@ SystemSoundID notificationSound;
 - (void) startPsiphon {
     dispatch_async(dispatch_get_main_queue(), ^{
 		[_homePages removeAllObjects];
-		self.shouldOpenHomePages = true;
+		_shouldOpenHomePages = true;
         if( ! [self.psiphonTunnel start : nil] ) {
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
@@ -292,7 +296,7 @@ SystemSoundID notificationSound;
         abort();
     }
 
-    NSString *selectedRegionCode = [regionAdapter getSelectedRegion].code;
+    NSString *selectedRegionCode = [_regionAdapter getSelectedRegion].code;
     mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
     NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
@@ -330,7 +334,7 @@ SystemSoundID notificationSound;
 
 - (void) onAvailableEgressRegions:(NSArray *)regions {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [regionAdapter onAvailableEgressRegions:regions];
+        [_regionAdapter onAvailableEgressRegions:regions];
     });
 }
 
@@ -366,11 +370,11 @@ SystemSoundID notificationSound;
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
         if ([userDefaults boolForKey:@"sound_notification"]) {
-			AudioServicesPlaySystemSound (notificationSound);
+			AudioServicesPlaySystemSound (_notificationSound);
         }
         
 		
-		if(self.shouldOpenHomePages) {
+		if(_shouldOpenHomePages) {
 			NSMutableArray * openURLs = [NSMutableArray new];
 			NSArray * wvTabs = [self.webViewController webViewTabs];
 			
@@ -387,7 +391,7 @@ SystemSoundID notificationSound;
 					[self.webViewController addNewTabForURL: url];
 				}
 			}
-			self.shouldOpenHomePages = false;
+			_shouldOpenHomePages = false;
 		}
     });
 
@@ -439,11 +443,11 @@ SystemSoundID notificationSound;
     Reachability* currentReachability = [note object];
     if([currentReachability currentReachabilityStatus] == NotReachable) {
         if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
-            self.needsResume = true;
+            _needsResume = true;
             [self stopPsiphon];
         }
     } else {
-        if(self.needsResume){
+        if(_needsResume){
             [self startPsiphon];
         }
     }
