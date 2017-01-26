@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Psiphon Inc.
+ * Copyright (c) 2017, Psiphon Inc.
  * All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,22 +17,13 @@
  *
  */
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-struct Constants {
-    struct Notifications {
-        static let Connected = "Connected"
-        static let ConnectionEstablished = "ConnectionEstablished"
-        static let DisplayLogEntry = "DisplayLogEntry"
-        static let NewLogEntry = "NewLogEntryPosted"
-    }
-
-    struct Keys {
-        static let LastId = "LastId"
-        static let LogEntry = "LogEntryKey"
-    }
-}
-
-enum PsiphonError : Error {
-    case Runtime(String)
-}
+@interface FeedbackUpload : NSObject
++ (NSString*)generateFeedbackId;
++ (void)generateAndSendFeedback:(NSInteger)thumbIndex
+                       comments:(NSString*)comments
+                          email:(NSString*)email
+             sendDiagnosticInfo:(BOOL)sendDiagnosticInfo
+              withPsiphonConfig:(NSString*)psiphonConfig;
+@end

@@ -18,8 +18,9 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PsiphonData.h"
 #import "LogViewController.h"
-#import "PsiphonBrowser-Swift.h"
+#import "PsiphonData.h"
 
 @implementation LogViewController {
     NSArray *logs;
@@ -32,10 +33,10 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newLogAdded:)
-                                                 name:@"DisplayLogEntry"
+                                                 name:@kDisplayLogEntry
                                                object:nil];
 
-    logs = [[PsiphonData sharedInstance] getDiagnosticLogs];
+    logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
 
     table = [[UITableView alloc] init];
     table.dataSource = self;
@@ -63,7 +64,7 @@
 // Reload data and scroll to bottom of UITableView
 -(void)newLogAdded:(id)sender
 {
-    logs = [[PsiphonData sharedInstance] getDiagnosticLogs];
+    logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
     [table reloadData];
     [self scrollToBottom];
 }

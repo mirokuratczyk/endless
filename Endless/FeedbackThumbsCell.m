@@ -17,6 +17,7 @@
  *
  */
 
+// TODO: rename, these images are no longer thumbs up / thumbs down
 #import "FeedbackThumbsCell.h"
 
 #define kThumbsUpIndex 0
@@ -39,6 +40,7 @@
     UIFont *_font;
     
     // Sizing
+    CGFloat _maxImageHeight;
     CGFloat _requiredHeight;
     CGFloat _segmentedControlWidth;
     CGFloat _segmentedControlHeight;
@@ -56,8 +58,9 @@
         _thumbsDownText = NSLocalizedString(@"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." , @"Text explaining thumbs down choice in feedback");
         
         // Determine proper dimensions to fit image and localized text
+        _maxImageHeight = MAX([UIImage imageNamed:kThumbsDownColor].size.height, [UIImage imageNamed:kThumbsDownGrayscale].size.height);
         _segmentedControlWidth = self.bounds.size.width;
-        _segmentedControlHeight = [self requiredFrameHeight:[UIImage imageNamed:kThumbsDownGrayscale]
+        _segmentedControlHeight = [self requiredFrameHeight:_maxImageHeight
                                                strings:[NSArray arrayWithObjects:_thumbsUpText, _thumbsDownText, nil]
                                           textBoxWidth:_segmentedControlWidth cellFont:_font];
 
@@ -117,7 +120,7 @@
 #pragma mark - Image creation and sizing
 
 // Return the required frame height to display largest button in segmented control (image + text size)
--(CGFloat)requiredFrameHeight:(UIImage*)image strings:(NSArray*)strings textBoxWidth:(NSInteger)textBoxWidth cellFont:(UIFont*)font {
+-(CGFloat)requiredFrameHeight:(CGFloat)imageHeight strings:(NSArray*)strings textBoxWidth:(NSInteger)textBoxWidth cellFont:(UIFont*)font {
     NSInteger textWidth = textBoxWidth * kTextToButtonSizeRatio; // Pad the sides of the text as percentage of button width
     CGFloat height = 0;
     
@@ -132,7 +135,7 @@
         }
     }
     
-    return kTopToImageOffset + image.size.height + kImageToTextOffset + height + kTextToBottomOffset;
+    return kTopToImageOffset + imageHeight + kImageToTextOffset + height + kTextToBottomOffset;
 }
 
 // Returns a new rectangular image consisting of the provided image and text stacked in the centre
@@ -154,7 +157,7 @@
                                     context:nil];
     
     // Size of the new image
-    CGSize size = CGSizeMake(width / 2, MAX(height, kTopToImageOffset + image.size.height + kImageToTextOffset + r.size.height + kTextToBottomOffset));
+    CGSize size = CGSizeMake(width / 2, MAX(height, kTopToImageOffset + _maxImageHeight + kImageToTextOffset + r.size.height + kTextToBottomOffset));
 
     // Begin rendering image
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
@@ -166,10 +169,12 @@
     style.alignment = NSTextAlignmentCenter;
     
     // Add provided image to new image
-    [image drawInRect:CGRectMake(0.5 * ( width / 2 - image.size.width ), kTopToImageOffset, image.size.width, image.size.height)];
+    // Ensure images of different sizes have the same calculated y offset
+    CGFloat imageYOffset = (_maxImageHeight - image.size.height) / 2 + kTopToImageOffset;
+    [image drawInRect:CGRectMake(0.5 * ( width / 2 - image.size.width ), imageYOffset, image.size.width, image.size.height)];
     
     // Draw text on new image below the provided image
-    [text drawInRect:CGRectMake(0.5 * ( width / 2  - textWidth ), image.size.height + kTopToImageOffset + kImageToTextOffset, textWidth, r.size.height) withAttributes:@{NSFontAttributeName: font, NSParagraphStyleAttributeName: style}];
+    [text drawInRect:CGRectMake(0.5 * ( width / 2  - textWidth ), _maxImageHeight + kTopToImageOffset + kImageToTextOffset, textWidth, r.size.height) withAttributes:@{NSFontAttributeName: font, NSParagraphStyleAttributeName: style}];
 
     // Return the rendered image
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
