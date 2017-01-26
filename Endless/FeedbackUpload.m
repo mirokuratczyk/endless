@@ -75,9 +75,9 @@
     }
 
     NSDictionary *feedback = @{
-                               @"email": email,
-                               @"Message":  @{@"text": comments},
-                               @"Survey": @{@"json": surveyResponse}
+                               @"email": safeNullable(email),
+                               @"Message":  @{@"text": safeNullable(comments)},
+                               @"Survey": @{@"json": safeNullable(surveyResponse)}
                                };
     [feedbackBlob setObject:feedback forKey:@"Feedback"];
 
@@ -257,7 +257,6 @@
 // Get connection type
 + (NSString*)getConnectionType {
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
 
     NetworkStatus status = [reachability currentReachabilityStatus];
 
