@@ -29,7 +29,6 @@
 
 #import "AppDelegate.h"
 #import "Bookmark.h"
-#import "DTReachability.h"
 #import "HTTPSEverywhere.h"
 #import "PsiphonData.h"
 #import "RegionAdapter.h"
@@ -42,9 +41,9 @@
     BOOL _shouldOpenHomePages;
     NSMutableArray *_homePages;
 
-
     RegionAdapter *_regionAdapter;
     SystemSoundID _notificationSound;
+	Reachability *_reachability;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -80,7 +79,8 @@
     
     _needsResume = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    [[Reachability reachabilityForInternetConnection] startNotifier];
+	_reachability = [Reachability reachabilityForInternetConnection];
+	[_reachability startNotifier];
     return YES;
 }
 
@@ -440,8 +440,8 @@
 
 - (void) internetReachabilityChanged:(NSNotification *)note
 {
-    Reachability* currentReachability = [note object];
-    if([currentReachability currentReachabilityStatus] == NotReachable) {
+	Reachability* currentReachability = [note object];
+	if([currentReachability currentReachabilityStatus] == NotReachable) {
         if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
             _needsResume = true;
             [self stopPsiphon];
