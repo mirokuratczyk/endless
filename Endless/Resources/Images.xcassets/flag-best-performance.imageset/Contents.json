@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "flag-best-performance.png",
+      "filename" : "best-performance.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "best-performance@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "best-performance@3x.png",
       "scale" : "3x"
     }
   ],
