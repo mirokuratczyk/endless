@@ -236,7 +236,7 @@
     NSMutableAttributedString *intro = [[NSMutableAttributedString alloc] initWithString:localizedIntroText];
     if (range.location != NSNotFound) {
         [intro addAttribute:NSLinkAttributeName
-                      value:[[NSURL alloc] initWithString:NSLocalizedString(@"https://psiphon.ca/en/faq.html", @"External link to FAQ")]
+                      value:[[NSURL alloc] initWithString:NSLocalizedString(@"https://psiphon.ca/en/faq.html", @"External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french.")]
                       range: range];
     }
     [intro addAttribute:NSFontAttributeName
@@ -270,7 +270,7 @@
     }
     if (privacyPolicyTextRange.location != NSNotFound) {
         [footer addAttribute:NSLinkAttributeName
-                       value:[[NSURL alloc] initWithString:NSLocalizedString(@"https://psiphon.ca/en/privacy.html", @"External link to privacy policy")]
+                       value:[[NSURL alloc] initWithString:NSLocalizedString(@"https://psiphon.ca/en/privacy.html", @"External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french.")]
                        range:privacyPolicyTextRange];
     }
     [footer addAttribute:NSFontAttributeName
