@@ -332,13 +332,13 @@ BOOL linksEnabled;
 {
     NSString *url;
     if ([key isEqualToString:kAboutSpecifierKey]) { // make this a hashmap
-        url = NSLocalizedString(@"https://psiphon.ca/en/about.html", "");
+        url = NSLocalizedString(@"https://psiphon.ca/en/about.html", @"External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french.");
     } else if ([key isEqualToString:kFAQSpecifierKey]) {
-        url = NSLocalizedString(@"https://psiphon.ca/en/faq.html", "");
+        url = NSLocalizedString(@"https://psiphon.ca/en/faq.html", @"External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french.");
     } else if ([key isEqualToString:kPrivacyPolicySpecifierKey]) {
-        url = NSLocalizedString(@"https://psiphon.ca/en/privacy.html", "");
+        url = NSLocalizedString(@"https://psiphon.ca/en/privacy.html", @"External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french.");
     } else if ([key isEqualToString:kTermsOfUseSpecifierKey]) {
-        url = NSLocalizedString(@"https://psiphon.ca/en/license.html", "");
+        url = NSLocalizedString(@"https://psiphon.ca/en/license.html", @"External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french.");
     }
     [self loadUrlInWebview:url];
 }
