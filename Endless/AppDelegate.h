@@ -55,6 +55,7 @@
 @property NSInteger socksProxyPort;
 @property PsiphonConnectionState psiphonConectionState;
 
+
 - (void) reloadAndOpenSettings;
 - (NSString *) getPsiphonConfig;
 - (void) scheduleRunningTunnelServiceRestart;
