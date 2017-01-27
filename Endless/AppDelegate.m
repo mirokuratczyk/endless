@@ -254,6 +254,7 @@
 - (void)initializeDefaults
 {
     [self initializeDefaultsFor:@"Root.inApp.plist"];
+	[self initializeDefaultsFor:@"Feedback.plist"];
     [self initializeDefaultsFor:@"Security.plist"];
     [self initializeDefaultsFor:@"Notifications~iphone.plist"];
     [self initializeDefaultsFor:@"Notifications~ipad.plist"];
