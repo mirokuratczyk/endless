@@ -19,29 +19,29 @@
 
 #import "PsiphonConnectionIndicator.h"
 
-@implementation PsiphonConnectionIndicator
-
-UIImageView *imgConnected;
-UIImageView *imgDisconnected;
-UIActivityIndicatorView *activityIndicator;
+@implementation PsiphonConnectionIndicator {
+    UIImageView *_imgConnected;
+    UIImageView *_imgDisconnected;
+    UIActivityIndicatorView *_activityIndicator;
+}
 
 - (id) initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	
-	imgConnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_connected"]];
-	[self addSubview:imgConnected];
+	_imgConnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_connected"]];
+	[self addSubview:_imgConnected];
 
-	imgDisconnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_disconnected"]];
-	imgDisconnected.alpha = 0.0;
-	[self addSubview:imgDisconnected];
+	_imgDisconnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_disconnected"]];
+	_imgDisconnected.alpha = 0.0;
+	[self addSubview:_imgDisconnected];
 	
-	activityIndicator = [[UIActivityIndicatorView alloc]
+	_activityIndicator = [[UIActivityIndicatorView alloc]
 						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	activityIndicator.alpha = 0.0;
-	[self addSubview:activityIndicator];
+	_activityIndicator.alpha = 0.0;
+	[self addSubview:_activityIndicator];
 	
-	imgConnected.alpha = imgDisconnected.alpha = activityIndicator.alpha = 0.0;
-	imgConnected.center = imgDisconnected.center = activityIndicator.center = CGPointMake(self.bounds.size.width  / 2,
+	_imgConnected.alpha = _imgDisconnected.alpha = _activityIndicator.alpha = 0.0;
+	_imgConnected.center = _imgDisconnected.center = _activityIndicator.center = CGPointMake(self.bounds.size.width  / 2,
 										 self.bounds.size.height / 2);
 	[self displayConnectionState:PsiphonConnectionStateDisconnected];
 	return self;
@@ -52,38 +52,44 @@ UIActivityIndicatorView *activityIndicator;
 	void (^animationCompleted)(BOOL finished);
 	switch (state) {
 		case PsiphonConnectionStateConnected:
+        {
 			activityIndicatorAlpha = 0.0f;
 			imgConnectedAlpha = 1.0f;
 			imgDisconnectedAlpha = 0.0f;
 			animationCompleted = ^(BOOL finished){
-				[activityIndicator stopAnimating];
+				[_activityIndicator stopAnimating];
 			};
             break;
+        }
 		case PsiphonConnectionStateConnecting:
+        {
 			activityIndicatorAlpha = 1.0f;
 			imgConnectedAlpha = 0.0f;
 			imgDisconnectedAlpha = 0.2f;
 			animationCompleted = ^(BOOL finished){
-				[activityIndicator startAnimating];
+				[_activityIndicator startAnimating];
 			};
             break;
+        }
 		case PsiphonConnectionStateDisconnected:
+        {
             activityIndicatorAlpha = 0.0f;
             imgConnectedAlpha = 0.0f;
             imgDisconnectedAlpha = 1.0f;
             animationCompleted = ^(BOOL finished){
-                [activityIndicator stopAnimating];
+                [_activityIndicator stopAnimating];
             };
             break;
+        }
         default:
             break;
 	}
 
 	[UIView animateWithDuration:0.1
 					 animations:^{
-						 activityIndicator.alpha = activityIndicatorAlpha;
-						 imgConnected.alpha = imgConnectedAlpha;
-						 imgDisconnected.alpha = imgDisconnectedAlpha;
+						 _activityIndicator.alpha = activityIndicatorAlpha;
+						 _imgConnected.alpha = imgConnectedAlpha;
+						 _imgDisconnected.alpha = imgDisconnectedAlpha;
 					 }
 					 completion: animationCompleted];
 }
