@@ -67,7 +67,7 @@
 	[self.webView addGestureRecognizer:swipeLeft];
 	
 	self.refresher = [[UIRefreshControl alloc] init];
-	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh Page"]];
+	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Pull to Refresh Page", @"UI hint that the webpage can be refreshed by pulling(swiping) down")]];
 	[self.refresher addTarget:self action:@selector(forceRefreshFromRefresher) forControlEvents:UIControlEventValueChanged];
 	[self.webView.scrollView addSubview:self.refresher];
 	
