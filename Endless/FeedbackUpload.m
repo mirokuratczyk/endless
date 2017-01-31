@@ -111,6 +111,8 @@
             NSArray *f = s.formatArgs;
             if ([f count] > 0 && s.sensitivity != SensitivityLevelSensitiveFormatArgs) {
                 [entry setObject:f forKey:@"formatArgs"];
+            } else {
+                [entry setObject:@[] forKey:@"formatArgs"];
             }
 
             Throwable *t = s.throwable;

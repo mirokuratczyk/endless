@@ -73,6 +73,7 @@
 		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
 		4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9610111E36A32C00CDE62E /* FeedbackUpload.m */; };
 		4EA463921E395BCD00674DEA /* PsiphonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA463911E395BCD00674DEA /* PsiphonData.m */; };
+		4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEC58391E3FF48B006D4087 /* InfoPlist.strings */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
 		4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */; };
 		4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34791E366C370067C7C3 /* RegionAdapter.m */; };
@@ -210,6 +211,17 @@
 		4E9610111E36A32C00CDE62E /* FeedbackUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackUpload.m; path = Endless/FeedbackUpload.m; sourceTree = SOURCE_ROOT; };
 		4EA463901E395BCD00674DEA /* PsiphonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonData.h; path = Endless/PsiphonData.h; sourceTree = SOURCE_ROOT; };
 		4EA463911E395BCD00674DEA /* PsiphonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonData.m; path = Endless/PsiphonData.m; sourceTree = SOURCE_ROOT; };
+		4EEC58381E3FF48B006D4087 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583A1E3FF497006D4087 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583B1E3FF49A006D4087 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583C1E3FF49B006D4087 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583D1E3FF49F006D4087 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583E1E3FF4A2006D4087 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC583F1E3FF4A3006D4087 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC58401E3FF4A4006D4087 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC58411E3FF4A5006D4087 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		4EEC58421E3FF4A8006D4087 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEC58451E3FF9E2006D4087 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
 		4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpstreamProxySettings.h; path = Endless/UpstreamProxySettings.h; sourceTree = SOURCE_ROOT; };
 		4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpstreamProxySettings.m; path = Endless/UpstreamProxySettings.m; sourceTree = SOURCE_ROOT; };
@@ -493,6 +505,7 @@
 				44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */,
 				44E7792F1DE4DCCF00854379 /* Localizable.strings */,
 				44E779321DE4DCD400854379 /* OnePasswordExtension.strings */,
+				4EEC58391E3FF48B006D4087 /* InfoPlist.strings */,
 			);
 			name = Strings;
 			path = Endless;
@@ -621,6 +634,7 @@
 				01801EC31A3360F8002B4718 /* InAppSettings.bundle in Resources */,
 				446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */,
 				01D7412C1A45F8EB007B7033 /* injected.js in Resources */,
+				4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */,
 				4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */,
 				01F8794F1A412FA500A63654 /* urlblocker_targets.plist in Resources */,
 				01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */,
@@ -897,6 +911,24 @@
 				6685BE011E315E1B00F0E414 /* pt-PT */,
 			);
 			name = OnePasswordExtension.strings;
+			sourceTree = "<group>";
+		};
+		4EEC58391E3FF48B006D4087 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EEC58381E3FF48B006D4087 /* en */,
+				4EEC583A1E3FF497006D4087 /* ar */,
+				4EEC583B1E3FF49A006D4087 /* de */,
+				4EEC583C1E3FF49B006D4087 /* fa */,
+				4EEC583D1E3FF49F006D4087 /* fr */,
+				4EEC583E1E3FF4A2006D4087 /* hr */,
+				4EEC583F1E3FF4A3006D4087 /* id */,
+				4EEC58401E3FF4A4006D4087 /* nl */,
+				4EEC58411E3FF4A5006D4087 /* zh-Hant */,
+				4EEC58421E3FF4A8006D4087 /* es */,
+				4EEC58451E3FF9E2006D4087 /* pt-PT */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

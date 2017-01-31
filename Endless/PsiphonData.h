@@ -48,6 +48,8 @@ typedef NS_ENUM(NSInteger, PriorityLevel) {
 };
 
 @interface Throwable : NSObject
+- (id)init:(NSString*)msg withStackTrace:(NSArray*)trace;
+
 @property (readonly, strong, nonatomic) NSArray *stackTrace; // Error.localizedDescription in most cases
 @property (readonly, strong, nonatomic) NSString *message; // [NSThread callStackSymbols]
 @end
