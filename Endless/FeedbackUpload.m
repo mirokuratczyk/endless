@@ -237,20 +237,13 @@
             break;
     }
 
-    NSString *uuid = @"";
-    NSUUID *identifierForVendor = device.identifierForVendor;
-    if (identifierForVendor != NULL) {
-        uuid = identifierForVendor.UUIDString;
-    }
-
     NSDictionary<NSString*, NSString*> *deviceInfo =
     @{
         @"systemName":device.systemName,
         @"systemVersion":device.systemVersion,
         @"model":device.model,
         @"localizedModel":device.localizedModel,
-        @"userInterfaceIdiom":userInterfaceIdiomString,
-        @"identifierForVendor":uuid
+        @"userInterfaceIdiom":userInterfaceIdiomString
     };
 
     return deviceInfo;
