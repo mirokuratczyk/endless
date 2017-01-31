@@ -22,23 +22,29 @@
 
 static AppDelegate *appDelegate;
 
-@implementation Region {
-}
+@implementation Region
+
+@synthesize code = _code;
+@synthesize flagResourceId = _flagResourceId;
+@synthesize serverExists = _serverExists;
 
 - (id) init {
     self = [super init];
     return self;
 }
 
-- (id) initWithParams:(NSString*)regionCode andResourceId:(NSString*)pathToFlagResouce andTitle:(NSString*)regionTitle exists:(BOOL) exists {
+- (id) initWithParams:(NSString*)regionCode andResourceId:(NSString*)pathToFlagResource exists:(BOOL) exists {
     self = [super init];
     if (self) {
-        self.code = regionCode;
-        self.flagResourceId = pathToFlagResouce;
-        self.serverExists = exists;
-        self.title = regionTitle;
+        _code = regionCode;
+        _flagResourceId = pathToFlagResource;
+        _serverExists = exists;
     }
     return self;
+}
+
+- (void)setRegionExists:(BOOL)exists {
+    _serverExists = exists;
 }
 
 @end
@@ -46,6 +52,7 @@ static AppDelegate *appDelegate;
 @implementation RegionAdapter {
     NSMutableArray *flags;
     NSMutableArray *regions;
+    NSDictionary *regionTitles;
     NSString *selectedRegion;
 }
 
@@ -57,22 +64,40 @@ static AppDelegate *appDelegate;
         selectedRegion = kPsiphonRegionBestPerformance;
     }
 
-    regions =[[NSMutableArray alloc] initWithArray:
-              @[[[Region alloc] initWithParams:kPsiphonRegionBestPerformance andResourceId:@"flag-best-performance" andTitle:NSLocalizedString(@"Best Performance","") exists:YES],
-                [[Region alloc] initWithParams:@"CA" andResourceId:@"flag-ca" andTitle:NSLocalizedString(@"Canada","") exists:NO],
-                [[Region alloc] initWithParams:@"DE" andResourceId:@"flag-de" andTitle:NSLocalizedString(@"Germany","") exists:NO],
-                [[Region alloc] initWithParams:@"ES" andResourceId:@"flag-es" andTitle:NSLocalizedString(@"Spain","") exists:NO],
-                [[Region alloc] initWithParams:@"GB" andResourceId:@"flag-gb" andTitle:NSLocalizedString(@"United Kingdom","") exists:NO],
-                [[Region alloc] initWithParams:@"HK" andResourceId:@"flag-hk" andTitle:NSLocalizedString(@"Hong Kong","") exists:NO],
-                [[Region alloc] initWithParams:@"IN" andResourceId:@"flag-in" andTitle:NSLocalizedString(@"India","") exists:NO],
-                [[Region alloc] initWithParams:@"JP" andResourceId:@"flag-jp" andTitle:NSLocalizedString(@"Japan","") exists:NO],
-                [[Region alloc] initWithParams:@"NL" andResourceId:@"flag-nl" andTitle:NSLocalizedString(@"Netherlands","") exists:NO],
-                [[Region alloc] initWithParams:@"SG" andResourceId:@"flag-sg" andTitle:NSLocalizedString(@"Singapore","") exists:NO],
-                [[Region alloc] initWithParams:@"US" andResourceId:@"flag-us" andTitle:NSLocalizedString(@"United States","") exists:NO]]];
+    regions = [[NSMutableArray alloc] initWithArray:
+              @[[[Region alloc] initWithParams:kPsiphonRegionBestPerformance andResourceId:@"flag-best-performance" exists:YES],
+                [[Region alloc] initWithParams:@"CA" andResourceId:@"flag-ca" exists:NO],
+                [[Region alloc] initWithParams:@"DE" andResourceId:@"flag-de" exists:NO],
+                [[Region alloc] initWithParams:@"ES" andResourceId:@"flag-es" exists:NO],
+                [[Region alloc] initWithParams:@"GB" andResourceId:@"flag-gb" exists:NO],
+                [[Region alloc] initWithParams:@"HK" andResourceId:@"flag-hk" exists:NO],
+                [[Region alloc] initWithParams:@"IN" andResourceId:@"flag-in" exists:NO],
+                [[Region alloc] initWithParams:@"JP" andResourceId:@"flag-jp" exists:NO],
+                [[Region alloc] initWithParams:@"NL" andResourceId:@"flag-nl" exists:NO],
+                [[Region alloc] initWithParams:@"SG" andResourceId:@"flag-sg" exists:NO],
+                [[Region alloc] initWithParams:@"US" andResourceId:@"flag-us" exists:NO]]];
+
+    regionTitles = [RegionAdapter getLocalizedRegionTitles];
 
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
     return self;
+}
+
++ (NSDictionary*)getLocalizedRegionTitles {
+    return @{
+             kPsiphonRegionBestPerformance: NSLocalizedString(@"Best Performance",@""),
+             @"CA": NSLocalizedString(@"Canada", @""),
+             @"DE": NSLocalizedString(@"Germany",@""),
+             @"ES": NSLocalizedString(@"Spain", @""),
+             @"GB": NSLocalizedString(@"United Kingdom", @""),
+             @"HK": NSLocalizedString(@"Hong Kong", @""),
+             @"IN": NSLocalizedString(@"India", @""),
+             @"JP": NSLocalizedString(@"Japan", @""),
+             @"NL": NSLocalizedString(@"Netherlands", @""),
+             @"SG": NSLocalizedString(@"Singapore", @""),
+             @"US": NSLocalizedString(@"United States", @"")
+             };
 }
 
 + (instancetype)sharedInstance
@@ -85,6 +110,12 @@ static AppDelegate *appDelegate;
     return sharedInstance;
 }
 
+// Localizes the region titles for display in the settings menu
+// This should be called whenever the app language is changed
+- (void)reloadTitlesForNewLocalization {
+    regionTitles = [NSMutableDictionary dictionaryWithDictionary:[RegionAdapter getLocalizedRegionTitles]];
+}
+
 - (void)onAvailableEgressRegions: (NSArray*)availableEgressRegions {
     // If selected region is no longer available select best performance and restart
     if (![selectedRegion isEqualToString:kPsiphonRegionBestPerformance] && ![availableEgressRegions containsObject:selectedRegion]) {
@@ -94,7 +125,7 @@ static AppDelegate *appDelegate;
 
     // Should use a dictionary for performance if # of regions ever increases dramatically
     for (Region *region in regions) {
-        region.serverExists = [region.code isEqualToString:kPsiphonRegionBestPerformance] || [availableEgressRegions containsObject:region.code];
+        [region setRegionExists:([region.code isEqualToString:kPsiphonRegionBestPerformance] || [availableEgressRegions containsObject:region.code])];
     }
 
     [self notifyAvailableRegionsChanged];
@@ -117,6 +148,14 @@ static AppDelegate *appDelegate;
     selectedRegion = regionCode;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setValue:selectedRegion forKey:kRegionSelectionSpecifierKey];
+}
+
+- (NSString*)getLocalizedRegionTitle:(NSString*)regionCode {
+    NSString *localizedTitle = [regionTitles objectForKey:regionCode];
+    if (localizedTitle.length == 0) {
+        return @"";
+    }
+    return localizedTitle;
 }
 
 - (void)notifyAvailableRegionsChanged {

@@ -21,7 +21,6 @@
 #import "RegionSelectionViewController.h"
 
 @implementation RegionSelectionViewController {
-    RegionAdapter *regionAdapter;
     NSString *selectedRegion;
     NSMutableArray *regions;
     NSInteger selectedRow;
@@ -31,8 +30,7 @@
 {
     [super viewDidLoad];
 
-    regionAdapter = [RegionAdapter sharedInstance];
-    regions = [[NSMutableArray alloc] initWithArray:[regionAdapter getRegions]];
+    regions = [[NSMutableArray alloc] initWithArray:[Regionadapter getRegions]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
 
@@ -62,11 +60,11 @@
     }
 
     cell.imageView.image = [UIImage imageNamed:r.flagResourceId];
-    cell.textLabel.text = r.title;
+    cell.textLabel.text = [Regionadapter getLocalizedRegionTitle:r.code];
     cell.userInteractionEnabled = YES;
     cell.hidden = !r.serverExists;
 
-    if ([r.code isEqualToString:[regionAdapter getSelectedRegion].code]) {
+    if ([r.code isEqualToString:[Regionadapter getSelectedRegion].code]) {
         selectedRow = indexPath.row;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
@@ -91,7 +89,7 @@
     Region *r = [regions objectAtIndex:indexPath.row];
     selectedRow = indexPath.row;
     selectedRegion = r.code;
-    [regionAdapter setSelectedRegion:selectedRegion];
+    [Regionadapter setSelectedRegion:selectedRegion];
 
     NSIndexPath *newIndexPath = [tableView indexPathForSelectedRow];
     UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];

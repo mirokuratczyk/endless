@@ -1059,7 +1059,7 @@
         // Check if the selected region has changed
         NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
 
-        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+        if (!safeStringsEqual(region, [Regionadapter getSelectedRegion].code)) {
             return YES;
         }
 

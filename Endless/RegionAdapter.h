@@ -17,20 +17,20 @@
  *
  */
 
-@interface Region : NSObject {
-}
+#define Regionadapter [RegionAdapter sharedInstance]
 
-@property NSString *code;
-@property NSString *flagResourceId;
-@property NSString *title;
-@property BOOL serverExists;
-
+@interface Region : NSObject
+@property (readonly, strong, nonatomic) NSString *code;
+@property (readonly, strong, nonatomic) NSString *flagResourceId;
+@property (readonly, nonatomic) BOOL serverExists;
 @end
 
 @interface RegionAdapter : NSObject
 + (instancetype)sharedInstance;
-- (void)onAvailableEgressRegions: (NSArray*)availableEgressRegions;
+- (void)onAvailableEgressRegions:(NSArray*)availableEgressRegions;
+- (void)setSelectedRegion:(NSString*)regionCode;
+- (void)reloadTitlesForNewLocalization;
 - (NSArray*)getRegions;
 - (Region*)getSelectedRegion;
-- (void)setSelectedRegion:(NSString*)regionCode;
+- (NSString*)getLocalizedRegionTitle:(NSString*)regionCode;
 @end

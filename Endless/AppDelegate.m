@@ -41,7 +41,6 @@
     BOOL _shouldOpenHomePages;
     NSMutableArray *_homePages;
 
-    RegionAdapter *_regionAdapter;
     SystemSoundID _notificationSound;
 	Reachability *_reachability;
 }
@@ -71,7 +70,6 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
-    _regionAdapter = [RegionAdapter sharedInstance];
     [self.window makeKeyAndVisible];
     
     self.socksProxyPort = 0;
@@ -296,7 +294,7 @@
         abort();
     }
 
-    NSString *selectedRegionCode = [_regionAdapter getSelectedRegion].code;
+    NSString *selectedRegionCode = [Regionadapter getSelectedRegion].code;
     mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
     NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
@@ -334,7 +332,7 @@
 
 - (void) onAvailableEgressRegions:(NSArray *)regions {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_regionAdapter onAvailableEgressRegions:regions];
+        [Regionadapter onAvailableEgressRegions:regions];
     });
 }
 
@@ -412,6 +410,8 @@
 
 
 - (void) reloadAndOpenSettings {
+    [Regionadapter reloadTitlesForNewLocalization];
+
     NSMutableArray * reloadURLS = [NSMutableArray new];
     NSArray * wvTabs = [self.webViewController webViewTabs];
     
