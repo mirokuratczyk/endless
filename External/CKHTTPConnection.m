@@ -154,9 +154,9 @@
 	NSURL *url = (__bridge_transfer NSURL *)(CFHTTPMessageCopyRequestURL([self HTTPRequest]));
 	if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSInteger tlsVersion = [userDefaults integerForKey:kMinTlsVersion];
+        NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
 
-        if (tlsVersion == SETTINGS_TLS_12) {
+        if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
 			/* kTLSProtocol12 allows lower protocols, so use kCFStreamSSLLevel to force 1.2 */
 
 			CFMutableDictionaryRef sslOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
@@ -181,9 +181,9 @@
 			SSLGetSessionState(sslContext, &sslState);
 			
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSInteger tlsVersion = [userDefaults integerForKey:kMinTlsVersion];
+            NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
             
-            if (tlsVersion != SETTINGS_TLS_12) {
+            if (![tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
                 void (^setTlsMaxMin)(SSLProtocol, SSLProtocol) =
                 ^(SSLProtocol max, SSLProtocol min) {
                     OSStatus status;
@@ -201,12 +201,14 @@
 #endif
                 };
 
-                if (tlsVersion == SETTINGS_TLS_11) {
+                if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]) {
                     setTlsMaxMin(kTLSProtocol12, kTLSProtocol11);
-                } else if (tlsVersion == SETTINGS_TLS_10) {
+                } else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]) {
                     setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
-                } else if (tlsVersion == SETTINGS_TLS_AUTO) {
-                    setTlsMaxMin(kTLSProtocol12, kSSLProtocol3);
+                } else {
+                    // Have a safe default if userDefaults are corrupted
+                    // or have a deprecated value for kMinTlsVersion
+                    setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
                 }
             }
 

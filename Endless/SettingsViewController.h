@@ -35,12 +35,11 @@
 #define kProxyDomain              @"proxyDomain"
 #define kUpstreamProxyHostAddress @"upstreamProxyHostAddress"
 #define kUpstreamProxyPort        @"upstreamProxyPort"
-// These numbers correspond to the option's index in MinTLSSettings.plist
-// `minTLSVersion` is set to the index of the chosen option in Security.plist
-#define SETTINGS_TLS_12       0
-#define SETTINGS_TLS_11       1
-#define SETTINGS_TLS_10       2
-#define SETTINGS_TLS_AUTO     3
+
+// These strings correspond to the option's value in MinTLSSettings.plist
+#define kMinTlsVersionTLS_1_2 @"TLS_1_2"
+#define kMinTlsVersionTLS_1_1 @"TLS_1_1"
+#define kMinTlsVersionTLS_1_0 @"TLS_1_0"
 
 @protocol SettingsViewControllerDelegate <NSObject>
 - (long)curWebViewTabHttpsRulesCount;
