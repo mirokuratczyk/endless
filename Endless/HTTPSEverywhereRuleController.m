@@ -19,8 +19,8 @@
 
 	self.sortedRuleNames = [[NSMutableArray alloc] initWithCapacity:[[HTTPSEverywhere rules] count]];
 	
-	if ([[Appdelegate webViewController] curWebViewTab] != nil) {
-		self.inUseRuleNames = [[NSMutableArray alloc] initWithArray:[[[[[Appdelegate webViewController] curWebViewTab] applicableHTTPSEverywhereRules] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+	if ([[[AppDelegate sharedAppDelegate] webViewController] curWebViewTab] != nil) {
+		self.inUseRuleNames = [[NSMutableArray alloc] initWithArray:[[[[[[AppDelegate sharedAppDelegate] webViewController] curWebViewTab] applicableHTTPSEverywhereRules] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
 	}
 	else {
 		self.inUseRuleNames = [[NSMutableArray alloc] init];

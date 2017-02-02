@@ -113,7 +113,7 @@ const int BOOKMARK_FILE_VERSION = 1;
 
 + (UIAlertController *)addBookmarkDialogWithOkCallback:(void (^)(void))callback
 {
-	WebViewTab *wvt = [[Appdelegate webViewController] curWebViewTab];
+	WebViewTab *wvt = [[[AppDelegate sharedAppDelegate] webViewController] curWebViewTab];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add Bookmark", @"'Add bookmark' dialog title")
                                                                              message:NSLocalizedString(@"Enter the details of the URL to bookmark:", @"'Add bookmark' dialog text")

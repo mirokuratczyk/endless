@@ -453,5 +453,9 @@
     }
 }
 
++ (AppDelegate *)sharedAppDelegate{
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
 @end
 

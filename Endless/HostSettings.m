@@ -56,7 +56,7 @@ NSMutableDictionary *_hosts;
 
 + (void)persist
 {
-	if ([Appdelegate areTesting])
+	if ([[AppDelegate sharedAppDelegate] areTesting])
 		abort();
 		
 	NSMutableDictionary *td = [[NSMutableDictionary alloc] initWithCapacity:[[self hosts] count]];

@@ -16,7 +16,7 @@
 
 + (WebViewTab *)openedWebViewTabByRandID:(NSString *)randID
 {
-	for (WebViewTab *wvt in [[Appdelegate webViewController] webViewTabs]) {
+	for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
 		if ([wvt randID] != nil && [[wvt randID] isEqualToString:randID]) {
 			return wvt;
 		}
@@ -37,7 +37,7 @@
 	_viewHolder = [[UIView alloc] initWithFrame:frame];
 	
 	/* re-register user agent with our hash, which should only affect this UIWebView */
-	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [Appdelegate defaultUserAgent], self.hash] }];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [[AppDelegate sharedAppDelegate] defaultUserAgent], self.hash] }];
 	
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	_needsRefresh = FALSE;
@@ -216,11 +216,11 @@
 - (void)searchFor:(NSString *)query
 {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *se = [[Appdelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
+	NSDictionary *se = [[[AppDelegate sharedAppDelegate] searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
 	
 	if (se == nil)
 		/* just pick the first search engine */
-		se = [[Appdelegate searchEngines] objectForKey:[[[Appdelegate searchEngines] allKeys] firstObject]];
+		se = [[[AppDelegate sharedAppDelegate] searchEngines] objectForKey:[[[[AppDelegate sharedAppDelegate] searchEngines] allKeys] firstObject]];
 	
 	NSDictionary *pp = [se objectForKey:@"post_params"];
 	NSString *urls;
@@ -319,7 +319,7 @@
 	else if ([action isEqualToString:@"window.open"]) {
 		/* only allow windows to be opened from mouse/touch events, like a normal browser's popup blocker */
 		if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-			WebViewTab *newtab = [[Appdelegate webViewController] addNewTabForURL:nil];
+			WebViewTab *newtab = [[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:nil];
 			newtab.randID = param;
 			newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
 			
@@ -336,14 +336,14 @@
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 		
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			[[Appdelegate webViewController] removeTab:[self tabIndex]];
+			[[[AppDelegate sharedAppDelegate] webViewController] removeTab:[self tabIndex]];
 		}];
 		
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
 		[alertController addAction:cancelAction];
 		[alertController addAction:okAction];
 		
-		[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+		[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
 		
 		[self webView:__webView callbackWith:@""];
 	}
@@ -381,7 +381,7 @@
 		
 		/* actions */
 		else if ([action isEqualToString:@"fakeWindow.close"]) {
-			[[Appdelegate webViewController] removeTab:[wvt tabIndex]];
+			[[[AppDelegate sharedAppDelegate] webViewController] removeTab:[wvt tabIndex]];
 			[self webView:__webView callbackWith:@""];
 		}
 	}
@@ -500,7 +500,7 @@
 - (void)setProgress:(NSNumber *)pr
 {
 	_progress = pr;
-	[[Appdelegate webViewController] updateProgress];
+	[[[AppDelegate sharedAppDelegate] webViewController] updateProgress];
 }
 
 - (void)swipeRightAction:(UISwipeGestureRecognizer *)gesture
@@ -515,7 +515,7 @@
 
 - (void)webViewTouched:(UIEvent *)event
 {
-	[[Appdelegate webViewController] webViewTouched];
+	[[[AppDelegate sharedAppDelegate] webViewController] webViewTouched];
 }
 
 - (void)longPressMenu:(UILongPressGestureRecognizer *)sender {
@@ -569,7 +569,7 @@
 	}];
 	
 	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in a New Tab", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		[[Appdelegate webViewController] addNewTabForURL:[NSURL URLWithString:href]];
+		[[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:[NSURL URLWithString:href]];
 	}];
 	
 	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -617,7 +617,7 @@
 		popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
 	}
 	
-	[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+	[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (BOOL)canGoBack
@@ -636,14 +636,14 @@
 		[[self webView] goBack];
 	}
 	else if (self.openedByTabHash) {
-		for (WebViewTab *wvt in [[Appdelegate webViewController] webViewTabs]) {
+		for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
 			if ([wvt hash] == [self.openedByTabHash longValue]) {
-				[[Appdelegate webViewController] removeTab:self.tabIndex andFocusTab:[wvt tabIndex]];
+				[[[AppDelegate sharedAppDelegate] webViewController] removeTab:self.tabIndex andFocusTab:[wvt tabIndex]];
 				return;
 			}
 		}
 		
-		[[Appdelegate webViewController] removeTab:self.tabIndex];
+		[[[AppDelegate sharedAppDelegate] webViewController] removeTab:self.tabIndex];
 	}
 }
 

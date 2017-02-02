@@ -95,7 +95,7 @@
     NSString *emailAddress = [userDefaults stringForKey:kEmailSpecifierKey];
     BOOL uploadDiagnostics = [userDefaults boolForKey:kSendDiagnosticsSpecifierKey];
     
-    NSString *psiphonConfig = [Appdelegate getPsiphonConfig];
+    NSString *psiphonConfig = [[AppDelegate sharedAppDelegate] getPsiphonConfig];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [FeedbackUpload generateAndSendFeedback:selectedThumbIndex

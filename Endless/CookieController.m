@@ -16,7 +16,7 @@ NSMutableArray *sortedCookieHosts;
 	[super viewDidLoad];
 	
 
-	sortedCookieHosts = [NSMutableArray arrayWithArray:[[Appdelegate cookieJar] sortedHostCounts]];
+	sortedCookieHosts = [NSMutableArray arrayWithArray:[[[AppDelegate sharedAppDelegate] cookieJar] sortedHostCounts]];
 
 	self.title = NSLocalizedString(@"Cookies and Local Storage", @"'Cookies and Local Storage' dialog title");
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Cookies and Local Storage 'Done button title, dismisses the controller")
@@ -83,7 +83,7 @@ NSMutableArray *sortedCookieHosts;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[[Appdelegate cookieJar] clearAllDataForHost:[[sortedCookieHosts objectAtIndex:[indexPath row]] allKeys][0]];
+		[[[AppDelegate sharedAppDelegate] cookieJar] clearAllDataForHost:[[sortedCookieHosts objectAtIndex:[indexPath row]] allKeys][0]];
 		[sortedCookieHosts removeObjectAtIndex:[indexPath row]];
 		
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

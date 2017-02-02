@@ -104,7 +104,7 @@ BOOL isRTL;
 	Bookmark *bookmark = [Bookmark list][[indexPath row]];
 	
 	if (self.embedded)
-		[[Appdelegate webViewController] prepareForNewURLFromString:[bookmark urlString]];
+		[[[AppDelegate sharedAppDelegate] webViewController] prepareForNewURLFromString:[bookmark urlString]];
 	else {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		

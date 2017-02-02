@@ -177,7 +177,7 @@
 
     // Upload feedback
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[Appdelegate psiphonTunnel] sendFeedback:jsonString publicKey:pubKey uploadServer:uploadServer uploadServerHeaders:uploadServerHeaders];
+        [[[AppDelegate sharedAppDelegate] psiphonTunnel] sendFeedback:jsonString publicKey:pubKey uploadServer:uploadServer uploadServerHeaders:uploadServerHeaders];
     });
 }
 

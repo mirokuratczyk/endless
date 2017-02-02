@@ -48,6 +48,8 @@
 
 @property (strong, atomic) NSString *defaultUserAgent;
 
++ (AppDelegate *)sharedAppDelegate;
+
 - (BOOL)areTesting;
 
 
