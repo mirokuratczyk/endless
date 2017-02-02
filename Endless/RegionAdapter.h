@@ -17,7 +17,6 @@
  *
  */
 
-#define Regionadapter [RegionAdapter sharedInstance]
 
 @interface Region : NSObject
 @property (readonly, strong, nonatomic) NSString *code;

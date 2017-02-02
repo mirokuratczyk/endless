@@ -137,8 +137,8 @@ BOOL linksEnabled;
         [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
         // Get currently selected region
-        Region *selectedRegion = [Regionadapter getSelectedRegion];
-        NSString *detailText = [Regionadapter getLocalizedRegionTitle:selectedRegion.code];
+        Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
+        NSString *detailText = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
         // Style and layout cell
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];

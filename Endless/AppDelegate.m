@@ -294,7 +294,7 @@
         abort();
     }
 
-    NSString *selectedRegionCode = [Regionadapter getSelectedRegion].code;
+    NSString *selectedRegionCode = [[RegionAdapter sharedInstance] getSelectedRegion].code;
     mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
     NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
@@ -332,7 +332,7 @@
 
 - (void) onAvailableEgressRegions:(NSArray *)regions {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [Regionadapter onAvailableEgressRegions:regions];
+        [[RegionAdapter sharedInstance] onAvailableEgressRegions:regions];
     });
 }
 
@@ -410,7 +410,7 @@
 
 
 - (void) reloadAndOpenSettings {
-    [Regionadapter reloadTitlesForNewLocalization];
+    [[RegionAdapter sharedInstance] reloadTitlesForNewLocalization];
 
     NSMutableArray * reloadURLS = [NSMutableArray new];
     NSArray * wvTabs = [self.webViewController webViewTabs];

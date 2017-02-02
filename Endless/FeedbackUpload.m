@@ -208,6 +208,7 @@
     uint8_t *randomBytes = (uint8_t *)malloc(sizeof(uint8_t) * count);
     int result = SecRandomCopyBytes(kSecRandomDefault, count, randomBytes);
     if(result != 0) {
+        free(randomBytes);
         return NULL;
     }
     return randomBytes;
