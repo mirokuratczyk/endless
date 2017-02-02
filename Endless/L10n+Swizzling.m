@@ -33,10 +33,10 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
 	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
-		language = nil;
+		language = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];;
 	}
-	
-	if (language == nil) {
+
+    if (language == nil) {
 		return [self swizzled_userInterfaceLayoutDirection];
 	}
 	
@@ -59,10 +59,9 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
 	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
-		language = nil;
+        language = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];;
 	}
-	
-	
+		
 	if (language == nil) {
 		return [self swizzled_semanticContentAttribute];
 	}
