@@ -52,6 +52,4 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 #define kPsiphonRegionBestPerformance @""
 
 #import "AppDelegate.h"
-#define Appdelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
-
 #endif

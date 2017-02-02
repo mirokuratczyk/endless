@@ -140,7 +140,7 @@
 	CFReadStreamSetProperty((__bridge CFReadStreamRef)(_HTTPStream), kCFStreamPropertyHTTPAttemptPersistentConnection, kCFBooleanFalse);
 #endif
 	
-	NSInteger proxyPort = Appdelegate.socksProxyPort;
+	NSInteger proxyPort = [AppDelegate sharedAppDelegate].socksProxyPort;
 	
 	NSMutableDictionary *socksProxy = [NSMutableDictionary
 									   dictionaryWithObjectsAndKeys:@"127.0.0.1",(NSString *)kCFStreamPropertySOCKSProxyHost,

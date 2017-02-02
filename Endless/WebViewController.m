@@ -72,9 +72,9 @@
 {
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 
-	[Appdelegate setWebViewController:self];
+	[[AppDelegate sharedAppDelegate] setWebViewController:self];
 	
-	[Appdelegate setDefaultUserAgent:[self buildDefaultUserAgent]];
+	[[AppDelegate sharedAppDelegate] setDefaultUserAgent:[self buildDefaultUserAgent]];
 	
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
 	curTabIndex = 0;
@@ -319,7 +319,7 @@
 /* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![Appdelegate areTesting]) {
+	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting]) {
         /*
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
@@ -633,7 +633,7 @@
 	[wvt close];
 	wvt = nil;
 	
-	[[Appdelegate cookieJar] clearNonWhitelistedDataForTab:wvtHash];
+	[[[AppDelegate sharedAppDelegate] cookieJar] clearNonWhitelistedDataForTab:wvtHash];
 
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
@@ -889,7 +889,7 @@
 - (void)prepareForNewURLFromString:(NSString *)url
 {
 	/* user is shifting to a new place, probably a good time to clear old data */
-	[[Appdelegate cookieJar] clearAllOldNonWhitelistedData];
+	[[[AppDelegate sharedAppDelegate] cookieJar] clearAllOldNonWhitelistedData];
 	
 	NSURL *enteredURL = [NSURL URLWithString:url];
 	
@@ -1030,11 +1030,11 @@
 
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
-	[[Appdelegate cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
+	[[[AppDelegate sharedAppDelegate] cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
 
     // Check if settings which have changed require a tunnel service restart to take effect
     if ([self isSettingsRestartRequired]) {
-        [Appdelegate scheduleRunningTunnelServiceRestart];
+        [[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
     }
 }
 
@@ -1174,7 +1174,7 @@
 - (void) addBookmarkFromBottomToolbar:(id)_id {
 	BookmarkController *bc = [[BookmarkController alloc] init];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:bc];
-	[[Appdelegate webViewController] presentViewController:navController animated:YES completion:nil];
+	[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:navController animated:YES completion:nil];
 }
 
 

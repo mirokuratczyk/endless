@@ -156,7 +156,7 @@ static NSString *_javascriptToInject;
 		wvthash = [NSString stringWithFormat:@"%lu", [(NSNumber *)[NSURLProtocol propertyForKey:WVT_KEY inRequest:request] longValue]];
 
 	if (wvthash != nil && ![wvthash isEqualToString:@""]) {
-		for (WebViewTab *_wvt in [[Appdelegate webViewController] webViewTabs]) {
+		for (WebViewTab *_wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
 			if ([[NSString stringWithFormat:@"%lu", (unsigned long)[_wvt hash]] isEqualToString:wvthash]) {
 				wvt = _wvt;
 				break;
@@ -165,7 +165,7 @@ static NSString *_javascriptToInject;
 	}
 	
 	if (wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]])
-		wvt = [[[Appdelegate webViewController] webViewTabs] firstObject];
+		wvt = [[[[AppDelegate sharedAppDelegate] webViewController] webViewTabs] firstObject];
 	
 	if (wvt == nil) {
 		NSLog(@"[URLInterceptor] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
@@ -187,7 +187,7 @@ static NSString *_javascriptToInject;
 				[alertController addAction:cancelAction];
 				[alertController addAction:okAction];
 				
-				[[Appdelegate webViewController] presentViewController:alertController animated:YES completion:nil];
+				[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
 			}
 		}
 		
@@ -282,7 +282,7 @@ static NSString *_javascriptToInject;
 		self.originHostSettings = [HostSettings settingsOrDefaultsForHost:oHost];
 
 	/* check HSTS cache first to see if scheme needs upgrading */
-	[newRequest setURL:[[Appdelegate hstsCache] rewrittenURI:[[self request] URL]]];
+	[newRequest setURL:[[[AppDelegate sharedAppDelegate] hstsCache] rewrittenURI:[[self request] URL]]];
 	
 	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
 	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[[self request] URL] host]];
@@ -333,7 +333,7 @@ static NSString *_javascriptToInject;
 	
 	/* we're handling cookies ourself */
 	[newRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[Appdelegate cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
+	NSArray *cookies = [[[AppDelegate sharedAppDelegate] cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
 	if (cookies != nil && [cookies count] > 0) {
 #ifdef TRACE_COOKIES
 		NSLog(@"[URLInterceptor] [Tab %@] sending %lu cookie(s) to %@", wvt.tabIndex, [cookies count], [newRequest URL]);
@@ -443,15 +443,15 @@ static NSString *_javascriptToInject;
 	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
 	
 	/* save any cookies we just received */
-	[[Appdelegate cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
+	[[[AppDelegate sharedAppDelegate] cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
 	
 	/* in case of localStorage */
-	[[Appdelegate cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
+	[[[AppDelegate sharedAppDelegate] cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
 	
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
 		if (hsts != nil && ![hsts isEqualToString:@""]) {
-			[[Appdelegate hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
+			[[[AppDelegate sharedAppDelegate] hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
 		}
 	}
 	
@@ -627,7 +627,7 @@ static NSString *_javascriptToInject;
 				[[challenge sender] useCredential:nsuc forAuthenticationChallenge:challenge];
 			}]];
 			
-			[[Appdelegate webViewController] presentViewController:uiac animated:YES completion:nil];
+			[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:uiac animated:YES completion:nil];
 		});
 	}
 	else {
