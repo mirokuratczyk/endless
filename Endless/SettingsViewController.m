@@ -96,7 +96,7 @@ BOOL linksEnabled;
 
         if (ruleCount > 0) {
             cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld rule%@ in use", ruleCount, (ruleCount == 1 ? @"" : @"s")];
+            cell.detailTextLabel.text = [NSString stringWithFormat:(ruleCount == 1 ? NSLocalizedString(@"%ld rule in use", @"%ld will be replaced with the number 1") : NSLocalizedString(@"%ld rules in use", @"%ld will be replaced with a natural number")), ruleCount];
             cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
         }
     } else if ([specifier.key isEqualToString:kUpstreamProxyPort]
