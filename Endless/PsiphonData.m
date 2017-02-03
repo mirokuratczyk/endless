@@ -64,17 +64,21 @@
             _data = jsonObject;
         }
     }
-    
+
     return self;
 }
 
 - (id)init:(NSString*)msg {
-    DiagnosticEntry *result = [[DiagnosticEntry alloc] init:msg nameValuePairs:@[@"msg", msg]];
-    _timestamp = result.timestamp;
-    _message = result.message;
-    _data = result.data;
+    self = [super init];
     
-    return result;
+    if (self) {
+        DiagnosticEntry *result = [[DiagnosticEntry alloc] init:msg nameValuePairs:@[@"msg", msg]];
+        _timestamp = result.timestamp;
+        _message = result.message;
+        _data = result.data;
+    }
+
+    return self;
 }
 
 - (NSString*)getTimestampISO8601 {

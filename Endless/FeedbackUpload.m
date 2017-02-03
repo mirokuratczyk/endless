@@ -111,6 +111,8 @@
             NSArray *f = s.formatArgs;
             if ([f count] > 0 && s.sensitivity != SensitivityLevelSensitiveFormatArgs) {
                 [entry setObject:f forKey:@"formatArgs"];
+            } else {
+                [entry setObject:@[] forKey:@"formatArgs"];
             }
 
             Throwable *t = s.throwable;
@@ -206,6 +208,7 @@
     uint8_t *randomBytes = (uint8_t *)malloc(sizeof(uint8_t) * count);
     int result = SecRandomCopyBytes(kSecRandomDefault, count, randomBytes);
     if(result != 0) {
+        free(randomBytes);
         return NULL;
     }
     return randomBytes;
@@ -235,20 +238,13 @@
             break;
     }
 
-    NSString *uuid = @"";
-    NSUUID *identifierForVendor = device.identifierForVendor;
-    if (identifierForVendor != NULL) {
-        uuid = identifierForVendor.UUIDString;
-    }
-
     NSDictionary<NSString*, NSString*> *deviceInfo =
     @{
         @"systemName":device.systemName,
         @"systemVersion":device.systemVersion,
         @"model":device.model,
         @"localizedModel":device.localizedModel,
-        @"userInterfaceIdiom":userInterfaceIdiomString,
-        @"identifierForVendor":uuid
+        @"userInterfaceIdiom":userInterfaceIdiomString
     };
 
     return deviceInfo;

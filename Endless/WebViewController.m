@@ -996,6 +996,7 @@
         appSettingsViewController.showCreditsFooter = NO;
         appSettingsViewController.showDoneButton = YES;
         appSettingsViewController.webViewController = self;
+        appSettingsViewController.neverShowPrivacySettings = YES;
     }
 
     // These keys correspond to settings in PsiphonOptions.plist

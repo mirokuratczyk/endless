@@ -5,6 +5,8 @@
  * See LICENSE file for redistribution terms.
  */
 
+#import <Photos/Photos.h>
+#import "PsiphonData.h"
 #import "URLInterceptor.h"
 #import "WebViewTab.h"
 
@@ -577,12 +579,14 @@
 	}];
 
 	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Save Image", @"Action title for long press on image dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		[self requestAuthorizationWithRedirectionToSettings];
+
 		NSURL *imgurl = [NSURL URLWithString:img];
 		[URLInterceptor temporarilyAllow:imgurl];
 		NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
 		if (imgdata) {
 			UIImage *i = [UIImage imageWithData:imgdata];
-			UIImageWriteToSavedPhotosAlbum(i, self, nil, nil);
+			UIImageWriteToSavedPhotosAlbum(i, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 		}
 		else {
 			UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Error alert message text"), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
@@ -618,6 +622,54 @@
 	}
 	
 	[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    // Fail silently to the user
+    Throwable *t = [[Throwable alloc] init:[NSString stringWithFormat:@"%@", error] withStackTrace:[NSThread callStackSymbols]];
+    StatusEntry *s = [[StatusEntry alloc] init:@"Failed to download image." formatArgs:nil throwable:t sensitivity:SensitivityLevelNotSensitive priority:PriorityError];
+    [[PsiphonData sharedInstance] addStatusEntry:s];
+}
+
+- (void) requestAuthorizationWithRedirectionToSettings {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusAuthorized) {
+            // Photo library permission has been granted
+        }
+        else {
+            // Photo library permission not granted
+            // Try to request it normally
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if (status != PHAuthorizationStatusAuthorized)
+                {
+                    // User doesn't grant permission.
+                    // Show alert where user can choose to redirect
+                    // to the settings menu and grant access or cancel.
+                    //
+                    // The suspended app will be termianted if the user
+                    // changes privacy settings in the settings menu.
+                    // It will be automatically relaunched when the user
+                    // navigates back.
+                    NSString *accessDescription = NSLocalizedString(@"\"Psiphon Browser\" needs access to your photo library to save and upload images", @"Alert text telling user additional permissions must be granted to save and upload photos in the browser");
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:accessDescription message:NSLocalizedString(@"To give permissions tap on 'Change Settings' button", @"Alert text telling user which button to press if they want to be redirected to the settings menu") preferredStyle:UIAlertControllerStyleAlert];
+
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Text of cancel button on alert which will dismiss the popup") style:UIAlertActionStyleCancel handler:nil];
+                    [alertController addAction:cancelAction];
+
+                    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Change Settings", @"Text of button on alert which will redirect the user to the settings menu") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    }];
+                    [alertController addAction:settingsAction];
+
+                    // Callback will not be on the main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                    });
+                }
+            }];
+        }
+    });
 }
 
 - (BOOL)canGoBack

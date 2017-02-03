@@ -29,18 +29,32 @@
 			<string>MIN_SSL_TLS_VERSION_FOOTER</string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>MinTLSSettings</string>
 			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>Title</key>
-			<string>MIN_SSL_TLS_VERSION</string>
+			<string>TLS_1_2</string>
+			<key>Values</key>
+			<array>
+				<string>TLS_1_2</string>
+				<string>TLS_1_1</string>
+				<string>TLS_1_0</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>TLS_1_2</string>
+				<string>TLS_1_1_OR_1_2</string>
+				<string>TLS_1_0_OR_1_1_OR_1_2</string>
+			</array>
+			<key>ShortTitles</key>
+			<array>
+				<string>TLS 1.2</string>
+				<string>TLS 1.1+</string>
+				<string>TLS 1.0+</string>
+			</array>
 			<key>Key</key>
 			<string>minTlsVersion</string>
+			<key>Title</key>
+			<string>MIN_SSL_TLS_VERSION</string>
 			<key>Type</key>
-			<string>IASKCustomViewSpecifier</string>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentLeft</string>
+			<string>PSMultiValueSpecifier</string>
 		</dict>
 	</array>
 </dict>

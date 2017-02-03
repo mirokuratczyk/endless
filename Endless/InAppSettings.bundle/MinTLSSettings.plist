@@ -44,18 +44,6 @@
 			<key>ShortTitle</key>
 			<string>TLS 1.0+</string>
 		</dict>
-		<dict>
-			<key>Title</key>
-			<string>AUTO_NEGOTIATE</string>
-			<key>Type</key>
-			<string>IASKCustomViewSpecifier</string>
-			<key>Key</key>
-			<string>tls3</string>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentLeft</string>
-			<key>ShortTitle</key>
-			<string>Auto</string>
-		</dict>
 	</array>
 </dict>
 </plist>

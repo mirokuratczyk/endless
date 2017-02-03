@@ -43,9 +43,6 @@ static AppDelegate *appDelegate;
 #define kTermsOfUseSpecifierKey @"termsOfUse"
 
 @implementation SettingsViewController {
-    NSMutableArray *tlsVersions;
-    NSMutableArray *tlsShortTitles;
-
     UITableViewCell *flagCell;
     UIImageView *flagImage;
     UILabel *flagLabel;
@@ -76,30 +73,6 @@ BOOL linksEnabled;
     [center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 	[center addObserver:self selector:@selector(updateLinksState:) name:kPsiphonConnectionStateNotification object:nil];
     [center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
-
-    // Get TLS keys and short (preview) titles from MinTLSSettings.plist
-    NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:@"MinTLSSettings.plist"];
-    NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-
-    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-        NSString *key = [pref objectForKey:@"Key"];
-        if (key != nil) {
-            if (tlsVersions == nil) {
-                tlsVersions = [NSMutableArray arrayWithObjects: key, nil];
-            } else {
-                [tlsVersions addObject:key];
-            }
-        }
-
-        NSString *shortTitle = [pref objectForKey:@"ShortTitle"];
-        if (shortTitle != nil) {
-            if (tlsShortTitles == nil) {
-                tlsShortTitles = [NSMutableArray arrayWithObjects: shortTitle, nil];
-            } else {
-                [tlsShortTitles addObject:shortTitle];
-            }
-        }
-    }
 }
 
 
@@ -123,27 +96,8 @@ BOOL linksEnabled;
 
         if (ruleCount > 0) {
             cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld rule%@ in use", ruleCount, (ruleCount == 1 ? @"" : @"s")];
+            cell.detailTextLabel.text = [NSString stringWithFormat:(ruleCount == 1 ? NSLocalizedString(@"%ld rule in use", @"%ld will be replaced with the number 1") : NSLocalizedString(@"%ld rules in use", @"%ld will be replaced with a natural number")), ruleCount];
             cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
-        }
-    } else if ([specifier.key isEqualToString:kMinTlsVersion]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.textLabel setText:specifier.title];
-        cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
-        // Set detail text label to preview text of currently chosen minTlsVersion option
-        cell.detailTextLabel.text = tlsShortTitles[[[NSUserDefaults standardUserDefaults] integerForKey:kMinTlsVersion]];
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
-    } else if ([tlsVersions containsObject:specifier.key]) {
-        [cell.textLabel setText:specifier.title];
-        cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:specifier.title attributes:nil];
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
-        
-        // Checkmark cell of currently chosen minTlsVersion option
-        BOOL selected = [tlsVersions[[[NSUserDefaults standardUserDefaults] integerForKey:kMinTlsVersion]] isEqualToString:specifier.key];
-
-        if (selected) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     } else if ([specifier.key isEqualToString:kUpstreamProxyPort]
 			   || [specifier.key isEqualToString:kUpstreamProxyHostAddress]
@@ -184,7 +138,7 @@ BOOL linksEnabled;
 
         // Get currently selected region
         Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
-        NSString *detailText = selectedRegion.title;
+        NSString *detailText = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
         // Style and layout cell
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -271,41 +225,6 @@ BOOL linksEnabled;
         [self presentViewController:navController animated:YES completion:nil];
     } else if ([specifier.key isEqualToString:kHttpsEverywhereSpecifierKey]) {
         [self menuHTTPSEverywhere];
-    } else if ([specifier.key isEqualToString:kMinTlsVersion]) {
-        // Push new IASK view controller for custom minTlsVersion menu
-        IASKAppSettingsViewController *targetViewController = [[IASKAppSettingsViewController alloc] init];
-
-        targetViewController.delegate = self;
-        targetViewController.file = specifier.file;
-        targetViewController.hiddenKeys = self.hiddenKeys;
-        targetViewController.settingsStore = self.settingsStore;
-        targetViewController.showDoneButton = NO;
-        targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
-        targetViewController.title = specifier.title;
-
-        IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
-
-        [self.navigationController pushViewController:targetViewController animated:YES];
-    } else if ([tlsVersions containsObject:specifier.key]) {
-        // New minTlsVersion option was selected update tableview cells
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-        // De-select currently selected option
-        NSUInteger currentIndex[2];
-        currentIndex[0] = 0;
-        currentIndex[1] = [userDefaults integerForKey:kMinTlsVersion];
-        NSIndexPath *currentIndexPath = [[NSIndexPath alloc] initWithIndexes:currentIndex length:2];
-        UITableViewCell *currentlySelectedCell = [tableView cellForRowAtIndexPath:currentIndexPath];
-        currentlySelectedCell.accessoryType = UITableViewStylePlain; // Remove checkmark
-
-        // Select newly chosen option
-        NSUInteger indexOfSelection = [tlsVersions indexOfObject: specifier.key];
-        [userDefaults setInteger:indexOfSelection forKey:kMinTlsVersion]; // Update settings
-
-        NSIndexPath *newIndexPath = [tableView indexPathForSelectedRow];
-        UITableViewCell *newlySelectedCell = [tableView cellForRowAtIndexPath:newIndexPath];
-        newlySelectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
     } else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
         // Focus on textfield if cell pressed
         NSIndexPath *indexPath = [tableView indexPathForSelectedRow];
