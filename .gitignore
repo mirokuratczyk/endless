@@ -9,3 +9,5 @@ profile
 Pods
 psiphon_config
 .gitattributes
+
+transifex_conf.json
