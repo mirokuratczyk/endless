@@ -58,6 +58,7 @@
 			imgDisconnectedAlpha = 0.0f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator stopAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
 			};
             break;
         }
@@ -68,6 +69,7 @@
 			imgDisconnectedAlpha = 0.2f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator startAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
 			};
             break;
         }
@@ -78,6 +80,7 @@
             imgDisconnectedAlpha = 1.0f;
             animationCompleted = ^(BOOL finished){
                 [_activityIndicator stopAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
             };
             break;
         }

@@ -18,6 +18,8 @@
 #import "WebViewController.h"
 #import "WebViewTab.h"
 #import "PsiphonConnectionIndicator.h"
+#import "NYAlertViewController.h"
+
 
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
