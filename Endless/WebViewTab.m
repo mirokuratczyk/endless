@@ -273,6 +273,7 @@
 {
 	NSURL *url = [request URL];
 	
+	// `endlesshttps?://` links are used (mostly or always?) when launching the app with a URL.
 	/* treat endlesshttps?:// links clicked inside of web pages as normal links */
 	if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttp"]) {
 		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttp" length]) withString:@"http"]];
@@ -292,6 +293,7 @@
 		return YES;
 	}
 	
+	// At this point we know we're handling an `endlessipc://` URL. Like:
 	/* endlessipc://fakeWindow.open/somerandomid?http... */
 	
 	NSString *action = [url host];
@@ -316,6 +318,7 @@
 #endif
 	
 	if ([action isEqualToString:@"noop"]) {
+		// In the webview, execute a JS callback that indicates that IPC is done (with no other action).
 		[self webView:__webView callbackWith:@""];
 	}
 	else if ([action isEqualToString:@"window.open"]) {
@@ -335,6 +338,7 @@
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
+		// Close the current tab.
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 		
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
