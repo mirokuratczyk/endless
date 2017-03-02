@@ -25,6 +25,12 @@
 #define TOOLBAR_BUTTON_SIZE 30
 #define kLetsGoButtonHeight 60
 
+@implementation UIColor (DefaultNavigationControllerColor)
++ (UIColor *)defaultNavigationControllerColor {
+    return [UIColor colorWithRed:(247/255.0f) green:(247/255.0f) blue:(247/255.0f) alpha:1];
+}
+@end
+
 @implementation WebViewController {
 
 	UIScrollView *tabScroller;
@@ -110,7 +116,8 @@
 	[navigationBar addSubview:progressBar];
 
 	urlField = [[UITextField alloc] init];
-	[urlField setBorderStyle:UITextBorderStyleRoundedRect];
+    [urlField.layer setCornerRadius:6.0f];
+    [urlField.layer setBorderWidth:0.0f];
 	[urlField setKeyboardType:UIKeyboardTypeWebSearch];
 	[urlField setFont:[UIFont systemFontOfSize:15]];
 	[urlField setReturnKeyType:UIReturnKeyGo];
@@ -184,7 +191,7 @@
 	[settingsButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
     
     bookmarksButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *bookmarksImage = [UIImage imageNamed:@"bookmark-blue"];
+    UIImage *bookmarksImage = [[UIImage imageNamed:@"bookmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [bookmarksButton setImage:bookmarksImage forState:UIControlStateNormal];
     [bookmarksButton setTintColor:[progressBar tintColor]];
     [bookmarksButton addTarget:self action:@selector(addBookmarkFromBottomToolbar:) forControlEvents:UIControlEventTouchUpInside];
@@ -415,11 +422,11 @@
 		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
 		[self adjustWebViewTabsLayout];
 	}];
-	[self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 		
-	[tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-	[tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
 	[urlField setBackgroundColor:[UIColor whiteColor]];
 		
 	[tabAddButton setTintColor:[progressBar tintColor]];
@@ -456,14 +463,14 @@
 	
 	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height - bottomToolBar.frame.size.height - statusBarHeight);
     
-    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
-    [tabScroller setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-    [tabToolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-    [navigationBar setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+    [tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
+    [navigationBar setBackgroundColor:[UIColor defaultNavigationControllerColor]];
     [urlField setBackgroundColor:[UIColor whiteColor]];
-    [bottomToolBar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+    [bottomToolBar setBarTintColor:[UIColor defaultNavigationControllerColor]];
     
     [tabAddButton setTintColor:[progressBar tintColor]];
     [tabDoneButton setTintColor:[progressBar tintColor]];
