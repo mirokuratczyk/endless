@@ -43,6 +43,8 @@
 
     SystemSoundID _notificationSound;
 	Reachability *_reachability;
+
+    BOOL isOnboarding;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -67,19 +69,44 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
+
+    if (isOnboarding) {
+        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+
+        OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
+        onboarding.delegate = self;
+
+        self.window.rootViewController = onboarding;
+        self.window.rootViewController.restorationIdentifier = @"OnBoardingViewController";
+        self.window.rootViewController.modalPresentationCapturesStatusBarAppearance = YES;
+        [self.window makeKeyAndVisible];
+    } else {
+        [self startTunnelAndOpenBrowser];
+    }
+    return YES;
+}
+
+-(void)onboardingEnded {
+    isOnboarding = NO;
+    [self startTunnelAndOpenBrowser];
+    self.webViewController.showTutorial = YES;
+    [[self webViewController] viewIsVisible];
+}
+
+-(void)startTunnelAndOpenBrowser {
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [[WebViewController alloc] init];
     self.window.rootViewController.restorationIdentifier = @"WebViewController";
     [self.window makeKeyAndVisible];
     
     self.socksProxyPort = 0;
-    self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel : self];
+    self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
     
     _needsResume = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-	_reachability = [Reachability reachabilityForInternetConnection];
-	[_reachability startNotifier];
-    return YES;
+    _reachability = [Reachability reachabilityForInternetConnection];
+    [_reachability startNotifier];
 }
 
 
@@ -87,7 +114,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
 		[_homePages removeAllObjects];
 		_shouldOpenHomePages = true;
-        if( ! [self.psiphonTunnel start : nil] ) {
+        if( ! [self.psiphonTunnel start:nil] ) {
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
         }
@@ -128,14 +155,20 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-	BOOL needStart = false;
-	
-	// Auto start if not connected
-	if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
-		needStart = true;
-	} else if (self.socksProxyPort > 0) {
+    if (!isOnboarding) {
+        [self startIfNeeded];
+    }
+}
+
+-(void)startIfNeeded {
+    BOOL needStart = false;
+
+    // Auto start if not connected
+    if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
+        needStart = true;
+    } else if (self.socksProxyPort > 0) {
         // check if SOCKS local proxy is still accessible
-		
+
         CFSocketRef sockfd;
         sockfd = CFSocketCreate(NULL, AF_INET, SOCK_STREAM, IPPROTO_TCP,0, NULL,NULL);
         struct sockaddr_in servaddr;
@@ -146,21 +179,21 @@
         inet_pton(AF_INET, [@"127.0.0.1" cStringUsingEncoding:NSUTF8StringEncoding], &servaddr.sin_addr);
         CFDataRef connectAddr = CFDataCreate(NULL, (unsigned char *)&servaddr, sizeof(servaddr));
         if (CFSocketConnectToAddress(sockfd, connectAddr, 1) != kCFSocketSuccess) {
-			needStart = true;
+            needStart = true;
         }
         CFSocketInvalidate(sockfd);
         CFRelease(sockfd);
         CFRelease(connectAddr);
-        
+
     } else {
-		needStart = true;
-	}
-	
-	if(needStart) {
-		self.psiphonConectionState = PsiphonConnectionStateConnecting;
-		[self notifyPsiphonConnectionState];
-		[self startPsiphon];
-	}
+        needStart = true;
+    }
+
+    if(needStart) {
+        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        [self notifyPsiphonConnectionState];
+        [self startPsiphon];
+    }
 
     [[self webViewController] viewIsVisible];
 }
