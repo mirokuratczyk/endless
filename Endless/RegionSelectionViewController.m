@@ -37,6 +37,7 @@
     self.table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.table.delegate = self;
     self.table.dataSource = self;
+    self.table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
     self.table.tableHeaderView = nil;
     self.table.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

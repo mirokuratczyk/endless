@@ -41,6 +41,7 @@ static AppDelegate *appDelegate;
 #define kLogsSpecifierKey @"logs"
 #define kPrivacyPolicySpecifierKey @"privacyPolicy"
 #define kTermsOfUseSpecifierKey @"termsOfUse"
+#define kTutorialSpecifierKey @"tutorial"
 
 @implementation SettingsViewController {
     UITableViewCell *flagCell;
@@ -129,7 +130,7 @@ BOOL linksEnabled;
 #ifndef DEBUGLOGS
         cell.hidden = YES;
 #endif
-    } else if ([specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey]) {
+    } else if ([specifier.key isEqualToString:kFeedbackSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] || [specifier.key isEqualToString:kAboutSpecifierKey] | [specifier.key isEqualToString:kFAQSpecifierKey] || [specifier.key isEqualToString:kPrivacyPolicySpecifierKey] || [specifier.key isEqualToString:kTermsOfUseSpecifierKey] || [specifier.key isEqualToString:kTutorialSpecifierKey]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = specifier.title;
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
@@ -244,6 +245,10 @@ BOOL linksEnabled;
     } else if ([specifier.key isEqualToString:kRegionSelectionSpecifierKey]) {
         RegionSelectionViewController *targetViewController = [[RegionSelectionViewController alloc] init];
         [self.navigationController pushViewController:targetViewController animated:YES];
+    } else if ([specifier.key isEqualToString:kTutorialSpecifierKey]) {
+        [AppDelegate sharedAppDelegate].webViewController.showTutorial = YES;
+        [self.webViewController settingsViewControllerDidEnd];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -259,6 +264,7 @@ BOOL linksEnabled;
     } else if ([key isEqualToString:kTermsOfUseSpecifierKey]) {
         url = NSLocalizedString(@"https://psiphon.ca/en/license.html", @"External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french.");
     }
+
     [self loadUrlInWebview:url];
 }
 

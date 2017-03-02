@@ -10,7 +10,17 @@
 #import "SettingsViewController.h"
 #import "WebViewTab.h"
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate>
+#import "Tutorial.h"
+
+/* Psiphon tutorial steps */
+typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
+{
+    PsiphonTutorialStep1 = 0,
+    PsiphonTutorialStep2,
+    PsiphonTutorialStep3
+};
+
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate, TutorialDelegate>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
@@ -32,4 +42,9 @@
 - (void)prepareForNewURLFromString:(NSString *)url;
 
 - (void) stopLoading;
+
+- (void) overlayTutorial;
+
+@property (nonatomic) BOOL showTutorial;
+
 @end

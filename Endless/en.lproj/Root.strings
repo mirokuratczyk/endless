@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Social";
 "SUBMIT_FEEDBACK"         = "Feedback";
 "TERMS_OF_USE"            = "Terms of Use";
-"TUTORIAL"                = "Tutorial";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Disable Timeouts";

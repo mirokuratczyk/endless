@@ -168,6 +168,14 @@
 			<key>Key</key>
 			<string>about</string>
 		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Tutorial</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tutorial</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
