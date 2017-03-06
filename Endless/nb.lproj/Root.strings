@@ -1,0 +1,111 @@
+/*
+ * Copyright (c) 2016, Psiphon Inc.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+//
+// Root
+//
+
+/* Settings item to change the application UI language. */
+"APPLICATION_LANGUAGE"    = "Språk";
+
+/* Item in a list of languages. Sets the application UI language to the one used by the system. */
+"DEFAULT_LANGUAGE"        = "Forvalgt språk";
+
+"APPLICATION_LANGUAGE"    = "Språk";
+"DEFAULT_LANGUAGE"        = "Forvalgt språk";
+"ABOUT"                   = "Om";
+"CHANGE_REGION"           = "Endre region";
+"FAQ"                     = "O-S-S";
+"HELP"                    = "Hjelp";
+"NOTIFICATIONS"           = "Kunngjøringer";
+"PRIVACY"                 = "Personvern";
+"PRIVACY_POLICY"          = "Personverns-praksis";
+"PSIPHON_AND_BROWSER"     = "Psiphon & nettleser";
+"PSIPHON_SETTINGS"        = "Psiphon-innstillinger";
+"RATE_US"                 = "Bedøm oss";
+"SECURITY"                = "Sikkerhet";
+"SEARCH_ENGINE"           = "Søkemotor";
+"SHARE_ON_FACEBOOK"       = "Del på Facebook";
+"SHARE_ON_TWITTER"        = "Del på Twitter";
+"SOCIAL"                  = "Sosialt";
+"SUBMIT_FEEDBACK"         = "Tilbakemeldinger";
+"TERMS_OF_USE"            = "Brukervilkår";
+"Tutorial"                = "Tutorial";
+
+// Psiphon Settings
+"DISABLE_TIMEOUTS"         = "Skru av tidsavbrudd";
+"PROXY"                    = "Mellomtjener";
+"TIMEOUTS"                 = "Tidsavbrudd";
+"USE_UPSTREAM_PROXY"       = "Bruk oppstrøms-mellomtjener";
+"HOST_ADDRESS"             = "Vertsadresse";
+"PORT"                     = "Port";
+"USE_PROXY_AUTHENTICATION" = "Bruk gyldighetssjekk for mellomtjener";
+"PROXY_USERNAME"           = "Brukernavn for mellomtjener";
+"PROXY_PASSWORD"           = "Mellomtjener-passord";
+"PROXY_DOMAIN"             = "Mellomtjener-domene";
+
+// Notifications
+"SOUND"                   = "Lyd";
+"SOUND_FOOTER"            = "Avspill lyd når tilkoblingsstatus endres";
+"VIBRATE"                 = "Vibrer";
+"VIBRATE_FOOTER"          = "Vibrer når tilkoblingsstatus endres";
+
+// Region Selection
+"BEST_PERFORMANCE" = "Best ytelse";
+"UNITED_STATES"   = "Amerikas forente stater";
+"UNITED_KINGDOM" = "Storbritannia";
+"CANADA" = "Kanada";
+"JAPAN" = "Japan";
+"GERMANY" = "Tyskland";
+"SINGAPORE" = "Singapore";
+"NETHERLANDS" = "Holland";
+"INDIA" = "India";
+"SPAIN" = "Spania";
+
+// Search Engine
+"SEARCH_ENGINE"           = "Søkemotor";
+"DUCKDUCKGO"              = "DuckDuckGo";
+"GOOGLE"                  = "Google";
+"START_PAGE"              = "Startside";
+
+// Privacy
+"CLEAR_ALL_WHEN_BACKGROUNDED"        = "Tøm alt når henvist til bakgrunnen";
+"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "Alle faner og ikke-hvitlistede informasjonskapsler vil tømmes ved programbytte.";
+"CLEAR_COOKIES"                      = "Tøm informasjonskapsler hvis ubrukt i";
+"COOKIE_CONTROL"                     = "INFORMASJONSKAPSELSKONTROLL";
+"COOKIE_CONTROL_FOOTER"              = "Tøm informasjonskapsler og lokalt lagret data fra ikke- hvitlistede verter hvis de ikke brukes i løpet av";
+"COOKIE_WHITELIST"                   = "Hvitliste for informasjonskapsler";
+"SEND_DO_NOT_TRACK"                  = "Send \"Ikke-spor\"-forespørsler";
+
+"MINS_FIFTEEN"                       = "Et kvarter";
+"MINS_THIRTY"                        = "En halvtime";
+"HOURS_TWELVE"                       = "12 timer";
+"HOURS_TWENTYFOUR"                   = "Ett døgn";
+
+// Security
+"HTTPS"                              = "HTTPS";
+"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
+"MIN_SSL_TLS_VERSION"                = "Minimumsversjon for SSL/TLS";
+"MIN_SSL_TLS_VERSION_FOOTER"         = "Minimumsversjon for SSL/TLS som kreves for HTTPS-forbindelser; kan kreve tvangs-lukking av programmet for å tre i kraft.";
+
+"TLS_1_2"                            = "Kun TLS 1.2 (ingen SSL)";
+"TLS_1_1_OR_1_2"                     = "TLS 1.1 eller 1.2 (ingen SSL)";
+"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1, eller 1.2 (ingen SSL)";
+"AUTO_NEGOTIATE"                     = "Auto-forhandling\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";

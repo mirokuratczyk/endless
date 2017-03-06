@@ -11,14 +11,14 @@
 "Authentication Required" = "Autenticação Obrigatória";
 
 /* No comment provided by engineer. */
-"Best Performance" = "Best Performance";
+"Best Performance" = "Melhor Desempenho";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Favoritos";
 
 /* No comment provided by engineer. */
-"Canada" = "Canada";
+"Canada" = "Canadá";
 
 /* Cancel
    Cancel action
@@ -26,16 +26,16 @@
 "Cancel" = "Cancelar";
 
 /* Title for the 'Allow this page to close its tab?' alert */
-"Confirm" = "Confirm";
+"Confirm" = "Confirmar";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Cookies e Armazenamento Local";
 
 /* Action title for long press on link dialog */
-"Copy URL" = "Copy URL";
+"Copy URL" = "Copiar URL";
 
 /* No comment provided by engineer. */
-"Default Settings" = "Default Settings";
+"Default Settings" = "Definições Predefinidas";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -53,16 +53,16 @@
 
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
-"Error" = "Error";
+"Error" = "Erro";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Perguntas Mais Frequentes";
 
 /* No comment provided by engineer. */
-"Germany" = "Germany";
+"Germany" = "Alemanha";
 
 /* No comment provided by engineer. */
-"Hong Kong" = "Hong Kong";
+"Hong Kong" = "Hong-Kong";
 
 /* HTTPS Everywhere menu title */
 "HTTPS Everywhere Rules" = "HTTPS Everywhere Rules";
@@ -83,10 +83,10 @@
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "If the above form is not working or you would like to send screenshots, please email us at %@";
 
 /* No comment provided by engineer. */
-"India" = "India";
+"India" = "Índia";
 
 /* No comment provided by engineer. */
-"Japan" = "Japan";
+"Japan" = "Japão";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
@@ -101,10 +101,10 @@
 "Mail not configured" = "Correio não configurado";
 
 /* No comment provided by engineer. */
-"Netherlands" = "Netherlands";
+"Netherlands" = "Países Baixos";
 
 /* New browser tab title text */
-"New Tab" = "New Tab";
+"New Tab" = "Novo Separador";
 
 /* InAppSettingsKit
    OK action
@@ -118,10 +118,10 @@
 "Open" = "Abrir";
 
 /* Action title for long press on link dialog */
-"Open in a New Tab" = "Open in a New Tab";
+"Open in a New Tab" = "Abrir num Separador Novo";
 
 /* Action title for long press on link dialog */
-"Open in Safari" = "Open in Safari";
+"Open in Safari" = "Abrir no Safari";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -149,28 +149,28 @@
 "Pull to Refresh Page" = "Pull to Refresh Page";
 
 /* Action title for long press on image dialog */
-"Save Image" = "Save Image";
+"Save Image" = "Guardar Imagem";
 
 /* Text of button to send feedback */
-"Send" = "Send";
+"Send" = "Enviar";
 
 /* No comment provided by engineer. */
 "Settings" = "Configurações";
 
 /* No comment provided by engineer. */
-"Singapore" = "Singapore";
+"Singapore" = "Singapura";
 
 /* No comment provided by engineer. */
-"Spain" = "Spain";
+"Spain" = "Espanha";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
 /* No comment provided by engineer. */
-"United Kingdom" = "United Kingdom";
+"United Kingdom" = "Reino Unido";
 
 /* No comment provided by engineer. */
-"United States" = "United States";
+"United States" = "Estados Unidos da América";
 
 /* No comment provided by engineer. */
 "Unknown Organization" = "Organização Desconhecida";

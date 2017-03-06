@@ -1,0 +1,187 @@
+/* 'Add bookmark' dialog title */
+"Add Bookmark" = "Legg til bokmerke";
+
+/* Alert dialog text */
+"Allow this page to close its tab?" = "Tillat denne siden å lukke sin egen fane?";
+
+/* Error alert message text */
+"An error occurred downloading image %@" = "En feil inntraff under nedlasting av bildet %@";
+
+/* Authentication Required alert title */
+"Authentication Required" = "Identitetsbekreftelse kreves";
+
+/* No comment provided by engineer. */
+"Best Performance" = "Best ytelse";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"Bookmarks" = "Bokmerker";
+
+/* No comment provided by engineer. */
+"Canada" = "Kanada";
+
+/* Cancel
+   Cancel action
+   Text of button to discard feedback and return to main settings menu */
+"Cancel" = "Avbryt";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"Confirm" = "Bekreft";
+
+/* 'Cookies and Local Storage' dialog title */
+"Cookies and Local Storage" = "Informasjonskapsler og lokal lagring";
+
+/* Action title for long press on link dialog */
+"Copy URL" = "Kopier nettadresse";
+
+/* No comment provided by engineer. */
+"Default Settings" = "Forvalgte innstillinger";
+
+/* Bookmarks dialog 'Done' button title, dismisses the dialog
+   Cookies and Local Storage 'Done button title, dismisses the controller
+   Done action button. dismisses SSL certificate information dialog
+   Done button
+   Done button title, dismisses the tab chooser */
+"Done" = "Ferdig";
+
+/* Edit Bookmark dialog title */
+"Edit Bookmark" = "Rediger bokmerke";
+
+/* 'Add bookmark' dialog text
+   Edit Bookmark dialog title text */
+"Enter the details of the URL to bookmark:" = "Skriv detaljer for nettadressen tilhørende bokmerket:";
+
+/* Alert dialog title when webpage has failed to load
+   Image download error alert title */
+"Error" = "Feil";
+
+/* FAQ link text */
+"Frequently Asked Questions" = "Ofte Stilte Spørsmål";
+
+/* No comment provided by engineer. */
+"Germany" = "Tyskland";
+
+/* No comment provided by engineer. */
+"Hong Kong" = "Hongkong";
+
+/* HTTPS Everywhere menu title */
+"HTTPS Everywhere Rules" = "HTTPS-everywhere eier";
+
+/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
+"https://psiphon.ca/en/about.html" = "https://psiphon.ca/nb/about.html";
+
+/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
+"https://psiphon.ca/en/faq.html" = "https://psiphon.ca/nb/faq.html";
+
+/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
+"https://psiphon.ca/en/license.html" = "https://psiphon.ca/nb/license.html";
+
+/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
+"https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/nb/privacy.html";
+
+/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
+"If the above form is not working or you would like to send screenshots, please email us at %@" = "Hvis skjemaet ovenfor ikke virker eller du ønsker å sende oss skjermbilder, send e-post til %@";
+
+/* No comment provided by engineer. */
+"India" = "India";
+
+/* No comment provided by engineer. */
+"Japan" = "Japan";
+
+/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
+"Learn more about the data we collect in our %@" = "Lær mer om hvilken data vi samler inn i vår %@";
+
+/* No comment provided by engineer. */
+"Log In" = "Logg inn";
+
+/* Title screen displaying logs */
+"Logs" = "Loggføring";
+
+/* InAppSettingsKit */
+"Mail not configured" = "E-post ikke oppsatt";
+
+/* No comment provided by engineer. */
+"Netherlands" = "Holland";
+
+/* New browser tab title text */
+"New Tab" = "Ny fane";
+
+/* InAppSettingsKit
+   OK action
+   OK action button */
+"OK" = "OK";
+
+/* OK action */
+"Ok" = "Ok";
+
+/* Action title for long press on link dialog */
+"Open" = "Åpne";
+
+/* Action title for long press on link dialog */
+"Open in a New Tab" = "Åpne i ny fane";
+
+/* Action title for long press on link dialog */
+"Open in Safari" = "Åpne i Safari";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"Page Name (leave blank to use URL)" = "Sidenavn (la stå tomt for å bruke nettadresse)";
+
+/* Password */
+"Password" = "Passord";
+
+/* Introduction text at top of feedback form */
+"Please let us know how Psiphon is working for you so we can make the system better!" = "La oss få nyss om hvordan Psiphon virker for deg slik at vi kan forbedre det.";
+
+/* Feedback footer text. */
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Merk at denne diagnostikk-dataen ikke identifiserer deg, og det hjelper Psiphon med å kjøre uten hakking.";
+
+/* Privacy Policy link text */
+"Privacy Policy" = "Personverns-praksis";
+
+/* Text explaining thumbs up choice in feedback */
+"Psiphon connects\nand performs the\nway I want it to." = "Psiphon kobler til\nog fungerer\nslik jeg ønsker.";
+
+/* Text explaining thumbs down choice in feedback */
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon klarer ofte ikke\nå koble til\neller fungerer ikke bra\nnok.";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"Pull to Refresh Page" = "Innhent for å gjenoppfriske side";
+
+/* Action title for long press on image dialog */
+"Save Image" = "Lagre bilde";
+
+/* Text of button to send feedback */
+"Send" = "Send";
+
+/* No comment provided by engineer. */
+"Settings" = "Innstillinger";
+
+/* No comment provided by engineer. */
+"Singapore" = "Singapore";
+
+/* No comment provided by engineer. */
+"Spain" = "Spania";
+
+/* InAppSettingsKit */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Denne enheten er ikke oppsatt til forsendelse av E-post. Sett opp e-postinnstillingene i innstillingsprogrammet.";
+
+/* No comment provided by engineer. */
+"United Kingdom" = "Storbritannia";
+
+/* No comment provided by engineer. */
+"United States" = "Amerikas forente stater";
+
+/* No comment provided by engineer. */
+"Unknown Organization" = "Ukjent organisasjon";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"URL" = "Nettadresse";
+
+/* Comments section placeholder text */
+"What's on your mind? Please leave us your feedback" = "Hva tenker du? Send oss din tilbakemelding";
+
+/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
+"You can also find solutions to many common problems in our %@." = "Du kan også finne svar på mange vanlige problemer i vår %@.";
+

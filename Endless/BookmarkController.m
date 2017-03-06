@@ -70,10 +70,7 @@ BOOL isRTL;
 			frame = CGRectMake(tableViewHeaderFooterView.frame.size.width - buttonSize - 6, 3, buttonSize, buttonSize);
 		}
 		[b setFrame:frame];
-		[b setBackgroundColor:[UIColor lightGrayColor]];
-		[b setTitle:@"X" forState:UIControlStateNormal];
-		[[b titleLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-		[[b layer] setCornerRadius:buttonSize / 2];
+        [b setImage:[UIImage imageNamed:@"close_round"] forState:UIControlStateNormal];
 		[b setClipsToBounds:YES];
 		
 		[b addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];

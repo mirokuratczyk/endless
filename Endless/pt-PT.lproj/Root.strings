@@ -23,15 +23,15 @@
 //
 
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "Language";
+"APPLICATION_LANGUAGE"    = "Idioma";
 
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
 "DEFAULT_LANGUAGE"        = "Idioma predefinido";
 
-"APPLICATION_LANGUAGE"    = "Language";
+"APPLICATION_LANGUAGE"    = "Idioma";
 "DEFAULT_LANGUAGE"        = "Idioma predefinido";
 "ABOUT"                   = "Sobre";
-"CHANGE_REGION"           = "Change Region";
+"CHANGE_REGION"           = "Alterar Região";
 "FAQ"                     = "Perguntas Mais Frequentes";
 "HELP"                    = "Ajuda";
 "NOTIFICATIONS"           = "Notificações";
@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Social";
 "SUBMIT_FEEDBACK"         = "Comentário";
 "TERMS_OF_USE"            = "Termos de Utilização";
-"TUTORIAL"                = "Tutorial";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Desativar 'Expiração'";
@@ -68,16 +68,16 @@
 "VIBRATE_FOOTER"          = "Vibrar quando o estado da ligação é alterado";
 
 // Region Selection
-"BEST_PERFORMANCE" = "Best Performance";
-"UNITED_STATES"   = "United States";
-"UNITED_KINGDOM" = "United Kingdom";
-"CANADA" = "Canada";
-"JAPAN" = "Japan";
-"GERMANY" = "Germany";
-"SINGAPORE" = "Singapore";
-"NETHERLANDS" = "Netherlands";
-"INDIA" = "India";
-"SPAIN" = "Spain";
+"BEST_PERFORMANCE" = "Melhor Desempenho";
+"UNITED_STATES"   = "Estados Unidos da América";
+"UNITED_KINGDOM" = "Reino Unido";
+"CANADA" = "Canadá";
+"JAPAN" = "Japão";
+"GERMANY" = "Alemanha";
+"SINGAPORE" = "Singapura";
+"NETHERLANDS" = "Países Baixos";
+"INDIA" = "Índia";
+"SPAIN" = "Espanha";
 
 // Search Engine
 "SEARCH_ENGINE"           = "Mecanismo de Pesquisa";

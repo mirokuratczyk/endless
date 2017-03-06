@@ -42,6 +42,7 @@
 				<string>fr</string>
 				<string>hr</string>
 				<string>id</string>
+				<string>nb</string>
 				<string>nl</string>
 				<string>pt-PT</string>
 				<string>ru</string>
@@ -60,6 +61,7 @@
 				<string>Français</string>
 				<string>Hrvatski</string>
 				<string>Bahasa Indonesia</string>
+				<string>Norsk bokmål</string>
 				<string>Nederlands</string>
 				<string>Português (Portugal)</string>
 				<string>Русский</string>
@@ -167,6 +169,14 @@
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>
 			<string>about</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Tutorial</string>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>tutorial</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

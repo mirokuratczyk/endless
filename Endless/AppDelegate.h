@@ -24,15 +24,16 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+#import <PsiphonTunnel/PsiphonTunnel.h>
 #import "CookieJar.h"
 #import "HSTSCache.h"
-#import <PsiphonTunnel/PsiphonTunnel.h>
+#import "OnBoardingViewController.h"
 #import "WebViewController.h"
 
 
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, OnboardingViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -57,10 +58,12 @@
 @property NSInteger socksProxyPort;
 @property PsiphonConnectionState psiphonConectionState;
 
-
+- (void) onboardingEnded;
+- (void) startIfNeeded;
 - (void) reloadAndOpenSettings;
 - (NSString *) getPsiphonConfig;
 - (void) scheduleRunningTunnelServiceRestart;
+- (void) notifyPsiphonConnectionState;
 
 @end
 
