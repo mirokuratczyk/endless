@@ -47,7 +47,7 @@
 "SOCIAL"                  = "اجتماعی";
 "SUBMIT_FEEDBACK"         = "بازخوردها";
 "TERMS_OF_USE"            = "شرایط استفاده ";
-"TUTORIAL"                = "خودآموز";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "از کار انداختن تایم‌اوت";

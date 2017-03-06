@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Social";
 "SUBMIT_FEEDBACK"         = "Povratne informacije";
 "TERMS_OF_USE"            = "Uvjeti korištenja";
-"TUTORIAL"                = "Tutorial";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Disable Timeouts";

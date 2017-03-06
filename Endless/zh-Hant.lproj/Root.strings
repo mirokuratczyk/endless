@@ -47,7 +47,7 @@
 "SOCIAL"                  = "社交";
 "SUBMIT_FEEDBACK"         = "反饋";
 "TERMS_OF_USE"            = "使用條款";
-"TUTORIAL"                = "教學";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "取消到期";
