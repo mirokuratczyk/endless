@@ -50,19 +50,19 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef USE_DUMMY_URLINTERCEPTOR
-	[NSURLProtocol registerClass:[DummyURLInterceptor class]];
+    [NSURLProtocol registerClass:[DummyURLInterceptor class]];
 #else
-	[NSURLProtocol registerClass:[URLInterceptor class]];
+    [NSURLProtocol registerClass:[URLInterceptor class]];
 #endif
-	
-	self.hstsCache = [HSTSCache retrieve];
-	self.cookieJar = [[CookieJar alloc] init];
-	[Bookmark retrieveList];
-	
-	[self initializeDefaults];
 
-	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
-	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
+    [self initializeDefaults];
+
+    self.hstsCache = [HSTSCache retrieve];
+    self.cookieJar = [[CookieJar alloc] init];
+    [Bookmark retrieveList];
+
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 
     return YES;
 }
@@ -285,8 +285,9 @@
 - (void)initializeDefaults
 {
     [self initializeDefaultsFor:@"Root.inApp.plist"];
-	[self initializeDefaultsFor:@"Feedback.plist"];
+    [self initializeDefaultsFor:@"Feedback.plist"];
     [self initializeDefaultsFor:@"Security.plist"];
+    [self initializeDefaultsFor:@"Privacy.plist"];
     [self initializeDefaultsFor:@"Notifications~iphone.plist"];
     [self initializeDefaultsFor:@"Notifications~ipad.plist"];
     
