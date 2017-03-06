@@ -307,8 +307,10 @@
 	NSString *value = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
 	if ([action isEqualToString:@"console.log"]) {
+#ifdef TRACE
 		NSString *json = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSLog(@"[Tab %@] [console.%@] %@", [self tabIndex], param, json);
+#endif
 		/* no callback needed */
 		return NO;
 	}
