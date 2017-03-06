@@ -47,7 +47,7 @@
 "SOCIAL"                  = "التواصل الإجتماعي";
 "SUBMIT_FEEDBACK"         = "رأيك ";
 "TERMS_OF_USE"            = "شروط الإستخدام";
-"TUTORIAL"                = "إرشادات";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "إلغاء الإنقطاع عند نفاذ المدة";

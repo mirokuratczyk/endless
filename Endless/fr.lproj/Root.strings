@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Social";
 "SUBMIT_FEEDBACK"         = "Rétroaction";
 "TERMS_OF_USE"            = "Conditions générales d'utilisation ";
-"TUTORIAL"                = "Tutoriel";
+"Tutorial"                = "Tutoriel";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Désactiver les dépassements de temps";

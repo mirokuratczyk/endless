@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Social";
 "SUBMIT_FEEDBACK"         = "Comentarios";
 "TERMS_OF_USE"            = "Condiciones de uso";
-"TUTORIAL"                = "Tutorial";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Deshabilitar límites de espera";

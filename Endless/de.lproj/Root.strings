@@ -47,7 +47,7 @@
 "SOCIAL"                  = "Sozial";
 "SUBMIT_FEEDBACK"         = "Rückmeldung";
 "TERMS_OF_USE"            = "Nutzungsbedingungen";
-"TUTORIAL"                = "Tutorial";
+"Tutorial"                = "Tutorial";
 
 // Psiphon Settings
 "DISABLE_TIMEOUTS"         = "Zeitüberschreitungen deaktivieren";
@@ -108,4 +108,4 @@
 "TLS_1_2"                            = "nur TLS 1.2 (kein SSL)";
 "TLS_1_1_OR_1_2"                     = "TLS 1.1 oder 1.2 (kein SSL)";
 "TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1 oder 1.2 (kein SSL)";
-"AUTO_NEGOTIATE"                     = "Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"AUTO_NEGOTIATE"                     = "Automatisch aushandeln\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
