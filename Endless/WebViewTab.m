@@ -458,7 +458,7 @@
 	NSLog(@"[Tab %@] showing error dialog: %@ (%@)", self.tabIndex, msg, error);
 #endif
 
-	UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Alert dialog title when webpage has failed to load") message:msg delegate:self cancelButtonTitle: NSLocalizedString(@"Ok", "OK action") otherButtonTitles:nil];
+	UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Alert dialog title when webpage has failed to load") message:msg delegate:self cancelButtonTitle: NSLocalizedString(@"OK", "OK action") otherButtonTitles:nil];
 	[m show];
 	
 	[self webViewDidFinishLoad:__webView];
