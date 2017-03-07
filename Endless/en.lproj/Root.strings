@@ -86,11 +86,13 @@
 "START_PAGE"              = "Startpage";
 
 // Privacy
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
 "CLEAR_ALL_WHEN_BACKGROUNDED"        = "Clear all when backgrounded";
 "CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "All tabs and non-whitelisted cookies will be cleared when switching to another app.";
 "CLEAR_COOKIES"                      = "Clear cookies if unused for";
 "COOKIE_CONTROL"                     = "COOKIE CONTROL";
-"COOKIE_CONTROL_FOOTER"              = "Clear cookies and local storage data from non-whitelisted hosts if not in use for this interval of time";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"COOKIE_CONTROL_FOOTER"              = "Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time";
 "COOKIE_WHITELIST"                   = "Cookie Whitelist";
 "SEND_DO_NOT_TRACK"                  = "Send \"Do-Not-Track\" requests";
 
