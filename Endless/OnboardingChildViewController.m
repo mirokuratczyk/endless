@@ -306,8 +306,8 @@
             
             [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton(==letsGoButtonHeight)]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
             
-            titleView.text = NSLocalizedString(@"You deserve access to all of the Internet", @"");
-            textView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
+            titleView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
+            //textView.text = ...
             break;
         }
         default:

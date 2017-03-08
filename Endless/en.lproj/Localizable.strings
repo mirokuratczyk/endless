@@ -198,7 +198,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
 /* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN region and even more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN region and even more!";
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
 
 /* No comment provided by engineer. */
 "This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
@@ -227,9 +227,6 @@
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
 "You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
-
-/* No comment provided by engineer. */
-"You deserve access to all of the Internet" = "You deserve access to all of the Internet";
 
 /* No comment provided by engineer. */
 "You're all set!" = "You're all set!";
