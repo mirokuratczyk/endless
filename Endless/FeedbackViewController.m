@@ -226,8 +226,8 @@
 
 -(NSAttributedString*)generateIntroString {
     NSString *faqPhrase = NSLocalizedString(@"Frequently Asked Questions", @"FAQ link text");
-    NSString *introTextPart1 = [NSLocalizedString(@"Please let us know how Psiphon is working for you so we can make the system better!", "Introduction text at top of feedback form") stringByAppendingString:@"\n\n"];
-    NSString *introTextPart2 = NSLocalizedString(@"You can also find solutions to many common problems in our %@.", "Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed.");
+    NSString *introTextPart1 = [NSLocalizedString(@"Your feedback makes Psiphon better!", "Introduction text at top of feedback form") stringByAppendingString:@"\n\n"];
+    NSString *introTextPart2 = NSLocalizedString(@"You can find solutions to many common problems in our %@.", "Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed.");
 
     NSString *faqText = [NSString stringWithFormat:introTextPart2, faqPhrase];
     NSString *localizedIntroText = [introTextPart1 stringByAppendingString:faqText];
