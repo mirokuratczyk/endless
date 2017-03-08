@@ -11,14 +11,14 @@
 "Authentication Required" = "Zahtjevana autentikacija";
 
 /* No comment provided by engineer. */
-"Best Performance" = "Best Performance";
+"Best Performance" = "Najbolje performanse";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Oznake";
 
 /* No comment provided by engineer. */
-"Canada" = "Canada";
+"Canada" = "Kanada";
 
 /* Cancel
    Cancel action
@@ -35,7 +35,7 @@
 "Copy URL" = "Kopiraj URL";
 
 /* No comment provided by engineer. */
-"Default Settings" = "Default Settings";
+"Default Settings" = "Zadane postavke";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -59,7 +59,7 @@
 "Frequently Asked Questions" = "Često postavljena pitanja";
 
 /* No comment provided by engineer. */
-"Germany" = "Germany";
+"Germany" = "Njemačka";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "Hong Kong";
@@ -83,7 +83,7 @@
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "Ako gornji obrazac ne radi ili želite poslati slike, pošaljite nam mail na %@";
 
 /* No comment provided by engineer. */
-"India" = "India";
+"India" = "Indija";
 
 /* No comment provided by engineer. */
 "Japan" = "Japan";
@@ -92,7 +92,7 @@
 "Learn more about the data we collect in our %@" = "Saznajte više o podatcima koje skupljamo u %@";
 
 /* No comment provided by engineer. */
-"Log In" = "Prijavite se";
+"Log In" = "Prijava";
 
 /* Title screen displaying logs */
 "Logs" = "Zapisi";
@@ -101,7 +101,7 @@
 "Mail not configured" = "Mail nije konfiguriran";
 
 /* No comment provided by engineer. */
-"Netherlands" = "Netherlands";
+"Netherlands" = "Nizozemska";
 
 /* New browser tab title text */
 "New Tab" = "Nova kartica";
@@ -146,7 +146,7 @@
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon se često\nne uspije spojiti ili\nne radi dovoljno\ndobro.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "Pull to Refresh Page";
+"Pull to Refresh Page" = "Povucite za osvježavanje";
 
 /* Action title for long press on image dialog */
 "Save Image" = "Spremi sliku";
@@ -158,19 +158,19 @@
 "Settings" = "Postavke";
 
 /* No comment provided by engineer. */
-"Singapore" = "Singapore";
+"Singapore" = "Singapur";
 
 /* No comment provided by engineer. */
-"Spain" = "Spain";
+"Spain" = "Španjolska";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Ovaj uređaj nije konfiguriran za slanje maila. Molimo konfigurirajte postavke maila u aplikaciji za postavke.";
 
 /* No comment provided by engineer. */
-"United Kingdom" = "United Kingdom";
+"United Kingdom" = "Ujedinjeno Kraljevstvo";
 
 /* No comment provided by engineer. */
-"United States" = "United States";
+"United States" = "Sjedinjene Američke Države";
 
 /* No comment provided by engineer. */
 "Unknown Organization" = "Nepoznata organizacija";
