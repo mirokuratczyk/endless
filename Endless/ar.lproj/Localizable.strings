@@ -2,7 +2,7 @@
 "Add Bookmark" = "إضافة إشارة مرجعية";
 
 /* Alert dialog text */
-"Allow this page to close its tab?" = "هل تسمح لهذه الصفحة بإغلاق علامة التبويب ؟";
+"Allow this page to close its tab?" = "هل تسمحون لهذه الصفحة بإغلاق علامة التبويب ؟";
 
 /* Error alert message text */
 "An error occurred downloading image %@" = "وقع خطأ في تنزيل الصورة  %@";
@@ -11,7 +11,7 @@
 "Authentication Required" = "مطلوب المصادقة";
 
 /* No comment provided by engineer. */
-"Best Performance" = "افضل اداء ";
+"Best Performance" = "أفضل أداء ";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
@@ -49,7 +49,7 @@
 
 /* 'Add bookmark' dialog text
    Edit Bookmark dialog title text */
-"Enter the details of the URL to bookmark:" = "أدخل تفاصيل العنوان الذي سيضاف للإشارات المرجعية";
+"Enter the details of the URL to bookmark:" = "أدخلوا تفاصيل العنوان الذي سيضاف للإشارات المرجعية";
 
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
@@ -65,7 +65,7 @@
 "Hong Kong" = "هونغ كونغ";
 
 /* HTTPS Everywhere menu title */
-"HTTPS Everywhere Rules" = "قواعد HTTPS Everywhere ";
+"HTTPS Everywhere Rules" = "قواعد إضافة HTTPS Everywhere ";
 
 /* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
 "https://psiphon.ca/en/about.html" = "https://psiphon.ca/ar/about.html";
@@ -80,7 +80,7 @@
 "https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/ar/privacy.html";
 
 /* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"If the above form is not working or you would like to send screenshots, please email us at %@" = "إذا كان النموذج أعلاه لا يعمل، أو كنت ترغب في إرسال لقطة شاشة صورية ، يرجى مراسلتنا على %@";
+"If the above form is not working or you would like to send screenshots, please email us at %@" = "إذا كان النموذج أعلاه لا يعمل، أو كنتم ترغبون في إرسال لقطة شاشة صورية ، يرجى مراسلتنا على %@";
 
 /* No comment provided by engineer. */
 "India" = "الهند";
@@ -89,7 +89,7 @@
 "Japan" = "اليابان";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"Learn more about the data we collect in our %@" = "إعرف المزيد حول البيانات المجمعة في %@";
+"Learn more about the data we collect in our %@" = "اعرف المزيد حول ما نجمعه من بيانات في %@";
 
 /* No comment provided by engineer. */
 "Log In" = "تسجيل الدخول";
@@ -98,7 +98,7 @@
 "Logs" = "السجلات ";
 
 /* InAppSettingsKit */
-"Mail not configured" = "البريد الإلكتروني غير معدل";
+"Mail not configured" = "لم يتم إعداد البريد الإلكتروني";
 
 /* No comment provided by engineer. */
 "Netherlands" = "هولندا";
@@ -118,14 +118,14 @@
 "Open" = "فتح";
 
 /* Action title for long press on link dialog */
-"Open in a New Tab" = "افتح صفحة جديدة";
+"Open in a New Tab" = "افتح ضمن علامة تبويب جديدة";
 
 /* Action title for long press on link dialog */
 "Open in Safari" = "فتح في صفحة جديدة على سافاري ";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
-"Page Name (leave blank to use URL)" = "اسم الصفحة (ابق فراغا لإستعمال العنوان)";
+"Page Name (leave blank to use URL)" = "اسم الصفحة (ابق الخانة فارغة لإستعمال العنوان)";
 
 /* Password */
 "Password" = "كلمة المرور";
@@ -134,22 +134,22 @@
 "Please let us know how Psiphon is working for you so we can make the system better!" = "يرجى تعبئة النموذج أدناه لوصف تجربتك مع سايفون حتى نتمكن من جعل النظام أفضل!";
 
 /* Feedback footer text. */
-"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "الرجاء الإنتباه أن هذه البيانات التشخيصية لا تكشف هويتك، إنما تساعد سايفون على العمل أفضل.";
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "الرجاء الإنتباه أن هذه البيانات التشخيصية لا تكشف هويتك، إنما تساعد سايفون على العمل بشكل أفضل.";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "سياسة الخصوصية";
 
 /* Text explaining thumbs up choice in feedback */
-"Psiphon connects\nand performs the\nway I want it to." = "سايفون يشتغل ويتصل كما أريد.";
+"Psiphon connects\nand performs the\nway I want it to." = "ينجح سايفون بالاتصال \nويعمل بشكل جيد \nكما نتمنى";
 
 /* Text explaining thumbs down choice in feedback */
-"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "سايفون  غالبا ما يفشل بالإتصال أو لا يعمل جيدا.";
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "غالبا ما يفشل سايفون\n بالإتصال أو\nلا يعمل بشكل جيد.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "Pull to Refresh Page";
+"Pull to Refresh Page" = "اسحب لتحديث الصفحة ";
 
 /* Action title for long press on image dialog */
-"Save Image" = "تسجيل الصورة";
+"Save Image" = "احفظ الصورة";
 
 /* Text of button to send feedback */
 "Send" = "أرسل";
@@ -164,7 +164,7 @@
 "Spain" = "إسبانيا";
 
 /* InAppSettingsKit */
-"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "إعدادات الجهاز لا تمكن من بعث بريد إلكتروني. الرجاء التثبت من إعدادات البريد الإلكتروني في إعدادات البرنامج.";
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "إعدادات الجهاز لا تسمح إراسل البريد إلكتروني. الرجاء التحقق من إعدادات البريد الإلكتروني ضمن الإعدادات.";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "المملكة المتحدة";
@@ -173,15 +173,15 @@
 "United States" = "الولايات المتحدة";
 
 /* No comment provided by engineer. */
-"Unknown Organization" = "جمعية غير معروفة";
+"Unknown Organization" = "منظمة غير معروفة";
 
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
 "URL" = "الرابط";
 
 /* Comments section placeholder text */
-"What's on your mind? Please leave us your feedback" = "بماذا تفكر؟ أرسل لنا تفاعلك";
+"What's on your mind? Please leave us your feedback" = "ما رأيكم؟ من فضلكم، أرسلوا لنا آراءكم وردود فعلكم";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can also find solutions to many common problems in our %@." = "يمكنك أيضا إيجاد حلول لمشكلاتك على صفحة الأسئلة المتداولة في %@";
+"You can also find solutions to many common problems in our %@." = "يمكنكم أيضا إيجاد حلول للكثير من المشاكل الشائعة في %@";
 

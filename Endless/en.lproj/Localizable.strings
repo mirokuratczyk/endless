@@ -1,3 +1,12 @@
+/* %ld will be replaced with the number 1 */
+"%ld rule in use" = "%ld rule in use";
+
+/* %ld will be replaced with a natural number */
+"%ld rules in use" = "%ld rules in use";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Add Bookmark";
 
@@ -22,8 +31,12 @@
 
 /* Cancel
    Cancel action
-   Text of button to discard feedback and return to main settings menu */
+   Text of button to discard feedback and return to main settings menu
+   Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Cancel";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"Change Settings" = "Change Settings";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirm";
@@ -62,6 +75,9 @@
 "Germany" = "Germany";
 
 /* No comment provided by engineer. */
+"Happy browsing!\nExplore beyond your borders." = "Happy browsing!\nExplore beyond your borders.";
+
+/* No comment provided by engineer. */
 "Hong Kong" = "Hong Kong";
 
 /* HTTPS Everywhere menu title */
@@ -92,6 +108,9 @@
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
 
 /* No comment provided by engineer. */
+"LET'S GO!" = "LET'S GO!";
+
+/* No comment provided by engineer. */
 "Log In" = "Log In";
 
 /* Title screen displaying logs */
@@ -111,9 +130,6 @@
    OK action button */
 "OK" = "OK";
 
-/* OK action */
-"Ok" = "Ok";
-
 /* Action title for long press on link dialog */
 "Open" = "Open";
 
@@ -130,20 +146,23 @@
 /* Password */
 "Password" = "Password";
 
-/* Introduction text at top of feedback form */
-"Please let us know how Psiphon is working for you so we can make the system better!" = "Please let us know how Psiphon is working for you so we can make the system better!";
-
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly.";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "Privacy Policy";
 
+/* No comment provided by engineer. */
+"PSIPHON" = "PSIPHON";
+
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon connects\nand performs the\nway I want it to.";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon often fails\nto connect or\ndoesn't perform well\nenough.";
+
+/* No comment provided by engineer. */
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon opens all the wonders of the web to you, no matter where you are";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
@@ -161,10 +180,31 @@
 "Singapore" = "Singapore";
 
 /* No comment provided by engineer. */
+"SKIP" = "SKIP";
+
+/* No comment provided by engineer. */
+"SKIP TUTORIAL" = "SKIP TUTORIAL";
+
+/* No comment provided by engineer. */
 "Spain" = "Spain";
+
+/* No comment provided by engineer. */
+"Status Indicator" = "Status Indicator";
+
+/* No comment provided by engineer. */
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
+
+/* No comment provided by engineer. */
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
+
+/* No comment provided by engineer. */
+"This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "United Kingdom";
@@ -179,9 +219,18 @@
    Add bookmark URL field */
 "URL" = "URL";
 
+/* No comment provided by engineer. */
+"Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
+
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "What's on your mind? Please leave us your feedback";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can also find solutions to many common problems in our %@." = "You can also find solutions to many common problems in our %@.";
+"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+
+/* No comment provided by engineer. */
+"You're all set!" = "You're all set!";
+
+/* Introduction text at top of feedback form */
+"Your feedback makes Psiphon better!" = "Your feedback makes Psiphon better!";
 
