@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>SOUND_FOOTER</string>
+			<string>Play sound when connection status changes</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -18,7 +18,7 @@
 			<key>Key</key>
 			<string>sound_notification</string>
 			<key>Title</key>
-			<string>SOUND</string>
+			<string>Sound</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -26,7 +26,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>VIBRATE_FOOTER</string>
+			<string>Vibrate when connection status changes</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -34,7 +34,7 @@
 			<key>Key</key>
 			<string>vibrate_notification</string>
 			<key>Title</key>
-			<string>VIBRATE</string>
+			<string>Vibrate</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

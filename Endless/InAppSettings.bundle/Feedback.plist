@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>PROXY</string>
+			<string>Proxy</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>

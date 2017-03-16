@@ -6,13 +6,13 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>PSIPHON_AND_BROWSER</string>
+			<string>Psiphon Browser</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>CHANGE_REGION</string>
+			<string>Change Region</string>
 			<key>Key</key>
 			<string>regionSelection</string>
 			<key>Type</key>
@@ -22,7 +22,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>APPLICATION_LANGUAGE</string>
+			<string>Language</string>
 			<key>Key</key>
 			<string>appLanguage</string>
 			<key>Type</key>
@@ -50,7 +50,7 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>DEFAULT_LANGUAGE</string>
+				<string>Default language</string>
 				<string>English</string>
 				<string>فارسی</string>
 				<string>العربية</string>
@@ -72,7 +72,7 @@
 			<key>File</key>
 			<string>PsiphonSettings</string>
 			<key>Title</key>
-			<string>PSIPHON_SETTINGS</string>
+			<string>Psiphon Settings</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -80,7 +80,7 @@
 			<key>File</key>
 			<string>Notifications</string>
 			<key>Title</key>
-			<string>NOTIFICATIONS</string>
+			<string>Notifications</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -95,14 +95,14 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>DUCKDUCKGO</string>
-				<string>GOOGLE</string>
-				<string>START_PAGE</string>
+				<string>DuckDuckGo</string>
+				<string>Google</string>
+				<string>Startpage</string>
 			</array>
 			<key>Key</key>
 			<string>search_engine</string>
 			<key>Title</key>
-			<string>SEARCH_ENGINE</string>
+			<string>Search Engine</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>
@@ -110,7 +110,7 @@
 			<key>File</key>
 			<string>Privacy</string>
 			<key>Title</key>
-			<string>PRIVACY</string>
+			<string>Privacy</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -118,19 +118,19 @@
 			<key>File</key>
 			<string>Security</string>
 			<key>Title</key>
-			<string>SECURITY</string>
+			<string>Security</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>HELP</string>
+			<string>Help</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>SUBMIT_FEEDBACK</string>
+			<string>Feedback</string>
 			<key>File</key>
 			<string>Feedback</string>
 			<key>Key</key>
@@ -148,7 +148,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>PRIVACY_POLICY</string>
+			<string>Privacy Policy</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>
@@ -156,7 +156,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>TERMS_OF_USE</string>
+			<string>Terms of Use</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>
@@ -164,7 +164,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>ABOUT</string>
+			<string>About</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>

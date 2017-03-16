@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>COOKIE_CONTROL_FOOTER</string>
+			<string>Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -24,22 +24,22 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>MINS_FIFTEEN</string>
-				<string>MINS_THIRTY</string>
-				<string>HOURS_TWELVE</string>
-				<string>HOURS_TWENTYFOUR</string>
+				<string>15 min</string>
+				<string>30 min</string>
+				<string>12 hrs</string>
+				<string>24 hrs</string>
 			</array>
 			<key>ShortTitles</key>
 			<array>
-				<string>MINS_FIFTEEN</string>
-				<string>MINS_THIRTY</string>
-				<string>HOURS_TWELVE</string>
-				<string>HOURS_TWENTYFOUR</string>
+				<string>15 min</string>
+				<string>30 min</string>
+				<string>12 hrs</string>
+				<string>24 hrs</string>
 			</array>
 			<key>Key</key>
 			<string>oldDataSweepMins</string>
 			<key>Title</key>
-			<string>CLEAR_COOKIES</string>
+			<string>Clear cookies if unused for</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>
@@ -47,7 +47,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER</string>
+			<string>Clear all when backgrounded_FOOTER</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -55,7 +55,7 @@
 			<key>Key</key>
 			<string>clearAllWhenBackgrounded</string>
 			<key>Title</key>
-			<string>CLEAR_ALL_WHEN_BACKGROUNDED</string>
+			<string>Clear all when backgrounded</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -69,7 +69,7 @@
 			<key>Key</key>
 			<string>sendDoNotTrack</string>
 			<key>Title</key>
-			<string>SEND_DO_NOT_TRACK</string>
+			<string>Send &quot;Do-Not-Track&quot; requests</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

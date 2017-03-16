@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "Taal";
-
+"Language" = "Taal";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "Standaard taal";
-
-"APPLICATION_LANGUAGE"    = "Taal";
-"DEFAULT_LANGUAGE"        = "Standaard taal";
-"ABOUT"                   = "Over";
-"CHANGE_REGION"           = "Wijzig Regio";
-"FAQ"                     = "FAQ";
-"HELP"                    = "Help";
-"NOTIFICATIONS"           = "Notificatie";
-"PRIVACY"                 = "Privacy";
-"PRIVACY_POLICY"          = "privacybeleid";
-"PSIPHON_AND_BROWSER"     = "Psiphon & Browser";
-"PSIPHON_SETTINGS"        = "Psiphon Instellingen";
-"RATE_US"                 = "Beoordeel Ons";
-"SECURITY"                = "Veiligheid";
-"SEARCH_ENGINE"           = "Zoekmachine";
-"SHARE_ON_FACEBOOK"       = "Delen op Facebook";
-"SHARE_ON_TWITTER"        = "Delen op Twitter";
-"SOCIAL"                  = "Sociaal";
-"SUBMIT_FEEDBACK"         = "Feedback";
-"TERMS_OF_USE"            = "Gebruiksvoorwaarden";
-"Tutorial"                = "Tutorial";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "Uitschakelen Onderbrekingen";
-"PROXY"                    = "Proxy";
-"TIMEOUTS"                 = "Onderbrekingen";
-"USE_UPSTREAM_PROXY"       = "Gebruik upstream proxy";
-"HOST_ADDRESS"             = "Host adres";
-"PORT"                     = "Poort";
-"USE_PROXY_AUTHENTICATION" = "Gebruik Proxy authentificatie";
-"PROXY_USERNAME"           = "Proxy gebruikersnaam";
-"PROXY_PASSWORD"           = "Proxy paswoord";
-"PROXY_DOMAIN"             = "Proxy domein";
-
-// Notifications
-"SOUND"                   = "Geluid";
-"SOUND_FOOTER"            = "Speel geluid wanneer status van de verbinding verandert";
-"VIBRATE"                 = "Vibratie";
-"VIBRATE_FOOTER"          = "Trillen als status van de verbinding verandert";
-
-// Region Selection
-"BEST_PERFORMANCE" = "Beste Prestaties";
-"UNITED_STATES"   = "United States";
-"UNITED_KINGDOM" = "United Kingdom";
-"CANADA" = "Canada";
-"JAPAN" = "Japan";
-"GERMANY" = "Germany";
-"SINGAPORE" = "Singapore";
-"NETHERLANDS" = "Netherlands";
-"INDIA" = "India";
-"SPAIN" = "Spain";
-
-// Search Engine
-"SEARCH_ENGINE"           = "Zoekmachine";
-"DUCKDUCKGO"              = "DuckDuckGo";
-"GOOGLE"                  = "Google";
-"START_PAGE"              = "Startpagina";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "Wis alle wanneer backgrounded";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "Alle tabbladen en niet-witte lijst cookies worden gewist bij het overstappen naar een andere app.";
-"CLEAR_COOKIES"                      = "Cookies wissen indien niet gebruikt";
-"COOKIE_CONTROL"                     = "COOKIE CONTROLE";
-"COOKIE_CONTROL_FOOTER"              = "Cookies en lokale dataopslag van niet-witte lijst hosts als het niet in gebruik voor deze tijdsinterval";
-"COOKIE_WHITELIST"                   = "Cookie Witte Lijst";
-"SEND_DO_NOT_TRACK"                  = "Verstuur \"Geen-Spoor\" verzoeken";
-
-"MINS_FIFTEEN"                       = "15 min";
-"MINS_THIRTY"                        = "30 min";
-"HOURS_TWELVE"                       = "12 uur";
-"HOURS_TWENTYFOUR"                   = "24 uur";
-
-// Security
-"HTTPS"                              = "HTTPS";
-"HTTPS_EVERYWHERE"                   = "HTTPS OVERAL";
-"MIN_SSL_TLS_VERSION"                = "Minimum SSL / TLS Versie";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "Minimum versie van SSL / TLS vereist voor HTTPS-verbindingen; kunnen eisen geforceerd sluiten van de app door te voeren.";
-
-"TLS_1_2"                            = "TLS 1.2 alleen (geen SSL)";
-"TLS_1_1_OR_1_2"                     = "TLS 1.1 of 1.2 (geen SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1, of 1.2 (geen SSL)";
-"AUTO_NEGOTIATE"                     = "Auto-onderhandelen\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Default language" = "Standaard taal";
+"About" = "Over";
+"Change Region" = "Wijzig Regio";
+"FAQ" = "FAQ";
+"Help" = "Help";
+"Notifications" = "Notificatie";
+"Privacy" = "Privacy";
+"Privacy Policy" = "privacybeleid";
+"Psiphon & Browser" = "Psiphon & Browser";
+"Psiphon Settings" = "Psiphon Instellingen";
+"Rate Us" = "Beoordeel Ons";
+"Security" = "Veiligheid";
+"Search engine" = "Zoekmachine";
+"Share on Facebook" = "Delen op Facebook";
+"Share on Twitter" = "Delen op Twitter";
+"Social" = "Sociaal";
+"Feedback" = "Feedback";
+"Terms of Use" = "Gebruiksvoorwaarden";
+"Tutorial" = "Tutorial";
+"Disable Timeouts" = "Uitschakelen Onderbrekingen";
+"Proxy" = "Proxy";
+"Timeouts" = "Onderbrekingen";
+"Use upstream proxy" = "Gebruik upstream proxy";
+"Host address" = "Host adres";
+"Port" = "Poort";
+"Use proxy authentication" = "Gebruik Proxy authentificatie";
+"username" = "username";
+"Proxy username" = "Proxy gebruikersnaam";
+"Proxy password" = "Proxy paswoord";
+"Proxy domain" = "Proxy domein";
+"Sound" = "Geluid";
+"Play sound when connection status changes" = "Speel geluid wanneer status van de verbinding verandert";
+"Vibrate" = "Vibratie";
+"Vibrate when connection status changes" = "Trillen als status van de verbinding verandert";
+"Best Performance" = "Beste Prestaties";
+"United States" = "United States";
+"United Kingdom" = "United Kingdom";
+"Canada" = "Canada";
+"Japan" = "Japan";
+"Germany" = "Germany";
+"Singapore" = "Singapore";
+"Netherlands" = "Netherlands";
+"India" = "India";
+"Spain" = "Spain";
+"DuckDuckGo" = "DuckDuckGo";
+"Google" = "Google";
+"Startpage" = "Startpagina";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "Wis alle wanneer backgrounded";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "Alle tabbladen en niet-witte lijst cookies worden gewist bij het overstappen naar een andere app.";
+"Clear cookies if unused for" = "Cookies wissen indien niet gebruikt";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "Cookies en lokale dataopslag van niet-witte lijst hosts als het niet in gebruik voor deze tijdsinterval";
+"Cookie Whitelist" = "Cookie Witte Lijst";
+"Send \"Do-Not-Track\" requests" = "Verstuur \"Geen-Spoor\" verzoeken";
+"15 min" = "15 min";
+"30 min" = "30 min";
+"12 hrs" = "12 uur";
+"24 hrs" = "24 uur";
+"HTTPS" = "HTTPS";
+"HTTPS EVERYWHERE" = "HTTPS OVERAL";
+"Minimum SSL/TLS Version" = "Minimum SSL / TLS Versie";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Minimum versie van SSL / TLS vereist voor HTTPS-verbindingen; kunnen eisen geforceerd sluiten van de app door te voeren.";
+"TLS 1.2 only (no SSL)" = "TLS 1.2 alleen (geen SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 of 1.2 (geen SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1, of 1.2 (geen SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "Auto-onderhandelen\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";

@@ -14,7 +14,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>HTTPS_EVERYWHERE</string>
+			<string>HTTPS EVERYWHERE</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>Key</key>
@@ -26,22 +26,22 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>MIN_SSL_TLS_VERSION_FOOTER</string>
+			<string>Minimum SSL/TLS Version_FOOTER</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>TLS_1_2</string>
+			<string>TLS 1.2 only (no SSL)</string>
 			<key>Values</key>
 			<array>
-				<string>TLS_1_2</string>
+				<string>TLS 1.2 only (no SSL)</string>
 				<string>TLS_1_1</string>
 				<string>TLS_1_0</string>
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>TLS_1_2</string>
-				<string>TLS_1_1_OR_1_2</string>
-				<string>TLS_1_0_OR_1_1_OR_1_2</string>
+				<string>TLS 1.2 only (no SSL)</string>
+				<string>TLS 1.1 or 1.2 (no SSL)</string>
+				<string>TLS 1.0, 1.1, or 1.2 (no SSL)</string>
 			</array>
 			<key>ShortTitles</key>
 			<array>
@@ -52,7 +52,7 @@
 			<key>Key</key>
 			<string>minTlsVersion</string>
 			<key>Title</key>
-			<string>MIN_SSL_TLS_VERSION</string>
+			<string>Minimum SSL/TLS Version</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>

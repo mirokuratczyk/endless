@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "語言";
-
+"Language" = "語言";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "預設語系";
-
-"APPLICATION_LANGUAGE"    = "語言";
-"DEFAULT_LANGUAGE"        = "預設語系";
-"ABOUT"                   = "關於";
-"CHANGE_REGION"           = "改變地區";
-"FAQ"                     = "常見問題與解答";
-"HELP"                    = "幫助";
-"NOTIFICATIONS"           = "通知";
-"PRIVACY"                 = "隱私";
-"PRIVACY_POLICY"          = "隱私政策";
-"PSIPHON_AND_BROWSER"     = "賽風 & 瀏覽器";
-"PSIPHON_SETTINGS"        = "賽風設定";
-"RATE_US"                 = "評價本軟體";
-"SECURITY"                = "安全";
-"SEARCH_ENGINE"           = "搜尋引擊";
-"SHARE_ON_FACEBOOK"       = "在臉書上分享";
-"SHARE_ON_TWITTER"        = "在推特上分享";
-"SOCIAL"                  = "社交";
-"SUBMIT_FEEDBACK"         = "反饋";
-"TERMS_OF_USE"            = "使用條款";
-"Tutorial"                = "Tutorial";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "取消到期";
-"PROXY"                    = "代理";
-"TIMEOUTS"                 = "到期";
-"USE_UPSTREAM_PROXY"       = "使用上層代理";
-"HOST_ADDRESS"             = "主機地址";
-"PORT"                     = "端口";
-"USE_PROXY_AUTHENTICATION" = "使用代理認證";
-"PROXY_USERNAME"           = "代理用戶名";
-"PROXY_PASSWORD"           = "代理密碼";
-"PROXY_DOMAIN"             = "代理域名";
-
-// Notifications
-"SOUND"                   = "聲音";
-"SOUND_FOOTER"            = "當連接狀態改變時發出聲音";
-"VIBRATE"                 = "震動";
-"VIBRATE_FOOTER"          = "當連接狀態改變時震動";
-
-// Region Selection
-"BEST_PERFORMANCE" = "最佳性能";
-"UNITED_STATES"   = "美國";
-"UNITED_KINGDOM" = "英國";
-"CANADA" = "加拿大";
-"JAPAN" = "日本";
-"GERMANY" = "德國";
-"SINGAPORE" = "新加坡";
-"NETHERLANDS" = "荷蘭";
-"INDIA" = "印度";
-"SPAIN" = "西班牙";
-
-// Search Engine
-"SEARCH_ENGINE"           = "搜尋引擊";
-"DUCKDUCKGO"              = "DuckDuckGo";
-"GOOGLE"                  = "谷歌";
-"START_PAGE"              = "Startpage";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "當成為背景時清除所有";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "當切換到其它應用程式時，其它分頁或未許可的cookies將會被清除";
-"CLEAR_COOKIES"                      = "清空用不到的cookies";
-"COOKIE_CONTROL"                     = "COOKIE 控制";
-"COOKIE_CONTROL_FOOTER"              = " 如果在此間歇時間內用不到這些未認可的主機，請清除cookies與本地儲存資料 ";
-"COOKIE_WHITELIST"                   = "淮用Cookie 的白名單";
-"SEND_DO_NOT_TRACK"                  = "傳送“不可追踪”請求";
-
-"MINS_FIFTEEN"                       = "15 分";
-"MINS_THIRTY"                        = "30 分";
-"HOURS_TWELVE"                       = "12 小時";
-"HOURS_TWENTYFOUR"                   = "24 小時";
-
-// Security
-"HTTPS"                              = "HTTPS";
-"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
-"MIN_SSL_TLS_VERSION"                = "最舊 SSL/TLS 版本";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "HTTPS 連線需為SSL/TLS  以上版上;當啟動生效後可能會要求強制關閉程式";
-
-"TLS_1_2"                            = "僅TLS 1.2 版 (no SSL)";
-"TLS_1_1_OR_1_2"                     = "TLS 1.1 or 1.2 (no SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1, or 1.2 (no SSL)";
-"AUTO_NEGOTIATE"                     = "自動協商\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Default language" = "預設語系";
+"About" = "關於";
+"Change Region" = "改變地區";
+"FAQ" = "常見問題與解答";
+"Help" = "幫助";
+"Notifications" = "通知";
+"Privacy" = "隱私";
+"Privacy Policy" = "隱私政策";
+"Psiphon & Browser" = "賽風 & 瀏覽器";
+"Psiphon Settings" = "賽風設定";
+"Rate Us" = "評價本軟體";
+"Security" = "安全";
+"Search engine" = "搜尋引擊";
+"Share on Facebook" = "在臉書上分享";
+"Share on Twitter" = "在推特上分享";
+"Social" = "社交";
+"Feedback" = "反饋";
+"Terms of Use" = "使用條款";
+"Tutorial" = "Tutorial";
+"Disable Timeouts" = "取消到期";
+"Proxy" = "代理";
+"Timeouts" = "到期";
+"Use upstream proxy" = "使用上層代理";
+"Host address" = "主機地址";
+"Port" = "端口";
+"Use proxy authentication" = "使用代理認證";
+"username" = "username";
+"Proxy username" = "代理用戶名";
+"Proxy password" = "代理密碼";
+"Proxy domain" = "代理域名";
+"Sound" = "聲音";
+"Play sound when connection status changes" = "當連接狀態改變時發出聲音";
+"Vibrate" = "震動";
+"Vibrate when connection status changes" = "當連接狀態改變時震動";
+"Best Performance" = "最佳性能";
+"United States" = "美國";
+"United Kingdom" = "英國";
+"Canada" = "加拿大";
+"Japan" = "日本";
+"Germany" = "德國";
+"Singapore" = "新加坡";
+"Netherlands" = "荷蘭";
+"India" = "印度";
+"Spain" = "西班牙";
+"DuckDuckGo" = "DuckDuckGo";
+"Google" = "谷歌";
+"Startpage" = "Startpage";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "當成為背景時清除所有";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "當切換到其它應用程式時，其它分頁或未許可的cookies將會被清除";
+"Clear cookies if unused for" = "清空用不到的cookies";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = " 如果在此間歇時間內用不到這些未認可的主機，請清除cookies與本地儲存資料 ";
+"Cookie Whitelist" = "淮用Cookie 的白名單";
+"Send \"Do-Not-Track\" requests" = "傳送“不可追踪”請求";
+"15 min" = "15 分";
+"30 min" = "30 分";
+"12 hrs" = "12 小時";
+"24 hrs" = "24 小時";
+"HTTPS" = "HTTPS";
+"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
+"Minimum SSL/TLS Version" = "最舊 SSL/TLS 版本";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "HTTPS 連線需為SSL/TLS  以上版上;當啟動生效後可能會要求強制關閉程式";
+"TLS 1.2 only (no SSL)" = "僅TLS 1.2 版 (no SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 or 1.2 (no SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1, or 1.2 (no SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "自動協商\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";

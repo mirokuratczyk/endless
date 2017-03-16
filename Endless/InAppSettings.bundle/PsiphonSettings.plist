@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>TIMEOUTS</string>
+			<string>Timeouts</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -18,13 +18,13 @@
 			<key>Key</key>
 			<string>disableTimeouts</string>
 			<key>Title</key>
-			<string>DISABLE_TIMEOUTS</string>
+			<string>Disable Timeouts</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>PROXY</string>
+			<string>Proxy</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -34,7 +34,7 @@
 			<key>Key</key>
 			<string>useUpstreamProxy</string>
 			<key>Title</key>
-			<string>USE_UPSTREAM_PROXY</string>
+			<string>Use upstream proxy</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -42,7 +42,7 @@
 			<key>Key</key>
 			<string>upstreamProxyHostAddress</string>
 			<key>Title</key>
-			<string>HOST_ADDRESS</string>
+			<string>Host address</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>AutocorrectionType</key>
@@ -54,7 +54,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>PORT</string>
+			<string>Port</string>
 			<key>Key</key>
 			<string>upstreamProxyPort</string>
 			<key>Type</key>
@@ -72,7 +72,7 @@
 			<key>Key</key>
 			<string>useProxyAuthentication</string>
 			<key>Title</key>
-			<string>USE_PROXY_AUTHENTICATION</string>
+			<string>Use proxy authentication</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -80,7 +80,7 @@
 			<key>Key</key>
 			<string>proxyUsername</string>
 			<key>Title</key>
-			<string>PROXY_USERNAME</string>
+			<string>Proxy username</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>AutocorrectionType</key>
@@ -94,7 +94,7 @@
 			<key>IsSecure</key>
 			<true/>
 			<key>Title</key>
-			<string>PROXY_PASSWORD</string>
+			<string>Proxy password</string>
 			<key>Key</key>
 			<string>proxyPassword</string>
 		</dict>
@@ -102,7 +102,7 @@
 			<key>Key</key>
 			<string>proxyDomain</string>
 			<key>Title</key>
-			<string>PROXY_DOMAIN</string>
+			<string>Proxy domain</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
 			<key>AutocorrectionType</key>
