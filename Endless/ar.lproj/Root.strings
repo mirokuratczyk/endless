@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "اللغة";
-
+"Language" = "اللغة";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "اختر لغتك";
-
-"APPLICATION_LANGUAGE"    = "اللغة";
-"DEFAULT_LANGUAGE"        = "اختر لغتك";
-"ABOUT"                   = "حول سايفون ";
-"CHANGE_REGION"           = "تغيير المنطقة";
-"FAQ"                     = "الأسئلة الشائعة";
-"HELP"                    = "مساعدة";
-"NOTIFICATIONS"           = "الإعلامات";
-"PRIVACY"                 = "خصوصية ";
-"PRIVACY_POLICY"          = "سياسة الخصوصية ";
-"PSIPHON_AND_BROWSER"     = "سايفون و المتصفح";
-"PSIPHON_SETTINGS"        = " إعدادات سايفون";
-"RATE_US"                 = "قيمنا ";
-"SECURITY"                = "سلامة ";
-"SEARCH_ENGINE"           = "محرك البحث ";
-"SHARE_ON_FACEBOOK"       = "شارك على فايسبوك";
-"SHARE_ON_TWITTER"        = "شارك على تويتر";
-"SOCIAL"                  = "التواصل الإجتماعي";
-"SUBMIT_FEEDBACK"         = "رأيك ";
-"TERMS_OF_USE"            = "شروط الإستخدام";
-"Tutorial"                = "Tutorial";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "إلغاء الإنقطاع عند نفاذ المدة";
-"PROXY"                    = "بروكسي";
-"TIMEOUTS"                 = "نفاذ المدة";
-"USE_UPSTREAM_PROXY"       = "إستعمال أبستريم بروكسي  ";
-"HOST_ADDRESS"             = "عنوان المضيف ";
-"PORT"                     = "المنفذ ";
-"USE_PROXY_AUTHENTICATION" = "إستعمال مصادقة البروكسي ";
-"PROXY_USERNAME"           = "اسم مستخدم البروكسي";
-"PROXY_PASSWORD"           = "كلمة سر البروكسي";
-"PROXY_DOMAIN"             = "نطاق البروكسي ";
-
-// Notifications
-"SOUND"                   = "الصوت";
-"SOUND_FOOTER"            = "إصدار صوت عند تغير حالة الإتصال ";
-"VIBRATE"                 = "إهتزاز";
-"VIBRATE_FOOTER"          = "الإهتزاز عند تغير حالة الإتصال";
-
-// Region Selection
-"BEST_PERFORMANCE" = "افضل اداء ";
-"UNITED_STATES"   = "الولايات المتحدة";
-"UNITED_KINGDOM" = "المملكة المتحدة";
-"CANADA" = "كندا";
-"JAPAN" = "اليابان";
-"GERMANY" = "ألمانيا";
-"SINGAPORE" = "سنغافورة";
-"NETHERLANDS" = "هولندا";
-"INDIA" = "الهند";
-"SPAIN" = "إسبانيا";
-
-// Search Engine
-"SEARCH_ENGINE"           = "محرك البحث ";
-"DUCKDUCKGO"              = "دك دك جو";
-"GOOGLE"                  = "جوجل";
-"START_PAGE"              = "ستارت بايج";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "حذف كلي عند إشتغال البرنامج على مستوى خلفي";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "سيتم مسح كل علامات التبويب و رموز تعريف الارتباط الغير موجودة في القائمة البيضاء عند التحول إلى برنامج آخر";
-"CLEAR_COOKIES"                      = "حذف لرموز تعريف الارتباط عند عدم الاستعمال ل";
-"COOKIE_CONTROL"                     = "التحكم رموز تعريف الإرتباط";
-"COOKIE_CONTROL_FOOTER"              = "حذف لرموز تعريف الإرتباط و البيانات المخزنة محليا من القائمة الغير بيضاء عند عدم الاستعمال";
-"COOKIE_WHITELIST"                   = "القائمة البيضاء لرموز تعريف الارتباط";
-"SEND_DO_NOT_TRACK"                  = "بعث طلبات \"عدم التتبع\"";
-
-"MINS_FIFTEEN"                       = "15 دقيقة";
-"MINS_THIRTY"                        = "30 دقيقة";
-"HOURS_TWELVE"                       = "12 ساعة";
-"HOURS_TWENTYFOUR"                   = "24 ساعة";
-
-// Security
-"HTTPS"                              = "HTTPS ";
-"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
-"MIN_SSL_TLS_VERSION"                = "أقل إصدار ممكن ل 	SSL/TLS ";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "أقل إصدار ممكن ل  SSL/TLS  مطلوب في حالة ربط   HTTPS . قد يتطلب الأمر إغلاق البرنامج ليقع التثبيت ";
-
-"TLS_1_2"                            = "TLS 1.2 فقط (بدون SSL)";
-"TLS_1_1_OR_1_2"                     = " TLS 1.1 أو 1.2  TLS (بدون SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "  TLS 1.0 أو TLS 1.1 أو 1.2  TLS (بدون SSL)";
-"AUTO_NEGOTIATE"                     = "تفاوض آلي  (SSL v2/v3, TLS 1.0/1.1/1.2) ";
+"Default language" = "اختر لغتك";
+"About" = "حول سايفون ";
+"Change Region" = "تغيير المنطقة";
+"FAQ" = "الأسئلة الشائعة";
+"Help" = "مساعدة";
+"Notifications" = "الإعلامات";
+"Privacy" = "خصوصية ";
+"Privacy Policy" = "سياسة الخصوصية ";
+"Psiphon & Browser" = "سايفون و المتصفح";
+"Psiphon Settings" = " إعدادات سايفون";
+"Rate Us" = "قيمنا ";
+"Security" = "سلامة ";
+"Search engine" = "محرك البحث ";
+"Share on Facebook" = "شارك على فايسبوك";
+"Share on Twitter" = "شارك على تويتر";
+"Social" = "التواصل الإجتماعي";
+"Feedback" = "رأيك ";
+"Terms of Use" = "شروط الإستخدام";
+"Tutorial" = "Tutorial";
+"Disable Timeouts" = "إلغاء الإنقطاع عند نفاذ المدة";
+"Proxy" = "بروكسي";
+"Timeouts" = "نفاذ المدة";
+"Use upstream proxy" = "إستعمال أبستريم بروكسي  ";
+"Host address" = "عنوان المضيف ";
+"Port" = "المنفذ ";
+"Use proxy authentication" = "إستعمال مصادقة البروكسي ";
+"username" = "username";
+"Proxy username" = "اسم مستخدم البروكسي";
+"Proxy password" = "كلمة سر البروكسي";
+"Proxy domain" = "نطاق البروكسي ";
+"Sound" = "الصوت";
+"Play sound when connection status changes" = "إصدار صوت عند تغير حالة الإتصال ";
+"Vibrate" = "إهتزاز";
+"Vibrate when connection status changes" = "الإهتزاز عند تغير حالة الإتصال";
+"Best Performance" = "افضل اداء ";
+"United States" = "الولايات المتحدة";
+"United Kingdom" = "المملكة المتحدة";
+"Canada" = "كندا";
+"Japan" = "اليابان";
+"Germany" = "ألمانيا";
+"Singapore" = "سنغافورة";
+"Netherlands" = "هولندا";
+"India" = "الهند";
+"Spain" = "إسبانيا";
+"DuckDuckGo" = "دك دك جو";
+"Google" = "جوجل";
+"Startpage" = "ستارت بايج";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "حذف كلي عند إشتغال البرنامج على مستوى خلفي";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "سيتم مسح كل علامات التبويب و رموز تعريف الارتباط الغير موجودة في القائمة البيضاء عند التحول إلى برنامج آخر";
+"Clear cookies if unused for" = "حذف لرموز تعريف الارتباط عند عدم الاستعمال ل";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "حذف لرموز تعريف الإرتباط و البيانات المخزنة محليا من القائمة الغير بيضاء عند عدم الاستعمال";
+"Cookie Whitelist" = "القائمة البيضاء لرموز تعريف الارتباط";
+"Send \"Do-Not-Track\" requests" = "بعث طلبات \"عدم التتبع\"";
+"15 min" = "15 دقيقة";
+"30 min" = "30 دقيقة";
+"12 hrs" = "12 ساعة";
+"24 hrs" = "24 ساعة";
+"HTTPS" = "HTTPS ";
+"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
+"Minimum SSL/TLS Version" = "أقل إصدار ممكن ل 	SSL/TLS ";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "أقل إصدار ممكن ل  SSL/TLS  مطلوب في حالة ربط   HTTPS . قد يتطلب الأمر إغلاق البرنامج ليقع التثبيت ";
+"TLS 1.2 only (no SSL)" = "TLS 1.2 فقط (بدون SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = " TLS 1.1 أو 1.2  TLS (بدون SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "  TLS 1.0 أو TLS 1.1 أو 1.2  TLS (بدون SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "تفاوض آلي  (SSL v2/v3, TLS 1.0/1.1/1.2) ";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";

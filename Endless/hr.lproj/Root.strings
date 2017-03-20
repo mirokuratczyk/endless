@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "Jezik";
-
+"Language" = "Jezik";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "Zadani jezik";
-
-"APPLICATION_LANGUAGE"    = "Jezik";
-"DEFAULT_LANGUAGE"        = "Zadani jezik";
-"ABOUT"                   = "O Psiphonu";
-"CHANGE_REGION"           = "Promjeni regiju";
-"FAQ"                     = "Često postavljena pitanja";
-"HELP"                    = "Pomoć";
-"NOTIFICATIONS"           = "Obavijesti";
-"PRIVACY"                 = "Privatnost";
-"PRIVACY_POLICY"          = "Izjava o privatnosti";
-"PSIPHON_AND_BROWSER"     = "Psiphon i preglednik";
-"PSIPHON_SETTINGS"        = "Psiphon postavke";
-"RATE_US"                 = "Ocjenite nas";
-"SECURITY"                = "Sigurnost";
-"SEARCH_ENGINE"           = "Tražilica";
-"SHARE_ON_FACEBOOK"       = "Podjelite na Facebooku";
-"SHARE_ON_TWITTER"        = "Podjelite na Twitteru";
-"SOCIAL"                  = "Društveno";
-"SUBMIT_FEEDBACK"         = "Povratne informacije";
-"TERMS_OF_USE"            = "Uvjeti korištenja";
-"Tutorial"                = "Upute";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "Onemogući pauze";
-"PROXY"                    = "Proxy";
-"TIMEOUTS"                 = "Pauze";
-"USE_UPSTREAM_PROXY"       = "Koristi uzvodni proxy";
-"HOST_ADDRESS"             = "Adresa domaćina";
-"PORT"                     = "Port";
-"USE_PROXY_AUTHENTICATION" = "Koristi proxy autentikaciju";
-"PROXY_USERNAME"           = "Proxy korisničko ime";
-"PROXY_PASSWORD"           = "Proxy lozinka";
-"PROXY_DOMAIN"             = "Proxy domena";
-
-// Notifications
-"SOUND"                   = "Zvuk";
-"SOUND_FOOTER"            = "Sviraj zvuk kad se status veze promjeni";
-"VIBRATE"                 = "Vibriraj";
-"VIBRATE_FOOTER"          = "Vibriraj kad se status veze promjeni";
-
-// Region Selection
-"BEST_PERFORMANCE" = "Najbolje performanse";
-"UNITED_STATES"   = "Sjedinjene Američke Države";
-"UNITED_KINGDOM" = "Ujedinjeno Kraljevstvo";
-"CANADA" = "Kanada";
-"JAPAN" = "Japan";
-"GERMANY" = "Njemačka";
-"SINGAPORE" = "Singapur";
-"NETHERLANDS" = "Nizozemska";
-"INDIA" = "Indija";
-"SPAIN" = "Španjolska";
-
-// Search Engine
-"SEARCH_ENGINE"           = "Tražilica";
-"DUCKDUCKGO"              = "DuckDuckGo";
-"GOOGLE"                  = "Google";
-"START_PAGE"              = "Početna stranica";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "Očisti sve kad stavim u pozadinu";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "Sve kartice i kolačići koji nisu na listi dopuštenih će biti očišćeni kad se prebacite na drugu aplikaciju.";
-"CLEAR_COOKIES"                      = "Očisti kolačiće ako se ne koriste ";
-"COOKIE_CONTROL"                     = "KONTROLA KOLAČIĆA";
-"COOKIE_CONTROL_FOOTER"              = "Očisti kolačiće i lokalnu pohranu domaćina koji nisu na listi dopuštenih ako se ne koriste u ovom vremenskom intervalu";
-"COOKIE_WHITELIST"                   = "Popis dopuštenih kolačića";
-"SEND_DO_NOT_TRACK"                  = "Šalji \"Ne-prati-me\" zahtjeve";
-
-"MINS_FIFTEEN"                       = "15 minuta";
-"MINS_THIRTY"                        = "30 minuta";
-"HOURS_TWELVE"                       = "12 sati";
-"HOURS_TWENTYFOUR"                   = "24 sata";
-
-// Security
-"HTTPS"                              = "HTTPS";
-"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
-"MIN_SSL_TLS_VERSION"                = "Minimalna SSL/TLS verzija";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "Minimalna verzija SSL/TLS-a koja je potrebna za HTTPS veze; može zahtjevati nasilno zatvaranje aplikacije kako bi se primjenilo.";
-
-"TLS_1_2"                            = "Samo TLS 1.2 (bez SSL)";
-"TLS_1_1_OR_1_2"                     = "TLS 1.1 ili 1.2 (bez SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1 ili 1.2 (bez SSL)";
-"AUTO_NEGOTIATE"                     = "Automatsko rješavanje\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Default language" = "Zadani jezik";
+"About" = "O Psiphonu";
+"Change Region" = "Promjeni regiju";
+"FAQ" = "Često postavljena pitanja";
+"Help" = "Pomoć";
+"Notifications" = "Obavijesti";
+"Privacy" = "Privatnost";
+"Privacy Policy" = "Izjava o privatnosti";
+"Psiphon & Browser" = "Psiphon i preglednik";
+"Psiphon Settings" = "Psiphon postavke";
+"Rate Us" = "Ocjenite nas";
+"Security" = "Sigurnost";
+"Search engine" = "Tražilica";
+"Share on Facebook" = "Podjelite na Facebooku";
+"Share on Twitter" = "Podjelite na Twitteru";
+"Social" = "Društveno";
+"Feedback" = "Povratne informacije";
+"Terms of Use" = "Uvjeti korištenja";
+"Tutorial" = "Upute";
+"Disable Timeouts" = "Onemogući pauze";
+"Proxy" = "Proxy";
+"Timeouts" = "Pauze";
+"Use upstream proxy" = "Koristi uzvodni proxy";
+"Host address" = "Adresa domaćina";
+"Port" = "Port";
+"Use proxy authentication" = "Koristi proxy autentikaciju";
+"username" = "username";
+"Proxy username" = "Proxy korisničko ime";
+"Proxy password" = "Proxy lozinka";
+"Proxy domain" = "Proxy domena";
+"Sound" = "Zvuk";
+"Play sound when connection status changes" = "Sviraj zvuk kad se status veze promjeni";
+"Vibrate" = "Vibriraj";
+"Vibrate when connection status changes" = "Vibriraj kad se status veze promjeni";
+"Best Performance" = "Najbolje performanse";
+"United States" = "Sjedinjene Američke Države";
+"United Kingdom" = "Ujedinjeno Kraljevstvo";
+"Canada" = "Kanada";
+"Japan" = "Japan";
+"Germany" = "Njemačka";
+"Singapore" = "Singapur";
+"Netherlands" = "Nizozemska";
+"India" = "Indija";
+"Spain" = "Španjolska";
+"DuckDuckGo" = "DuckDuckGo";
+"Google" = "Google";
+"Startpage" = "Početna stranica";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "Očisti sve kad stavim u pozadinu";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "Sve kartice i kolačići koji nisu na listi dopuštenih će biti očišćeni kad se prebacite na drugu aplikaciju.";
+"Clear cookies if unused for" = "Očisti kolačiće ako se ne koriste ";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "Očisti kolačiće i lokalnu pohranu domaćina koji nisu na listi dopuštenih ako se ne koriste u ovom vremenskom intervalu";
+"Cookie Whitelist" = "Popis dopuštenih kolačića";
+"Send \"Do-Not-Track\" requests" = "Šalji \"Ne-prati-me\" zahtjeve";
+"15 min" = "15 minuta";
+"30 min" = "30 minuta";
+"12 hrs" = "12 sati";
+"24 hrs" = "24 sata";
+"HTTPS" = "HTTPS";
+"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
+"Minimum SSL/TLS Version" = "Minimalna SSL/TLS verzija";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Minimalna verzija SSL/TLS-a koja je potrebna za HTTPS veze; može zahtjevati nasilno zatvaranje aplikacije kako bi se primjenilo.";
+"TLS 1.2 only (no SSL)" = "Samo TLS 1.2 (bez SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 ili 1.2 (bez SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1 ili 1.2 (bez SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "Automatsko rješavanje\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";
