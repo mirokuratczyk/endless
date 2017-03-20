@@ -18,6 +18,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "AdjustableLabel.h"
 
 @protocol TutorialDelegate;
 
@@ -34,7 +35,7 @@
 @property (strong, nonatomic) UIButton *skipButton;
 @property (strong, nonatomic) UILabel *headerView;
 @property (strong, nonatomic) UILabel *titleView;
-@property (strong, nonatomic) UILabel *textView;
+@property (strong, nonatomic) AdjustableLabel *textView;
 @property (strong, nonatomic) UIButton *letsGo;
 
 @property (strong, nonatomic) NSArray<NSLayoutConstraint*> *removeBeforeNextStep;
