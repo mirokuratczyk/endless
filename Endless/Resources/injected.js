@@ -15,12 +15,6 @@
 if (typeof __endless == "undefined") {
 var __endless = {
 	/**
-	 * Keeps track of all child windows/tabs opened via `window.open()`.
-	 * Maps unique IDs to FakeWindow objects.
-	 */
-	openedTabs: {},
-
-	/**
 	 * The time (in milliseconds) that we will wait for an ObjC call to complete.
 	 */
 	ipcTimeoutMS: 2000,
@@ -74,16 +68,6 @@ var __endless = {
 	},
 
 	/**
-	 * Generate a random ID to be used as a FakeWindow identifier.
-	 * @returns {string}
-	 */
-	randID: function() {
-		var a = new Uint32Array(5);
-		window.crypto.getRandomValues(a);
-		return a.join("-");
-	},
-
-	/**
 	 * Links (`<a>` tags) with `target="_blank"` should open in new tabs. This requires help from
 	 * ObjC code via a `window.open()` IPC call.
 	 * This should get called once when the page is loaded.
@@ -93,19 +77,17 @@ var __endless = {
 		if (!document.body)
 			return;
 
-		document.body.addEventListener("click", function() {
+		document.body.addEventListener("click", function(event) {
 			if (event.target.tagName == "A" && event.target.target == "_blank") {
 				if (event.type == "click") {
 					// A link with target=_blank was clicked. Intercept it.
 					event.preventDefault();
 
-					// This window.open call will result in IPC to ObjC, returning a FakeWindow if
-					// successful and null if unsuccessful.
-					if (window.open(event.target.href) == null)
-					{
-						// Tab open attempt was unnsuccessful. Open the link in the current tab.
-						window.location = event.target.href;
-					}
+					// This window.open call will result in IPC to ObjC.
+					// Our `window.open()` call always returns null, so we can't
+					// check for success.
+					window.open(event.target.href);
+
 					return false;
 				}
 				else {
@@ -159,122 +141,10 @@ var __endless = {
 		a.href = url; /* browser will make this absolute for us */
 		return a.href;
 	},
-
-	/**
-	 * FakeWindow
-	 * `window.open()` returns a window object that can be used to get info about the new window
-	 * and control its location. In order to support that function, we'll need to maintain a
-	 * communication channel with the new windows (in a new tab) via ObjC.
-	 * This class is used to provide access to child windows/tabs via ObjC.
-	 * @param {string} id - A unique identifier for the object. (Will be randomly generated.)
-	 */
-	FakeWindow: function(id) {
-		// Unique ID for this object.
-		this.id = id;
-
-		// Indicates if the window/tab was successfully opened. Will be set to true by Objc code
-		// on success.
-		this.opened = false;
-
-		// The FakeLocation wrapper for this window.
-		this._location = null;
-
-		// The storage variable for the `window.name` property.
-		this._name = null;
-	},
-
-	/**
-	 * FakeLocation is used by FakeWindow to track the child tab's URL info.
-	 * @param {Location} [real] - The (window.)location object that this will be wrapping or
-	 * replacing. NOTE: This argument is only ever used from ObjC IPC code.
-	 */
-	FakeLocation: function (real) {
-		// The ID of the FakeWindow that owns this object.
-		this.id = null;
-
-		// Keep references to the original object that we're wrapping.
-		for (var prop in real) {
-			this["_" + prop] = real[prop];
-		}
-
-		this.toString = function () {
-			return this._href;
-		};
-	},
 };
 
 (function () {
 	"use strict";
-
-	/*
-	 * FakeWindow class initialization
-	 */
-
-	 // Implement some common `window` properties and functions. We need to make IPC calls to ObjC
-	 // in order to access other tabs.
-	__endless.FakeWindow.prototype = {
-		constructor: __endless.FakeWindow,
-
-		set location(loc) {
-			this._location = new __endless.FakeLocation();
-			__endless.ipcAndWaitForReply("fakeWindow.setLocation/" + this.id + "?" + encodeURIComponent(loc));
-			this._location.id = this.id;
-		},
-		set name(n) {
-			this._name = null;
-			__endless.ipcAndWaitForReply("fakeWindow.setName/" + this.id + "?" + encodeURIComponent(n));
-		},
-		set opener(o) {
-		},
-
-		// getters: Disallowed to minimize security exposure. Note that this might impact the
-		// functioning of some web pages/services.
-		get location() {
-			throw "security error trying to access window.location of other window";
-		},
-		get name() {
-			throw "security error trying to access window.name of other window";
-		},
-		get title() {
-			throw "security error trying to access window.title of other window";
-		},
-		get opener() {
-		},
-
-		close: function() {
-			__endless.ipcAndWaitForReply("fakeWindow.close/" + this.id);
-		},
-
-		toString: function() {
-			return "[object FakeWindow]";
-		},
-	};
-
-	/*
-	 * FakeLocation class initialization
-	 */
-
-	__endless.FakeLocation.prototype = {
-		constructor: __endless.FakeLocation,
-	};
-
-	// Implement typical `window.location` properties.
-	["hash", "hostname", "href", "pathname", "port", "protocol", "search", "username", "password", "origin"].forEach(function (property) {
-		Object.defineProperty(__endless.FakeLocation.prototype, property, {
-			// setter: Make an IPC call through ObjC to the target tab.
-			set: function (v) {
-				eval("this._" + property + " = null;");
-				__endless.ipcAndWaitForReply("fakeWindow.setLocationParam/" + this.id + "/" + property + "?" + encodeURIComponent(v));
-			},
-			// getter: Disallowed. In a real browser, the opener can access window location
-			// properties if they share a domain, but we're not allowing to help ensure there's no
-			// security issue. Note that this might impact the functioning of some web
-			// pages/services.
-			get: function () {
-				throw "security error trying to access location." + property + " of other window";
-			},
-		});
-	});
 
 	// Log global errors
 	window.onerror = function(msg, url, line) {
@@ -282,13 +152,10 @@ var __endless = {
 	}
 
 	// Override `window.open()` so that we can use IPC to ObjC in order to open a new tab.
-	// More info about `window.open` here, although there's a lot ignore:
+	// More info about `window.open` here, although there's a lot not implemented here:
 	// https://developer.mozilla.org/en-US/docs/Web/API/Window/open
 	window.open = function (url, name, specs, replace) {
-		// This is the ID that will be used to later access the new tab via IPC.
-		var id = __endless.randID();
-
-		__endless.openedTabs[id] = new __endless.FakeWindow(id);
+		var ipcURL = "endlessipc://window.open/?" + encodeURIComponent(__endless.absoluteURL(url));
 
 		/*
 		 * Fake a mouse event clicking on a link, so that our webview sees the
@@ -297,36 +164,20 @@ var __endless = {
 		 * already.
 		 */
 		var l = document.createElement("a");
-		l.setAttribute("href", "endlessipc://window.open/" + id);
+		l.setAttribute("href", ipcURL);
 		l.setAttribute("target", "_blank");
 		var e = document.createEvent("MouseEvents");
 		e.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false,
 			false, false, false, 0, null);
 		l.dispatchEvent(e);
 
-		// Do a no-op IPC call to make sure that the processing of the above
-		// `endlessipc://window.open` request is complete, so we know
-		// `__endless.openedTabs[id]` will be filled in below.
-		__endless.ipcAndWaitForReply("noop");
-
-		// If this call was trigged by a non-touch/click, `__endless.openedTabs[id].opened`
-		// will be in its default state of `false`.
-
-		if (!__endless.openedTabs[id].opened) {
-			console.error("window failed to open");
-			/* TODO: send url to ipc anyway to show popup blocker notice */
-			return null;
-		}
-
-		if (name !== undefined && name != '')
-			__endless.openedTabs[id].name = name;
-		if (url !== undefined && url != '')
-			__endless.openedTabs[id].location = __endless.absoluteURL(url);
-
 		window.event.preventDefault();
 		window.event.stopImmediatePropagation();
 
-		return __endless.openedTabs[id];
+		// We never supply a window handle back to the caller. This is going to
+		// cause problems with some web-apps, but there are too many security
+		// issues otherwise.
+		return null;
 	};
 
 	// Override `window.close()` so that we can use IPC to ObjC to request that this tab be closed.
@@ -346,9 +197,11 @@ var __endless = {
 	console.warn = function() { console._log("warn", arguments); };
 	console.error = function() { console._log("error", arguments); };
 
-	if (document.readyState == "complete" || document.readyState == "interactive")
+	if (document.readyState == "complete" || document.readyState == "interactive") {
 		__endless.onLoad();
-	else
+	}
+	else {
 		document.addEventListener("DOMContentLoaded", __endless.onLoad, false);
+	}
 }());
 }
