@@ -16,17 +16,6 @@
 
 @implementation WebViewTab
 
-+ (WebViewTab *)openedWebViewTabByRandID:(NSString *)randID
-{
-	for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
-		if ([wvt randID] != nil && [[wvt randID] isEqualToString:randID]) {
-			return wvt;
-		}
-	}
-	
-	return nil;
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
 	return [self initWithFrame:frame withRestorationIdentifier:nil];
@@ -273,6 +262,7 @@
 {
 	NSURL *url = [request URL];
 	
+	// `endlesshttps?://` links are used (mostly or always?) when launching the app with a URL.
 	/* treat endlesshttps?:// links clicked inside of web pages as normal links */
 	if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttp"]) {
 		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttp" length]) withString:@"http"]];
@@ -292,7 +282,8 @@
 		return YES;
 	}
 	
-	/* endlessipc://fakeWindow.open/somerandomid?http... */
+	// At this point we know we're handling an `endlessipc://` URL. Like:
+	/* endlessipc://window.open/?http... */
 	
 	NSString *action = [url host];
 	
@@ -305,8 +296,10 @@
 	NSString *value = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
 	if ([action isEqualToString:@"console.log"]) {
+#ifdef TRACE
 		NSString *json = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSLog(@"[Tab %@] [console.%@] %@", [self tabIndex], param, json);
+#endif
 		/* no callback needed */
 		return NO;
 	}
@@ -316,25 +309,27 @@
 #endif
 	
 	if ([action isEqualToString:@"noop"]) {
+		// In the webview, execute a JS callback that indicates that IPC is done (with no other action).
 		[self webView:__webView callbackWith:@""];
 	}
 	else if ([action isEqualToString:@"window.open"]) {
 		/* only allow windows to be opened from mouse/touch events, like a normal browser's popup blocker */
 		if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-			WebViewTab *newtab = [[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:nil];
-			newtab.randID = param;
-			newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
-			
-			[self webView:__webView callbackWith:[NSString stringWithFormat:@"__endless.openedTabs[\"%@\"].opened = true;", param]];
+            NSURL *newURL = [NSURL URLWithString:value];
+			WebViewTab *newtab = [[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:newURL];
+            newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
+            
+            [self webView:__webView callbackWith:@""];
 		}
 		else {
 			/* TODO: show a "popup blocked" warning? */
 			NSLog(@"[Tab %@] blocked non-touch window.open() (nav type %ld)", self.tabIndex, (long)navigationType);
-			
-			[self webView:__webView callbackWith:[NSString stringWithFormat:@"__endless.openedTabs[\"%@\"].opened = false;", param]];
+            
+            [self webView:__webView callbackWith:@""];
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
+		// Close the current tab.
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 		
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -348,44 +343,6 @@
 		[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
 		
 		[self webView:__webView callbackWith:@""];
-	}
-	else if ([action hasPrefix:@"fakeWindow."]) {
-		WebViewTab *wvt = [[self class] openedWebViewTabByRandID:param];
-		
-		if (wvt == nil) {
-			[self webView:__webView callbackWith:[NSString stringWithFormat:@"delete __endless.openedTabs[\"%@\"];", [param stringEscapedForJavasacript]]];
-		}
-		/* setters, just write into target webview */
-		else if ([action isEqualToString:@"fakeWindow.setName"]) {
-			[[wvt webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.name = \"%@\";", [value stringEscapedForJavasacript]]];
-			[self webView:__webView callbackWith:@""];
-		}
-		else if ([action isEqualToString:@"fakeWindow.setLocation"]) {
-			[[wvt webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location = \"%@\";", [value stringEscapedForJavasacript]]];
-			[self webView:__webView callbackWith:@""];
-		}
-		else if ([action isEqualToString:@"fakeWindow.setLocationParam"]) {
-			/* TODO: whitelist param since we're sending it raw */
-			[[wvt webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.%@ = \"%@\";", param2, [value stringEscapedForJavasacript]]];
-			[self webView:__webView callbackWith:@""];
-		}
-		
-		/* getters, pull from target webview and write back to caller internal parameters (not setters) */
-		else if ([action isEqualToString:@"fakeWindow.getName"]) {
-			NSString *name = [[wvt webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.name;"]];
-			[self webView:__webView callbackWith:[NSString stringWithFormat:@"__endless.openedTabs[\"%@\"]._name = \"%@\";", [param stringEscapedForJavasacript], [name stringEscapedForJavasacript]]];
-		}
-		else if ([action isEqualToString:@"fakeWindow.getLocation"]) {
-			NSString *loc = [[wvt webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify(window.location);"]];
-			/* don't encode loc, it's (hopefully a safe) hash */
-			[self webView:__webView callbackWith:[NSString stringWithFormat:@"__endless.openedTabs[\"%@\"]._location = new __endless.FakeLocation(%@)", [param stringEscapedForJavasacript], loc]];
-		}
-		
-		/* actions */
-		else if ([action isEqualToString:@"fakeWindow.close"]) {
-			[[[AppDelegate sharedAppDelegate] webViewController] removeTab:[wvt tabIndex]];
-			[self webView:__webView callbackWith:@""];
-		}
 	}
 	
 	return NO;
