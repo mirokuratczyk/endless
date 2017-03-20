@@ -54,9 +54,9 @@ UISearchController *searchController;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if (section == 0)
-		return @"Rules in use on current page";
+		return NSLocalizedString(@"Rules in use on current page", @"Title above a list of rules in use");
 	else
-		return @"All rules";
+		return NSLocalizedString(@"All rules", @"Title above a list of rules");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "Språk";
-
+"Language" = "Språk";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "Forvalgt språk";
-
-"APPLICATION_LANGUAGE"    = "Språk";
-"DEFAULT_LANGUAGE"        = "Forvalgt språk";
-"ABOUT"                   = "Om";
-"CHANGE_REGION"           = "Endre region";
-"FAQ"                     = "O-S-S";
-"HELP"                    = "Hjelp";
-"NOTIFICATIONS"           = "Kunngjøringer";
-"PRIVACY"                 = "Personvern";
-"PRIVACY_POLICY"          = "Personverns-praksis";
-"PSIPHON_AND_BROWSER"     = "Psiphon & nettleser";
-"PSIPHON_SETTINGS"        = "Psiphon-innstillinger";
-"RATE_US"                 = "Bedøm oss";
-"SECURITY"                = "Sikkerhet";
-"SEARCH_ENGINE"           = "Søkemotor";
-"SHARE_ON_FACEBOOK"       = "Del på Facebook";
-"SHARE_ON_TWITTER"        = "Del på Twitter";
-"SOCIAL"                  = "Sosialt";
-"SUBMIT_FEEDBACK"         = "Tilbakemeldinger";
-"TERMS_OF_USE"            = "Brukervilkår";
-"Tutorial"                = "Tutorial";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "Skru av tidsavbrudd";
-"PROXY"                    = "Mellomtjener";
-"TIMEOUTS"                 = "Tidsavbrudd";
-"USE_UPSTREAM_PROXY"       = "Bruk oppstrøms-mellomtjener";
-"HOST_ADDRESS"             = "Vertsadresse";
-"PORT"                     = "Port";
-"USE_PROXY_AUTHENTICATION" = "Bruk gyldighetssjekk for mellomtjener";
-"PROXY_USERNAME"           = "Brukernavn for mellomtjener";
-"PROXY_PASSWORD"           = "Mellomtjener-passord";
-"PROXY_DOMAIN"             = "Mellomtjener-domene";
-
-// Notifications
-"SOUND"                   = "Lyd";
-"SOUND_FOOTER"            = "Avspill lyd når tilkoblingsstatus endres";
-"VIBRATE"                 = "Vibrer";
-"VIBRATE_FOOTER"          = "Vibrer når tilkoblingsstatus endres";
-
-// Region Selection
-"BEST_PERFORMANCE" = "Best ytelse";
-"UNITED_STATES"   = "Amerikas forente stater";
-"UNITED_KINGDOM" = "Storbritannia";
-"CANADA" = "Kanada";
-"JAPAN" = "Japan";
-"GERMANY" = "Tyskland";
-"SINGAPORE" = "Singapore";
-"NETHERLANDS" = "Holland";
-"INDIA" = "India";
-"SPAIN" = "Spania";
-
-// Search Engine
-"SEARCH_ENGINE"           = "Søkemotor";
-"DUCKDUCKGO"              = "DuckDuckGo";
-"GOOGLE"                  = "Google";
-"START_PAGE"              = "Startside";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "Tøm alt når henvist til bakgrunnen";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "Alle faner og ikke-hvitlistede informasjonskapsler vil tømmes ved programbytte.";
-"CLEAR_COOKIES"                      = "Tøm informasjonskapsler hvis ubrukt i";
-"COOKIE_CONTROL"                     = "INFORMASJONSKAPSELSKONTROLL";
-"COOKIE_CONTROL_FOOTER"              = "Tøm informasjonskapsler og lokalt lagret data fra ikke- hvitlistede verter hvis de ikke brukes i løpet av";
-"COOKIE_WHITELIST"                   = "Hvitliste for informasjonskapsler";
-"SEND_DO_NOT_TRACK"                  = "Send \"Ikke-spor\"-forespørsler";
-
-"MINS_FIFTEEN"                       = "Et kvarter";
-"MINS_THIRTY"                        = "En halvtime";
-"HOURS_TWELVE"                       = "12 timer";
-"HOURS_TWENTYFOUR"                   = "Ett døgn";
-
-// Security
-"HTTPS"                              = "HTTPS";
-"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
-"MIN_SSL_TLS_VERSION"                = "Minimumsversjon for SSL/TLS";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "Minimumsversjon for SSL/TLS som kreves for HTTPS-forbindelser; kan kreve tvangs-lukking av programmet for å tre i kraft.";
-
-"TLS_1_2"                            = "Kun TLS 1.2 (ingen SSL)";
-"TLS_1_1_OR_1_2"                     = "TLS 1.1 eller 1.2 (ingen SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1, eller 1.2 (ingen SSL)";
-"AUTO_NEGOTIATE"                     = "Auto-forhandling\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Default language" = "Forvalgt språk";
+"About" = "Om";
+"Change Region" = "Endre region";
+"FAQ" = "O-S-S";
+"Help" = "Hjelp";
+"Notifications" = "Kunngjøringer";
+"Privacy" = "Personvern";
+"Privacy Policy" = "Personverns-praksis";
+"Psiphon & Browser" = "Psiphon & nettleser";
+"Psiphon Settings" = "Psiphon-innstillinger";
+"Rate Us" = "Bedøm oss";
+"Security" = "Sikkerhet";
+"Search engine" = "Søkemotor";
+"Share on Facebook" = "Del på Facebook";
+"Share on Twitter" = "Del på Twitter";
+"Social" = "Sosialt";
+"Feedback" = "Tilbakemeldinger";
+"Terms of Use" = "Brukervilkår";
+"Tutorial" = "Tutorial";
+"Disable Timeouts" = "Skru av tidsavbrudd";
+"Proxy" = "Mellomtjener";
+"Timeouts" = "Tidsavbrudd";
+"Use upstream proxy" = "Bruk oppstrøms-mellomtjener";
+"Host address" = "Vertsadresse";
+"Port" = "Port";
+"Use proxy authentication" = "Bruk gyldighetssjekk for mellomtjener";
+"username" = "username";
+"Proxy username" = "Brukernavn for mellomtjener";
+"Proxy password" = "Mellomtjener-passord";
+"Proxy domain" = "Mellomtjener-domene";
+"Sound" = "Lyd";
+"Play sound when connection status changes" = "Avspill lyd når tilkoblingsstatus endres";
+"Vibrate" = "Vibrer";
+"Vibrate when connection status changes" = "Vibrer når tilkoblingsstatus endres";
+"Best Performance" = "Best ytelse";
+"United States" = "Amerikas forente stater";
+"United Kingdom" = "Storbritannia";
+"Canada" = "Kanada";
+"Japan" = "Japan";
+"Germany" = "Tyskland";
+"Singapore" = "Singapore";
+"Netherlands" = "Holland";
+"India" = "India";
+"Spain" = "Spania";
+"DuckDuckGo" = "DuckDuckGo";
+"Google" = "Google";
+"Startpage" = "Startside";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "Tøm alt når henvist til bakgrunnen";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "Alle faner og ikke-hvitlistede informasjonskapsler vil tømmes ved programbytte.";
+"Clear cookies if unused for" = "Tøm informasjonskapsler hvis ubrukt i";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "Tøm informasjonskapsler og lokalt lagret data fra ikke- hvitlistede verter hvis de ikke brukes i løpet av";
+"Cookie Whitelist" = "Hvitliste for informasjonskapsler";
+"Send \"Do-Not-Track\" requests" = "Send \"Ikke-spor\"-forespørsler";
+"15 min" = "Et kvarter";
+"30 min" = "En halvtime";
+"12 hrs" = "12 timer";
+"24 hrs" = "Ett døgn";
+"HTTPS" = "HTTPS";
+"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
+"Minimum SSL/TLS Version" = "Minimumsversjon for SSL/TLS";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Minimumsversjon for SSL/TLS som kreves for HTTPS-forbindelser; kan kreve tvangs-lukking av programmet for å tre i kraft.";
+"TLS 1.2 only (no SSL)" = "Kun TLS 1.2 (ingen SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 eller 1.2 (ingen SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1, eller 1.2 (ingen SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "Auto-forhandling\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";

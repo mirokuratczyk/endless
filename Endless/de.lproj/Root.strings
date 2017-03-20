@@ -1,111 +1,75 @@
-/*
- * Copyright (c) 2016, Psiphon Inc.
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-//
-// Root
-//
-
 /* Settings item to change the application UI language. */
-"APPLICATION_LANGUAGE"    = "Sprache";
-
+"Language" = "Sprache";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"DEFAULT_LANGUAGE"        = "Standardsprache";
-
-"APPLICATION_LANGUAGE"    = "Sprache";
-"DEFAULT_LANGUAGE"        = "Standardsprache";
-"ABOUT"                   = "Über";
-"CHANGE_REGION"           = "Region ändern";
-"FAQ"                     = "FAQ";
-"HELP"                    = "Hilfe";
-"NOTIFICATIONS"           = "Benachrichtigungen";
-"PRIVACY"                 = "Datenschutz";
-"PRIVACY_POLICY"          = "Datenschutzerklärung";
-"PSIPHON_AND_BROWSER"     = "Psiphon & Browser";
-"PSIPHON_SETTINGS"        = "Psiphon-Einstellungen";
-"RATE_US"                 = "Bewerten Sie uns";
-"SECURITY"                = "Sicherheit";
-"SEARCH_ENGINE"           = "Suchmaschine";
-"SHARE_ON_FACEBOOK"       = "Auf Facebook teilen";
-"SHARE_ON_TWITTER"        = "Auf Twitter teilen";
-"SOCIAL"                  = "Sozial";
-"SUBMIT_FEEDBACK"         = "Rückmeldung";
-"TERMS_OF_USE"            = "Nutzungsbedingungen";
-"Tutorial"                = "Tutorial";
-
-// Psiphon Settings
-"DISABLE_TIMEOUTS"         = "Zeitüberschreitungen deaktivieren";
-"PROXY"                    = "Proxy";
-"TIMEOUTS"                 = "Zeitüberschreitungen";
-"USE_UPSTREAM_PROXY"       = "Use upstream proxy";
-"HOST_ADDRESS"             = "Hostadresse";
-"PORT"                     = "Port";
-"USE_PROXY_AUTHENTICATION" = "Proxy-Authentifizierung verwenden";
-"PROXY_USERNAME"           = "Proxy-Benutzername";
-"PROXY_PASSWORD"           = "Proxy-Passwort";
-"PROXY_DOMAIN"             = "Proxy-Domain";
-
-// Notifications
-"SOUND"                   = "Ton";
-"SOUND_FOOTER"            = "Ton abspielen, wenn sich der Verbindungsstatus ändert";
-"VIBRATE"                 = "Vibrieren";
-"VIBRATE_FOOTER"          = "Vibrieren, wenn sich der Verbindungsstatus ändert";
-
-// Region Selection
-"BEST_PERFORMANCE" = "Beste Leistung";
-"UNITED_STATES"   = "Vereinigte Staaten";
-"UNITED_KINGDOM" = "Vereinigtes Königreich";
-"CANADA" = "Kanada";
-"JAPAN" = "Japan";
-"GERMANY" = "Deutschland";
-"SINGAPORE" = "Singapur";
-"NETHERLANDS" = "Niederlande";
-"INDIA" = "Indien";
-"SPAIN" = "Spanien";
-
-// Search Engine
-"SEARCH_ENGINE"           = "Suchmaschine";
-"DUCKDUCKGO"              = "DuckDuckGo";
-"GOOGLE"                  = "Google";
-"START_PAGE"              = "Startseite";
-
-// Privacy
-"CLEAR_ALL_WHEN_BACKGROUNDED"        = "Clear all when backgrounded";
-"CLEAR_ALL_WHEN_BACKGROUNDED_FOOTER" = "All tabs and non-whitelisted cookies will be cleared when switching to another app.";
-"CLEAR_COOKIES"                      = "Clear cookies if unused for";
-"COOKIE_CONTROL"                     = "COOKIE-STEUERUNG";
-"COOKIE_CONTROL_FOOTER"              = "Clear cookies and local storage data from non-whitelisted hosts if not in use for this interval of time";
-"COOKIE_WHITELIST"                   = "Cookie Whitelist";
-"SEND_DO_NOT_TRACK"                  = "\"Do-Not-Track\"-Anforderungen senden";
-
-"MINS_FIFTEEN"                       = "15 min";
-"MINS_THIRTY"                        = "30 min";
-"HOURS_TWELVE"                       = "12 Std";
-"HOURS_TWENTYFOUR"                   = "24 Std";
-
-// Security
-"HTTPS"                              = "HTTPS";
-"HTTPS_EVERYWHERE"                   = "HTTPS EVERYWHERE";
-"MIN_SSL_TLS_VERSION"                = "Minimale SSL/TLS-Version";
-"MIN_SSL_TLS_VERSION_FOOTER"         = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
-
-"TLS_1_2"                            = "nur TLS 1.2 (kein SSL)";
-"TLS_1_1_OR_1_2"                     = "TLS 1.1 oder 1.2 (kein SSL)";
-"TLS_1_0_OR_1_1_OR_1_2"              = "TLS 1.0, 1.1 oder 1.2 (kein SSL)";
-"AUTO_NEGOTIATE"                     = "Automatisch aushandeln\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Default language" = "Standardsprache";
+"About" = "Über";
+"Change Region" = "Region ändern";
+"FAQ" = "FAQ";
+"Help" = "Hilfe";
+"Notifications" = "Benachrichtigungen";
+"Privacy" = "Datenschutz";
+"Privacy Policy" = "Datenschutzerklärung";
+"Psiphon & Browser" = "Psiphon & Browser";
+"Psiphon Settings" = "Psiphon-Einstellungen";
+"Rate Us" = "Bewerten Sie uns";
+"Security" = "Sicherheit";
+"Search engine" = "Suchmaschine";
+"Share on Facebook" = "Auf Facebook teilen";
+"Share on Twitter" = "Auf Twitter teilen";
+"Social" = "Sozial";
+"Feedback" = "Rückmeldung";
+"Terms of Use" = "Nutzungsbedingungen";
+"Tutorial" = "Tutorial";
+"Disable Timeouts" = "Zeitüberschreitungen deaktivieren";
+"Proxy" = "Proxy";
+"Timeouts" = "Zeitüberschreitungen";
+"Use upstream proxy" = "Use upstream proxy";
+"Host address" = "Hostadresse";
+"Port" = "Port";
+"Use proxy authentication" = "Proxy-Authentifizierung verwenden";
+"username" = "username";
+"Proxy username" = "Proxy-Benutzername";
+"Proxy password" = "Proxy-Passwort";
+"Proxy domain" = "Proxy-Domain";
+"Sound" = "Ton";
+"Play sound when connection status changes" = "Ton abspielen, wenn sich der Verbindungsstatus ändert";
+"Vibrate" = "Vibrieren";
+"Vibrate when connection status changes" = "Vibrieren, wenn sich der Verbindungsstatus ändert";
+"Best Performance" = "Beste Leistung";
+"United States" = "Vereinigte Staaten";
+"United Kingdom" = "Vereinigtes Königreich";
+"Canada" = "Kanada";
+"Japan" = "Japan";
+"Germany" = "Deutschland";
+"Singapore" = "Singapur";
+"Netherlands" = "Niederlande";
+"India" = "Indien";
+"Spain" = "Spanien";
+"DuckDuckGo" = "DuckDuckGo";
+"Google" = "Google";
+"Startpage" = "Startseite";
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+"Clear all when backgrounded" = "Clear all when backgrounded";
+"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "All tabs and non-whitelisted cookies will be cleared when switching to another app.";
+"Clear cookies if unused for" = "Clear cookies if unused for";
+/* Text explaining to the user the 'Clear cookies if unused for' setting. */
+"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "Clear cookies and local storage data from non-whitelisted hosts if not in use for this interval of time";
+"Cookie Whitelist" = "Cookie Whitelist";
+"Send \"Do-Not-Track\" requests" = "\"Do-Not-Track\"-Anforderungen senden";
+"15 min" = "15 min";
+"30 min" = "30 min";
+"12 hrs" = "12 Std";
+"24 hrs" = "24 Std";
+"HTTPS" = "HTTPS";
+"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
+"Minimum SSL/TLS Version" = "Minimale SSL/TLS-Version";
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
+"TLS 1.2 only (no SSL)" = "nur TLS 1.2 (kein SSL)";
+"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 oder 1.2 (kein SSL)";
+"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1 oder 1.2 (kein SSL)";
+"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "Automatisch aushandeln\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
+"Your Comments" = "Your Comments";
+"Your Email Address" = "Your Email Address";
+"Where can we respond to you?" = "Where can we respond to you?";
+"Diagnostic Data" = "Diagnostic Data";
+"Upload diagnostic data" = "Upload diagnostic data";
