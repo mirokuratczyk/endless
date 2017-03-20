@@ -98,7 +98,7 @@
     /* Setup lets go button */
     letsGoButton = [[UIButton alloc] init];
     letsGoButton.backgroundColor = [UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0];
-    letsGoButton.hidden = self.index < 2; // Only show on last frame
+    letsGoButton.hidden = false;
     [letsGoButton setTitle:NSLocalizedString(@"LET'S GO!", @"") forState:UIControlStateNormal];
     letsGoButton.layer.cornerRadius = kLetsGoButtonHeight / 2;
     letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
@@ -292,18 +292,9 @@
     /* Set page specific content */
     switch (self.index) {
         case 0: {
-            titleView.text = NSLocalizedString(@"You deserve access to all of the Internet", @"");
-            textView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
-            break;
-        }
-        case 1:
-            titleView.text = NSLocalizedString(@"Your Data is Your Own", @"");
-            textView.text = NSLocalizedString(@"We never collect any of your information. Ever. What’s yours is yours and what’s ours is yours", @"");
-            break;
-        case 2:
             /* add letsGoButton to view */
             [contentView addSubview:letsGoButton];
-
+            
             /* letsGoButton.width = 0.5 * contentView.width */
             [self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGoButton
                                                                   attribute:NSLayoutAttributeWidth
@@ -312,12 +303,13 @@
                                                                   attribute:NSLayoutAttributeWidth
                                                                  multiplier:.5f
                                                                    constant:0]];
-
+            
             [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton(==letsGoButtonHeight)]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
-
-            titleView.text = NSLocalizedString(@"We are transparent", @"");
-            textView.text = NSLocalizedString(@"Psiphon is totally open source and is trusted by the community", @"");
+            
+            titleView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
+            //textView.text = ...
             break;
+        }
         default:
             [self onboardingEnded];
             break;

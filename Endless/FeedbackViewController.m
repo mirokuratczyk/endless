@@ -31,7 +31,6 @@
 #define kEmailSpecifierKey           @"email"
 #define kFooterTextSpecifierKey      @"footerText"
 #define kIntroTextSpecifierKey       @"introText"
-#define kPsiphonBannerImage          @"psiphon-banner.png"
 #define kSendDiagnosticsSpecifierKey @"sendDiagnostics"
 #define kThumbsSpecifierKey          @"thumbs"
 
@@ -53,7 +52,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // Add send and cancel buttons
@@ -76,10 +75,6 @@
     _headerAndFooterFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
     _introText = [self generateIntroString];
     _footerText = [self generateFooterString];
-    
-    // Add psiphon banner logo
-    self.tableView.tableHeaderView = [self psiphonBannerHeader];
-    self.tableView.sectionFooterHeight = 0.0;
     
     // Comments textView
     _greyPlaceholderColor = [[UIColor alloc] initWithRed:199.0/255 green:199.0/255 blue:205.0/255 alpha:1];
@@ -191,7 +186,7 @@
     
     [cell.textView setAttributedText:text];
     [cell.textView setFont:_headerAndFooterFont];
-    CGSize size = [cell.textView sizeThatFits:CGSizeMake(self.view.frame.size.width-insets.left-insets.right, FLT_MAX)];
+    CGSize size = [cell.textView sizeThatFits:CGSizeMake(self.view.frame.size.width - insets.left - insets.right, FLT_MAX)];
     return size.height+insets.top+insets.bottom;
 }
 
@@ -209,25 +204,14 @@
     [cell.textView setTextAlignment:NSTextAlignmentLeft];
     
     [cell.textView setDelegate:self];
-    return cell;
-}
 
-- (UIImageView*)psiphonBannerHeader {
-    CGFloat topPlusBottomOffset = 30;
-    
-    UIImageView *headerView = [[UIImageView alloc] init];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.contentMode = UIViewContentModeCenter;
-    headerView.image = [UIImage imageNamed:kPsiphonBannerImage];
-    headerView.frame = CGRectMake(0, 0, self.view.frame.size.width, headerView.image.size.height + topPlusBottomOffset);
-    
-    return headerView;
+    return cell;
 }
 
 -(NSAttributedString*)generateIntroString {
     NSString *faqPhrase = NSLocalizedString(@"Frequently Asked Questions", @"FAQ link text");
-    NSString *introTextPart1 = [NSLocalizedString(@"Please let us know how Psiphon is working for you so we can make the system better!", "Introduction text at top of feedback form") stringByAppendingString:@"\n\n"];
-    NSString *introTextPart2 = NSLocalizedString(@"You can also find solutions to many common problems in our %@.", "Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed.");
+    NSString *introTextPart1 = [NSLocalizedString(@"Your feedback makes Psiphon better!", "Introduction text at top of feedback form") stringByAppendingString:@"\n\n"];
+    NSString *introTextPart2 = NSLocalizedString(@"You can find solutions to many common problems in our %@.", "Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed.");
 
     NSString *faqText = [NSString stringWithFormat:introTextPart2, faqPhrase];
     NSString *localizedIntroText = [introTextPart1 stringByAppendingString:faqText];

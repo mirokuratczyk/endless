@@ -51,8 +51,8 @@
         
         _bodyText = @[
                      attributedString,
-                     [[NSAttributedString alloc] initWithString:NSLocalizedString(@"This is where you can access Browser and Proxy Settings, find Help, change the VPN region and even more!", @"")],
-                     [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Happy secure browsing!\nThe world is your oyster.", @"")]
+                     [[NSAttributedString alloc] initWithString:NSLocalizedString(@"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!", @"")],
+                     [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Happy browsing!\nExplore beyond your borders.", @"")]
                      ];
         
         [self initViews];

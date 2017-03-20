@@ -22,7 +22,7 @@
 #import "OnboardingViewController.h"
 #import "OnboardingChildViewController.h"
 
-#define kNumOnboardingViews 3
+#define kNumOnboardingViews 1
 #define kLogoToTitleSpacing 8.0f
 
 @interface OnboardingViewController ()
