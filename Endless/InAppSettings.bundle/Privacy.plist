@@ -47,7 +47,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Clear all when backgrounded_FOOTER</string>
+			<string>All tabs and non-whitelisted cookies will be cleared when switching to another app.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

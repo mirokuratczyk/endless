@@ -102,7 +102,7 @@
 			<key>Key</key>
 			<string>search_engine</string>
 			<key>Title</key>
-			<string>Search Engine</string>
+			<string>Search engine</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>

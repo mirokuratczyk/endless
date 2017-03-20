@@ -26,7 +26,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Minimum SSL/TLS Version_FOOTER</string>
+			<string>Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
