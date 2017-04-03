@@ -386,21 +386,24 @@
 /* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
-        PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
-                                          initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+             PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
+             initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+             
+             [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
+             style:UIAlertActionStyleDefault
+             handler:^(NYAlertAction *action) {
+             [self openSettingsMenu:nil];
+             }]];
+             
+             [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
+             completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+        }
+    });
 
-        [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
-                                                                           style:UIAlertActionStyleDefault
-                                                                         handler:^(NYAlertAction *action) {
-                                                                             [self openSettingsMenu:nil];
-                                                                         }]];
-
-        [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
-                         completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
-	}
-	
-	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
+    /* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
 	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
 }
 

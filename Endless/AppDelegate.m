@@ -190,7 +190,11 @@
     }
 
     if(needStart) {
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        if (_reachability.currentReachabilityStatus == NotReachable) {
+            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+        } else {
+            self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        }
         [self notifyPsiphonConnectionState];
         [self startPsiphon];
     }
@@ -386,7 +390,11 @@
 
 - (void) onConnecting {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        if (_reachability.currentReachabilityStatus == NotReachable) {
+            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+        } else {
+            self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        }
         [self notifyPsiphonConnectionState];
     });
 }

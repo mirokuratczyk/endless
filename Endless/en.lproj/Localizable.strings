@@ -44,6 +44,12 @@
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirm";
 
+/* Connection status initial splash modal dialog message for 'Connected' state */
+"Connected!" = "Connected!";
+
+/* Connection status initial splash modal dialog message for 'Connecting...' state */
+"Connecting..." = "Connecting...";
+
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Cookies and Local Storage";
 
@@ -161,8 +167,17 @@
 /* Privacy Policy link text */
 "Privacy Policy" = "Privacy Policy";
 
+/* Connection status initial splash modal dialog title for 'Connected' state
+   Connection status initial splash modal dialog title for 'Connecting...' state
+   Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state
+   Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"Psiphon" = "Psiphon";
+
 /* No comment provided by engineer. */
 "PSIPHON" = "PSIPHON";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon connects\nand performs the\nway I want it to.";
@@ -233,6 +248,9 @@
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
 "URL" = "URL";
+
+/* Connection status initial splash modal dialog message for 'Waiting for network...' state */
+"Waiting for network..." = "Waiting for network...";
 
 /* No comment provided by engineer. */
 "Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
