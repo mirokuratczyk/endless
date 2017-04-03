@@ -43,13 +43,15 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 {
 	PsiphonConnectionStateDisconnected,
 	PsiphonConnectionStateConnecting,
-	PsiphonConnectionStateConnected
+	PsiphonConnectionStateConnected,
+    PsiphonConnectionStateWaitingForNetwork
 };
 
 #define kPsiphonConnectionStateNotification @"kPsiphonConnectionStateNotification"
 #define kPsiphonConnectionState @"kPsiphonConnectionState"
 #define kPsiphonAvailableRegionsNotification @"kPsiphonAvailableRegionsNotification"
 #define kPsiphonRegionBestPerformance @""
+#define kPsiphonWebTabLoadedNotification @"kPsiphonWebTabLoadedNotification"
 
 #import "AppDelegate.h"
 #endif
