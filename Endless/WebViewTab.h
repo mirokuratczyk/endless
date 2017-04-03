@@ -37,10 +37,7 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 @property NSMutableDictionary *applicableHTTPSEverywhereRules;
 
 /* for javascript IPC */
-@property (strong, atomic) NSString *randID;
 @property (strong, atomic) NSNumber *openedByTabHash;
-
-+ (WebViewTab *)openedWebViewTabByRandID:(NSString *)randID;
 
 - (id)initWithFrame:(CGRect)frame;
 - (id)initWithFrame:(CGRect)frame withRestorationIdentifier:(NSString *)rid;

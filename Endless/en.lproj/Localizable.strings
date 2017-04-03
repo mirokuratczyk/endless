@@ -10,6 +10,9 @@
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Add Bookmark";
 
+/* Title above a list of rules */
+"All rules" = "All rules";
+
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Allow this page to close its tab?";
 
@@ -172,6 +175,9 @@
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
+
+/* Title above a list of rules in use */
+"Rules in use on current page" = "Rules in use on current page";
 
 /* Action title for long press on image dialog */
 "Save Image" = "Save Image";
