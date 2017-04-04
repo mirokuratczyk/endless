@@ -109,6 +109,7 @@ BOOL linksEnabled;
         cell = [[PsiphonSettingsTextFieldViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 
         cell.textLabel.text = specifier.title;
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
 
         NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
         if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
@@ -124,6 +125,7 @@ BOOL linksEnabled;
         textField.autocorrectionType = specifier.autoCorrectionType;
         textField.textAlignment = specifier.textAlignment;
         textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+        [((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(IASKTextFieldDidEndEditing:) forControlEvents:UIControlEventEditingChanged];
     } else if ([specifier.key isEqualToString:kLogsSpecifierKey]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = specifier.title;
@@ -312,6 +314,15 @@ BOOL linksEnabled;
     return 44;
 }
 
+- (void)IASKTextFieldDidEndEditing:(id)sender {
+    IASKTextField *text = sender;
+    [self.settingsStore setObject:[text text] forKey:[text key]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:[text text]
+                                                                                           forKey:[text key]]];
+}
+
 - (void)settingDidChange:(NSNotification*)notification
 {
     NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
@@ -339,18 +350,17 @@ BOOL linksEnabled;
                 }
             }
 
-            [self setHiddenKeys:hiddenKeys animated:YES];
+            [self setHiddenKeys:hiddenKeys animated:NO];
         } else {
             NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:upstreamProxyKeys];
             [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
-            [self setHiddenKeys:hiddenKeys animated:YES];
+            [self setHiddenKeys:hiddenKeys animated:NO];
         }
     } else if ([fieldName isEqual:kUseProxyAuthentication]) {
         // useProxyAuthentication toggled, show or hide proxy authentication fields
-        IASKAppSettingsViewController *activeController = notification.object;
         BOOL enabled = (BOOL)[[notification.userInfo objectForKey:kUseProxyAuthentication] intValue];
 
-        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[activeController hiddenKeys]];
+        NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[self hiddenKeys]];
 
         if (enabled) {
             for (NSString *key in proxyAuthenticationKeys) {
@@ -361,7 +371,7 @@ BOOL linksEnabled;
                 [hiddenKeys addObject:key];
             }
         }
-        [activeController setHiddenKeys:hiddenKeys animated:YES];
+        [self setHiddenKeys:hiddenKeys animated:NO];
     } else if  ([fieldName isEqual:appLanguage]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

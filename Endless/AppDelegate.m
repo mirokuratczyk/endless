@@ -288,6 +288,7 @@
     [self initializeDefaultsFor:@"Feedback.plist"];
     [self initializeDefaultsFor:@"Security.plist"];
     [self initializeDefaultsFor:@"Privacy.plist"];
+    [self initializeDefaultsFor:@"PsiphonSettings.plist"];
     [self initializeDefaultsFor:@"Notifications~iphone.plist"];
     [self initializeDefaultsFor:@"Notifications~ipad.plist"];
     
