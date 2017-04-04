@@ -44,10 +44,10 @@
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirm";
 
-/* Connection status initial splash modal dialog message for 'Connected' state */
+/* Connection status initial splash modal dialog title for 'Connected' state */
 "Connected!" = "Connected!";
 
-/* Connection status initial splash modal dialog message for 'Connecting...' state */
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
 "Connecting..." = "Connecting...";
 
 /* 'Cookies and Local Storage' dialog title */
@@ -57,7 +57,16 @@
 "Copy URL" = "Copy URL";
 
 /* No comment provided by engineer. */
+"Current connection region:" = "Current connection region:";
+
+/* No comment provided by engineer. */
+"Currently selected region:" = "Currently selected region:";
+
+/* No comment provided by engineer. */
 "Default Settings" = "Default Settings";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"Disconnected!" = "Disconnected!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -167,12 +176,6 @@
 /* Privacy Policy link text */
 "Privacy Policy" = "Privacy Policy";
 
-/* Connection status initial splash modal dialog title for 'Connected' state
-   Connection status initial splash modal dialog title for 'Connecting...' state
-   Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state
-   Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Psiphon" = "Psiphon";
-
 /* No comment provided by engineer. */
 "PSIPHON" = "PSIPHON";
 
@@ -181,6 +184,9 @@
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon connects\nand performs the\nway I want it to.";
+
+/* Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected. */
+"Psiphon is not connected!" = "Psiphon is not connected!";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon often fails\nto connect or\ndoesn't perform well\nenough.";
@@ -249,7 +255,7 @@
    Add bookmark URL field */
 "URL" = "URL";
 
-/* Connection status initial splash modal dialog message for 'Waiting for network...' state */
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "Waiting for network...";
 
 /* No comment provided by engineer. */

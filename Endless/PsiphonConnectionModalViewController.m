@@ -18,6 +18,8 @@
  */
 
 #import "PsiphonConnectionModalViewController.h"
+#import "RegionAdapter.h"
+
 @implementation PsiphonConnectionModalViewController {
     PsiphonConnectionState _connectionState;
 }
@@ -40,7 +42,7 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:kPsiphonConnectionStateNotification object:nil];
+                                                    name:kPsiphonConnectionStateNotification object:nil];
     [super viewWillDisappear:animated];
 }
 
@@ -64,12 +66,194 @@
 }
 
 -(void) setupViewsForState:(PsiphonConnectionState)state {
-    // method must be implemented by subclass and not used directly
-    [self doesNotRecognizeSelector:_cmd];
+    
+    NSString *title = @"";
+    NSString *message = @"";
+    UIView *contentView = nil;
+    
+    if (state == PsiphonConnectionStateConnecting) {
+        contentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
+        activityIndicator.transform = transform;
+        [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [activityIndicator startAnimating];
+        
+        [contentView addSubview:activityIndicator];
+        
+        UILabel *connectionRegionLabel = [[UILabel alloc] init];
+        [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        connectionRegionLabel.numberOfLines = 0;
+        connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
+        [contentView addSubview:connectionRegionLabel];
+        
+        
+        Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
+        NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
+        
+        
+        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+        textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
+        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
+        
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Currently selected region:", @"")];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        [attributedString appendAttributedString:attrStringWithImage];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:regionTitle]];
+        
+        connectionRegionLabel.attributedText = attributedString;
+        
+        [contentView addConstraints:@[[NSLayoutConstraint constraintWithItem:activityIndicator
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:15],
+                                      [NSLayoutConstraint constraintWithItem:activityIndicator
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0],
+                                      
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0],
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:activityIndicator
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:30],
+                                      
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:-10],
+                                      ]];
+        
+        
+        title = NSLocalizedString(@"Connecting...",
+                                  @"Connection status initial splash modal dialog title for 'Connecting...' state");
+        message = nil;
+    } else if (state == PsiphonConnectionStateWaitingForNetwork) {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
+        activityIndicator.transform = transform;
+        [activityIndicator startAnimating];
+        
+        contentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+        
+        [contentView addSubview:activityIndicator];
+        
+        NSDictionary *variables = NSDictionaryOfVariableBindings(activityIndicator, contentView);
+        
+        NSArray *constraints =
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(65)]-(<=1)-[activityIndicator]"
+                                                options: NSLayoutFormatAlignAllCenterX
+                                                metrics:nil
+                                                  views:variables];
+        [contentView addConstraints:constraints];
+        
+        constraints =
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:[contentView]-(<=1)-[activityIndicator]"
+                                                options: NSLayoutFormatAlignAllCenterY
+                                                metrics:nil
+                                                  views:variables];
+        [contentView addConstraints:constraints];
+        
+        title = NSLocalizedString(@"Waiting for network...",
+                                  @"Connection status initial splash modal dialog title for 'Waiting for network...' state");
+        message = nil;
+    } else if(state == PsiphonConnectionStateConnected){
+        contentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        UILabel *connectionRegionLabel = [[UILabel alloc] init];
+        [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        connectionRegionLabel.numberOfLines = 0;
+        connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
+        [contentView addSubview:connectionRegionLabel];
+        
+        
+        Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
+        NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
+        
+        
+        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+        textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
+        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
+        
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Current connection region:", @"")];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        [attributedString appendAttributedString:attrStringWithImage];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:regionTitle]];
+        
+        connectionRegionLabel.attributedText = attributedString;
+        
+        [contentView addConstraints:@[[NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0],
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:10],
+                                      
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:-10],
+                                      ]];
+        
+        title = NSLocalizedString(@"Connected!",
+                                  @"Connection status initial splash modal dialog title for 'Connected' state");
+        message = nil;
+    } else if(state == PsiphonConnectionStateDisconnected) {
+        title = NSLocalizedString(@"Disconnected!",
+                                  @"Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state");
+        message = NSLocalizedString(@"Psiphon can not start due to an internal error, please send feedback.",
+                                    @"Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state");
+        // TODO: display 'can't start' icon in the contentView
+        contentView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    
+    self.title = title;
+    self.message = message;
+    self.alertViewContentView = contentView;
 }
 
 -(void) updateViews {
-    //do animated transition of views
+    //TODO: animated transition of views
     [self setupViewsForState:_connectionState];
 }
 @end
@@ -90,7 +274,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(psiphonWebTabLoaded)
                                                      name:kPsiphonWebTabLoadedNotification object:nil];
-
     }
     return self;
 }
@@ -107,80 +290,10 @@
     }
 }
 
--(void) setupViewsForState:(PsiphonConnectionState)state {
-    
-    NSString *title = @"";
-    NSString *message = @"";
-    UIView *contentView = nil;
-    
-    if (state == PsiphonConnectionStateConnecting || state == PsiphonConnectionStateWaitingForNetwork) {
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-                                                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
-        activityIndicator.transform = transform;
-        [activityIndicator startAnimating];
-        
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        
-        [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-        
-        [contentView addSubview:activityIndicator];
-        
-        NSDictionary *variables = NSDictionaryOfVariableBindings(activityIndicator, contentView);
-        
-        NSArray *constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(80)]-(<=1)-[activityIndicator]"
-                                                options: NSLayoutFormatAlignAllCenterX
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-        
-        constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:[contentView]-(<=1)-[activityIndicator]"
-                                                options: NSLayoutFormatAlignAllCenterY
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-        
-        if (state == PsiphonConnectionStateConnecting) {
-            title = NSLocalizedString(@"Psiphon",
-                                      @"Connection status initial splash modal dialog title for 'Connecting...' state");
-            message = NSLocalizedString(@"Connecting...",
-                                        @"Connection status initial splash modal dialog message for 'Connecting...' state");
-
-            // TODO: display region it is connecting to
-        } else {
-            title = NSLocalizedString(@"Psiphon",
-                                      @"Connection status initial splash modal dialog title for 'Waiting for network...' state");
-            message = NSLocalizedString(@"Waiting for network...",
-                                        @"Connection status initial splash modal dialog message for 'Waiting for network...' state");
-            
-        }
-    } else if(state == PsiphonConnectionStateConnected){
-        title = NSLocalizedString(@"Psiphon",
-                                  @"Connection status initial splash modal dialog title for 'Connected' state");
-        message = NSLocalizedString(@"Connected!",
-                                    @"Connection status initial splash modal dialog message for 'Connected' state");
-        // TODO: display region it is connected to
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-    } else if(state == PsiphonConnectionStateDisconnected) {
-        title = NSLocalizedString(@"Psiphon",
-                                  @"Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state");
-        message = NSLocalizedString(@"Psiphon can not start due to an internal error, please send feedback.",
-                                    @"Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state");
-        // TODO: display 'can't start' icon in the contentView
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-    }
-    
-    
-    self.title = title;
-    self.message = message;
-    self.alertViewContentView = contentView;
-}
-
 - (void) psiphonWebTabLoaded {
     _dismissImmediatelly = YES;
 }
+
 @end
 
 @implementation PsiphonConnectionAlertViewController {
@@ -198,92 +311,4 @@
     return self;
 }
 
-
--(void) setupViewsForState:(PsiphonConnectionState)state {
-    NSString *title = @"";
-    NSString *message = @"";
-    UIView *contentView = nil;
-    
-    if (state == PsiphonConnectionStateConnecting || state == PsiphonConnectionStateWaitingForNetwork) {
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-                                                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
-        activityIndicator.transform = transform;
-        [activityIndicator startAnimating];
-        
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        
-        [activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-        
-        [contentView addSubview:activityIndicator];
-        
-        NSDictionary *variables = NSDictionaryOfVariableBindings(activityIndicator, contentView);
-        
-        NSArray *constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(80)]-(<=1)-[activityIndicator]"
-                                                options: NSLayoutFormatAlignAllCenterX
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-        
-        constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:[contentView]-(<=1)-[activityIndicator]"
-                                                options: NSLayoutFormatAlignAllCenterY
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-        if (state == PsiphonConnectionStateConnecting) {
-            title = NSLocalizedString(@"Psiphon",
-                                      @"Connection status initial splash modal dialog title for 'Connecting...' state");
-            message = NSLocalizedString(@"Connecting...",
-                                        @"Connection status initial splash modal dialog message for 'Connecting...' state");
-            
-            // TODO: display region it is connecting to
-        } else {
-            title = NSLocalizedString(@"Psiphon",
-                                      @"Connection status initial splash modal dialog title for 'Waiting for network...' state");
-            message = NSLocalizedString(@"Waiting for network...",
-                                        @"Connection status initial splash modal dialog message for 'Waiting for network...' state");
-            
-        }
-    } else if(state == PsiphonConnectionStateConnected){
-        title = NSLocalizedString(@"Psiphon",
-                                  @"Connection status initial splash modal dialog title for 'Connected' state");
-        message = NSLocalizedString(@"Connected!",
-                                    @"Connection status initial splash modal dialog message for 'Connected' state");
-        // TODO: display region it is connected to
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        NSDictionary *variables = NSDictionaryOfVariableBindings(contentView);
-
-        NSArray *constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(0)]"
-                                                options: NSLayoutFormatAlignAllCenterX
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-
-
-    } else if(state == PsiphonConnectionStateDisconnected) {
-        title = NSLocalizedString(@"Psiphon",
-                                  @"Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state");
-        message = NSLocalizedString(@"Psiphon can not start due to an internal error, please send feedback.",
-                                    @"Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state");
-        // TODO: display 'can't start' icon in the contentView
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        NSDictionary *variables = NSDictionaryOfVariableBindings(contentView);
-        
-        NSArray *constraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(0)]"
-                                                options: NSLayoutFormatAlignAllCenterX
-                                                metrics:nil
-                                                  views:variables];
-        [contentView addConstraints:constraints];
-    }
-    
-    
-    self.title = title;
-    self.message = message;
-    self.alertViewContentView = contentView;
-}
 @end
