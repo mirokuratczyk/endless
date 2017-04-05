@@ -19,6 +19,7 @@
 
 #import "Tutorial.h"
 
+
 @implementation Tutorial {
     NSArray<NSString*>* _headerText;
     NSArray<NSString*>* _titleText;
@@ -166,7 +167,7 @@
 }
 
 - (void)setupTextView {
-    _textView = [[UILabel alloc] init];
+    _textView = [[AdjustableLabel alloc] initWithDesiredFontSize:16.0f];
 }
 
 - (void)setupArrowView {
@@ -240,10 +241,9 @@
     // Need to reapply
     _textView.textAlignment = NSTextAlignmentCenter;
     _textView.textColor = [UIColor whiteColor];
-    _textView.adjustsFontSizeToFitWidth = YES;
     _textView.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
-    _textView.numberOfLines = 0;
     _textView.backgroundColor = [UIColor clearColor];
+    _textView.adjustsFontSizeToFitFrame = YES;
 }
 
 - (NSString*)getHeaderTextForStep
@@ -279,7 +279,6 @@
                      }
                      completion:^(BOOL finished){
                          _arrowView.transform = CGAffineTransformIdentity;
-                         NSLog(@"constraint: Animation completed");
                      }];
 }
 

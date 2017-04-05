@@ -82,6 +82,7 @@
 		4EA7B17F1E6755010035D130 /* onboarding1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7B17C1E6755010035D130 /* onboarding1.mov */; };
 		4EA7B1801E6755010035D130 /* onboarding3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7B17D1E6755010035D130 /* onboarding3.mov */; };
 		4EA7B1811E6755010035D130 /* onboarding2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7B17E1E6755010035D130 /* onboarding2.mov */; };
+		4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB51ECD1E941FBD008676A7 /* AdjustableLabel.m */; };
 		4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEC58391E3FF48B006D4087 /* InfoPlist.strings */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
 		4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */; };
@@ -235,6 +236,8 @@
 		4EA7B17C1E6755010035D130 /* onboarding1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = onboarding1.mov; sourceTree = "<group>"; };
 		4EA7B17D1E6755010035D130 /* onboarding3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = onboarding3.mov; sourceTree = "<group>"; };
 		4EA7B17E1E6755010035D130 /* onboarding2.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = onboarding2.mov; sourceTree = "<group>"; };
+		4EB51ECC1E941FBD008676A7 /* AdjustableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdjustableLabel.h; path = Endless/AdjustableLabel.h; sourceTree = SOURCE_ROOT; };
+		4EB51ECD1E941FBD008676A7 /* AdjustableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdjustableLabel.m; path = Endless/AdjustableLabel.m; sourceTree = SOURCE_ROOT; };
 		4EEC58381E3FF48B006D4087 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EEC583A1E3FF497006D4087 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EEC583B1E3FF49A006D4087 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				44E779451DE6038000854379 /* psiphon_config */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
+				4EB51ECC1E941FBD008676A7 /* AdjustableLabel.h */,
+				4EB51ECD1E941FBD008676A7 /* AdjustableLabel.m */,
 				4EFB34811E366E1D0067C7C3 /* FeedbackThumbsCell.h */,
 				4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */,
 				4E9610101E36A32C00CDE62E /* FeedbackUpload.h */,
@@ -871,6 +876,7 @@
 				44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
+				4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */,
 				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
