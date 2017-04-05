@@ -72,7 +72,8 @@
    Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
-   Done button title, dismisses the tab chooser */
+   Done button title, dismisses the tab chooser
+   Title of the button that dismisses region selection dialog */
 "Done" = "Done";
 
 /* Edit Bookmark dialog title */

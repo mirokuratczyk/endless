@@ -265,7 +265,7 @@
 -(void) connectionRegionLabelTapped {
     RegionSelectionViewController *regionSelectionViewController = [[RegionSelectionViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:regionSelectionViewController];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Title of the button that dismisses region selection dialog")
                                                                    style:UIBarButtonItemStyleDone target:self
                                                                   action:@selector(regionSelectionDone)];
     regionSelectionViewController.navigationItem.rightBarButtonItem = doneButton;
@@ -273,7 +273,6 @@
     if ([self.delegate respondsToSelector:@selector(regionSelectionControllerWillStart)]) {
         [self.delegate regionSelectionControllerWillStart];
     }
-    
     [self presentViewController:navController animated:YES completion:nil];
 }
 
