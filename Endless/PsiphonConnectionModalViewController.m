@@ -23,6 +23,7 @@
 
 @implementation PsiphonConnectionModalViewController {
     PsiphonConnectionState _connectionState;
+    NSString *_connectionRegion;
 }
 
 - (id) initWithState:(PsiphonConnectionState)state {
@@ -51,12 +52,16 @@
 {
     PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
     
-    if (state == _connectionState) {
+    Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
+    NSString *region = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
+    
+    if (state == _connectionState && [_connectionRegion isEqualToString:region]) {
         //Nothing has changed
         return;
     }
-    
+
     _connectionState = state;
+    _connectionRegion = region;
     
     if(state == PsiphonConnectionStateConnected && self.dismissOnConnected == YES) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -103,7 +108,7 @@
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Currently selected region:", @"")];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Server region:", @"Title that is showing above selected server region")];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
         [attributedString appendAttributedString:attrStringWithImage];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
@@ -208,7 +213,7 @@
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Current connection region:", @"")];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Server region:", @"Title that is showing above selected server region")];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
         [attributedString appendAttributedString:attrStringWithImage];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
