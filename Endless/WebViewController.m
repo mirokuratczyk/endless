@@ -69,6 +69,9 @@
 @end
 
 
+@interface WebViewController (RegionSelectionControllerDelegate) <RegionSelectionControllerDelegate>
+@end
+
 @implementation WebViewController {
 
 	UIScrollView *tabScroller;
@@ -389,22 +392,22 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
-             PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
-             initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
-             
-             [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
-             style:UIAlertActionStyleDefault
-             handler:^(NYAlertAction *action) {
-             [self openSettingsMenu:nil];
-             }]];
-             
-             [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
-             completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+            PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
+                                                                                     initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+            connectionSplashViewController.delegate = self;
+            [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
+                                                                               style:UIAlertActionStyleDefault
+                                                                             handler:^(NYAlertAction *action) {
+                                                                                 [self openSettingsMenu:nil];
+                                                                             }]];
+            
+            [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
+                                                             completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
         }
     });
-
+    
     /* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
-	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -1754,7 +1757,8 @@
 - (void) showPsiphonConnectionStatusAlert {
     PsiphonConnectionAlertViewController *connectionAlertViewController = [[PsiphonConnectionAlertViewController alloc]
                                           initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
-    
+    connectionAlertViewController.delegate = self;
+
     [connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
                                                                        style:UIAlertActionStyleDefault
                                                                      handler:^(NYAlertAction *action) {
@@ -1771,4 +1775,28 @@
                                                      completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 }
 
+#pragma mark RegionSelectionControllerDelegate method implementation
+- (void) regionSelectionControllerWillStart {
+    // Take a snapshot of current user settings
+    preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+}
+
+- (void) regionSelectionControllerDidEnd {
+    if (preferencesSnapshot) {
+        // Cannot use isEqualToString becase strings may be nil
+        BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+            return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+        };
+        // Check if the selected region has changed
+        NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+        
+        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+            [[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
+        }
+    }
+}
+
 @end
+
+
+

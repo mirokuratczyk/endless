@@ -19,6 +19,7 @@
 
 #import "PsiphonConnectionModalViewController.h"
 #import "RegionAdapter.h"
+#import "RegionSelectionViewController.h"
 
 @implementation PsiphonConnectionModalViewController {
     PsiphonConnectionState _connectionState;
@@ -87,18 +88,20 @@
         [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         connectionRegionLabel.numberOfLines = 0;
         connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(connectionRegionLabelTapped)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        [connectionRegionLabel addGestureRecognizer:tapGestureRecognizer];
+        connectionRegionLabel.userInteractionEnabled = YES;
+
         [contentView addSubview:connectionRegionLabel];
-        
         
         Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
         NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
-        
         
         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
         textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
-        
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Currently selected region:", @"")];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
@@ -190,18 +193,20 @@
         [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         connectionRegionLabel.numberOfLines = 0;
         connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
-        [contentView addSubview:connectionRegionLabel];
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(connectionRegionLabelTapped)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        [connectionRegionLabel addGestureRecognizer:tapGestureRecognizer];
+        connectionRegionLabel.userInteractionEnabled = YES;
         
+        [contentView addSubview:connectionRegionLabel];
         
         Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
         NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
-        
-        
+                
         NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
         textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
-        
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Current connection region:", @"")];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
@@ -256,6 +261,29 @@
     //TODO: animated transition of views
     [self setupViewsForState:_connectionState];
 }
+
+-(void) connectionRegionLabelTapped {
+    RegionSelectionViewController *regionSelectionViewController = [[RegionSelectionViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:regionSelectionViewController];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                   style:UIBarButtonItemStyleDone target:self
+                                                                  action:@selector(regionSelectionDone)];
+    regionSelectionViewController.navigationItem.rightBarButtonItem = doneButton;
+
+    if ([self.delegate respondsToSelector:@selector(regionSelectionControllerWillStart)]) {
+        [self.delegate regionSelectionControllerWillStart];
+    }
+    
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+-(void) regionSelectionDone {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(regionSelectionControllerDidEnd)]) {
+        [self.delegate regionSelectionControllerDidEnd];
+    }
+}
+
 @end
 
 @implementation PsiphonConnectionSplashViewController {
