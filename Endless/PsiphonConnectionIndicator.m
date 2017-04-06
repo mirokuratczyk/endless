@@ -58,6 +58,7 @@
 			imgDisconnectedAlpha = 0.0f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator stopAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
 			};
             break;
         }
@@ -68,7 +69,19 @@
 			imgDisconnectedAlpha = 0.2f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator startAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
 			};
+            break;
+        }
+        case PsiphonConnectionStateWaitingForNetwork:
+        {
+            activityIndicatorAlpha = 1.0f;
+            imgConnectedAlpha = 0.0f;
+            imgDisconnectedAlpha = 0.2f;
+            animationCompleted = ^(BOOL finished){
+                [_activityIndicator startAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
+            };
             break;
         }
 		case PsiphonConnectionStateDisconnected:
@@ -78,6 +91,7 @@
             imgDisconnectedAlpha = 1.0f;
             animationCompleted = ^(BOOL finished){
                 [_activityIndicator stopAnimating];
+                [_activityIndicator setUserInteractionEnabled:NO];
             };
             break;
         }

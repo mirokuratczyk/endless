@@ -19,7 +19,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PsiphonConnectionIndicator : UIView
+@interface PsiphonConnectionIndicator : UIControl
 - (id) initWithFrame:(CGRect)frame;
 - (void) displayConnectionState:(PsiphonConnectionState) state;
 @end

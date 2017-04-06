@@ -276,6 +276,16 @@
 	}
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
+        if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
+            // TODO: show connection status on the page
+            
+            /*
+            NSString *js = [NSString stringWithFormat:@"alert(\"%@\");",
+                            NSLocalizedString(@"Psiphon is not connected!", @"Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected.")];
+            [[self webView] stringByEvaluatingJavaScriptFromString:js];
+             */
+            return NO;
+        }
 		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]])
 			[self prepareForNewURL:[request mainDocumentURL]];
 

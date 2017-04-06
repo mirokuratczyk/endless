@@ -18,6 +18,7 @@
 #import "WebViewController.h"
 #import "WebViewTab.h"
 #import "PsiphonConnectionIndicator.h"
+#import "PsiphonConnectionModalViewController.h"
 #import "Tutorial.h"
 
 #define TOOLBAR_HEIGHT 44
@@ -29,6 +30,46 @@
 + (UIColor *)defaultNavigationControllerColor {
     return [UIColor colorWithRed:(247/255.0f) green:(247/255.0f) blue:(247/255.0f) alpha:1];
 }
+@end
+
+@interface UIViewController (Top)
++ (UIViewController *)topViewController;
+@end
+
+
+@implementation UIViewController (Top)
++ (UIViewController *)topViewController
+{
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [rootViewController topVisibleViewController];
+}
+- (UIViewController *)topVisibleViewController
+{
+    if ([self isKindOfClass:[UITabBarController class]])
+    {
+        UITabBarController *tabBarController = (UITabBarController *)self;
+        return [tabBarController.selectedViewController topVisibleViewController];
+    }
+    else if ([self isKindOfClass:[UINavigationController class]])
+    {
+        UINavigationController *navigationController = (UINavigationController *)self;
+        return [navigationController.visibleViewController topVisibleViewController];
+    }
+    else if (self.presentedViewController)
+    {
+        return [self.presentedViewController topVisibleViewController];
+    }
+    else if (self.childViewControllers.count > 0)
+    {
+        return [self.childViewControllers.lastObject topVisibleViewController];
+    }
+    return self;
+}
+
+@end
+
+
+@interface WebViewController (RegionSelectionControllerDelegate) <RegionSelectionControllerDelegate>
 @end
 
 @implementation WebViewController {
@@ -77,6 +118,7 @@
     NSMutableDictionary *preferencesSnapshot;
     
     Tutorial *tutorial;
+    
 }
 
 - (void)loadView
@@ -131,9 +173,11 @@
 	[urlField setDelegate:self];
 	[navigationBar addSubview:urlField];
 	
-	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]initWithFrame:
-							   [self frameForConnectionIndicator]];
-	
+	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]
+                                  initWithFrame: [self frameForConnectionIndicator]];
+    [psiphonConnectionIndicator addTarget:self action:@selector(showPsiphonConnectionStatusAlert)
+                         forControlEvents:UIControlEventTouchUpInside];
+
 	[navigationBar addSubview:psiphonConnectionIndicator];
 	
 	
@@ -244,7 +288,7 @@
 			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
 			    tabDoneButton,
 			    nil];
-	
+    
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -345,18 +389,25 @@
 /* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
-        /*
-		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-		NSDictionary *se = [[appDelegate searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
-		
-        [self addNewTabForURL:[NSURL URLWithString:[se objectForKey:@"homepage_url"]]];
-         */
-        [self addNewTabForURL:[NSURL URLWithString:@"about:blank"]];
-	}
-	
-	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
-	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+            PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
+                                                                                     initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+            connectionSplashViewController.delegate = self;
+            [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
+                                                                               style:UIAlertActionStyleDefault
+                                                                             handler:^(NYAlertAction *action) {
+                                                                                 [self openSettingsMenu:nil];
+                                                                             }]];
+            
+            [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
+                                                             completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+        }
+    });
+    
+    /* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
+    [self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -615,6 +666,9 @@
 		}
 	}
 
+    // Send "Tab loaded" notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabLoadedNotification object:nil];
+    
 	return wvt;
 }
 
@@ -1047,14 +1101,12 @@
     appSettingsViewController.hiddenKeys = hiddenKeys;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
-    [self presentViewController:navController animated:YES completion:nil];
+    [[UIViewController topViewController] presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)settingsViewControllerDidEnd
 {
     // Update relevant ivars to match current settings
-	[self dismissViewControllerAnimated:YES completion:nil];
-
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
 	[[[AppDelegate sharedAppDelegate] cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
@@ -1702,4 +1754,49 @@
     [self.view addGestureRecognizer:tutorialScreenPress];
 }
 
+- (void) showPsiphonConnectionStatusAlert {
+    PsiphonConnectionAlertViewController *connectionAlertViewController = [[PsiphonConnectionAlertViewController alloc]
+                                          initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+    connectionAlertViewController.delegate = self;
+
+    [connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
+                                                                       style:UIAlertActionStyleDefault
+                                                                     handler:^(NYAlertAction *action) {
+                                                                         [connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES                                                                                                                                                    completion:^(void){[self openSettingsMenu:nil];}];
+                                                                     }]];
+
+    [connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Done", nil)
+                                                                      style:UIAlertActionStyleDefault
+                                                                    handler:^(NYAlertAction *action) {
+                                                                        [connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                                                                    }]];
+    
+    [[UIViewController topViewController] presentViewController:connectionAlertViewController animated:NO
+                                                     completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+}
+
+#pragma mark RegionSelectionControllerDelegate method implementation
+- (void) regionSelectionControllerWillStart {
+    // Take a snapshot of current user settings
+    preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+}
+
+- (void) regionSelectionControllerDidEnd {
+    if (preferencesSnapshot) {
+        // Cannot use isEqualToString becase strings may be nil
+        BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+            return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+        };
+        // Check if the selected region has changed
+        NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+        
+        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+            [[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
+        }
+    }
+}
+
 @end
+
+
+

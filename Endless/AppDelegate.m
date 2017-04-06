@@ -121,9 +121,9 @@
     });
 }
 
-- (void) stopPsiphon {
+- (void) stopAndWaitForInternetConnection {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
         [self notifyPsiphonConnectionState];
         [self.psiphonTunnel stop];
     });
@@ -190,7 +190,11 @@
     }
 
     if(needStart) {
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        if (_reachability.currentReachabilityStatus == NotReachable) {
+            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+        } else {
+            self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        }
         [self notifyPsiphonConnectionState];
         [self startPsiphon];
     }
@@ -387,7 +391,11 @@
 
 - (void) onConnecting {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        if (_reachability.currentReachabilityStatus == NotReachable) {
+            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+        } else {
+            self.psiphonConectionState = PsiphonConnectionStateConnecting;
+        }
         [self notifyPsiphonConnectionState];
     });
 }
@@ -479,7 +487,7 @@
 	if([currentReachability currentReachabilityStatus] == NotReachable) {
         if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
             _needsResume = true;
-            [self stopPsiphon];
+            [self stopAndWaitForInternetConnection];
         }
     } else {
         if(_needsResume){
