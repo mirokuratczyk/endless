@@ -64,7 +64,7 @@
     _connectionRegion = region;
     
     if(state == PsiphonConnectionStateConnected && self.dismissOnConnected == YES) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
     
@@ -318,7 +318,7 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if(_dismissImmediatelly) {
-        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
