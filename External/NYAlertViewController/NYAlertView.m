@@ -373,8 +373,14 @@
     
     // If there are 2 actions, display the buttons next to each other. Otherwise, stack the buttons vertically at full width
     if ([actionButtons count] == 2) {
-        firstButton = actionButtons[0];
-        lastButton = actionButtons[1];
+        //flip buttons for RTL languages
+        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
+            firstButton = actionButtons[1];
+            lastButton = actionButtons[0];
+        } else {
+            firstButton = actionButtons[0];
+            lastButton = actionButtons[1];
+        }
         
         [self.actionButtonContainerView addSubview:firstButton];
         [self.actionButtonContainerView addSubview:lastButton];
