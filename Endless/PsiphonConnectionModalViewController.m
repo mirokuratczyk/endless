@@ -63,12 +63,12 @@
     _connectionState = state;
     _connectionRegion = region;
     
+    [self updateViews];
+    
     if(state == PsiphonConnectionStateConnected && self.dismissOnConnected == YES) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-    
-    [self updateViews];
 }
 
 -(void) setupViewsForState:(PsiphonConnectionState)state {
