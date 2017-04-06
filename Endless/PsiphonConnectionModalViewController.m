@@ -282,7 +282,7 @@
 }
 
 -(void) regionSelectionDone {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     if ([self.delegate respondsToSelector:@selector(regionSelectionControllerDidEnd)]) {
         [self.delegate regionSelectionControllerDidEnd];
     }

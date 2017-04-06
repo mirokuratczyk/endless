@@ -57,12 +57,6 @@
 "Copy URL" = "Copy URL";
 
 /* No comment provided by engineer. */
-"Current connection region:" = "Current connection region:";
-
-/* No comment provided by engineer. */
-"Currently selected region:" = "Currently selected region:";
-
-/* No comment provided by engineer. */
 "Default Settings" = "Default Settings";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
@@ -206,6 +200,9 @@
 
 /* Text of button to send feedback */
 "Send" = "Send";
+
+/* Title that is showing above selected server region */
+"Server region:" = "Server region:";
 
 /* No comment provided by engineer. */
 "Settings" = "Settings";
