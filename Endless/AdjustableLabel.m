@@ -80,13 +80,12 @@
     CGFloat minFontSize = MIN_FONT_SIZE;
 
     UIFont *font = label.font;
-    CGFloat fontSize = maxFontSize;
 
     // Do a binary search to find the largest font size that
     // will fit within the label's frame.
     while (true)
     {
-        fontSize = (maxFontSize + minFontSize) / 2;
+        CGFloat fontSize = (maxFontSize + minFontSize) / 2;
 
         if (fontSize - minFontSize < DELTA / 2) {
             font = [UIFont fontWithName:font.fontName size:minFontSize];

@@ -64,10 +64,7 @@
                                                                              style:UIBarButtonItemStyleDone
                                                                             target:self.navigationController
                                                                             action:@selector(dismissModalViewControllerAnimated:)];
-    
-    // Get notified when an IASK field changes
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
-    
+
     // UISegmentedControl content initialization
     _thumbsCell = [[FeedbackThumbsCell alloc] init];
     
@@ -79,6 +76,17 @@
     // Comments textView
     _greyPlaceholderColor = [[UIColor alloc] initWithRed:199.0/255 green:199.0/255 blue:205.0/255 alpha:1];
     _commentsPlaceholder = NSLocalizedString(@"What's on your mind? Please leave us your feedback", @"Comments section placeholder text");
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // Get notified when an IASK field changes
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
 }
 
 - (void)sendFeedback:(id)sender
