@@ -59,6 +59,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (moviePlayer != nil) {
         [moviePlayer play];
     }
@@ -68,6 +69,7 @@
     if (moviePlayer != nil) {
         [moviePlayer stop];
     }
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidLoad {
@@ -322,6 +324,7 @@
 
     CGImageRef frameRef = [generator copyCGImageAtTime:kCMTimeZero actualTime:nil error:nil];
     UIImage *thumbnail = [UIImage imageWithCGImage:frameRef];
+    CGImageRelease(frameRef);
     
     return thumbnail;
 }
