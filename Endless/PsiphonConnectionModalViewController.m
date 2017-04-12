@@ -63,12 +63,12 @@
     _connectionState = state;
     _connectionRegion = region;
     
+    [self updateViews];
+    
     if(state == PsiphonConnectionStateConnected && self.dismissOnConnected == YES) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-    
-    [self updateViews];
 }
 
 -(void) setupViewsForState:(PsiphonConnectionState)state {
@@ -89,15 +89,21 @@
         
         [contentView addSubview:activityIndicator];
         
+        UILabel *serverRegionTextLabel = [[UILabel alloc] init];
+        [serverRegionTextLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        serverRegionTextLabel.textAlignment = NSTextAlignmentCenter;
+        serverRegionTextLabel.text = NSLocalizedString(@"Server region:", @"Title that is showing above selected server region");
+        [contentView addSubview:serverRegionTextLabel];
+        
         UILabel *connectionRegionLabel = [[UILabel alloc] init];
         [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-        connectionRegionLabel.numberOfLines = 0;
         connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(connectionRegionLabelTapped)];
         tapGestureRecognizer.numberOfTapsRequired = 1;
         [connectionRegionLabel addGestureRecognizer:tapGestureRecognizer];
         connectionRegionLabel.userInteractionEnabled = YES;
-
+        connectionRegionLabel.adjustsFontSizeToFitWidth = YES;
+        
         [contentView addSubview:connectionRegionLabel];
         
         Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
@@ -108,8 +114,7 @@
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Server region:", @"Title that is showing above selected server region")];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@""];
         [attributedString appendAttributedString:attrStringWithImage];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:regionTitle]];
@@ -131,6 +136,27 @@
                                                                   multiplier:1.0
                                                                     constant:0],
                                       
+                                      [NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0],
+                                      [NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:activityIndicator
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:20],
+                                      [NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                  multiplier:1.0
+                                                                    constant:-10],
                                       [NSLayoutConstraint constraintWithItem:connectionRegionLabel
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
@@ -141,10 +167,10 @@
                                       [NSLayoutConstraint constraintWithItem:connectionRegionLabel
                                                                    attribute:NSLayoutAttributeTop
                                                                    relatedBy:NSLayoutRelationEqual
-                                                                      toItem:activityIndicator
+                                                                      toItem:serverRegionTextLabel
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.0
-                                                                    constant:30],
+                                                                    constant:10],
                                       
                                       [NSLayoutConstraint constraintWithItem:connectionRegionLabel
                                                                    attribute:NSLayoutAttributeBottom
@@ -153,8 +179,14 @@
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.0
                                                                     constant:-10],
-                                      ]];
-        
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                  multiplier:1.0
+                                                                    constant:-10],
+                                      ]];        
         
         title = NSLocalizedString(@"Connecting...",
                                   @"Connection status initial splash modal dialog title for 'Connecting...' state");
@@ -194,14 +226,20 @@
     } else if(state == PsiphonConnectionStateConnected){
         contentView = [[UIView alloc] initWithFrame:CGRectZero];
         
+        UILabel *serverRegionTextLabel = [[UILabel alloc] init];
+        [serverRegionTextLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        serverRegionTextLabel.textAlignment = NSTextAlignmentCenter;
+        serverRegionTextLabel.text = NSLocalizedString(@"Server region:", @"Title that is showing above selected server region");
+        [contentView addSubview:serverRegionTextLabel];
+        
         UILabel *connectionRegionLabel = [[UILabel alloc] init];
         [connectionRegionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-        connectionRegionLabel.numberOfLines = 0;
         connectionRegionLabel.textAlignment = NSTextAlignmentCenter;
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(connectionRegionLabelTapped)];
         tapGestureRecognizer.numberOfTapsRequired = 1;
         [connectionRegionLabel addGestureRecognizer:tapGestureRecognizer];
         connectionRegionLabel.userInteractionEnabled = YES;
+        connectionRegionLabel.adjustsFontSizeToFitWidth = YES;
         
         [contentView addSubview:connectionRegionLabel];
         
@@ -213,15 +251,35 @@
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
         textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Server region:", @"Title that is showing above selected server region")];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@""];
         [attributedString appendAttributedString:attrStringWithImage];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:regionTitle]];
         
         connectionRegionLabel.attributedText = attributedString;
         
-        [contentView addConstraints:@[[NSLayoutConstraint constraintWithItem:connectionRegionLabel
+        [contentView addConstraints:@[[NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0],
+                                      [NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:10],
+                                      [NSLayoutConstraint constraintWithItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                  multiplier:1.0
+                                                                    constant:-10],
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:contentView
@@ -231,8 +289,8 @@
                                       [NSLayoutConstraint constraintWithItem:connectionRegionLabel
                                                                    attribute:NSLayoutAttributeTop
                                                                    relatedBy:NSLayoutRelationEqual
-                                                                      toItem:contentView
-                                                                   attribute:NSLayoutAttributeTop
+                                                                      toItem:serverRegionTextLabel
+                                                                   attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.0
                                                                     constant:10],
                                       
@@ -241,6 +299,13 @@
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:contentView
                                                                    attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:-10],
+                                      [NSLayoutConstraint constraintWithItem:connectionRegionLabel
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:contentView
+                                                                   attribute:NSLayoutAttributeWidth
                                                                   multiplier:1.0
                                                                     constant:-10],
                                       ]];
