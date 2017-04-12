@@ -31,11 +31,6 @@
 {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(newLogAdded:)
-                                                 name:@kDisplayLogEntry
-                                               object:nil];
-
     logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
 
     table = [[UITableView alloc] init];
@@ -48,6 +43,19 @@
 
     [self.view addSubview:table];
     [self scrollToBottom];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newLogAdded:)
+                                                 name:@kDisplayLogEntry
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - UITableView delegate methods

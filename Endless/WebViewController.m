@@ -300,8 +300,10 @@
 	[self.view.window makeKeyAndVisible];
 }
 
-- (void) dealloc {
+- (void)dealloc {
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[center removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 	[center removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[center removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 	[center removeObserver:self name:kPsiphonConnectionStateNotification object:nil];
@@ -375,6 +377,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+	[super viewDidAppear:animated];
+
 	/* we made it this far, remove lock on previous startup */
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults removeObjectForKey:STATE_RESTORE_TRY_KEY];
@@ -1106,6 +1110,9 @@
 
 - (void)settingsViewControllerDidEnd
 {
+    // Allow ARC to dealloc appSettingsViewController
+	appSettingsViewController = nil;
+
     // Update relevant ivars to match current settings
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
