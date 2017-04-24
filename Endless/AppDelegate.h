@@ -27,7 +27,7 @@
 #import <PsiphonTunnel/PsiphonTunnel.h>
 #import "CookieJar.h"
 #import "HSTSCache.h"
-#import "OnBoardingViewController.h"
+#import "OnboardingViewController.h"
 #import "WebViewController.h"
 
 

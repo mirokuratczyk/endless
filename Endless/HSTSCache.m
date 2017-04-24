@@ -12,9 +12,8 @@
 
 /* note that UIWebView has its own HSTS cache that comes preloaded with a big plist of hosts, but we can't change it or manually add to it */
 
-@implementation HSTSCache {
-	AppDelegate *appDelegate;
-}
+@implementation HSTSCache
+
 static NSDictionary *_preloadedHosts;
 
 + (NSString *)hstsCachePath
