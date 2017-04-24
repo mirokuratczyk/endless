@@ -9,7 +9,7 @@
 
 @implementation HostSettings
 
-NSMutableDictionary *_hosts;
+static NSMutableDictionary *_hosts;
 
 + (NSDictionary *)defaults
 {

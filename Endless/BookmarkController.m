@@ -8,10 +8,11 @@
 #import "Bookmark.h"
 #import "BookmarkController.h"
 
-@implementation BookmarkController
+@implementation BookmarkController {
+	UIBarButtonItem *addItem;
+	UIBarButtonItem *leftItem;
+}
 
-UIBarButtonItem *addItem;
-UIBarButtonItem *leftItem;
 BOOL isRTL;
 
 - (void)viewDidLoad
