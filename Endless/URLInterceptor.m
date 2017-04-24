@@ -18,13 +18,13 @@
 
 #import "NSData+CocoaDevUsersAdditions.h"
 
-@implementation URLInterceptor
+@implementation URLInterceptor {
+	WebViewTab *wvt;
+	NSString *userAgent;
+}
 
 static BOOL sendDNT = true;
 static NSMutableArray *tmpAllowed;
-
-WebViewTab *wvt;
-NSString *userAgent;
 
 static NSString *_javascriptToInject;
 + (NSString *)javascriptToInject
@@ -53,16 +53,15 @@ static NSString *_javascriptToInject;
 + (BOOL)isURLTemporarilyAllowed:(NSURL *)url
 {
 	int found = -1;
-	if (wvt == nil) {
-		for (int i = 0; i < [tmpAllowed count]; i++) {
-			if ([[tmpAllowed[i] absoluteString] isEqualToString:[url absoluteString]])
-				found = i;
-		}
-		
-		if (found > -1) {
-			NSLog(@"[URLInterceptor] temporarily allowing %@ from allowed list with no matching WebViewTab", url);
-			[tmpAllowed removeObjectAtIndex:found];
-		}
+	
+	for (int i = 0; i < [tmpAllowed count]; i++) {
+		if ([[tmpAllowed[i] absoluteString] isEqualToString:[url absoluteString]])
+			found = i;
+	}
+	
+	if (found > -1) {
+		NSLog(@"[URLInterceptor] temporarily allowing %@ from allowed list with no matching WebViewTab", url);
+		[tmpAllowed removeObjectAtIndex:found];
 	}
 	
 	return (found > -1);
@@ -91,7 +90,7 @@ static NSString *_javascriptToInject;
 	return YES;
 }
 
-+ (NSString *)prependDirectives:(NSDictionary *)directives inCSPHeader:(NSString *)header
++ (NSString *)prependDirectivesIfExisting:(NSDictionary *)directives inCSPHeader:(NSString *)header
 {
 	/*
 	 * CSP guide says apostrophe can't be in a bare string, so it should be safe to assume
@@ -114,18 +113,38 @@ static NSString *_javascriptToInject;
 	}
 	
 	for (NSString *newDir in [directives allKeys]) {
-		NSString *newval = [directives objectForKey:newDir];
+		NSArray *newvals = [directives objectForKey:newDir];
 		NSString *curval = [curDirectives objectForKey:newDir];
 		if (curval) {
+			NSString *newval = [newvals objectAtIndex:0];
+			
 			/*
-			 * CSP spec says if 'none' is encountered to ignore anything else, so if
-			 * 'none' is there, just replace it with newval rather than prepending
+			 * If none of the existing values for this directive have a nonce or hash,
+			 * then inserting our value with a nonce will cause the directive to become
+			 * strict, so "'nonce-abcd' 'self' 'unsafe-inline'" causes the browser to
+			 * ignore 'self' and 'unsafe-inline', requiring that all scripts have a
+			 * nonce or hash.  Since the site would probably only ever have nonce values
+			 * in its <script> tags if it was in the CSP policy, only include our nonce
+			 * value if the CSP policy already has them.
 			 */
-			if (![curval containsString:@"'none'"])
-				newval = [NSString stringWithFormat:@"%@ %@", newval, curval];
+			if ([curval containsString:@"'nonce-"] || [curval containsString:@"'sha"])
+				newval = [newvals objectAtIndex:1];
+			 
+			if ([curval containsString:@"'none'"]) {
+				/*
+				 * CSP spec says if 'none' is encountered to ignore anything else,
+				 * so if 'none' is there, just replace it with newval rather than
+				 * prepending.
+				 */
+			} else {
+				if ([newval isEqualToString:@""])
+					newval = curval;
+				else
+					newval = [NSString stringWithFormat:@"%@ %@", newval, curval];
+			}
+			
+			[curDirectives setObject:newval forKey:newDir];
 		}
-		
-		[curDirectives setObject:newval forKey:newDir];
 	}
 	
 	NSMutableString *ret = [[NSMutableString alloc] init];
@@ -170,7 +189,7 @@ static NSString *_javascriptToInject;
 	if (wvt == nil) {
 		NSLog(@"[URLInterceptor] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
 		
-		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 		
 		if (![[[[request URL] scheme] lowercaseString] isEqualToString:@"http"] && ![[[[request URL] scheme] lowercaseString] isEqualToString:@"https"]) {
 			if ([[UIApplication sharedApplication] canOpenURL:[request URL]]) {
@@ -375,25 +394,17 @@ static NSString *_javascriptToInject;
 
 	contentType = CONTENT_TYPE_OTHER;
 	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:response] lowercaseString];
-	if (ctype != nil) {
-		if ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"])
-			contentType = CONTENT_TYPE_HTML;
-		else if ([ctype hasPrefix:@"application/javascript"] || [ctype hasPrefix:@"text/javascript"] || [ctype hasPrefix:@"application/x-javascript"] || [ctype hasPrefix:@"text/x-javascript"])
-			contentType = CONTENT_TYPE_JAVASCRIPT;
-		else if ([ctype hasPrefix:@"image/"])
-			contentType = CONTENT_TYPE_IMAGE;
-	}
+	if (ctype != nil && ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"]))
+		contentType = CONTENT_TYPE_HTML;
 	
 	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
-	NSString *CSPheader;
+	NSString *CSPheader = nil;
 	NSString *CSPmode = [self.originHostSettings setting:HOST_SETTINGS_KEY_CSP];
 
 	if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
-		CSPheader = @"child-src endlessipc:; frame-src endlessipc:; script-src 'none'; media-src 'none'; object-src 'none'; connect-src 'none'; font-src 'none'; sandbox allow-forms allow-top-navigation; style-src 'unsafe-inline' *; report-uri;";
+		CSPheader = @"connect-src 'none'; default-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; sandbox allow-forms allow-top-navigation; script-src 'none'; style-src 'unsafe-inline' *; report-uri;";
 	else if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_BLOCK_CONNECT])
-		CSPheader = @"child-src endlessipc:; frame-src endlessipc:; connect-src 'none'; media-src 'none'; object-src 'none'; report-uri;";
-	else
-		CSPheader = nil;
+		CSPheader = @"connect-src 'none'; media-src 'none'; object-src 'none'; report-uri;";
 	
 	NSString *curCSP = [self caseInsensitiveHeader:@"content-security-policy" inResponse:response];
 	
@@ -403,9 +414,18 @@ static NSString *_javascriptToInject;
 
 	NSMutableDictionary *mHeaders = [[NSMutableDictionary alloc] initWithDictionary:[response allHeaderFields]];
 	
+	/* don't bother rewriting with the header if we don't want a restrictive one (CSPheader) and the site doesn't have one (curCSP) */
 	if (CSPheader != nil || curCSP != nil) {
-		BOOL foundCSP = false;
+		id foundCSP = nil;
 		
+		/* directives and their values (normal and nonced versions) to prepend */
+		NSDictionary *wantedDirectives = @{
+			@"child-src": @[ @"endlessipc:", @"endlessipc:" ],
+			@"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
+			@"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
+			@"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
+		};
+
 		for (id h in [mHeaders allKeys]) {
 			NSString *hv = (NSString *)[[response allHeaderFields] valueForKey:h];
 			
@@ -413,22 +433,12 @@ static NSString *_javascriptToInject;
 				if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
 					/* disregard the existing policy since ours will be the most strict anyway */
 					hv = CSPheader;
-				else if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_BLOCK_CONNECT])
-					/* prepend our 'none's to the existing policy */
-					hv = [NSString stringWithFormat:@"%@ %@", CSPheader, hv];
-				else {
-					/* edit this existing policy just to allow our ipc URLs */
-					hv = [URLInterceptor prependDirectives:@{ @"child-src": @"endlessipc:", @"frame-src": @"endlessipc:" } inCSPHeader:hv];
-				}
+				
+				/* merge in the things we require for any policy in case exiting policies would block them */
+				hv = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:hv];
 				
 				[mHeaders setObject:hv forKey:h];
-				foundCSP = true;
-#ifdef TRACE_HOST_SETTINGS
-				NSLog(@"[HostSettings] [Tab %@] CSP header is now %@", wvt.tabIndex, hv);
-#endif
-			}
-			else if ([[h lowercaseString] isEqualToString:@"cache-control"]) {
-				/* ignore */
+				foundCSP = hv;
 			}
 			else
 				[mHeaders setObject:hv forKey:h];
@@ -437,11 +447,17 @@ static NSString *_javascriptToInject;
 		if (!foundCSP && CSPheader) {
 			[mHeaders setObject:CSPheader forKey:@"Content-Security-Policy"];
 			[mHeaders setObject:CSPheader forKey:@"X-WebKit-CSP"];
+			foundCSP = CSPheader;
 		}
+		
+#ifdef TRACE_HOST_SETTINGS
+		NSLog(@"[HostSettings] [Tab %@] CSP header is now %@", wvt.tabIndex, foundCSP);
+#endif
 	}
-
-	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
 	
+	/* rebuild our response with any modified headers */
+	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
+
 	/* save any cookies we just received */
 	[[[AppDelegate sharedAppDelegate] cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
 	
@@ -463,7 +479,7 @@ static NSString *_javascriptToInject;
 	}
 	
 	/* handle HTTP-level redirects */
-	if ((response.statusCode == 301) || (response.statusCode == 302) || (response.statusCode == 303) || (response.statusCode == 307)) {
+	if (response.statusCode == 301 || response.statusCode == 302 || response.statusCode == 303 || response.statusCode == 307) {
 		NSString *newURL = [self caseInsensitiveHeader:@"location" inResponse:response];
 		if (newURL == nil || [newURL isEqualToString:@""])
 			NSLog(@"[URLInterceptor] [Tab %@] got %ld redirect at %@ but no location header", wvt.tabIndex, (long)response.statusCode, [[self actualRequest] URL]);
@@ -476,12 +492,10 @@ static NSString *_javascriptToInject;
 			else
 				[newRequest setHTTPMethod:@"GET"];
 			
-			[newRequest setHTTPShouldUsePipelining:YES];
-			
 			/* strangely, if we pass [NSURL URLWithString:/ relativeToURL:[NSURL https://blah/asdf/]] as the URL for the new request, it treats it as just "/" with no domain information so we have to build the relative URL, turn it into a string, then back to a URL */
 			NSString *aURL = [[NSURL URLWithString:newURL relativeToURL:[[self actualRequest] URL]] absoluteString];
 			[newRequest setURL:[NSURL URLWithString:aURL]];
-#ifdef DEBUG
+#ifdef TRACE
 			NSLog(@"[URLInterceptor] [Tab %@] got %ld redirect from %@ to %@", wvt.tabIndex, (long)response.statusCode, [[[self actualRequest] URL] absoluteString], aURL);
 #endif
 			[newRequest setMainDocumentURL:[[self actualRequest] mainDocumentURL]];
@@ -498,7 +512,7 @@ static NSString *_javascriptToInject;
 		}
 		
 		[[self connection] cancel];
-		[[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+		[[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: (self.isOrigin ? @YES : @NO )}]];
 		return;
 	}
 	
@@ -511,7 +525,7 @@ static NSString *_javascriptToInject;
 		else
 			NSLog(@"[URLInterceptor] [Tab %@] unknown content encoding \"%@\"", wvt.tabIndex, content_encoding);
 	}
-
+	
 	[self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageAllowedInMemoryOnly];
 }
 
@@ -521,15 +535,17 @@ static NSString *_javascriptToInject;
 		[wvt setSSLCertificate:certificate];
 }
 
-- (void)HTTPConnection:(CKHTTPConnection *)connection didReceiveData:(NSData *)data {
+- (void)HTTPConnection:(CKHTTPConnection *)connection didReceiveData:(NSData *)data
+{
 	[self appendData:data];
 	
 	NSData *newData;
 	if (encoding) {
-		// Try to un-gzip the data we've received so far.
-		// If we get nil (it's incomplete gzip data), continue to
-		// buffer it before passing it along. If we *can* ungzip it,
-		// pass the ugzip'd data along and reset the buffer.
+		/*
+		 * Try to un-gzip the data we've received so far.  If we get nil (it's incomplete gzip data),
+		 * continue to buffer it before passing it along. If we *can* ungzip it, pass the ugzip'd data
+		 * along and reset the buffer.
+		 */
 		if (encoding == ENCODING_DEFLATE)
 			newData = [_data zlibInflate];
 		else if (encoding == ENCODING_GZIP)
@@ -544,10 +560,8 @@ static NSString *_javascriptToInject;
 			if (self.isOrigin) {
 				NSMutableData *tData = [[NSMutableData alloc] init];
 				if (contentType == CONTENT_TYPE_HTML)
-					// prepend a doctype to force into standards mode and throw in any javascript overrides
-					[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script>%@</script>", [[self class] javascriptToInject]] dataUsingEncoding:NSUTF8StringEncoding]];
-				else if (contentType == CONTENT_TYPE_JAVASCRIPT)
-					[tData appendData:[[NSString stringWithFormat:@"%@\n", [[self class] javascriptToInject]] dataUsingEncoding:NSUTF8StringEncoding]];
+					/* prepend a doctype to force into standards mode and throw in any javascript overrides */
+					[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@</script>", [self cspNonce], [[self class] javascriptToInject]] dataUsingEncoding:NSUTF8StringEncoding]];
 				
 				[tData appendData:newData];
 				newData = tData;
@@ -559,7 +573,6 @@ static NSString *_javascriptToInject;
 		/* clear our running buffer of data for this request */
 		_data = nil;
 	}
-	
 	[self.client URLProtocol:self didLoadData:newData];
 }
 
@@ -573,7 +586,11 @@ static NSString *_javascriptToInject;
 #ifdef TRACE
 	NSLog(@"[URLInterceptor] [Tab %@] failed loading %@: %@", wvt.tabIndex, [[[self actualRequest] URL] absoluteString], error);
 #endif
-	[self.client URLProtocol:self didFailWithError:error];
+	
+	NSMutableDictionary *ui = [[NSMutableDictionary alloc] initWithDictionary:[error userInfo]];
+	[ui setObject:(self.isOrigin ? @YES : @NO) forKeyedSubscript:ORIGIN_KEY];
+	
+	[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:[error domain] code:[error code] userInfo:ui]];
 	[self setConnection:nil];
 	_data = nil;
 }
@@ -614,7 +631,7 @@ static NSString *_javascriptToInject;
 			
 			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 				[[challenge sender] cancelAuthenticationChallenge:challenge];
-				[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+				[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 			}]];
 			
 			[uiac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -661,6 +678,27 @@ static NSString *_javascriptToInject;
 	}
 	
 	return o;
+}
+
+- (NSString *)cspNonce
+{
+	if (!_cspNonce) {
+		/*
+		 * from https://w3c.github.io/webappsec-csp/#security-nonces:
+		 *
+		 * "The generated value SHOULD be at least 128 bits long (before encoding), and SHOULD
+		 * "be generated via a cryptographically secure random number generator in order to
+		 * "ensure that the value is difficult for an attacker to predict.
+		 */
+		
+		NSMutableData *data = [NSMutableData dataWithLength:16];
+		if (SecRandomCopyBytes(kSecRandomDefault, 16, data.mutableBytes) != 0)
+			abort();
+		
+		_cspNonce = [data base64EncodedStringWithOptions:0];
+	}
+	
+	return _cspNonce;
 }
 
 @end
@@ -714,7 +752,10 @@ static NSString *_javascriptToInject;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	[self.client URLProtocol:self didFailWithError:error];
+	NSMutableDictionary *ui = [[NSMutableDictionary alloc] initWithDictionary:[error userInfo]];
+	[ui setObject:(self.isOrigin ? @YES : @NO) forKeyedSubscript:ORIGIN_KEY];
+	
+	[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:[error domain] code:[error code] userInfo:ui]];
 	self.connection = nil;
 }
 
