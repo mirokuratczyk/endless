@@ -79,52 +79,42 @@
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
+	
+	self.socksProxyPort = 0;
+	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
+	
+	_needsResume = false;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+	_reachability = [Reachability reachabilityForInternetConnection];
+	[_reachability startNotifier];
 
+	
+	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+	
 	return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[self.window makeKeyAndVisible];
+
 	isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
 
 	if (isOnboarding) {
-		self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-
 		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
 		onboarding.delegate = self;
-
-		self.window.rootViewController = onboarding;
-		self.window.rootViewController.restorationIdentifier = @"OnBoardingViewController";
-		self.window.rootViewController.modalPresentationCapturesStatusBarAppearance = YES;
-		[self.window makeKeyAndVisible];
-	} else {
-		[self startTunnelAndOpenBrowser];
+		[self.window.rootViewController presentViewController:onboarding animated:NO completion:nil];
 	}
 	return YES;
 }
 
 -(void)onboardingEnded {
 	isOnboarding = NO;
-	[self startTunnelAndOpenBrowser];
 	self.webViewController.showTutorial = YES;
 	[[self webViewController] viewIsVisible];
 }
-
--(void)startTunnelAndOpenBrowser {
-	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-	self.window.rootViewController = [[WebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"WebViewController";
-	[self.window makeKeyAndVisible];
-
-	self.socksProxyPort = 0;
-	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
-
-	_needsResume = false;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-	_reachability = [Reachability reachabilityForInternetConnection];
-	[_reachability startNotifier];
-}
-
 
 - (void) startPsiphon {
 	dispatch_async(dispatch_get_main_queue(), ^{
