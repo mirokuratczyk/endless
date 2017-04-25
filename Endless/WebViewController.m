@@ -390,12 +390,14 @@
 	}
 }
 
-/* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
+/* called when we've become visible and after the overlaid tutorial has ended (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
+	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
 	static dispatch_once_t onceToken;
+
 	dispatch_once(&onceToken, ^{
-		if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+
 			PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
 																					 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
 			connectionSplashViewController.delegate = self;
@@ -407,8 +409,8 @@
 
 			[[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
 															 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
-		}
 	});
+	}
 
 	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
 	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
@@ -1495,6 +1497,8 @@
 		// Start psiphon and open homepage
 		[[AppDelegate sharedAppDelegate] startIfNeeded];
 	}
+
+	[self viewIsVisible];
 }
 
 #pragma mark - Tutorial methods and helper functions
@@ -1771,10 +1775,17 @@
 	/* Start tutorial */
 	[tutorial startTutorial];
 
-	UITapGestureRecognizer *tutorialScreenPress =
+	UITapGestureRecognizer *tutorialBlockingViewPress =
 	[[UITapGestureRecognizer alloc] initWithTarget:self
 											action:@selector(handleTutorialClick:)];
-	[self.view addGestureRecognizer:tutorialScreenPress];
+
+	[tutorial.blockingView addGestureRecognizer:tutorialBlockingViewPress];
+
+	UITapGestureRecognizer *tutorialContentViewPress =
+	[[UITapGestureRecognizer alloc] initWithTarget:self
+											action:@selector(handleTutorialClick:)];
+
+	[tutorial.contentView addGestureRecognizer:tutorialContentViewPress];
 }
 
 - (void) showPsiphonConnectionStatusAlert {
