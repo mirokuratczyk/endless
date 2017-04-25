@@ -269,8 +269,6 @@
 - (void)onboardingEnded {
     [self.pageController.view removeFromSuperview];
     [self dismissViewControllerAnimated:NO completion:nil];
-
-    [[UIApplication sharedApplication] setStatusBarHidden:NO]; // Exit full screen
     
     id<OnboardingViewControllerDelegate> strongDelegate = self.delegate;
     
