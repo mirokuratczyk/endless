@@ -1,4 +1,4 @@
- /*
+/*
  * Endless
  * Copyright (c) 2014-2015 joshua stein <jcs@jcs.org>
  *
@@ -28,7 +28,7 @@
 
 @implementation UIColor (DefaultNavigationControllerColor)
 + (UIColor *)defaultNavigationControllerColor {
-    return [UIColor colorWithRed:(247/255.0f) green:(247/255.0f) blue:(247/255.0f) alpha:1];
+	return [UIColor colorWithRed:(247/255.0f) green:(247/255.0f) blue:(247/255.0f) alpha:1];
 }
 @end
 
@@ -40,30 +40,30 @@
 @implementation UIViewController (Top)
 + (UIViewController *)topViewController
 {
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    return [rootViewController topVisibleViewController];
+	UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+	return [rootViewController topVisibleViewController];
 }
 - (UIViewController *)topVisibleViewController
 {
-    if ([self isKindOfClass:[UITabBarController class]])
-    {
-        UITabBarController *tabBarController = (UITabBarController *)self;
-        return [tabBarController.selectedViewController topVisibleViewController];
-    }
-    else if ([self isKindOfClass:[UINavigationController class]])
-    {
-        UINavigationController *navigationController = (UINavigationController *)self;
-        return [navigationController.visibleViewController topVisibleViewController];
-    }
-    else if (self.presentedViewController)
-    {
-        return [self.presentedViewController topVisibleViewController];
-    }
-    else if (self.childViewControllers.count > 0)
-    {
-        return [self.childViewControllers.lastObject topVisibleViewController];
-    }
-    return self;
+	if ([self isKindOfClass:[UITabBarController class]])
+	{
+		UITabBarController *tabBarController = (UITabBarController *)self;
+		return [tabBarController.selectedViewController topVisibleViewController];
+	}
+	else if ([self isKindOfClass:[UINavigationController class]])
+	{
+		UINavigationController *navigationController = (UINavigationController *)self;
+		return [navigationController.visibleViewController topVisibleViewController];
+	}
+	else if (self.presentedViewController)
+	{
+		return [self.presentedViewController topVisibleViewController];
+	}
+	else if (self.childViewControllers.count > 0)
+	{
+		return [self.childViewControllers.lastObject topVisibleViewController];
+	}
+	return self;
 }
 
 @end
@@ -73,13 +73,13 @@
 @end
 
 @implementation WebViewController {
-
+	
 	UIScrollView *tabScroller;
 	UIPageControl *tabChooser;
 	int curTabIndex;
 	NSMutableArray *webViewTabs;
 	
-    PsiphonConnectionIndicator *psiphonConnectionIndicator;
+	PsiphonConnectionIndicator *psiphonConnectionIndicator;
 	UIView *navigationBar;
 	UITextField *urlField;
 	UIButton *lockIcon;
@@ -96,7 +96,7 @@
 	UIButton *forwardButton;
 	UIButton *tabsButton;
 	UIButton *settingsButton;
-    UIButton *bookmarksButton;
+	UIButton *bookmarksButton;
 	
 	UIBarButtonItem *tabAddButton;
 	UIBarButtonItem *tabDoneButton;
@@ -114,17 +114,17 @@
 	BookmarkController *bookmarks;
 	
 	BOOL isRTL;
-    
-    NSMutableDictionary *preferencesSnapshot;
-    
-    Tutorial *tutorial;
-    
+	
+	NSMutableDictionary *preferencesSnapshot;
+	
+	Tutorial *tutorial;
+	
 }
 
 - (void)loadView
 {
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
-
+	
 	[[AppDelegate sharedAppDelegate] setWebViewController:self];
 	
 	[[AppDelegate sharedAppDelegate] setDefaultUserAgent:[self buildDefaultUserAgent]];
@@ -134,7 +134,7 @@
 	
 	self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height)];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
+	
 	tabScroller = [[UIScrollView alloc] init];
 	[tabScroller setScrollEnabled:NO];
 	[[self view] addSubview:tabScroller];
@@ -156,10 +156,10 @@
 	[progressBar setTintColor:self.view.window.tintColor];
 	[progressBar setProgress:0.0];
 	[navigationBar addSubview:progressBar];
-
+	
 	urlField = [[UITextField alloc] init];
-    [urlField.layer setCornerRadius:6.0f];
-    [urlField.layer setBorderWidth:0.0f];
+	[urlField.layer setCornerRadius:6.0f];
+	[urlField.layer setBorderWidth:0.0f];
 	[urlField setKeyboardType:UIKeyboardTypeWebSearch];
 	[urlField setFont:[UIFont systemFontOfSize:15]];
 	[urlField setReturnKeyType:UIReturnKeyGo];
@@ -174,10 +174,10 @@
 	[navigationBar addSubview:urlField];
 	
 	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]
-                                  initWithFrame: [self frameForConnectionIndicator]];
-    [psiphonConnectionIndicator addTarget:self action:@selector(showPsiphonConnectionStatusAlert)
-                         forControlEvents:UIControlEventTouchUpInside];
-
+								  initWithFrame: [self frameForConnectionIndicator]];
+	[psiphonConnectionIndicator addTarget:self action:@selector(showPsiphonConnectionStatusAlert)
+						 forControlEvents:UIControlEventTouchUpInside];
+	
 	[navigationBar addSubview:psiphonConnectionIndicator];
 	
 	
@@ -192,13 +192,13 @@
 	[brokenLockIcon setImage:[UIImage imageNamed:@"broken_lock"] forState:UIControlStateNormal];
 	[[brokenLockIcon imageView] setContentMode:UIViewContentModeScaleAspectFit];
 	[brokenLockIcon addTarget:self action:@selector(showSSLCertificate) forControlEvents:UIControlEventTouchUpInside];
-
+	
 	refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[refreshButton setFrame:CGRectMake(0, 0, 24, 16)];
 	[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
 	[[refreshButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
 	[refreshButton addTarget:self action:@selector(forceRefresh) forControlEvents:UIControlEventTouchUpInside];
-
+	
 	backButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *backImage = [[UIImage imageNamed: isRTL ? @"arrow_right" : @"arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	[backButton setImage:backImage forState:UIControlStateNormal];
@@ -231,15 +231,15 @@
 	UIImage *settingsImage = [[UIImage imageNamed:@"settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	[settingsButton setImage:settingsImage forState:UIControlStateNormal];
 	[settingsButton setTintColor:[progressBar tintColor]];
-    [settingsButton addTarget:self action:@selector(openSettingsMenu:) forControlEvents:UIControlEventTouchUpInside];
+	[settingsButton addTarget:self action:@selector(openSettingsMenu:) forControlEvents:UIControlEventTouchUpInside];
 	[settingsButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
-    
-    bookmarksButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *bookmarksImage = [[UIImage imageNamed:@"bookmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [bookmarksButton setImage:bookmarksImage forState:UIControlStateNormal];
-    [bookmarksButton setTintColor:[progressBar tintColor]];
-    [bookmarksButton addTarget:self action:@selector(addBookmarkFromBottomToolbar:) forControlEvents:UIControlEventTouchUpInside];
-    [bookmarksButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
+	
+	bookmarksButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	UIImage *bookmarksImage = [[UIImage imageNamed:@"bookmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	[bookmarksButton setImage:bookmarksImage forState:UIControlStateNormal];
+	[bookmarksButton setTintColor:[progressBar tintColor]];
+	[bookmarksButton addTarget:self action:@selector(addBookmarkFromBottomToolbar:) forControlEvents:UIControlEventTouchUpInside];
+	[bookmarksButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
 	
 	bookmarkAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(addBookmarkFromBottomToolbar:)];
 	
@@ -265,7 +265,7 @@
 	[tabScroller setScrollsToTop:NO];
 	[tabScroller setDelaysContentTouches:NO];
 	[tabScroller setDelegate:self];
-
+	
 	tabChooser = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TOOLBAR_HEIGHT)];
 	[tabChooser setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin)];
 	[tabChooser addTarget:self action:@selector(slideToCurrentTab:) forControlEvents:UIControlEventValueChanged];
@@ -281,14 +281,14 @@
 	tabAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTabFromToolbar:)];
 	tabDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWithTabsButton:)];
 	tabDoneButton.title = NSLocalizedString(@"Done", @"Done button title, dismisses the tab chooser");
-
+	
 	tabToolbar.items = [NSArray arrayWithObjects:
-			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
-			    tabAddButton,
-			    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
-			    tabDoneButton,
-			    nil];
-    
+						[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+						tabAddButton,
+						[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+						tabDoneButton,
+						nil];
+	
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -329,28 +329,28 @@
 {
 	[super encodeRestorableStateWithCoder:coder];
 	
-    if (webViewTabs.count > 0) {
-        NSMutableArray *wvtd = [[NSMutableArray alloc] initWithCapacity:webViewTabs.count - 1];
-        for (WebViewTab *wvt in webViewTabs) {
-            if (wvt.url == nil)
-                continue;
-            
-            [wvtd addObject:@{ @"url" : wvt.url, @"title" : wvt.title.text }];
-            [[wvt webView] setRestorationIdentifier:[wvt.url absoluteString]];
-            
+	if (webViewTabs.count > 0) {
+		NSMutableArray *wvtd = [[NSMutableArray alloc] initWithCapacity:webViewTabs.count - 1];
+		for (WebViewTab *wvt in webViewTabs) {
+			if (wvt.url == nil)
+				continue;
+			
+			[wvtd addObject:@{ @"url" : wvt.url, @"title" : wvt.title.text }];
+			[[wvt webView] setRestorationIdentifier:[wvt.url absoluteString]];
+			
 #ifdef TRACE
-            NSLog(@"encoded restoration state for tab %@ with %@", wvt.tabIndex, wvtd[wvtd.count - 1]);
+			NSLog(@"encoded restoration state for tab %@ with %@", wvt.tabIndex, wvtd[wvtd.count - 1]);
 #endif
-        }
-        [coder encodeObject:wvtd forKey:@"webViewTabs"];
-        [coder encodeObject:[NSNumber numberWithInt:curTabIndex] forKey:@"curTabIndex"];
-    }
+		}
+		[coder encodeObject:wvtd forKey:@"webViewTabs"];
+		[coder encodeObject:[NSNumber numberWithInt:curTabIndex] forKey:@"curTabIndex"];
+	}
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
 	[super decodeRestorableStateWithCoder:coder];
-
+	
 	NSMutableArray *wvt = [coder decodeObjectForKey:@"webViewTabs"];
 	for (int i = 0; i < wvt.count; i++) {
 		NSDictionary *params = wvt[i];
@@ -378,40 +378,42 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-
+	
 	/* we made it this far, remove lock on previous startup */
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults removeObjectForKey:STATE_RESTORE_TRY_KEY];
 	[userDefaults synchronize];
-    
-    if (self.showTutorial) {
-        self.showTutorial = NO;
-        [self overlayTutorial];
-    }
+	
+	if (self.showTutorial) {
+		self.showTutorial = NO;
+		[self overlayTutorial];
+	}
 }
 
-/* called when we've become visible (possibly again, from app delegate applicationDidBecomeActive) */
+/* called when we've become visible and after the overlaid tutorial has ended (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
-            PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
-                                                                                     initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
-            connectionSplashViewController.delegate = self;
-            [connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
-                                                                               style:UIAlertActionStyleDefault
-                                                                             handler:^(NYAlertAction *action) {
-                                                                                 [self openSettingsMenu:nil];
-                                                                             }]];
-            
-            [[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
-                                                             completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
-        }
-    });
-    
-    /* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
-    [self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
+	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+		static dispatch_once_t onceToken;
+
+		dispatch_once(&onceToken, ^{
+
+			PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
+																					 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+			connectionSplashViewController.delegate = self;
+			[connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
+																			   style:UIAlertActionStyleDefault
+																			 handler:^(NYAlertAction *action) {
+																				 [self openSettingsMenu:nil];
+																			 }]];
+
+			[[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
+															 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+		});
+	}
+
+	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
+	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -420,7 +422,7 @@
 	
 	/* on devices with a bluetooth keyboard attached, both values should be the same for a 0 height */
 	keyboardHeight = keyboardStart.origin.y - keyboardEnd.origin.y;
-
+	
 	[self adjustLayout];
 }
 
@@ -432,7 +434,7 @@
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
+	
 	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		if (showingTabs)
 			[self showTabsWithCompletionBlock:nil];
@@ -448,7 +450,7 @@
 	CGRect navBarFrame = navigationBar.frame;
 	CGRect bottomToolBarFrame = bottomToolBar.frame;
 	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-
+	
 	if (isShowingToolBars == show) {
 		return;
 	}
@@ -466,7 +468,7 @@
 	
 	navBarFrame.origin.y = navBarOffsetY;
 	bottomToolBarFrame.origin.y = bottomBarOffsetY;
-
+	
 	CGFloat toolBarAlpha = show ? 1.0f : 0.0f;
 	[UIView animateWithDuration: 0.1 animations:^{
 		navigationBar.frame = navBarFrame;
@@ -479,17 +481,17 @@
 	}];
 	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-		
+	
 	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
 	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
 	[urlField setBackgroundColor:[UIColor whiteColor]];
-		
+	
 	[tabAddButton setTintColor:[progressBar tintColor]];
 	[tabDoneButton setTintColor:[progressBar tintColor]];
 	[settingsButton setTintColor:[progressBar tintColor]];
 	[tabsButton setTintColor:[progressBar tintColor]];
 	[tabCount setTextColor:[progressBar tintColor]];
-		
+	
 	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
 	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
 	
@@ -508,8 +510,8 @@
 	
 	UIWebView *wv = [[self curWebViewTab] webView];
 	currentWebViewScrollOffsetY = wv.scrollView.contentOffset.y;
-
-
+	
+	
 	navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
 	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - keyboardHeight, size.width, TOOLBAR_HEIGHT + keyboardHeight);
 	
@@ -517,28 +519,28 @@
 	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
 	
 	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height - bottomToolBar.frame.size.height - statusBarHeight);
-    
-    [self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    
-    [tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-    [tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
-    [navigationBar setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-    [urlField setBackgroundColor:[UIColor whiteColor]];
-    [bottomToolBar setBarTintColor:[UIColor defaultNavigationControllerColor]];
-    
-    [tabAddButton setTintColor:[progressBar tintColor]];
-    [tabDoneButton setTintColor:[progressBar tintColor]];
-    [settingsButton setTintColor:[progressBar tintColor]];
-    [tabsButton setTintColor:[progressBar tintColor]];
-    [tabCount setTextColor:[progressBar tintColor]];
-    
-    [tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
-    [tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
-    
-    if(!showingTabs) {
-        [self adjustWebViewTabsLayout];
-    }
+	
+	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+	
+	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
+	[navigationBar setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[urlField setBackgroundColor:[UIColor whiteColor]];
+	[bottomToolBar setBarTintColor:[UIColor defaultNavigationControllerColor]];
+	
+	[tabAddButton setTintColor:[progressBar tintColor]];
+	[tabDoneButton setTintColor:[progressBar tintColor]];
+	[settingsButton setTintColor:[progressBar tintColor]];
+	[tabsButton setTintColor:[progressBar tintColor]];
+	[tabCount setTextColor:[progressBar tintColor]];
+	
+	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
+	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
+	
+	if(!showingTabs) {
+		[self adjustWebViewTabsLayout];
+	}
 	
 	
 	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
@@ -602,7 +604,7 @@
 
 - (long)curWebViewTabHttpsRulesCount
 {
-    return [[[self curWebViewTab] applicableHTTPSEverywhereRules] count];
+	return [[[self curWebViewTab] applicableHTTPSEverywhereRules] count];
 }
 
 - (void)setCurTabIndex:(int)tab
@@ -638,11 +640,11 @@
 	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
 	
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
-
+	
 	[tabScroller setContentSize:CGSizeMake(wvt.viewHolder.frame.size.width * tabChooser.numberOfPages, wvt.viewHolder.frame.size.height)];
 	[tabScroller addSubview:wvt.viewHolder];
 	[tabScroller bringSubviewToFront:navigationBar];
-
+	
 	if (showingTabs)
 		[wvt zoomOut];
 	
@@ -652,7 +654,7 @@
 		[self slideToCurrentTabWithCompletionBlock:^(BOOL finished) {
 			if (url != nil)
 				[wvt loadURL:url];
-
+			
 			[self showTabsWithCompletionBlock:block];
 		}];
 	};
@@ -669,18 +671,18 @@
 			[wvt loadURL:url];
 		}
 	}
-
-    // Send "Tab loaded" notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabLoadedNotification object:nil];
-    
+	
+	// Send "Tab loaded" notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabLoadedNotification object:nil];
+	
 	return wvt;
 }
 
 - (void)addNewTabFromToolbar:(id)_id
 {
-    //avoid capturing 'self'
-    UITextField *localURLField = urlField;
-    
+	//avoid capturing 'self'
+	UITextField *localURLField = urlField;
+	
 	[self addNewTabForURL:nil forRestoration:NO withCompletionBlock:^(BOOL finished) {
 		[localURLField becomeFirstResponder];
 	}];
@@ -718,10 +720,10 @@
 	wvt = nil;
 	
 	[[[AppDelegate sharedAppDelegate] cookieJar] clearNonWhitelistedDataForTab:wvtHash];
-
+	
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
-
+	
 	if (futureFocusNumber == -1) {
 		if (curTabIndex == tabNumber.intValue) {
 			if (webViewTabs.count > tabNumber.intValue && webViewTabs[tabNumber.intValue]) {
@@ -733,11 +735,11 @@
 			}
 			else {
 				/* no tabs left, add one and zoom out */
-                
-                //avoid capturing 'self'
-                UITextField *localURLField = urlField;
 				
-                [self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
+				//avoid capturing 'self'
+				UITextField *localURLField = urlField;
+				
+				[self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
 					[localURLField becomeFirstResponder];
 				}];
 				return;
@@ -749,7 +751,7 @@
 	}
 	[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		tabScroller.contentSize = CGSizeMake(self.view.frame.size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
-
+		
 		for (int i = 0; i < webViewTabs.count; i++) {
 			WebViewTab *wvt = webViewTabs[i];
 			
@@ -765,7 +767,7 @@
 - (void)removeAllTabs
 {
 	curTabIndex = 0;
-
+	
 	for (int i = 0; i < webViewTabs.count; i++) {
 		WebViewTab *wvt = (WebViewTab *)webViewTabs[i];
 		[[wvt viewHolder] removeFromSuperview];
@@ -774,16 +776,16 @@
 	
 	[webViewTabs removeAllObjects];
 	[tabChooser setNumberOfPages:0];
-
+	
 	[self updateSearchBarDetails];
 }
 
 - (void)updateSearchBarDetails
 {
 	/* TODO: cache curURL and only do anything here if it changed, these changes might be expensive */
-
-    [urlField setTextColor:[UIColor darkTextColor]];
-
+	
+	[urlField setTextColor:[UIColor darkTextColor]];
+	
 	if (urlField.isFirstResponder) {
 		/* focused, don't muck with the URL while it's being edited */
 		[urlField setTextAlignment:NSTextAlignmentNatural];
@@ -801,7 +803,7 @@
 				/* wait until the page is done loading */
 				if ([progressBar progress] >= 1.0) {
 					[urlField setTextColor:[UIColor colorWithRed:0 green:(183.0/255.0) blue:(82.0/255.0) alpha:1.0]];
-			
+					
 					if ([self.curWebViewTab.SSLCertificate evOrgName] == nil)
 						[urlField setText:NSLocalizedString(@"Unknown Organization", nil)];
 					else
@@ -846,15 +848,15 @@
 	else {
 		[backButton setTintColor:[UIColor grayColor]];
 	}
-
+	
 	forwardButton.enabled = (self.curWebViewTab && self.curWebViewTab.canGoForward);
 	if (forwardButton.enabled) {
-        [forwardButton setTintColor:[progressBar tintColor]];
+		[forwardButton setTintColor:[progressBar tintColor]];
 	}
 	else {
 		[forwardButton setTintColor:[UIColor grayColor]];
 	}
-
+	
 	[urlField setFrame:[self frameForUrlField]];
 	[self showToolBars:YES];
 }
@@ -864,7 +866,7 @@
 	BOOL animated = YES;
 	float fadeAnimationDuration = 0.15;
 	float fadeOutDelay = 0.3;
-
+	
 	float progress = [[[self curWebViewTab] progress] floatValue];
 	if (progressBar.progress == progress) {
 		return;
@@ -878,12 +880,12 @@
 #ifdef TRACE
 	NSLog(@"[Tab %@] loading progress of %@ at %f", self.curWebViewTab.tabIndex, [self.curWebViewTab.url absoluteString], progress);
 #endif
-
+	
 	[self updateSearchBarDetails];
 	
 	if (progress >= 1.0) {
 		[progressBar setProgress:progress animated:NO];
-
+		
 		[UIView animateWithDuration:fadeAnimationDuration delay:fadeOutDelay options:UIViewAnimationOptionCurveLinear animations:^{
 			progressBar.alpha = 0.0;
 		} completion:^(BOOL finished) {
@@ -893,7 +895,7 @@
 	else {
 		[UIView animateWithDuration:(animated ? fadeAnimationDuration : 0.0) delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
 			[progressBar setProgress:progress animated:YES];
-
+			
 			if (showingTabs)
 				progressBar.alpha = 0.0;
 			else
@@ -913,7 +915,7 @@
 {
 	if (textField != urlField)
 		return;
-
+	
 #ifdef TRACE
 	NSLog(@"started editing");
 #endif
@@ -934,7 +936,7 @@
 	} completion:^(BOOL finished) {
 		[urlField performSelector:@selector(selectAll:) withObject:nil afterDelay:0.1];
 	}];
-
+	
 	[self updateSearchBarDetails];
 }
 
@@ -942,7 +944,7 @@
 {
 	if (textField != nil && textField != urlField)
 		return;
-
+	
 #ifdef TRACE
 	NSLog(@"ended editing with: %@", [textField text]);
 #endif
@@ -951,12 +953,12 @@
 		[bookmarks removeFromParentViewController];
 		bookmarks = nil;
 	}
-
+	
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 		[urlField setTextAlignment:NSTextAlignmentCenter];
 		[urlField setFrame:[self frameForUrlField]];
 	} completion:nil];
-
+	
 	[self updateSearchBarDetails];
 }
 
@@ -992,7 +994,7 @@
 	}
 	
 	[urlField resignFirstResponder]; /* will unfocus and call textFieldDidEndEditing */
-
+	
 	if (enteredURL != nil)
 		[[self curWebViewTab] loadURL:enteredURL];
 }
@@ -1012,11 +1014,11 @@
 	CGFloat contentOffsetY = scrollView.contentOffset.y;
 	CGFloat scrollViewHeight = scrollView.frame.size.height;
 	CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
-    
-    if(scrollViewHeight >= scrollContentSizeHeight && isShowingToolBars) {
-        return;
-    }
-
+	
+	if(scrollViewHeight >= scrollContentSizeHeight && isShowingToolBars) {
+		return;
+	}
+	
 	if (contentOffsetY < 0.0) {
 		return;
 	}
@@ -1071,130 +1073,130 @@
 
 - (void)openSettingsMenu:(id)_id
 {
-    // Take a snapshot of current user settings
-    preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
-
-    if (appSettingsViewController == nil) {
-        appSettingsViewController = [[SettingsViewController alloc] init];
-        appSettingsViewController.delegate = appSettingsViewController;
-        appSettingsViewController.showCreditsFooter = NO;
-        appSettingsViewController.showDoneButton = YES;
-        appSettingsViewController.webViewController = self;
-        appSettingsViewController.neverShowPrivacySettings = YES;
-    }
-
-    // These keys correspond to settings in PsiphonOptions.plist
-    BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
-    BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
-
-    NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
-    NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
-
-    // Hide configurable fields until user chooses to use upstream proxy
-    NSMutableSet *hiddenKeys = upstreamProxyEnabled ? nil : [NSMutableSet setWithArray:upstreamProxyKeys];
-
-    // Hide authentication fields until user chooses to use upstream proxy with authentication
-    if (!useUpstreamProxyAuthentication) {
-        if (hiddenKeys == nil) {
-            hiddenKeys = [NSMutableSet setWithArray:proxyAuthenticationKeys];
-        } else {
-            [hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
-        }
-    }
-
-    appSettingsViewController.hiddenKeys = hiddenKeys;
-
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
-    [[UIViewController topViewController] presentViewController:navController animated:YES completion:nil];
+	// Take a snapshot of current user settings
+	preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+	
+	if (appSettingsViewController == nil) {
+		appSettingsViewController = [[SettingsViewController alloc] init];
+		appSettingsViewController.delegate = appSettingsViewController;
+		appSettingsViewController.showCreditsFooter = NO;
+		appSettingsViewController.showDoneButton = YES;
+		appSettingsViewController.webViewController = self;
+		appSettingsViewController.neverShowPrivacySettings = YES;
+	}
+	
+	// These keys correspond to settings in PsiphonOptions.plist
+	BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
+	BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
+	
+	NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
+	NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
+	
+	// Hide configurable fields until user chooses to use upstream proxy
+	NSMutableSet *hiddenKeys = upstreamProxyEnabled ? nil : [NSMutableSet setWithArray:upstreamProxyKeys];
+	
+	// Hide authentication fields until user chooses to use upstream proxy with authentication
+	if (!useUpstreamProxyAuthentication) {
+		if (hiddenKeys == nil) {
+			hiddenKeys = [NSMutableSet setWithArray:proxyAuthenticationKeys];
+		} else {
+			[hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
+		}
+	}
+	
+	appSettingsViewController.hiddenKeys = hiddenKeys;
+	
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
+	[[UIViewController topViewController] presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)settingsViewControllerDidEnd
 {
-    // Allow ARC to dealloc appSettingsViewController
+	// Allow ARC to dealloc appSettingsViewController
 	appSettingsViewController = nil;
-
-    // Update relevant ivars to match current settings
+	
+	// Update relevant ivars to match current settings
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
 	[[[AppDelegate sharedAppDelegate] cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
-
-    // Check if settings which have changed require a tunnel service restart to take effect
-    if ([self isSettingsRestartRequired]) {
-        [[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
-    }
+	
+	// Check if settings which have changed require a tunnel service restart to take effect
+	if ([self isSettingsRestartRequired]) {
+		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
+	}
 }
 
 - (BOOL)isSettingsRestartRequired
 {
-    UpstreamProxySettings *proxySettings = [UpstreamProxySettings sharedInstance];
-    
-    if (preferencesSnapshot) {
-        // Cannot use isEqualToString becase strings may be nil
-        BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
-            return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
-        };
-
-        // Check if "disable timeouts" has changed
-        BOOL disableTimeouts = [[preferencesSnapshot objectForKey:kDisableTimeouts] boolValue];
-
-        if (disableTimeouts != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts]) {
-            return YES;
-        }
-
-        // Check if the selected region has changed
-        NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
-
-        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
-            return YES;
-        }
-
-        // Check if "use proxy" has changed
-        BOOL useUpstreamProxy = [[preferencesSnapshot objectForKey:kUseUpstreamProxy] boolValue];
-
-        if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
-            return YES;
-        }
-
-        // No further checking if "use proxy" is off and has not
-        // changed
-        if (!useUpstreamProxy) {
-            return NO;
-        }
-
-        // If "use proxy" is selected, check if host || port have changed
-        NSString *hostAddress = [preferencesSnapshot objectForKey:kUpstreamProxyHostAddress];
-        NSString *proxyPort = [preferencesSnapshot objectForKey:kUpstreamProxyPort];
-
-        if (!safeStringsEqual(hostAddress, [proxySettings getCustomProxyHost]) || !safeStringsEqual(proxyPort, [proxySettings getCustomProxyPort])) {
-            return YES;
-        }
-
-        // Check if "use proxy authentication" has changed
-        BOOL useProxyAuthentication = [[preferencesSnapshot objectForKey:kUseProxyAuthentication] boolValue];
-
-        if (useProxyAuthentication != [proxySettings getUseProxyAuthentication]) {
-            return YES;
-        }
-
-        // No further checking if "use proxy authentication" is off
-        // and has not changed
-        if (!useProxyAuthentication) {
-            return NO;
-        }
-
-        // "use proxy authentication" is checked, check if
-        // username || password || domain have changed
-        NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
-        NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
-        NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
-
-        if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
-            !safeStringsEqual(password, [proxySettings getProxyPassword]) ||
-            !safeStringsEqual(domain, [proxySettings getProxyDomain])) {
-            return YES;
-        }
-    }
-    return NO;
+	UpstreamProxySettings *proxySettings = [UpstreamProxySettings sharedInstance];
+	
+	if (preferencesSnapshot) {
+		// Cannot use isEqualToString becase strings may be nil
+		BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+			return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+		};
+		
+		// Check if "disable timeouts" has changed
+		BOOL disableTimeouts = [[preferencesSnapshot objectForKey:kDisableTimeouts] boolValue];
+		
+		if (disableTimeouts != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts]) {
+			return YES;
+		}
+		
+		// Check if the selected region has changed
+		NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+		
+		if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+			return YES;
+		}
+		
+		// Check if "use proxy" has changed
+		BOOL useUpstreamProxy = [[preferencesSnapshot objectForKey:kUseUpstreamProxy] boolValue];
+		
+		if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
+			return YES;
+		}
+		
+		// No further checking if "use proxy" is off and has not
+		// changed
+		if (!useUpstreamProxy) {
+			return NO;
+		}
+		
+		// If "use proxy" is selected, check if host || port have changed
+		NSString *hostAddress = [preferencesSnapshot objectForKey:kUpstreamProxyHostAddress];
+		NSString *proxyPort = [preferencesSnapshot objectForKey:kUpstreamProxyPort];
+		
+		if (!safeStringsEqual(hostAddress, [proxySettings getCustomProxyHost]) || !safeStringsEqual(proxyPort, [proxySettings getCustomProxyPort])) {
+			return YES;
+		}
+		
+		// Check if "use proxy authentication" has changed
+		BOOL useProxyAuthentication = [[preferencesSnapshot objectForKey:kUseProxyAuthentication] boolValue];
+		
+		if (useProxyAuthentication != [proxySettings getUseProxyAuthentication]) {
+			return YES;
+		}
+		
+		// No further checking if "use proxy authentication" is off
+		// and has not changed
+		if (!useProxyAuthentication) {
+			return NO;
+		}
+		
+		// "use proxy authentication" is checked, check if
+		// username || password || domain have changed
+		NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
+		NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
+		NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
+		
+		if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
+			!safeStringsEqual(password, [proxySettings getProxyPassword]) ||
+			!safeStringsEqual(domain, [proxySettings getProxyDomain])) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 - (void)showTabs:(id)_id
@@ -1242,7 +1244,7 @@
 			tabToolbar.hidden = true;
 			progressBar.alpha = (progressBar.progress > 0.0 && progressBar.progress < 1.0 ? 1.0 : 0.0);
 		} completion:block];
-
+		
 		tabScroller.scrollEnabled = NO;
 		tabScroller.pagingEnabled = NO;
 		
@@ -1302,7 +1304,7 @@
 - (void)slideToCurrentTabWithCompletionBlock:(void(^)(BOOL))block
 {
 	[self updateProgress];
-
+	
 	[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
 		[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 	} completion:block];
@@ -1321,7 +1323,7 @@
 	 * from "Mozilla/5.0 (iPhone; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12H321"
 	 * to   "Mozilla/5.0 (iPhone; CPU iPhone OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4"
 	 */
-
+	
 	UIWebView *twv = [[UIWebView alloc] initWithFrame:CGRectZero];
 	NSString *ua = [twv stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
 	
@@ -1341,7 +1343,7 @@
 			break;
 		}
 	}
-
+	
 	return [uapieces componentsJoinedByString:@" "];
 }
 
@@ -1356,13 +1358,13 @@
 
 - (void) stopLoading
 {
-    for (WebViewTab *wvt in webViewTabs) {
-        if (wvt.webView.isLoading) {
-            [wvt.webView stopLoading];
-            [wvt setProgress:@(0.0f)];
-        }
-    }
-    [self updateProgress];
+	for (WebViewTab *wvt in webViewTabs) {
+		if (wvt.webView.isLoading) {
+			[wvt.webView stopLoading];
+			[wvt setProgress:@(0.0f)];
+		}
+	}
+	[self updateProgress];
 }
 
 #pragma mark - Tutorial Delegate Methods
@@ -1370,440 +1372,446 @@
 // Add constraints and draw spotlight
 -(BOOL)drawStep:(int)step
 {
-    [self drawSpotlight:step];
-    
-    [self.view removeConstraints:tutorial.removeBeforeNextStep];
-    
-    if (step == PsiphonTutorialStep1) {
-        /* Hello from Psiphon. Also, highlight and describe psiphonConnectionIndicator */
-        
-        NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
-        
-        // Verticaly constrain arrowView to be centered to psiphonConnectionIndicator
-        tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[psiphonConnectionIndicator]-30-[arrowView(==arrowHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-        
-        [self.view addConstraints:tutorial.removeBeforeNextStep];
-        
-        // Start arrow animation
-        [tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
-        
-        return YES;
-    } else if (step == PsiphonTutorialStep2) {
-        [tutorial.headerView removeFromSuperview];
-
-        // If we are not using iPad need to change alignment from
-        // textView.top = contentView.centerY
-        // to
-        // textView.centerY = contentView.centerY
-        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-            NSLayoutConstraint *centreTextView = [tutorial.constraintsDictionary valueForKey:@"centreTextView"];
-            if (centreTextView != nil) {
-                [tutorial.contentView removeConstraint:centreTextView];
-                centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
-                                                              attribute: NSLayoutAttributeCenterY
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:tutorial.contentView
-                                                              attribute:NSLayoutAttributeCenterY
-                                                             multiplier:1.f constant:0.f];
-                centreTextView.constant = 10;
-                [tutorial.contentView addConstraint:centreTextView];
-            }
-        }
-        
-        /* Highlight settings button and describe settings menu */
-        
-        tutorial.arrowView.image = [UIImage imageNamed:@"arrow-down"];
-        NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
-        
-        // Vertically constrain arrowView to be placed above the settings button spotlight
-        tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[arrowView(==arrowHeight)]-50-[bottomToolBar]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-        
-        // Vertically constrain the textView to be above arrowView to prevent unwanted overlap or cutoff
-        tutorial.removeBeforeNextStep = [tutorial.removeBeforeNextStep arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[arrowView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
-
-        [self.view addConstraints:tutorial.removeBeforeNextStep];
-        
-        return YES;
-    } else if (step == PsiphonTutorialStep3) {
-        /* Tutorial goodbye with no spotlight */
-        
-        [tutorial.arrowView removeFromSuperview]; // arrowView not used on this screen
-        [tutorial.contentView addSubview:tutorial.letsGo]; // add letsGo button
-        
-        if (tutorial.letsGo != nil) {
-            CGFloat buttonWidth = (tutorial.contentView.frame.size.width) / 3;
-            buttonWidth = buttonWidth > 120 ? buttonWidth : 120;
-            CGFloat buttonHeight = 40;
-            
-            NSDictionary *metrics = @{
-                                      @"buttonWidth": [NSNumber numberWithFloat:buttonWidth],
-                                      @"buttonHeight": [NSNumber numberWithFloat:buttonHeight]
-                                      };
-            
-            // Horizontal constraints for letsGo button
-            [tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[letsGo(==buttonWidth)]" options:0 metrics:metrics views:tutorial.viewsDictionary]];
-            [tutorial.letsGo.layer setCornerRadius:buttonHeight/2];
-            
-            // textView to letsGo button vertical spacing
-            tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-32-[letsGo(==buttonHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-
-            [tutorial.contentView addConstraints:tutorial.removeBeforeNextStep];
-        }
-        
-        return YES;
-    }
-    
-    return NO;
+	[self drawSpotlight:step];
+	
+	[self.view removeConstraints:tutorial.removeBeforeNextStep];
+	
+	if (step == PsiphonTutorialStep1) {
+		/* Hello from Psiphon. Also, highlight and describe psiphonConnectionIndicator */
+		
+		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
+		
+		// Verticaly constrain arrowView to be centered to psiphonConnectionIndicator
+		tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[psiphonConnectionIndicator]-30-[arrowView(==arrowHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
+		
+		[self.view addConstraints:tutorial.removeBeforeNextStep];
+		
+		// Start arrow animation
+		[tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
+		
+		return YES;
+	} else if (step == PsiphonTutorialStep2) {
+		[tutorial.headerView removeFromSuperview];
+		
+		// If we are not using iPad need to change alignment from
+		// textView.top = contentView.centerY
+		// to
+		// textView.centerY = contentView.centerY
+		if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+			NSLayoutConstraint *centreTextView = [tutorial.constraintsDictionary valueForKey:@"centreTextView"];
+			if (centreTextView != nil) {
+				[tutorial.contentView removeConstraint:centreTextView];
+				centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
+															  attribute: NSLayoutAttributeCenterY
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:tutorial.contentView
+															  attribute:NSLayoutAttributeCenterY
+															 multiplier:1.f constant:0.f];
+				centreTextView.constant = 10;
+				[tutorial.contentView addConstraint:centreTextView];
+			}
+		}
+		
+		/* Highlight settings button and describe settings menu */
+		
+		tutorial.arrowView.image = [UIImage imageNamed:@"arrow-down"];
+		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
+		
+		// Vertically constrain arrowView to be placed above the settings button spotlight
+		tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[arrowView(==arrowHeight)]-50-[bottomToolBar]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
+		
+		// Vertically constrain the textView to be above arrowView to prevent unwanted overlap or cutoff
+		tutorial.removeBeforeNextStep = [tutorial.removeBeforeNextStep arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[arrowView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
+		
+		[self.view addConstraints:tutorial.removeBeforeNextStep];
+		
+		return YES;
+	} else if (step == PsiphonTutorialStep3) {
+		/* Tutorial goodbye with no spotlight */
+		
+		[tutorial.arrowView removeFromSuperview]; // arrowView not used on this screen
+		[tutorial.contentView addSubview:tutorial.letsGo]; // add letsGo button
+		
+		if (tutorial.letsGo != nil) {
+			CGFloat buttonWidth = (tutorial.contentView.frame.size.width) / 3;
+			buttonWidth = buttonWidth > 120 ? buttonWidth : 120;
+			CGFloat buttonHeight = 40;
+			
+			NSDictionary *metrics = @{
+									  @"buttonWidth": [NSNumber numberWithFloat:buttonWidth],
+									  @"buttonHeight": [NSNumber numberWithFloat:buttonHeight]
+									  };
+			
+			// Horizontal constraints for letsGo button
+			[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[letsGo(==buttonWidth)]" options:0 metrics:metrics views:tutorial.viewsDictionary]];
+			[tutorial.letsGo.layer setCornerRadius:buttonHeight/2];
+			
+			// textView to letsGo button vertical spacing
+			tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-32-[letsGo(==buttonHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
+			
+			[tutorial.contentView addConstraints:tutorial.removeBeforeNextStep];
+		}
+		
+		return YES;
+	}
+	
+	return NO;
 }
 
 -(void)tutorialEnded
 {
-    BOOL launchedFromOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
+	BOOL launchedFromOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
  
-    tutorial = nil;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
-    [center removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [center removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    // Since we have modified the psiphonConnectionIndicator's state manually for the tutorial
-    // we need to ensure it gets reset to display the correct state
-    [[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];
-    
-    if (launchedFromOnboarding) {
-        // Resume setup
-        // User has been fully onboarded
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenOnBoarded"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        // Start psiphon and open homepage
-        [[AppDelegate sharedAppDelegate] startIfNeeded];
-    }
+	tutorial = nil;
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
+	[center removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[center removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+	
+	// Since we have modified the psiphonConnectionIndicator's state manually for the tutorial
+	// we need to ensure it gets reset to display the correct state
+	[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];
+	
+	if (launchedFromOnboarding) {
+		// Resume setup
+		// User has been fully onboarded
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenOnBoarded"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+		
+		// Start psiphon and open homepage
+		[[AppDelegate sharedAppDelegate] startIfNeeded];
+	}
+
+	[self viewIsVisible];
 }
 
 #pragma mark - Tutorial methods and helper functions
 
 - (void)viewDidLayoutSubviews
 {
-    if (tutorial != nil) {
-        [self drawSpotlight:tutorial.step];
-    }
+	if (tutorial != nil) {
+		[self drawSpotlight:tutorial.step];
+	}
 }
 
 - (void)drawSpotlight:(int)step
 {
-    CGRect frame = [self getCurrentSpotlightFrame:step];
-    [self wrappedTutorialCall:^(void){ [tutorial setSpotlightFrame:frame withView:self.view]; }];
+	CGRect frame = [self getCurrentSpotlightFrame:step];
+	[self wrappedTutorialCall:^(void){ [tutorial setSpotlightFrame:frame withView:self.view]; }];
 }
 
 - (CGRect)getCurrentSpotlightFrame:(int)step
 {
-    int radius = psiphonConnectionIndicator.frame.size.width * 1.2;
-
-    if (step == 0) {
-        return CGRectMake(psiphonConnectionIndicator.frame.origin.x - (radius - psiphonConnectionIndicator.frame.size.width / 2), psiphonConnectionIndicator.frame.origin.y + navigationBar.frame.origin.y - (radius - psiphonConnectionIndicator.frame.size.height / 2), radius * 2.0, radius * 2.0);
-    } else if (step == 1) {
-        return CGRectMake(bottomToolBar.frame.size.width / 2 - radius, self.view.frame.size.height - bottomToolBar.frame.size.height / 2 - radius, radius * 2.0, radius * 2.0);
-    }
-    return CGRectNull;
+	int radius = psiphonConnectionIndicator.frame.size.width * 1.2;
+	
+	if (step == 0) {
+		return CGRectMake(psiphonConnectionIndicator.frame.origin.x - (radius - psiphonConnectionIndicator.frame.size.width / 2), psiphonConnectionIndicator.frame.origin.y + navigationBar.frame.origin.y - (radius - psiphonConnectionIndicator.frame.size.height / 2), radius * 2.0, radius * 2.0);
+	} else if (step == 1) {
+		return CGRectMake(bottomToolBar.frame.size.width / 2 - radius, self.view.frame.size.height - bottomToolBar.frame.size.height / 2 - radius, radius * 2.0, radius * 2.0);
+	}
+	return CGRectNull;
 }
 
 - (void)handleTutorialClick:(UITapGestureRecognizer *)recognizer {
-    [self wrappedTutorialCall:^(void){ [tutorial nextStep]; }];
+	[self wrappedTutorialCall:^(void){ [tutorial nextStep]; }];
 }
 
 - (void)wrappedTutorialCall:(void (^)())f{
-    if (tutorial != nil) {
-        f();
-    }
+	if (tutorial != nil) {
+		f();
+	}
 }
 
 -(void)tutorialBackgrounded {
-    [tutorial.arrowView.layer removeAllAnimations];
+	[tutorial.arrowView.layer removeAllAnimations];
 }
 
 -(void)tutorialReappeared {
-    [tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
+	[tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
 }
 
 -(void)overlayTutorial
 {
-    // Unsubscribe from psiphonConnectionState notifications
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self name:kPsiphonConnectionStateNotification object:nil];
-    
-    // We need to stop and start animations on app backgrounded and app became active
-    [center addObserver:self selector:@selector(tutorialBackgrounded) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [center addObserver:self selector:@selector(tutorialReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    // Force connectionIndicator to show connected state
-    [psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
-    
-    // Init
-    tutorial = [[Tutorial alloc] init];
-    tutorial.delegate = self;
-    
-    /* Add completely clear background which prevents user clicking around */
-    // We will not add any subviews to this view as we need to
-    // layout against browser elements.
-    tutorial.blockingView = [[UIView alloc] initWithFrame:self.view.bounds];
-    tutorial.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; // If this doesn't auto-resize on rotate we'll be able to click through
-    tutorial.blockingView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:tutorial.blockingView];
-    
-    // Created centred contentView which will hold tutorial
-    // headerView, titleView and textView.
-    tutorial.contentView = [[UIView alloc] init];
-    tutorial.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    tutorial.contentView.backgroundColor = [UIColor clearColor];
-    
-    /* Add tutorial views to self.view */
-    [tutorial addToView:self.view];
-    
-    /* contentView's constraints */
-    
-    CGFloat contentViewWidthRatio = 0.68f;
-    
-    // contentView.width = contentViewWidthRatio * self.view.width
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeWidth
-                                                         multiplier:contentViewWidthRatio
-                                                           constant:0]];
-    
-    // contentView.height = self.view.height
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeHeight
-                                                         multiplier:.5f
-                                                           constant:0]];
-    
-    // contentView.centerX = self.view.centerX
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.f constant:0.f]];
-    
-    // contentView.centerY = self.view.centerY (low-priority)
-    NSLayoutConstraint *contentViewCentreY = [NSLayoutConstraint constraintWithItem:tutorial.contentView
-                                                                          attribute:NSLayoutAttributeCenterY
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self.view
-                                                                          attribute:NSLayoutAttributeCenterY
-                                                                         multiplier:1.f constant:0.f];
-    contentViewCentreY.priority = 10;
-    [self.view addConstraint:contentViewCentreY];
-    
-    id <UILayoutSupport> topLayoutGuide =  self.topLayoutGuide;
-    
-    [tutorial constructViewsDictionaryForAutoLayout:NSDictionaryOfVariableBindings(topLayoutGuide, psiphonConnectionIndicator, bottomToolBar)];
-    
-    /* skipButton constraints */
-    [tutorial.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[skipButton]-30-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[skipButton]-(>=0)-[headerView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeWidth
-                                                         multiplier:.35f
-                                                           constant:0]];
-    
-    // Centre skip button vertically in nav bar
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
-                                                          attribute:NSLayoutAttributeCenterY
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:navigationBar
-                                                          attribute:NSLayoutAttributeCenterY
-                                                         multiplier:1.f constant:0.f]];
-    
-    /* Add constraints to contentViews's subviews */
-    
-    /* headerView's constraints */
-    
-    // headerView.top = contentView.top (low-priority)
-    NSLayoutConstraint *headerViewToTop = [NSLayoutConstraint constraintWithItem:tutorial.headerView
-                                                                       attribute:NSLayoutAttributeTop
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:tutorial.contentView
-                                                                       attribute:NSLayoutAttributeTop
-                                                                      multiplier:1.f constant:0.f];
-    headerViewToTop.priority = 10;
-    [tutorial.contentView addConstraint:headerViewToTop];
-    
-    // headerView.centerX = contentView.centerX
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                    multiplier:1.f constant:0.f]];
-    
-    // headerView.width = contentView.width
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                    multiplier:1.f
-                                                                      constant:0]];
-    
-    // headerView.height <= 0.25 * contentView.height
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                    multiplier:.25f
-                                                                      constant:0]];
-    
-    tutorial.headerView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
-    [tutorial.headerView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    [tutorial.headerView setContentCompressionResistancePriority:999 forAxis:UILayoutConstraintAxisVertical];
-    
-    /* titleView's constraints */
-    
-    // titleView.centerX = contentView.centerX
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                    multiplier:1.f constant:0.f]];
-    
-    // titleView.width = contentView.width
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                    multiplier:1.f
-                                                                      constant:0]];
-    
-    // titlteView.height <= 0.15 * contentView.height
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                    multiplier:.15f
-                                                                      constant:0]];
-    
-    tutorial.titleView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
-    [tutorial.titleView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    [tutorial.titleView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    
-    /* textView's constraints */
-    
-    CGFloat textViewWidthRatio = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? .8f : 1.f;
-    
-    // textView.centerX = contentView.centerX
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeCenterX
-                                                                    multiplier:1.f constant:0.f]];
-    
-    // textView.width = textViewWidthRatio * contentView.width
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                    multiplier:textViewWidthRatio
-                                                                      constant:0]];
-    
-    // textView.top = contentView.centerX
-    NSLayoutConstraint *centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
-                                                                      attribute:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? NSLayoutAttributeCenterY : NSLayoutAttributeTop
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:tutorial.contentView
-                                                                      attribute:NSLayoutAttributeCenterY
-                                                                     multiplier:1.f constant:0.f];
-    centreTextView.priority = 15; // we'll need to break this constraint on smaller screens
-    [tutorial.contentView addConstraint:centreTextView];
-    
-    tutorial.textView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio * textViewWidthRatio;
-    [tutorial.textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    [tutorial.textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    
-    // textView.height <= 0.6 * contentView.height
-    [tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                        toItem:tutorial.contentView
-                                                                     attribute:NSLayoutAttributeHeight
-                                                                    multiplier:.6f
-                                                                      constant:0]];
-    
-    /* Construct constraints dictionary */
-    tutorial.constraintsDictionary = [[NSMutableDictionary alloc] init];
-    [tutorial.constraintsDictionary addEntriesFromDictionary:NSDictionaryOfVariableBindings(centreTextView)];
-    
-    // Vertical constraints for contentView's subviews
-    [tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(>=24)-[titleView]-(==24)-[textView]-(>=0)-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
-    
-    /* Start tutorial */
-    [tutorial startTutorial];
-    
-    UITapGestureRecognizer *tutorialScreenPress =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleTutorialClick:)];
-    [self.view addGestureRecognizer:tutorialScreenPress];
+	// Unsubscribe from psiphonConnectionState notifications
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center removeObserver:self name:kPsiphonConnectionStateNotification object:nil];
+	
+	// We need to stop and start animations on app backgrounded and app became active
+	[center addObserver:self selector:@selector(tutorialBackgrounded) name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[center addObserver:self selector:@selector(tutorialReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
+	
+	// Force connectionIndicator to show connected state
+	[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+	
+	// Init
+	tutorial = [[Tutorial alloc] init];
+	tutorial.delegate = self;
+	
+	/* Add completely clear background which prevents user clicking around */
+	// We will not add any subviews to this view as we need to
+	// layout against browser elements.
+	tutorial.blockingView = [[UIView alloc] initWithFrame:self.view.bounds];
+	tutorial.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; // If this doesn't auto-resize on rotate we'll be able to click through
+	tutorial.blockingView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:tutorial.blockingView];
+	
+	// Created centred contentView which will hold tutorial
+	// headerView, titleView and textView.
+	tutorial.contentView = [[UIView alloc] init];
+	tutorial.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+	tutorial.contentView.backgroundColor = [UIColor clearColor];
+	
+	/* Add tutorial views to self.view */
+	[tutorial addToView:self.view];
+	
+	/* contentView's constraints */
+	
+	CGFloat contentViewWidthRatio = 0.68f;
+	
+	// contentView.width = contentViewWidthRatio * self.view.width
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:contentViewWidthRatio
+														   constant:0]];
+	
+	// contentView.height = self.view.height
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.5f
+														   constant:0]];
+	
+	// contentView.centerX = self.view.centerX
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f constant:0.f]];
+	
+	// contentView.centerY = self.view.centerY (low-priority)
+	NSLayoutConstraint *contentViewCentreY = [NSLayoutConstraint constraintWithItem:tutorial.contentView
+																		  attribute:NSLayoutAttributeCenterY
+																		  relatedBy:NSLayoutRelationEqual
+																			 toItem:self.view
+																		  attribute:NSLayoutAttributeCenterY
+																		 multiplier:1.f constant:0.f];
+	contentViewCentreY.priority = 10;
+	[self.view addConstraint:contentViewCentreY];
+	
+	id <UILayoutSupport> topLayoutGuide =  self.topLayoutGuide;
+	
+	[tutorial constructViewsDictionaryForAutoLayout:NSDictionaryOfVariableBindings(topLayoutGuide, psiphonConnectionIndicator, bottomToolBar)];
+	
+	/* skipButton constraints */
+	[tutorial.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[skipButton]-30-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[skipButton]-(>=0)-[headerView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
+	
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:.35f
+														   constant:0]];
+	
+	// Centre skip button vertically in nav bar
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
+														  attribute:NSLayoutAttributeCenterY
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:navigationBar
+														  attribute:NSLayoutAttributeCenterY
+														 multiplier:1.f constant:0.f]];
+	
+	/* Add constraints to contentViews's subviews */
+	
+	/* headerView's constraints */
+	
+	// headerView.top = contentView.top (low-priority)
+	NSLayoutConstraint *headerViewToTop = [NSLayoutConstraint constraintWithItem:tutorial.headerView
+																	   attribute:NSLayoutAttributeTop
+																	   relatedBy:NSLayoutRelationEqual
+																		  toItem:tutorial.contentView
+																	   attribute:NSLayoutAttributeTop
+																	  multiplier:1.f constant:0.f];
+	headerViewToTop.priority = 10;
+	[tutorial.contentView addConstraint:headerViewToTop];
+	
+	// headerView.centerX = contentView.centerX
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
+																	 attribute:NSLayoutAttributeCenterX
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeCenterX
+																	multiplier:1.f constant:0.f]];
+	
+	// headerView.width = contentView.width
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
+																	 attribute:NSLayoutAttributeWidth
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeWidth
+																	multiplier:1.f
+																	  constant:0]];
+	
+	// headerView.height <= 0.25 * contentView.height
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
+																	 attribute:NSLayoutAttributeHeight
+																	 relatedBy:NSLayoutRelationLessThanOrEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeHeight
+																	multiplier:.25f
+																	  constant:0]];
+	
+	tutorial.headerView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
+	[tutorial.headerView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+	[tutorial.headerView setContentCompressionResistancePriority:999 forAxis:UILayoutConstraintAxisVertical];
+	
+	/* titleView's constraints */
+	
+	// titleView.centerX = contentView.centerX
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
+																	 attribute:NSLayoutAttributeCenterX
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeCenterX
+																	multiplier:1.f constant:0.f]];
+	
+	// titleView.width = contentView.width
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
+																	 attribute:NSLayoutAttributeWidth
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeWidth
+																	multiplier:1.f
+																	  constant:0]];
+	
+	// titlteView.height <= 0.15 * contentView.height
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
+																	 attribute:NSLayoutAttributeHeight
+																	 relatedBy:NSLayoutRelationLessThanOrEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeHeight
+																	multiplier:.15f
+																	  constant:0]];
+	
+	tutorial.titleView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
+	[tutorial.titleView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+	[tutorial.titleView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+	
+	/* textView's constraints */
+	
+	CGFloat textViewWidthRatio = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? .8f : 1.f;
+	
+	// textView.centerX = contentView.centerX
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
+																	 attribute:NSLayoutAttributeCenterX
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeCenterX
+																	multiplier:1.f constant:0.f]];
+	
+	// textView.width = textViewWidthRatio * contentView.width
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
+																	 attribute:NSLayoutAttributeWidth
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeWidth
+																	multiplier:textViewWidthRatio
+																	  constant:0]];
+	
+	// textView.top = contentView.centerX
+	NSLayoutConstraint *centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
+																	  attribute:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? NSLayoutAttributeCenterY : NSLayoutAttributeTop
+																	  relatedBy:NSLayoutRelationEqual
+																		 toItem:tutorial.contentView
+																	  attribute:NSLayoutAttributeCenterY
+																	 multiplier:1.f constant:0.f];
+	centreTextView.priority = 15; // we'll need to break this constraint on smaller screens
+	[tutorial.contentView addConstraint:centreTextView];
+	
+	tutorial.textView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio * textViewWidthRatio;
+	[tutorial.textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+	[tutorial.textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+	
+	// textView.height <= 0.6 * contentView.height
+	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
+																	 attribute:NSLayoutAttributeHeight
+																	 relatedBy:NSLayoutRelationLessThanOrEqual
+																		toItem:tutorial.contentView
+																	 attribute:NSLayoutAttributeHeight
+																	multiplier:.6f
+																	  constant:0]];
+	
+	/* Construct constraints dictionary */
+	tutorial.constraintsDictionary = [[NSMutableDictionary alloc] init];
+	[tutorial.constraintsDictionary addEntriesFromDictionary:NSDictionaryOfVariableBindings(centreTextView)];
+	
+	// Vertical constraints for contentView's subviews
+	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(>=24)-[titleView]-(==24)-[textView]-(>=0)-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
+
+	/* Start tutorial */
+	[tutorial startTutorial];
+
+	UITapGestureRecognizer *tutorialBlockingViewPress =
+	[[UITapGestureRecognizer alloc] initWithTarget:self
+											action:@selector(handleTutorialClick:)];
+
+	[tutorial.blockingView addGestureRecognizer:tutorialBlockingViewPress];
+
+	UITapGestureRecognizer *tutorialContentViewPress =
+	[[UITapGestureRecognizer alloc] initWithTarget:self
+											action:@selector(handleTutorialClick:)];
+
+	[tutorial.contentView addGestureRecognizer:tutorialContentViewPress];
 }
 
 - (void) showPsiphonConnectionStatusAlert {
-    PsiphonConnectionAlertViewController *connectionAlertViewController = [[PsiphonConnectionAlertViewController alloc]
-                                          initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
-    connectionAlertViewController.delegate = self;
-
-    [connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
-                                                                       style:UIAlertActionStyleDefault
-                                                                     handler:^(NYAlertAction *action) {
-                                                                         [connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES                                                                                                                                                    completion:^(void){[self openSettingsMenu:nil];}];
-                                                                     }]];
-
-    [connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Done", nil)
-                                                                      style:UIAlertActionStyleDefault
-                                                                    handler:^(NYAlertAction *action) {
-                                                                        [connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-                                                                    }]];
-    
-    [[UIViewController topViewController] presentViewController:connectionAlertViewController animated:NO
-                                                     completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+	PsiphonConnectionAlertViewController *connectionAlertViewController = [[PsiphonConnectionAlertViewController alloc]
+																		   initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+	connectionAlertViewController.delegate = self;
+	
+	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
+																	  style:UIAlertActionStyleDefault
+																	handler:^(NYAlertAction *action) {
+																		[connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES                                                                                                                                                    completion:^(void){[self openSettingsMenu:nil];}];
+																	}]];
+	
+	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Done", nil)
+																	  style:UIAlertActionStyleDefault
+																	handler:^(NYAlertAction *action) {
+																		[connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+																	}]];
+	
+	[[UIViewController topViewController] presentViewController:connectionAlertViewController animated:NO
+													 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 }
 
 #pragma mark RegionSelectionControllerDelegate method implementation
 - (void) regionSelectionControllerWillStart {
-    // Take a snapshot of current user settings
-    preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+	// Take a snapshot of current user settings
+	preferencesSnapshot = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 }
 
 - (void) regionSelectionControllerDidEnd {
-    if (preferencesSnapshot) {
-        // Cannot use isEqualToString becase strings may be nil
-        BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
-            return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
-        };
-        // Check if the selected region has changed
-        NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
-        
-        if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
-            [[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
-        }
-    }
+	if (preferencesSnapshot) {
+		// Cannot use isEqualToString becase strings may be nil
+		BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+			return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+		};
+		// Check if the selected region has changed
+		NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+		
+		if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
+			[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
+		}
+	}
 }
 
 @end
-
-
-
