@@ -50,10 +50,10 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [[AppDelegate sharedAppDelegate] defaultUserAgent], self.hash] }];
 
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-	_needsRefresh = FALSE;
+	_isRestoring = NO;
 	if (rid != nil) {
 		[_webView setRestorationIdentifier:rid];
-		_needsRefresh = TRUE;
+		[self setIsRestoring:YES];
 	}
 	[_webView setDelegate:self];
 	[_webView setScalesPageToFit:YES];
@@ -180,6 +180,8 @@
 - (void)close
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"WebProgressEstimateChangedNotification" object:[_webView valueForKeyPath:@"documentView.webView"]];
+	// Make sure delegate will not try to call back when webview is already gone;
+	[_webView setDelegate:nil];
 	[_webView stopLoading];
 
 	for (id gr in [_webView gestureRecognizers])
@@ -740,7 +742,6 @@
 
 - (void)refresh
 {
-	[self setNeedsRefresh:FALSE];
 	[[self webView] reload];
 }
 

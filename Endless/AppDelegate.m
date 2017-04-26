@@ -34,24 +34,11 @@
 #import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
 #import "URLInterceptor.h"
-#import "OrderedDictionary.h"
 
 
 @implementation AppDelegate {
 	BOOL _needsResume;
 	BOOL _shouldOpenHomePages;
-
-	// A dictionary of all previously received via handshake
-	// home pages mapped to their equivalent URLs.
-	// We will perform a lookup against this object when we
-	// need to determine whether there's an open tab with a home page
-	// or its equivalent URL open or we need to open a new tab.
-	// Equivalent URLs get populated by a callback from a browser tab.
-	//
-	// OrderedDictionary is used here for circular FIFO queue like
-	// functionality in order to limit the size of this object.
-	MutableOrderedDictionary *_homePagesEquivalentURLs;
-
 	// Array of home pages from the handshake.
 	// We will pick only one URL from this array
 	// when it's time to open a home page
@@ -419,57 +406,16 @@
 		if ([userDefaults boolForKey:@"vibrate_notification"]) {
 			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
+
 		if ([userDefaults boolForKey:@"sound_notification"]) {
 			AudioServicesPlaySystemSound (_notificationSound);
 		}
 
-
 		if(_shouldOpenHomePages && _handshakeHomePages && [_handshakeHomePages count] > 0) {
-			if(!_homePagesEquivalentURLs) {
-				_homePagesEquivalentURLs = [MutableOrderedDictionary new];
-			}
-
 			// pick single URL from the handshake
 			NSString *selectedHomePage = _handshakeHomePages[0];
 
-			// only add it if it is not in the home pages map already
-			// to make sure we are not overiding equivalent urls values
-			if([_homePagesEquivalentURLs objectForKey:selectedHomePage] == nil) {
-				[self addNewHomePagesEquivalentURLKey:selectedHomePage];
-			}
-
-			// try to find an open tab with either a selected home page URL or one of the equivalent URLs loaded
-			NSArray * wvTabs = [self.webViewController webViewTabs];
-			BOOL found = false;
-
-			NSURL *selectedHomePageURL = [NSURL URLWithString:selectedHomePage];
-
-			for (WebViewTab *wvt in wvTabs) {
-				if ([wvt.url isEqual:selectedHomePageURL]) {
-					// we have a tab with the URL same as home pages map key
-					found = true;
-				} else {
-					// otherwise iterate over the equivalent URLs array for this key
-					NSArray *equivURLs = [_homePagesEquivalentURLs objectForKey:selectedHomePage];
-					for (NSString* urlStr in equivURLs) {
-						NSURL *equivURL = [NSURL URLWithString:urlStr];
-						if ([wvt.url isEqual:equivURL]) {
-							found = true;
-							break;
-						}
-					}
-				}
-				if(found) {
-					[self.webViewController refreshAndFocusTab:wvt];
-					// Do not check other tabs if we got at least one
-					break;
-				}
-			}
-
-			if(!found) {
-				WebViewTab* wvt = [self.webViewController addNewTabForURL: selectedHomePageURL];
-				wvt.finalPageObserverDelegate = self;
-			}
+			[self.webViewController openPsiphonHomePage: selectedHomePage];
 			_shouldOpenHomePages = false;
 		}
 	});
@@ -494,6 +440,13 @@
 
 	NSMutableArray * reloadURLS = [NSMutableArray new];
 	NSArray * wvTabs = [self.webViewController webViewTabs];
+
+	// TODO: do not ignore tabs that are in the state of restoration
+	// These tabs have url == nil, but they do have a restorationIdentifier
+	// They probably should be re-added using [webVieController addNewTabForURL:url forRestoration:YES withCompletionBlock:nil]
+	// Maybe all tabs should be re-added restoration style, i.e. do not
+	// reload the webView only when user switches to that tab.
+	// Also try to focus the last focused tab after re-opening
 
 	for (WebViewTab *wvt in wvTabs) {
 		if ( wvt.url != nil) {
@@ -535,48 +488,6 @@
 
 + (AppDelegate *)sharedAppDelegate{
 	return (AppDelegate *)[UIApplication sharedApplication].delegate;
-}
-
--(void) addNewHomePagesEquivalentURLKey:(NSString*) key {
-	@synchronized (_homePagesEquivalentURLs) {
-		// if the size of this object exceeds MAX_HOMEPAGES_EQUIVALENT_URLS
-		// then remove entries starting with the oldest
-		while([_homePagesEquivalentURLs count] >= MAX_HOMEPAGES_EQUIVALENT_URLS) {
-			[_homePagesEquivalentURLs removeObjectAtIndex:0];
-		}
-		[_homePagesEquivalentURLs insertObject:[NSMutableArray new] forKey:key atIndex:[_homePagesEquivalentURLs count ]];
-	}
-}
-
-# pragma mark - FinalPageObserver protocol implementation
--(void) seenFinalPage: (NSArray*) equivURLs {
-	// the tab we are observing is signaling us that
-	// the page has been finally loaded in the browser,
-	// equivURLs is an array of all equivalent URLs for this page.
-	if (!equivURLs || [equivURLs count] == 0) {
-		// this shouldn't happen
-#ifdef TRACE
-		NSLog(@"[AppDelegate] seenFinalPage called but array of equivalent URLs is empty!");
-#endif
-		return;
-	}
-
-	if([equivURLs count] == 1) {
-		// Single URL in the array means there were no redirects for the original URL.
-		// Do nothing, we already have this URL in the homePagesEquivalentURLs map
-		return;
-	}
-
-	NSString *originalURL = [equivURLs objectAtIndex:0];
-
-	// only update equvalent URLs for existing home pages
-	if ([_homePagesEquivalentURLs objectForKey:originalURL] != nil) {
-		NSMutableArray *newEquivURLs = [NSMutableArray arrayWithArray:equivURLs];
-		[newEquivURLs removeObjectAtIndex:0];
-		@synchronized (_homePagesEquivalentURLs) {
-			[_homePagesEquivalentURLs setObject:newEquivURLs forKey:originalURL];
-		}
-	}
 }
 
 @end

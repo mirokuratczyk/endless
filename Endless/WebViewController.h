@@ -20,7 +20,9 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 	PsiphonTutorialStep3
 };
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate, TutorialDelegate>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate,
+	UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
+		TutorialDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
@@ -45,6 +47,7 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 
 - (void) overlayTutorial;
 - (void) refreshAndFocusTab:(WebViewTab *)tab;
+- (void) openPsiphonHomePage:(NSString *) homePage;
 
 @property (nonatomic) BOOL showTutorial;
 

@@ -33,9 +33,7 @@
 
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
 
-#define MAX_HOMEPAGES_EQUIVALENT_URLS 10
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, OnboardingViewControllerDelegate, FinalPageObserver>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, OnboardingViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

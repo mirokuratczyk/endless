@@ -20,6 +20,7 @@
 #import "PsiphonConnectionIndicator.h"
 #import "PsiphonConnectionModalViewController.h"
 #import "Tutorial.h"
+#import "PsiphonHomePagesEquivalentURLs.h"
 
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
@@ -118,7 +119,6 @@
 	NSMutableDictionary *preferencesSnapshot;
 
 	Tutorial *tutorial;
-
 }
 
 - (void)loadView
@@ -329,6 +329,8 @@
 {
 	[super encodeRestorableStateWithCoder:coder];
 
+	[[PsiphonHomePagesEquivalentURLs sharedInstance] encodeRestorableStateWithCoder:coder];
+
 	if (webViewTabs.count > 0) {
 		NSMutableArray *wvtd = [[NSMutableArray alloc] initWithCapacity:webViewTabs.count - 1];
 		for (WebViewTab *wvt in webViewTabs) {
@@ -350,6 +352,8 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
 	[super decodeRestorableStateWithCoder:coder];
+	[[PsiphonHomePagesEquivalentURLs sharedInstance] decodeRestorableStateWithCoder:coder];
+
 
 	NSMutableArray *wvt = [coder decodeObjectForKey:@"webViewTabs"];
 	for (int i = 0; i < wvt.count; i++) {
@@ -361,6 +365,7 @@
 		[[wvt title] setText:[params objectForKey:@"title"]];
 	}
 
+/*
 	NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
 	if (cp != nil) {
 		if ([cp intValue] <= [webViewTabs count] - 1)
@@ -368,9 +373,10 @@
 
 		[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:tabChooser.currentPage].origin.x, 0) animated:NO];
 
-		/* wait for the UI to catch up */
+		// wait for the UI to catch up
 		[[self curWebViewTab] performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
 	}
+*/
 
 	[self updateSearchBarDetails];
 }
@@ -393,10 +399,29 @@
 /* called when we've become visible and after the overlaid tutorial has ended (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	if (webViewTabs.count == 0 && ![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
-	static dispatch_once_t onceToken;
+	BOOL shouldShowSplash = FALSE;
 
-	dispatch_once(&onceToken, ^{
+	if(![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+		if (webViewTabs.count == 0) {
+			shouldShowSplash = TRUE;
+		} else {
+			shouldShowSplash = TRUE;
+
+			// check if there is at least one fully loaded
+			// tab that is not added from restoration
+			// In that case do not show the splash
+			for(WebViewTab *wvt in webViewTabs) {
+				if(![wvt isRestoring]) {
+					shouldShowSplash = FALSE;
+					break;
+				}
+			}
+		}
+	}
+
+	if (shouldShowSplash) {
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
 
 			PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
 																					 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
@@ -409,7 +434,7 @@
 
 			[[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
 															 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
-	});
+		});
 	}
 
 	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
@@ -608,19 +633,12 @@
 
 - (void)setCurTabIndex:(int)tab
 {
-	if (curTabIndex == tab)
-		return;
-
 	curTabIndex = tab;
 	tabChooser.currentPage = tab;
 
-	for (int i = 0; i < webViewTabs.count; i++) {
-		WebViewTab *wvt = [webViewTabs objectAtIndex:i];
-		[[[wvt webView] scrollView] setScrollsToTop:(i == tab)];
-	}
-
-	if ([[self curWebViewTab] needsRefresh]) {
+	if ([[self curWebViewTab] isRestoring]) {
 		[[self curWebViewTab] refresh];
+		[[self curWebViewTab] setIsRestoring:NO];
 	}
 }
 
@@ -768,7 +786,9 @@
 	[self setCurTabIndex:focusTabNumber];
 
 	[self slideToCurrentTabWithCompletionBlock:^(BOOL finished) {
-		[tab forceRefresh];
+		if(tab.url != nil) {
+			[tab forceRefresh];
+		}
 		if (showingTabs) {
 			[self showTabsWithCompletionBlock:nil];
 		}
@@ -1829,5 +1849,79 @@
 		}
 	}
 }
+
+- (void) openPsiphonHomePage:(NSString *) homePageURLString {
+
+	// only add this url key if it is not in the home pages map already
+	// to make sure we are not overiding equivalent urls values
+	PsiphonHomePagesEquivalentURLs *homePagesEquivalentURLs = [PsiphonHomePagesEquivalentURLs sharedInstance];
+	if([homePagesEquivalentURLs objectForKey:homePageURLString] == nil) {
+		[homePagesEquivalentURLs addNewHomePagesEquivalentURLKey:homePageURLString];
+	}
+
+	// try to find an open tab with either a selected home page URL or one of the equivalent URLs loaded
+	BOOL found = false;
+
+	NSURL *homePageURL = [NSURL URLWithString:homePageURLString];
+
+	for (WebViewTab *wvt in [self webViewTabs]) {
+		if ([wvt.url isEqual:homePageURL] || [wvt.webView.restorationIdentifier isEqual:homePageURLString]) {
+			// we have a tab with the URL same as home pages map key
+			found = true;
+		} else {
+			// otherwise iterate over the equivalent URLs array for this key
+			NSArray *equivURLs = [homePagesEquivalentURLs objectForKey:homePageURLString];
+			for (NSString* equivURLString in equivURLs) {
+				NSURL *equivURL = [NSURL URLWithString:equivURLString];
+				if ([wvt.url isEqual:equivURL] || [wvt.webView.restorationIdentifier isEqual:equivURLString]) {
+					found = true;
+					break;
+				}
+			}
+		}
+		if(found) {
+			[self refreshAndFocusTab:wvt];
+			// Do not check other tabs if we got at least one
+			break;
+		}
+	}
+
+	if(!found) {
+		WebViewTab* wvt = [self addNewTabForURL: homePageURL];
+		wvt.finalPageObserverDelegate = self;
+	}
+}
+
+# pragma mark - FinalPageObserver protocol implementation
+-(void) seenFinalPage: (NSArray*) equivURLs {
+	// the tab we are observing is signaling us that
+	// the page has been finally loaded in the browser,
+	// equivURLs is an array of all equivalent URLs for this page.
+	if (!equivURLs || [equivURLs count] == 0) {
+		// this shouldn't happen
+#ifdef TRACE
+		NSLog(@"[AppDelegate] seenFinalPage called but array of equivalent URLs is empty!");
+#endif
+		return;
+	}
+
+	if([equivURLs count] == 1) {
+		// Single URL in the array means there were no redirects for the original URL.
+		// Do nothing, we already have this URL in the homePagesEquivalentURLs map
+		return;
+	}
+
+	NSString *originalURL = [equivURLs objectAtIndex:0];
+
+	// only update equvalent URLs for existing home pages
+	PsiphonHomePagesEquivalentURLs *homePagesEquivalentURLs = [PsiphonHomePagesEquivalentURLs sharedInstance];
+	if ([homePagesEquivalentURLs objectForKey:originalURL] != nil) {
+		NSMutableArray *newEquivURLs = [NSMutableArray arrayWithArray:equivURLs];
+		[newEquivURLs removeObjectAtIndex:0];
+		[homePagesEquivalentURLs setObject:newEquivURLs forKey:originalURL];
+	}
+}
+
+
 
 @end
