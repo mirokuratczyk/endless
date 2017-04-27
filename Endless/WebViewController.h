@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 
 - (void)viewIsVisible;
 
+- (WebViewTab *)addTabForReload:(NSURL *)url;
 - (WebViewTab *)addNewTabForURL:(NSURL *)url;
 - (void)removeTab:(NSNumber *)tabNumber andFocusTab:(NSNumber *)toFocus;
 - (void)removeTab:(NSNumber *)tabNumber;
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 - (void) stopLoading;
 
 - (void) overlayTutorial;
-- (void) refreshAndFocusTab:(WebViewTab *)tab;
+- (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated;
 - (void) openPsiphonHomePage:(NSString *) homePage;
 
 @property (nonatomic) BOOL showTutorial;

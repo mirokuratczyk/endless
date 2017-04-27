@@ -438,26 +438,45 @@
 - (void) reloadAndOpenSettings {
 	[[RegionAdapter sharedInstance] reloadTitlesForNewLocalization];
 
-	NSMutableArray * reloadURLS = [NSMutableArray new];
+	NSMutableArray * reloadURLs = [NSMutableArray new];
 	NSArray * wvTabs = [self.webViewController webViewTabs];
 
-	// TODO: do not ignore tabs that are in the state of restoration
-	// These tabs have url == nil, but they do have a restorationIdentifier
-	// They probably should be re-added using [webVieController addNewTabForURL:url forRestoration:YES withCompletionBlock:nil]
-	// Maybe all tabs should be re-added restoration style, i.e. do not
-	// reload the webView only when user switches to that tab.
-	// Also try to focus the last focused tab after re-opening
 
+	// There are tabs that are in a  state of restoration.
+	// These tabs have url == nil, but they must have a restorationIdentifier property set.
+	// Re-add them with the restoration identifier as URL.
+	// This also means that these tabs will be force reloaded
+	// even if they were in a state of restoration previously.
+	// We are willing to accept that for now.
 	for (WebViewTab *wvt in wvTabs) {
 		if ( wvt.url != nil) {
-			[reloadURLS addObject:wvt.url];
+			[reloadURLs addObject:wvt.url];
+		} else if (( wvt.webView.restorationIdentifier != nil)){
+			[reloadURLs addObject:[NSURL URLWithString:wvt.webView.restorationIdentifier]];
 		}
 	}
-	self.window.rootViewController = [[WebViewController alloc] init];
 
-	for (NSURL* url in reloadURLS) {
-		[self.webViewController addNewTabForURL: url];
+	// Get currently focused tab URL
+	NSURL* focusedTabURL = [[self.webViewController curWebViewTab] url];
+
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+
+	WebViewTab* wvtToFocus = nil;
+
+	for (NSURL* url in reloadURLs) {
+		WebViewTab* wvt = nil;
+		wvt = [self.webViewController addTabForReload:url];
+
+		if([[focusedTabURL absoluteString] isEqualToString:[url absoluteString]]) {
+			wvtToFocus = wvt;
+		}
 	}
+
+	if(wvtToFocus) {
+		[self.webViewController focusTab:wvtToFocus andRefresh:NO animated:NO];
+	}
+
 	[self notifyPsiphonConnectionState];
 	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }

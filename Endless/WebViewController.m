@@ -334,11 +334,13 @@
 	if (webViewTabs.count > 0) {
 		NSMutableArray *wvtd = [[NSMutableArray alloc] initWithCapacity:webViewTabs.count - 1];
 		for (WebViewTab *wvt in webViewTabs) {
-			if (wvt.url == nil)
-				continue;
-
-			[wvtd addObject:@{ @"url" : wvt.url, @"title" : wvt.title.text }];
-			[[wvt webView] setRestorationIdentifier:[wvt.url absoluteString]];
+			if (wvt.url != nil) {
+				[wvtd addObject:@{ @"url" : wvt.url, @"title" : wvt.title.text }];
+				[[wvt webView] setRestorationIdentifier:[wvt.url absoluteString]];
+			} else if (wvt.webView.restorationIdentifier !=nil) {
+				[wvtd addObject:@{ @"url" : [NSURL URLWithString:wvt.webView.restorationIdentifier], @"title" : wvt.title.text }];
+				[[wvt webView] setRestorationIdentifier:wvt.webView.restorationIdentifier];
+			}
 
 #ifdef TRACE
 			NSLog(@"encoded restoration state for tab %@ with %@", wvt.tabIndex, wvtd[wvtd.count - 1]);
@@ -361,7 +363,7 @@
 #ifdef TRACE
 		NSLog(@"restoring tab %d with %@", i, params);
 #endif
-		WebViewTab *wvt = [self addNewTabForURL:[params objectForKey:@"url"] forRestoration:YES withCompletionBlock:nil];
+		WebViewTab *wvt = [self addNewTabForURL:[params objectForKey:@"url"] forRestoration:YES andFocus:NO withCompletionBlock:nil];
 		[[wvt title] setText:[params objectForKey:@"title"]];
 	}
 
@@ -642,12 +644,17 @@
 	}
 }
 
-- (WebViewTab *)addNewTabForURL:(NSURL *)url
+- (WebViewTab *)addTabForReload:(NSURL *)url
 {
-	return [self addNewTabForURL:url forRestoration:NO withCompletionBlock:nil];
+	return [self addNewTabForURL:url forRestoration:NO andFocus:NO withCompletionBlock:nil];
 }
 
-- (WebViewTab *)addNewTabForURL:(NSURL *)url forRestoration:(BOOL)restoration withCompletionBlock:(void(^)(BOOL))block
+- (WebViewTab *)addNewTabForURL:(NSURL *)url
+{
+	return [self addNewTabForURL:url forRestoration:NO andFocus:YES withCompletionBlock:nil];
+}
+
+- (WebViewTab *)addNewTabForURL:(NSURL *)url forRestoration:(BOOL)restoration andFocus:(BOOL)focus withCompletionBlock:(void(^)(BOOL))block
 {
 	WebViewTab *wvt = [[WebViewTab alloc] initWithFrame:[self frameForTabIndex:webViewTabs.count] withRestorationIdentifier:(restoration ? [url absoluteString] : nil)];
 	[wvt.webView.scrollView setDelegate:self];
@@ -665,6 +672,7 @@
 	if (showingTabs)
 		[wvt zoomOut];
 
+
 	void (^swapToTab)(BOOL) = ^(BOOL finished) {
 		[self setCurTabIndex:(int)webViewTabs.count - 1];
 
@@ -675,20 +683,22 @@
 			[self showTabsWithCompletionBlock:block];
 		}];
 	};
-
 	if (!restoration) {
-		/* animate zooming out (if not already), switching to the new tab, then zoom back in */
-		if (showingTabs) {
-			swapToTab(YES);
-		}
-		else if (webViewTabs.count > 1) {
-			[self showTabsWithCompletionBlock:swapToTab];
-		}
-		else if (url != nil) {
+		if(focus) {
+			/* animate zooming out (if not already), switching to the new tab, then zoom back in */
+			if (showingTabs) {
+				swapToTab(YES);
+			}
+			else if (webViewTabs.count > 1) {
+				[self showTabsWithCompletionBlock:swapToTab];
+			}
+			else if (url != nil) {
+				[wvt loadURL:url];
+			}
+		} else if (url != nil) {
 			[wvt loadURL:url];
 		}
 	}
-
 	// Send "Tab loaded" notification
 	[[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabLoadedNotification object:nil];
 
@@ -700,7 +710,7 @@
 	//avoid capturing 'self'
 	UITextField *localURLField = urlField;
 
-	[self addNewTabForURL:nil forRestoration:NO withCompletionBlock:^(BOOL finished) {
+	[self addNewTabForURL:nil forRestoration:NO andFocus:YES withCompletionBlock:^(BOOL finished) {
 		[localURLField becomeFirstResponder];
 	}];
 }
@@ -756,7 +766,7 @@
 				//avoid capturing 'self'
 				UITextField *localURLField = urlField;
 
-				[self addNewTabForURL:nil forRestoration:false withCompletionBlock:^(BOOL finished) {
+				[self addNewTabForURL:nil forRestoration:NO andFocus:YES withCompletionBlock:^(BOOL finished) {
 					[localURLField becomeFirstResponder];
 				}];
 				return;
@@ -781,19 +791,23 @@
 	}];
 }
 
-- (void) refreshAndFocusTab:(WebViewTab *)tab {
+- (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated {
 	int focusTabNumber = tab.tabIndex.intValue;
 	[self setCurTabIndex:focusTabNumber];
-
-	[self slideToCurrentTabWithCompletionBlock:^(BOOL finished) {
-		if(tab.url != nil) {
-			[tab forceRefresh];
-		}
+	// Only force refresh tabs that are loaded.
+	// Restoration tabs are refreshed when
+	// they are switched to
+	if(refresh && tab.url) {
+		[tab forceRefresh];
+	}
+	if(animated) {
+		[self slideToCurrentTabWithCompletionBlock:nil];
 		if (showingTabs) {
 			[self showTabsWithCompletionBlock:nil];
 		}
-		[self adjustLayout];
-	}];
+	}
+	[self adjustLayout];
+
 }
 
 - (void)removeAllTabs
@@ -1880,7 +1894,7 @@
 			}
 		}
 		if(found) {
-			[self refreshAndFocusTab:wvt];
+			[self focusTab:wvt andRefresh:YES animated:YES];
 			// Do not check other tabs if we got at least one
 			break;
 		}
