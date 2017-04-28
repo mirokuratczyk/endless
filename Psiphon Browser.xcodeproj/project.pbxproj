@@ -64,6 +64,7 @@
 		449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */; };
 		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44BF73F21EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BF73F11EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m */; };
 		44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L10n+Swizzling.m */; };
 		44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792C1DE4DCCA00854379 /* IASKLocalizable.strings */; };
 		44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44E7792F1DE4DCCF00854379 /* Localizable.strings */; };
@@ -207,6 +208,8 @@
 		449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonConnectionModalViewController.h; path = Endless/PsiphonConnectionModalViewController.h; sourceTree = SOURCE_ROOT; };
 		449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionModalViewController.m; path = Endless/PsiphonConnectionModalViewController.m; sourceTree = SOURCE_ROOT; };
 		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
+		44BF73F01EB11B890048E3C7 /* PsiphonHomePagesEquivalentURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonHomePagesEquivalentURLs.h; path = Endless/PsiphonHomePagesEquivalentURLs.h; sourceTree = SOURCE_ROOT; };
+		44BF73F11EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonHomePagesEquivalentURLs.m; path = Endless/PsiphonHomePagesEquivalentURLs.m; sourceTree = SOURCE_ROOT; };
 		44C7B2071E2040A700432BBB /* L10n+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "L10n+Swizzling.m"; path = "Endless/L10n+Swizzling.m"; sourceTree = SOURCE_ROOT; };
 		44E7792B1DE4DCCA00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		44E7792E1DE4DCCF00854379 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 		44E778F71DDB723900854379 /* Psiphon */ = {
 			isa = PBXGroup;
 			children = (
+				44BF73F01EB11B890048E3C7 /* PsiphonHomePagesEquivalentURLs.h */,
+				44BF73F11EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m */,
 				449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */,
 				449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */,
 				44E779451DE6038000854379 /* psiphon_config */,
@@ -857,6 +862,7 @@
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
 				4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
+				44BF73F21EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m in Sources */,
 				4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */,
 				4EA463921E395BCD00674DEA /* PsiphonData.m in Sources */,
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,

@@ -37,81 +37,74 @@
 
 
 @implementation AppDelegate {
-    BOOL _needsResume;
-    BOOL _shouldOpenHomePages;
-    NSMutableArray *_homePages;
+	BOOL _needsResume;
+	BOOL _shouldOpenHomePages;
+	// Array of home pages from the handshake.
+	// We will pick only one URL from this array
+	// when it's time to open a home page
+	NSMutableArray *_handshakeHomePages;
 
-    SystemSoundID _notificationSound;
+	SystemSoundID _notificationSound;
 	Reachability *_reachability;
 
-    BOOL isOnboarding;
+	BOOL isOnboarding;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef USE_DUMMY_URLINTERCEPTOR
-    [NSURLProtocol registerClass:[DummyURLInterceptor class]];
+	[NSURLProtocol registerClass:[DummyURLInterceptor class]];
 #else
-    [NSURLProtocol registerClass:[URLInterceptor class]];
+	[NSURLProtocol registerClass:[URLInterceptor class]];
 #endif
 
-    [self initializeDefaults];
+	[self initializeDefaults];
 
-    self.hstsCache = [HSTSCache retrieve];
-    self.cookieJar = [[CookieJar alloc] init];
-    [Bookmark retrieveList];
+	self.hstsCache = [HSTSCache retrieve];
+	self.cookieJar = [[CookieJar alloc] init];
+	[Bookmark retrieveList];
 
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
+	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
+	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 
-    return YES;
+	self.socksProxyPort = 0;
+	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
+
+	_needsResume = false;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+	_reachability = [Reachability reachabilityForInternetConnection];
+	[_reachability startNotifier];
+
+
+	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+
+	return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
+	[self.window makeKeyAndVisible];
 
-    if (isOnboarding) {
-        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+	isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
 
-        OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
-        onboarding.delegate = self;
-
-        self.window.rootViewController = onboarding;
-        self.window.rootViewController.restorationIdentifier = @"OnBoardingViewController";
-        self.window.rootViewController.modalPresentationCapturesStatusBarAppearance = YES;
-        [self.window makeKeyAndVisible];
-    } else {
-        [self startTunnelAndOpenBrowser];
-    }
-    return YES;
+	if (isOnboarding) {
+		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
+		onboarding.delegate = self;
+		[self.window.rootViewController presentViewController:onboarding animated:NO completion:nil];
+	}
+	return YES;
 }
 
 -(void)onboardingEnded {
-    isOnboarding = NO;
-    [self startTunnelAndOpenBrowser];
-    self.webViewController.showTutorial = YES;
-    [[self webViewController] viewIsVisible];
+	isOnboarding = NO;
+	self.webViewController.showTutorial = YES;
+	[[self webViewController] viewIsVisible];
 }
-
--(void)startTunnelAndOpenBrowser {
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = [[WebViewController alloc] init];
-    self.window.rootViewController.restorationIdentifier = @"WebViewController";
-    [self.window makeKeyAndVisible];
-    
-    self.socksProxyPort = 0;
-    self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
-    
-    _needsResume = false;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    _reachability = [Reachability reachabilityForInternetConnection];
-    [_reachability startNotifier];
-}
-
 
 - (void) startPsiphon {
-    dispatch_async(dispatch_get_main_queue(), ^{
+	dispatch_async(dispatch_get_main_queue(), ^{
 		// Read in the embedded server entries
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		NSString *bundledEmbeddedServerEntriesPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"embedded_server_entries"];
@@ -120,24 +113,26 @@
 			NSLog(@"Embedded server entries file not found. Aborting now.");
 			abort();
 		}
-		
-		[_homePages removeAllObjects];
+
+		if(_handshakeHomePages && [_handshakeHomePages count] > 0) {
+			[_handshakeHomePages removeAllObjects];
+		}
 		_shouldOpenHomePages = true;
-		
+
 		// Start the Psiphon tunnel
-        if( ! [self.psiphonTunnel start:embeddedServerEntries] ) {
-            self.psiphonConectionState = PsiphonConnectionStateDisconnected;
+		if( ! [self.psiphonTunnel start:embeddedServerEntries] ) {
+			self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
-        }
-    });
+		}
+	});
 }
 
 - (void) stopAndWaitForInternetConnection {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
-        [self notifyPsiphonConnectionState];
-        [self.psiphonTunnel stop];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+		[self notifyPsiphonConnectionState];
+		[self.psiphonTunnel stop];
+	});
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -153,74 +148,74 @@
 		[HostSettings persist];
 		[[self hstsCache] persist];
 	}
-	
+
 	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
 		[[self webViewController] removeAllTabs];
 		[[self cookieJar] clearAllNonWhitelistedData];
 	}
 	else
 		[[self cookieJar] clearAllOldNonWhitelistedData];
-	
+
 	[application ignoreSnapshotOnNextApplicationLaunch];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (!isOnboarding) {
-        [self startIfNeeded];
-    }
+	if (!isOnboarding) {
+		[self startIfNeeded];
+	}
 }
 
 -(void)startIfNeeded {
-    BOOL needStart = false;
+	BOOL needStart = false;
 
-    // Auto start if not connected
-    if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
-        needStart = true;
-    } else if (self.socksProxyPort > 0) {
-        // check if SOCKS local proxy is still accessible
+	// Auto start if not connected
+	if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
+		needStart = true;
+	} else if (self.socksProxyPort > 0) {
+		// check if SOCKS local proxy is still accessible
 
-        CFSocketRef sockfd;
-        sockfd = CFSocketCreate(NULL, AF_INET, SOCK_STREAM, IPPROTO_TCP,0, NULL,NULL);
-        struct sockaddr_in servaddr;
-        memset(&servaddr, 0, sizeof(servaddr));
-        servaddr.sin_len = sizeof(servaddr);
-        servaddr.sin_family = AF_INET;
-        servaddr.sin_port = htons([self socksProxyPort]);
-        inet_pton(AF_INET, [@"127.0.0.1" cStringUsingEncoding:NSUTF8StringEncoding], &servaddr.sin_addr);
-        CFDataRef connectAddr = CFDataCreate(NULL, (unsigned char *)&servaddr, sizeof(servaddr));
-        if (CFSocketConnectToAddress(sockfd, connectAddr, 1) != kCFSocketSuccess) {
-            needStart = true;
-        }
-        CFSocketInvalidate(sockfd);
-        CFRelease(sockfd);
-        CFRelease(connectAddr);
+		CFSocketRef sockfd;
+		sockfd = CFSocketCreate(NULL, AF_INET, SOCK_STREAM, IPPROTO_TCP,0, NULL,NULL);
+		struct sockaddr_in servaddr;
+		memset(&servaddr, 0, sizeof(servaddr));
+		servaddr.sin_len = sizeof(servaddr);
+		servaddr.sin_family = AF_INET;
+		servaddr.sin_port = htons([self socksProxyPort]);
+		inet_pton(AF_INET, [@"127.0.0.1" cStringUsingEncoding:NSUTF8StringEncoding], &servaddr.sin_addr);
+		CFDataRef connectAddr = CFDataCreate(NULL, (unsigned char *)&servaddr, sizeof(servaddr));
+		if (CFSocketConnectToAddress(sockfd, connectAddr, 1) != kCFSocketSuccess) {
+			needStart = true;
+		}
+		CFSocketInvalidate(sockfd);
+		CFRelease(sockfd);
+		CFRelease(connectAddr);
 
-    } else {
-        needStart = true;
-    }
+	} else {
+		needStart = true;
+	}
 
-    if(needStart) {
-        if (_reachability.currentReachabilityStatus == NotReachable) {
-            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
-        } else {
-            self.psiphonConectionState = PsiphonConnectionStateConnecting;
-        }
-        [self notifyPsiphonConnectionState];
-        [self startPsiphon];
-    }
+	if(needStart) {
+		if (_reachability.currentReachabilityStatus == NotReachable) {
+			self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+		} else {
+			self.psiphonConectionState = PsiphonConnectionStateConnecting;
+		}
+		[self notifyPsiphonConnectionState];
+		[self startPsiphon];
+	}
 
-    [[self webViewController] viewIsVisible];
+	[[self webViewController] viewIsVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	/* this definitely ends our sessions */
 	[[self cookieJar] clearAllNonWhitelistedData];
-    [_psiphonTunnel stop];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+	[_psiphonTunnel stop];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
-    
+
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -235,7 +230,7 @@
 
 	[[self webViewController] dismissViewControllerAnimated:YES completion:nil];
 	[[self webViewController] addNewTabForURL:url];
-	
+
 	return YES;
 }
 
@@ -243,7 +238,7 @@
 {
 	if ([self areTesting])
 		return NO;
-	
+
 	/* if we tried last time and failed, the state might be corrupt */
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	if ([userDefaults objectForKey:STATE_RESTORE_TRY_KEY] != nil) {
@@ -253,7 +248,7 @@
 	}
 	else
 		[userDefaults setBool:YES forKey:STATE_RESTORE_TRY_KEY];
-	
+
 	[userDefaults synchronize];
 
 	return YES;
@@ -263,7 +258,7 @@
 {
 	if ([self areTesting])
 		return NO;
-	
+
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"])
 		return NO;
@@ -273,41 +268,41 @@
 
 -(void)initializeDefaultsFor:(NSString*)plist
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-    NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:plist];
-    NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+	NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:plist];
+	NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
 
-    for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-        NSString *key = [pref objectForKey:@"Key"];
-        if (key == nil)
-            continue;
+	for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
+		NSString *key = [pref objectForKey:@"Key"];
+		if (key == nil)
+			continue;
 
-        if ([userDefaults objectForKey:key] == NULL) {
-            NSObject *val = [pref objectForKey:@"DefaultValue"];
-            if (val == nil)
-                continue;
+		if ([userDefaults objectForKey:key] == NULL) {
+			NSObject *val = [pref objectForKey:@"DefaultValue"];
+			if (val == nil)
+				continue;
 
-            [userDefaults setObject:val forKey:key];
+			[userDefaults setObject:val forKey:key];
 #ifdef TRACE
-            NSLog(@"initialized default preference for %@ to %@", key, val);
+			NSLog(@"initialized default preference for %@ to %@", key, val);
 #endif
-        }
-    }
-    [userDefaults synchronize];
+		}
+	}
+	[userDefaults synchronize];
 }
 
 - (void)initializeDefaults
 {
-    [self initializeDefaultsFor:@"Root.inApp.plist"];
-    [self initializeDefaultsFor:@"Feedback.plist"];
-    [self initializeDefaultsFor:@"Security.plist"];
-    [self initializeDefaultsFor:@"Privacy.plist"];
-    [self initializeDefaultsFor:@"PsiphonSettings.plist"];
-    [self initializeDefaultsFor:@"Notifications~iphone.plist"];
-    [self initializeDefaultsFor:@"Notifications~ipad.plist"];
-    
-    _searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
+	[self initializeDefaultsFor:@"Root.inApp.plist"];
+	[self initializeDefaultsFor:@"Feedback.plist"];
+	[self initializeDefaultsFor:@"Security.plist"];
+	[self initializeDefaultsFor:@"Privacy.plist"];
+	[self initializeDefaultsFor:@"PsiphonSettings.plist"];
+	[self initializeDefaultsFor:@"Notifications~iphone.plist"];
+	[self initializeDefaultsFor:@"Notifications~ipad.plist"];
+
+	_searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
 }
 
 - (BOOL)areTesting
@@ -316,196 +311,208 @@
 }
 
 - (void)scheduleRunningTunnelServiceRestart {
-    self.psiphonConectionState = PsiphonConnectionStateConnecting;
-    [self notifyPsiphonConnectionState];
-    [self startPsiphon];
+	self.psiphonConectionState = PsiphonConnectionStateConnecting;
+	[self notifyPsiphonConnectionState];
+	[self startPsiphon];
 }
 
 // MARK: TunneledAppDelegate protocol implementation
 
 - (NSString *) getPsiphonConfig {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    NSString *bundledConfigPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psiphon_config"];
-    if(![fileManager fileExistsAtPath:bundledConfigPath]) {
-        NSLog(@"Config file not found. Aborting now.");
-        abort();
-    }
+	NSString *bundledConfigPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psiphon_config"];
+	if(![fileManager fileExistsAtPath:bundledConfigPath]) {
+		NSLog(@"Config file not found. Aborting now.");
+		abort();
+	}
 
-    //Read in psiphon_config JSON
-    NSData *jsonData = [fileManager contentsAtPath:bundledConfigPath];
-    NSError *e = nil;
-    NSDictionary *readOnly = [NSJSONSerialization JSONObjectWithData: jsonData options: kNilOptions error: &e];
+	//Read in psiphon_config JSON
+	NSData *jsonData = [fileManager contentsAtPath:bundledConfigPath];
+	NSError *e = nil;
+	NSDictionary *readOnly = [NSJSONSerialization JSONObjectWithData: jsonData options: kNilOptions error: &e];
 
-    NSMutableDictionary *mutableConfigCopy = [readOnly mutableCopy];
+	NSMutableDictionary *mutableConfigCopy = [readOnly mutableCopy];
 
-    if(e) {
-        NSLog(@"Failed to parse config JSON. Aborting now.");
-        abort();
-    }
+	if(e) {
+		NSLog(@"Failed to parse config JSON. Aborting now.");
+		abort();
+	}
 
-    NSString *selectedRegionCode = [[RegionAdapter sharedInstance] getSelectedRegion].code;
-    mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
+	NSString *selectedRegionCode = [[RegionAdapter sharedInstance] getSelectedRegion].code;
+	mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
-    NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
-    mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
+	NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
+	mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
 
-    BOOL disableTimeouts = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts];
-    if (disableTimeouts) {
-        mutableConfigCopy[@"TunnelConnectTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"TunnelPortForwardDialTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"TunnelSshKeepAliveProbeTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"TunnelSshKeepAlivePeriodicTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"FetchRemoteServerListTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"PsiphonApiServerTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"FetchRoutesTimeoutSeconds"] = 0;
-        mutableConfigCopy[@"HttpProxyOriginServerTimeoutSeconds"] = 0;
-    }
+	BOOL disableTimeouts = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts];
+	if (disableTimeouts) {
+		mutableConfigCopy[@"TunnelConnectTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"TunnelPortForwardDialTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"TunnelSshKeepAliveProbeTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"TunnelSshKeepAlivePeriodicTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"FetchRemoteServerListTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"PsiphonApiServerTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"FetchRoutesTimeoutSeconds"] = 0;
+		mutableConfigCopy[@"HttpProxyOriginServerTimeoutSeconds"] = 0;
+	}
 
-    mutableConfigCopy[@"ClientVersion"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    
-    mutableConfigCopy[@"EmitDiagnosticNotices"] = [NSNumber numberWithBool:TRUE];
+	mutableConfigCopy[@"ClientVersion"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 
-    jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
-                                               options:0 // non-pretty printing
-                                                 error:&e];
-    if(e) {
-        NSLog(@"Failed to create JSON data from config object. Aborting now.");
-        abort();
-    }
-    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+	mutableConfigCopy[@"EmitDiagnosticNotices"] = [NSNumber numberWithBool:TRUE];
+
+	jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigCopy
+											   options:0 // non-pretty printing
+												 error:&e];
+	if(e) {
+		NSLog(@"Failed to create JSON data from config object. Aborting now.");
+		abort();
+	}
+	return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 - (void) onAvailableEgressRegions:(NSArray *)regions {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[RegionAdapter sharedInstance] onAvailableEgressRegions:regions];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[RegionAdapter sharedInstance] onAvailableEgressRegions:regions];
+	});
 }
 
 - (void) onDiagnosticMessage : (NSString*) message {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"onDiagnosticMessage: %@", message);
-        DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] init:message];
-        [[PsiphonData sharedInstance] addDiagnosticEntry:newDiagnosticEntry];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSLog(@"onDiagnosticMessage: %@", message);
+		DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] init:message];
+		[[PsiphonData sharedInstance] addDiagnosticEntry:newDiagnosticEntry];
+	});
 }
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.socksProxyPort = port;
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.socksProxyPort = port;
+	});
 }
 
 - (void) onConnecting {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (_reachability.currentReachabilityStatus == NotReachable) {
-            self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
-        } else {
-            self.psiphonConectionState = PsiphonConnectionStateConnecting;
-        }
-        [self notifyPsiphonConnectionState];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (_reachability.currentReachabilityStatus == NotReachable) {
+			self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+		} else {
+			self.psiphonConectionState = PsiphonConnectionStateConnecting;
+		}
+		[self notifyPsiphonConnectionState];
+	});
 }
 
 - (void) onConnected {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		self.psiphonConectionState = PsiphonConnectionStateConnected;
 		[self notifyPsiphonConnectionState];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        
-        if ([userDefaults boolForKey:@"vibrate_notification"]) {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        }
-        if ([userDefaults boolForKey:@"sound_notification"]) {
+
+		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+		if ([userDefaults boolForKey:@"vibrate_notification"]) {
+			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+		}
+
+		if ([userDefaults boolForKey:@"sound_notification"]) {
 			AudioServicesPlaySystemSound (_notificationSound);
-        }
-        
-		
-		if(_shouldOpenHomePages) {
-			NSMutableArray * openURLs = [NSMutableArray new];
-			NSArray * wvTabs = [self.webViewController webViewTabs];
-			
-			for (WebViewTab *wvt in wvTabs) {
-				if ( wvt.url != nil) {
-					[openURLs addObject:wvt.url];
-				}
-			}
-			
-			NSArray *homepages = [self getHomePages];
-			for (NSString* page in homepages) {
-				NSURL *url = [NSURL URLWithString:page];
-				if(! [openURLs containsObject:url]) {
-					[self.webViewController addNewTabForURL: url];
-				}
-			}
+		}
+
+		if(_shouldOpenHomePages && _handshakeHomePages && [_handshakeHomePages count] > 0) {
+			// pick single URL from the handshake
+			NSString *selectedHomePage = _handshakeHomePages[0];
+
+			[self.webViewController openPsiphonHomePage: selectedHomePage];
 			_shouldOpenHomePages = false;
 		}
-    });
-
+	});
 }
 
 - (void) onHomepage:(NSString *)url {
-	if (!_homePages) {
-		_homePages = [NSMutableArray new];
+	if([url length] == 0) {
+		return;
 	}
-    if(![_homePages containsObject:url]) {
-        [_homePages addObject:url];
-    }
-}
 
-- (NSArray*) getHomePages {
-	return [_homePages copy];	
-}
+	if (!_handshakeHomePages) {
+		_handshakeHomePages = [NSMutableArray new];
+	}
 
+	if([_handshakeHomePages indexOfObject:url] == NSNotFound) {
+		[_handshakeHomePages addObject:url];
+	}
+}
 
 - (void) reloadAndOpenSettings {
-    [[RegionAdapter sharedInstance] reloadTitlesForNewLocalization];
+	[[RegionAdapter sharedInstance] reloadTitlesForNewLocalization];
 
-    NSMutableArray * reloadURLS = [NSMutableArray new];
-    NSArray * wvTabs = [self.webViewController webViewTabs];
-    
-    for (WebViewTab *wvt in wvTabs) {
-        if ( wvt.url != nil) {
-            [reloadURLS addObject:wvt.url];
-        }
-    }
-    self.window.rootViewController = [[WebViewController alloc] init];
+	NSMutableArray * reloadURLs = [NSMutableArray new];
+	NSArray * wvTabs = [self.webViewController webViewTabs];
 
-    for (NSURL* url in reloadURLS) {
-        [self.webViewController addNewTabForURL: url];
-    }
-    [self notifyPsiphonConnectionState];
+
+	// There are tabs that are in a  state of restoration.
+	// These tabs have url == nil, but they must have a restorationIdentifier property set.
+	// Re-add them with the restoration identifier as URL.
+	// This also means that these tabs will be force reloaded
+	// even if they were in a state of restoration previously.
+	// We are willing to accept that for now.
+	for (WebViewTab *wvt in wvTabs) {
+		if ( wvt.url != nil) {
+			[reloadURLs addObject:wvt.url];
+		} else if (( wvt.webView.restorationIdentifier != nil)){
+			[reloadURLs addObject:[NSURL URLWithString:wvt.webView.restorationIdentifier]];
+		}
+	}
+
+	// Get currently focused tab URL
+	NSURL* focusedTabURL = [[self.webViewController curWebViewTab] url];
+
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+
+	WebViewTab* wvtToFocus = nil;
+
+	for (NSURL* url in reloadURLs) {
+		WebViewTab* wvt = nil;
+		wvt = [self.webViewController addTabForReload:url];
+
+		if([[focusedTabURL absoluteString] isEqualToString:[url absoluteString]]) {
+			wvtToFocus = wvt;
+		}
+	}
+
+	if(wvtToFocus) {
+		[self.webViewController focusTab:wvtToFocus andRefresh:NO animated:NO];
+	}
+
+	[self notifyPsiphonConnectionState];
 	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) notifyPsiphonConnectionState {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:kPsiphonConnectionStateNotification
-         object:self
-         userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter]
+		 postNotificationName:kPsiphonConnectionStateNotification
+		 object:self
+		 userInfo:@{kPsiphonConnectionState: @(self.psiphonConectionState)}];
+	});
 }
 
 - (void) internetReachabilityChanged:(NSNotification *)note
 {
 	Reachability* currentReachability = [note object];
 	if([currentReachability currentReachabilityStatus] == NotReachable) {
-        if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
-            _needsResume = true;
-            [self stopAndWaitForInternetConnection];
-        }
-    } else {
-        if(_needsResume){
-            [self startPsiphon];
-        }
-    }
+		if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+			_needsResume = true;
+			[self stopAndWaitForInternetConnection];
+		}
+	} else {
+		if(_needsResume){
+			[self startPsiphon];
+		}
+	}
 }
 
 + (AppDelegate *)sharedAppDelegate{
-    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+	return (AppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 @end
-
