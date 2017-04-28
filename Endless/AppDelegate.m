@@ -112,9 +112,20 @@
 
 - (void) startPsiphon {
     dispatch_async(dispatch_get_main_queue(), ^{
+		// Read in the embedded server entries
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		NSString *bundledEmbeddedServerEntriesPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"embedded_server_entries"];
+		NSString *embeddedServerEntries = [[NSString alloc] initWithData:[fileManager contentsAtPath:bundledEmbeddedServerEntriesPath] encoding:NSASCIIStringEncoding];
+		if(!embeddedServerEntries) {
+			NSLog(@"Embedded server entries file not found. Aborting now.");
+			abort();
+		}
+		
 		[_homePages removeAllObjects];
 		_shouldOpenHomePages = true;
-        if( ! [self.psiphonTunnel start:nil] ) {
+		
+		// Start the Psiphon tunnel
+        if( ! [self.psiphonTunnel start:embeddedServerEntries] ) {
             self.psiphonConectionState = PsiphonConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
         }
@@ -352,10 +363,6 @@
     }
 
     mutableConfigCopy[@"ClientVersion"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    
-    mutableConfigCopy[@"ClientPlatform"] = [NSString stringWithFormat:@"%@_%@",
-                                            [[UIDevice currentDevice] systemName],
-                                            [[UIDevice currentDevice]systemVersion]];
     
     mutableConfigCopy[@"EmitDiagnosticNotices"] = [NSNumber numberWithBool:TRUE];
 
