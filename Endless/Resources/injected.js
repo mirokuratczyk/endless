@@ -118,6 +118,22 @@ var __endless = {
 		}
 		return tags;
 	},
+	runFinalPageReporting: function() {
+		/**
+		 * Start a timer when page is loaded and report back to the browser after a delay via IPC.
+		 * This is used to notify browser that the page has done loading(including redirects).
+		 * A list of all redirect URLs(if any) is passed then to the observer delegate
+		 * of this tab in the ObjC.
+		 */
+		var that = this;
+		setTimeout(function() {
+				// If this fires, then the page has been loaded for 1 second.
+				// If the timer was created but this doesn't fire, it means this page
+				// went away before 1 second elapsed.
+				var ipcAction = "pagefinal";
+				that.ipc(ipcAction);
+				}, 1000);
+	},
 
 	/**
 	 * Run-once initialization code.
@@ -129,6 +145,9 @@ var __endless = {
 			document.body.style.webkitTouchCallout = "none";
 
 		__endless.hookIntoBlankAs();
+
+		/* start final page reporting */
+		__endless.runFinalPageReporting();
 	},
 
 	/**
