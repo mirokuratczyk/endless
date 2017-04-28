@@ -91,6 +91,7 @@
 		4EFB34801E366C6F0067C7C3 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB347F1E366C6F0067C7C3 /* FeedbackViewController.m */; };
 		4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */; };
 		4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34851E366E4D0067C7C3 /* LogViewController.m */; };
+		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +269,7 @@
 		66094F721E6DEFCF0069EC4E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		66094F731E6DEFCF0069EC4E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/OnePasswordExtension.strings; sourceTree = "<group>"; };
 		66094F741E6DEFCF0069EC4E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = embedded_server_entries; path = Endless/embedded_server_entries; sourceTree = SOURCE_ROOT; };
 		6685BDDA1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Root.strings; sourceTree = "<group>"; };
 		6685BDDB1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		6685BDDC1E314BF700F0E414 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */,
 				449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */,
 				44E779451DE6038000854379 /* psiphon_config */,
+				6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
 				4EB51ECC1E941FBD008676A7 /* AdjustableLabel.h */,
@@ -689,6 +692,7 @@
 				0135F4761A3D2931005A8F16 /* SearchEngines.plist in Resources */,
 				018333EA1A35746500670CD1 /* https-everywhere_targets.plist in Resources */,
 				018333E91A35746500670CD1 /* https-everywhere_rules.plist in Resources */,
+				6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */,
 				01801EC31A3360F8002B4718 /* InAppSettings.bundle in Resources */,
 				446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */,
 				01D7412C1A45F8EB007B7033 /* injected.js in Resources */,
