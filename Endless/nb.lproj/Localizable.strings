@@ -1,5 +1,17 @@
+/* %ld will be replaced with the number 1 */
+"%ld rule in use" = "%ld regler i bruk";
+
+/* %ld will be replaced with a natural number */
+"%ld rules in use" = "%ld regler i bruk";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon-nettleser\" trenger tilgang til ditt billedbibliotek for å lagre og laste opp bilder";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Legg til bokmerke";
+
+/* Title above a list of rules */
+"All rules" = "Alle regler";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Tillat denne siden å lukke sin egen fane?";
@@ -22,11 +34,21 @@
 
 /* Cancel
    Cancel action
-   Text of button to discard feedback and return to main settings menu */
+   Text of button to discard feedback and return to main settings menu
+   Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Avbryt";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"Change Settings" = "Endre innstillinger";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Bekreft";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"Connected!" = "Tilkoblet!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"Connecting..." = "Kobler til…";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Informasjonskapsler og lokal lagring";
@@ -37,11 +59,15 @@
 /* No comment provided by engineer. */
 "Default Settings" = "Forvalgte innstillinger";
 
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"Disconnected!" = "Frakoblet!";
+
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
-   Done button title, dismisses the tab chooser */
+   Done button title, dismisses the tab chooser
+   Title of the button that dismisses region selection dialog */
 "Done" = "Ferdig";
 
 /* Edit Bookmark dialog title */
@@ -60,6 +86,12 @@
 
 /* No comment provided by engineer. */
 "Germany" = "Tyskland";
+
+/* No comment provided by engineer. */
+"Go to Settings" = "Gå til innstillinger";
+
+/* No comment provided by engineer. */
+"Happy browsing!\nExplore beyond your borders." = "Surf med glede!\nGrenseløs utforskning.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "Hongkong";
@@ -92,6 +124,9 @@
 "Learn more about the data we collect in our %@" = "Lær mer om hvilken data vi samler inn i vår %@";
 
 /* No comment provided by engineer. */
+"LET'S GO!" = "KOM IGJEN.";
+
+/* No comment provided by engineer. */
 "Log In" = "Logg inn";
 
 /* Title screen displaying logs */
@@ -99,6 +134,9 @@
 
 /* InAppSettingsKit */
 "Mail not configured" = "E-post ikke oppsatt";
+
+/* No comment provided by engineer. */
+"Message Text View" = "Meldingstekstvisning";
 
 /* No comment provided by engineer. */
 "Netherlands" = "Holland";
@@ -110,9 +148,6 @@
    OK action
    OK action button */
 "OK" = "OK";
-
-/* OK action */
-"Ok" = "Ok";
 
 /* Action title for long press on link dialog */
 "Open" = "Åpne";
@@ -130,29 +165,44 @@
 /* Password */
 "Password" = "Passord";
 
-/* Introduction text at top of feedback form */
-"Please let us know how Psiphon is working for you so we can make the system better!" = "La oss få nyss om hvordan Psiphon virker for deg slik at vi kan forbedre det.";
-
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Merk at denne diagnostikk-dataen ikke identifiserer deg, og det hjelper Psiphon med å kjøre uten hakking.";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "Personverns-praksis";
 
+/* No comment provided by engineer. */
+"PSIPHON" = "PSIPHON";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon kan ikke starte opp som følge av en intern feil, send tilbakemelding.";
+
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon kobler til\nog fungerer\nslik jeg ønsker.";
+
+/* Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected. */
+"Psiphon is not connected!" = "Psiphon er ikke tilkoblet!";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon klarer ofte ikke\nå koble til\neller fungerer ikke bra\nnok.";
 
+/* No comment provided by engineer. */
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon åpner opp surfe-skjærgården for deg, uansett hvor du er";
+
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Innhent for å gjenoppfriske side";
+
+/* Title above a list of rules in use */
+"Rules in use on current page" = "Regler i bruk på gjeldende side";
 
 /* Action title for long press on image dialog */
 "Save Image" = "Lagre bilde";
 
 /* Text of button to send feedback */
 "Send" = "Send";
+
+/* Title that is showing above selected server region */
+"Server region:" = "Tjenerregion:";
 
 /* No comment provided by engineer. */
 "Settings" = "Innstillinger";
@@ -161,10 +211,34 @@
 "Singapore" = "Singapore";
 
 /* No comment provided by engineer. */
+"SKIP" = "HOPP OVER";
+
+/* No comment provided by engineer. */
+"SKIP TUTORIAL" = "HOPP OVER VEIVISNING";
+
+/* No comment provided by engineer. */
 "Spain" = "Spania";
+
+/* No comment provided by engineer. */
+"Status Indicator" = "Statusindikator";
+
+/* No comment provided by engineer. */
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "Den grønne avhukningen indikerer at alt virker i sin skjønneste orden!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Denne enheten er ikke oppsatt til forsendelse av E-post. Sett opp e-postinnstillingene i innstillingsprogrammet.";
+
+/* No comment provided by engineer. */
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "Her har du tilgang til nettleser og mellomtjener-innstillinger, finnhjelp, endre VPN-tjenerland, og mer!";
+
+/* No comment provided by engineer. */
+"This is where you can find information about the status of your connection" = "Her finner du informasjon om din tilkoblingsstatus";
+
+/* No comment provided by engineer. */
+"Title Label" = "Tittel-merkelapp";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"To give permissions tap on 'Change Settings' button" = "For å gi tilganger, trykk på 'Endre innstillinger'";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "Storbritannia";
@@ -179,9 +253,21 @@
    Add bookmark URL field */
 "URL" = "Nettadresse";
 
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"Waiting for network..." = "Venter på nettverk…";
+
+/* No comment provided by engineer. */
+"Welcome! Here is how to use Psiphon" = "Velkommen! Slik bruker du Psiphon";
+
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "Hva tenker du? Send oss din tilbakemelding";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can also find solutions to many common problems in our %@." = "Du kan også finne svar på mange vanlige problemer i vår %@.";
+"You can find solutions to many common problems in our %@." = "Her finner du løsninger på mange vanlige problemer i vår %@.";
+
+/* No comment provided by engineer. */
+"You're all set!" = "Du er klar.";
+
+/* Introduction text at top of feedback form */
+"Your feedback makes Psiphon better!" = "Dine tilbakemeldinger gjør Psiphon bedre.";
 

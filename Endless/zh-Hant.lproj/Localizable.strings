@@ -1,5 +1,17 @@
+/* %ld will be replaced with the number 1 */
+"%ld rule in use" = "%ld rule in use";
+
+/* %ld will be replaced with a natural number */
+"%ld rules in use" = "%ld rules in use";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "新增書籤";
+
+/* Title above a list of rules */
+"All rules" = "All rules";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "這頁可關閉它的分頁";
@@ -22,11 +34,21 @@
 
 /* Cancel
    Cancel action
-   Text of button to discard feedback and return to main settings menu */
+   Text of button to discard feedback and return to main settings menu
+   Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "取消";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"Change Settings" = "Change Settings";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "確認";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"Connected!" = "Connected!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"Connecting..." = "Connecting...";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Cookies與本地儲存";
@@ -37,11 +59,15 @@
 /* No comment provided by engineer. */
 "Default Settings" = "原廠設定";
 
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"Disconnected!" = "Disconnected!";
+
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
-   Done button title, dismisses the tab chooser */
+   Done button title, dismisses the tab chooser
+   Title of the button that dismisses region selection dialog */
 "Done" = "完成";
 
 /* Edit Bookmark dialog title */
@@ -60,6 +86,12 @@
 
 /* No comment provided by engineer. */
 "Germany" = "德國";
+
+/* No comment provided by engineer. */
+"Go to Settings" = "Go to Settings";
+
+/* No comment provided by engineer. */
+"Happy browsing!\nExplore beyond your borders." = "Happy browsing!\nExplore beyond your borders.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "香港";
@@ -92,6 +124,9 @@
 "Learn more about the data we collect in our %@" = "了解我們收集哪些資料，請見%@";
 
 /* No comment provided by engineer. */
+"LET'S GO!" = "LET'S GO!";
+
+/* No comment provided by engineer. */
 "Log In" = "登入";
 
 /* Title screen displaying logs */
@@ -99,6 +134,9 @@
 
 /* InAppSettingsKit */
 "Mail not configured" = "未設定郵件";
+
+/* No comment provided by engineer. */
+"Message Text View" = "Message Text View";
 
 /* No comment provided by engineer. */
 "Netherlands" = "荷蘭";
@@ -110,9 +148,6 @@
    OK action
    OK action button */
 "OK" = "OK";
-
-/* OK action */
-"Ok" = "確定";
 
 /* Action title for long press on link dialog */
 "Open" = "打開";
@@ -130,29 +165,44 @@
 /* Password */
 "Password" = "密碼";
 
-/* Introduction text at top of feedback form */
-"Please let us know how Psiphon is working for you so we can make the system better!" = "讓我們知道賽風在您的設備上的運作狀況以幫助我們改進！ ";
-
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "請注意此診斷資料不會泄露您的身份，它將幫助我們保持賽風平穩運行";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "隱私政策";
 
+/* No comment provided by engineer. */
+"PSIPHON" = "PSIPHON";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
+
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "賽風連線\n表現如我所願";
+
+/* Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected. */
+"Psiphon is not connected!" = "Psiphon is not connected!";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "賽風經常連線失敗\n表現不盡人意。\n　　　";
 
+/* No comment provided by engineer. */
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon opens all the wonders of the web to you, no matter where you are";
+
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
+
+/* Title above a list of rules in use */
+"Rules in use on current page" = "Rules in use on current page";
 
 /* Action title for long press on image dialog */
 "Save Image" = "存圖像";
 
 /* Text of button to send feedback */
 "Send" = "傳送";
+
+/* Title that is showing above selected server region */
+"Server region:" = "Server region:";
 
 /* No comment provided by engineer. */
 "Settings" = "設定";
@@ -161,10 +211,34 @@
 "Singapore" = "新加坡";
 
 /* No comment provided by engineer. */
+"SKIP" = "SKIP";
+
+/* No comment provided by engineer. */
+"SKIP TUTORIAL" = "SKIP TUTORIAL";
+
+/* No comment provided by engineer. */
 "Spain" = "西班牙";
+
+/* No comment provided by engineer. */
+"Status Indicator" = "Status Indicator";
+
+/* No comment provided by engineer. */
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "這台設備未設定好傳送郵件，請在應用程式的設定處來配置電郵設定";
+
+/* No comment provided by engineer. */
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
+
+/* No comment provided by engineer. */
+"This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
+
+/* No comment provided by engineer. */
+"Title Label" = "Title Label";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "英國";
@@ -179,9 +253,21 @@
    Add bookmark URL field */
 "URL" = "URL";
 
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"Waiting for network..." = "Waiting for network...";
+
+/* No comment provided by engineer. */
+"Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
+
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "您有什麼想法？請提供我們回饋意見。";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can also find solutions to many common problems in our %@." = "您也可以在我們的 %@中找到許多常見問題的解決方案。";
+"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+
+/* No comment provided by engineer. */
+"You're all set!" = "You're all set!";
+
+/* Introduction text at top of feedback form */
+"Your feedback makes Psiphon better!" = "Your feedback makes Psiphon better!";
 
