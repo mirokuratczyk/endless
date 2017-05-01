@@ -20,83 +20,83 @@
 #import "PsiphonConnectionIndicator.h"
 
 @implementation PsiphonConnectionIndicator {
-    UIImageView *_imgConnected;
-    UIImageView *_imgDisconnected;
-    UIActivityIndicatorView *_activityIndicator;
+	UIImageView *_imgConnected;
+	UIImageView *_imgDisconnected;
+	UIActivityIndicatorView *_activityIndicator;
 }
 
 - (id) initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
-	
+
 	_imgConnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_connected"]];
 	[self addSubview:_imgConnected];
 
 	_imgDisconnected = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon_disconnected"]];
 	_imgDisconnected.alpha = 0.0;
 	[self addSubview:_imgDisconnected];
-	
+
 	_activityIndicator = [[UIActivityIndicatorView alloc]
-						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+						  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	_activityIndicator.alpha = 0.0;
 	[self addSubview:_activityIndicator];
-	
+
 	_imgConnected.alpha = _imgDisconnected.alpha = _activityIndicator.alpha = 0.0;
 	_imgConnected.center = _imgDisconnected.center = _activityIndicator.center = CGPointMake(self.bounds.size.width  / 2,
-										 self.bounds.size.height / 2);
+																							 self.bounds.size.height / 2);
 	[self displayConnectionState:PsiphonConnectionStateDisconnected];
 	return self;
 }
 
-- (void) displayConnectionState:(PsiphonConnectionState)state {    
+- (void) displayConnectionState:(PsiphonConnectionState)state {
 	CGFloat activityIndicatorAlpha, imgConnectedAlpha, imgDisconnectedAlpha = 0.0f;
 	void (^animationCompleted)(BOOL finished);
 	switch (state) {
 		case PsiphonConnectionStateConnected:
-        {
+		{
 			activityIndicatorAlpha = 0.0f;
 			imgConnectedAlpha = 1.0f;
 			imgDisconnectedAlpha = 0.0f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator stopAnimating];
-                [_activityIndicator setUserInteractionEnabled:NO];
+				[_activityIndicator setUserInteractionEnabled:NO];
 			};
-            break;
-        }
+			break;
+		}
 		case PsiphonConnectionStateConnecting:
-        {
+		{
 			activityIndicatorAlpha = 1.0f;
 			imgConnectedAlpha = 0.0f;
 			imgDisconnectedAlpha = 0.2f;
 			animationCompleted = ^(BOOL finished){
 				[_activityIndicator startAnimating];
-                [_activityIndicator setUserInteractionEnabled:NO];
+				[_activityIndicator setUserInteractionEnabled:NO];
 			};
-            break;
-        }
-        case PsiphonConnectionStateWaitingForNetwork:
-        {
-            activityIndicatorAlpha = 1.0f;
-            imgConnectedAlpha = 0.0f;
-            imgDisconnectedAlpha = 0.2f;
-            animationCompleted = ^(BOOL finished){
-                [_activityIndicator startAnimating];
-                [_activityIndicator setUserInteractionEnabled:NO];
-            };
-            break;
-        }
+			break;
+		}
+		case PsiphonConnectionStateWaitingForNetwork:
+		{
+			activityIndicatorAlpha = 1.0f;
+			imgConnectedAlpha = 0.0f;
+			imgDisconnectedAlpha = 0.2f;
+			animationCompleted = ^(BOOL finished){
+				[_activityIndicator startAnimating];
+				[_activityIndicator setUserInteractionEnabled:NO];
+			};
+			break;
+		}
 		case PsiphonConnectionStateDisconnected:
-        {
-            activityIndicatorAlpha = 0.0f;
-            imgConnectedAlpha = 0.0f;
-            imgDisconnectedAlpha = 1.0f;
-            animationCompleted = ^(BOOL finished){
-                [_activityIndicator stopAnimating];
-                [_activityIndicator setUserInteractionEnabled:NO];
-            };
-            break;
-        }
-        default:
-            break;
+		{
+			activityIndicatorAlpha = 0.0f;
+			imgConnectedAlpha = 0.0f;
+			imgDisconnectedAlpha = 1.0f;
+			animationCompleted = ^(BOOL finished){
+				[_activityIndicator stopAnimating];
+				[_activityIndicator setUserInteractionEnabled:NO];
+			};
+			break;
+		}
+		default:
+			break;
 	}
 
 	[UIView animateWithDuration:0.1

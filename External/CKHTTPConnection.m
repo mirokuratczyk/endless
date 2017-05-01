@@ -28,7 +28,7 @@
 
 @interface CKHTTPURLResponse : NSHTTPURLResponse
 {
-	@private
+@private
 	NSInteger _statusCode;
 	NSDictionary *_headerFields;
 }
@@ -44,10 +44,10 @@
 }
 
 - (id)initWithResponse:(CFHTTPMessageRef)response
-    proposedCredential:(NSURLCredential *)credential
+	proposedCredential:(NSURLCredential *)credential
   previousFailureCount:(NSInteger)failureCount
-       failureResponse:(NSHTTPURLResponse *)URLResponse
-                sender:(id <NSURLAuthenticationChallengeSender>)sender;
+	   failureResponse:(NSHTTPURLResponse *)URLResponse
+				sender:(id <NSURLAuthenticationChallengeSender>)sender;
 
 - (CFHTTPAuthenticationRef)CFHTTPAuthentication;
 
@@ -139,9 +139,9 @@
 #else
 	CFReadStreamSetProperty((__bridge CFReadStreamRef)(_HTTPStream), kCFStreamPropertyHTTPAttemptPersistentConnection, kCFBooleanFalse);
 #endif
-	
+
 	NSInteger proxyPort = [AppDelegate sharedAppDelegate].socksProxyPort;
-	
+
 	NSMutableDictionary *socksProxy = [NSMutableDictionary
 									   dictionaryWithObjectsAndKeys:@"127.0.0.1",(NSString *)kCFStreamPropertySOCKSProxyHost,
 									   [NSNumber numberWithInt: (int)proxyPort],(NSString *)kCFStreamPropertySOCKSProxyPort,
@@ -153,10 +153,10 @@
 	/* set SSL protocol version enforcement before opening, when using kCFStreamSSLLevel */
 	NSURL *url = (__bridge_transfer NSURL *)(CFHTTPMessageCopyRequestURL([self HTTPRequest]));
 	if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
+		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+		NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
 
-        if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
+		if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
 			/* kTLSProtocol12 allows lower protocols, so use kCFStreamSSLLevel to force 1.2 */
 
 			CFMutableDictionaryRef sslOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
@@ -166,51 +166,51 @@
 #ifdef TRACE_HOST_SETTINGS
 			NSLog(@"[Settings] set TLS/SSL min level for %@ to TLS 1.2", [url host]);
 #endif
-        }
+		}
 	}
-	
+
 	[_HTTPStream setDelegate:(id<NSStreamDelegate>)self];
 	[_HTTPStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 	[_HTTPStream open];
-	
+
 	/* for other SSL options, these need an SSLContextRef which doesn't exist until the stream is opened */
 	if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
 		SSLContextRef sslContext = (__bridge SSLContextRef)[_HTTPStream propertyForKey:(__bridge NSString *)kCFStreamPropertySSLContext];
 		if (sslContext != NULL) {
 			SSLSessionState sslState;
 			SSLGetSessionState(sslContext, &sslState);
-			
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
-            
-            if (![tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
-                void (^setTlsMaxMin)(SSLProtocol, SSLProtocol) =
-                ^(SSLProtocol max, SSLProtocol min) {
-                    OSStatus status;
 
-                    status = SSLSetProtocolVersionMax(sslContext, max);
-                    if (status != noErr)
-                        NSLog(@"[Settings] failed setting SSLSetProtocolVersionMax: %d", (int)status);
+			NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+			NSString *tlsVersion = [userDefaults stringForKey:kMinTlsVersion];
 
-                    status = SSLSetProtocolVersionMin(sslContext, min);
-                    if (status != noErr)
-                        NSLog(@"[Settings] failed setting SSLSetProtocolVersionMin: %d", (int)status);
+			if (![tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
+				void (^setTlsMaxMin)(SSLProtocol, SSLProtocol) =
+				^(SSLProtocol max, SSLProtocol min) {
+					OSStatus status;
+
+					status = SSLSetProtocolVersionMax(sslContext, max);
+					if (status != noErr)
+						NSLog(@"[Settings] failed setting SSLSetProtocolVersionMax: %d", (int)status);
+
+					status = SSLSetProtocolVersionMin(sslContext, min);
+					if (status != noErr)
+						NSLog(@"[Settings] failed setting SSLSetProtocolVersionMin: %d", (int)status);
 
 #ifdef TRACE_HOST_SETTINGS
-                    NSLog(@"[Settings] set TLS/SSL min level for %@ to %ld", [url host], (long)tlsVersion);
+					NSLog(@"[Settings] set TLS/SSL min level for %@ to %ld", [url host], (long)tlsVersion);
 #endif
-                };
+				};
 
-                if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]) {
-                    setTlsMaxMin(kTLSProtocol12, kTLSProtocol11);
-                } else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]) {
-                    setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
-                } else {
-                    // Have a safe default if userDefaults are corrupted
-                    // or have a deprecated value for kMinTlsVersion
-                    setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
-                }
-            }
+				if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]) {
+					setTlsMaxMin(kTLSProtocol12, kTLSProtocol11);
+				} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]) {
+					setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
+				} else {
+					// Have a safe default if userDefaults are corrupted
+					// or have a deprecated value for kMinTlsVersion
+					setTlsMaxMin(kTLSProtocol12, kTLSProtocol1);
+				}
+			}
 
 			if (![self disableWeakSSLCiphers:sslContext]) {
 				NSLog(@"[CKHTTPConnection] failed disabling weak ciphers, aborting connection");
@@ -229,42 +229,42 @@ alldone:
 	SSLCipherSuite *supported = NULL;
 	SSLCipherSuite *enabled = NULL;
 	int numEnabled = 0;
-	
+
 	status = SSLGetNumberSupportedCiphers(sslContext, &numSupported);
 	if (status != noErr) {
 		NSLog(@"failed getting number of supported ciphers");
 		return NO;
 	}
-	
+
 	supported = (SSLCipherSuite *)malloc(numSupported * sizeof(SSLCipherSuite));
 	status = SSLGetSupportedCiphers(sslContext, supported, &numSupported);
 	if (status != noErr) {
 		NSLog(@"failed getting supported ciphers");
-        free(supported);
+		free(supported);
 		return NO;
 	}
-	
+
 	enabled = (SSLCipherSuite *)malloc(numSupported * sizeof(SSLCipherSuite));
-	
+
 	/* XXX: should we reverse this and only ban bad ciphers and allow all others? */
 	for (int i = 0; i < numSupported; i++) {
 		switch (supported[i]) {
-		case TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
-		case TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
-		case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:
-		case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:
-		case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:
-		case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:
-		case TLS_DHE_RSA_WITH_AES_128_CBC_SHA:
-		case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
-		case TLS_RSA_WITH_AES_128_CBC_SHA:
-		case TLS_RSA_WITH_AES_256_CBC_SHA:
-		case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
-			enabled[numEnabled++] = supported[i];
-			break;
+			case TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
+			case TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
+			case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:
+			case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:
+			case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:
+			case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:
+			case TLS_DHE_RSA_WITH_AES_128_CBC_SHA:
+			case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
+			case TLS_RSA_WITH_AES_128_CBC_SHA:
+			case TLS_RSA_WITH_AES_256_CBC_SHA:
+			case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
+				enabled[numEnabled++] = supported[i];
+				break;
 		}
 	}
-	
+
 	status = SSLSetEnabledCiphers(sslContext, enabled, numEnabled);
 	free(supported);
 	free(enabled);
@@ -273,7 +273,7 @@ alldone:
 		NSLog(@"[CKHTTPConnection] failed setting enabled ciphers on %@: %d", sslContext, status);
 		return NO;
 	}
-	
+
 	return YES;
 }
 
@@ -285,7 +285,7 @@ alldone:
 	//  C) Restarting the connection after an HTTP redirect
 	[_HTTPStream close];
 	CFBridgingRelease((__bridge_retained CFTypeRef)(_HTTPStream));
-	//[_HTTPStream release]; 
+	//[_HTTPStream release];
 	_HTTPStream = nil;
 }
 
@@ -299,7 +299,7 @@ alldone:
 - (void)stream:(NSInputStream *)theStream handleEvent:(NSStreamEvent)streamEvent
 {
 	NSParameterAssert(theStream == [self stream]);
-	
+
 	NSURL *URL = [theStream propertyForKey:(NSString *)kCFStreamPropertyHTTPFinalURL];
 
 	if (!_haveReceivedResponse) {
@@ -307,7 +307,7 @@ alldone:
 		if (response && CFHTTPMessageIsHeaderComplete(response)) {
 			// Construct a NSURLResponse object from the HTTP message
 			NSHTTPURLResponse *URLResponse = [NSHTTPURLResponse responseWithURL:URL HTTPMessage:response];
-			
+
 			/* work around bug where CFHTTPMessageIsHeaderComplete reports true but there is no actual header data to be found */
 			if ([URLResponse statusCode] == 200 && [URLResponse expectedContentLength] == 0 && [[URLResponse allHeaderFields] count] == 0) {
 #ifdef TRACE
@@ -315,85 +315,85 @@ alldone:
 #endif
 				goto process;
 			}
-			
+
 			// If the response was an authentication failure, try to request fresh credentials.
 			if ([URLResponse statusCode] == 401 || [URLResponse statusCode] == 407) {
 				// Cancel any further loading and ask the delegate for authentication
 				[self _cancelStream];
-				
+
 				NSAssert(![self currentAuthenticationChallenge], @"Authentication challenge received while another is in progress");
-				
+
 				_authenticationChallenge = [[CKHTTPAuthenticationChallenge alloc] initWithResponse:response proposedCredential:nil previousFailureCount:_authenticationAttempts failureResponse:URLResponse sender:self];
-				
+
 				if ([self currentAuthenticationChallenge]) {
 					_authenticationAttempts++;
 					[[self delegate] HTTPConnection:self didReceiveAuthenticationChallenge:[self currentAuthenticationChallenge]];
 					return; // Stops the delegate being sent a response received message
 				}
 			}
-			
+
 			// By reaching this point, the response was not a valid request for authentication,
 			// so go ahead and report it
 			_haveReceivedResponse = YES;
 			[[self delegate] HTTPConnection:self didReceiveResponse:URLResponse];
 		}
 	}
-	
+
 process:
 	switch (streamEvent) {
-	case NSStreamEventHasSpaceAvailable:
-		socketReady = true;
-		break;
-	case NSStreamEventErrorOccurred:
-		if (!socketReady && !retriedSocket) {
-			/* probably a dead keep-alive socket from the get go */
-			retriedSocket = true;
-			NSLog(@"[CKHTTPConnection] socket for %@ dead but never writable, retrying (%@)", [URL absoluteString], [theStream streamError]);
-			[self _cancelStream];
-			[self start];
-		}
-		else
-			[[self delegate] HTTPConnection:self didFailWithError:[theStream streamError]];
-		break;
-
-	case NSStreamEventEndEncountered:   // Report the end of the stream to the delegate
-		[[self delegate] HTTPConnectionDidFinishLoading:self];
-		break;
-
-	case NSStreamEventHasBytesAvailable: {
-		socketReady = true;
-		
-		if ([[[URL scheme] lowercaseString] isEqualToString:@"https"]) {
-			SecTrustRef trust = (__bridge SecTrustRef)[theStream propertyForKey:(__bridge NSString *)kCFStreamPropertySSLPeerTrust];
-			if (trust != nil) {
-				SSLCertificate *cert = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-				
-				SSLContextRef sslContext = (__bridge SSLContextRef)[theStream propertyForKey:(__bridge NSString *)kCFStreamPropertySSLContext];
-				SSLProtocol proto;
-				SSLGetNegotiatedProtocolVersion(sslContext, &proto);
-				[cert setNegotiatedProtocol:proto];
-				
-				SSLCipherSuite cipher;
-				SSLGetNegotiatedCipher(sslContext, &cipher);
-				[cert setNegotiatedCipher:cipher];
-				
-				[[self delegate] HTTPConnection:self didReceiveSecTrust:trust certificate:cert];
+		case NSStreamEventHasSpaceAvailable:
+			socketReady = true;
+			break;
+		case NSStreamEventErrorOccurred:
+			if (!socketReady && !retriedSocket) {
+				/* probably a dead keep-alive socket from the get go */
+				retriedSocket = true;
+				NSLog(@"[CKHTTPConnection] socket for %@ dead but never writable, retrying (%@)", [URL absoluteString], [theStream streamError]);
+				[self _cancelStream];
+				[self start];
 			}
-		}
-		
-		NSMutableData *data = [[NSMutableData alloc] initWithCapacity:1024];
-		while ([theStream hasBytesAvailable]) {
-			uint8_t buf[1024];
-			NSUInteger len = [theStream read:buf maxLength:1024];
-			[data appendBytes:(const void *)buf length:len];
-		}
+			else
+				[[self delegate] HTTPConnection:self didFailWithError:[theStream streamError]];
+			break;
 
-		[[self delegate] HTTPConnection:self didReceiveData:data];
-		
-		break;
-	}
-	default:
-		break;
+		case NSStreamEventEndEncountered:   // Report the end of the stream to the delegate
+			[[self delegate] HTTPConnectionDidFinishLoading:self];
+			break;
+
+		case NSStreamEventHasBytesAvailable: {
+			socketReady = true;
+
+			if ([[[URL scheme] lowercaseString] isEqualToString:@"https"]) {
+				SecTrustRef trust = (__bridge SecTrustRef)[theStream propertyForKey:(__bridge NSString *)kCFStreamPropertySSLPeerTrust];
+				if (trust != nil) {
+					SSLCertificate *cert = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+
+					SSLContextRef sslContext = (__bridge SSLContextRef)[theStream propertyForKey:(__bridge NSString *)kCFStreamPropertySSLContext];
+					SSLProtocol proto;
+					SSLGetNegotiatedProtocolVersion(sslContext, &proto);
+					[cert setNegotiatedProtocol:proto];
+
+					SSLCipherSuite cipher;
+					SSLGetNegotiatedCipher(sslContext, &cipher);
+					[cert setNegotiatedCipher:cipher];
+
+					[[self delegate] HTTPConnection:self didReceiveSecTrust:trust certificate:cert];
+				}
+			}
+
+			NSMutableData *data = [[NSMutableData alloc] initWithCapacity:1024];
+			while ([theStream hasBytesAvailable]) {
+				uint8_t buf[1024];
+				NSUInteger len = [theStream read:buf maxLength:1024];
+				[data appendBytes:(const void *)buf length:len];
+			}
+
+			[[self delegate] HTTPConnection:self didReceiveData:data];
+
+			break;
+		}
+		default:
+			break;
 	}
 }
 
@@ -456,12 +456,12 @@ process:
 - (CFHTTPMessageRef)makeHTTPMessage
 {
 	CFHTTPMessageRef result = CFHTTPMessageCreateRequest(NULL, (__bridge CFStringRef)[self HTTPMethod], (__bridge CFURLRef)[self URL], kCFHTTPVersion1_1);
-	
+
 	CFHTTPMessageSetHeaderFieldValue(result, (__bridge CFStringRef)@"Accept-Encoding", (__bridge CFStringRef)@"gzip, deflate");
 #ifdef USE_KEEPALIVES
 	CFHTTPMessageSetHeaderFieldValue(result, (__bridge CFStringRef)@"Connection", (__bridge CFStringRef)@"keep-alive");
 #endif
-	
+
 	for (NSString *hf in [self allHTTPHeaderFields]) {
 		CFHTTPMessageSetHeaderFieldValue(result, (__bridge CFStringRef)hf, (__bridge CFStringRef)[[self allHTTPHeaderFields] objectForKey:hf]);
 	}
@@ -502,7 +502,7 @@ process:
 
 	if (self = [super initWithURL:URL MIMEType:MIMEType expectedContentLength:contentLength textEncodingName:encoding])
 		_statusCode = CFHTTPMessageGetResponseStatusCode(message);
-	
+
 	return self;
 }
 
@@ -529,25 +529,25 @@ process:
 /*  Returns nil if the ref is not suitable
  */
 - (id)initWithResponse:(CFHTTPMessageRef)response
-    proposedCredential:(NSURLCredential *)credential
+	proposedCredential:(NSURLCredential *)credential
   previousFailureCount:(NSInteger)failureCount
-       failureResponse:(NSHTTPURLResponse *)URLResponse
-                sender:(id <NSURLAuthenticationChallengeSender>)sender
+	   failureResponse:(NSHTTPURLResponse *)URLResponse
+				sender:(id <NSURLAuthenticationChallengeSender>)sender
 {
 	NSParameterAssert(response);
-	
+
 	// Try to create an authentication object from the response
 	_HTTPAuthentication = CFHTTPAuthenticationCreateFromResponse(NULL, response);
 	if (![self CFHTTPAuthentication])
 		return nil;
-	
+
 	// NSURLAuthenticationChallenge only handles user and password
 	if (!CFHTTPAuthenticationIsValid([self CFHTTPAuthentication], NULL))
 		return nil;
-	
+
 	if (!CFHTTPAuthenticationRequiresUserNameAndPassword([self CFHTTPAuthentication]))
 		return nil;
-	
+
 	// Fail if we can't retrieve decent protection space info
 	CFArrayRef authenticationDomains = CFHTTPAuthenticationCopyDomains([self CFHTTPAuthentication]);
 	NSURL *URL = [(__bridge NSArray *)authenticationDomains lastObject];
@@ -555,7 +555,7 @@ process:
 
 	if (!URL || ![URL host])
 		return nil;
-	
+
 	// Fail for an unsupported authentication method
 	CFStringRef authMethod = CFHTTPAuthenticationCopyMethod([self CFHTTPAuthentication]);
 	NSString *authenticationMethod;
@@ -565,28 +565,28 @@ process:
 		authenticationMethod = NSURLAuthenticationMethodHTTPDigest;
 	else {
 		CFRelease(authMethod);
-		 // unsupported authentication scheme
+		// unsupported authentication scheme
 		return nil;
 	}
 	CFRelease(authMethod);
-	
+
 	// Initialise
 	CFStringRef realm = CFHTTPAuthenticationCopyRealm([self CFHTTPAuthentication]);
-	
+
 	NSURLProtectionSpace *protectionSpace = [[NSURLProtectionSpace alloc] initWithHost:[URL host]
-										  port:([URL port] ? [[URL port] intValue] : 80)
-									      protocol:[[URL scheme] lowercaseString]
-										 realm:(__bridge NSString *)realm
-								  authenticationMethod:authenticationMethod];
+																				  port:([URL port] ? [[URL port] intValue] : 80)
+																			  protocol:[[URL scheme] lowercaseString]
+																				 realm:(__bridge NSString *)realm
+																  authenticationMethod:authenticationMethod];
 	CFRelease(realm);
 
 	self = [self initWithProtectionSpace:protectionSpace
-		      proposedCredential:credential
-		    previousFailureCount:failureCount
-			 failureResponse:URLResponse
-				   error:nil
-				  sender:sender];
-	
+					  proposedCredential:credential
+					previousFailureCount:failureCount
+						 failureResponse:URLResponse
+								   error:nil
+								  sender:sender];
+
 	return self;
 }
 

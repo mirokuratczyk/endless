@@ -367,18 +367,18 @@
 		[[wvt title] setText:[params objectForKey:@"title"]];
 	}
 
-/*
-	NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
-	if (cp != nil) {
+	/*
+	 NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
+	 if (cp != nil) {
 		if ([cp intValue] <= [webViewTabs count] - 1)
-			[self setCurTabIndex:[cp intValue]];
+	 [self setCurTabIndex:[cp intValue]];
 
 		[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:tabChooser.currentPage].origin.x, 0) animated:NO];
 
 		// wait for the UI to catch up
 		[[self curWebViewTab] performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
-	}
-*/
+	 }
+	 */
 
 	[self updateSearchBarDetails];
 }

@@ -14,14 +14,14 @@ NSMutableArray *sortedCookieHosts;
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
+
 
 	sortedCookieHosts = [NSMutableArray arrayWithArray:[[[AppDelegate sharedAppDelegate] cookieJar] sortedHostCounts]];
 
 	self.title = NSLocalizedString(@"Cookies and Local Storage", @"'Cookies and Local Storage' dialog title");
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Cookies and Local Storage 'Done button title, dismisses the controller")
-                                                                             style:UIBarButtonItemStyleDone target:self.navigationController
-                                                                            action:@selector(dismissModalViewControllerAnimated:)];
+																			 style:UIBarButtonItemStyleDone target:self.navigationController
+																			action:@selector(dismissModalViewControllerAnimated:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +47,7 @@ NSMutableArray *sortedCookieHosts;
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cookie"];
 	if (cell == nil)
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cookie"];
-	
+
 	NSDictionary *c = [sortedCookieHosts objectAtIndex:indexPath.row];
 	cell.textLabel.text = [c allKeys][0];
 	NSDictionary *ccounts = [c allValues][0];
@@ -55,7 +55,7 @@ NSMutableArray *sortedCookieHosts;
 	int lscount = [[ccounts objectForKey:@"localStorage"] intValue];
 
 	//TODO: i18n below
-    if (ccount) {
+	if (ccount) {
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%d cookie%@", ccount, (ccount == 1 ? @"" : @"s")];
 	}
 	if (lscount) {
@@ -66,7 +66,7 @@ NSMutableArray *sortedCookieHosts;
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"local storage"];
 		}
 	}
-	
+
 	return cell;
 }
 
@@ -85,7 +85,7 @@ NSMutableArray *sortedCookieHosts;
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[[[AppDelegate sharedAppDelegate] cookieJar] clearAllDataForHost:[[sortedCookieHosts objectAtIndex:[indexPath row]] allKeys][0]];
 		[sortedCookieHosts removeObjectAtIndex:[indexPath row]];
-		
+
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }

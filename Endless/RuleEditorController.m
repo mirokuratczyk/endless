@@ -14,27 +14,27 @@ UISearchController *searchController;
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	self = [super initWithStyle:style];
-	
+
 	self.sortedRuleNames = [[NSMutableArray alloc] init];
 	self.inUseRuleNames = [[NSMutableArray alloc] init];
 
 	self.searchResult = [[NSMutableArray alloc] init];
-	
+
 	return self;
 }
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
+
 	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-	
-    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    searchController.searchResultsUpdater = self;
-    searchController.dimsBackgroundDuringPresentation = NO;
-    searchController.searchBar.delegate = self;
+
+	searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+	searchController.searchResultsUpdater = self;
+	searchController.dimsBackgroundDuringPresentation = NO;
+	searchController.searchBar.delegate = self;
 	[[self tableView] setTableHeaderView:searchController.searchBar];
-    [searchController.searchBar sizeToFit];
+	[searchController.searchBar sizeToFit];
 
 }
 
@@ -74,12 +74,12 @@ UISearchController *searchController;
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rule"];
 	if (cell == nil)
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"rule"];
-	
+
 	/* TODO: once we have a per-rule view page, enable this */
 	//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	
+
 	cell.textLabel.text = [self ruleForTableView:tableView atIndexPath:indexPath];
-	
+
 	NSString *disabled = [self ruleDisabledReason:cell.textLabel.text];
 	if (disabled == nil) {
 		cell.textLabel.textColor = [UIColor darkTextColor];
@@ -90,7 +90,7 @@ UISearchController *searchController;
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"Disabled: %@", disabled];
 		cell.detailTextLabel.textColor = [UIColor redColor];
 	}
-	
+
 	return cell;
 }
 
@@ -108,13 +108,13 @@ UISearchController *searchController;
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSString *row = [self ruleForTableView:tableView atIndexPath:indexPath];
-		
+
 		if ([self ruleDisabledReason:row] == nil)
 			[self disableRuleByName:row withReason:@"User disabled"];
 		else
 			[self enableRuleByName:row];
 	}
-	
+
 	[tableView reloadData];
 }
 
@@ -125,16 +125,16 @@ UISearchController *searchController;
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    NSString *searchString = searchController.searchBar.text;
-    [self.searchResult removeAllObjects];
-    
-    for (NSString *ruleName in self.sortedRuleNames) {
-        NSRange range = [ruleName rangeOfString:searchString options:NSCaseInsensitiveSearch];
-        
-        if (range.length > 0)
-            [self.searchResult addObject:ruleName];
-    }
-    [self.tableView reloadData];
+	NSString *searchString = searchController.searchBar.text;
+	[self.searchResult removeAllObjects];
+
+	for (NSString *ruleName in self.sortedRuleNames) {
+		NSRange range = [ruleName rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+		if (range.length > 0)
+			[self.searchResult addObject:ruleName];
+	}
+	[self.tableView reloadData];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -149,14 +149,14 @@ UISearchController *searchController;
 - (NSString *)ruleForTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath
 {
 	NSMutableArray *group;
-	
+
 	if ([indexPath section] == 0)
 		group = [self inUseRuleNames];
-    else if (searchController.active && ![searchController.searchBar.text  isEqual:@""])
+	else if (searchController.active && ![searchController.searchBar.text  isEqual:@""])
 		group = [self searchResult];
 	else
 		group = [self sortedRuleNames];
-			 
+
 	if (group && [group count] > [indexPath row])
 		return [group objectAtIndex:indexPath.row];
 	else

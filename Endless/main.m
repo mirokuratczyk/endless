@@ -10,8 +10,8 @@
 
 int main(int argc, char * argv[]) {
 	@autoreleasepool {
-        //ignore SIGPIPE
-        signal(SIGPIPE, SIG_IGN);
+		//ignore SIGPIPE
+		signal(SIGPIPE, SIG_IGN);
 		return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
 	}
 }

@@ -35,12 +35,12 @@ static AppDelegate *appDelegate;
 @implementation ProxySettings
 
 - (id)initWithSettings:(NSString*)host port:(NSString*)port {
-    self = [super init];
-    if (self) {
-        self.proxyHost = host;
-        self.proxyPort = port;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.proxyHost = host;
+		self.proxyPort = port;
+	}
+	return self;
 }
 
 @end
@@ -59,13 +59,13 @@ static AppDelegate *appDelegate;
 @implementation ProxyCredentials
 
 - (id)initWithCredentials:(NSString*)username password:(NSString*)password domain:(NSString*)domain {
-    self = [super init];
-    if (self) {
-        self.username = username;
-        self.password = password;
-        self.domain = domain;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.username = username;
+		self.password = password;
+		self.domain = domain;
+	}
+	return self;
 }
 
 @end
@@ -77,86 +77,86 @@ static AppDelegate *appDelegate;
 
 + (instancetype)sharedInstance
 {
-    static dispatch_once_t once;
-    static id sharedInstance;
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
+	static dispatch_once_t once;
+	static id sharedInstance;
+	dispatch_once(&once, ^{
+		sharedInstance = [[self alloc] init];
+	});
+	return sharedInstance;
 }
 
 - (BOOL)getUseCustomProxySettings {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
 }
 
 - (NSString*)getCustomProxyHost {
-    NSString *hostAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyHostAddress];
-    return hostAddress.length == 0 ? @"" : hostAddress;
+	NSString *hostAddress = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyHostAddress];
+	return hostAddress.length == 0 ? @"" : hostAddress;
 }
 
 - (NSString*)getCustomProxyPort {
-    NSString *proxyPort = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyPort];
-    return proxyPort.length == 0 ? @"" : proxyPort;
+	NSString *proxyPort = [[NSUserDefaults standardUserDefaults] stringForKey:kUpstreamProxyPort];
+	return proxyPort.length == 0 ? @"" : proxyPort;
 }
 
 - (BOOL)getUseProxyAuthentication {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
 }
 
 - (NSString*)getProxyUsername {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyUsername];
+	return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyUsername];
 }
 
 - (NSString*)getProxyPassword {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyPassword];
+	return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyPassword];
 }
 
 - (NSString*)getProxyDomain {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyDomain];
+	return [[NSUserDefaults standardUserDefaults] stringForKey:kProxyDomain];
 }
 
 - (ProxySettings*)getProxySettings {
-    if (![self getUseCustomProxySettings]) {
-        return nil;
-    }
+	if (![self getUseCustomProxySettings]) {
+		return nil;
+	}
 
-    NSString *proxyHost = [self getCustomProxyHost];
-    NSString *proxyPort = [self getCustomProxyPort];
+	NSString *proxyHost = [self getCustomProxyHost];
+	NSString *proxyPort = [self getCustomProxyPort];
 
-    if (proxyHost.length == 0) {
-        return nil;
-    }
-    if (proxyPort.length == 0) {
-        return nil;
-    }
+	if (proxyHost.length == 0) {
+		return nil;
+	}
+	if (proxyPort.length == 0) {
+		return nil;
+	}
 
-    ProxySettings *proxySettings = [[ProxySettings alloc] initWithSettings:proxyHost port:proxyPort];
+	ProxySettings *proxySettings = [[ProxySettings alloc] initWithSettings:proxyHost port:proxyPort];
 
-    return proxySettings;
+	return proxySettings;
 }
 
 - (ProxyCredentials*)getProxyCredentials {
-    if (![self getUseProxyAuthentication]) {
-        return nil;
-    }
+	if (![self getUseProxyAuthentication]) {
+		return nil;
+	}
 
-    NSString *username = [self getProxyUsername];
-    NSString *password = [self getProxyPassword];
-    NSString *domain = [self getProxyDomain];
+	NSString *username = [self getProxyUsername];
+	NSString *password = [self getProxyPassword];
+	NSString *domain = [self getProxyDomain];
 
-    NSCharacterSet *whitespace = [NSCharacterSet whitespaceCharacterSet];
+	NSCharacterSet *whitespace = [NSCharacterSet whitespaceCharacterSet];
 
-    if (username.length == 0 || [username stringByTrimmingCharactersInSet:whitespace].length == 0) {
-        return nil;
-    }
-    if (password.length == 0 || [password stringByTrimmingCharactersInSet:whitespace].length == 0) {
-        return nil;
-    }
-    if (domain.length == 0 || [domain stringByTrimmingCharactersInSet:whitespace].length == 0) {
-        return [[ProxyCredentials alloc] initWithCredentials:username password:password domain:@""];
-    }
+	if (username.length == 0 || [username stringByTrimmingCharactersInSet:whitespace].length == 0) {
+		return nil;
+	}
+	if (password.length == 0 || [password stringByTrimmingCharactersInSet:whitespace].length == 0) {
+		return nil;
+	}
+	if (domain.length == 0 || [domain stringByTrimmingCharactersInSet:whitespace].length == 0) {
+		return [[ProxyCredentials alloc] initWithCredentials:username password:password domain:@""];
+	}
 
-    return [[ProxyCredentials alloc] initWithCredentials:username password:password domain:domain];
+	return [[ProxyCredentials alloc] initWithCredentials:username password:password domain:domain];
 }
 
 // Returns a tunnel-core compatible proxy URL for the
@@ -164,32 +164,32 @@ static AppDelegate *appDelegate;
 // e.g., http://NTDOMAIN\NTUser:password@proxyhost:3375,
 //       http://user:password@proxyhost:8080", etc.
 - (NSString*)getUpstreamProxyUrl {
-    ProxySettings *proxySettings = [self getProxySettings];
+	ProxySettings *proxySettings = [self getProxySettings];
 
-    if (proxySettings == nil) {
-        return @"";
-    }
+	if (proxySettings == nil) {
+		return @"";
+	}
 
-    NSMutableString *url = [[NSMutableString alloc] initWithString:@"http://"];
+	NSMutableString *url = [[NSMutableString alloc] initWithString:@"http://"];
 
-    ProxyCredentials *credentials = [self getProxyCredentials];
+	ProxyCredentials *credentials = [self getProxyCredentials];
 
-    if (credentials != nil) {
-        if ([credentials.domain length] != 0) {
-            [url appendString:credentials.domain];
-            [url appendString:@"\\"];
-        }
-        [url appendString:credentials.username];
-        [url appendString:@":"];
-        [url appendString:credentials.password];
-        [url appendString:@"@"];
-    }
+	if (credentials != nil) {
+		if ([credentials.domain length] != 0) {
+			[url appendString:credentials.domain];
+			[url appendString:@"\\"];
+		}
+		[url appendString:credentials.username];
+		[url appendString:@":"];
+		[url appendString:credentials.password];
+		[url appendString:@"@"];
+	}
 
-    [url appendString:proxySettings.proxyHost];
-    [url appendString:@":"];
-    [url appendString:proxySettings.proxyPort];
+	[url appendString:proxySettings.proxyHost];
+	[url appendString:@":"];
+	[url appendString:proxySettings.proxyPort];
 
-    return url;
+	return url;
 }
 
 @end

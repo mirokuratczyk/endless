@@ -23,39 +23,39 @@
 #import "PsiphonData.h"
 
 @implementation LogViewController {
-    NSArray *logs;
-    UITableView *table;
+	NSArray *logs;
+	UITableView *table;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
-    logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
+	logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
 
-    table = [[UITableView alloc] init];
-    table.dataSource = self;
-    table.delegate = self;
-    table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    table.estimatedRowHeight = 60;
-    table.rowHeight = UITableViewAutomaticDimension;
+	table = [[UITableView alloc] init];
+	table.dataSource = self;
+	table.delegate = self;
+	table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+	table.estimatedRowHeight = 60;
+	table.rowHeight = UITableViewAutomaticDimension;
 
-    [self.view addSubview:table];
-    [self scrollToBottom];
+	[self.view addSubview:table];
+	[self scrollToBottom];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(newLogAdded:)
-                                                 name:@kDisplayLogEntry
-                                               object:nil];
+	[super viewWillAppear:animated];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(newLogAdded:)
+												 name:@kDisplayLogEntry
+											   object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super viewWillDisappear:animated];
 }
 
 #pragma mark - UITableView delegate methods
@@ -63,42 +63,42 @@
 // Scroll to bottom of UITableView
 -(void)scrollToBottom
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *myIndexPath = [NSIndexPath indexPathForRow:[logs count]-1 inSection:0];
-        [table selectRowAtIndexPath:myIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSIndexPath *myIndexPath = [NSIndexPath indexPathForRow:[logs count]-1 inSection:0];
+		[table selectRowAtIndexPath:myIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+	});
 }
 
 // Reload data and scroll to bottom of UITableView
 -(void)newLogAdded:(id)sender
 {
-    logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
-    [table reloadData];
-    [self scrollToBottom];
+	logs = [[PsiphonData sharedInstance] getStatusLogsForDisplay];
+	[table reloadData];
+	[self scrollToBottom];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [logs count];
+	return [logs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *statusEntryForDisplay = logs[indexPath.row];
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:statusEntryForDisplay];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:statusEntryForDisplay];
-    }
+	NSString *statusEntryForDisplay = logs[indexPath.row];
 
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.text = statusEntryForDisplay;
-    
-    return cell;
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:statusEntryForDisplay];
+
+	if (!cell) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:statusEntryForDisplay];
+	}
+
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+	cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+	cell.textLabel.numberOfLines = 0;
+	cell.textLabel.text = statusEntryForDisplay;
+
+	return cell;
 }
 
 @end

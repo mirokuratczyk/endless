@@ -20,7 +20,7 @@
 #import "PsiphonHomePagesEquivalentURLs.h"
 
 @implementation PsiphonHomePagesEquivalentURLs {
-	
+
 	// A dictionary of all previously received via handshake
 	// home pages mapped to their equivalent URLs.
 	// We will perform a lookup against this object when we
@@ -35,7 +35,7 @@
 
 - (id)init {
 	self = [super init];
-	
+
 	if (self) {
 		_homePagesEquivalentURLs = [MutableOrderedDictionary new];
 	}

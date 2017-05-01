@@ -33,81 +33,81 @@
 @implementation AdjustableLabel
 
 - (id)initWithDesiredFontSize:(CGFloat)fontSize {
-    self = [super init];
+	self = [super init];
 
-    if (self) {
-        self.desiredFontSize = fontSize;
-    }
+	if (self) {
+		self.desiredFontSize = fontSize;
+	}
 
-    return self;
+	return self;
 }
 
 - (void)setAdjustsFontSizeToFitFrame:(BOOL)adjustsFontSizeToFitFrame
 {
-    _adjustsFontSizeToFitFrame = adjustsFontSizeToFitFrame;
-    
-    if (adjustsFontSizeToFitFrame) {
-        self.numberOfLines = 0; // because boundingRectWithSize works like this was 0 anyway
-    }
+	_adjustsFontSizeToFitFrame = adjustsFontSizeToFitFrame;
+
+	if (adjustsFontSizeToFitFrame) {
+		self.numberOfLines = 0; // because boundingRectWithSize works like this was 0 anyway
+	}
 }
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
-    
-    if (self.adjustsFontSizeToFitFrame)
-    {
-        [self adjustFontSizeToFrame];
-    }
+	[super layoutSubviews];
+
+	if (self.adjustsFontSizeToFitFrame)
+	{
+		[self adjustFontSizeToFrame];
+	}
 }
 
 - (void)adjustFontSizeToFrame
 {
-    AdjustableLabel* label = self;
+	AdjustableLabel* label = self;
 
-    if (label.text.length == 0) return;
+	if (label.text.length == 0) return;
 
-    // Necessary or single-char texts won't be correctly adjusted
-    BOOL checkWidth = label.text.length == 1;
+	// Necessary or single-char texts won't be correctly adjusted
+	BOOL checkWidth = label.text.length == 1;
 
-    CGSize labelSize = label.frame.size;
+	CGSize labelSize = label.frame.size;
 
-    // Fit label width-wise
-    CGSize constraintSize = CGSizeMake(checkWidth ? MAXFLOAT : labelSize.width, MAXFLOAT);
+	// Fit label width-wise
+	CGSize constraintSize = CGSizeMake(checkWidth ? MAXFLOAT : labelSize.width, MAXFLOAT);
 
-    // Try all font sizes from desired to smallest font size
-    CGFloat maxFontSize = label.desiredFontSize;
-    CGFloat minFontSize = MIN_FONT_SIZE;
+	// Try all font sizes from desired to smallest font size
+	CGFloat maxFontSize = label.desiredFontSize;
+	CGFloat minFontSize = MIN_FONT_SIZE;
 
-    UIFont *font = label.font;
+	UIFont *font = label.font;
 
-    // Do a binary search to find the largest font size that
-    // will fit within the label's frame.
-    while (true)
-    {
-        CGFloat fontSize = (maxFontSize + minFontSize) / 2;
+	// Do a binary search to find the largest font size that
+	// will fit within the label's frame.
+	while (true)
+	{
+		CGFloat fontSize = (maxFontSize + minFontSize) / 2;
 
-        if (fontSize - minFontSize < DELTA / 2) {
-            font = [UIFont fontWithName:font.fontName size:minFontSize];
-            break; // Exit because we reached the biggest font size that fits
-        } else {
-            font = [UIFont fontWithName:font.fontName size:fontSize];
-        }
+		if (fontSize - minFontSize < DELTA / 2) {
+			font = [UIFont fontWithName:font.fontName size:minFontSize];
+			break; // Exit because we reached the biggest font size that fits
+		} else {
+			font = [UIFont fontWithName:font.fontName size:fontSize];
+		}
 
-        NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:label.attributedText];
-        [attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, label.attributedText.length)];
+		NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:label.attributedText];
+		[attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, label.attributedText.length)];
 
-        CGRect rect = [attributedString boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+		CGRect rect = [attributedString boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
 
-        // Now we discard a half
-        if(rect.size.height <= labelSize.height && (!checkWidth || rect.size.width <= labelSize.width)) {
-            minFontSize = fontSize; // the best size is in the bigger half
-        } else {
-            maxFontSize = fontSize; // the best size is in the smaller half
-        }
-    }
+		// Now we discard a half
+		if(rect.size.height <= labelSize.height && (!checkWidth || rect.size.width <= labelSize.width)) {
+			minFontSize = fontSize; // the best size is in the bigger half
+		} else {
+			maxFontSize = fontSize; // the best size is in the smaller half
+		}
+	}
 
-    label.font = font;
+	label.font = font;
 }
 
 @end

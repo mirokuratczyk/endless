@@ -22,8 +22,8 @@
 @interface FeedbackUpload : NSObject
 + (NSString*)generateFeedbackId;
 + (void)generateAndSendFeedback:(NSInteger)thumbIndex
-                       comments:(NSString*)comments
-                          email:(NSString*)email
-             sendDiagnosticInfo:(BOOL)sendDiagnosticInfo
-              withPsiphonConfig:(NSString*)psiphonConfig;
+					   comments:(NSString*)comments
+						  email:(NSString*)email
+			 sendDiagnosticInfo:(BOOL)sendDiagnosticInfo
+			  withPsiphonConfig:(NSString*)psiphonConfig;
 @end
