@@ -33,10 +33,10 @@
 	//reset text alignment and calculate new frames for RTL
 	self.textLabel.textAlignment = NSTextAlignmentLeft;
 	self.textField.textAlignment = NSTextAlignmentLeft;
-	
+
 	CGRect frame = [self rtlFrame:self.textField];
 	self.textField.frame = frame;
-	
+
 	frame = [self rtlFrame:self.textLabel];
 	self.textLabel.frame = frame;
 }
@@ -44,7 +44,7 @@
 -(CGRect) rtlFrame:(UIView *)view {
 	CGRect frame = view.frame;
 	CGRect superViewFrame = [view superview].frame;
-	
+
 	return CGRectMake(superViewFrame.size.width - frame.origin.x - frame.size.width, frame.origin.y, frame.size.width, frame.size.height);
 }
 

@@ -27,14 +27,14 @@
 @synthesize stackTrace = _stackTrace;
 
 - (id)init:(NSString*)msg withStackTrace:(NSArray*)trace {
-    self = [super init];
+	self = [super init];
 
-    if (self) {
-        _message = msg;
-        _stackTrace = trace;
-    }
-    
-    return self;
+	if (self) {
+		_message = msg;
+		_stackTrace = trace;
+	}
+
+	return self;
 }
 
 @end
@@ -47,46 +47,46 @@
 @synthesize data = _data;
 
 - (id)init:(NSString*)msg nameValuePairs:(NSArray*)nameValuePairs {
-    self = [super init];
-    
-    assert(nameValuePairs.count % 2 == 0);
-    
-    if (self) {
-        _timestamp = [NSDate date];
-        _message = msg;
-        
-        if (nameValuePairs != nil) {
-            NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
-            
-            for (NSUInteger i = 0; i <= [nameValuePairs count]/2 - 1; i++) {
-                [jsonObject setObject:nameValuePairs[i*2+1] forKey:nameValuePairs[i*2]];
-            }
-            _data = jsonObject;
-        }
-    }
+	self = [super init];
 
-    return self;
+	assert(nameValuePairs.count % 2 == 0);
+
+	if (self) {
+		_timestamp = [NSDate date];
+		_message = msg;
+
+		if (nameValuePairs != nil) {
+			NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
+
+			for (NSUInteger i = 0; i <= [nameValuePairs count]/2 - 1; i++) {
+				[jsonObject setObject:nameValuePairs[i*2+1] forKey:nameValuePairs[i*2]];
+			}
+			_data = jsonObject;
+		}
+	}
+
+	return self;
 }
 
 - (id)init:(NSString*)msg {
-    self = [super init];
-    
-    if (self) {
-        DiagnosticEntry *result = [[DiagnosticEntry alloc] init:msg nameValuePairs:@[@"msg", msg]];
-        _timestamp = result.timestamp;
-        _message = result.message;
-        _data = result.data;
-    }
+	self = [super init];
 
-    return self;
+	if (self) {
+		DiagnosticEntry *result = [[DiagnosticEntry alloc] init:msg nameValuePairs:@[@"msg", msg]];
+		_timestamp = result.timestamp;
+		_message = result.message;
+		_data = result.data;
+	}
+
+	return self;
 }
 
 - (NSString*)getTimestampISO8601 {
-    return [PsiphonData dateToISO8601:self.timestamp];
+	return [PsiphonData dateToISO8601:self.timestamp];
 }
 
 - (NSString*)getTimestampForDisplay {
-    return [PsiphonData timestampForDisplay:self.timestamp];
+	return [PsiphonData timestampForDisplay:self.timestamp];
 }
 
 @end
@@ -106,26 +106,26 @@ formatArgs:(NSArray*)formatArgs
  throwable:(Throwable*)throwable
 sensitivity:(SensitivityLevel)sensitivity
   priority:(PriorityLevel)priority {
-    self = [super init];
+	self = [super init];
 
-    if (self) {
-        _timestamp = [NSDate date];
-        _id = identifier;
-        _sensitivity = sensitivity;
-        _formatArgs = formatArgs;
-        _throwable = throwable;
-        _priority = priority;
-    }
+	if (self) {
+		_timestamp = [NSDate date];
+		_id = identifier;
+		_sensitivity = sensitivity;
+		_formatArgs = formatArgs;
+		_throwable = throwable;
+		_priority = priority;
+	}
 
-    return self;
+	return self;
 }
 
 - (NSString*)getTimestampISO8601 {
-    return [PsiphonData dateToISO8601:_timestamp];
+	return [PsiphonData dateToISO8601:_timestamp];
 }
 
 - (NSString*)getTimestampForDisplay {
-    return [PsiphonData timestampForDisplay:_timestamp];
+	return [PsiphonData timestampForDisplay:_timestamp];
 }
 
 @end
@@ -138,109 +138,109 @@ sensitivity:(SensitivityLevel)sensitivity
 
 + (instancetype)sharedInstance
 {
-    static dispatch_once_t once;
-    static id sharedInstance;
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
+	static dispatch_once_t once;
+	static id sharedInstance;
+	dispatch_once(&once, ^{
+		sharedInstance = [[self alloc] init];
+	});
+	return sharedInstance;
 }
 
 // ISO8601DateFormatter method only available in iOS 10.0+
 // Follows format specified in `getISO8601String` https://bitbucket.org/psiphon/psiphon-circumvention-system/src/default/Android/app/src/main/java/com/psiphon3/psiphonlibrary/Utils.java#Utils.java-614
 // http://stackoverflow.com/questions/28016578/swift-how-to-create-a-date-time-stamp-and-format-as-iso-8601-rfc-3339-utc-tim
 + (NSString*)dateToISO8601:(NSDate*)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierISO8601];
-    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]; // https://developer.apple.com/library/mac/qa/qa1480/_index.html
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSX";
-    
-    return [formatter stringFromDate:date];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierISO8601];
+	formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]; // https://developer.apple.com/library/mac/qa/qa1480/_index.html
+	formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+	formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSX";
+
+	return [formatter stringFromDate:date];
 }
 
 // Convert timestamp to shortened human readible format for display
 + (NSString*)timestampForDisplay:(NSDate*)timestamp {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.locale = [NSLocale currentLocale];
-    formatter.dateFormat = @"HH:mm:ss";
-    
-    return [formatter stringFromDate:timestamp];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.locale = [NSLocale currentLocale];
+	formatter.dateFormat = @"HH:mm:ss";
+
+	return [formatter stringFromDate:timestamp];
 }
 
 - (id)init {
-    self = [super init];
+	self = [super init];
 
-    if (self) {
-        _statusHistory = [[NSMutableArray<StatusEntry*> alloc] init];
-        _diagnosticHistory = [[NSMutableArray<DiagnosticEntry*> alloc] init];
-    }
+	if (self) {
+		_statusHistory = [[NSMutableArray<StatusEntry*> alloc] init];
+		_diagnosticHistory = [[NSMutableArray<DiagnosticEntry*> alloc] init];
+	}
 
-    return self;
+	return self;
 }
 
 // Notify LogViewController that a new entry has been added
 - (void)noticeLogAdded {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@kDisplayLogEntry
-         object:self
-         userInfo:nil];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter]
+		 postNotificationName:@kDisplayLogEntry
+		 object:self
+		 userInfo:nil];
+	});
 }
 
 - (void)addDiagnosticEntry:(DiagnosticEntry*)entry {
-    [_diagnosticHistory addObject:entry];
-    [self noticeLogAdded];
+	[_diagnosticHistory addObject:entry];
+	[self noticeLogAdded];
 }
 
 - (void)addStatusEntry:(StatusEntry*)entry {
-    [_statusHistory addObject:entry];
-    [self noticeLogAdded];
+	[_statusHistory addObject:entry];
+	[self noticeLogAdded];
 }
 
 - (NSArray<NSString*>*)getDiagnosticLogsForDisplay {
-    NSMutableArray<NSString*> *logs = [[NSMutableArray<NSString*> alloc] init];
-    
-    for (DiagnosticEntry* entry in _diagnosticHistory) {
-        NSString *log = [NSString stringWithFormat:@"%@ %@", [entry getTimestampForDisplay], [entry message]];
-        [logs addObject:log];
-    }
-    
-    return logs;
+	NSMutableArray<NSString*> *logs = [[NSMutableArray<NSString*> alloc] init];
+
+	for (DiagnosticEntry* entry in _diagnosticHistory) {
+		NSString *log = [NSString stringWithFormat:@"%@ %@", [entry getTimestampForDisplay], [entry message]];
+		[logs addObject:log];
+	}
+
+	return logs;
 }
 
 // Return array of status entries formatted as strings for display
 - (NSArray<NSString*>*)getStatusLogsForDisplay {
-    NSMutableArray<NSString*> *logs = [[NSMutableArray<NSString*> alloc] init];
+	NSMutableArray<NSString*> *logs = [[NSMutableArray<NSString*> alloc] init];
 
-    for (StatusEntry* entry in _statusHistory) {
-        if (entry.sensitivity != SensitivityLevelNotSensitive) {
-            continue;
-        }
+	for (StatusEntry* entry in _statusHistory) {
+		if (entry.sensitivity != SensitivityLevelNotSensitive) {
+			continue;
+		}
 
-        NSString *infoString = entry.id;
-        
-        // Apply format args to string if provided
-        NSArray *formatArgs = entry.formatArgs;
-        if (formatArgs != nil) {
-            infoString = [PsiphonData stringWithFormat:infoString array:formatArgs];
-        }
-        // Generate string for display
-        NSString *stringForDisplay = [NSString stringWithFormat:@"%@ %@", [entry getTimestampForDisplay], infoString];
-        [logs addObject:stringForDisplay];
-    }
-    return logs;
+		NSString *infoString = entry.id;
+
+		// Apply format args to string if provided
+		NSArray *formatArgs = entry.formatArgs;
+		if (formatArgs != nil) {
+			infoString = [PsiphonData stringWithFormat:infoString array:formatArgs];
+		}
+		// Generate string for display
+		NSString *stringForDisplay = [NSString stringWithFormat:@"%@ %@", [entry getTimestampForDisplay], infoString];
+		[logs addObject:stringForDisplay];
+	}
+	return logs;
 }
 
 // http://stackoverflow.com/questions/1058736/how-to-create-a-nsstring-from-a-format-string-like-xxx-yyy-and-a-nsarr?noredirect=1&lq=1
 + (id)stringWithFormat:(NSString *)format array:(NSArray*) arguments
 {
-    if (arguments.count > 10) {
-        @throw [NSException exceptionWithName:NSRangeException reason:@"Maximum of 10 arguments allowed" userInfo:@{@"collection": arguments}];
-    }
-    NSArray* a = [arguments arrayByAddingObjectsFromArray:@[@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X"]];
-    return [NSString stringWithFormat:format, a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10] ];
+	if (arguments.count > 10) {
+		@throw [NSException exceptionWithName:NSRangeException reason:@"Maximum of 10 arguments allowed" userInfo:@{@"collection": arguments}];
+	}
+	NSArray* a = [arguments arrayByAddingObjectsFromArray:@[@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X",@"X"]];
+	return [NSString stringWithFormat:format, a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10] ];
 }
 
 @end

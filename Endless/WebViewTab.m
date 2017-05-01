@@ -477,7 +477,7 @@
 	NSString *u;
 	if ((u = [[error userInfo] objectForKey:@"NSErrorFailingURLStringKey"]) != nil)
 		msg = [NSString stringWithFormat:@"%@\n\n%@", msg, u];
-	
+
 	if ([error userInfo] != nil) {
 		NSNumber *ok = [[error userInfo] objectForKey:ORIGIN_KEY];
 		if (ok != nil && [ok boolValue] == NO) {

@@ -39,7 +39,7 @@ static NSDictionary *_preloadedHosts;
 	else {
 		hc.dict = [[NSMutableDictionary alloc] initWithCapacity:50];
 	}
-	
+
 	/* mix in preloaded */
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"hsts_preload" ofType:@"plist"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -47,18 +47,18 @@ static NSDictionary *_preloadedHosts;
 		for (NSString *host in [tmp allKeys]) {
 			NSDictionary *hostdef = [tmp objectForKey:host];
 			NSMutableDictionary *v = [[NSMutableDictionary alloc] init];
-			
+
 			[v setObject:[NSDate dateWithTimeIntervalSinceNow:(60 * 60 * 24 * 365)] forKey:HSTS_KEY_EXPIRATION];
 			[v setObject:@YES forKey:HSTS_KEY_PRELOADED];
-			
+
 			NSNumber *is = [hostdef objectForKey:@"include_subdomains"];
 			if ([is intValue] == 1) {
 				[v setObject:@YES forKey:HSTS_KEY_ALLOW_SUBDOMAINS];
 			}
-			
+
 			[[hc dict] setObject:v forKey:host];
 		}
-		
+
 #ifdef TRACE_HSTS
 		NSLog(@"[HSTSCache] locked and loaded with %lu preloaded hosts", [tmp count]);
 #endif
@@ -66,7 +66,7 @@ static NSDictionary *_preloadedHosts;
 	else {
 		NSLog(@"[HSTSCache] no preload plist at %@", path);
 	}
-	
+
 	return hc;
 }
 
@@ -80,29 +80,29 @@ static NSDictionary *_preloadedHosts;
 	if (![[URL scheme] isEqualToString:@"http"]) {
 		return URL;
 	}
-	
+
 	NSString *host = [[URL host] lowercaseString];
 	NSString *matchHost = [host copy];
-	
+
 	/* 8.3: ignore when host is a bare ip address */
 	if ([host isValidIPAddress]) {
 		return URL;
 	}
-	
+
 	NSDictionary *params = [self objectForKey:host];
 	if (params == nil) {
 		/* for a host of x.y.z.example.com, try y.z.example.com, z.example.com, example.com, etc. */
 		NSArray *hostp = [host componentsSeparatedByString:@"."];
 		for (int i = 1; i < [hostp count]; i++) {
 			NSString *wc = [[hostp subarrayWithRange:NSMakeRange(i, [hostp count] - i)] componentsJoinedByString:@"."];
-			
+
 			if (((params = [self objectForKey:wc]) != nil) && [params objectForKey:HSTS_KEY_ALLOW_SUBDOMAINS]) {
 				matchHost = wc;
 				break;
 			}
 		}
 	}
-	
+
 	if (params != nil) {
 		NSDate *exp = [params objectForKey:HSTS_KEY_EXPIRATION];
 		if ([exp timeIntervalSince1970] < [[NSDate date] timeIntervalSince1970]) {
@@ -113,24 +113,24 @@ static NSDictionary *_preloadedHosts;
 			params = nil;
 		}
 	}
-	
+
 	if (params == nil) {
 		return URL;
 	}
-	
+
 	NSURLComponents *URLc = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-	
+
 	[URLc setScheme:@"https"];
-	
+
 	/* 8.3.5: nullify port unless it's a non-standard one */
 	if ([URLc port] != nil && [[URLc port] intValue] == 80) {
 		[URLc setPort:nil];
 	}
-	
+
 #ifdef TRACE_HSTS
 	NSLog(@"[HSTSCache] %@rewrote %@ to %@", ([params objectForKey:HSTS_KEY_PRELOADED] ? @"[preloaded] " : @""), URL, [URLc URL]);
 #endif
-	
+
 	return [URLc URL];
 }
 
@@ -138,11 +138,11 @@ static NSDictionary *_preloadedHosts;
 {
 	NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:3];
 	host = [host lowercaseString];
-	
+
 	/* 8.1.1: reject caching when host is a bare ip address */
 	if ([host isValidIPAddress])
 		return;
-	
+
 #ifdef TRACE_HSTS
 	NSLog(@"[HSTSCache] [%@] %@", host, header);
 #endif
@@ -151,13 +151,13 @@ static NSDictionary *_preloadedHosts;
 	for (NSString *kv in kvs) {
 		NSArray *kvparts = [kv componentsSeparatedByString:@"="];
 		NSString *key, *value;
-		
+
 		key = [kvparts[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		
+
 		if ([kvparts count] > 1) {
 			value = [[kvparts[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 		}
-		
+
 		if ([[key lowercaseString] isEqualToString:@"max-age"]) {
 			long age = [value longLongValue];
 
@@ -178,7 +178,7 @@ static NSDictionary *_preloadedHosts;
 			[params setObject:@YES forKey:HSTS_KEY_ALLOW_SUBDOMAINS];
 		}
 		else if ([[key lowercaseString] isEqualToString:@"preload"] ||
-			 [[key lowercaseString] isEqualToString:@""]) {
+				 [[key lowercaseString] isEqualToString:@""]) {
 			/* ignore */
 		}
 		else {
@@ -187,7 +187,7 @@ static NSDictionary *_preloadedHosts;
 #endif
 		}
 	}
-	
+
 	if ([params objectForKey:HSTS_KEY_EXPIRATION]) {
 		[self setValue:params forKey:host];
 	}

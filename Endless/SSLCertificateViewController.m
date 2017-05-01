@@ -20,16 +20,16 @@
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Done action button. dismisses SSL certificate information dialog") style:UIBarButtonItemStyleDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
 
 	certInfo = [[MutableOrderedDictionary alloc] init];
-	
+
 	MutableOrderedDictionary *i;
-	
+
 	if ([cert negotiatedProtocol]) {
 		i = [[MutableOrderedDictionary alloc] init];
 		[i setObject:[cert negotiatedProtocolString] forKey:@"Protocol"];
 		[i setObject:[cert negotiatedCipherString] forKey:@"Cipher"];
 		[certInfo setObject:i forKey:@"Connection Information"];
 	}
-	
+
 	i = [[MutableOrderedDictionary alloc] init];
 	[i setObject:[NSString stringWithFormat:@"%@", [cert version]] forKey:@"Version"];
 	[i setObject:[cert serialNumber] forKey:@"Serial Number"];
@@ -37,7 +37,7 @@
 	if ([cert isEV])
 		[i setObject:[cert evOrgName] forKey:CI_EVORG_KEY];
 	[certInfo setObject:i forKey:@"Certificate Information"];
-	
+
 	i = [[MutableOrderedDictionary alloc] init];
 	NSMutableDictionary *tcs = [[NSMutableDictionary alloc] initWithDictionary:[cert subject]];
 	for (NSString *k in @[ X509_KEY_CN, X509_KEY_O, X509_KEY_OU, X509_KEY_STREET, X509_KEY_L, X509_KEY_ST, X509_KEY_ZIP, X509_KEY_C ]) {
@@ -50,7 +50,7 @@
 	for (NSString *k in [tcs allKeys])
 		[i setObject:[[cert subject] objectForKey:k] forKey:k];
 	[certInfo setObject:i forKey:@"Issued To"];
-	
+
 	NSDateFormatter *df_local = [[NSDateFormatter alloc] init];
 	[df_local setTimeZone:[NSTimeZone defaultTimeZone]];
 	[df_local setDateFormat:@"yyyy-MM-dd 'at' HH:mm:ss zzz"];
@@ -72,7 +72,7 @@
 	for (NSString *k in [tci allKeys])
 		[i setObject:[[cert issuer] objectForKey:k] forKey:k];
 	[certInfo setObject:i forKey:@"Issued By"];
-	
+
 	return self;
 }
 
@@ -97,13 +97,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-	
+
 	OrderedDictionary *group = [certInfo objectAtIndex:[indexPath section]];
 	NSString *k = [group keyAtIndex:[indexPath row]];
-	
+
 	cell.textLabel.text = k;
 	cell.detailTextLabel.text = [group objectForKey:k];
-	
+
 	if ([k isEqualToString:CI_SIGALG_KEY] && [[self certificate] hasWeakSignatureAlgorithm])
 		cell.detailTextLabel.textColor = [UIColor redColor];
 	else if ([k isEqualToString:CI_EVORG_KEY])

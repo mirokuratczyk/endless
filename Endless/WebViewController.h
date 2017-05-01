@@ -21,8 +21,8 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 };
 
 @interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate,
-	UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
-		TutorialDelegate, FinalPageObserver>
+UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
+TutorialDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;

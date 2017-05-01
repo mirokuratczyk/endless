@@ -25,7 +25,7 @@
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self, @selector(userInterfaceLayoutDirection)), class_getInstanceMethod(self, @selector(swizzled_userInterfaceLayoutDirection)));
+		method_exchangeImplementations(class_getInstanceMethod(self, @selector(userInterfaceLayoutDirection)), class_getInstanceMethod(self, @selector(swizzled_userInterfaceLayoutDirection)));
 	});
 }
 
@@ -36,11 +36,11 @@
 		language = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];;
 	}
 
-    if (language == nil) {
+	if (language == nil) {
 		return [self swizzled_userInterfaceLayoutDirection];
 	}
-	
-    return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UIUserInterfaceLayoutDirectionRightToLeft : UIUserInterfaceLayoutDirectionLeftToRight;
+
+	return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UIUserInterfaceLayoutDirectionRightToLeft : UIUserInterfaceLayoutDirectionLeftToRight;
 }
 
 @end
@@ -51,7 +51,7 @@
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self, @selector(semanticContentAttribute)), class_getInstanceMethod(self, @selector(swizzled_semanticContentAttribute)));
+		method_exchangeImplementations(class_getInstanceMethod(self, @selector(semanticContentAttribute)), class_getInstanceMethod(self, @selector(swizzled_semanticContentAttribute)));
 	});
 }
 
@@ -59,14 +59,14 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
 	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
-        language = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];;
+		language = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];;
 	}
-		
+
 	if (language == nil) {
 		return [self swizzled_semanticContentAttribute];
 	}
-	
-    return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
+
+	return [NSLocale characterDirectionForLanguage:language] == NSLocaleLanguageDirectionRightToLeft ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
 }
 
 @end
@@ -86,32 +86,32 @@
 {
 	NSBundle *currentBundle = nil;
 	NSBundle *languageBundle  = nil;
-	
+
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString* language = [userDefaults objectForKey:appLanguage];
 	if([[language stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
 		language = nil;
 	}
-	
-    // Determine if self bundle is one of our own, either main or IASK
-    // Override self with main bundle if that's the case
-    if ([[self bundlePath] isEqualToString:[[NSBundle mainBundle] bundlePath]] ||
-        [[self bundlePath] isEqualToString:([[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"])]) {
-        currentBundle = [NSBundle mainBundle];
-    } else {
-        currentBundle = self;
-    }
-    
-    // Use default localization if language is not set
-    if( language == nil) {
-        return [currentBundle swizzled_localizedStringForKey:key value:value table:tableName];
-    }
-    
+
+	// Determine if self bundle is one of our own, either main or IASK
+	// Override self with main bundle if that's the case
+	if ([[self bundlePath] isEqualToString:[[NSBundle mainBundle] bundlePath]] ||
+		[[self bundlePath] isEqualToString:([[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"])]) {
+		currentBundle = [NSBundle mainBundle];
+	} else {
+		currentBundle = self;
+	}
+
+	// Use default localization if language is not set
+	if( language == nil) {
+		return [currentBundle swizzled_localizedStringForKey:key value:value table:tableName];
+	}
+
 	languageBundle = [NSBundle bundleWithPath:[currentBundle pathForResource:language ofType:@"lproj"]];
 	if (languageBundle == nil) {
 		languageBundle = currentBundle;
 	}
-	
+
 	return [languageBundle swizzled_localizedStringForKey:key value:value table:tableName];
 }
 @end
