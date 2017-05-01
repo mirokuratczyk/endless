@@ -8,6 +8,7 @@ xcuserdata
 profile
 Pods
 psiphon_config
+embedded_server_entries
 .gitattributes
 
 transifex_conf.json
