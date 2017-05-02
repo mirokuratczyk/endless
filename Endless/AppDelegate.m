@@ -90,9 +90,11 @@
 	isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
 
 	if (isOnboarding) {
-		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
-		onboarding.delegate = self;
-		[self.window.rootViewController presentViewController:onboarding animated:NO completion:nil];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
+			onboarding.delegate = self;
+			[self.window.rootViewController presentViewController:onboarding animated:NO completion:nil];
+		});
 	}
 	return YES;
 }

@@ -340,6 +340,8 @@
 			} else if (wvt.webView.restorationIdentifier !=nil) {
 				[wvtd addObject:@{ @"url" : [NSURL URLWithString:wvt.webView.restorationIdentifier], @"title" : wvt.title.text }];
 				[[wvt webView] setRestorationIdentifier:wvt.webView.restorationIdentifier];
+			} else {
+				continue;
 			}
 
 #ifdef TRACE
