@@ -392,6 +392,10 @@ static NSString *_javascriptToInject;
 	_data = nil;
 	firstChunk = YES;
 
+	if(wvt) {
+		[wvt setUrl:[[self actualRequest] mainDocumentURL]];
+	}
+
 	contentType = CONTENT_TYPE_OTHER;
 	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:response] lowercaseString];
 	if (ctype != nil && ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"]))
