@@ -405,7 +405,7 @@
 {
 	BOOL shouldShowSplash = FALSE;
 
-	if(![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial) {
+	if(![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial && [[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey]) {
 		if (webViewTabs.count == 0) {
 			shouldShowSplash = TRUE;
 		} else {
@@ -1512,7 +1512,7 @@
 
 -(void)tutorialEnded
 {
-	BOOL launchedFromOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
+	BOOL launchedFromOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
 
 	tutorial = nil;
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -1527,7 +1527,7 @@
 	if (launchedFromOnboarding) {
 		// Resume setup
 		// User has been fully onboarded
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenOnBoarded"];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 
 		// Start psiphon and open homepage
