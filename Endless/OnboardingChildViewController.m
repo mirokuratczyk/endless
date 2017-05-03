@@ -17,12 +17,10 @@
  *
  */
 
-@import MediaPlayer;
-@import AVFoundation.AVAsset;
-@import AVFoundation.AVTime;
-@import AVFoundation.AVAssetImageGenerator;
+@import AVKit.AVPlayerViewController;
+@import AVFoundation.AVPlayer;
+@import AVFoundation.AVPlayerItem;
 
-#import "AppDelegate.h"
 #import "OnboardingChildViewController.h"
 
 #define kLetsGoButtonHeight 40.0f
@@ -32,21 +30,19 @@
 @end
 
 @implementation OnboardingChildViewController {
-	AppDelegate *appDelegate;
-
 	UIView *contentView;
-	UIView *movieView;
+	UIView *avpView;
 	UIImageView *thumbnailView;
 	UILabel *titleView;
 	UILabel *textView;
 	UIButton *letsGoButton;
 
-	MPMoviePlayerController *moviePlayer;
+	AVPlayerViewController *avp;
 
 	NSLayoutConstraint *contentViewYOffsetConstraint;
 }
 
--(void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews {
 	CGFloat bannerOffset = 0;
 
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
@@ -60,22 +56,25 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	if (moviePlayer != nil) {
-		[moviePlayer play];
+	if (avp != nil && avp.player != nil) {
+		if (avp.player.rate == 0) {
+			[avp.player play];
+		}
 	}
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-	if (moviePlayer != nil) {
-		[moviePlayer stop];
+- (void)onboardingReappeared {
+	if (avp != nil && avp.player != nil) {
+		if (avp.player.rate == 0) {
+			[avp.player play];
+		}
 	}
-	[super viewDidDisappear:animated];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onboardingReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
 
 	CGFloat bannerOffset = 0;
 
@@ -113,51 +112,41 @@
 	/* Setup movie player */
 	NSString *onboardingVideoName = [NSString stringWithFormat:@"onboarding%ld", (long)self.index+1];
 	NSURL *videoURL = [[NSBundle mainBundle]   URLForResource:onboardingVideoName withExtension:@"mov"];
-	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-	moviePlayer.controlStyle = MPMovieControlStyleNone;
-	moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-	moviePlayer.view.backgroundColor = [UIColor whiteColor];
-	moviePlayer.backgroundView.backgroundColor = [UIColor whiteColor];
-	moviePlayer.view.translatesAutoresizingMaskIntoConstraints = NO;
-
-	/* Add thumbnail to act as a placeholder until movie loads and starts playing */
-	thumbnailView = [[UIImageView alloc] initWithImage:[self getFirstFrameThumbnail:videoURL]];
-	thumbnailView.translatesAutoresizingMaskIntoConstraints = NO;
-	[moviePlayer.view addSubview:thumbnailView];
+	avp = [[AVPlayerViewController alloc] init];
+	avp.player = [[AVPlayer alloc] initWithURL:videoURL];
+	avp.showsPlaybackControls = NO;
+	avp.view.backgroundColor = [UIColor whiteColor];
 
 	/* Loop onboarding movie */
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loopVideo) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
+	avp.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(playerItemDidReachEnd:)
+												 name:AVPlayerItemDidPlayToEndTimeNotification
+											   object:[avp.player currentItem]];
+	[avp.player play];
 
-	/* Remove thumbnail when movie starts */
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerPlaybackStateDidChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:moviePlayer];
+	avpView = avp.view;
 
-	/* Constrain thumbnail view to fit within movieplayer frame */
-	NSDictionary *views = @{@"thumbnailView":thumbnailView};
-	[moviePlayer.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[thumbnailView]|" options:0 metrics:nil views:views]];
-	[moviePlayer.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[thumbnailView]|" options:0 metrics:nil views:views]];
-
-	movieView = moviePlayer.view;
-
-	movieView.contentMode = UIViewContentModeScaleAspectFit;
-	[movieView setBackgroundColor:[UIColor whiteColor]];
+	avpView.contentMode = UIViewContentModeScaleAspectFit;
+	[avpView setBackgroundColor:[UIColor whiteColor]];
 
 	/* Setup contentView and its subviews */
 	contentView = [[UIView alloc] init];
-	[contentView addSubview:movieView];
+	[contentView addSubview:avpView];
 	[contentView addSubview:titleView];
 	[contentView addSubview:textView];
 	[self.view addSubview:contentView];
 
 	/* Setup autolayout */
 	contentView.translatesAutoresizingMaskIntoConstraints = NO;
-	movieView.translatesAutoresizingMaskIntoConstraints = NO;
+	avpView.translatesAutoresizingMaskIntoConstraints = NO;
 	titleView.translatesAutoresizingMaskIntoConstraints = NO;
 	textView.translatesAutoresizingMaskIntoConstraints = NO;
 	letsGoButton.translatesAutoresizingMaskIntoConstraints = NO;
 
 	NSDictionary *viewsDictionary = @{
 									  @"contentView": contentView,
-									  @"movieView": movieView,
+									  @"avpView": avpView,
 									  @"titleView": titleView,
 									  @"textView": textView,
 									  @"letsGoButton": letsGoButton
@@ -202,8 +191,8 @@
 														  attribute:NSLayoutAttributeCenterX
 														 multiplier:1.f constant:0.f]];
 
-	/* movieView's constraints */
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:movieView
+	/* avpView's constraints */
+	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
 															attribute:NSLayoutAttributeTop
 															relatedBy:NSLayoutRelationEqual
 															   toItem:contentView
@@ -211,7 +200,7 @@
 														   multiplier:1.f
 															 constant:0]];
 
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:movieView
+	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
 															attribute:NSLayoutAttributeWidth
 															relatedBy:NSLayoutRelationEqual
 															   toItem:contentView
@@ -219,15 +208,15 @@
 														   multiplier:1.2f
 															 constant:0]];
 
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:movieView
+	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
 															attribute:NSLayoutAttributeHeight
 															relatedBy:NSLayoutRelationEqual
-															   toItem:movieView
+															   toItem:avpView
 															attribute:NSLayoutAttributeWidth
 														   multiplier:1.f
 															 constant:0]];
 
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:movieView
+	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
 															attribute:NSLayoutAttributeCenterX
 															relatedBy:NSLayoutRelationEqual
 															   toItem:contentView
@@ -289,7 +278,7 @@
 														   multiplier:1.f constant:0.f]];
 
 	/* add vertical constraints for contentView's subviews */
-	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[movieView]-16-[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
+	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[avpView]-16-[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
 
 	/* Set page specific content */
 	switch (self.index) {
@@ -318,33 +307,14 @@
 	}
 }
 
-- (UIImage*)getFirstFrameThumbnail:(NSURL *)videoURL {
-	AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
-	AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:asset];
-
-	CGImageRef frameRef = [generator copyCGImageAtTime:kCMTimeZero actualTime:nil error:nil];
-	UIImage *thumbnail = [UIImage imageWithCGImage:frameRef];
-	CGImageRelease(frameRef);
-
-	return thumbnail;
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+	AVPlayerItem *player = [notification object];
+	[player seekToTime:kCMTimeZero];
 }
 
-- (void)loopVideo {
-	[moviePlayer play];
-}
+- (void)onboardingEnded {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
-- (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
-{
-	MPMoviePlayerController *player = (MPMoviePlayerController*)notification.object;
-	if (player.playbackState == MPMoviePlaybackStatePlaying) {
-		// Remove placeholder thumbnail if movie has started playing
-		if (thumbnailView.superview != nil) {
-			[thumbnailView removeFromSuperview];
-		}
-	}
-}
-
--(void)onboardingEnded {
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
 
 	if ([strongDelegate respondsToSelector:@selector(onboardingEnded)]) {
