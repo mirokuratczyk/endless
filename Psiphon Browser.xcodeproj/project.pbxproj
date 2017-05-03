@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		010EEA661A43A536001E8B65 /* CookieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 010EEA651A43A536001E8B65 /* CookieController.m */; };
 		010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */ = {isa = PBXBuildFile; fileRef = 010EEA681A43C8CF001E8B65 /* CookieJar.m */; };
 		0135F4761A3D2931005A8F16 /* SearchEngines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0135F4751A3D2931005A8F16 /* SearchEngines.plist */; };
 		0135F47F1A3E548F005A8F16 /* WebViewTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 0135F47E1A3E548F005A8F16 /* WebViewTab.m */; };
@@ -30,7 +29,6 @@
 		01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB481B4ED48000A02482 /* Bookmark.m */; };
 		01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */; };
 		01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */; };
-		01D7412A1A45EDD1007B7033 /* CookieJar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741291A45EDD1007B7033 /* CookieJar_Tests.m */; };
 		01D7412C1A45F8EB007B7033 /* injected.js in Resources */ = {isa = PBXBuildFile; fileRef = 01D7412B1A45F8EB007B7033 /* injected.js */; };
 		01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */; };
 		01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741311A49EA14007B7033 /* RuleEditorController.m */; };
@@ -78,7 +76,6 @@
 		4E6590C91EAE74DF00825A7A /* onboarding1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C61EAE74DF00825A7A /* onboarding1.mov */; };
 		4E6590CA1EAE74DF00825A7A /* onboarding2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C71EAE74DF00825A7A /* onboarding2.mov */; };
 		4E6590CB1EAE74DF00825A7A /* onboarding3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C81EAE74DF00825A7A /* onboarding3.mov */; };
-		4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E664E9C1DDBB41C001BCE93 /* HostSettings.m */; };
 		4E7094601E4CD14A00679B3F /* OnboardingChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70945D1E4CD14A00679B3F /* OnboardingChildViewController.m */; };
 		4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70945F1E4CD14A00679B3F /* OnboardingViewController.m */; };
 		4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9610111E36A32C00CDE62E /* FeedbackUpload.m */; };
@@ -122,8 +119,6 @@
 /* Begin PBXFileReference section */
 		0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0046D8AA27B31019AEAC6C00 /* Pods-Psiphon Browser Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.release.xcconfig"; sourceTree = "<group>"; };
-		010EEA641A43A536001E8B65 /* CookieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieController.h; sourceTree = "<group>"; };
-		010EEA651A43A536001E8B65 /* CookieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieController.m; sourceTree = "<group>"; };
 		010EEA671A43C8CF001E8B65 /* CookieJar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieJar.h; sourceTree = "<group>"; };
 		010EEA681A43C8CF001E8B65 /* CookieJar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieJar.m; sourceTree = "<group>"; };
 		0135F4751A3D2931005A8F16 /* SearchEngines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SearchEngines.plist; path = Endless/Resources/SearchEngines.plist; sourceTree = "<group>"; };
@@ -164,7 +159,6 @@
 		01AFEB4C1B4F2A5F00A02482 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePasswordExtension.h; sourceTree = "<group>"; };
 		01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnePasswordExtension.m; sourceTree = "<group>"; };
 		01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLInterceptor_Tests.m; sourceTree = "<group>"; };
-		01D741291A45EDD1007B7033 /* CookieJar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieJar_Tests.m; sourceTree = "<group>"; };
 		01D7412B1A45F8EB007B7033 /* injected.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = injected.js; path = Endless/Resources/injected.js; sourceTree = "<group>"; };
 		01D7412D1A466AF0007B7033 /* NSString+JavascriptEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JavascriptEscape.h"; sourceTree = "<group>"; };
 		01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JavascriptEscape.m"; sourceTree = "<group>"; };
@@ -230,8 +224,6 @@
 		4E6590C61EAE74DF00825A7A /* onboarding1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding1.mov; path = Endless/Resources/onboarding1.mov; sourceTree = "<group>"; };
 		4E6590C71EAE74DF00825A7A /* onboarding2.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding2.mov; path = Endless/Resources/onboarding2.mov; sourceTree = "<group>"; };
 		4E6590C81EAE74DF00825A7A /* onboarding3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding3.mov; path = Endless/Resources/onboarding3.mov; sourceTree = "<group>"; };
-		4E664E9B1DDBB41C001BCE93 /* HostSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostSettings.h; sourceTree = "<group>"; };
-		4E664E9C1DDBB41C001BCE93 /* HostSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostSettings.m; sourceTree = "<group>"; };
 		4E70945C1E4CD14A00679B3F /* OnboardingChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingChildViewController.h; path = Endless/OnboardingChildViewController.h; sourceTree = SOURCE_ROOT; };
 		4E70945D1E4CD14A00679B3F /* OnboardingChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingChildViewController.m; path = Endless/OnboardingChildViewController.m; sourceTree = SOURCE_ROOT; };
 		4E70945E1E4CD14A00679B3F /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = Endless/OnboardingViewController.h; sourceTree = SOURCE_ROOT; };
@@ -374,12 +366,8 @@
 				01AFEB481B4ED48000A02482 /* Bookmark.m */,
 				01AFEB351B4DBA8D00A02482 /* BookmarkController.h */,
 				01AFEB361B4DBA8D00A02482 /* BookmarkController.m */,
-				010EEA641A43A536001E8B65 /* CookieController.h */,
-				010EEA651A43A536001E8B65 /* CookieController.m */,
 				010EEA671A43C8CF001E8B65 /* CookieJar.h */,
 				010EEA681A43C8CF001E8B65 /* CookieJar.m */,
-				4E664E9B1DDBB41C001BCE93 /* HostSettings.h */,
-				4E664E9C1DDBB41C001BCE93 /* HostSettings.m */,
 				01F7CB471A5253DD00F42B73 /* HSTSCache.h */,
 				01F7CB481A5253DD00F42B73 /* HSTSCache.m */,
 				018333C81A3505FB00670CD1 /* HTTPSEverywhere.h */,
@@ -449,7 +437,6 @@
 		018333D81A35727C00670CD1 /* Endless Tests */ = {
 			isa = PBXGroup;
 			children = (
-				01D741291A45EDD1007B7033 /* CookieJar_Tests.m */,
 				01F7CB4A1A526B9C00F42B73 /* HSTSCache_Tests.m */,
 				018333DB1A35727C00670CD1 /* HTTPSEverywhere_Tests.m */,
 				01F2AE411B827BC200D5651A /* SSLCertificate_Tests.m */,
@@ -863,7 +850,6 @@
 				4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */,
 				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				44BF73F21EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m in Sources */,
-				4E664E9F1DDBB41C001BCE93 /* HostSettings.m in Sources */,
 				4EA463921E395BCD00674DEA /* PsiphonData.m in Sources */,
 				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				444CEFB31E54DA2D0085F3D4 /* NYAlertView.m in Sources */,
@@ -881,7 +867,6 @@
 				4EFB347D1E366C370067C7C3 /* RegionSelectionViewController.m in Sources */,
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */,
-				010EEA661A43A536001E8B65 /* CookieController.m in Sources */,
 				449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */,
 				44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
@@ -902,7 +887,6 @@
 				01F7CB4B1A526B9C00F42B73 /* HSTSCache_Tests.m in Sources */,
 				01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */,
 				01F879411A4112E500A63654 /* URLBlocker_Tests.m in Sources */,
-				01D7412A1A45EDD1007B7033 /* CookieJar_Tests.m in Sources */,
 				018333DC1A35727C00670CD1 /* HTTPSEverywhere_Tests.m in Sources */,
 				01F2AE421B827BC200D5651A /* SSLCertificate_Tests.m in Sources */,
 			);

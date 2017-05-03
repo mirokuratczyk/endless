@@ -50,20 +50,13 @@
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "Connecting..." = "Connecting...";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Cookies and Local Storage";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "Copy URL";
-
-/* No comment provided by engineer. */
-"Default Settings" = "Default Settings";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Disconnected!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
    Done button title, dismisses the tab chooser

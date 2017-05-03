@@ -292,14 +292,6 @@ static NSString *_javascriptToInject;
 	}
 #endif
 
-	/* some rules act on the host we're connecting to, and some act on the origin host */
-	self.hostSettings = [HostSettings settingsOrDefaultsForHost:[[[self request] URL] host]];
-	NSString *oHost = [[[self request] mainDocumentURL] host];
-	if (oHost == nil || [oHost isEqualToString:@""])
-		self.originHostSettings = self.hostSettings;
-	else
-		self.originHostSettings = [HostSettings settingsOrDefaultsForHost:oHost];
-
 	/* check HSTS cache first to see if scheme needs upgrading */
 	[newRequest setURL:[[[AppDelegate sharedAppDelegate] hstsCache] rewrittenURI:[[self request] URL]]];
 
@@ -323,36 +315,18 @@ static NSString *_javascriptToInject;
 	}
 
 	if (!self.isOrigin) {
-		if ([wvt secureMode] > WebViewTabSecureModeInsecure && ![[[[newRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
-			if ([self.originHostSettings settingOrDefault:HOST_SETTINGS_KEY_ALLOW_MIXED_MODE]) {
+		if (![LocalNetworkChecker isHostOnLocalNet:[[newRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[newRequest URL] host]]) {
 #ifdef TRACE_HOST_SETTINGS
-				NSLog(@"[URLInterceptor] [Tab %@] allowing mixed-content request %@ from %@", wvt.tabIndex, [newRequest URL], [[newRequest mainDocumentURL] host]);
+			NSLog(@"[URLInterceptor] [Tab %@] blocking request from origin %@ to local net host %@", wvt.tabIndex, [newRequest mainDocumentURL], [newRequest URL]);
 #endif
-			}
-			else {
-				[wvt setSecureMode:WebViewTabSecureModeMixed];
-#ifdef TRACE_HOST_SETTINGS
-				NSLog(@"[URLInterceptor] [Tab %@] blocking mixed-content request %@ from %@", wvt.tabIndex, [newRequest URL], [[newRequest mainDocumentURL] host]);
-#endif
-				cancelLoading();
-				return;
-			}
-		}
-
-		if ([self.originHostSettings settingOrDefault:HOST_SETTINGS_KEY_BLOCK_LOCAL_NETS]) {
-			if (![LocalNetworkChecker isHostOnLocalNet:[[newRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[newRequest URL] host]]) {
-#ifdef TRACE_HOST_SETTINGS
-				NSLog(@"[URLInterceptor] [Tab %@] blocking request from origin %@ to local net host %@", wvt.tabIndex, [newRequest mainDocumentURL], [newRequest URL]);
-#endif
-				cancelLoading();
-				return;
-			}
+			cancelLoading();
+			return;
 		}
 	}
 
 	/* we're handling cookies ourself */
 	[newRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[[AppDelegate sharedAppDelegate] cookieJar] cookiesForURL:[newRequest URL] forTab:wvt.hash];
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[newRequest URL]];
 	if (cookies != nil && [cookies count] > 0) {
 #ifdef TRACE_COOKIES
 		NSLog(@"[URLInterceptor] [Tab %@] sending %lu cookie(s) to %@", wvt.tabIndex, [cookies count], [newRequest URL]);
@@ -399,18 +373,13 @@ static NSString *_javascriptToInject;
 
 	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
 	NSString *CSPheader = nil;
-	NSString *CSPmode = [self.originHostSettings setting:HOST_SETTINGS_KEY_CSP];
 
-	if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
-		CSPheader = @"connect-src 'none'; default-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; sandbox allow-forms allow-top-navigation; script-src 'none'; style-src 'unsafe-inline' *; report-uri;";
-	else if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_BLOCK_CONNECT])
-		CSPheader = @"connect-src 'none'; media-src 'none'; object-src 'none'; report-uri;";
+	BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableJavascript"];
+	if (disableJavascript) {
+		CSPheader = @"script-src 'none';";
+	}
 
 	NSString *curCSP = [self caseInsensitiveHeader:@"content-security-policy" inResponse:response];
-
-#ifdef TRACE_HOST_SETTINGS
-	NSLog(@"[HostSettings] [Tab %@] setting CSP for %@ to %@ (via %@) (currently %@)", wvt.tabIndex, [[[self actualRequest] URL] host], CSPmode, [[[self actualRequest] mainDocumentURL] host], curCSP);
-#endif
 
 	NSMutableDictionary *mHeaders = [[NSMutableDictionary alloc] initWithDictionary:[response allHeaderFields]];
 
@@ -430,10 +399,6 @@ static NSString *_javascriptToInject;
 			NSString *hv = (NSString *)[[response allHeaderFields] valueForKey:h];
 
 			if ([[h lowercaseString] isEqualToString:@"content-security-policy"] || [[h lowercaseString] isEqualToString:@"x-webkit-csp"]) {
-				if ([CSPmode isEqualToString:HOST_SETTINGS_CSP_STRICT])
-				/* disregard the existing policy since ours will be the most strict anyway */
-					hv = CSPheader;
-
 				/* merge in the things we require for any policy in case exiting policies would block them */
 				hv = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:hv];
 
@@ -459,10 +424,7 @@ static NSString *_javascriptToInject;
 	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
 
 	/* save any cookies we just received */
-	[[[AppDelegate sharedAppDelegate] cookieJar] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url] forTab:wvt.hash];
-
-	/* in case of localStorage */
-	[[[AppDelegate sharedAppDelegate] cookieJar] trackDataAccessForDomain:[[response URL] host] fromTab:wvt.hash];
+	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url]];
 
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];

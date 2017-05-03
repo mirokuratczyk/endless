@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CKHTTPConnection.h"
-#import "HostSettings.h"
 
 #define REWRITTEN_KEY @"_rewritten"
 #define ORIGIN_KEY @"_origin"
@@ -31,8 +30,6 @@
 @property (assign) BOOL isOrigin;
 @property (strong) NSString *evOrgName;
 @property (strong) CKHTTPConnection *connection;
-@property (strong) HostSettings *hostSettings;
-@property (strong) HostSettings *originHostSettings;
 @property (strong, nonatomic) NSString *cspNonce;
 
 + (NSString *)javascriptToInject;
