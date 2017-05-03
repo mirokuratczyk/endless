@@ -32,6 +32,7 @@
 
 
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
+#define kHasBeenOnboardedKey @"hasBeenOnBoarded"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, OnboardingViewControllerDelegate>
 

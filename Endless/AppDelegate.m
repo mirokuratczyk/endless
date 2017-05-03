@@ -46,8 +46,6 @@
 
 	SystemSoundID _notificationSound;
 	Reachability *_reachability;
-
-	BOOL isOnboarding;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -87,7 +85,7 @@
 {
 	[self.window makeKeyAndVisible];
 
-	isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenOnBoarded"];
+	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
 
 	if (isOnboarding) {
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -100,7 +98,6 @@
 }
 
 -(void)onboardingEnded {
-	isOnboarding = NO;
 	self.webViewController.showTutorial = YES;
 	[[self webViewController] viewIsVisible];
 }
@@ -163,7 +160,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-	if (!isOnboarding) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey]) {
 		[self startIfNeeded];
 	}
 }
