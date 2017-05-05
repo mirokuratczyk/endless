@@ -131,6 +131,7 @@ static NSString *_javascriptToInject;
 				newval = [newvals objectAtIndex:1];
 
 			if ([curval containsString:@"'none'"]) {
+				newval = [newvals objectAtIndex:1];
 				/*
 				 * CSP spec says if 'none' is encountered to ignore anything else,
 				 * so if 'none' is there, just replace it with newval rather than
@@ -380,48 +381,50 @@ static NSString *_javascriptToInject;
 	}
 
 	NSString *curCSP = [self caseInsensitiveHeader:@"content-security-policy" inResponse:response];
+	if(curCSP == nil) {
+		curCSP = [self caseInsensitiveHeader:@"x-webkit-csp" inResponse:response];
+	}
 
-	NSMutableDictionary *mHeaders = [[NSMutableDictionary alloc] initWithDictionary:[response allHeaderFields]];
+	NSMutableDictionary *responseHeaders = [[NSMutableDictionary alloc] initWithDictionary:[response allHeaderFields]];
+
+
+	/* directives and their values (normal and nonced versions) to prepend */
+	NSDictionary *wantedDirectives = @{
+									   @"child-src": @[ @"endlessipc:", @"endlessipc:" ],
+									   @"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
+									   @"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
+									   @"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
+									   };
 
 	/* don't bother rewriting with the header if we don't want a restrictive one (CSPheader) and the site doesn't have one (curCSP) */
-	if (CSPheader != nil || curCSP != nil) {
-		id foundCSP = nil;
-
-		/* directives and their values (normal and nonced versions) to prepend */
-		NSDictionary *wantedDirectives = @{
-										   @"child-src": @[ @"endlessipc:", @"endlessipc:" ],
-										   @"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
-										   @"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
-										   @"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
-										   };
-
-		for (id h in [mHeaders allKeys]) {
+	if (curCSP != nil) {
+		for (id h in [responseHeaders allKeys]) {
 			NSString *hv = (NSString *)[[response allHeaderFields] valueForKey:h];
 
 			if ([[h lowercaseString] isEqualToString:@"content-security-policy"] || [[h lowercaseString] isEqualToString:@"x-webkit-csp"]) {
 				/* merge in the things we require for any policy in case exiting policies would block them */
-				hv = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:hv];
+				if(CSPheader != nil) {
+					// Override existing CSP with ours
+					hv = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
+				} else {
+					hv = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:hv];
+				}
 
-				[mHeaders setObject:hv forKey:h];
-				foundCSP = hv;
+				[responseHeaders setObject:hv forKey:h];
 			}
 			else
-				[mHeaders setObject:hv forKey:h];
+				[responseHeaders setObject:hv forKey:h];
 		}
-
-		if (!foundCSP && CSPheader) {
-			[mHeaders setObject:CSPheader forKey:@"Content-Security-Policy"];
-			[mHeaders setObject:CSPheader forKey:@"X-WebKit-CSP"];
-			foundCSP = CSPheader;
-		}
-
-#ifdef TRACE_HOST_SETTINGS
-		NSLog(@"[HostSettings] [Tab %@] CSP header is now %@", wvt.tabIndex, foundCSP);
-#endif
+	}
+	else if(CSPheader != nil) {
+		// No CSP present in the original response, so we set our own
+		NSString *newCSPValue = [URLInterceptor prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
+		[responseHeaders setObject:newCSPValue forKey:@"Content-Security-Policy"];
+		[responseHeaders setObject:newCSPValue forKey:@"X-WebKit-CSP"];
 	}
 
 	/* rebuild our response with any modified headers */
-	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:mHeaders];
+	response = [[NSHTTPURLResponse alloc] initWithURL:[response URL] statusCode:[response statusCode] HTTPVersion:@"1.1" headerFields:responseHeaders];
 
 	/* save any cookies we just received */
 	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[[self actualRequest] URL]] forURL:[[self actualRequest] URL] mainDocumentURL:[wvt url]];
