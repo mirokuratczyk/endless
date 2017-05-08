@@ -204,11 +204,10 @@
 	[self.title setFrame:CGRectMake(22, -22, frame.size.width - 22 - 22, 18)];
 }
 
-- (void)prepareForNewURL:(NSURL *)URL
+- (void)reset
 {
 	[[self applicableHTTPSEverywhereRules] removeAllObjects];
 	[self setSSLCertificate:nil];
-	[self setUrl:URL];
 }
 
 - (void)loadURL:(NSURL *)u
@@ -235,7 +234,7 @@
 - (void)loadURL:(NSURL *)u withForce:(BOOL)force
 {
 	[self.webView stopLoading];
-	[self prepareForNewURL:u];
+	[self reset];
 
 	NSMutableURLRequest *ur = [NSMutableURLRequest requestWithURL:u];
 	if (force)
@@ -265,6 +264,7 @@
 #ifdef TRACE
 		NSLog(@"[Tab %@] searching via %@", self.tabIndex, url);
 #endif
+		[self setUrl:url];
 		[self loadURL:url];
 	}
 	else {
@@ -284,7 +284,9 @@
 		}
 
 		[self.webView stopLoading];
-		[self prepareForNewURL:url];
+		[self reset];
+		[self setUrl:url];
+
 
 #ifdef TRACE
 		NSLog(@"[Tab %@] searching via POST to %@ (with params %@)", self.tabIndex, url, params);
@@ -327,7 +329,7 @@
 			return NO;
 		}
 		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
-			[self prepareForNewURL:[request mainDocumentURL]];
+			[self reset];
 
 			// Ignore links clicked, forms submitted, reloads, etc.
 			if(navigationType == UIWebViewNavigationTypeOther) {

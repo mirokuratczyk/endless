@@ -295,7 +295,6 @@
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
 
 	[self adjustLayout];
-	[self updateSearchBarDetails];
 
 	[self.view.window makeKeyAndVisible];
 }
@@ -664,6 +663,7 @@
 	[webViewTabs addObject:wvt];
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
+	[wvt setUrl:url];
 
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
 
@@ -1047,6 +1047,7 @@
 	[urlField resignFirstResponder]; /* will unfocus and call textFieldDidEndEditing */
 
 	if (enteredURL != nil) {
+		[[self curWebViewTab] setUrl:enteredURL];
 		[[self curWebViewTab] loadURL:enteredURL];
 	}
 }
