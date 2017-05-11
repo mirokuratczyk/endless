@@ -148,6 +148,10 @@ var __endless = {
 
 		/* start final page reporting */
 		__endless.runFinalPageReporting();
+
+		/* ask obj C if js is disabled and noscript tags should be removed */
+		__endless.ipcAndWaitForReply("noscript");
+
 	},
 
 	/**
@@ -160,6 +164,18 @@ var __endless = {
 		a.href = url; /* browser will make this absolute for us */
 		return a.href;
 	},
+	/**
+	 * Removes <noscript> tags from DOM.
+	 * Called from Obj C when javascript is disabled
+	 * we need to remove <noscript> tags because we do not actually
+	 * disable js in the browser but rather restrict it with CSP
+	 */
+	removeNoscript: function() {
+		var noscript = document.getElementsByTagName('noscript');
+		for (var i = 0; i < noscript.length; i++) {
+			noscript[i].outerHTML = noscript[i].childNodes[0].nodeValue;
+		}
+	}
 };
 
 (function () {

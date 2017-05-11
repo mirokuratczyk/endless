@@ -56,9 +56,6 @@
 /* Action title for long press on link dialog */
 "Copy URL" = "Copy URL";
 
-/* No comment provided by engineer. */
-"Default Settings" = "Default Settings";
-
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Disconnected!";
 

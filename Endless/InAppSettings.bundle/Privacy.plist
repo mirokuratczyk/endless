@@ -10,44 +10,75 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time</string>
+			<string>Ask sites and their third party content providers not to track you.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>30</string>
-			<key>Values</key>
-			<array>
-				<string>15</string>
-				<string>30</string>
-				<string>720</string>
-				<string>1440</string>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>15 min</string>
-				<string>30 min</string>
-				<string>12 hrs</string>
-				<string>24 hrs</string>
-			</array>
-			<key>ShortTitles</key>
-			<array>
-				<string>15 min</string>
-				<string>30 min</string>
-				<string>12 hrs</string>
-				<string>24 hrs</string>
-			</array>
+			<false/>
 			<key>Key</key>
-			<string>oldDataSweepMins</string>
+			<string>sendDoNotTrack</string>
 			<key>Title</key>
-			<string>Clear cookies if unused for</string>
+			<string>Send &quot;Do-Not-Track&quot; requests</string>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>All tabs and non-whitelisted cookies will be cleared when switching to another app.</string>
+			<string>Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web.</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>disableJavascript</string>
+			<key>Title</key>
+			<string>Disable JavaScript</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Manage what types of cookies Psiphon Browser blocks.</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>BlockThirdPartyCookies</string>
+			<key>Values</key>
+			<array>
+				<string>BlockThirdPartyCookies</string>
+				<string>BlockAll</string>
+				<string>BlockNone</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Block Third Party Cookies</string>
+				<string>Block All Cookies</string>
+				<string>Allow All Cookies</string>
+			</array>
+			<key>ShortTitles</key>
+			<array>
+				<string>Block Third Party</string>
+				<string>Block All</string>
+				<string>Allow All</string>
+			</array>
+			<key>Key</key>
+			<string>cookiePolicy</string>
+			<key>Title</key>
+			<string>Block Cookies</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>FooterText</key>
+			<string>Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>All tabs, cookies and website data will be cleared when switching to another app.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -62,16 +93,16 @@
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Cookies and local storage will be cleared.</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<false/>
 			<key>Key</key>
-			<string>sendDoNotTrack</string>
+			<string>clearWebsiteData</string>
 			<key>Title</key>
-			<string>Send &quot;Do-Not-Track&quot; requests</string>
+			<string>Clear cookies and website data</string>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 		</dict>
 	</array>
 </dict>

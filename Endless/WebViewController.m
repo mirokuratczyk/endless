@@ -6,7 +6,6 @@
  */
 
 #import "BookmarkController.h"
-#import "HostSettings.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
@@ -742,13 +741,10 @@
 		}
 	}
 
-	long wvtHash = [wvt hash];
 	[[wvt viewHolder] removeFromSuperview];
 	[webViewTabs removeObjectAtIndex:tabNumber.intValue];
 	[wvt close];
 	wvt = nil;
-
-	[[[AppDelegate sharedAppDelegate] cookieJar] clearNonWhitelistedDataForTab:wvtHash];
 
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
@@ -1022,10 +1018,7 @@
 
 - (void)prepareForNewURLFromString:(NSString *)url
 {
-	/* user is shifting to a new place, probably a good time to clear old data */
-	[[[AppDelegate sharedAppDelegate] cookieJar] clearAllOldNonWhitelistedData];
-
-	// also start with a blank list of equivalent URLs
+	// user is shifting to a new place, start with a blank list of equivalent URLs
 	[[self curWebViewTab] clearEquivalentURLs];
 
 	NSURL *enteredURL = [NSURL URLWithString:url];
@@ -1171,8 +1164,8 @@
 	// Update relevant ivars to match current settings
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
-	[[[AppDelegate sharedAppDelegate] cookieJar] setOldDataSweepTimeout:[NSNumber numberWithInteger:[userDefaults integerForKey:@"oldDataSweepMins"]]];
-
+	[CookieJar syncCookieAcceptPolicy];
+	
 	// Check if settings which have changed require a tunnel service restart to take effect
 	if ([self isSettingsRestartRequired]) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];

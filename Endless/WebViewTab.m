@@ -413,6 +413,16 @@
 
 		[self webView:__webView callbackWith:@""];
 	}
+	else if ([action isEqualToString:@"noscript"]) {
+		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableJavascript"];
+		NSString* callBack;
+		if (disableJavascript) {
+			callBack = @"__endless.removeNoscript();";
+		} else {
+			callBack = @"";
+		}
+		[self webView:__webView callbackWith:callBack];
+	}
 
 	return NO;
 }

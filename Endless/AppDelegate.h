@@ -43,7 +43,6 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) WebViewController *webViewController;
-@property (strong, atomic) CookieJar *cookieJar;
 @property (strong, atomic) HSTSCache *hstsCache;
 
 @property (readonly, strong, nonatomic) NSMutableDictionary *searchEngines;

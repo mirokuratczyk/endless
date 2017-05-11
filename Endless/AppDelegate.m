@@ -59,7 +59,7 @@
 	[self initializeDefaults];
 
 	self.hstsCache = [HSTSCache retrieve];
-	self.cookieJar = [[CookieJar alloc] init];
+	[CookieJar syncCookieAcceptPolicy];
 	[Bookmark retrieveList];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
@@ -144,16 +144,13 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
 	if (![self areTesting]) {
-		[HostSettings persist];
 		[[self hstsCache] persist];
 	}
 
 	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
 		[[self webViewController] removeAllTabs];
-		[[self cookieJar] clearAllNonWhitelistedData];
+		[CookieJar clearAllData];
 	}
-	else
-		[[self cookieJar] clearAllOldNonWhitelistedData];
 
 	[application ignoreSnapshotOnNextApplicationLaunch];
 }
@@ -210,7 +207,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	/* this definitely ends our sessions */
-	[[self cookieJar] clearAllNonWhitelistedData];
 	[_psiphonTunnel stop];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];

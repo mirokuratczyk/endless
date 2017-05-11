@@ -261,6 +261,28 @@ BOOL linksEnabled;
 	}
 }
 
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.key isEqualToString:kClearWebsiteData]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+														message:@"Remove all cookies and browsing data?"
+													   delegate:self
+											  cancelButtonTitle:@"Cancel"
+											  otherButtonTitles:@"Clear Cookies and Data", nil];
+
+		[alert show];
+	}
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == [alertView cancelButtonIndex]) {
+		// do nothing, user has cancelled
+	} else if (buttonIndex == [alertView firstOtherButtonIndex]) {
+		// clear history and website data
+		[CookieJar clearAllData];
+	}
+}
+
 - (void)loadUrlForSpecifier:(NSString *)key
 {
 	NSString *url;
