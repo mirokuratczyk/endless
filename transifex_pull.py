@@ -41,7 +41,8 @@ DEFAULT_LANGS = {
     'fr': 'fr',         # French
     'hr': 'hr',         # Croation
     'id': 'id',         # Indonesian
-    'kk': 'kk',         # Kazak
+    'it': 'it',         # Italian
+    #'kk': 'kk',         # Kazakh
     'ko': 'ko',         # Korean
     'nb_NO': 'nb',      # Norwegian
     'nl': 'nl',         # Dutch
@@ -51,19 +52,11 @@ DEFAULT_LANGS = {
     'th': 'th',         # Thai
     'tk': 'tk',         # Turkmen
     'tr': 'tr',         # Turkish
-    'ug': 'ug@Latn',    # Uighur (latin script)
+    #'ug': 'ug@Latn',    # Uighur (latin script)
     'vi': 'vi',         # Vietnamese
     'zh': 'zh-Hans',    # Chinese (simplified)
     'zh_TW': 'zh-Hant'  # Chinese (traditional)
 }
-# Transifex does not support multiple character sets for Uzbek, but
-# Psiphon supports both uz@Latn and uz@cyrillic. So we're going to
-# use "Uzbek" ("uz") for uz@Latn and "Klingon" ("tlh") for uz@cyrillic.
-# We opened an issue with Transifex about this, but it hasn't been
-# rectified yet:
-# https://getsatisfaction.com/indifex/topics/uzbek_cyrillic_language
-DEFAULT_LANGS['uz'] = 'uz@Latn'
-DEFAULT_LANGS['tlh'] = 'uz@cyrillic'
 
 
 RTL_LANGS = ('ar', 'fa', 'he')
@@ -71,7 +64,8 @@ RTL_LANGS = ('ar', 'fa', 'he')
 
 IOS_BROWSER_RESOURCES = \
     ['ios-browser-iasklocalizablestrings', 'ios-browser-localizablestrings',
-     'ios-browser-onepasswordextensionstrings', 'ios-browser-rootstrings']
+     'ios-browser-onepasswordextensionstrings', 'ios-browser-rootstrings',
+     'ios-browser-app-store-assets']
 
 
 def process_resource(resource, output_path_fn, output_mutator_fn, bom,
@@ -175,9 +169,19 @@ def pull_ios_browser_translations():
                          lambda lang: './Endless/%s.lproj/%s' % (lang, fname),
                          None,
                          bom=False,
-                         skip_untranslated=True,
-                         encoding='utf-8')
+                         skip_untranslated=True)
         print('%s: DONE' % (resname,))
+
+
+def pull_ios_asset_translations():
+    resname = 'ios-browser-app-store-assets'
+    process_resource(
+        resname,
+        lambda lang: './StoreAssets/%s.yaml' % (lang, ),
+        yaml_lang_change,
+        bom=False,
+        skip_untranslated=True, )
+    print('%s: DONE' % (resname, ))
 
 
 # Transifex credentials.
@@ -225,6 +229,7 @@ def _getconfig():
 
 def go():
     pull_ios_browser_translations()
+    pull_ios_asset_translations()
 
     print('FINISHED')
 
