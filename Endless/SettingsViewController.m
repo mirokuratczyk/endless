@@ -123,6 +123,7 @@ BOOL linksEnabled;
 			textValue = [NSString stringWithFormat:@"%@", textValue];
 		}
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
+		textField.secureTextEntry = [specifier.key isEqualToString:kProxyPassword];
 		textField.text = textValue;
 		textField.key = specifier.key;
 		textField.placeholder = specifier.placeholder;

@@ -28,6 +28,8 @@
 "Port" = "Port";
 "Use proxy authentication" = "Koristi proxy autentikaciju";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "Proxy korisničko ime";
 "Proxy password" = "Proxy lozinka";
 "Proxy domain" = "Proxy domena";

@@ -28,6 +28,8 @@
 "Port" = "Port";
 "Use proxy authentication" = "Authentification pour le mandataire";
 "username" = "nom d'utilisateur";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "Mandataire - Nom d'utilisateur";
 "Proxy password" = "Mandataire - Mot de passe";
 "Proxy domain" = "Mandataire - Domaine";

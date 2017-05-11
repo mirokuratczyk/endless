@@ -28,6 +28,8 @@
 "Port" = "پورت ";
 "Use proxy authentication" = " استفاده از پروکسی احراز هویت";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "نام کاربری پروکسی";
 "Proxy password" = "رمز عبور پروکسی";
 "Proxy domain" = "دامنه پروکسی";
