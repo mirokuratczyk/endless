@@ -256,8 +256,7 @@ BOOL linksEnabled;
 		[self.navigationController pushViewController:targetViewController animated:YES];
 	} else if ([specifier.key isEqualToString:kTutorialSpecifierKey]) {
 		[AppDelegate sharedAppDelegate].webViewController.showTutorial = YES;
-		[self.webViewController settingsViewControllerDidEnd];
-		[self dismissViewControllerAnimated:YES completion:nil];
+		[self settingsViewControllerDidEnd:nil];
 	}
 }
 
@@ -420,7 +419,7 @@ BOOL linksEnabled;
 	[self.webViewController settingsViewControllerDidEnd];
 	// upon completion force connection state notification in case connection modal is
 	// still blocking UI but needs to be dismissed
-	[self dismissViewControllerAnimated:YES completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
+	[self dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
 }
 
 - (void) updateAvailableRegions:(NSNotification*) notification {

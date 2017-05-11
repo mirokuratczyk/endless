@@ -32,43 +32,6 @@
 }
 @end
 
-@interface UIViewController (Top)
-+ (UIViewController *)topViewController;
-@end
-
-
-@implementation UIViewController (Top)
-+ (UIViewController *)topViewController
-{
-	UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-	return [rootViewController topVisibleViewController];
-}
-- (UIViewController *)topVisibleViewController
-{
-	if ([self isKindOfClass:[UITabBarController class]])
-	{
-		UITabBarController *tabBarController = (UITabBarController *)self;
-		return [tabBarController.selectedViewController topVisibleViewController];
-	}
-	else if ([self isKindOfClass:[UINavigationController class]])
-	{
-		UINavigationController *navigationController = (UINavigationController *)self;
-		return [navigationController.visibleViewController topVisibleViewController];
-	}
-	else if (self.presentedViewController)
-	{
-		return [self.presentedViewController topVisibleViewController];
-	}
-	else if (self.childViewControllers.count > 0)
-	{
-		return [self.childViewControllers.lastObject topVisibleViewController];
-	}
-	return self;
-}
-
-@end
-
-
 @interface WebViewController (RegionSelectionControllerDelegate) <RegionSelectionControllerDelegate>
 @end
 
@@ -118,6 +81,16 @@
 	NSMutableDictionary *preferencesSnapshot;
 
 	Tutorial *tutorial;
+
+	BOOL resumePsiphonStart;
+}
+
+-(id)init {
+	if (self = [super init]) {
+		[self setOpenSettingImmediatelyOnViewDidAppear:NO];
+		[self setShowTutorial:NO];
+	}
+	return self;
 }
 
 - (void)loadView
@@ -288,6 +261,8 @@
 						tabDoneButton,
 						nil];
 
+	resumePsiphonStart = NO;
+
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -392,51 +367,46 @@
 	[userDefaults removeObjectForKey:STATE_RESTORE_TRY_KEY];
 	[userDefaults synchronize];
 
+	if( self.openSettingImmediatelyOnViewDidAppear) {
+		[self openSettingsMenu:nil];
+		[self setOpenSettingImmediatelyOnViewDidAppear:NO];
+		return;
+	}
+
 	if (self.showTutorial) {
 		self.showTutorial = NO;
 		[self overlayTutorial];
+		return;
 	}
+
+	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
+
+	if (isOnboarding) {
+		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
+		onboarding.delegate = self;
+		[self presentViewController:onboarding animated:NO completion:nil];
+		return;
+	}
+	
+	[self viewIsVisible];
 }
 
 /* called when we've become visible and after the overlaid tutorial has ended (possibly again, from app delegate applicationDidBecomeActive) */
 - (void)viewIsVisible
 {
-	BOOL shouldShowSplash = FALSE;
+	// show splash if we are not testing and there is no browser tabs
+	if ([[AppDelegate sharedAppDelegate] areTesting] == NO && webViewTabs.count == 0) {
+		PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
+																				 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
+		connectionSplashViewController.delegate = self;
+		[connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
+																		   style:UIAlertActionStyleDefault
+																		 handler:^(NYAlertAction *action) {
+																			 [self openSettingsMenu:nil];
+																		 }]];
 
-	if(![[AppDelegate sharedAppDelegate] areTesting] && !self.showTutorial && [[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey]) {
-		if (webViewTabs.count == 0) {
-			shouldShowSplash = TRUE;
-		} else {
-			shouldShowSplash = TRUE;
-
-			// check if there is at least one fully loaded
-			// tab that is not added from restoration
-			// In that case do not show the splash
-			for(WebViewTab *wvt in webViewTabs) {
-				if(![wvt isRestoring]) {
-					shouldShowSplash = FALSE;
-					break;
-				}
-			}
-		}
-	}
-
-	if (shouldShowSplash) {
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-
-			PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
-																					 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
-			connectionSplashViewController.delegate = self;
-			[connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
-																			   style:UIAlertActionStyleDefault
-																			 handler:^(NYAlertAction *action) {
-																				 [self openSettingsMenu:nil];
-																			 }]];
-
-			[[UIViewController topViewController] presentViewController:connectionSplashViewController animated:NO
-															 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
-		});
+		[self presentViewController:connectionSplashViewController animated:NO
+						 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 	}
 
 	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
@@ -1153,7 +1123,14 @@
 	appSettingsViewController.hiddenKeys = hiddenKeys;
 
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
-	[[UIViewController topViewController] presentViewController:navController animated:YES completion:nil];
+
+	if([self presentedViewController] == nil) {
+		[self presentViewController:navController animated:YES completion:nil];
+	} else {
+		[self dismissViewControllerAnimated:NO completion:^{
+			[self presentViewController:navController animated:YES completion:nil];
+		}];
+	}
 }
 
 - (void)settingsViewControllerDidEnd
@@ -1308,7 +1285,7 @@
 - (void) addBookmarkFromBottomToolbar:(id)_id {
 	BookmarkController *bc = [[BookmarkController alloc] init];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:bc];
-	[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:navController animated:YES completion:nil];
+	[self presentViewController:navController animated:YES completion:nil];
 }
 
 
@@ -1506,8 +1483,6 @@
 
 -(void)tutorialEnded
 {
-	BOOL launchedFromOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
-
 	tutorial = nil;
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
@@ -1518,12 +1493,8 @@
 	// we need to ensure it gets reset to display the correct state
 	[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];
 
-	if (launchedFromOnboarding) {
+	if (resumePsiphonStart) {
 		// Resume setup
-		// User has been fully onboarded
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-
 		// Start psiphon and open homepage
 		[[AppDelegate sharedAppDelegate] startIfNeeded];
 	}
@@ -1826,7 +1797,7 @@
 	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
 																	  style:UIAlertActionStyleDefault
 																	handler:^(NYAlertAction *action) {
-																		[connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES                                                                                                                                                    completion:^(void){[self openSettingsMenu:nil];}];
+																		[self openSettingsMenu:nil];
 																	}]];
 
 	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Done", nil)
@@ -1835,8 +1806,8 @@
 																		[connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 																	}]];
 
-	[[UIViewController topViewController] presentViewController:connectionAlertViewController animated:NO
-													 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
+	[self  presentViewController:connectionAlertViewController animated:NO
+					  completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 }
 
 #pragma mark RegionSelectionControllerDelegate method implementation
@@ -1931,6 +1902,18 @@
 		[homePagesEquivalentURLs setObject:newEquivURLs forKey:originalURL];
 	}
 }
+
+#pragma mark - OnboardingViewControllerDelegate methods
+
+-(void)onboardingEnded {
+	self.showTutorial = YES;
+	resumePsiphonStart = YES;
+
+	// User has been fully onboarded
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 
 
