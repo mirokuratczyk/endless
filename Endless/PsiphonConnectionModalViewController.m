@@ -356,7 +356,7 @@
 @end
 
 @implementation PsiphonConnectionSplashViewController {
-	BOOL _dismissImmediatelly;
+	BOOL dismissOnViewDidAppear;
 }
 
 - (id) initWithState:(PsiphonConnectionState)state {
@@ -366,7 +366,7 @@
 		self.backgroundTapDismissalGestureEnabled = NO;
 		self.swipeDismissalGestureEnabled = NO;
 		self.dismissOnConnected = YES;
-		_dismissImmediatelly = NO;
+		dismissOnViewDidAppear = NO;
 
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(psiphonWebTabLoaded)
@@ -382,13 +382,13 @@
 
 -(void) viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	if(_dismissImmediatelly) {
+	if(dismissOnViewDidAppear) {
 		[self dismissViewControllerAnimated:NO completion:nil];
 	}
 }
 
 - (void) psiphonWebTabLoaded {
-	_dismissImmediatelly = YES;
+	dismissOnViewDidAppear = YES;
 }
 
 @end

@@ -84,22 +84,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[self.window makeKeyAndVisible];
-
-	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
-
-	if (isOnboarding) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-			OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
-			onboarding.delegate = self;
-			[self.window.rootViewController presentViewController:onboarding animated:NO completion:nil];
-		});
-	}
 	return YES;
-}
-
--(void)onboardingEnded {
-	self.webViewController.showTutorial = YES;
-	[[self webViewController] viewIsVisible];
 }
 
 - (void) startPsiphon {
@@ -200,8 +185,6 @@
 		[self notifyPsiphonConnectionState];
 		[self startPsiphon];
 	}
-
-	[[self webViewController] viewIsVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -479,7 +462,7 @@
 	}
 
 	[self notifyPsiphonConnectionState];
-	[self.webViewController.settingsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+	[self.webViewController setOpenSettingImmediatelyOnViewDidAppear:YES];
 }
 
 - (void) notifyPsiphonConnectionState {

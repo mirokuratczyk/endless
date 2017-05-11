@@ -34,7 +34,7 @@
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
 #define kHasBeenOnboardedKey @"hasBeenOnBoarded"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, OnboardingViewControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -58,7 +58,6 @@
 @property NSInteger socksProxyPort;
 @property PsiphonConnectionState psiphonConectionState;
 
-- (void) onboardingEnded;
 - (void) startIfNeeded;
 - (void) reloadAndOpenSettings;
 - (NSString *) getPsiphonConfig;
