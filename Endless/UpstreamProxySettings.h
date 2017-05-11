@@ -17,8 +17,13 @@
  *
  */
 
+#define kMaxUpstreamProxyCustomHeaders 3
+
 @interface UpstreamProxySettings : NSObject
 + (instancetype)sharedInstance;
++ (NSArray<NSString*>*)defaultSettingsKeys;
++ (NSArray<NSString*>*)authenticationKeys;
++ (NSArray<NSString*>*)customHeaderKeys;
 
 - (NSString*)getUpstreamProxyUrl;
 - (BOOL)getUseCustomProxySettings;
@@ -28,4 +33,8 @@
 - (NSString*)getProxyUsername;
 - (NSString*)getProxyPassword;
 - (NSString*)getProxyDomain;
+- (BOOL)getUseCustomHeaders;
+- (NSString*)getHeaderNameKeyN:(int)n;
+- (NSString*)getHeaderValueKeyN:(int)n;
+- (NSString*)getUpstreamProxyCustomHeaders;
 @end

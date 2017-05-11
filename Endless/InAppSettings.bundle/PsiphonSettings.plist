@@ -118,6 +118,100 @@
 			<key>Key</key>
 			<string>logs</string>
 		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>useUpstreamProxyCustomHeaders</string>
+			<key>Title</key>
+			<string>Use custom headers</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeader0</string>
+			<key>Title</key>
+			<string>Header 1</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderName0</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header name</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderValue0</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header value</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeader1</string>
+			<key>Title</key>
+			<string>Header 2</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderName1</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header name</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderValue1</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header value</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeader2</string>
+			<key>Title</key>
+			<string>Header 3</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderName2</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header name</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>upstreamProxyCustomHeaderValue2</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter header value</string>
+		</dict>
 	</array>
 </dict>
 </plist>

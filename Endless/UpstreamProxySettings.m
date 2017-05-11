@@ -24,8 +24,7 @@ static AppDelegate *appDelegate;
 
 #pragma mark - ProxySettings class
 
-@interface ProxySettings : NSObject {
-}
+@interface ProxySettings : NSObject
 
 @property NSString *proxyHost;
 @property NSString *proxyPort;
@@ -47,8 +46,7 @@ static AppDelegate *appDelegate;
 
 #pragma mark - ProxyCredentials class
 
-@interface ProxyCredentials : NSObject {
-}
+@interface ProxyCredentials : NSObject
 
 @property NSString *username;
 @property NSString *password;
@@ -70,10 +68,29 @@ static AppDelegate *appDelegate;
 
 @end
 
+#pragma mark - ProxyHeaderclass
+
+@interface ProxyHeader : NSObject
+@property NSString *name;
+@property NSString *value;
+@end
+
+@implementation ProxyHeader
+
+- (id)initWithNameAndValue:(NSString*)name value:(NSString*)value {
+	self = [super init];
+	if (self) {
+		self.name = name;
+		self.value = value;
+	}
+	return self;
+}
+
+@end
+
 #pragma mark - UpstreamProxySettings class
 
-@implementation UpstreamProxySettings {
-}
+@implementation UpstreamProxySettings
 
 + (instancetype)sharedInstance
 {
@@ -83,6 +100,31 @@ static AppDelegate *appDelegate;
 		sharedInstance = [[self alloc] init];
 	});
 	return sharedInstance;
+}
+
++ (NSArray<NSString*>*)defaultSettingsKeys {
+	return @[kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, kUseUpstreamProxyCustomHeaders];
+}
+
++ (NSArray<NSString*>*)authenticationKeys {
+	return @[kProxyUsername, kProxyPassword, kProxyDomain];
+}
+
++ (NSArray<NSString*>*)customHeaderKeys {
+	static dispatch_once_t once;
+	static NSArray<NSString*> *customHeaderKeys;
+	__weak UpstreamProxySettings *safeSelf = [UpstreamProxySettings sharedInstance];
+	dispatch_once(&once, ^{
+		NSMutableArray *headerKeys = [[NSMutableArray alloc] initWithCapacity:kMaxUpstreamProxyCustomHeaders];
+
+		for (int i = 0; i < kMaxUpstreamProxyCustomHeaders; i++) {
+			[headerKeys addObject:[safeSelf getHeaderSeparatorKeyN:i]];
+			[headerKeys addObject:[safeSelf getHeaderNameKeyN:i]];
+			[headerKeys addObject:[safeSelf getHeaderValueKeyN:i]];
+		}
+		customHeaderKeys = [NSArray arrayWithArray:headerKeys];
+	});
+	return customHeaderKeys;
 }
 
 - (BOOL)getUseCustomProxySettings {
@@ -162,7 +204,7 @@ static AppDelegate *appDelegate;
 // Returns a tunnel-core compatible proxy URL for the
 // current user configured proxy settings.
 // e.g., http://NTDOMAIN\NTUser:password@proxyhost:3375,
-//       http://user:password@proxyhost:8080", etc.
+//		 http://user:password@proxyhost:8080", etc.
 - (NSString*)getUpstreamProxyUrl {
 	ProxySettings *proxySettings = [self getProxySettings];
 
@@ -190,6 +232,61 @@ static AppDelegate *appDelegate;
 	[url appendString:proxySettings.proxyPort];
 
 	return url;
+}
+
+- (BOOL)getUseCustomHeaders {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxyCustomHeaders];
+}
+
+- (NSString*)getHeaderSeparatorKeyN:(int)n {
+	NSString *key = [kUpstreamProxyCustomHeader stringByAppendingString:[NSString stringWithFormat:@"%i", n, nil]];
+	return key;
+}
+
+- (NSString*)getHeaderNameKeyN:(int)n {
+	NSString *key = [kUpstreamProxyCustomHeaderName stringByAppendingString:[NSString stringWithFormat:@"%i", n, nil]];
+	return key;
+}
+
+- (NSString*)getHeaderValueKeyN:(int)n {
+	NSString *key = [kUpstreamProxyCustomHeaderValue stringByAppendingString:[NSString stringWithFormat:@"%i", n, nil]];
+	return key;
+}
+
+- (ProxyHeader*)getHeaderN:(int)n {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *name = [userDefaults stringForKey:[self getHeaderNameKeyN:n]];
+	NSString *value = [userDefaults stringForKey:[self getHeaderValueKeyN:n]];
+	if (![name length]) {
+		return nil;
+	} else if (value == nil) {
+		value = @"";
+	}
+
+	return [[ProxyHeader alloc] initWithNameAndValue:name value:value];
+}
+
+- (NSArray<ProxyHeader*>*)getHeaders {
+	NSMutableArray *headers = [[NSMutableArray alloc] initWithCapacity:kMaxUpstreamProxyCustomHeaders];
+	for (int i = 0; i < kMaxUpstreamProxyCustomHeaders; i++) {
+		ProxyHeader *header = [self getHeaderN:i];
+		if (header) {
+			[headers addObject:header];
+		}
+	}
+
+	return [NSArray arrayWithArray:headers];
+}
+
+- (NSDictionary*)getUpstreamProxyCustomHeaders {
+	NSArray<ProxyHeader*> *headers = [self getHeaders];
+	NSMutableDictionary<NSString*, NSArray<NSString*>*> *headersFormattedForJson = [[NSMutableDictionary alloc] initWithCapacity:kMaxUpstreamProxyCustomHeaders];
+
+	for (ProxyHeader *header in headers) {
+		[headersFormattedForJson setObject:@[header.value] forKey:header.name];
+	}
+
+	return [NSDictionary dictionaryWithDictionary:headersFormattedForJson];
 }
 
 @end

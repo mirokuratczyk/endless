@@ -354,8 +354,9 @@ BOOL linksEnabled;
 
 - (void)settingDidChange:(NSNotification*)notification
 {
-	NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
-	NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
+	NSArray *proxyDefaultSettingsKeys = [UpstreamProxySettings defaultSettingsKeys];
+	NSArray *proxyAuthenticationKeys = [UpstreamProxySettings authenticationKeys];
+	NSArray *proxyCustomHeaderKeys = [UpstreamProxySettings customHeaderKeys];
 
 	NSString *fieldName = notification.userInfo.allKeys.firstObject;
 
@@ -366,11 +367,14 @@ BOOL linksEnabled;
 
 		if (upstreamProxyEnabled) {
 			// Display proxy configuration fields
-			for (NSString *key in upstreamProxyKeys) {
+			for (NSString *key in proxyDefaultSettingsKeys) {
 				[hiddenKeys removeObject:key];
 			}
 
-			BOOL useUpstreamProxyAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
+			UpstreamProxySettings *upstreamProxySettings = [UpstreamProxySettings sharedInstance];
+
+			BOOL useUpstreamProxyAuthentication = [upstreamProxySettings getUseProxyAuthentication];
+			BOOL useUpstreamProxyCustomHeaders = [upstreamProxySettings getUseCustomHeaders];
 
 			if (useUpstreamProxyAuthentication) {
 				// Display proxy authentication fields
@@ -379,10 +383,18 @@ BOOL linksEnabled;
 				}
 			}
 
+			if (useUpstreamProxyCustomHeaders) {
+				// Display proxy custom header fields
+				for (NSString *key in proxyCustomHeaderKeys) {
+					[hiddenKeys removeObject:key];
+				}
+			}
+
 			[self setHiddenKeys:hiddenKeys animated:NO];
 		} else {
-			NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:upstreamProxyKeys];
+			NSMutableSet *hiddenKeys = [NSMutableSet setWithArray:proxyDefaultSettingsKeys];
 			[hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
+			[hiddenKeys addObjectsFromArray:proxyCustomHeaderKeys];
 			[self setHiddenKeys:hiddenKeys animated:NO];
 		}
 	} else if ([fieldName isEqual:kUseProxyAuthentication]) {
@@ -397,6 +409,22 @@ BOOL linksEnabled;
 			}
 		} else {
 			for (NSString *key in proxyAuthenticationKeys) {
+				[hiddenKeys addObject:key];
+			}
+		}
+		[self setHiddenKeys:hiddenKeys animated:NO];
+	} else if ([fieldName isEqual:kUseUpstreamProxyCustomHeaders]) {
+		// useProxyCustomHeaders toggled, show or hide custom header fields
+		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:kUseUpstreamProxyCustomHeaders] intValue];
+
+		NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[self hiddenKeys]];
+
+		if (enabled) {
+			for (NSString *key in proxyCustomHeaderKeys) {
+				[hiddenKeys removeObject:key];
+			}
+		} else {
+			for (NSString *key in proxyCustomHeaderKeys) {
 				[hiddenKeys addObject:key];
 			}
 		}

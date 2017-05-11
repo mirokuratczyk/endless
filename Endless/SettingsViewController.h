@@ -19,28 +19,33 @@
 
 #import <UIKit/UIKit.h>
 #import "IASKAppSettingsViewController.h"
+#import "UpstreamProxySettings.h"
 
 //app language key
-#define appLanguage	@"appLanguage"
+#define appLanguage							@"appLanguage"
 
 // Globally used specifier keys
-#define kRegionSelectionSpecifierKey	@"regionSelection"
+#define kRegionSelectionSpecifierKey		@"regionSelection"
+#define kClearWebsiteData					@"clearWebsiteData"
+#define kDisableTimeouts					@"disableTimeouts"
+#define kMinTlsVersion						@"minTlsVersion"
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
-#define kClearWebsiteData			@"clearWebsiteData"
-#define kDisableTimeouts			@"disableTimeouts"
-#define kMinTlsVersion				@"minTlsVersion"
-#define kUseUpstreamProxy			@"useUpstreamProxy"
-#define kUseProxyAuthentication		@"useProxyAuthentication"
-#define kProxyUsername				@"proxyUsername"
-#define kProxyPassword				@"proxyPassword"
-#define kProxyDomain				@"proxyDomain"
-#define kUpstreamProxyHostAddress	@"upstreamProxyHostAddress"
-#define kUpstreamProxyPort			@"upstreamProxyPort"
+#define kUseUpstreamProxy					@"useUpstreamProxy"
+#define kUseProxyAuthentication				@"useProxyAuthentication"
+#define kProxyUsername						@"proxyUsername"
+#define kProxyPassword						@"proxyPassword"
+#define kProxyDomain						@"proxyDomain"
+#define kUpstreamProxyHostAddress			@"upstreamProxyHostAddress"
+#define kUpstreamProxyPort					@"upstreamProxyPort"
+#define kUseUpstreamProxyCustomHeaders		@"useUpstreamProxyCustomHeaders"
+#define kUpstreamProxyCustomHeader			@"upstreamProxyCustomHeader"
+#define kUpstreamProxyCustomHeaderName		@"upstreamProxyCustomHeaderName"
+#define kUpstreamProxyCustomHeaderValue		@"upstreamProxyCustomHeaderValue"
 
 // These strings correspond to the option's value in MinTLSSettings.plist
-#define kMinTlsVersionTLS_1_2 @"TLS_1_2"
-#define kMinTlsVersionTLS_1_1 @"TLS_1_1"
-#define kMinTlsVersionTLS_1_0 @"TLS_1_0"
+#define kMinTlsVersionTLS_1_2				@"TLS_1_2"
+#define kMinTlsVersionTLS_1_1				@"TLS_1_1"
+#define kMinTlsVersionTLS_1_0				@"TLS_1_0"
 
 @protocol SettingsViewControllerDelegate <NSObject>
 - (long)curWebViewTabHttpsRulesCount;

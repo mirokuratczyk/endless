@@ -88,3 +88,9 @@
 "Clear cookies and website data" = "Clear cookies and website data";
 "Cookies and local storage will be cleared." = "Cookies and local storage will be cleared.";
 "All tabs, cookies and website data will be cleared when switching to another app." = "All tabs, cookies and website data will be cleared when switching to another app.";
+"Use custom headers" = "Use custom headers";
+"Header 1" = "Header 1";
+"Header 2" = "Header 2";
+"Header 3" = "Header 3";
+"Enter header name" = "Enter header name";
+"Enter header value" = "Enter header value";

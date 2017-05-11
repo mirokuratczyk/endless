@@ -337,8 +337,13 @@
 	NSString *selectedRegionCode = [[RegionAdapter sharedInstance] getSelectedRegion].code;
 	mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
-	NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
-	mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
+	if ([[UpstreamProxySettings sharedInstance] getUseCustomProxySettings]) {
+		mutableConfigCopy[@"UpstreamProxyUrl"] = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
+
+		if ([[UpstreamProxySettings sharedInstance] getUseCustomHeaders]) {
+			mutableConfigCopy[@"UpstreamProxyCustomHeaders"] = [[UpstreamProxySettings sharedInstance] getUpstreamProxyCustomHeaders];
+		}
+	}
 
 	BOOL disableTimeouts = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts];
 	if (disableTimeouts) {

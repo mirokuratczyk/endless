@@ -1130,12 +1130,16 @@
 		appSettingsViewController.neverShowPrivacySettings = YES;
 	}
 
-	// These keys correspond to settings in PsiphonOptions.plist
-	BOOL upstreamProxyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxy];
-	BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [[NSUserDefaults standardUserDefaults] boolForKey:kUseProxyAuthentication];
+	UpstreamProxySettings *upstreamProxySettings = [UpstreamProxySettings sharedInstance];
 
-	NSArray *upstreamProxyKeys = [NSArray arrayWithObjects:kUpstreamProxyHostAddress, kUpstreamProxyPort, kUseProxyAuthentication, nil];
-	NSArray *proxyAuthenticationKeys = [NSArray arrayWithObjects:kProxyUsername, kProxyPassword, kProxyDomain, nil];
+	// These keys correspond to settings in PsiphonOptions.plist
+	BOOL upstreamProxyEnabled = [upstreamProxySettings getUseCustomProxySettings];
+	BOOL useUpstreamProxyAuthentication = upstreamProxyEnabled && [upstreamProxySettings getUseProxyAuthentication];
+	BOOL useUpstreamProxyCustomHeaders = upstreamProxyEnabled && [upstreamProxySettings getUseCustomHeaders];
+
+	NSArray *upstreamProxyKeys = [UpstreamProxySettings defaultSettingsKeys];
+	NSArray *proxyAuthenticationKeys = [UpstreamProxySettings authenticationKeys];
+	NSArray *proxyCustomHeaders = [UpstreamProxySettings customHeaderKeys];
 
 	// Hide configurable fields until user chooses to use upstream proxy
 	NSMutableSet *hiddenKeys = upstreamProxyEnabled ? nil : [NSMutableSet setWithArray:upstreamProxyKeys];
@@ -1146,6 +1150,14 @@
 			hiddenKeys = [NSMutableSet setWithArray:proxyAuthenticationKeys];
 		} else {
 			[hiddenKeys addObjectsFromArray:proxyAuthenticationKeys];
+		}
+	}
+
+	if (!useUpstreamProxyCustomHeaders) {
+		if (hiddenKeys == nil) {
+			hiddenKeys = [NSMutableSet setWithArray:proxyCustomHeaders];
+		} else {
+			[hiddenKeys addObjectsFromArray:proxyCustomHeaders];
 		}
 	}
 
@@ -1225,20 +1237,38 @@
 
 		// No further checking if "use proxy authentication" is off
 		// and has not changed
-		if (!useProxyAuthentication) {
-			return NO;
+		if (useProxyAuthentication) {
+			// "use proxy authentication" is checked, check if
+			// username || password || domain have changed
+			NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
+			NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
+			NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
+
+			if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
+				!safeStringsEqual(password, [proxySettings getProxyPassword]) ||
+				!safeStringsEqual(domain, [proxySettings getProxyDomain])) {
+				return YES;
+			}
 		}
 
-		// "use proxy authentication" is checked, check if
-		// username || password || domain have changed
-		NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
-		NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
-		NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
+		BOOL useUpstreamProxyCustomHeaders = [[NSUserDefaults standardUserDefaults] boolForKey:kUseUpstreamProxyCustomHeaders];
 
-		if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
-			!safeStringsEqual(password, [proxySettings getProxyPassword]) ||
-			!safeStringsEqual(domain, [proxySettings getProxyDomain])) {
+		if (useUpstreamProxyCustomHeaders != [[preferencesSnapshot objectForKey:kUseUpstreamProxyCustomHeaders] boolValue]) {
 			return YES;
+		}
+
+		if (useUpstreamProxyCustomHeaders) {
+			// "use custom headers" is checked, check if
+			// any of the headers have changed
+			for (int i = 0; i < kMaxUpstreamProxyCustomHeaders; i++) {
+				NSString *headerNameKey = [proxySettings getHeaderNameKeyN:i];
+				NSString *headerValueKey = [proxySettings getHeaderValueKeyN:i];
+
+				if (!safeStringsEqual([[NSUserDefaults standardUserDefaults] stringForKey:headerNameKey],[preferencesSnapshot objectForKey:headerNameKey]) ||
+					!safeStringsEqual([[NSUserDefaults standardUserDefaults] stringForKey:headerValueKey],[preferencesSnapshot objectForKey:headerValueKey])) {
+					return YES;
+				}
+			}
 		}
 	}
 	return NO;
