@@ -46,7 +46,7 @@ DEFAULT_LANGS = {
     'ko': 'ko',         # Korean
     'nb_NO': 'nb',      # Norwegian
     'nl': 'nl',         # Dutch
-    'pt_BR': 'pt_BR',   # Portuguese-Brazil
+    'pt_BR': 'pt-BR',   # Portuguese-Brazil
     'pt_PT': 'pt-PT',   # Portuguese-Portugal
     'ru': 'ru',         # Russian
     'th': 'th',         # Thai
