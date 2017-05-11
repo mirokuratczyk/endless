@@ -28,6 +28,8 @@
 "Port" = "端口";
 "Use proxy authentication" = "使用代理認證";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "代理用戶名";
 "Proxy password" = "代理密碼";
 "Proxy domain" = "代理域名";

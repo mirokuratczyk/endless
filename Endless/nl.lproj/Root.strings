@@ -28,6 +28,8 @@
 "Port" = "Poort";
 "Use proxy authentication" = "Gebruik Proxy authentificatie";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "Proxy gebruikersnaam";
 "Proxy password" = "Proxy paswoord";
 "Proxy domain" = "Proxy domein";

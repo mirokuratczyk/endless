@@ -28,6 +28,8 @@
 "Port" = "Port";
 "Use proxy authentication" = "Gunakan autentikasi proksi";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "Nama pengguna proksi";
 "Proxy password" = "Kata sandi proksi";
 "Proxy domain" = "Domain proksi";

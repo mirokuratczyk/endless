@@ -28,6 +28,8 @@
 "Port" = "المنفذ ";
 "Use proxy authentication" = "إستعمال مصادقة البروكسي ";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "اسم مستخدم البروكسي";
 "Proxy password" = "كلمة سر البروكسي";
 "Proxy domain" = "نطاق البروكسي ";

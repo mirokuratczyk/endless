@@ -281,7 +281,7 @@
 		[dict setObject:val forKey:X509_KEY_ZIP];
 
 	else if (![dict objectForKey:oid])
-		[dict setObject:val forKey:[NSString stringWithFormat:@"Object Identifier %@", oid]];
+		[dict setObject:val forKey:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Object Identifier", @"Field name for display in list"), oid]];
 
 	return;
 }

@@ -28,6 +28,8 @@
 "Port" = "Port";
 "Use proxy authentication" = "Bruk gyldighetssjekk for mellomtjener";
 "username" = "username";
+"password" = "password";
+"example.com" = "example.com";
 "Proxy username" = "Brukernavn for mellomtjener";
 "Proxy password" = "Mellomtjener-passord";
 "Proxy domain" = "Mellomtjener-domene";

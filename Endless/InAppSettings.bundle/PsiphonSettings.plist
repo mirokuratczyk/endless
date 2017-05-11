@@ -97,6 +97,8 @@
 			<string>Proxy password</string>
 			<key>Key</key>
 			<string>proxyPassword</string>
+			<key>IASKPlaceholder</key>
+			<string>password</string>
 		</dict>
 		<dict>
 			<key>Key</key>
