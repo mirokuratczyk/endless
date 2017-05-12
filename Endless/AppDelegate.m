@@ -448,6 +448,11 @@
 		[wvc addWebViewTab:wvt andSetCurrent:isCurrentTab];
 	}
 
+	// OK, some objects in the WebViewController leak, let's minimize the leakage
+	// footprint by trying and removing all subviews.
+	// TODO: runtime analysis of the leaks
+	[[prevWebViewController.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
 	[prevWebViewController dismissViewControllerAnimated:NO completion:nil];
 
 	[self notifyPsiphonConnectionState];
