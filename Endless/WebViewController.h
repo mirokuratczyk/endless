@@ -29,8 +29,10 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 
 - (id)settingsButton;
 
-- (WebViewTab *)addTabForReload:(NSURL *)url;
+
+-(void) addWebViewTab:(WebViewTab*) wvt andSetCurrent:(BOOL)current;
 - (WebViewTab *)addNewTabForURL:(NSURL *)url;
+
 - (void)removeTab:(NSNumber *)tabNumber andFocusTab:(NSNumber *)toFocus;
 - (void)removeTab:(NSNumber *)tabNumber;
 - (void)removeAllTabs;

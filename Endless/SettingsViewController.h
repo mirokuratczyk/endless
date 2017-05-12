@@ -49,6 +49,6 @@
 
 @interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate, UIAlertViewDelegate>
 
-@property (assign) id <SettingsViewControllerDelegate> webViewController;
+@property (nonatomic, weak) id <SettingsViewControllerDelegate> webViewController;
 
 @end

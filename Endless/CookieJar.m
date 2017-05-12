@@ -70,10 +70,11 @@
 
 		[[NSFileManager defaultManager] removeItemAtPath:file error:&error];
 
-		if (error)
+		if (error) {
 #ifdef TRACE_COOKIES
 			NSLog(@"[CookieJar] Error removing local storage file %@ for %@: %@", file, fhost, error.localizedDescription);
 #endif
+		}
 	}
 }
 

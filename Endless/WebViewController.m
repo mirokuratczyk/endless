@@ -396,21 +396,22 @@
 {
 	// show splash if we are not testing and there is no browser tabs
 	if ([[AppDelegate sharedAppDelegate] areTesting] == NO && webViewTabs.count == 0) {
+
+		__weak  WebViewController *weakSelf = self;
 		PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
 																				 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
 		connectionSplashViewController.delegate = self;
 		[connectionSplashViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Go to Settings", nil)
 																		   style:UIAlertActionStyleDefault
 																		 handler:^(NYAlertAction *action) {
-																			 [self openSettingsMenu:nil];
+																			 [weakSelf openSettingsMenu:nil];
 																		 }]];
 
 		[self presentViewController:connectionSplashViewController animated:NO
 						 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 	}
 
-	/* in case our orientation changed, or the status bar changed height (which can take a few millis for animation) */
-	[self performSelector:@selector(adjustLayout) withObject:nil afterDelay:0.5];
+	[self adjustLayout];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -614,14 +615,31 @@
 	}
 }
 
-- (WebViewTab *)addTabForReload:(NSURL *)url
-{
-	return [self addNewTabForURL:url forRestoration:NO andFocus:NO withCompletionBlock:nil];
-}
-
 - (WebViewTab *)addNewTabForURL:(NSURL *)url
 {
 	return [self addNewTabForURL:url forRestoration:NO andFocus:YES withCompletionBlock:nil];
+}
+
+-(void) addWebViewTab:(WebViewTab*) wvt andSetCurrent:(BOOL)current{
+	[wvt.webView.scrollView setDelegate:self];
+
+	[webViewTabs addObject:wvt];
+	[tabChooser setNumberOfPages:webViewTabs.count];
+	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
+
+	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
+
+	[tabScroller setContentSize:CGSizeMake(wvt.viewHolder.frame.size.width * tabChooser.numberOfPages, wvt.viewHolder.frame.size.height)];
+	[tabScroller addSubview:wvt.viewHolder];
+	[tabScroller bringSubviewToFront:navigationBar];
+
+	if(current) {
+		[self setCurTabIndex:wvt.tabIndex.intValue];
+	}
+
+	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 }
 
 - (WebViewTab *)addNewTabForURL:(NSURL *)url forRestoration:(BOOL)restoration andFocus:(BOOL)focus withCompletionBlock:(void(^)(BOOL))block
@@ -1124,11 +1142,13 @@
 
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
 
+	__weak WebViewController* weakSelf = self;
+
 	if([self presentedViewController] == nil) {
 		[self presentViewController:navController animated:YES completion:nil];
 	} else {
 		[self dismissViewControllerAnimated:NO completion:^{
-			[self presentViewController:navController animated:YES completion:nil];
+			[weakSelf presentViewController:navController animated:YES completion:nil];
 		}];
 	}
 }
@@ -1913,8 +1933,5 @@
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
-
-
-
 
 @end
