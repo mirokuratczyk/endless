@@ -422,44 +422,38 @@
 - (void) reloadAndOpenSettings {
 	[[RegionAdapter sharedInstance] reloadTitlesForNewLocalization];
 
-	NSMutableArray * reloadURLs = [NSMutableArray new];
-	NSArray * wvTabs = [self.webViewController webViewTabs];
+	// iterate existing tabs, remove them from superview
+	// and re-add to the new instance of WebViewController
+
+	WebViewController* prevWebViewController = self.webViewController;
+	NSArray * wvTabs = [prevWebViewController webViewTabs];
+
+	WebViewTab* focusedTab = [prevWebViewController curWebViewTab];
 
 
-	// There are tabs that are in a  state of restoration.
-	// These tabs have url == nil, but they must have a restorationIdentifier property set.
-	// Re-add them with the restoration identifier as URL.
-	// This also means that these tabs will be force reloaded
-	// even if they were in a state of restoration previously.
-	// We are willing to accept that for now.
+	WebViewController* wvc = [[WebViewController alloc] init];
+	wvc.restorationIdentifier = @"WebViewController";
+	self.window.rootViewController = wvc;
+
 	for (WebViewTab *wvt in wvTabs) {
-		if ( wvt.url != nil) {
-			[reloadURLs addObject:wvt.url];
-		} else if (( wvt.webView.restorationIdentifier != nil)){
-			[reloadURLs addObject:[NSURL URLWithString:wvt.webView.restorationIdentifier]];
+		BOOL isCurrentTab = NO;
+
+		// make sure tabs get added zoomed normal
+		[wvt zoomNormal];
+
+		[wvt.viewHolder removeFromSuperview];
+		if (focusedTab == wvt) {
+			isCurrentTab = YES;
 		}
+		[wvc addWebViewTab:wvt andSetCurrent:isCurrentTab];
 	}
 
-	// Get currently focused tab URL
-	NSURL* focusedTabURL = [[self.webViewController curWebViewTab] url];
+	// OK, some objects in the WebViewController leak, let's minimize the leakage
+	// footprint by trying and removing all subviews.
+	// TODO: runtime analysis of the leaks
+	[[prevWebViewController.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-	self.window.rootViewController = [[WebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"WebViewController";
-
-	WebViewTab* wvtToFocus = nil;
-
-	for (NSURL* url in reloadURLs) {
-		WebViewTab* wvt = nil;
-		wvt = [self.webViewController addTabForReload:url];
-
-		if([[focusedTabURL absoluteString] isEqualToString:[url absoluteString]]) {
-			wvtToFocus = wvt;
-		}
-	}
-
-	if(wvtToFocus) {
-		[self.webViewController focusTab:wvtToFocus andRefresh:NO animated:NO];
-	}
+	[prevWebViewController dismissViewControllerAnimated:NO completion:nil];
 
 	[self notifyPsiphonConnectionState];
 	[self.webViewController setOpenSettingImmediatelyOnViewDidAppear:YES];
