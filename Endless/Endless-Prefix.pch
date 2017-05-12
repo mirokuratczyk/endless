@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 #define kPsiphonConnectionState @"kPsiphonConnectionState"
 #define kPsiphonAvailableRegionsNotification @"kPsiphonAvailableRegionsNotification"
 #define kPsiphonRegionBestPerformance @""
-#define kPsiphonWebTabLoadedNotification @"kPsiphonWebTabLoadedNotification"
+#define kPsiphonWebTabStartLoadNotification @"kPsiphonWebTabStartLoadNotification"
 
 #import "AppDelegate.h"
 #endif

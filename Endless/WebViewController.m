@@ -391,13 +391,26 @@
 	[self viewIsVisible];
 }
 
-/* called when we've become visible and after the overlaid tutorial has ended (possibly again, from app delegate applicationDidBecomeActive) */
+/* called when we've become visible and after the overlaid tutorial has ended */
 - (void)viewIsVisible
 {
-	// show splash if we are not testing and there is no browser tabs
-	if ([[AppDelegate sharedAppDelegate] areTesting] == NO && webViewTabs.count == 0) {
+	if ([[AppDelegate sharedAppDelegate] areTesting]) {
+		return;
+	}
+	BOOL shouldShowSplash = YES;
 
+	// show splash if there are no browser tabs
+	// that are not in a state of restoration
+	for (WebViewTab* wvt in webViewTabs) {
+		if (!wvt.isRestoring) {
+			shouldShowSplash = NO;
+			break;
+		}
+	}
+
+	if (shouldShowSplash) {
 		__weak  WebViewController *weakSelf = self;
+
 		PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
 																				 initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
 		connectionSplashViewController.delegate = self;
@@ -688,9 +701,6 @@
 			[wvt loadURL:url];
 		}
 	}
-	// Send "Tab loaded" notification
-	[[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabLoadedNotification object:nil];
-
 	return wvt;
 }
 
@@ -1167,6 +1177,24 @@
 	if ([self isSettingsRestartRequired]) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
 	}
+	// Check if settings which have changed require reload tabs
+	if ([self isTabsReloadRequired]) {
+		for (int i = 0; i < webViewTabs.count; i++) {
+			[(WebViewTab *)webViewTabs[i] refresh];
+		}
+	}
+}
+
+- (BOOL) isTabsReloadRequired {
+	if (preferencesSnapshot) {
+		// Check if "disable Javascript" has changed
+		BOOL disableJavascript = [[preferencesSnapshot objectForKey:kDisableJavascript] boolValue];
+
+		if (disableJavascript != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript]) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 - (BOOL)isSettingsRestartRequired
@@ -1396,6 +1424,13 @@
 	[psiphonConnectionIndicator displayConnectionState:state];
 	if(state != PsiphonConnectionStateConnected) {
 		[self stopLoading];
+	} else {
+		for (WebViewTab *wvt in webViewTabs) {
+			if ([wvt shouldReloadOnConnected]) {
+				[wvt refresh];
+				[wvt setShouldReloadOnConnected:NO];
+			}
+		}
 	}
 }
 

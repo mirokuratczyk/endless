@@ -369,15 +369,15 @@
 		dismissOnViewDidAppear = NO;
 
 		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(psiphonWebTabLoaded)
-													 name:kPsiphonWebTabLoadedNotification object:nil];
+												 selector:@selector(psiphonWebTabStartLoad)
+													 name:kPsiphonWebTabStartLoadNotification object:nil];
 	}
 	return self;
 }
 
 -(void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:kPsiphonWebTabLoadedNotification object:nil];
+													name:kPsiphonWebTabStartLoadNotification object:nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -387,7 +387,7 @@
 	}
 }
 
-- (void) psiphonWebTabLoaded {
+- (void) psiphonWebTabStartLoad {
 	dismissOnViewDidAppear = YES;
 }
 
