@@ -1,17 +1,11 @@
 # Info about how Transifex handles YAML can be found here: https://docs.transifex.com/formats/yaml
 
-# Regarding _*_minor_edit: This is a true/false flag indicating whether or not the last 
-# edit made to this given string is "minor". If an edit is minor, that means previous
-# translations may be used for it. Every string must have this flag. The flag can
-# appear anywhere in this file, but should be directly above or below (mostly 
-# depending on where it's most visible and least disruptive).
+# NOTE: When making a major change to a string -- one where you don't want to use old translations for it -- change the string's key. Otherwise, old translations will be used.
 
 en:
   # The name of the app, as it appears in the App Store
   app_name: Psiphon Browser
-  _app_name_minor_edit: false
 
-  _description_minor_edit: false
   # The description of the App, as it appears in the App Store
   description: |
     After helping millions of Android users get access to the sites they love, we have launched the first official Psiphon app for iOS!
@@ -28,4 +22,3 @@ en:
 
   # Keywords to help people find the app in the App Store. Must be comma-separated.
   keywords: Psiphon, browser, censorship, circumvention, VPN, proxy
-  _keywords_minor_edit: false
