@@ -379,7 +379,7 @@ static NSString *_javascriptToInject;
 	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
 	NSString *CSPheader = nil;
 
-	BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableJavascript"];
+	BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
 	if (disableJavascript) {
 		CSPheader = @"script-src 'none';";
 	}

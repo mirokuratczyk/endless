@@ -51,6 +51,7 @@
 
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	_isRestoring = NO;
+	_shouldReloadOnConnected = NO;
 	if (rid != nil) {
 		[_webView setRestorationIdentifier:rid];
 		[self setIsRestoring:YES];
@@ -319,13 +320,12 @@
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
 		if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
-			// TODO: show connection status on the page
-
-			/*
-			 NSString *js = [NSString stringWithFormat:@"alert(\"%@\");",
-			 NSLocalizedString(@"Psiphon is not connected!", @"Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected.")];
-			 [[self webView] stringByEvaluatingJavaScriptFromString:js];
-			 */
+			if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
+				// mark this tab for reload when
+				// we get connected
+				// TODO: show NO CONNECTION status on the page
+				[self setShouldReloadOnConnected:YES];
+			}
 			return NO;
 		}
 		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
@@ -414,7 +414,7 @@
 		[self webView:__webView callbackWith:@""];
 	}
 	else if ([action isEqualToString:@"noscript"]) {
-		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableJavascript"];
+		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
 		NSString* callBack;
 		if (disableJavascript) {
 			callBack = @"__endless.removeNoscript();";
@@ -435,6 +435,9 @@
 
 	if (self.url == nil)
 		self.url = [[__webView request] URL];
+
+	// Send "Tab start load" notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabStartLoadNotification object:nil];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)__webView

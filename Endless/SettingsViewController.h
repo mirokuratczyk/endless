@@ -37,6 +37,9 @@
 #define kUpstreamProxyHostAddress	@"upstreamProxyHostAddress"
 #define kUpstreamProxyPort			@"upstreamProxyPort"
 
+// disable Javascript settings key in Privacy.plist
+#define kDisableJavascript			@"disableJavascript"
+
 // These strings correspond to the option's value in MinTLSSettings.plist
 #define kMinTlsVersionTLS_1_2 @"TLS_1_2"
 #define kMinTlsVersionTLS_1_1 @"TLS_1_1"

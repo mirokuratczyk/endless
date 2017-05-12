@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 @property (strong, atomic) UIRefreshControl *refresher;
 @property (strong, atomic) NSURL *url;
 @property BOOL isRestoring;
+@property BOOL shouldReloadOnConnected;
 @property (strong, atomic) NSNumber *tabIndex;
 @property (strong, atomic) UIView *titleHolder;
 @property (strong, atomic) UILabel *title;
