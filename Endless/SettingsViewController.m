@@ -404,6 +404,7 @@ BOOL linksEnabled;
 	} else if  ([fieldName isEqual:appLanguage]) {
 		[[NSNotificationCenter defaultCenter] removeObserver:self];
 		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+		[self.webViewController settingsViewControllerDidEnd];
 		[appDelegate reloadAndOpenSettings];
 	}
 }
