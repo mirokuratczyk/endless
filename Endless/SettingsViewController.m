@@ -176,9 +176,6 @@ BOOL linksEnabled;
 		[cell.contentView addSubview:flagImage];
 		[cell.contentView addSubview:flagLabel];
 
-		cell.userInteractionEnabled = linksEnabled;
-		cell.textLabel.enabled = linksEnabled;
-
 		flagCell = cell;
 	}
 
