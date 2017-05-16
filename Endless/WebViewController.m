@@ -1849,16 +1849,19 @@
 																		   initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
 	connectionAlertViewController.delegate = self;
 
+	__weak  WebViewController *weakSelf = self;
+	__weak  PsiphonConnectionAlertViewController *weakConnectionAlertViewController = connectionAlertViewController;
+
 	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
 																	  style:UIAlertActionStyleDefault
 																	handler:^(NYAlertAction *action) {
-																		[self openSettingsMenu:nil];
+																		[weakSelf openSettingsMenu:nil];
 																	}]];
 
 	[connectionAlertViewController addAction:[NYAlertAction actionWithTitle:NSLocalizedString(@"Done", nil)
 																	  style:UIAlertActionStyleDefault
 																	handler:^(NYAlertAction *action) {
-																		[connectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+																		[weakConnectionAlertViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 																	}]];
 
 	[self  presentViewController:connectionAlertViewController animated:NO
