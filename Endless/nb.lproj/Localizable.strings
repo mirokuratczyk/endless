@@ -22,12 +22,18 @@
 /* Authentication Required alert title */
 "Authentication Required" = "Identitetsbekreftelse kreves";
 
+/* Field name for display in list */
+"Begins On" = "Begynner den";
+
 /* No comment provided by engineer. */
 "Best Performance" = "Best ytelse";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Bokmerker";
+
+/* Field name for display in list */
+"Business Category" = "Firmakategori";
 
 /* No comment provided by engineer. */
 "Canada" = "Kanada";
@@ -38,8 +44,17 @@
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Avbryt";
 
+/* Field name for display in list */
+"Certificate Information" = "Sertifikatsinformasjon";
+
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "Endre innstillinger";
+
+/* Field name for display in list */
+"Cipher" = "Krypteringsmetode";
+
+/* Field name for display in list */
+"Common Name (CN)" = "Vanlig navn (CN)";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Bekreft";
@@ -50,14 +65,17 @@
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "Connecting..." = "Kobler til…";
 
+/* Field name for display in list */
+"Connection Information" = "Tilkoblingsinformasjon";
+
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Informasjonskapsler og lokal lagring";
 
 /* Action title for long press on link dialog */
 "Copy URL" = "Kopier nettadresse";
 
-/* No comment provided by engineer. */
-"Default Settings" = "Forvalgte innstillinger";
+/* Field name for display in list */
+"Country (C)" = "Land (C)";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Frakoblet!";
@@ -80,6 +98,12 @@
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
 "Error" = "Feil";
+
+/* Field name for display in list */
+"Expires After" = "Utløper etter";
+
+/* Field name for display in list */
+"Extended Validation: Organization" = "Forlenget gyldighet: Organisasjon";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Ofte Stilte Spørsmål";
@@ -117,6 +141,12 @@
 /* No comment provided by engineer. */
 "India" = "India";
 
+/* Field name for display in list */
+"Issued By" = "Utstedt av";
+
+/* Field name for display in list */
+"Issued To" = "Utstedt til";
+
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
@@ -125,6 +155,9 @@
 
 /* No comment provided by engineer. */
 "LET'S GO!" = "KOM IGJEN.";
+
+/* Field name for display in list */
+"Locality (L)" = "Lokasjon (L)";
 
 /* No comment provided by engineer. */
 "Log In" = "Logg inn";
@@ -144,6 +177,9 @@
 /* New browser tab title text */
 "New Tab" = "Ny fane";
 
+/* Field name for display in list */
+"Object Identifier" = "Objektidentifikator";
+
 /* InAppSettingsKit
    OK action
    OK action button */
@@ -158,6 +194,12 @@
 /* Action title for long press on link dialog */
 "Open in Safari" = "Åpne i Safari";
 
+/* Field name for display in list */
+"Organization (O)" = "Organisasjon (O)";
+
+/* Field name for display in list */
+"Organizational Unit Number (OU)" = "Organisasjonsenhetsnummer (OU)";
+
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
 "Page Name (leave blank to use URL)" = "Sidenavn (la stå tomt for å bruke nettadresse)";
@@ -165,11 +207,20 @@
 /* Password */
 "Password" = "Passord";
 
+/* Field name for display in list */
+"Period of Validity" = "Gyldighetsperiode";
+
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Merk at denne diagnostikk-dataen ikke identifiserer deg, og det hjelper Psiphon med å kjøre uten hakking.";
 
+/* Field name for display in list */
+"Postal Code" = "Postkode";
+
 /* Privacy Policy link text */
 "Privacy Policy" = "Personverns-praksis";
+
+/* Field name for display in list */
+"Protocol" = "Protokoll";
 
 /* No comment provided by engineer. */
 "PSIPHON" = "PSIPHON";
@@ -179,9 +230,6 @@
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon kobler til\nog fungerer\nslik jeg ønsker.";
-
-/* Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected. */
-"Psiphon is not connected!" = "Psiphon er ikke tilkoblet!";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon klarer ofte ikke\nå koble til\neller fungerer ikke bra\nnok.";
@@ -201,11 +249,20 @@
 /* Text of button to send feedback */
 "Send" = "Send";
 
+/* Field name for display in list */
+"Serial Number" = "Serienummer";
+
+/* Field name for display in list */
+"Serial Number (SN)" = "Serienummer (SN)";
+
 /* Title that is showing above selected server region */
 "Server region:" = "Tjenerregion:";
 
 /* No comment provided by engineer. */
 "Settings" = "Innstillinger";
+
+/* Field name for display in list */
+"Signature Algorithm" = "Signaturalgoritme";
 
 /* No comment provided by engineer. */
 "Singapore" = "Singapore";
@@ -219,8 +276,14 @@
 /* No comment provided by engineer. */
 "Spain" = "Spania";
 
+/* Field name for display in list */
+"State/Province (ST)" = "Fylke/provins (ST)";
+
 /* No comment provided by engineer. */
 "Status Indicator" = "Statusindikator";
+
+/* Field name for display in list */
+"Street Address" = "Gateadresse";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "Den grønne avhukningen indikerer at alt virker i sin skjønneste orden!";
@@ -253,6 +316,9 @@
    Add bookmark URL field */
 "URL" = "Nettadresse";
 
+/* Field name for display in list */
+"Version" = "Versjon";
+
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "Venter på nettverk…";
 
@@ -270,4 +336,7 @@
 
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "Dine tilbakemeldinger gjør Psiphon bedre.";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "dd-MM-yyyy 'klokka' HH:mm:ss zzz";
 

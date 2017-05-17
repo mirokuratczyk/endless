@@ -22,12 +22,18 @@
 /* Authentication Required alert title */
 "Authentication Required" = "Zahtjevana autentikacija";
 
+/* Field name for display in list */
+"Begins On" = "Begins On";
+
 /* No comment provided by engineer. */
 "Best Performance" = "Najbolje performanse";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Oznake";
+
+/* Field name for display in list */
+"Business Category" = "Business Category";
 
 /* No comment provided by engineer. */
 "Canada" = "Kanada";
@@ -38,8 +44,17 @@
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Otkaži";
 
+/* Field name for display in list */
+"Certificate Information" = "Certificate Information";
+
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "Promjeni postavke";
+
+/* Field name for display in list */
+"Cipher" = "Cipher";
+
+/* Field name for display in list */
+"Common Name (CN)" = "Common Name (CN)";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Potvrdi";
@@ -50,14 +65,17 @@
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "Connecting..." = "Connecting...";
 
+/* Field name for display in list */
+"Connection Information" = "Connection Information";
+
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Kolačići i lokalna pohrana";
 
 /* Action title for long press on link dialog */
 "Copy URL" = "Kopiraj URL";
 
-/* No comment provided by engineer. */
-"Default Settings" = "Zadane postavke";
+/* Field name for display in list */
+"Country (C)" = "Country (C)";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Disconnected!";
@@ -80,6 +98,12 @@
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
 "Error" = "Pogreška";
+
+/* Field name for display in list */
+"Expires After" = "Expires After";
+
+/* Field name for display in list */
+"Extended Validation: Organization" = "Extended Validation: Organization";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Često postavljena pitanja";
@@ -117,6 +141,12 @@
 /* No comment provided by engineer. */
 "India" = "Indija";
 
+/* Field name for display in list */
+"Issued By" = "Issued By";
+
+/* Field name for display in list */
+"Issued To" = "Issued To";
+
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
@@ -125,6 +155,9 @@
 
 /* No comment provided by engineer. */
 "LET'S GO!" = "IDEMO!";
+
+/* Field name for display in list */
+"Locality (L)" = "Locality (L)";
 
 /* No comment provided by engineer. */
 "Log In" = "Prijava";
@@ -144,6 +177,9 @@
 /* New browser tab title text */
 "New Tab" = "Nova kartica";
 
+/* Field name for display in list */
+"Object Identifier" = "Object Identifier";
+
 /* InAppSettingsKit
    OK action
    OK action button */
@@ -158,6 +194,12 @@
 /* Action title for long press on link dialog */
 "Open in Safari" = "Otvori u Safariju";
 
+/* Field name for display in list */
+"Organization (O)" = "Organization (O)";
+
+/* Field name for display in list */
+"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
 "Page Name (leave blank to use URL)" = "Ime stranice (ostavite prazno kako bi koristili URL)";
@@ -165,11 +207,20 @@
 /* Password */
 "Password" = "Lozinka";
 
+/* Field name for display in list */
+"Period of Validity" = "Period of Validity";
+
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Imajte na umu da Vas ovaj dijagnostički alat ne identificira, a nama pomaže da Psiphon nastavi raditi glatko.";
 
+/* Field name for display in list */
+"Postal Code" = "Postal Code";
+
 /* Privacy Policy link text */
 "Privacy Policy" = "Izjava o privatnosti";
+
+/* Field name for display in list */
+"Protocol" = "Protocol";
 
 /* No comment provided by engineer. */
 "PSIPHON" = "PSIPHON";
@@ -179,9 +230,6 @@
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon se spaja\ni radi onako\nkako to želim.";
-
-/* Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected. */
-"Psiphon is not connected!" = "Psiphon is not connected!";
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon se često\nne uspije spojiti ili\nne radi dovoljno\ndobro.";
@@ -201,11 +249,20 @@
 /* Text of button to send feedback */
 "Send" = "Pošalji";
 
+/* Field name for display in list */
+"Serial Number" = "Serial Number";
+
+/* Field name for display in list */
+"Serial Number (SN)" = "Serial Number (SN)";
+
 /* Title that is showing above selected server region */
 "Server region:" = "Server region:";
 
 /* No comment provided by engineer. */
 "Settings" = "Postavke";
+
+/* Field name for display in list */
+"Signature Algorithm" = "Signature Algorithm";
 
 /* No comment provided by engineer. */
 "Singapore" = "Singapur";
@@ -219,8 +276,14 @@
 /* No comment provided by engineer. */
 "Spain" = "Španjolska";
 
+/* Field name for display in list */
+"State/Province (ST)" = "State/Province (ST)";
+
 /* No comment provided by engineer. */
 "Status Indicator" = "Indikator statusa";
+
+/* Field name for display in list */
+"Street Address" = "Street Address";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "Zelena kvačica označava da sve radi kako treba i da ste spremni!";
@@ -253,6 +316,9 @@
    Add bookmark URL field */
 "URL" = "URL";
 
+/* Field name for display in list */
+"Version" = "Version";
+
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "Waiting for network...";
 
@@ -270,4 +336,7 @@
 
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "Vaše povratne informacije čine Psiphon boljim!";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
 
