@@ -1,3 +1,16 @@
+# Psiphon stuff to be filed later
+
+### Adding a new language
+
+When `transifex_pull.py` finds a new language that has crossed the desired threshold, it'll pull the corresponding `.strings` files. But those files won't have an effect in the app without two modifications:
+
+1. **Add the language to the Xcode project.** In the *Project* settings, *Info* tab. Click `+` and select the desired language (if it's not in the list, then it can't be added here -- skip to step 2). Allow it to create the English files (you'll need to re-pull the translations, as they'll get clobbered). Note that the directory Xcode creates is the one that must be used -- if it doens't match the directory created by `transifex_pull`, then the pull script will need to be modified to map to the correct language code.
+
+2. **Add the language to our in-app language selector.** In `Root.inApp.plist`, add the new language code and the name of the language as it's written in that language. If the language is not one of our top 3 or 4, it should be added in alphabetical order, based on the language code.
+
+Do some testing. Commit.
+
+
 ###Endless
 
 A (Mobile)Safari-like web browser for iOS (wrapping around UIWebView, of
