@@ -21,20 +21,24 @@
 #import "IASKAppSettingsViewController.h"
 
 //app language key
-#define appLanguage              @"appLanguage"
+#define appLanguage	@"appLanguage"
 
 // Globally used specifier keys
-#define kRegionSelectionSpecifierKey @"regionSelection"
+#define kRegionSelectionSpecifierKey	@"regionSelection"
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
-#define kDisableTimeouts          @"disableTimeouts"
-#define kMinTlsVersion            @"minTlsVersion"
-#define kUseUpstreamProxy         @"useUpstreamProxy"
-#define kUseProxyAuthentication   @"useProxyAuthentication"
-#define kProxyUsername            @"proxyUsername"
-#define kProxyPassword            @"proxyPassword"
-#define kProxyDomain              @"proxyDomain"
-#define kUpstreamProxyHostAddress @"upstreamProxyHostAddress"
-#define kUpstreamProxyPort        @"upstreamProxyPort"
+#define kClearWebsiteData			@"clearWebsiteData"
+#define kDisableTimeouts			@"disableTimeouts"
+#define kMinTlsVersion				@"minTlsVersion"
+#define kUseUpstreamProxy			@"useUpstreamProxy"
+#define kUseProxyAuthentication		@"useProxyAuthentication"
+#define kProxyUsername				@"proxyUsername"
+#define kProxyPassword				@"proxyPassword"
+#define kProxyDomain				@"proxyDomain"
+#define kUpstreamProxyHostAddress	@"upstreamProxyHostAddress"
+#define kUpstreamProxyPort			@"upstreamProxyPort"
+
+// disable Javascript settings key in Privacy.plist
+#define kDisableJavascript			@"disableJavascript"
 
 // These strings correspond to the option's value in MinTLSSettings.plist
 #define kMinTlsVersionTLS_1_2 @"TLS_1_2"
@@ -46,8 +50,8 @@
 - (void)settingsViewControllerDidEnd;
 @end
 
-@interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate>
+@interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate, UIAlertViewDelegate>
 
-@property (assign) id <SettingsViewControllerDelegate> webViewController;
+@property (nonatomic, weak) id <SettingsViewControllerDelegate> webViewController;
 
 @end

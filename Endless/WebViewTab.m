@@ -1,9 +1,26 @@
 /*
+ * Copyright (c) 2017, Psiphon Inc.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  * Endless
  * Copyright (c) 2014-2015 joshua stein <jcs@jcs.org>
  *
  * See LICENSE file for redistribution terms.
  */
+
 
 #import <Photos/Photos.h>
 #import "PsiphonData.h"
@@ -14,7 +31,9 @@
 
 @import WebKit;
 
-@implementation WebViewTab
+@implementation WebViewTab {
+	NSMutableArray *equivalentURLS;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,44 +43,45 @@
 - (id)initWithFrame:(CGRect)frame withRestorationIdentifier:(NSString *)rid
 {
 	self = [super init];
-	
+
 	_viewHolder = [[UIView alloc] initWithFrame:frame];
-	
+
 	/* re-register user agent with our hash, which should only affect this UIWebView */
 	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [[AppDelegate sharedAppDelegate] defaultUserAgent], self.hash] }];
-	
+
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-	_needsRefresh = FALSE;
+	_isRestoring = NO;
+	_shouldReloadOnConnected = NO;
 	if (rid != nil) {
 		[_webView setRestorationIdentifier:rid];
-		_needsRefresh = TRUE;
+		[self setIsRestoring:YES];
 	}
 	[_webView setDelegate:self];
 	[_webView setScalesPageToFit:YES];
 	[_webView setAutoresizesSubviews:YES];
 	[_webView setAllowsInlineMediaPlayback:YES];
-	
+
 	[_webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	[_webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-	
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webKitprogressEstimateChanged:) name:@"WebProgressEstimateChangedNotification" object:[_webView valueForKeyPath:@"documentView.webView"]];
-	
+
 	/* swiping goes back and forward in current webview */
 	UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightAction:)];
 	[swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
 	[swipeRight setDelegate:self];
 	[self.webView addGestureRecognizer:swipeRight];
- 
+
 	UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftAction:)];
 	[swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
 	[swipeLeft setDelegate:self];
 	[self.webView addGestureRecognizer:swipeLeft];
-	
+
 	self.refresher = [[UIRefreshControl alloc] init];
 	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Pull to Refresh Page", @"UI hint that the webpage can be refreshed by pulling(swiping) down")]];
 	[self.refresher addTarget:self action:@selector(forceRefreshFromRefresher) forControlEvents:UIControlEventValueChanged];
 	[self.webView.scrollView addSubview:self.refresher];
-	
+
 	_titleHolder = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[_titleHolder setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.75]];
 
@@ -71,7 +91,7 @@
 	[_title setLineBreakMode:NSLineBreakByTruncatingTail];
 	[_title setTextAlignment:NSTextAlignmentCenter];
 	[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
-	
+
 	_closer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[_closer setTextColor:[UIColor whiteColor]];
 	[_closer setFont:[UIFont systemFontOfSize:24.0]];
@@ -81,22 +101,22 @@
 	[_viewHolder addSubview:_title];
 	[_viewHolder addSubview:_closer];
 	[_viewHolder addSubview:_webView];
-	
+
 	/* setup shadow that will be shown when zooming out */
 	[[_viewHolder layer] setMasksToBounds:NO];
 	[[_viewHolder layer] setShadowOffset:CGSizeMake(0, 0)];
 	[[_viewHolder layer] setShadowRadius:8];
 	[[_viewHolder layer] setShadowOpacity:0];
-	
+
 	_progress = @0.0;
-	
+
 	[self updateFrame:frame];
 
 	[self zoomNormal];
-	
+
 	[self setSecureMode:WebViewTabSecureModeInsecure];
 	[self setApplicableHTTPSEverywhereRules:[[NSMutableDictionary alloc] initWithCapacity:6]];
-	
+
 	UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressMenu:)];
 	[lpgr setDelegate:self];
 	[_webView addGestureRecognizer:lpgr];
@@ -111,14 +131,17 @@
 			}
 		}
 	}
-	
+
 	/* this doubles as a way to force the webview to initialize itself, otherwise the UA doesn't seem to set right before refreshing a previous restoration state */
 	NSString *ua = [_webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
 	NSArray *uap = [ua componentsSeparatedByString:@"/"];
 	NSString *wvthash = uap[uap.count - 1];
 	if (![[NSString stringWithFormat:@"%lu", [self hash]] isEqualToString:wvthash])
 		abort();
-	
+
+	if(!equivalentURLS) {
+		equivalentURLS = [NSMutableArray new];
+	}
 	return self;
 }
 
@@ -126,7 +149,7 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
 	if (![gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
 		return NO;
-	
+
 	if ([gestureRecognizer state] != UIGestureRecognizerStateBegan)
 		return YES;
 
@@ -135,31 +158,33 @@
 	NSArray *elements = [self elementsAtLocationFromGestureRecognizer:gestureRecognizer];
 	for (NSDictionary *element in elements) {
 		NSString *k = [element allKeys][0];
-		
+
 		if ([k isEqualToString:@"a"] || [k isEqualToString:@"img"]) {
 			haveLinkOrImage = YES;
 			break;
 		}
 	}
-	
+
 	if (haveLinkOrImage) {
 		/* this is enough to cancel the touch when the long press gesture fires, so that the link being held down doesn't activate as a click once the finger is let up */
 		if ([otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
 			otherGestureRecognizer.enabled = NO;
 			otherGestureRecognizer.enabled = YES;
 		}
-		
+
 		return YES;
 	}
-	
+
 	return NO;
 }
 
 - (void)close
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"WebProgressEstimateChangedNotification" object:[_webView valueForKeyPath:@"documentView.webView"]];
+	// Make sure delegate will not try to call back when webview is already gone;
+	[_webView setDelegate:nil];
 	[_webView stopLoading];
-	
+
 	for (id gr in [_webView gestureRecognizers])
 		[_webView removeGestureRecognizer:gr];
 
@@ -180,11 +205,10 @@
 	[self.title setFrame:CGRectMake(22, -22, frame.size.width - 22 - 22, 18)];
 }
 
-- (void)prepareForNewURL:(NSURL *)URL
+- (void)reset
 {
 	[[self applicableHTTPSEverywhereRules] removeAllObjects];
 	[self setSSLCertificate:nil];
-	[self setUrl:URL];
 }
 
 - (void)loadURL:(NSURL *)u
@@ -192,11 +216,27 @@
 	[self loadURL:u withForce:NO];
 }
 
+- (void) clearEquivalentURLs {
+	[equivalentURLS removeAllObjects];
+}
+
+- (void) addEquivalentURL: (NSString*) url {
+	// limit size of equivalentURLS to MAX_EQUIVALENT_URLS
+	// we don't want this to blow up in a case of a redirect loop
+	if([equivalentURLS count] <= MAX_EQUIVALENT_URLS) {
+		[equivalentURLS addObject: url];
+		return;
+	}
+#ifdef TRACE
+	NSLog(@"[WebViewTab] equivalentURLS array size is >= 5");
+#endif
+}
+
 - (void)loadURL:(NSURL *)u withForce:(BOOL)force
 {
 	[self.webView stopLoading];
-	[self prepareForNewURL:u];
-	
+	[self reset];
+
 	NSMutableURLRequest *ur = [NSMutableURLRequest requestWithURL:u];
 	if (force)
 		[ur setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
@@ -208,23 +248,24 @@
 {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *se = [[[AppDelegate sharedAppDelegate] searchEngines] objectForKey:[userDefaults stringForKey:@"search_engine"]];
-	
+
 	if (se == nil)
-		/* just pick the first search engine */
+	/* just pick the first search engine */
 		se = [[[AppDelegate sharedAppDelegate] searchEngines] objectForKey:[[[[AppDelegate sharedAppDelegate] searchEngines] allKeys] firstObject]];
-	
+
 	NSDictionary *pp = [se objectForKey:@"post_params"];
 	NSString *urls;
 	if (pp == nil)
 		urls = [[NSString stringWithFormat:[se objectForKey:@"search_url"], query] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	else
 		urls = [se objectForKey:@"search_url"];
-	
+
 	NSURL *url = [NSURL URLWithString:urls];
 	if (pp == nil) {
 #ifdef TRACE
 		NSLog(@"[Tab %@] searching via %@", self.tabIndex, url);
 #endif
+		[self setUrl:url];
 		[self loadURL:url];
 	}
 	else {
@@ -233,19 +274,21 @@
 		for (NSString *key in [pp allKeys]) {
 			if (![params isEqualToString:@""])
 				[params appendString:@"&"];
-			
+
 			[params appendString:[key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 			[params appendString:@"="];
-			
+
 			NSString *val = [pp objectForKey:key];
 			if ([val isEqualToString:@"%@"])
 				val = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			[params appendString:val];
 		}
-		
+
 		[self.webView stopLoading];
-		[self prepareForNewURL:url];
-		
+		[self reset];
+		[self setUrl:url];
+
+
 #ifdef TRACE
 		NSLog(@"[Tab %@] searching via POST to %@ (with params %@)", self.tabIndex, url, params);
 #endif
@@ -261,7 +304,7 @@
 - (BOOL)webView:(UIWebView *)__webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
 	NSURL *url = [request URL];
-	
+
 	// `endlesshttps?://` links are used (mostly or always?) when launching the app with a URL.
 	/* treat endlesshttps?:// links clicked inside of web pages as normal links */
 	if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttp"]) {
@@ -276,35 +319,40 @@
 	}
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
-        if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
-            // TODO: show connection status on the page
-            
-            /*
-            NSString *js = [NSString stringWithFormat:@"alert(\"%@\");",
-                            NSLocalizedString(@"Psiphon is not connected!", @"Alert message that pops up when user is trying to navigate on the current webpage while Psiphon is not connected.")];
-            [[self webView] stringByEvaluatingJavaScriptFromString:js];
-             */
-            return NO;
-        }
-		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]])
-			[self prepareForNewURL:[request mainDocumentURL]];
+		if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
+			if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
+				// mark this tab for reload when
+				// we get connected
+				// TODO: show NO CONNECTION status on the page
+				[self setShouldReloadOnConnected:YES];
+			}
+			return NO;
+		}
+		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
+			[self reset];
+
+			// Ignore links clicked, forms submitted, reloads, etc.
+			if(navigationType == UIWebViewNavigationTypeOther) {
+				[self addEquivalentURL:[[request mainDocumentURL] absoluteString]];
+			}
+		}
 
 		return YES;
 	}
-	
+
 	// At this point we know we're handling an `endlessipc://` URL. Like:
 	/* endlessipc://window.open/?http... */
-	
+
 	NSString *action = [url host];
-	
+
 	NSString *param, *param2;
 	if ([[[request URL] pathComponents] count] >= 2)
 		param = [url pathComponents][1];
 	if ([[[request URL] pathComponents] count] >= 3)
 		param2 = [url pathComponents][2];
-	
+
 	NSString *value = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	
+
 	if ([action isEqualToString:@"console.log"]) {
 #ifdef TRACE
 		NSString *json = [[[url query] stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -313,48 +361,69 @@
 		/* no callback needed */
 		return NO;
 	}
-	
+
 #ifdef TRACE
 	NSLog(@"[Javascript IPC]: [%@] [%@] [%@] [%@]", action, param, param2, value);
 #endif
-	
-	if ([action isEqualToString:@"noop"]) {
+
+	if ([action isEqualToString:@"pagefinal"]) {
+		// a page is finally loaded in the tab,
+		// message the delegate and pass the array of
+		// all equivalent URLs for this page
+		if (_finalPageObserverDelegate && [_finalPageObserverDelegate respondsToSelector:@selector(seenFinalPage:)]) {
+			[_finalPageObserverDelegate seenFinalPage: equivalentURLS];
+			// signal the observer only once per new home page tab
+			_finalPageObserverDelegate = nil;
+		}
+		[self clearEquivalentURLs];
+	}
+	else if ([action isEqualToString:@"noop"]) {
 		// In the webview, execute a JS callback that indicates that IPC is done (with no other action).
 		[self webView:__webView callbackWith:@""];
 	}
 	else if ([action isEqualToString:@"window.open"]) {
 		/* only allow windows to be opened from mouse/touch events, like a normal browser's popup blocker */
 		if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-            NSURL *newURL = [NSURL URLWithString:value];
+			NSURL *newURL = [NSURL URLWithString:value];
 			WebViewTab *newtab = [[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:newURL];
-            newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
-            
-            [self webView:__webView callbackWith:@""];
+			newtab.openedByTabHash = [NSNumber numberWithLong:self.hash];
+
+			[self webView:__webView callbackWith:@""];
 		}
 		else {
 			/* TODO: show a "popup blocked" warning? */
 			NSLog(@"[Tab %@] blocked non-touch window.open() (nav type %ld)", self.tabIndex, (long)navigationType);
-            
-            [self webView:__webView callbackWith:@""];
+
+			[self webView:__webView callbackWith:@""];
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
 		// Close the current tab.
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
-		
+
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 			[[[AppDelegate sharedAppDelegate] webViewController] removeTab:[self tabIndex]];
 		}];
-		
+
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
 		[alertController addAction:cancelAction];
 		[alertController addAction:okAction];
-		
+
 		[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
-		
+
 		[self webView:__webView callbackWith:@""];
 	}
-	
+	else if ([action isEqualToString:@"noscript"]) {
+		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
+		NSString* callBack;
+		if (disableJavascript) {
+			callBack = @"__endless.removeNoscript();";
+		} else {
+			callBack = @"";
+		}
+		[self webView:__webView callbackWith:callBack];
+	}
+
 	return NO;
 }
 
@@ -363,9 +432,12 @@
 	/* reset and then let WebViewController animate to our actual progress */
 	[self setProgress:@0.0];
 	[self setProgress:@0.1];
-	
+
 	if (self.url == nil)
 		self.url = [[__webView request] URL];
+
+	// Send "Tab start load" notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:kPsiphonWebTabStartLoadNotification object:nil];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)__webView
@@ -374,16 +446,16 @@
 	NSLog(@"[Tab %@] finished loading page/iframe %@, security level is %lu", self.tabIndex, [[[__webView request] URL] absoluteString], self.secureMode);
 #endif
 	[self setProgress:@1.0];
-	
+
 	NSString *docTitle = [__webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	NSString *finalURL = [__webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
-	
+
 	/* if we have javascript blocked, these will be empty */
 	if (finalURL == nil || [finalURL isEqualToString:@""])
 		finalURL = [[[__webView request] mainDocumentURL] absoluteString];
 	if (docTitle == nil || [docTitle isEqualToString:@""])
 		docTitle = finalURL;
-	
+
 	[self.title setText:docTitle];
 	self.url = [NSURL URLWithString:finalURL];
 }
@@ -392,35 +464,35 @@
 {
 	self.url = self.webView.request.URL;
 	[self setProgress:@0];
-	
+
 	if ([[error domain] isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled)
 		return;
-	
+
 	/* "The operation couldn't be completed. (Cocoa error 3072.)" - useless */
 	if ([[error domain] isEqualToString:NSCocoaErrorDomain] && error.code == NSUserCancelledError)
 		return;
 
 	NSString *msg = [error localizedDescription];
-	
+
 	/* https://opensource.apple.com/source/libsecurity_ssl/libsecurity_ssl-36800/lib/SecureTransport.h */
 	if ([[error domain] isEqualToString:NSOSStatusErrorDomain]) {
 		switch (error.code) {
-		case errSSLProtocol: /* -9800 */
-			msg = @"SSL protocol error";
-			break;
-		case errSSLNegotiation: /* -9801 */
-			msg = @"SSL handshake failed";
-			break;
-		case errSSLXCertChainInvalid: /* -9807 */
-			msg = @"SSL certificate chain verification error (self-signed certificate?)";
-			break;
+			case errSSLProtocol: /* -9800 */
+				msg = @"SSL protocol error";
+				break;
+			case errSSLNegotiation: /* -9801 */
+				msg = @"SSL handshake failed";
+				break;
+			case errSSLXCertChainInvalid: /* -9807 */
+				msg = @"SSL certificate chain verification error (self-signed certificate?)";
+				break;
 		}
 	}
 
 	NSString *u;
 	if ((u = [[error userInfo] objectForKey:@"NSErrorFailingURLStringKey"]) != nil)
 		msg = [NSString stringWithFormat:@"%@\n\n%@", msg, u];
-	
+
 	if ([error userInfo] != nil) {
 		NSNumber *ok = [[error userInfo] objectForKey:ORIGIN_KEY];
 		if (ok != nil && [ok boolValue] == NO) {
@@ -438,7 +510,7 @@
 
 	UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Alert dialog title when webpage has failed to load") message:msg delegate:self cancelButtonTitle: NSLocalizedString(@"OK", "OK action") otherButtonTitles:nil];
 	[m show];
-	
+
 	[self webViewDidFinishLoad:__webView];
 }
 
@@ -449,14 +521,14 @@
 #ifdef TRACE_IPC
 	NSLog(@"[Javascript IPC]: calling back with: %@", finalcb);
 #endif
-	
+
 	[__webView stringByEvaluatingJavaScriptFromString:finalcb];
 }
 
 - (void)setSSLCertificate:(SSLCertificate *)SSLCertificate
 {
 	_SSLCertificate = SSLCertificate;
-	
+
 	if (_SSLCertificate == nil) {
 #ifdef TRACE
 		NSLog(@"[Tab %@] setting securemode to insecure", self.tabIndex);
@@ -501,29 +573,29 @@
 - (void)longPressMenu:(UILongPressGestureRecognizer *)sender {
 	UIAlertController *alertController;
 	NSString *href, *img, *alt;
-	
+
 	if (sender.state != UIGestureRecognizerStateBegan)
 		return;
-	
+
 #ifdef TRACE
 	NSLog(@"[Tab %@] long-press gesture recognized", self.tabIndex);
 #endif
-	
+
 	NSArray *elements = [self elementsAtLocationFromGestureRecognizer:sender];
 	for (NSDictionary *element in elements) {
 		NSString *k = [element allKeys][0];
 		NSDictionary *attrs = [element objectForKey:k];
-		
+
 		if ([k isEqualToString:@"a"]) {
 			href = [attrs objectForKey:@"href"];
-			
+
 			/* only use if image alt is blank */
 			if (!alt || [alt isEqualToString:@""])
 				alt = [attrs objectForKey:@"title"];
 		}
 		else if ([k isEqualToString:@"img"]) {
 			img = [attrs objectForKey:@"src"];
-			
+
 			NSString *t = [attrs objectForKey:@"title"];
 			if (t && ![t isEqualToString:@""])
 				alt = t;
@@ -531,27 +603,27 @@
 				alt = [attrs objectForKey:@"alt"];
 		}
 	}
-	
+
 #ifdef TRACE
 	NSLog(@"[Tab %@] context menu href:%@, img:%@, alt:%@", self.tabIndex, href, img, alt);
 #endif
-	
+
 	if (!(href || img)) {
 		sender.enabled = false;
 		sender.enabled = true;
 		return;
 	}
-	
+
 	alertController = [UIAlertController alertControllerWithTitle:href message:alt preferredStyle:UIAlertControllerStyleActionSheet];
-	
+
 	UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[self loadURL:[NSURL URLWithString:href]];
 	}];
-	
+
 	UIAlertAction *openNewTabAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in a New Tab", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[[AppDelegate sharedAppDelegate] webViewController] addNewTabForURL:[NSURL URLWithString:href]];
 	}];
-	
+
 	UIAlertAction *openSafariAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:href]];
 	}];
@@ -571,25 +643,25 @@
 			[m show];
 		}
 	}];
-	
+
 	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Copy URL", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[[UIPasteboard generalPasteboard] setString:(href ? href : img)];
 	}];
-	
+
 	if (href) {
 		[alertController addAction:openAction];
 		[alertController addAction:openNewTabAction];
 		[alertController addAction:openSafariAction];
 	}
-	
+
 	if (img)
 		[alertController addAction:saveImageAction];
-	
+
 	[alertController addAction:copyURLAction];
-	
+
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
 	[alertController addAction:cancelAction];
-	
+
 	UIPopoverPresentationController *popover = [alertController popoverPresentationController];
 	if (popover) {
 		popover.sourceView = [sender view];
@@ -598,56 +670,56 @@
 		popover.sourceRect = CGRectMake(loc.x + 35, loc.y, 1, 1);
 		popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
 	}
-	
+
 	[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    // Fail silently to the user
-    Throwable *t = [[Throwable alloc] init:[NSString stringWithFormat:@"%@", error] withStackTrace:[NSThread callStackSymbols]];
-    StatusEntry *s = [[StatusEntry alloc] init:@"Failed to download image." formatArgs:nil throwable:t sensitivity:SensitivityLevelNotSensitive priority:PriorityError];
-    [[PsiphonData sharedInstance] addStatusEntry:s];
+	// Fail silently to the user
+	Throwable *t = [[Throwable alloc] init:[NSString stringWithFormat:@"%@", error] withStackTrace:[NSThread callStackSymbols]];
+	StatusEntry *s = [[StatusEntry alloc] init:@"Failed to download image." formatArgs:nil throwable:t sensitivity:SensitivityLevelNotSensitive priority:PriorityError];
+	[[PsiphonData sharedInstance] addStatusEntry:s];
 }
 
 - (void) requestAuthorizationWithRedirectionToSettings {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-        if (status == PHAuthorizationStatusAuthorized) {
-            // Photo library permission has been granted
-        }
-        else {
-            // Photo library permission not granted
-            // Try to request it normally
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                if (status != PHAuthorizationStatusAuthorized)
-                {
-                    // User doesn't grant permission.
-                    // Show alert where user can choose to redirect
-                    // to the settings menu and grant access or cancel.
-                    //
-                    // The suspended app will be termianted if the user
-                    // changes privacy settings in the settings menu.
-                    // It will be automatically relaunched when the user
-                    // navigates back.
-                    NSString *accessDescription = NSLocalizedString(@"\"Psiphon Browser\" needs access to your photo library to save and upload images", @"Alert text telling user additional permissions must be granted to save and upload photos in the browser");
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:accessDescription message:NSLocalizedString(@"To give permissions tap on 'Change Settings' button", @"Alert text telling user which button to press if they want to be redirected to the settings menu") preferredStyle:UIAlertControllerStyleAlert];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+		if (status == PHAuthorizationStatusAuthorized) {
+			// Photo library permission has been granted
+		}
+		else {
+			// Photo library permission not granted
+			// Try to request it normally
+			[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+				if (status != PHAuthorizationStatusAuthorized)
+				{
+					// User doesn't grant permission.
+					// Show alert where user can choose to redirect
+					// to the settings menu and grant access or cancel.
+					//
+					// The suspended app will be termianted if the user
+					// changes privacy settings in the settings menu.
+					// It will be automatically relaunched when the user
+					// navigates back.
+					NSString *accessDescription = NSLocalizedString(@"\"Psiphon Browser\" needs access to your photo library to save and upload images", @"Alert text telling user additional permissions must be granted to save and upload photos in the browser");
+					UIAlertController *alertController = [UIAlertController alertControllerWithTitle:accessDescription message:NSLocalizedString(@"To give permissions tap on 'Change Settings' button", @"Alert text telling user which button to press if they want to be redirected to the settings menu") preferredStyle:UIAlertControllerStyleAlert];
 
-                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Text of cancel button on alert which will dismiss the popup") style:UIAlertActionStyleCancel handler:nil];
-                    [alertController addAction:cancelAction];
+					UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Text of cancel button on alert which will dismiss the popup") style:UIAlertActionStyleCancel handler:nil];
+					[alertController addAction:cancelAction];
 
-                    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Change Settings", @"Text of button on alert which will redirect the user to the settings menu") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                    }];
-                    [alertController addAction:settingsAction];
+					UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Change Settings", @"Text of button on alert which will redirect the user to the settings menu") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+						[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+					}];
+					[alertController addAction:settingsAction];
 
-                    // Callback will not be on the main thread
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-                    });
-                }
-            }];
-        }
-    });
+					// Callback will not be on the main thread
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+					});
+				}
+			}];
+		}
+	});
 }
 
 - (BOOL)canGoBack
@@ -672,7 +744,7 @@
 				return;
 			}
 		}
-		
+
 		[[[AppDelegate sharedAppDelegate] webViewController] removeTab:self.tabIndex];
 	}
 }
@@ -685,7 +757,6 @@
 
 - (void)refresh
 {
-	[self setNeedsRefresh:FALSE];
 	[[self webView] reload];
 }
 
@@ -697,7 +768,7 @@
 - (void)forceRefreshFromRefresher
 {
 	[self forceRefresh];
-	
+
 	/* delay just so it confirms to the user that something happened */
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
 		[self.refresher endRefreshing];
@@ -730,7 +801,7 @@
 {
 	CGPoint tap = [uigr locationInView:[self webView]];
 	tap.y -= [[[self webView] scrollView] contentInset].top;
-	
+
 	/* translate tap coordinates from view to scale of page */
 	CGSize windowSize = CGSizeMake(
 				       [[[self webView] stringByEvaluatingJavaScriptFromString:@"window.innerWidth"] intValue],
@@ -739,14 +810,14 @@
 	CGSize viewSize = [[self webView] frame].size;
 	float ratio = windowSize.width / viewSize.width;
 	CGPoint tapOnPage = CGPointMake(tap.x * ratio, tap.y * ratio);
-	
+
 	/* now find if there are usable elements at those coordinates and extract their attributes */
 	NSString *json = [[self webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify(__endless.elementsAtPoint(%li, %li));", (long)tapOnPage.x, (long)tapOnPage.y]];
 	if (json == nil) {
 		NSLog(@"[Tab %@] didn't get any JSON back from __endless.elementsAtPoint", self.tabIndex);
 		return @[];
 	}
-	
+
 	return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
 }
 

@@ -14,7 +14,7 @@
 
 * clone the master repo `git clone https://github.com/Psiphon-Inc/endless.git`.
 
-* run `pod install` in the repo root directory, get a copy of psiphon config JSON and put it under `<repo>/Endless/psiphon_config`. Open `Psiphon Browser.xcworkspace` in Xcode and make sure the project builds.
+* run `pod install` in the repo root directory, get a copy of psiphon config JSON and embedded servers JSON files and put them under `<repo>/Endless/psiphon_config` and `<repo>/Endless/embedded_server_entries` respectively. Open `Psiphon Browser.xcworkspace` in Xcode and make sure the project builds.
 
 * Increment CFBundleVersion number in the Endless/Info.plist and commit the change. Create a git tag with the same number `git tag "beta.<new_bundle_version_number>"` and push the commit and the tag to remote.
 

@@ -15,21 +15,24 @@
 /* Psiphon tutorial steps */
 typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 {
-    PsiphonTutorialStep1 = 0,
-    PsiphonTutorialStep2,
-    PsiphonTutorialStep3
+	PsiphonTutorialStep1 = 0,
+	PsiphonTutorialStep2,
+	PsiphonTutorialStep3
 };
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate, TutorialDelegate>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate,
+	UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
+		TutorialDelegate, FinalPageObserver, OnboardingViewControllerDelegate>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
 
 - (id)settingsButton;
 
-- (void)viewIsVisible;
 
+-(void) addWebViewTab:(WebViewTab*) wvt andSetCurrent:(BOOL)current;
 - (WebViewTab *)addNewTabForURL:(NSURL *)url;
+
 - (void)removeTab:(NSNumber *)tabNumber andFocusTab:(NSNumber *)toFocus;
 - (void)removeTab:(NSNumber *)tabNumber;
 - (void)removeAllTabs;
@@ -44,7 +47,9 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 - (void) stopLoading;
 
 - (void) overlayTutorial;
+- (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated;
+- (void) openPsiphonHomePage:(NSString *) homePage;
 
 @property (nonatomic) BOOL showTutorial;
-
+@property (nonatomic) BOOL openSettingImmediatelyOnViewDidAppear;
 @end

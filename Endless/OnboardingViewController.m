@@ -37,6 +37,20 @@
 	UILabel *bannerTitleLabel;
 }
 
+// Force portrait orientation during onboarding
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+	return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+}
+
+- (BOOL)shouldAutorotate {
+	return YES;
+}
+
+// Fullscreen onboarding
+- (BOOL)prefersStatusBarHidden {
+	return YES;
+}
+
 - (void)viewDidLayoutSubviews {
 	[super viewDidLayoutSubviews];
 
@@ -203,14 +217,6 @@
 														  attribute:NSLayoutAttributeBottom
 														 multiplier:1.f
 														   constant:0]];
-}
-
-- (BOOL)shouldAutorotate {
-	return NO;
-}
-
-- (BOOL)prefersStatusBarHidden{
-	return YES;
 }
 
 #pragma mark - UIPageViewControllerDataSource methods and helper functions

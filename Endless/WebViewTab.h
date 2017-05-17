@@ -1,4 +1,20 @@
 /*
+ * Copyright (c) 2017, Psiphon Inc.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  * Endless
  * Copyright (c) 2014-2015 joshua stein <jcs@jcs.org>
  *
@@ -12,6 +28,8 @@
 
 #define ZOOM_OUT_SCALE 0.8
 
+#define MAX_EQUIVALENT_URLS 5
+
 typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 	WebViewTabSecureModeInsecure,
 	WebViewTabSecureModeMixed,
@@ -19,13 +37,16 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 	WebViewTabSecureModeSecureEV,
 };
 
+@protocol FinalPageObserver;
+
 @interface WebViewTab : NSObject <UIWebViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, atomic) UIView *viewHolder;
 @property (strong, atomic) UIWebView *webView;
 @property (strong, atomic) UIRefreshControl *refresher;
 @property (strong, atomic) NSURL *url;
-@property BOOL needsRefresh;
+@property BOOL isRestoring;
+@property BOOL shouldReloadOnConnected;
 @property (strong, atomic) NSNumber *tabIndex;
 @property (strong, atomic) UIView *titleHolder;
 @property (strong, atomic) UILabel *title;
@@ -38,6 +59,8 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 
 /* for javascript IPC */
 @property (strong, atomic) NSNumber *openedByTabHash;
+
+@property (nonatomic, weak) id <FinalPageObserver> finalPageObserverDelegate;
 
 - (id)initWithFrame:(CGRect)frame;
 - (id)initWithFrame:(CGRect)frame withRestorationIdentifier:(NSString *)rid;
@@ -54,4 +77,10 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 - (void)zoomOut;
 - (void)zoomNormal;
 
+- (void) clearEquivalentURLs;
+
+@end
+
+@protocol FinalPageObserver <NSObject>
+- (void) seenFinalPage: (NSArray*)equivalentURLs;
 @end

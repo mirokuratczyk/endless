@@ -14,28 +14,28 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	self = [super initWithStyle:style];
-	
+
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Done button") style:UIBarButtonItemStyleDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
 
 	self.sortedRuleNames = [[NSMutableArray alloc] initWithCapacity:[[HTTPSEverywhere rules] count]];
-	
+
 	if ([[[AppDelegate sharedAppDelegate] webViewController] curWebViewTab] != nil) {
 		self.inUseRuleNames = [[NSMutableArray alloc] initWithArray:[[[[[[AppDelegate sharedAppDelegate] webViewController] curWebViewTab] applicableHTTPSEverywhereRules] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
 	}
 	else {
 		self.inUseRuleNames = [[NSMutableArray alloc] init];
 	}
-	
+
 	for (NSString *k in [[HTTPSEverywhere rules] allKeys]) {
 		if (![self.inUseRuleNames containsObject:k])
 			[self.sortedRuleNames addObject:k];
 	}
-	
+
 	self.sortedRuleNames = [NSMutableArray arrayWithArray:[self.sortedRuleNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
 	self.searchResult = [NSMutableArray arrayWithCapacity:[self.sortedRuleNames count]];
-	
+
 	self.title = NSLocalizedString(@"HTTPS Everywhere Rules", @"HTTPS Everywhere menu title");
-	
+
 	return self;
 }
 

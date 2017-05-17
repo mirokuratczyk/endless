@@ -1,5 +1,17 @@
+/* %ld will be replaced with the number 1 */
+"%ld rule in use" = "%ld Regel in Gebrauch";
+
+/* %ld will be replaced with a natural number */
+"%ld rules in use" = "%ld Regeln in Gebrauch";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" benötigt Zugriff auf Ihre Fotobibliothek, um Bilder speichern und hochladen zu können";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Lesezeichen hinzufügen";
+
+/* Title above a list of rules */
+"All rules" = "Alle Regeln";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Dieser Seite das Schließen seines Tabs erlauben?";
@@ -10,6 +22,9 @@
 /* Authentication Required alert title */
 "Authentication Required" = "Authentifizierung erforderlich";
 
+/* Field name for display in list */
+"Begins On" = "Beginnt um";
+
 /* No comment provided by engineer. */
 "Best Performance" = "Beste Leistung";
 
@@ -17,16 +32,41 @@
    Bookmarks table header title */
 "Bookmarks" = "Lesezeichen";
 
+/* Field name for display in list */
+"Business Category" = "Geschäftskategorie";
+
 /* No comment provided by engineer. */
 "Canada" = "Kanada";
 
 /* Cancel
    Cancel action
-   Text of button to discard feedback and return to main settings menu */
+   Text of button to discard feedback and return to main settings menu
+   Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Abbrechen";
+
+/* Field name for display in list */
+"Certificate Information" = "Zertifikatsinformationen";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"Change Settings" = "Einstellungen ändern";
+
+/* Field name for display in list */
+"Cipher" = "Verschlüsselungsverfahren";
+
+/* Field name for display in list */
+"Common Name (CN)" = "Common Name (CN)";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Bestätigen";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"Connected!" = "Verbunden!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"Connecting..." = "Verbindungsaufbau...";
+
+/* Field name for display in list */
+"Connection Information" = "Verbindungsinformationen";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "Cookies und lokaler Speicher";
@@ -34,14 +74,18 @@
 /* Action title for long press on link dialog */
 "Copy URL" = "URL kopieren";
 
-/* No comment provided by engineer. */
-"Default Settings" = "Standardeinstellungen";
+/* Field name for display in list */
+"Country (C)" = "Land (C)";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"Disconnected!" = "Getrennt!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
-   Done button title, dismisses the tab chooser */
+   Done button title, dismisses the tab chooser
+   Title of the button that dismisses region selection dialog */
 "Done" = "Fertig";
 
 /* Edit Bookmark dialog title */
@@ -55,11 +99,23 @@
    Image download error alert title */
 "Error" = "Fehler";
 
+/* Field name for display in list */
+"Expires After" = "Expires After";
+
+/* Field name for display in list */
+"Extended Validation: Organization" = "Extended Validation: Organization";
+
 /* FAQ link text */
 "Frequently Asked Questions" = "Häufig gestellte Fragen";
 
 /* No comment provided by engineer. */
 "Germany" = "Deutschland";
+
+/* No comment provided by engineer. */
+"Go to Settings" = "Gehen Sie in die Einstellungen";
+
+/* No comment provided by engineer. */
+"Happy browsing!\nExplore beyond your borders." = "Happy browsing!\nExplore beyond your borders.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "Hongkong";
@@ -85,11 +141,23 @@
 /* No comment provided by engineer. */
 "India" = "Indien";
 
+/* Field name for display in list */
+"Issued By" = "Issued By";
+
+/* Field name for display in list */
+"Issued To" = "Issued To";
+
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Erfahren Sie mehr über die Daten, die wir in unserem %@ sammeln";
+
+/* No comment provided by engineer. */
+"LET'S GO!" = "LOS!";
+
+/* Field name for display in list */
+"Locality (L)" = "Locality (L)";
 
 /* No comment provided by engineer. */
 "Log In" = "Anmelden";
@@ -101,18 +169,21 @@
 "Mail not configured" = "Mail nicht konfiguriert";
 
 /* No comment provided by engineer. */
+"Message Text View" = "Nachrichtentextansicht";
+
+/* No comment provided by engineer. */
 "Netherlands" = "Niederlande";
 
 /* New browser tab title text */
 "New Tab" = "Neue Registerkarte";
 
+/* Field name for display in list */
+"Object Identifier" = "Objektidentifikator";
+
 /* InAppSettingsKit
    OK action
    OK action button */
 "OK" = "OK";
-
-/* OK action */
-"Ok" = "OK";
 
 /* Action title for long press on link dialog */
 "Open" = "Öffnen";
@@ -123,6 +194,12 @@
 /* Action title for long press on link dialog */
 "Open in Safari" = "In Safari öffnen";
 
+/* Field name for display in list */
+"Organization (O)" = "Organisation (O)";
+
+/* Field name for display in list */
+"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
 "Page Name (leave blank to use URL)" = "Seitenname (leer lassen, um URL zu verwenden)";
@@ -130,14 +207,26 @@
 /* Password */
 "Password" = "Passwort";
 
-/* Introduction text at top of feedback form */
-"Please let us know how Psiphon is working for you so we can make the system better!" = "Bitte lassen Sie uns wissen, wie Psiphon für Sie funktioniert, damit wir das System verbessern können!";
+/* Field name for display in list */
+"Period of Validity" = "Period of Validity";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Bitte beachten Sie, dass diese Diagnosedaten Sie nicht identifizieren, und sie helfen uns dabei, Psiphon reibungslos am Laufen zu halten.";
 
+/* Field name for display in list */
+"Postal Code" = "Postleitzahl";
+
 /* Privacy Policy link text */
 "Privacy Policy" = "Datenschutzerklärung";
+
+/* Field name for display in list */
+"Protocol" = "Protokoll";
+
+/* No comment provided by engineer. */
+"PSIPHON" = "PSIPHON";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon verbindet sich\nund funktioniert\nwie ich es haben will.";
@@ -145,8 +234,14 @@
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon schlägt oft fehl\nbeim Verbinden oder\nfunktioniert nicht gut\ngenug.";
 
+/* No comment provided by engineer. */
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon opens all the wonders of the web to you, no matter where you are";
+
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Zum Aktualisieren der Seite ziehen";
+
+/* Title above a list of rules in use */
+"Rules in use on current page" = "Regeln, die auf der aktuellen Seite in Gebrauch sind";
 
 /* Action title for long press on image dialog */
 "Save Image" = "Bild speichern";
@@ -154,17 +249,59 @@
 /* Text of button to send feedback */
 "Send" = "Senden";
 
+/* Field name for display in list */
+"Serial Number" = "Seriennummer";
+
+/* Field name for display in list */
+"Serial Number (SN)" = "Seriennummer (SN)";
+
+/* Title that is showing above selected server region */
+"Server region:" = "Serverregion:";
+
 /* No comment provided by engineer. */
 "Settings" = "Einstellungen";
+
+/* Field name for display in list */
+"Signature Algorithm" = "Signaturalgorithmus";
 
 /* No comment provided by engineer. */
 "Singapore" = "Singapur";
 
 /* No comment provided by engineer. */
+"SKIP" = "ÜBERSPRINGEN";
+
+/* No comment provided by engineer. */
+"SKIP TUTORIAL" = "TUTORIAL ÜBERSPRINGEN";
+
+/* No comment provided by engineer. */
 "Spain" = "Spanien";
+
+/* Field name for display in list */
+"State/Province (ST)" = "Bundesland/Provinz (ST)";
+
+/* No comment provided by engineer. */
+"Status Indicator" = "Statusanzeige";
+
+/* Field name for display in list */
+"Street Address" = "Adresse";
+
+/* No comment provided by engineer. */
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Dieses Gerät ist nicht für das Senden einer E-Mail konfiguriert. Bitte konfigurieren Sie die E-Mail-Einstellungen in der App Einstellungen.";
+
+/* No comment provided by engineer. */
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
+
+/* No comment provided by engineer. */
+"This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
+
+/* No comment provided by engineer. */
+"Title Label" = "Title Label";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "Vereinigtes Königreich";
@@ -179,9 +316,27 @@
    Add bookmark URL field */
 "URL" = "URL";
 
+/* Field name for display in list */
+"Version" = "Version";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"Waiting for network..." = "Warten auf das Netzwerk...";
+
+/* No comment provided by engineer. */
+"Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
+
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "Was haben Sie auf dem Herzen? Bitte hinterlassen Sie uns Ihre Rückmeldung";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can also find solutions to many common problems in our %@." = "Zu vielen häufigen Probleme finden Sie auch Lösungen in unserem %@.";
+"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+
+/* No comment provided by engineer. */
+"You're all set!" = "You're all set!";
+
+/* Introduction text at top of feedback form */
+"Your feedback makes Psiphon better!" = "Ihre Rückmeldung macht Psiphon besser!";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
 

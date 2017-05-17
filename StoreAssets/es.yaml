@@ -1,1 +1,15 @@
-es: {app_name: Navegador Psiphon}
+es:
+  app_name: Navegador Psiphon
+  description: |
+    ¡Tras ayudar a millones de usuarios de Android a obtener acceso a los sitios que aman, hemos lanzado la primera aplicación oficial Psiphon para iOS!
+
+    Psiphon es la herramienta de elusión más robusta de la web. El Navegador Psiphon le conectará a los sitios web que están censurados, bloqueados, o de otro modo no disponibles, sin importar en qué parte del mundo está. Usar el Navegador Psiphon también le proporciona una capa de protección extra al usar servicios WiFi públicos.
+
+    Psiphon es la mejor herramienta para acceder al Internet abierto.
+
+    Características:
+    • Gratuito para uso personal.
+    • Fácil de descargar e instalar. No requiere registro o configuración.
+    • Selección automática de protocolos para proporcionar elusión efectiva y fiable en todo momento.
+    • Psiphon es un proyecto de código-abierto sujeto a auditado de seguridad creíble y revisión abierta. Para encontrar nuestro código fuente y más información, visite la página principal del proyecto: https://github.com/Psiphon-Inc/endless
+  keywords: Psiphon, navegador, censura, elusión, VPN, proxy
