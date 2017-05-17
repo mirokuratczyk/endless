@@ -430,7 +430,6 @@
 
 	WebViewTab* focusedTab = [prevWebViewController curWebViewTab];
 
-
 	WebViewController* wvc = [[WebViewController alloc] init];
 	wvc.restorationIdentifier = @"WebViewController";
 	self.window.rootViewController = wvc;
@@ -448,12 +447,10 @@
 		[wvc addWebViewTab:wvt andSetCurrent:isCurrentTab];
 	}
 
-	// OK, some objects in the WebViewController leak, let's minimize the leakage
-	// footprint by trying and removing all subviews.
-	// TODO: runtime analysis of the leaks
-	[[prevWebViewController.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
-	[prevWebViewController dismissViewControllerAnimated:NO completion:nil];
+	[prevWebViewController dismissViewControllerAnimated:NO completion:^{
+		// Remove the root view in case it is still showing
+		 [prevWebViewController.view removeFromSuperview];
+	}];
 
 	[self notifyPsiphonConnectionState];
 	[self.webViewController setOpenSettingImmediatelyOnViewDidAppear:YES];
