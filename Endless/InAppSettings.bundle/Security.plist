@@ -30,10 +30,10 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>TLS 1.2 only (no SSL)</string>
+			<string>TLS_1_2</string>
 			<key>Values</key>
 			<array>
-				<string>TLS 1.2 only (no SSL)</string>
+				<string>TLS_1_2</string>
 				<string>TLS_1_1</string>
 				<string>TLS_1_0</string>
 			</array>

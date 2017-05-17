@@ -197,7 +197,7 @@
 						NSLog(@"[Settings] failed setting SSLSetProtocolVersionMin: %d", (int)status);
 
 #ifdef TRACE_HOST_SETTINGS
-					NSLog(@"[Settings] set TLS/SSL min level for %@ to %ld", [url host], (long)tlsVersion);
+					NSLog(@"[Settings] set TLS/SSL min level for %@ to %@", [url host], tlsVersion);
 #endif
 				};
 
