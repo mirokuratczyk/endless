@@ -50,11 +50,16 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef USE_DUMMY_URLINTERCEPTOR
-	[NSURLProtocol registerClass:[DummyURLInterceptor class]];
-#else
-	[NSURLProtocol registerClass:[URLInterceptor class]];
-#endif
+	/*
+	 #ifdef USE_DUMMY_URLINTERCEPTOR
+	 [NSURLProtocol registerClass:[DummyURLInterceptor class]];
+	 #else
+	 [NSURLProtocol registerClass:[URLInterceptor class]];
+	 #endif
+	 */
+	[JAHPAuthenticatingHTTPProtocol setDelegate:self];
+	[JAHPAuthenticatingHTTPProtocol start];
+
 
 	[self initializeDefaults];
 
@@ -365,7 +370,16 @@
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
 	dispatch_async(dispatch_get_main_queue(), ^{
+		[JAHPAuthenticatingHTTPProtocol resetSharedDemux];
 		self.socksProxyPort = port;
+	});
+}
+
+
+- (void) onListeningHttpProxyPort:(NSInteger)port {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[JAHPAuthenticatingHTTPProtocol resetSharedDemux];
+		self.httpProxyPort = port;
 	});
 }
 
@@ -449,7 +463,7 @@
 
 	[prevWebViewController dismissViewControllerAnimated:NO completion:^{
 		// Remove the root view in case it is still showing
-		 [prevWebViewController.view removeFromSuperview];
+		[prevWebViewController.view removeFromSuperview];
 	}];
 
 	[self notifyPsiphonConnectionState];
@@ -482,6 +496,17 @@
 
 + (AppDelegate *)sharedAppDelegate{
 	return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
+
+
+
+- (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
+	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
+}
+
+- (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logMessage:(NSString *)message {
+	NSLog(@"logMessage: %@", message);
 }
 
 @end

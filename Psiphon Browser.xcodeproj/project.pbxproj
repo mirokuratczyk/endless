@@ -59,6 +59,10 @@
 		444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 444CEFB21E54DA2D0085F3D4 /* NYAlertViewController.m */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
 		4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */; };
+		44864F8E1E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */; };
+		44864F8F1E708EE900865705 /* JAHPCacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */; };
+		44864F901E708EE900865705 /* JAHPCanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */; };
+		44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */; };
 		449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */; };
 		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -199,6 +203,14 @@
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
 		4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonSettingsTextFieldViewCell.h; sourceTree = SOURCE_ROOT; };
 		4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonSettingsTextFieldViewCell.m; sourceTree = SOURCE_ROOT; };
+		44864F861E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPAuthenticatingHTTPProtocol.h; sourceTree = "<group>"; };
+		44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPAuthenticatingHTTPProtocol.m; sourceTree = "<group>"; };
+		44864F881E708EE900865705 /* JAHPCacheStoragePolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPCacheStoragePolicy.h; sourceTree = "<group>"; };
+		44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPCacheStoragePolicy.m; sourceTree = "<group>"; };
+		44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPCanonicalRequest.h; sourceTree = "<group>"; };
+		44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPCanonicalRequest.m; sourceTree = "<group>"; };
+		44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPQNSURLSessionDemux.h; sourceTree = "<group>"; };
+		44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPQNSURLSessionDemux.m; sourceTree = "<group>"; };
 		449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonConnectionModalViewController.h; path = Endless/PsiphonConnectionModalViewController.h; sourceTree = SOURCE_ROOT; };
 		449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionModalViewController.m; path = Endless/PsiphonConnectionModalViewController.m; sourceTree = SOURCE_ROOT; };
 		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
@@ -466,6 +478,7 @@
 		01AFEB4A1B4F2A5F00A02482 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				44864F851E708EE900865705 /* JiveAuthenticatingHTTPProtocol */,
 				444CEFB51E54DA610085F3D4 /* NYAlertViewController */,
 				019516CA1B7D858C0078586A /* CKHTTPConnection.h */,
 				019516CB1B7D858C0078586A /* CKHTTPConnection.m */,
@@ -503,6 +516,21 @@
 				444CEFB21E54DA2D0085F3D4 /* NYAlertViewController.m */,
 			);
 			name = NYAlertViewController;
+			sourceTree = "<group>";
+		};
+		44864F851E708EE900865705 /* JiveAuthenticatingHTTPProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				44864F861E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.h */,
+				44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */,
+				44864F881E708EE900865705 /* JAHPCacheStoragePolicy.h */,
+				44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */,
+				44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */,
+				44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */,
+				44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */,
+				44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */,
+			);
+			path = JiveAuthenticatingHTTPProtocol;
 			sourceTree = "<group>";
 		};
 		44E778F71DDB723900854379 /* Psiphon */ = {
@@ -836,6 +864,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */,
+				44864F901E708EE900865705 /* JAHPCanonicalRequest.m in Sources */,
 				4EFB34801E366C6F0067C7C3 /* FeedbackViewController.m in Sources */,
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
@@ -843,8 +872,10 @@
 				4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
+				44864F8E1E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
+				44864F8F1E708EE900865705 /* JAHPCacheStoragePolicy.m in Sources */,
 				4E6332CA1E54F7280093819C /* Tutorial.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
 				4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */,
@@ -858,6 +889,7 @@
 				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
 				4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
+				44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */,

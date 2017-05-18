@@ -29,12 +29,13 @@
 #import "HSTSCache.h"
 #import "OnboardingViewController.h"
 #import "WebViewController.h"
+#import "JAHPAuthenticatingHTTPProtocol.h"
 
 
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
 #define kHasBeenOnboardedKey @"hasBeenOnBoarded"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, JAHPAuthenticatingHTTPProtocolDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -56,6 +57,7 @@
 
 @property(strong, nonatomic) PsiphonTunnel* psiphonTunnel;
 @property NSInteger socksProxyPort;
+@property NSInteger httpProxyPort;
 @property PsiphonConnectionState psiphonConectionState;
 
 - (void) startIfNeeded;
