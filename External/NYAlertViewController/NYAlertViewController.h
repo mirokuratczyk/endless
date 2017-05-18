@@ -19,12 +19,12 @@
 @end
 
 typedef NS_ENUM(NSInteger, NYAlertViewControllerTransitionStyle) {
-    /** Fade in the alert view */
-    NYAlertViewControllerTransitionStyleFade,
-    /** Slide the alert view from the top of the view */
-    NYAlertViewControllerTransitionStyleSlideFromTop,
-    /** Slide the alert view from the bottom of the view */
-    NYAlertViewControllerTransitionStyleSlideFromBottom
+	/** Fade in the alert view */
+	NYAlertViewControllerTransitionStyleFade,
+	/** Slide the alert view from the top of the view */
+	NYAlertViewControllerTransitionStyleSlideFromTop,
+	/** Slide the alert view from the bottom of the view */
+	NYAlertViewControllerTransitionStyleSlideFromBottom
 };
 
 @interface NYAlertViewController : UIViewController
@@ -46,28 +46,28 @@ typedef NS_ENUM(NSInteger, NYAlertViewControllerTransitionStyle) {
 
 /**
  The custom view displayed in the presented alert view
- 
+
  @discussion The default value of this property is nil. Set this property to a view that you create to add the custom view to the displayed alert view.
  */
 @property (nonatomic) UIView *alertViewContentView;
 
 /**
  The transition style used to animate the alert view's presentation/dismissal transitions.
- 
+
  @discussion The default value is NYAlertViewControllerTransitionStyleSlideFromTop.
  */
 @property (nonatomic) NYAlertViewControllerTransitionStyle transitionStyle;
 
 /**
  A Boolean value that determines whether the user can tap on the dimmed background surrounding the presented alert view to dismiss the alert view controller without any action handlers being executed
- 
+
  @discussion The default value is NO
  */
 @property (nonatomic) BOOL backgroundTapDismissalGestureEnabled;
 
 /**
  A Boolean value that determines whether the user can swipe up or down on the presented alert view to dismiss the alert view controller without any action handlers being executed
- 
+
  @discussion The default value is NO
  */
 @property (nonatomic) BOOL swipeDismissalGestureEnabled;
@@ -84,14 +84,14 @@ typedef NS_ENUM(NSInteger, NYAlertViewControllerTransitionStyle) {
 
 /**
  The font used to display the title in the alert view
- 
+
  @see title
  */
 @property (nonatomic) UIFont *titleFont;
 
 /**
  The font used to display the messsage in the alert view
- 
+
  @see message
  */
 @property (nonatomic) UIFont *messageFont;
@@ -113,14 +113,14 @@ typedef NS_ENUM(NSInteger, NYAlertViewControllerTransitionStyle) {
 
 /**
  The color used to display the alert view's title
- 
+
  @see title
  */
 @property (nonatomic) UIColor *titleColor;
 
 /**
  The color used to display the alert view's message
- 
+
  @see message
  */
 @property (nonatomic) UIColor *messageColor;
@@ -182,21 +182,21 @@ typedef NS_ENUM(NSInteger, NYAlertViewControllerTransitionStyle) {
 
 /**
  An array of UITextField objects displayed by the alert view
- 
+
  @see addTextFieldWithConfigurationHandler:
  */
 @property (nonatomic, readonly) NSArray *textFields;
 
 /**
  Add an alert action object to be displayed in the alert view
- 
+
  @param action The action object to display in the alert view to be presented
  */
 - (void)addAction:(NYAlertAction *)action;
 
 /**
  Add a text field object to be displayed in the alert view
- 
+
  @param configurationHandler A block used to configure the text field. The block takes the text field object as a parameter, and can modify the properties of the text field prior to being displayed.
  */
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler;
