@@ -11,7 +11,7 @@
 "Add Bookmark" = "إضافة إشارة مرجعية";
 
 /* Title above a list of rules */
-"All rules" = "All rules";
+"All rules" = "جميع القواعد";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "هل تسمحون لهذه الصفحة بإغلاق علامة التبويب ؟";
@@ -23,7 +23,7 @@
 "Authentication Required" = "مطلوب المصادقة";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "بداية";
 
 /* No comment provided by engineer. */
 "Best Performance" = "أفضل أداء ";
@@ -33,7 +33,7 @@
 "Bookmarks" = "الإشارات المرجعية";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "صنف العمل";
 
 /* No comment provided by engineer. */
 "Canada" = "كندا";
@@ -45,28 +45,28 @@
 "Cancel" = "إلغاء";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "معلومات شهادة  الإستعمال";
 
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "تغيير الاعدادات";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "الشفرة ";
 
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name (CN)" = "الاسم الشائع (CN)";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "تأكيد ";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"Connected!" = "متصل ! ";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
+"Connecting..." = "يتصل ...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
+"Connection Information" = "معلومات الإتصال ";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "رموز تعريف الإرتباط و البيانات المخزنة محليا";
@@ -75,10 +75,10 @@
 "Copy URL" = "نسخ العنوان";
 
 /* Field name for display in list */
-"Country (C)" = "Country (C)";
+"Country (C)" = "البلد (C) ";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"Disconnected!" = "الإتصال منقطع !";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -100,10 +100,10 @@
 "Error" = "خطأ ";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "إنتهاء الصلاحية بعد ";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "تمديد التحقق : المنظمة ";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "الأسئلة الشائعة ";
@@ -112,7 +112,7 @@
 "Germany" = "ألمانيا";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+"Go to Settings" = "الإعدادات ";
 
 /* No comment provided by engineer. */
 "Happy browsing!\nExplore beyond your borders." = "تصفح سعيد!\nاستكشف أبعد من حدودك.";
@@ -142,10 +142,10 @@
 "India" = "الهند";
 
 /* Field name for display in list */
-"Issued By" = "Issued By";
+"Issued By" = "أصدرت من قبل ";
 
 /* Field name for display in list */
-"Issued To" = "Issued To";
+"Issued To" = "أصدرت ل ";
 
 /* No comment provided by engineer. */
 "Japan" = "اليابان";
@@ -157,7 +157,7 @@
 "LET'S GO!" = "لنذهب!";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality (L)" = "المكان (L)";
 
 /* No comment provided by engineer. */
 "Log In" = "تسجيل الدخول";
@@ -169,7 +169,7 @@
 "Mail not configured" = "لم يتم إعداد البريد الإلكتروني";
 
 /* No comment provided by engineer. */
-"Message Text View" = "Message Text View";
+"Message Text View" = "رسالة Text View ";
 
 /* No comment provided by engineer. */
 "Netherlands" = "هولندا";
@@ -178,7 +178,7 @@
 "New Tab" = "علامة تبويب جديدة";
 
 /* Field name for display in list */
-"Object Identifier" = "Object Identifier";
+"Object Identifier" = "معرف الكائن ";
 
 /* InAppSettingsKit
    OK action
@@ -195,10 +195,10 @@
 "Open in Safari" = "فتح في صفحة جديدة على سافاري ";
 
 /* Field name for display in list */
-"Organization (O)" = "Organization (O)";
+"Organization (O)" = "المنظمة (O)";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number (OU)" = "رقم الوحدة التنظيمية (OU)";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -208,25 +208,25 @@
 "Password" = "كلمة المرور";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "مدة الصلاحية ";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "الرجاء الإنتباه أن هذه البيانات التشخيصية لا تكشف هويتك، إنما تساعد سايفون على العمل بشكل أفضل.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "الترقيم البريدي ";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "سياسة الخصوصية";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "بروتوكول ";
 
 /* No comment provided by engineer. */
 "PSIPHON" = "سايفون";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
+"Psiphon can not start due to an internal error, please send feedback." = "لم يتمكن سايفون من الإشتغال نظرا لمشكل داخلي، الرجاء إرسال الملاحظات ";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "ينجح سايفون بالاتصال \nويعمل بشكل جيد \nكما نتمنى";
@@ -241,7 +241,7 @@
 "Pull to Refresh Page" = "اسحب لتحديث الصفحة ";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "Rules in use on current page";
+"Rules in use on current page" = "القواعد مستعملة في الصفحة الحالية ";
 
 /* Action title for long press on image dialog */
 "Save Image" = "احفظ الصورة";
@@ -250,19 +250,19 @@
 "Send" = "أرسل";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
+"Serial Number" = "الرقم التسلسلي ";
 
 /* Field name for display in list */
-"Serial Number (SN)" = "Serial Number (SN)";
+"Serial Number (SN)" = "الرقم التسلسلي (SN)";
 
 /* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+"Server region:" = "منطقة الخادوم ";
 
 /* No comment provided by engineer. */
 "Settings" = "إعدادات";
 
 /* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
+"Signature Algorithm" = "خوارزمية التوقيع";
 
 /* No comment provided by engineer. */
 "Singapore" = "سنغافورة";
@@ -277,13 +277,13 @@
 "Spain" = "إسبانيا";
 
 /* Field name for display in list */
-"State/Province (ST)" = "State/Province (ST)";
+"State/Province (ST)" = "الولاية / المقاطعة (ST)";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "مؤشر الحالة";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "عنوان الشارع ";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "علامة الاختيار الخضراء تشير الى أن كل شيء يعمل بشكل جيد و يمكنك أن تبدأ!";
@@ -298,7 +298,7 @@
 "This is where you can find information about the status of your connection" = "هذا هو المكان أين يمكنك العثور على معلومات حول حالة الاتصال";
 
 /* No comment provided by engineer. */
-"Title Label" = "Title Label";
+"Title Label" = "تسمية العنوان ";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "لإعطاء الأذونات اضغط على زر \"تغيير إعدادات\"";
@@ -317,10 +317,10 @@
 "URL" = "الرابط";
 
 /* Field name for display in list */
-"Version" = "Version";
+"Version" = "الإصدار ";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
+"Waiting for network..." = "إنتظار الشبكة ...";
 
 /* No comment provided by engineer. */
 "Welcome! Here is how to use Psiphon" = "أهلا بك! هنا كيفية استخدام سايفون";
@@ -338,5 +338,5 @@
 "Your feedback makes Psiphon better!" = "ملاحظاتك تجعل سايفون أفضل!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'على الساعة' HH:mm:ss zzz";
 
