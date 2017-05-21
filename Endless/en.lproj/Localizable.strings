@@ -40,6 +40,7 @@
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Cancel";
@@ -52,6 +53,9 @@
 
 /* Field name for display in list */
 "Cipher" = "Cipher";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Clear Cookies and Data";
 
 /* Field name for display in list */
 "Common Name (CN)" = "Common Name (CN)";
@@ -239,6 +243,9 @@
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
+
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
 
 /* Title above a list of rules in use */
 "Rules in use on current page" = "Rules in use on current page";
