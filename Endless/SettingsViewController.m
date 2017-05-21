@@ -261,10 +261,10 @@ BOOL linksEnabled;
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:kClearWebsiteData]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-														message:@"Remove all cookies and browsing data?"
+														message:NSLocalizedString(@"Remove all cookies and browsing data?", @"Title of alert to clear local cookies and browsing data")
 													   delegate:self
-											  cancelButtonTitle:@"Cancel"
-											  otherButtonTitles:@"Clear Cookies and Data", nil];
+											  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel button on alert")
+											  otherButtonTitles:NSLocalizedString(@"Clear Cookies and Data", @"Accept button on alert which triggers clearing all local cookies and browsing data"), nil];
 
 		[alert show];
 	}
