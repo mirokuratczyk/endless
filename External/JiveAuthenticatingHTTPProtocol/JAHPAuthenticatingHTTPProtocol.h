@@ -47,6 +47,11 @@
 
 @import Foundation;
 
+#define CONTENT_TYPE_OTHER	0
+#define CONTENT_TYPE_HTML	1
+#define WVT_KEY @"_wvt"
+
+
 @protocol JAHPAuthenticatingHTTPProtocolDelegate;
 
 /*! An NSURLProtocol subclass that overrides the built-in HTTP/HTTPS protocol to intercept
@@ -91,14 +96,6 @@
 
 + (nullable id<JAHPAuthenticatingHTTPProtocolDelegate>)delegate;
 
-/*! Sets the user agent token
- *  \details This token is appended to the system default user agent.
- */
-+ (void)setUserAgentToken:(nullable NSString *)userAgentToken;
-
-/*! Returns the user agent token.
- */
-+ (nullable NSString *)userAgentToken;
 
 @property (atomic, strong, readonly)  NSURLAuthenticationChallenge * __nullable     pendingChallenge;   ///< The current authentication challenge; it's only safe to access this from the main thread.
 

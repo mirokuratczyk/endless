@@ -44,6 +44,9 @@
  Copyright (C) 2014 Apple Inc. All Rights Reserved.
 
  */
+#import "HSTSCache.h"
+#import "HTTPSEverywhere.h"
+#import "LocalNetworkChecker.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
 
@@ -62,7 +65,15 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 @end
 
-@interface JAHPAuthenticatingHTTPProtocol () <NSURLSessionDataDelegate>
+@interface JAHPAuthenticatingHTTPProtocol () <NSURLSessionDataDelegate> {
+	NSUInteger _contentType;
+	Boolean _isFirstChunk;
+	NSString * _cspNonce;
+	WebViewTab *_wvt;
+	NSString *_userAgent;
+	NSURLRequest *_actualRequest;
+	BOOL _isOrigin;
+}
 
 @property (atomic, strong, readwrite) NSThread *                        clientThread;       ///< The thread on which we should call the client.
 
@@ -93,10 +104,114 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 static JAHPWeakDelegateHolder* weakDelegateHolder;
 
+static BOOL sendDNT = true;
+static NSMutableArray *tmpAllowed;
 
-/*! A token to append to all HTTP user agent headers.
- */
-static NSString * sUserAgentToken;
+static NSString *_javascriptToInject;
++ (NSString *)javascriptToInject
+{
+	if (!_javascriptToInject) {
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"injected" ofType:@"js"];
+		_javascriptToInject = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+	}
+
+	return _javascriptToInject;
+}
+
++ (void)setSendDNT:(BOOL)val
+{
+	sendDNT = val;
+}
+
++ (void)temporarilyAllow:(NSURL *)url
+{
+	if (!tmpAllowed)
+		tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
+
+	[tmpAllowed addObject:url];
+}
+
++ (BOOL)isURLTemporarilyAllowed:(NSURL *)url
+{
+	int found = -1;
+
+	for (int i = 0; i < [tmpAllowed count]; i++) {
+		if ([[tmpAllowed[i] absoluteString] isEqualToString:[url absoluteString]])
+			found = i;
+	}
+
+	if (found > -1) {
+		NSLog(@"[NSURLProtocol] temporarily allowing %@ from allowed list with no matching WebViewTab", url);
+		[tmpAllowed removeObjectAtIndex:found];
+	}
+
+	return (found > -1);
+}
+
++ (NSString *)prependDirectivesIfExisting:(NSDictionary *)directives inCSPHeader:(NSString *)header
+{
+	/*
+	 * CSP guide says apostrophe can't be in a bare string, so it should be safe to assume
+	 * splitting on ; will not catch any ; inside of an apostrophe-enclosed value, since those
+	 * can only be constant things like 'self', 'unsafe-inline', etc.
+	 *
+	 * https://www.w3.org/TR/CSP2/#source-list-parsing
+	 */
+
+	NSMutableDictionary *curDirectives = [[NSMutableDictionary alloc] init];
+	NSArray *td = [header componentsSeparatedByString:@";"];
+	for (int i = 0; i < [td count]; i++) {
+		NSString *t = [(NSString *)[td objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSRange r = [t rangeOfString:@" "];
+		if (r.length > 0) {
+			NSString *dir = [[t substringToIndex:r.location] lowercaseString];
+			NSString *val = [[t substringFromIndex:r.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			[curDirectives setObject:val forKey:dir];
+		}
+	}
+
+	for (NSString *newDir in [directives allKeys]) {
+		NSArray *newvals = [directives objectForKey:newDir];
+		NSString *curval = [curDirectives objectForKey:newDir];
+		if (curval) {
+			NSString *newval = [newvals objectAtIndex:0];
+
+			/*
+			 * If none of the existing values for this directive have a nonce or hash,
+			 * then inserting our value with a nonce will cause the directive to become
+			 * strict, so "'nonce-abcd' 'self' 'unsafe-inline'" causes the browser to
+			 * ignore 'self' and 'unsafe-inline', requiring that all scripts have a
+			 * nonce or hash.  Since the site would probably only ever have nonce values
+			 * in its <script> tags if it was in the CSP policy, only include our nonce
+			 * value if the CSP policy already has them.
+			 */
+			if ([curval containsString:@"'nonce-"] || [curval containsString:@"'sha"])
+				newval = [newvals objectAtIndex:1];
+
+			if ([curval containsString:@"'none'"]) {
+				newval = [newvals objectAtIndex:1];
+				/*
+				 * CSP spec says if 'none' is encountered to ignore anything else,
+				 * so if 'none' is there, just replace it with newval rather than
+				 * prepending.
+				 */
+			} else {
+				if ([newval isEqualToString:@""])
+					newval = curval;
+				else
+					newval = [NSString stringWithFormat:@"%@ %@", newval, curval];
+			}
+
+			[curDirectives setObject:newval forKey:newDir];
+		}
+	}
+
+	NSMutableString *ret = [[NSMutableString alloc] init];
+	for (NSString *dir in [[curDirectives allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)])
+		[ret appendString:[NSString stringWithFormat:@"%@%@ %@;", ([ret length] > 0 ? @" " : @""), dir, [curDirectives objectForKey:dir]]];
+
+	return [NSString stringWithString:ret];
+}
 
 + (void)start
 {
@@ -127,20 +242,6 @@ static NSString * sUserAgentToken;
 			weakDelegateHolder = [JAHPWeakDelegateHolder new];
 		}
 		weakDelegateHolder.delegate = newValue;
-	}
-}
-
-+ (NSString *)userAgentToken {
-	NSString *userAgentToken;
-	@synchronized(self) {
-		userAgentToken = sUserAgentToken;
-	}
-	return userAgentToken;
-}
-
-+ (void)setUserAgentToken:(NSString *)userAgentToken {
-	@synchronized(self) {
-		sUserAgentToken = userAgentToken;
 	}
 }
 
@@ -323,34 +424,63 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(client != nil);
 	// can be called on any thread
 
-	NSMutableURLRequest *mutableRequest = [request mutableCopy];
-	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:mutableRequest.URL];
-	NSString *cookieString = @"";
-	for (NSHTTPCookie *cookie in cookies) {
-		cookieString = [cookieString stringByAppendingString:[NSString stringWithFormat:@"%@=%@; ", cookie.name, cookie.value]];
-	}
-	if ([cookieString length] > 0) {
-		cookieString = [cookieString substringToIndex:[cookieString length] - 2];
-		NSUInteger cookieStringBytes = [cookieString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-		if (cookieStringBytes > 3999) {
-			[mutableRequest setValue:cookieString forHTTPHeaderField:@"Cookie"];
+	self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
+	_wvt = nil;
 
+	/* extract tab hash from per-uiwebview user agent */
+	NSString *ua = [request valueForHTTPHeaderField:@"User-Agent"];
+	NSArray *uap = [ua componentsSeparatedByString:@"/"];
+	NSString *wvthash = uap[uap.count - 1];
+
+	/* store it for later without the hash */
+	_userAgent = [[uap subarrayWithRange:NSMakeRange(0, uap.count - 1)] componentsJoinedByString:@"/"];
+
+	if ([NSURLProtocol propertyForKey:WVT_KEY inRequest:request])
+		wvthash = [NSString stringWithFormat:@"%lu", [(NSNumber *)[NSURLProtocol propertyForKey:WVT_KEY inRequest:request] longValue]];
+
+	if (wvthash != nil && ![wvthash isEqualToString:@""]) {
+		for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
+			if ([[NSString stringWithFormat:@"%lu", (unsigned long)[wvt hash]] isEqualToString:wvthash]) {
+				_wvt = wvt;
+				break;
+			}
 		}
 	}
 
-	NSString *userAgentToken = [[self class] userAgentToken];
-	if ([userAgentToken length]) {
-		// use addValue:forHTTPHeaderField: instead of setValue:forHTTPHeaderField:.
-		// we want to append the userAgentToken to the existing user agent instead of
-		// replacing the existing user agent.
-		[mutableRequest addValue:userAgentToken forHTTPHeaderField:@"User-Agent"];
+	if (_wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]]) {
+		_wvt = [[[[AppDelegate sharedAppDelegate] webViewController] webViewTabs] firstObject];
 	}
 
-	self = [super initWithRequest:mutableRequest cachedResponse:cachedResponse client:client];
-	if (self != nil) {
-		// All we do here is log the call.
-		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"init for %@ from <%@ %p>", [request URL], [client class], client];
+	if (_wvt == nil) {
+		NSLog(@"[NSURLProtocol] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
+
+		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+
+		if (![[[[request URL] scheme] lowercaseString] isEqualToString:@"http"] && ![[[[request URL] scheme] lowercaseString] isEqualToString:@"https"]) {
+			if ([[UIApplication sharedApplication] canOpenURL:[request URL]]) {
+				UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Open In External App" message:[NSString stringWithFormat:@"Allow URL to be opened by external app? This may compromise your privacy.\n\n%@", [request URL]] preferredStyle:UIAlertControllerStyleAlert];
+
+				UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+#ifdef TRACE
+					NSLog(@"[NSURLProtocol] opening in 3rd party app: %@", [request URL]);
+#endif
+					[[UIApplication sharedApplication] openURL:[request URL]];
+				}];
+
+				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
+				[alertController addAction:cancelAction];
+				[alertController addAction:okAction];
+
+				[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
+			}
+		}
+
+		return nil;
 	}
+#ifdef TRACE
+	NSLog(@"[NSURLProtocol] [Tab %@] initializing %@ to %@ (via %@)", _wvt.tabIndex, [request HTTPMethod], [[request URL] absoluteString], [request mainDocumentURL]);
+#endif
+
 	return self;
 }
 
@@ -400,6 +530,75 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	recursiveRequest = [[self request] mutableCopy];
 	assert(recursiveRequest != nil);
 
+	[recursiveRequest setValue:_userAgent forHTTPHeaderField:@"User-Agent"];
+	[recursiveRequest setHTTPShouldUsePipelining:YES];
+
+	_actualRequest = recursiveRequest;
+
+	void (^cancelLoading)(void) = ^(void) {
+		/* need to continue the chain with a blank response so downstream knows we're done */
+		[self.client URLProtocol:self didReceiveResponse:[[NSURLResponse alloc] init] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+		[self.client URLProtocolDidFinishLoading:self];
+	};
+
+
+	if ([[recursiveRequest URL] isEqual:[recursiveRequest mainDocumentURL]]) {
+		_isOrigin = YES;
+	} else {
+		_isOrigin = NO;
+	}
+	if (_isOrigin) {
+		[LocalNetworkChecker clearCache];
+	}
+
+	/* check HSTS cache first to see if scheme needs upgrading */
+	[recursiveRequest setURL:[[[AppDelegate sharedAppDelegate] hstsCache] rewrittenURI:[[self request] URL]]];
+
+	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
+	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[[self request] URL] host]];
+	if (HTErules != nil && [HTErules count] > 0) {
+		[recursiveRequest setURL:[HTTPSEverywhere rewrittenURI:[[self request] URL] withRules:HTErules]];
+
+		for (HTTPSEverywhereRule *HTErule in HTErules) {
+			[[_wvt applicableHTTPSEverywhereRules] setObject:@YES forKey:[HTErule name]];
+		}
+	}
+
+	/* in case our URL changed/upgraded, send back to the webview so it knows what our protocol is for "//" assets */
+	if (_isOrigin && ![[[recursiveRequest URL] absoluteString] isEqualToString:[[self.request URL] absoluteString]]) {
+#ifdef TRACE_HOST_SETTINGS
+		NSLog(@"[NSURLProtocol] [Tab %@] canceling origin request to redirect %@ rewritten to %@", _wvt.tabIndex, [[self.request URL] absoluteString], [[recursiveRequest URL] absoluteString]);
+#endif
+		[_wvt loadURL:[recursiveRequest URL]];
+		return;
+	}
+
+	if (!_isOrigin) {
+		if (![LocalNetworkChecker isHostOnLocalNet:[[recursiveRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[recursiveRequest URL] host]]) {
+#ifdef TRACE_HOST_SETTINGS
+			NSLog(@"[NSURLProtocol] [Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [recursiveRequest mainDocumentURL], [recursiveRequest URL]);
+#endif
+			cancelLoading();
+			return;
+		}
+	}
+
+	/* we're handling cookies ourself */
+	[recursiveRequest setHTTPShouldHandleCookies:NO];
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[recursiveRequest URL]];
+	if (cookies != nil && [cookies count] > 0) {
+#ifdef TRACE_COOKIES
+		NSLog(@"[NSURLProtocol] [Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, [cookies count], [recursiveRequest URL]);
+#endif
+		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+		[recursiveRequest setAllHTTPHeaderFields:headers];
+	}
+
+	/* add "do not track" header if it's enabled in the settings */
+	if (sendDNT)
+		[recursiveRequest setValue:@"1" forHTTPHeaderField:@"DNT"];
+	
+	///set *recursive* flag
 	[[self class] setProperty:@YES forKey:kJAHPRecursiveRequestFlagProperty inRequest:recursiveRequest];
 
 	self.startTime = [NSDate timeIntervalSinceReferenceDate];
@@ -410,11 +609,9 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	}
 
 	// Latch the thread we were called on, primarily for debugging purposes.
-
 	self.clientThread = [NSThread currentThread];
 
 	// Once everything is ready to go, create a data task with the new request.
-
 	self.task = [[[self class] sharedDemux] dataTaskWithRequest:recursiveRequest delegate:self modes:self.modes];
 	assert(self.task != nil);
 
@@ -778,6 +975,17 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(completionHandler != nil);
 	assert([NSThread currentThread] == self.clientThread);
 
+
+	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+		SecTrustRef trust = challenge.protectionSpace.serverTrust;
+		if (trust != nil) {
+			SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+			if(_isOrigin) {
+				[_wvt setSSLCertificate:certificate];
+			}
+		}
+	}
+
 	// Ask our delegate whether it wants this challenge.  We do this from this thread, not the main thread,
 	// to avoid the overload of bouncing to the main thread for challenges that aren't going to be customised
 	// anyway.
@@ -837,6 +1045,87 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	[[self class] authenticatingHTTPProtocol:self logWithFormat:@"received response %zd / %@ with cache storage policy %zu", (ssize_t) statusCode, [response URL], (size_t) cacheStoragePolicy];
 
+	_contentType = CONTENT_TYPE_OTHER;
+	_isFirstChunk = YES;
+
+	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:httpResponse] lowercaseString];
+	if (ctype != nil) {
+		if ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"])
+			_contentType = CONTENT_TYPE_HTML;
+	}
+
+	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
+	NSString *CSPheader = nil;
+
+	BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
+	if (disableJavascript) {
+		CSPheader = @"script-src 'none';";
+	}
+
+	NSString *curCSP = [self caseInsensitiveHeader:@"content-security-policy" inResponse:httpResponse];
+	if(curCSP == nil) {
+		curCSP = [self caseInsensitiveHeader:@"x-webkit-csp" inResponse:httpResponse];
+	}
+
+	NSMutableDictionary *responseHeaders = [[NSMutableDictionary alloc] initWithDictionary:[httpResponse allHeaderFields]];
+
+
+	/* directives and their values (normal and nonced versions) to prepend */
+	NSDictionary *wantedDirectives = @{
+									   @"child-src": @[ @"endlessipc:", @"endlessipc:" ],
+									   @"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
+									   @"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
+									   @"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
+									   };
+
+	/* don't bother rewriting with the header if we don't want a restrictive one (CSPheader) and the site doesn't have one (curCSP) */
+	if (curCSP != nil) {
+		for (id h in [responseHeaders allKeys]) {
+			NSString *hv = (NSString *)[[httpResponse allHeaderFields] valueForKey:h];
+
+			if ([[h lowercaseString] isEqualToString:@"content-security-policy"] || [[h lowercaseString] isEqualToString:@"x-webkit-csp"]) {
+				/* merge in the things we require for any policy in case exiting policies would block them */
+				if(CSPheader != nil) {
+					// Override existing CSP with ours
+					hv = [[self class] prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
+				} else {
+					hv = [[self class] prependDirectivesIfExisting:wantedDirectives inCSPHeader:hv];
+				}
+
+				[responseHeaders setObject:hv forKey:h];
+			}
+			else
+				[responseHeaders setObject:hv forKey:h];
+		}
+	}
+	else if(CSPheader != nil) {
+		// No CSP present in the original response, so we set our own
+		NSString *newCSPValue = [[self class] prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
+		[responseHeaders setObject:newCSPValue forKey:@"Content-Security-Policy"];
+		[responseHeaders setObject:newCSPValue forKey:@"X-WebKit-CSP"];
+	}
+
+	/* rebuild our response with any modified headers */
+	response = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:[httpResponse statusCode] HTTPVersion:@"1.1" headerFields:responseHeaders];
+
+	/* save any cookies we just received */
+	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[httpResponse allHeaderFields] forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_wvt url]];
+
+	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
+		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
+		if (hsts != nil && ![hsts isEqualToString:@""]) {
+			[[[AppDelegate sharedAppDelegate] hstsCache] parseHSTSHeader:hsts forHost:[[self.request URL] host]];
+		}
+	}
+
+	if ([_wvt secureMode] > WebViewTabSecureModeInsecure && ![[[[_actualRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
+		/* an element on the page was not sent over https but the initial request was, downgrade to mixed */
+		if ([_wvt secureMode] > WebViewTabSecureModeInsecure) {
+			[_wvt setSecureMode:WebViewTabSecureModeMixed];
+		}
+	}
+
 	[[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:cacheStoragePolicy];
 
 	completionHandler(NSURLSessionResponseAllow);
@@ -857,6 +1146,18 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(dataTask == self.task);
 	assert(data != nil);
 	assert([NSThread currentThread] == self.clientThread);
+
+	NSURLRequest* request = dataTask.currentRequest;
+	if ([[request URL] isEqual:[request mainDocumentURL]] && _isFirstChunk) {
+		NSMutableData *tData = [[NSMutableData alloc] init];
+		if (_contentType == CONTENT_TYPE_HTML)
+			// prepend a doctype to force into standards mode and throw in any javascript overrides
+			[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@</script>", [self cspNonce], [[self class] javascriptToInject]] dataUsingEncoding:NSUTF8StringEncoding]];
+		[tData appendData:data];
+		data = tData;
+	}
+
+	_isFirstChunk = NO;
 
 	// Just pass the call on to our client.
 
@@ -919,6 +1220,43 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	// We don't need to clean up the connection here; the system will call, or has already called,
 	// -stopLoading to do that.
+}
+
+
+- (NSString *)caseInsensitiveHeader:(NSString *)header inResponse:(NSHTTPURLResponse *)response
+{
+	NSString *o;
+	for (id h in [response allHeaderFields]) {
+		if ([[h lowercaseString] isEqualToString:[header lowercaseString]]) {
+			o = [[response allHeaderFields] objectForKey:h];
+
+			/* XXX: does webview always honor the first matching header or the last one? */
+			break;
+		}
+	}
+
+	return o;
+}
+
+- (NSString *)cspNonce
+{
+	if (!_cspNonce) {
+		/*
+		 * from https://w3c.github.io/webappsec-csp/#security-nonces:
+		 *
+		 * "The generated value SHOULD be at least 128 bits long (before encoding), and SHOULD
+		 * "be generated via a cryptographically secure random number generator in order to
+		 * "ensure that the value is difficult for an attacker to predict.
+		 */
+
+		NSMutableData *data = [NSMutableData dataWithLength:16];
+		if (SecRandomCopyBytes(kSecRandomDefault, 16, data.mutableBytes) != 0)
+			abort();
+
+		_cspNonce = [data base64EncodedStringWithOptions:0];
+	}
+
+	return _cspNonce;
 }
 
 @end

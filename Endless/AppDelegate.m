@@ -50,13 +50,6 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	/*
-	 #ifdef USE_DUMMY_URLINTERCEPTOR
-	 [NSURLProtocol registerClass:[DummyURLInterceptor class]];
-	 #else
-	 [NSURLProtocol registerClass:[URLInterceptor class]];
-	 #endif
-	 */
 	[JAHPAuthenticatingHTTPProtocol setDelegate:self];
 	[JAHPAuthenticatingHTTPProtocol start];
 
@@ -71,6 +64,8 @@
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 
 	self.socksProxyPort = 0;
+	self.httpProxyPort = 0;
+	
 	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
 
 	_needsResume = false;
@@ -299,6 +294,10 @@
 	[self startPsiphon];
 }
 
++ (AppDelegate *)sharedAppDelegate{
+	return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
 // MARK: TunneledAppDelegate protocol implementation
 
 - (NSString *) getPsiphonConfig {
@@ -494,19 +493,10 @@
 	}
 }
 
-+ (AppDelegate *)sharedAppDelegate{
-	return (AppDelegate *)[UIApplication sharedApplication].delegate;
-}
-
-
-
-
+// MARK: JAHPAuthenticatingHTTPProtocol delegate methods
 - (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
 	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
 }
 
-- (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logMessage:(NSString *)message {
-	NSLog(@"logMessage: %@", message);
-}
 
 @end
