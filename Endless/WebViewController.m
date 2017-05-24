@@ -1051,7 +1051,7 @@
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-	if (scrollView == tabScroller) {
+	if (scrollView == tabScroller || showingTabs == YES) {
 		return;
 	}
 

@@ -984,6 +984,8 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 				[_wvt setSSLCertificate:certificate];
 			}
 		}
+		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+		return;
 	}
 
 	// Ask our delegate whether it wants this challenge.  We do this from this thread, not the main thread,
