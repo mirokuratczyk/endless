@@ -454,7 +454,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	if (_wvt == nil) {
 		NSLog(@"[NSURLProtocol] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
 
-		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 
 		if (![[[[request URL] scheme] lowercaseString] isEqualToString:@"http"] && ![[[[request URL] scheme] lowercaseString] isEqualToString:@"https"]) {
 			if ([[UIApplication sharedApplication] canOpenURL:[request URL]]) {
@@ -541,12 +541,14 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		[self.client URLProtocolDidFinishLoading:self];
 	};
 
-
-	if ([[recursiveRequest URL] isEqual:[recursiveRequest mainDocumentURL]]) {
+	if ([NSURLProtocol propertyForKey:ORIGIN_KEY inRequest:recursiveRequest]) {
+		_isOrigin = YES;
+	} else if ([[recursiveRequest URL] isEqual:[recursiveRequest mainDocumentURL]]) {
 		_isOrigin = YES;
 	} else {
 		_isOrigin = NO;
 	}
+
 	if (_isOrigin) {
 		[LocalNetworkChecker clearCache];
 	}
@@ -952,7 +954,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	[self.task cancel];
 
-	[[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+	[[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: (_isOrigin ? @YES : @NO )}]];
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
@@ -976,6 +978,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert([NSThread currentThread] == self.clientThread);
 
 
+	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
 		SecTrustRef trust = challenge.protectionSpace.serverTrust;
 		if (trust != nil) {
@@ -1217,7 +1220,10 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	} else {
 		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"error %@ / %d", [error domain], (int) [error code]];
 
-		[[self client] URLProtocol:self didFailWithError:error];
+		NSMutableDictionary *ui = [[NSMutableDictionary alloc] initWithDictionary:[error userInfo]];
+		[ui setObject:(_isOrigin ? @YES : @NO) forKeyedSubscript:ORIGIN_KEY];
+
+		[self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:[error domain] code:[error code] userInfo:ui]];
 	}
 
 	// We don't need to clean up the connection here; the system will call, or has already called,

@@ -50,6 +50,7 @@
 #define CONTENT_TYPE_OTHER	0
 #define CONTENT_TYPE_HTML	1
 #define WVT_KEY @"_wvt"
+#define ORIGIN_KEY @"_origin"
 
 
 @protocol JAHPAuthenticatingHTTPProtocolDelegate;
@@ -110,6 +111,8 @@
 /*! Call when NSURLSession configuration changes to reset the shared instance
  */
 + (void)resetSharedDemux;
+
++ (void)temporarilyAllow:(NSURL *_Nullable)url;
 
 @end
 

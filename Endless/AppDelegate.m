@@ -46,6 +46,7 @@
 
 	SystemSoundID _notificationSound;
 	Reachability *_reachability;
+	UIAlertController *authAlertController;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -497,6 +498,82 @@
 - (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
 	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
 }
+
+- (BOOL)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol canAuthenticateAgainstProtectionSpace:( NSURLProtectionSpace *)protectionSpace {
+	return ([protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]
+			|| [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic]);
+}
+
+- (JAHPDidCancelAuthenticationChallengeHandler)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol didReceiveAuthenticationChallenge:( NSURLAuthenticationChallenge *)challenge {
+	NSURLCredential *nsuc;
+
+	/* if we have existing credentials for this realm, try it first */
+	if ([challenge previousFailureCount] == 0) {
+		NSDictionary *d = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:[challenge protectionSpace]];
+		if (d != nil) {
+			for (id u in d) {
+				nsuc = [d objectForKey:u];
+				break;
+			}
+		}
+	}
+
+	/* no credentials, prompt the user */
+	if (nsuc == nil) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			authAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"Authentication Required alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
+
+			if ([[challenge protectionSpace] realm] != nil && ![[[challenge protectionSpace] realm] isEqualToString:@""])
+				[authAlertController setMessage:[NSString stringWithFormat:@"%@: \"%@\"", [[challenge protectionSpace] host], [[challenge protectionSpace] realm]]];
+			else
+				[authAlertController setMessage:[[challenge protectionSpace] host]];
+
+			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+				textField.placeholder = NSLocalizedString(@"Log In", nil);
+			}];
+
+			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+				textField.placeholder = NSLocalizedString(@"Password", @"Password");
+				textField.secureTextEntry = YES;
+			}];
+
+			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+				[[challenge sender] cancelAuthenticationChallenge:challenge];
+				[authenticatingHTTPProtocol.client URLProtocol:authenticatingHTTPProtocol didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
+			}]];
+
+			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+				UITextField *login = authAlertController.textFields.firstObject;
+				UITextField *password = authAlertController.textFields.lastObject;
+
+				NSURLCredential *nsuc = [[NSURLCredential alloc] initWithUser:[login text] password:[password text] persistence:NSURLCredentialPersistenceForSession];
+				[[NSURLCredentialStorage sharedCredentialStorage] setCredential:nsuc forProtectionSpace:[challenge protectionSpace]];
+
+				[authenticatingHTTPProtocol resolvePendingAuthenticationChallengeWithCredential:nsuc];
+			}]];
+
+			[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:authAlertController animated:YES completion:nil];
+		});
+	}
+	else {
+		[[NSURLCredentialStorage sharedCredentialStorage] setCredential:nsuc forProtectionSpace:[challenge protectionSpace]];
+		[authenticatingHTTPProtocol resolvePendingAuthenticationChallengeWithCredential:nsuc];
+	}
+
+	return nil;
+
+}
+
+- (void)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol didCancelAuthenticationChallenge:( NSURLAuthenticationChallenge *)challenge {
+	if(authAlertController) {
+		if (authAlertController.isViewLoaded && authAlertController.view.window) {
+			[authAlertController dismissViewControllerAnimated:NO completion:nil];
+		}
+	}
+}
+
+
+
 
 
 @end

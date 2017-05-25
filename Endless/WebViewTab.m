@@ -24,7 +24,7 @@
 
 #import <Photos/Photos.h>
 #import "PsiphonData.h"
-#import "URLInterceptor.h"
+#import "JAHPAuthenticatingHTTPProtocol.h"
 #import "WebViewTab.h"
 
 #import "NSString+JavascriptEscape.h"
@@ -469,8 +469,10 @@
 		return;
 
 	/* "The operation couldn't be completed. (Cocoa error 3072.)" - useless */
-	if ([[error domain] isEqualToString:NSCocoaErrorDomain] && error.code == NSUserCancelledError)
+	if ([[error domain] isEqualToString:NSCocoaErrorDomain] && error.code == NSUserCancelledError) {
+		[[[AppDelegate sharedAppDelegate] webViewController] updateSearchBarDetails];
 		return;
+	}
 
 	NSString *msg = [error localizedDescription];
 
@@ -632,7 +634,7 @@
 		[self requestAuthorizationWithRedirectionToSettings];
 
 		NSURL *imgurl = [NSURL URLWithString:img];
-		[URLInterceptor temporarilyAllow:imgurl];
+		[JAHPAuthenticatingHTTPProtocol temporarilyAllow:imgurl];
 		NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
 		if (imgdata) {
 			UIImage *i = [UIImage imageWithData:imgdata];
