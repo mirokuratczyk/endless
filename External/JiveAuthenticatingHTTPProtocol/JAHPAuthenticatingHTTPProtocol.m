@@ -424,7 +424,6 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(client != nil);
 	// can be called on any thread
 
-	self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
 	_wvt = nil;
 
 	/* extract tab hash from per-uiwebview user agent */
@@ -481,6 +480,81 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	NSLog(@"[NSURLProtocol] [Tab %@] initializing %@ to %@ (via %@)", _wvt.tabIndex, [request HTTPMethod], [[request URL] absoluteString], [request mainDocumentURL]);
 #endif
 
+	NSMutableURLRequest *mutableRequest = [request mutableCopy];
+
+	[mutableRequest setValue:_userAgent forHTTPHeaderField:@"User-Agent"];
+	[mutableRequest setHTTPShouldUsePipelining:YES];
+
+
+	void (^cancelLoading)(void) = ^(void) {
+		/* need to continue the chain with a blank response so downstream knows we're done */
+		[self.client URLProtocol:self didReceiveResponse:[[NSURLResponse alloc] init] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+		[self.client URLProtocolDidFinishLoading:self];
+	};
+
+	if ([NSURLProtocol propertyForKey:ORIGIN_KEY inRequest:mutableRequest]) {
+		_isOrigin = YES;
+	} else if ([[mutableRequest URL] isEqual:[mutableRequest mainDocumentURL]]) {
+		_isOrigin = YES;
+	} else {
+		_isOrigin = NO;
+	}
+
+	if (_isOrigin) {
+		[LocalNetworkChecker clearCache];
+	}
+
+	/* check HSTS cache first to see if scheme needs upgrading */
+	[mutableRequest setURL:[[[AppDelegate sharedAppDelegate] hstsCache] rewrittenURI:[request URL]]];
+
+	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
+	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[request URL] host]];
+	if (HTErules != nil && [HTErules count] > 0) {
+		[mutableRequest setURL:[HTTPSEverywhere rewrittenURI:[request URL] withRules:HTErules]];
+
+		for (HTTPSEverywhereRule *HTErule in HTErules) {
+			[[_wvt applicableHTTPSEverywhereRules] setObject:@YES forKey:[HTErule name]];
+		}
+	}
+
+	/* in case our URL changed/upgraded, send back to the webview so it knows what our protocol is for "//" assets */
+	if (_isOrigin && ![[[mutableRequest URL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
+#ifdef TRACE_HOST_SETTINGS
+		NSLog(@"[NSURLProtocol] [Tab %@] canceling origin request to redirect %@ rewritten to %@", _wvt.tabIndex, [[self.request URL] absoluteString], [[mutableRequest URL] absoluteString]);
+#endif
+		[_wvt loadURL:[mutableRequest URL]];
+		return nil;
+	}
+
+	if (!_isOrigin) {
+		if (![LocalNetworkChecker isHostOnLocalNet:[[mutableRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[mutableRequest URL] host]]) {
+#ifdef TRACE_HOST_SETTINGS
+			NSLog(@"[NSURLProtocol] [Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [mutableRequest mainDocumentURL], [mutableRequest URL]);
+#endif
+			cancelLoading();
+			return nil;
+		}
+	}
+
+	/* we're handling cookies ourself */
+	[mutableRequest setHTTPShouldHandleCookies:NO];
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[mutableRequest URL]];
+	if (cookies != nil && [cookies count] > 0) {
+#ifdef TRACE_COOKIES
+		NSLog(@"[NSURLProtocol] [Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, [cookies count], [mutableRequest URL]);
+#endif
+		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+		[mutableRequest setAllHTTPHeaderFields:headers];
+	}
+
+	/* add "do not track" header if it's enabled in the settings */
+	if (sendDNT)
+		[mutableRequest setValue:@"1" forHTTPHeaderField:@"DNT"];
+	
+
+
+	self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
+
 	return self;
 }
 
@@ -529,77 +603,8 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	recursiveRequest = [[self request] mutableCopy];
 	assert(recursiveRequest != nil);
-
-	[recursiveRequest setValue:_userAgent forHTTPHeaderField:@"User-Agent"];
-	[recursiveRequest setHTTPShouldUsePipelining:YES];
-
 	_actualRequest = recursiveRequest;
 
-	void (^cancelLoading)(void) = ^(void) {
-		/* need to continue the chain with a blank response so downstream knows we're done */
-		[self.client URLProtocol:self didReceiveResponse:[[NSURLResponse alloc] init] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-		[self.client URLProtocolDidFinishLoading:self];
-	};
-
-	if ([NSURLProtocol propertyForKey:ORIGIN_KEY inRequest:recursiveRequest]) {
-		_isOrigin = YES;
-	} else if ([[recursiveRequest URL] isEqual:[recursiveRequest mainDocumentURL]]) {
-		_isOrigin = YES;
-	} else {
-		_isOrigin = NO;
-	}
-
-	if (_isOrigin) {
-		[LocalNetworkChecker clearCache];
-	}
-
-	/* check HSTS cache first to see if scheme needs upgrading */
-	[recursiveRequest setURL:[[[AppDelegate sharedAppDelegate] hstsCache] rewrittenURI:[[self request] URL]]];
-
-	/* then check HTTPS Everywhere (must pass all URLs since some rules are not just scheme changes */
-	NSArray *HTErules = [HTTPSEverywhere potentiallyApplicableRulesForHost:[[[self request] URL] host]];
-	if (HTErules != nil && [HTErules count] > 0) {
-		[recursiveRequest setURL:[HTTPSEverywhere rewrittenURI:[[self request] URL] withRules:HTErules]];
-
-		for (HTTPSEverywhereRule *HTErule in HTErules) {
-			[[_wvt applicableHTTPSEverywhereRules] setObject:@YES forKey:[HTErule name]];
-		}
-	}
-
-	/* in case our URL changed/upgraded, send back to the webview so it knows what our protocol is for "//" assets */
-	if (_isOrigin && ![[[recursiveRequest URL] absoluteString] isEqualToString:[[self.request URL] absoluteString]]) {
-#ifdef TRACE_HOST_SETTINGS
-		NSLog(@"[NSURLProtocol] [Tab %@] canceling origin request to redirect %@ rewritten to %@", _wvt.tabIndex, [[self.request URL] absoluteString], [[recursiveRequest URL] absoluteString]);
-#endif
-		[_wvt loadURL:[recursiveRequest URL]];
-		return;
-	}
-
-	if (!_isOrigin) {
-		if (![LocalNetworkChecker isHostOnLocalNet:[[recursiveRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[recursiveRequest URL] host]]) {
-#ifdef TRACE_HOST_SETTINGS
-			NSLog(@"[NSURLProtocol] [Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [recursiveRequest mainDocumentURL], [recursiveRequest URL]);
-#endif
-			cancelLoading();
-			return;
-		}
-	}
-
-	/* we're handling cookies ourself */
-	[recursiveRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[recursiveRequest URL]];
-	if (cookies != nil && [cookies count] > 0) {
-#ifdef TRACE_COOKIES
-		NSLog(@"[NSURLProtocol] [Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, [cookies count], [recursiveRequest URL]);
-#endif
-		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-		[recursiveRequest setAllHTTPHeaderFields:headers];
-	}
-
-	/* add "do not track" header if it's enabled in the settings */
-	if (sendDNT)
-		[recursiveRequest setValue:@"1" forHTTPHeaderField:@"DNT"];
-	
 	///set *recursive* flag
 	[[self class] setProperty:@YES forKey:kJAHPRecursiveRequestFlagProperty inRequest:recursiveRequest];
 
@@ -1052,6 +1057,10 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	_contentType = CONTENT_TYPE_OTHER;
 	_isFirstChunk = YES;
+
+	if(_wvt && [[dataTask.currentRequest URL] isEqual:[dataTask.currentRequest mainDocumentURL]]) {
+		[_wvt setUrl:[dataTask.currentRequest URL]];
+	}
 
 	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
 	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:httpResponse] lowercaseString];
