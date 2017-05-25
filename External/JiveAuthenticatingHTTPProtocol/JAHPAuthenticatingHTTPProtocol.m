@@ -986,11 +986,22 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
 		SecTrustRef trust = challenge.protectionSpace.serverTrust;
-		if (trust != nil) {
-			SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-			if(_isOrigin) {
-				[_wvt setSSLCertificate:certificate];
-			}
+		if (trust == nil) {
+			assert(NO);
+		}
+		SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+		if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
+			[_wvt setSSLCertificate:certificate];
+		}
+
+		SecTrustResultType trustResultType;
+		SecTrustEvaluate(challenge.protectionSpace.serverTrust, &trustResultType);
+
+		if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
+			NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+			assert(credential != nil);
+			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+			return;
 		}
 		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 		return;
