@@ -113,6 +113,7 @@
 + (void)resetSharedDemux;
 
 + (void)temporarilyAllow:(NSURL *_Nullable)url;
++ (void)setSendDNT:(BOOL)val;
 
 @end
 

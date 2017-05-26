@@ -257,10 +257,10 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 {
 	@synchronized(self) {
 		if (sharedDemuxInstance == nil) {
-
-			NSURLSessionConfiguration *     config;
+			NSURLSessionConfiguration *config;
 
 			config = [NSURLSessionConfiguration defaultSessionConfiguration];
+
 			// You have to explicitly configure the session to use your own protocol subclass here
 			// otherwise you don't see redirects <rdar://problem/17384498>.
 			if (config.protocolClasses) {
@@ -269,11 +269,28 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 				config.protocolClasses = @[ self ];
 			}
 
+			// Set TLSMinimumSupportedProtocol from user settings.
+			// NOTE: TLSMaximumSupportedProtocol is always set to the max supported by the system
+			// by default so there is no need to set it.
+			NSString *tlsVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kMinTlsVersion];
+
+			if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
+				config.TLSMinimumSupportedProtocol = kTLSProtocol12;
+			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]){
+				config.TLSMinimumSupportedProtocol = kTLSProtocol11;
+			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]){
+				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+			} else {
+				// Have a safe default if userDefaults are corrupted
+				// or have a deprecated value for kMinTlsVersion
+				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+			}
+
+			// Set proxy
 			NSString* proxyHost = @"localhost";
 			NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].socksProxyPort];
 			NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].httpProxyPort];
 
-			// Create an NSURLSessionConfiguration that uses the proxy
 			NSDictionary *proxyDict = @{
 										@"SOCKSEnable" : [NSNumber numberWithInt:0],
 										(NSString *)kCFStreamPropertySOCKSProxyHost : proxyHost,

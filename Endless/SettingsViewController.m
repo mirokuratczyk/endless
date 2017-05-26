@@ -29,7 +29,6 @@
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
 #import "SettingsViewController.h"
-#import "URLInterceptor.h"
 
 
 static AppDelegate *appDelegate;

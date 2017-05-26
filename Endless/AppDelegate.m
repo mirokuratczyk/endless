@@ -33,8 +33,6 @@
 #import "PsiphonData.h"
 #import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
-#import "URLInterceptor.h"
-
 
 @implementation AppDelegate {
 	BOOL _needsResume;

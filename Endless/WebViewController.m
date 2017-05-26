@@ -13,7 +13,7 @@
 #import "SettingsViewController.h"
 #import "SSLCertificateViewController.h"
 #import "UpstreamProxySettings.h"
-#import "URLInterceptor.h"
+#import "JAHPAuthenticatingHTTPProtocol.h"
 #import "WebViewController.h"
 #import "WebViewTab.h"
 #import "PsiphonConnectionIndicator.h"
@@ -25,6 +25,11 @@
 #define TOOLBAR_PADDING 6
 #define TOOLBAR_BUTTON_SIZE 30
 #define kLetsGoButtonHeight 60
+
+static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
+	return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
+};
+
 
 @implementation UIColor (DefaultNavigationControllerColor)
 + (UIColor *)defaultNavigationControllerColor {
@@ -1169,10 +1174,15 @@
 	appSettingsViewController = nil;
 
 	// Update relevant ivars to match current settings
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[URLInterceptor setSendDNT:[userDefaults boolForKey:@"sendDoNotTrack"]];
+	[JAHPAuthenticatingHTTPProtocol setSendDNT:[[NSUserDefaults standardUserDefaults] boolForKey:@"sendDoNotTrack"]];
 	[CookieJar syncCookieAcceptPolicy];
-	
+
+	// Check if settings which have changed require setting up JAHPQNSURLSessionDemux
+	// singleton with new NSURLSessionConfiguration object
+	if ([self isURLSessionResetRequired]) {
+		[JAHPAuthenticatingHTTPProtocol resetSharedDemux];
+	}
+
 	// Check if settings which have changed require a tunnel service restart to take effect
 	if ([self isSettingsRestartRequired]) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
@@ -1183,6 +1193,19 @@
 			[(WebViewTab *)webViewTabs[i] refresh];
 		}
 	}
+}
+
+- (BOOL) isURLSessionResetRequired {
+	if (preferencesSnapshot) {
+		// Check if "min TLS" has changed
+		NSString* oldMinTLS = [preferencesSnapshot objectForKey:kMinTlsVersion];
+		NSString* newMinTLS = [[NSUserDefaults standardUserDefaults] objectForKey:kMinTlsVersion];
+
+		if (!safeStringsEqual(oldMinTLS, newMinTLS)) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 - (BOOL) isTabsReloadRequired {
@@ -1202,11 +1225,6 @@
 	UpstreamProxySettings *proxySettings = [UpstreamProxySettings sharedInstance];
 
 	if (preferencesSnapshot) {
-		// Cannot use isEqualToString becase strings may be nil
-		BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
-			return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
-		};
-
 		// Check if "disable timeouts" has changed
 		BOOL disableTimeouts = [[preferencesSnapshot objectForKey:kDisableTimeouts] boolValue];
 
@@ -1876,10 +1894,6 @@
 
 - (void) regionSelectionControllerDidEnd {
 	if (preferencesSnapshot) {
-		// Cannot use isEqualToString becase strings may be nil
-		BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
-			return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
-		};
 		// Check if the selected region has changed
 		NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
 
