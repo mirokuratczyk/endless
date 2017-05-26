@@ -58,7 +58,7 @@
 "Clear Cookies and Data" = "Clear Cookies and Data";
 
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name" = "Common Name";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirm";
@@ -79,7 +79,7 @@
 "Copy URL" = "Copy URL";
 
 /* Field name for display in list */
-"Country (C)" = "Country (C)";
+"Country" = "Country";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Disconnected!";
@@ -161,7 +161,7 @@
 "LET'S GO!" = "LET'S GO!";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality" = "Locality";
 
 /* No comment provided by engineer. */
 "Log In" = "Log In";
@@ -199,10 +199,10 @@
 "Open in Safari" = "Open in Safari";
 
 /* Field name for display in list */
-"Organization (O)" = "Organization (O)";
+"Organization" = "Organization";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number" = "Organizational Unit Number";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -259,9 +259,6 @@
 /* Field name for display in list */
 "Serial Number" = "Serial Number";
 
-/* Field name for display in list */
-"Serial Number (SN)" = "Serial Number (SN)";
-
 /* Title that is showing above selected server region */
 "Server region:" = "Server region:";
 
@@ -284,7 +281,7 @@
 "Spain" = "Spain";
 
 /* Field name for display in list */
-"State/Province (ST)" = "State/Province (ST)";
+"State/Province" = "State/Province";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Status Indicator";

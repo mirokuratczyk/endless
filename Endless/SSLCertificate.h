@@ -24,13 +24,13 @@
 #define X509_KEY_BUSCAT	@"Business Category"
 
 /* For l10n, keys must match the above */
-#define X509_KEY_CN_l10n	NSLocalizedString(@"Common Name (CN)", @"Field name for display in list")
-#define X509_KEY_O_l10n		NSLocalizedString(@"Organization (O)", @"Field name for display in list")
-#define X509_KEY_OU_l10n	NSLocalizedString(@"Organizational Unit Number (OU)", @"Field name for display in list")
-#define X509_KEY_L_l10n		NSLocalizedString(@"Locality (L)", @"Field name for display in list")
-#define X509_KEY_ST_l10n	NSLocalizedString(@"State/Province (ST)", @"Field name for display in list")
-#define X509_KEY_C_l10n		NSLocalizedString(@"Country (C)", @"Field name for display in list")
-#define X509_KEY_SN_l10n	NSLocalizedString(@"Serial Number (SN)", @"Field name for display in list")
+#define X509_KEY_CN_l10n	NSLocalizedString(@"Common Name", @"Field name for display in list")
+#define X509_KEY_O_l10n		NSLocalizedString(@"Organization", @"Field name for display in list")
+#define X509_KEY_OU_l10n	NSLocalizedString(@"Organizational Unit Number", @"Field name for display in list")
+#define X509_KEY_L_l10n		NSLocalizedString(@"Locality", @"Field name for display in list")
+#define X509_KEY_ST_l10n	NSLocalizedString(@"State/Province", @"Field name for display in list")
+#define X509_KEY_C_l10n		NSLocalizedString(@"Country", @"Field name for display in list")
+#define X509_KEY_SN_l10n	NSLocalizedString(@"Serial Number", @"Field name for display in list")
 
 #define X509_KEY_STREET_l10n	NSLocalizedString(@"Street Address", @"Field name for display in list")
 #define X509_KEY_ZIP_l10n		NSLocalizedString(@"Postal Code", @"Field name for display in list")
