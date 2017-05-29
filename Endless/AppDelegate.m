@@ -58,6 +58,7 @@
 	self.hstsCache = [HSTSCache retrieve];
 	[CookieJar syncCookieAcceptPolicy];
 	[Bookmark retrieveList];
+	self.sslCertCache = [[NSCache alloc] init];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
@@ -493,9 +494,11 @@
 }
 
 // MARK: JAHPAuthenticatingHTTPProtocol delegate methods
+#ifdef TRACE
 - (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
 	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
 }
+#endif
 
 - (BOOL)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol canAuthenticateAgainstProtectionSpace:( NSURLProtectionSpace *)protectionSpace {
 	return ([protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]

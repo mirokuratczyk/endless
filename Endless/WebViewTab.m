@@ -335,6 +335,12 @@
 			if(navigationType == UIWebViewNavigationTypeOther) {
 				[self addEquivalentURL:[[request mainDocumentURL] absoluteString]];
 			}
+			if ([[[url scheme] lowercaseString] isEqualToString:@"https"]) {
+				SSLCertificate* certificate = [[[AppDelegate sharedAppDelegate] sslCertCache] objectForKey:[url host]];
+				if (certificate) {
+					[self setSSLCertificate:certificate];
+				}
+			}
 		}
 
 		return YES;

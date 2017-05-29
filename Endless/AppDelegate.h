@@ -59,6 +59,7 @@
 @property NSInteger socksProxyPort;
 @property NSInteger httpProxyPort;
 @property PsiphonConnectionState psiphonConectionState;
+@property NSCache *sslCertCache;
 
 - (void) startIfNeeded;
 - (void) reloadAndOpenSettings;
