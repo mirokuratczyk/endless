@@ -962,6 +962,16 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert([[self class] propertyForKey:kJAHPRecursiveRequestFlagProperty inRequest:newRequest] != nil);
 
 	redirectRequest = [newRequest mutableCopy];
+
+	/* set up properties of the original request */
+	[redirectRequest setMainDocumentURL:[_actualRequest mainDocumentURL]];
+	[NSURLProtocol setProperty:[NSNumber numberWithLong:_wvt.hash] forKey:WVT_KEY inRequest:redirectRequest];
+
+	/* if we're being redirected from secure back to insecure, we might be stuck in a loop from an HTTPSEverywhere rule */
+	if ([[[_actualRequest URL] scheme] isEqualToString:@"https"] && [[[redirectRequest URL] scheme] isEqualToString:@"http"]) {
+		[HTTPSEverywhere noteInsecureRedirectionForURL:[_actualRequest URL]];
+	}
+
 	[[self class] removePropertyForKey:kJAHPRecursiveRequestFlagProperty inRequest:redirectRequest];
 
 	// Tell the client about the redirect.
