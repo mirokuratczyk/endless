@@ -104,7 +104,6 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 static JAHPWeakDelegateHolder* weakDelegateHolder;
 
-static BOOL sendDNT = true;
 static NSMutableArray *tmpAllowed;
 
 static NSString *_javascriptToInject;
@@ -116,11 +115,6 @@ static NSString *_javascriptToInject;
 	}
 
 	return _javascriptToInject;
-}
-
-+ (void)setSendDNT:(BOOL)val
-{
-	sendDNT = val;
 }
 
 + (void)temporarilyAllow:(NSURL *)url
@@ -565,13 +559,12 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	}
 
 	/* add "do not track" header if it's enabled in the settings */
-	if (sendDNT)
+	BOOL sendDNT = [[NSUserDefaults standardUserDefaults] boolForKey:@"sendDoNotTrack"];
+	if(sendDNT) {
 		[mutableRequest setValue:@"1" forHTTPHeaderField:@"DNT"];
-	
+	}
 
-
-	self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
-
+	self = [super initWithRequest:mutableRequest cachedResponse:cachedResponse client:client];
 	return self;
 }
 

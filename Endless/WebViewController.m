@@ -1174,7 +1174,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	appSettingsViewController = nil;
 
 	// Update relevant ivars to match current settings
-	[JAHPAuthenticatingHTTPProtocol setSendDNT:[[NSUserDefaults standardUserDefaults] boolForKey:@"sendDoNotTrack"]];
 	[CookieJar syncCookieAcceptPolicy];
 
 	// Check if settings which have changed require setting up JAHPQNSURLSessionDemux
