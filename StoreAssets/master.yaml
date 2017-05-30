@@ -8,17 +8,15 @@ en:
 
   # The description of the App, as it appears in the App Store
   description: |
-    After helping millions of Android users get access to the sites they love, we have launched the first official Psiphon app for iOS!
+    After helping tens of millions of users in the world's most hostile environments get access to the sites they love, Psiphon has launched our first official app for iOS!  Our new browser app seamlessly integrates access to the Psiphon circumvention network, securely connecting you to your sites.
 
-    Psiphon is the most robust circumvention tool on the web. Psiphon Browser will connect you to websites that are censored, blocked, or otherwise unavailable, no matter where you are in the world. Using Psiphon Browser also provides you with an extra layer of protection when using public Wi-Fi services.
+    Psiphon is the most robust circumvention tool on the web. The Psiphon Browser app will connect you to websites that are censored, blocked, or otherwise unavailable, no matter where you are in the world. The app also provides you with an extra layer of protection when using public wi-fi services or other networks that could be untrustworthy.
 
-    Psiphon is the best tool for accessing the open Internet.
-
-    Features:
-    • Free for personal use.
-    • Easy to download and install. No registration or configuration required.
-    • Automatic selection of protocols to provide effective, reliable circumvention every time.
-    • Psiphon is an open-source project subject to credible security auditing and open review. To find our source code and more information, visit the project homepage: https://github.com/Psiphon-Inc/endless
+    Key features include:
+    • Free, unlimited personal use.
+    • Easy to download, install, and use. No registration or configuration required.
+    • Multiple language support and configurable server location.
+    • Automatic selection of protocols to provide fast, reliable circumvention, every time.
 
   # Keywords to help people find the app in the App Store. Must be comma-separated.
   keywords: Psiphon, browser, censorship, circumvention, VPN, proxy
