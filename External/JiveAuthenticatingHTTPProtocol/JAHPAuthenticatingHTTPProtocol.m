@@ -259,7 +259,7 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 		if (sharedDemuxInstance == nil) {
 			NSURLSessionConfiguration *config;
 
-			config = [NSURLSessionConfiguration defaultSessionConfiguration];
+			config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 
 			// You have to explicitly configure the session to use your own protocol subclass here
 			// otherwise you don't see redirects <rdar://problem/17384498>.
@@ -1021,6 +1021,11 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		SecTrustEvaluate(challenge.protectionSpace.serverTrust, &trustResultType);
 
 		if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
+			[[self class ]authenticatingHTTPProtocol:nil logWithFormat:@"Got SSL certificate for %@, mainDocumentURL: %@, URL: %@",
+			 challenge.protectionSpace.host,
+			 [task.currentRequest mainDocumentURL],
+			 [task.currentRequest URL]];
+
 			if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
 				SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
 				[_wvt setSSLCertificate:certificate];

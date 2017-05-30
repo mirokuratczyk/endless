@@ -128,7 +128,7 @@
 	self = [super init];
 	if (self != nil) {
 		if (configuration == nil) {
-			configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+			configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 		}
 		self->_configuration = [configuration copy];
 
