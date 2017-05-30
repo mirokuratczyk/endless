@@ -19,7 +19,7 @@
 /* Error alert message text */
 "An error occurred downloading image %@" = "An error occurred downloading image %@";
 
-/* Authentication Required alert title */
+/* HTTP authentication  alert title */
 "Authentication Required" = "Authentication Required";
 
 /* Field name for display in list */
@@ -159,7 +159,7 @@
 /* Field name for display in list */
 "Locality (L)" = "Locality (L)";
 
-/* No comment provided by engineer. */
+/* HTTP authentication alert log in button action */
 "Log In" = "Log In";
 
 /* Title screen displaying logs */
@@ -204,7 +204,7 @@
    Add bookmark page name field */
 "Page Name (leave blank to use URL)" = "Page Name (leave blank to use URL)";
 
-/* Password */
+/* HTTP authentication alert password input title */
 "Password" = "Password";
 
 /* Field name for display in list */
@@ -315,6 +315,9 @@
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
 "URL" = "URL";
+
+/* HTTP authentication alert user name input title */
+"User Name" = "User Name";
 
 /* Field name for display in list */
 "Version" = "Version";

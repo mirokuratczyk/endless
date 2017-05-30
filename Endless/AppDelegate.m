@@ -522,7 +522,7 @@
 	/* no credentials, prompt the user */
 	if (nsuc == nil) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			authAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"Authentication Required alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
+			authAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"HTTP authentication  alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
 
 			if ([[challenge protectionSpace] realm] != nil && ![[[challenge protectionSpace] realm] isEqualToString:@""])
 				[authAlertController setMessage:[NSString stringWithFormat:@"%@: \"%@\"", [[challenge protectionSpace] host], [[challenge protectionSpace] realm]]];
@@ -530,11 +530,11 @@
 				[authAlertController setMessage:[[challenge protectionSpace] host]];
 
 			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-				textField.placeholder = NSLocalizedString(@"Log In", nil);
+				textField.placeholder = NSLocalizedString(@"User Name", "HTTP authentication alert user name input title");
 			}];
 
 			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-				textField.placeholder = NSLocalizedString(@"Password", @"Password");
+				textField.placeholder = NSLocalizedString(@"Password", @"HTTP authentication alert password input title");
 				textField.secureTextEntry = YES;
 			}];
 
@@ -543,7 +543,7 @@
 				[authenticatingHTTPProtocol.client URLProtocol:authenticatingHTTPProtocol didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 			}]];
 
-			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", @"HTTP authentication alert log in button action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 				UITextField *login = authAlertController.textFields.firstObject;
 				UITextField *password = authAlertController.textFields.lastObject;
 
