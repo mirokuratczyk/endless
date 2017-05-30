@@ -1016,20 +1016,20 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		if (trust == nil) {
 			assert(NO);
 		}
-		SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-		if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
-			[_wvt setSSLCertificate:certificate];
-			// Also cache the cert for displaying when
-			// -URLSession:task:didReceiveChallenge: is not getting called
-			// due to NSURLSession internal TLS caching
-			// or UIWebView content caching
-			[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
-		}
 
 		SecTrustResultType trustResultType;
 		SecTrustEvaluate(challenge.protectionSpace.serverTrust, &trustResultType);
 
 		if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
+			if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
+				SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+				[_wvt setSSLCertificate:certificate];
+				// Also cache the cert for displaying when
+				// -URLSession:task:didReceiveChallenge: is not getting called
+				// due to NSURLSession internal TLS caching
+				// or UIWebView content caching
+				[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
+			}
 			NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
 			assert(credential != nil);
 			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
