@@ -548,6 +548,31 @@
 				UITextField *password = authAlertController.textFields.lastObject;
 
 				NSURLCredential *nsuc = [[NSURLCredential alloc] initWithUser:[login text] password:[password text] persistence:NSURLCredentialPersistenceForSession];
+
+				// We only want one set of credentials per [challenge protectionSpace]
+				// in case we stored incorrect credentials on the previous login attempt
+				// Purge stored credentials for the [challenge protectionSpace]
+				// before storing new ones.
+				// Based on a snippet from http://www.springenwerk.com/2008/11/i-am-currently-building-iphone.html
+				NSDictionary *credentialsDict = [[NSURLCredentialStorage sharedCredentialStorage] allCredentials];
+				if ([credentialsDict count] > 0) {
+					// the credentialsDict has NSURLProtectionSpace objs as keys and dicts of userName => NSURLCredential
+					NSEnumerator *protectionSpaceEnumerator = [credentialsDict keyEnumerator];
+					id urlProtectionSpace;
+
+					// iterate over all NSURLProtectionSpaces
+					while (urlProtectionSpace = [protectionSpaceEnumerator nextObject]) {
+						NSEnumerator *userNameEnumerator = [[credentialsDict objectForKey:urlProtectionSpace] keyEnumerator];
+						id userName;
+
+						// iterate over all usernames for this protectionspace, which are the keys for the actual NSURLCredentials
+						while (userName = [userNameEnumerator nextObject]) {
+							NSURLCredential *cred = [[credentialsDict objectForKey:urlProtectionSpace] objectForKey:userName];
+							[[NSURLCredentialStorage sharedCredentialStorage] removeCredential:cred forProtectionSpace:urlProtectionSpace];
+						}
+					}
+				}
+
 				[[NSURLCredentialStorage sharedCredentialStorage] setCredential:nsuc forProtectionSpace:[challenge protectionSpace]];
 
 				[authenticatingHTTPProtocol resolvePendingAuthenticationChallengeWithCredential:nsuc];
