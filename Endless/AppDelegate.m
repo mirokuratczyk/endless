@@ -554,21 +554,17 @@
 				// Purge stored credentials for the [challenge protectionSpace]
 				// before storing new ones.
 				// Based on a snippet from http://www.springenwerk.com/2008/11/i-am-currently-building-iphone.html
-				NSDictionary *credentialsDict = [[NSURLCredentialStorage sharedCredentialStorage] allCredentials];
+
+				NSDictionary *credentialsDict = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:[challenge protectionSpace]];
 				if ([credentialsDict count] > 0) {
-					// the credentialsDict has NSURLProtectionSpace objs as keys and dicts of userName => NSURLCredential
-					NSEnumerator *protectionSpaceEnumerator = [credentialsDict keyEnumerator];
-					id urlProtectionSpace;
+					NSEnumerator *userNameEnumerator = [credentialsDict keyEnumerator];
+					id userName;
 
-					// iterate over all NSURLProtectionSpaces
-					while (urlProtectionSpace = [protectionSpaceEnumerator nextObject]) {
-						NSEnumerator *userNameEnumerator = [[credentialsDict objectForKey:urlProtectionSpace] keyEnumerator];
-						id userName;
-
-						// iterate over all usernames for this protectionspace, which are the keys for the actual NSURLCredentials
-						while (userName = [userNameEnumerator nextObject]) {
-							NSURLCredential *cred = [[credentialsDict objectForKey:urlProtectionSpace] objectForKey:userName];
-							[[NSURLCredentialStorage sharedCredentialStorage] removeCredential:cred forProtectionSpace:urlProtectionSpace];
+					// iterate over all usernames, which are the keys for the actual NSURLCredentials
+					while (userName = [userNameEnumerator nextObject]) {
+						NSURLCredential *cred = [credentialsDict objectForKey:userName];
+						if(cred) {
+							[[NSURLCredentialStorage sharedCredentialStorage] removeCredential:cred forProtectionSpace:[challenge protectionSpace]];
 						}
 					}
 				}
