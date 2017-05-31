@@ -1,17 +1,17 @@
 /* %ld will be replaced with the number 1 */
-"%ld rule in use" = "%ld rule in use";
+"%ld rule in use" = "اطلاعات گواهی‌نامه";
 
 /* %ld will be replaced with a natural number */
-"%ld rules in use" = "%ld rules in use";
+"%ld rules in use" = "% دستور در حال استفاده است. ";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "«مرورگر سایفون» برای ذخیره و بارگذاری عکس‌ها، نیازمند دسترسی به آلبوم عکس شما است. ";
 
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "اضافه کردن نشانک";
 
 /* Title above a list of rules */
-"All rules" = "All rules";
+"All rules" = "تمام قوانین";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "به این صفحه اجازه‌ی بستن زبانه‌اش را بدهید";
@@ -23,7 +23,7 @@
 "Authentication Required" = "نیاز به احراز هویت است";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "شروع در";
 
 /* No comment provided by engineer. */
 "Best Performance" = "بهترین عملکرد";
@@ -33,7 +33,7 @@
 "Bookmarks" = "نشانک‌ها";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "دسته‌ی بیزینس";
 
 /* No comment provided by engineer. */
 "Canada" = "کانادا";
@@ -45,28 +45,28 @@
 "Cancel" = "لغو";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "اطلاعات گواهی‌نامه";
 
 /* Text of button on alert which will redirect the user to the settings menu */
-"Change Settings" = "Change Settings";
+"Change Settings" = "تغییر تنظیمات";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "صفر";
 
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name (CN)" = "نام عمومی (ن.ع.)";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "تأیید";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"Connected!" = "متصل شد!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
+"Connecting..." = "در حال اتصال...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
+"Connection Information" = "اطاعات اتصال";
 
 /* 'Cookies and Local Storage' dialog title */
 "Cookies and Local Storage" = "کوکی‌ها و انباره محلی";
@@ -75,10 +75,10 @@
 "Copy URL" = "کپی برداری نشانی وب";
 
 /* Field name for display in list */
-"Country (C)" = "Country (C)";
+"Country (C)" = "کشور (ک)";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"Disconnected!" = "قطع شد!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -100,10 +100,10 @@
 "Error" = "خطا";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "منقضی شدن بعد از";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "اعتبار تمدید شده: سازمان";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "سوال های متداول ";
@@ -112,10 +112,10 @@
 "Germany" = "آلمان";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+"Go to Settings" = "رفتن به تنظیمات";
 
 /* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "Happy browsing!\nExplore beyond your borders.";
+"Happy browsing!\nExplore beyond your borders." = "اوقات خوبی در اینترنت داشته باشید!\nفراتر از مرز‌های خودتان را پیدا کنید.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "هنگ کنگ";
@@ -142,10 +142,10 @@
 "India" = "هند";
 
 /* Field name for display in list */
-"Issued By" = "Issued By";
+"Issued By" = "صادر‌شده توسط";
 
 /* Field name for display in list */
-"Issued To" = "Issued To";
+"Issued To" = "صادرشده به";
 
 /* No comment provided by engineer. */
 "Japan" = "ژاپن";
@@ -154,10 +154,10 @@
 "Learn more about the data we collect in our %@" = "اگر تمایل دارید بدانید ما چه اطلاعاتی را جمع آوری می کنیم، به این صفحه بروید %@";
 
 /* No comment provided by engineer. */
-"LET'S GO!" = "LET'S GO!";
+"LET'S GO!" = "بزن بریم!";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality (L)" = "مکان جغرافیایی (م)";
 
 /* No comment provided by engineer. */
 "Log In" = "ورود";
@@ -169,7 +169,7 @@
 "Mail not configured" = "ایمیل پیکربندی نشده است";
 
 /* No comment provided by engineer. */
-"Message Text View" = "Message Text View";
+"Message Text View" = "نمای متن پیغام";
 
 /* No comment provided by engineer. */
 "Netherlands" = "هلند";
@@ -178,7 +178,7 @@
 "New Tab" = "صفحه جدید";
 
 /* Field name for display in list */
-"Object Identifier" = "Object Identifier";
+"Object Identifier" = "معرف شئ";
 
 /* InAppSettingsKit
    OK action
@@ -195,10 +195,10 @@
 "Open in Safari" = "بازکردن در سافاری";
 
 /* Field name for display in list */
-"Organization (O)" = "Organization (O)";
+"Organization (O)" = "سازمان (س)";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number (OU)" = "شماره واحد سازمان (ش.س.)";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -208,25 +208,25 @@
 "Password" = "رمز عبور";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "مدت زمان اعتبار";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "لطفاً به خاطر داشته باشید که این اطلاعات تشخیصی به هیچ عنوان هویت شما را آشکار نمی‌کند، و به ما کمک می‌کند که سایفون کارکرد بهتری داشته باشد.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "کد‌ پستی";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "سیاست حریم خصوصی";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "پروتکل";
 
 /* No comment provided by engineer. */
-"PSIPHON" = "PSIPHON";
+"PSIPHON" = "سایفون";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
+"Psiphon can not start due to an internal error, please send feedback." = "به‌دلیل خطا در اپلیکیشن، سایفون قادر به باز شدن نیست، لطفا بازخورد‌های خود را برای ما بفرستید. ";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "سایفون به‌ خوبی \nوصل می‌شود و\n کار می‌کند.";
@@ -235,13 +235,13 @@
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "سایفون معولاً وصل \nنمی‌شود و خوب\n کار نمی‌کند.";
 
 /* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon opens all the wonders of the web to you, no matter where you are";
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "فرقی نمی‌کند کجا هستید، سایفون تمام شگفتی‌های وب را برای شما نمایان می‌کند.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "Rules in use on current page";
+"Rules in use on current page" = "دستورها در این صفحه در حال اجرا هستند. ";
 
 /* Action title for long press on image dialog */
 "Save Image" = "ذخیره تصویر";
@@ -250,58 +250,58 @@
 "Send" = "فرستادن";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
+"Serial Number" = "شماره سریال";
 
 /* Field name for display in list */
-"Serial Number (SN)" = "Serial Number (SN)";
+"Serial Number (SN)" = "شماره سریال (ش.س.)";
 
 /* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+"Server region:" = "کشور سرور:";
 
 /* No comment provided by engineer. */
 "Settings" = "تنظیمات";
 
 /* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
+"Signature Algorithm" = "الگوریتم خاص";
 
 /* No comment provided by engineer. */
 "Singapore" = "سنگاپور";
 
 /* No comment provided by engineer. */
-"SKIP" = "SKIP";
+"SKIP" = "پرش";
 
 /* No comment provided by engineer. */
-"SKIP TUTORIAL" = "SKIP TUTORIAL";
+"SKIP TUTORIAL" = "پرش از آموزش";
 
 /* No comment provided by engineer. */
 "Spain" = "اسپانیا";
 
 /* Field name for display in list */
-"State/Province (ST)" = "State/Province (ST)";
+"State/Province (ST)" = "ایالت/استان (ا)";
 
 /* No comment provided by engineer. */
-"Status Indicator" = "Status Indicator";
+"Status Indicator" = "وضعیت نمایشگر";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "آدرس خیابان";
 
 /* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "علامت تیک سبز نشان‌ دهنده‌ی این است که همه چیز به خوبی و زیبایی در حال کار کردن است و برای شما آماده است!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "دستگاه برای فرستادن ایمیل پیکربندی نشده است. لطفاً تنظیمات ایمیل را در تنظیمات اپلیکیشن پیکربندی کنید. ";
 
 /* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "از اینجا می‌توانید به مرورگر و تنظیمات پروکسی، پشتیبانی ، تغییر منطقه‌ی و‌ی پی‌ان  و تنظیمات بیشتر دسترسی پیدا کنید. ";
 
 /* No comment provided by engineer. */
-"This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
+"This is where you can find information about the status of your connection" = "اینجا می‌توانید از وضعیت اتصال  مطلع شوید. ";
 
 /* No comment provided by engineer. */
-"Title Label" = "Title Label";
+"Title Label" = "عنوان برچسب";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
+"To give permissions tap on 'Change Settings' button" = "برای دادن مجوز به اپلیکیشن به «تغییر تنظیمات» بروید";
 
 /* No comment provided by engineer. */
 "United Kingdom" = "انگلستان";
@@ -317,25 +317,25 @@
 "URL" = "نشانی وب";
 
 /* Field name for display in list */
-"Version" = "Version";
+"Version" = "نسخه";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
+"Waiting for network..." = "انتظار برای اتصال به شبکه...";
 
 /* No comment provided by engineer. */
-"Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
+"Welcome! Here is how to use Psiphon" = "خوش آمدید! اینگونه از سایفون استفاده کنید";
 
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "لطفاً نظرهای خود را اینجا بنویسید";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+"You can find solutions to many common problems in our %@." = "شما می‌توانید جواب بیشتر مشکلات رایج را در قسمت %@ پیدا کنید.  ";
 
 /* No comment provided by engineer. */
-"You're all set!" = "You're all set!";
+"You're all set!" = "همه چیز برای شما آماده است!";
 
 /* Introduction text at top of feedback form */
-"Your feedback makes Psiphon better!" = "Your feedback makes Psiphon better!";
+"Your feedback makes Psiphon better!" = "بازخورد‌های شما کارایی سایفون را بهبود می‌بخشد!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
 "yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
