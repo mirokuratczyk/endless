@@ -23,7 +23,7 @@
 "Authentication Required" = "L'authentification est exigée";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "Commence le";
 
 /* No comment provided by engineer. */
 "Best Performance" = "Les meilleures performances";
@@ -33,28 +33,32 @@
 "Bookmarks" = "Signets";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "Catégorie d'entreprise";
 
 /* No comment provided by engineer. */
 "Canada" = "Canada";
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Annuler";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "Informations de certificat";
 
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "Changer les paramètres";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "Chiffrement";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Effacer les témoins et les données";
 
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name" = "Nom commun";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirmer";
@@ -66,16 +70,16 @@
 "Connecting..." = "Connexion...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
+"Connection Information" = "Informations de connexion";
 
 /* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Fichiers témoins et stockage local";
+"Cookies and Local Storage" = "Témoins et stockage local";
 
 /* Action title for long press on link dialog */
 "Copy URL" = "Copier l'URL";
 
 /* Field name for display in list */
-"Country (C)" = "Country (C)";
+"Country" = "Pays";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Déconnecté !";
@@ -100,10 +104,10 @@
 "Error" = "Erreur";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "Expire après";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "Validation étendue : organisation";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Foire aux questions";
@@ -142,10 +146,10 @@
 "India" = "Inde";
 
 /* Field name for display in list */
-"Issued By" = "Issued By";
+"Issued By" = "Délivré par";
 
 /* Field name for display in list */
-"Issued To" = "Issued To";
+"Issued To" = "Délivré à";
 
 /* No comment provided by engineer. */
 "Japan" = "Japon";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "ALLONS-Y !";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality" = "Localité";
 
 /* No comment provided by engineer. */
 "Log In" = "Authentifiant";
@@ -178,7 +182,7 @@
 "New Tab" = "Nouvelle onglet";
 
 /* Field name for display in list */
-"Object Identifier" = "Object Identifier";
+"Object Identifier" = "Identificateur d'objet";
 
 /* InAppSettingsKit
    OK action
@@ -195,10 +199,10 @@
 "Open in Safari" = "Ouvrir dans Safari";
 
 /* Field name for display in list */
-"Organization (O)" = "Organization (O)";
+"Organization" = "Organisation";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number" = "Numéro d'unité organisationnelle";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -208,19 +212,19 @@
 "Password" = "Mot de passe";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "Période de validité";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Veuillez noter que ces données de diagnostic ne vous identifient pas et nous permettent d'assurer le fonctionnement fluide de Psiphon.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "Code postal";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "Politique de confidentialité";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "Protocole";
 
 /* No comment provided by engineer. */
 "PSIPHON" = "PSIPHON";
@@ -240,6 +244,9 @@
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Tirer pour actualiser la page";
 
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Effacer tous les témoins et données de navigation ?";
+
 /* Title above a list of rules in use */
 "Rules in use on current page" = "Règles utilisées sur la page actuelle";
 
@@ -250,10 +257,7 @@
 "Send" = "Envoyer";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "Serial Number (SN)";
+"Serial Number" = "Numéro de série";
 
 /* Title that is showing above selected server region */
 "Server region:" = "Région du serveur :";
@@ -262,7 +266,7 @@
 "Settings" = "Paramètres";
 
 /* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
+"Signature Algorithm" = "Algorithme de signature";
 
 /* No comment provided by engineer. */
 "Singapore" = "Singapour";
@@ -277,13 +281,13 @@
 "Spain" = "Espagne";
 
 /* Field name for display in list */
-"State/Province (ST)" = "State/Province (ST)";
+"State/Province" = "État/Province";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Indicateur d'état";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "Adresse municipale ";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "La coche verte indique que tout fonctionne parfaitement et que vous pouvez y aller !";
@@ -338,5 +342,5 @@
 "Your feedback makes Psiphon better!" = "Votre rétroaction améliore Psiphon !";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'à' HH:mm:ss zzz";
 

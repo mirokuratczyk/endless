@@ -1,8 +1,8 @@
 /* %ld will be replaced with the number 1 */
-"%ld rule in use" = "اطلاعات گواهی‌نامه";
+"%ld rule in use" = "%ld دستور در حال استفاده است";
 
 /* %ld will be replaced with a natural number */
-"%ld rules in use" = "% دستور در حال استفاده است. ";
+"%ld rules in use" = "%ld دستور در حال استفاده است";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
 "\"Psiphon Browser\" needs access to your photo library to save and upload images" = "«مرورگر سایفون» برای ذخیره و بارگذاری عکس‌ها، نیازمند دسترسی به آلبوم عکس شما است. ";
@@ -14,10 +14,10 @@
 "All rules" = "تمام قوانین";
 
 /* Alert dialog text */
-"Allow this page to close its tab?" = "به این صفحه اجازه‌ی بستن زبانه‌اش را بدهید";
+"Allow this page to close its tab?" = "به این صفحه اجازه‌ی بستن زبانه‌اش را می‌دهید؟";
 
 /* Error alert message text */
-"An error occurred downloading image %@" = "خطا در دانلود کردن عکس %@";
+"An error occurred downloading image %@" = "خطا در دانلود عکس %@";
 
 /* Authentication Required alert title */
 "Authentication Required" = "نیاز به احراز هویت است";
@@ -33,13 +33,14 @@
 "Bookmarks" = "نشانک‌ها";
 
 /* Field name for display in list */
-"Business Category" = "دسته‌ی بیزینس";
+"Business Category" = "دسته‌ی بازرگانی";
 
 /* No comment provided by engineer. */
 "Canada" = "کانادا";
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "لغو";
@@ -53,8 +54,11 @@
 /* Field name for display in list */
 "Cipher" = "صفر";
 
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "پاک کردن کوکی‌ها و داده";
+
 /* Field name for display in list */
-"Common Name (CN)" = "نام عمومی (ن.ع.)";
+"Common Name" = "نام عمومی";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "تأیید";
@@ -75,7 +79,7 @@
 "Copy URL" = "کپی برداری نشانی وب";
 
 /* Field name for display in list */
-"Country (C)" = "کشور (ک)";
+"Country" = "کشور";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "قطع شد!";
@@ -93,7 +97,7 @@
 
 /* 'Add bookmark' dialog text
    Edit Bookmark dialog title text */
-"Enter the details of the URL to bookmark:" = "نشانی وب‌ دلخواه را برای اضافه‌کردن به نشانک وارد کنید:";
+"Enter the details of the URL to bookmark:" = "جزئیات وبسایت را برای نشانک وارد کنید:";
 
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
@@ -115,7 +119,7 @@
 "Go to Settings" = "رفتن به تنظیمات";
 
 /* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "اوقات خوبی در اینترنت داشته باشید!\nفراتر از مرز‌های خودتان را پیدا کنید.";
+"Happy browsing!\nExplore beyond your borders." = "اوقات خوبی در اینترنت داشته باشید!\nفراتر از مرز‌های خودتان را بیابید.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "هنگ کنگ";
@@ -151,19 +155,19 @@
 "Japan" = "ژاپن";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"Learn more about the data we collect in our %@" = "اگر تمایل دارید بدانید ما چه اطلاعاتی را جمع آوری می کنیم، به این صفحه بروید %@";
+"Learn more about the data we collect in our %@" = "اگر تمایل دارید بدانید ما چه داده‌هایی را جمع آوری می کنیم، به این صفحه بروید %@";
 
 /* No comment provided by engineer. */
 "LET'S GO!" = "بزن بریم!";
 
 /* Field name for display in list */
-"Locality (L)" = "مکان جغرافیایی (م)";
+"Locality" = "محل";
 
 /* No comment provided by engineer. */
 "Log In" = "ورود";
 
 /* Title screen displaying logs */
-"Logs" = "گزارش ها";
+"Logs" = "گزارش‌ها";
 
 /* InAppSettingsKit */
 "Mail not configured" = "ایمیل پیکربندی نشده است";
@@ -175,7 +179,7 @@
 "Netherlands" = "هلند";
 
 /* New browser tab title text */
-"New Tab" = "صفحه جدید";
+"New Tab" = "صفحه‌ی جدید";
 
 /* Field name for display in list */
 "Object Identifier" = "معرف شئ";
@@ -195,14 +199,14 @@
 "Open in Safari" = "بازکردن در سافاری";
 
 /* Field name for display in list */
-"Organization (O)" = "سازمان (س)";
+"Organization" = "سازمان";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "شماره واحد سازمان (ش.س.)";
+"Organizational Unit Number" = "شماره‌ی واحد سازمان";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
-"Page Name (leave blank to use URL)" = "نام صفحه (استفاده از  نشانی وب در صورت خالی گذاشتن نام)";
+"Page Name (leave blank to use URL)" = "نام صفحه (استفاده‌ی نشانی وب در صورت خالی گذاشتن)";
 
 /* Password */
 "Password" = "رمز عبور";
@@ -211,7 +215,7 @@
 "Period of Validity" = "مدت زمان اعتبار";
 
 /* Feedback footer text. */
-"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "لطفاً به خاطر داشته باشید که این اطلاعات تشخیصی به هیچ عنوان هویت شما را آشکار نمی‌کند، و به ما کمک می‌کند که سایفون کارکرد بهتری داشته باشد.";
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "لطفاً به خاطر داشته باشید که این داده‌‌های تشخیصی به هیچ عنوان هویت شما را آشکار نمی‌کند و به ما کمک می‌کند که سایفون کارکرد بهتری داشته باشد.";
 
 /* Field name for display in list */
 "Postal Code" = "کد‌ پستی";
@@ -232,13 +236,16 @@
 "Psiphon connects\nand performs the\nway I want it to." = "سایفون به‌ خوبی \nوصل می‌شود و\n کار می‌کند.";
 
 /* Text explaining thumbs down choice in feedback */
-"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "سایفون معولاً وصل \nنمی‌شود و خوب\n کار نمی‌کند.";
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "سایفون گاهی وصل \nنمی‌شود یا خوب\n کار نمی‌کند.";
 
 /* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "فرقی نمی‌کند کجا هستید، سایفون تمام شگفتی‌های وب را برای شما نمایان می‌کند.";
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "فرقی نمی‌کند کجا هستید، سایفون تمام شگفتی‌های وب را به شما نشان ‌می‌دهد.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "Pull to Refresh Page";
+"Pull to Refresh Page" = "جهت به روز کردن صفحه, بکشید";
+
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "حذف همه کوکی‌ها و اطلاعات مرورها؟";
 
 /* Title above a list of rules in use */
 "Rules in use on current page" = "دستورها در این صفحه در حال اجرا هستند. ";
@@ -252,11 +259,8 @@
 /* Field name for display in list */
 "Serial Number" = "شماره سریال";
 
-/* Field name for display in list */
-"Serial Number (SN)" = "شماره سریال (ش.س.)";
-
 /* Title that is showing above selected server region */
-"Server region:" = "کشور سرور:";
+"Server region:" = "ناحیه‌ی سرور:";
 
 /* No comment provided by engineer. */
 "Settings" = "تنظیمات";
@@ -277,7 +281,7 @@
 "Spain" = "اسپانیا";
 
 /* Field name for display in list */
-"State/Province (ST)" = "ایالت/استان (ا)";
+"State/Province" = "ایالت/استان";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "وضعیت نمایشگر";
@@ -286,7 +290,7 @@
 "Street Address" = "آدرس خیابان";
 
 /* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "علامت تیک سبز نشان‌ دهنده‌ی این است که همه چیز به خوبی و زیبایی در حال کار کردن است و برای شما آماده است!";
+"The green checkmark indicates everything is working beautifully and you're good to go!" = "علامت تیک سبز نشان‌ دهنده‌ی این است که همه چیز به خوبی در حال کار کردن است و برای شما آماده است!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "دستگاه برای فرستادن ایمیل پیکربندی نشده است. لطفاً تنظیمات ایمیل را در تنظیمات اپلیکیشن پیکربندی کنید. ";

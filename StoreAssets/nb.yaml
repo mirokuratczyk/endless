@@ -1,15 +1,2 @@
-nb:
-  app_name: Psiphon nettleser
-  description: |
-    Etter å ha hjulpet milloner av Android-brukere med nå sidene de elsker, har vi lansert den første Psiphon-appen for iOS.
-
-    Psiphon er det mest robuste omgåelsesverktøyet på nettet. Psiphon-nettleseren vil koble deg til nettsider som er sensurert, blokkert, eller på annet vis utilgjengelige, uansett hvor du er i verden. Bruk av Psiphon-nettlesren gir deg også et ekstra lag med beskyttelse når du bruker offentlige Wi-Fi-tjenester.
-
-    Psiphon er det beste verktøyet for å nå det åpne Internett.
-
-    Funksjoner:
-    • Gratis for personlig bruk.
-    • Enkelt å laste ned og installere. Ingen registrering eller oppsett nødvendig.
-    • Automatisk valg av protokoller for å tilby effektiv, pålitelig omgåelse, hver gang.
-    • Psipon er et friprog-prosjekt, gjenstand for grundige sikkerhetsanalyser åpen vurdering. For å finne vår kildekode og mer informasjon, besøk prosjektets hjemmeside: https://github.com/Psiphon-Inc/endless
-  keywords: Psiphon, nettleser, sensur, omgåelse, VPN, proxy, mellomtjener
+nb: {app_name: Psiphon nettleser, keywords: 'Psiphon, nettleser, sensur, omgåelse,
+    VPN, proxy, mellomtjener'}

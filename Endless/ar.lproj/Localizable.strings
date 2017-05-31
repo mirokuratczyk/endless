@@ -1,11 +1,11 @@
 /* %ld will be replaced with the number 1 */
-"%ld rule in use" = "%ld قاعدة في استخدام";
+"%ld rule in use" = "%ld قاعدة قيد الإستخدام";
 
 /* %ld will be replaced with a natural number */
-"%ld rules in use" = "%ld قواعد في استخدام";
+"%ld rules in use" = "%ld قاعدة قيد الإستخدام";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"متصفح سايفون\" يحتاج إلى الوصول إلى مكتبة الصور لحفظ وتحميل الصور";
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"متصفح سايفون\" يحتاج إلى إذن الوصول إلى مكتبة الصور لحفظ وتحميل الصور";
 
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "إضافة إشارة مرجعية";
@@ -23,7 +23,7 @@
 "Authentication Required" = "مطلوب المصادقة";
 
 /* Field name for display in list */
-"Begins On" = "بداية";
+"Begins On" = "في البداية";
 
 /* No comment provided by engineer. */
 "Best Performance" = "أفضل أداء ";
@@ -33,37 +33,41 @@
 "Bookmarks" = "الإشارات المرجعية";
 
 /* Field name for display in list */
-"Business Category" = "صنف العمل";
+"Business Category" = "نوع العمل";
 
 /* No comment provided by engineer. */
 "Canada" = "كندا";
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "إلغاء";
 
 /* Field name for display in list */
-"Certificate Information" = "معلومات شهادة  الإستعمال";
+"Certificate Information" = "معلومات الشهادة";
 
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "تغيير الاعدادات";
 
 /* Field name for display in list */
-"Cipher" = "الشفرة ";
+"Cipher" = "Cipher";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "مسح ملفات تعريف الإرتباط و بيانات التصفح ";
 
 /* Field name for display in list */
-"Common Name (CN)" = "الاسم الشائع (CN)";
+"Common Name" = "الاسم الشائع";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "تأكيد ";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "متصل ! ";
+"Connected!" = "متصل! ";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "يتصل ...";
+"Connecting..." = "يتصل...";
 
 /* Field name for display in list */
 "Connection Information" = "معلومات الإتصال ";
@@ -75,10 +79,10 @@
 "Copy URL" = "نسخ العنوان";
 
 /* Field name for display in list */
-"Country (C)" = "البلد (C) ";
+"Country" = "البلد";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "الإتصال منقطع !";
+"Disconnected!" = "غير متصل!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Cookies and Local Storage 'Done button title, dismisses the controller
@@ -103,7 +107,7 @@
 "Expires After" = "إنتهاء الصلاحية بعد ";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "تمديد التحقق : المنظمة ";
+"Extended Validation: Organization" = "تمديد التحقق: المنظمة ";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "الأسئلة الشائعة ";
@@ -112,7 +116,7 @@
 "Germany" = "ألمانيا";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "الإعدادات ";
+"Go to Settings" = "الذهاب إلى الإعدادات ";
 
 /* No comment provided by engineer. */
 "Happy browsing!\nExplore beyond your borders." = "تصفح سعيد!\nاستكشف أبعد من حدودك.";
@@ -145,7 +149,7 @@
 "Issued By" = "أصدرت من قبل ";
 
 /* Field name for display in list */
-"Issued To" = "أصدرت ل ";
+"Issued To" = "حُولت إلى";
 
 /* No comment provided by engineer. */
 "Japan" = "اليابان";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "لنذهب!";
 
 /* Field name for display in list */
-"Locality (L)" = "المكان (L)";
+"Locality" = "المكان";
 
 /* No comment provided by engineer. */
 "Log In" = "تسجيل الدخول";
@@ -169,7 +173,7 @@
 "Mail not configured" = "لم يتم إعداد البريد الإلكتروني";
 
 /* No comment provided by engineer. */
-"Message Text View" = "رسالة Text View ";
+"Message Text View" = "عرض نص الرسالة";
 
 /* No comment provided by engineer. */
 "Netherlands" = "هولندا";
@@ -195,10 +199,10 @@
 "Open in Safari" = "فتح في صفحة جديدة على سافاري ";
 
 /* Field name for display in list */
-"Organization (O)" = "المنظمة (O)";
+"Organization" = "المنظمة";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "رقم الوحدة التنظيمية (OU)";
+"Organizational Unit Number" = "رقم الوحدة التنظيمية";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -214,7 +218,7 @@
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "الرجاء الإنتباه أن هذه البيانات التشخيصية لا تكشف هويتك، إنما تساعد سايفون على العمل بشكل أفضل.";
 
 /* Field name for display in list */
-"Postal Code" = "الترقيم البريدي ";
+"Postal Code" = "الرمز البريدي";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "سياسة الخصوصية";
@@ -226,7 +230,7 @@
 "PSIPHON" = "سايفون";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "لم يتمكن سايفون من الإشتغال نظرا لمشكل داخلي، الرجاء إرسال الملاحظات ";
+"Psiphon can not start due to an internal error, please send feedback." = "لم يتمكن سايفون من البدأ نظراً لمشاكل داخلية، الرجاء إرسال الملاحظات.";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "ينجح سايفون بالاتصال \nويعمل بشكل جيد \nكما نتمنى";
@@ -235,10 +239,13 @@
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "غالبا ما يفشل سايفون\n بالإتصال أو\nلا يعمل بشكل جيد.";
 
 /* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "سيفون يفتح أمامك كل عجائب الواب بغض النظر عن مكان تواجدك";
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "سيفون يفتح أمامك كل عجائب الويب لك, بغض النظر عن مكان تواجدك";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "اسحب لتحديث الصفحة ";
+
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "مسح ملفات تعريف الإرتباط و بيانات التصفح ؟";
 
 /* Title above a list of rules in use */
 "Rules in use on current page" = "القواعد مستعملة في الصفحة الحالية ";
@@ -251,9 +258,6 @@
 
 /* Field name for display in list */
 "Serial Number" = "الرقم التسلسلي ";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "الرقم التسلسلي (SN)";
 
 /* Title that is showing above selected server region */
 "Server region:" = "منطقة الخادوم ";
@@ -268,16 +272,16 @@
 "Singapore" = "سنغافورة";
 
 /* No comment provided by engineer. */
-"SKIP" = "تخطى";
+"SKIP" = "تخطي";
 
 /* No comment provided by engineer. */
-"SKIP TUTORIAL" = "تخطي الدورة التعليمية";
+"SKIP TUTORIAL" = "تخطي الشرح";
 
 /* No comment provided by engineer. */
 "Spain" = "إسبانيا";
 
 /* Field name for display in list */
-"State/Province (ST)" = "الولاية / المقاطعة (ST)";
+"State/Province" = "الولاية/المقاطعة";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "مؤشر الحالة";
@@ -292,7 +296,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "إعدادات الجهاز لا تسمح إراسل البريد إلكتروني. الرجاء التحقق من إعدادات البريد الإلكتروني ضمن الإعدادات.";
 
 /* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "هذا هو المكان أين يمكنك الوصول إلى إعدادات المتصفح و الوكيل والعثور على المساعدة و تغيير بلد خادم الشبكة الخاصة الافتراضية وأكثر!";
+"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "هذا هو المكان أين يمكنك الوصول إلى إعدادات المتصفح و البروكسي والحصول على مساعدة و تغيير بلد خادم الشبكة الخاصة الافتراضية وأكثر!";
 
 /* No comment provided by engineer. */
 "This is where you can find information about the status of your connection" = "هذا هو المكان أين يمكنك العثور على معلومات حول حالة الاتصال";
@@ -320,7 +324,7 @@
 "Version" = "الإصدار ";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "إنتظار الشبكة ...";
+"Waiting for network..." = "جارٍ انتظار الشبكة...";
 
 /* No comment provided by engineer. */
 "Welcome! Here is how to use Psiphon" = "أهلا بك! هنا كيفية استخدام سايفون";
