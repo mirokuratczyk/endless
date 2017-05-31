@@ -40,6 +40,7 @@
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Cancelar";
@@ -53,8 +54,11 @@
 /* Field name for display in list */
 "Cipher" = "Algoritmo de cifrado";
 
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Limpiar cookies y datos";
+
 /* Field name for display in list */
-"Common Name (CN)" = "Nombre común (CN)";
+"Common Name" = "Nombre común";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirmar";
@@ -75,7 +79,7 @@
 "Copy URL" = "Copiar URL";
 
 /* Field name for display in list */
-"Country (C)" = "País (C)";
+"Country" = "País";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "¡Desconectado!";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "¡VAMOS!";
 
 /* Field name for display in list */
-"Locality (L)" = "Vecindad (L)";
+"Locality" = "Localidad";
 
 /* No comment provided by engineer. */
 "Log In" = "Iniciar sesión";
@@ -195,10 +199,10 @@
 "Open in Safari" = "Abrir en Safari";
 
 /* Field name for display in list */
-"Organization (O)" = "Organización (O)";
+"Organization" = "Organización";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Número de unidad organizacional (OU)";
+"Organizational Unit Number" = "Número de unidad organizacional";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -240,6 +244,9 @@
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Gesto de barrido hacia abajo para refrescar la página";
 
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "¿Eliminar todas las cookies y los datos de navegación?";
+
 /* Title above a list of rules in use */
 "Rules in use on current page" = "Reglas en uso en la página actual";
 
@@ -251,9 +258,6 @@
 
 /* Field name for display in list */
 "Serial Number" = "Número de serie";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "Número de serie (SN)";
 
 /* Title that is showing above selected server region */
 "Server region:" = "Región del servidor:";
@@ -277,7 +281,7 @@
 "Spain" = "España";
 
 /* Field name for display in list */
-"State/Province (ST)" = "Estado/Provincia (ST)";
+"State/Province" = "Estado/Provincia";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Indicador de estado";
