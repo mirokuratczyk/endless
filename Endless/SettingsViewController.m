@@ -292,18 +292,8 @@ BOOL linksEnabled;
 		url = NSLocalizedString(@"https://psiphon.ca/en/license.html", @"External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french.");
 	}
 
-	[self loadUrlInWebview:url];
-}
-
-- (void)loadUrlInWebview:(NSString *)url
-{
-	UIViewController *vc = [[UIViewController alloc] init];
-	UIWebView *webView = [[UIWebView alloc] initWithFrame:self.navigationController.view.bounds];
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-
-	[vc.view addSubview:webView];
-
-	[self.navigationController pushViewController:vc animated:YES];
+	[[AppDelegate sharedAppDelegate].webViewController addNewTabForURL:[NSURL URLWithString: url]];
+	[self settingsViewControllerDidEnd:nil];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier
