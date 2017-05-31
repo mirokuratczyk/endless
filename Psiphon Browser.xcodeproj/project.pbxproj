@@ -15,7 +15,6 @@
 		01801E981A32CA2A002B4718 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801E971A32CA2A002B4718 /* main.m */; };
 		01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801EA01A32CA2A002B4718 /* WebViewController.m */; };
 		01801EA61A32CA2A002B4718 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01801EA51A32CA2A002B4718 /* Images.xcassets */; };
-		01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01801EBF1A335BEC002B4718 /* URLInterceptor.m */; };
 		01801EC31A3360F8002B4718 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01801EC21A3360F8002B4718 /* InAppSettings.bundle */; };
 		0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */; };
 		018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 018333C91A3505FB00670CD1 /* HTTPSEverywhere.m */; };
@@ -23,12 +22,9 @@
 		018333DC1A35727C00670CD1 /* HTTPSEverywhere_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018333DB1A35727C00670CD1 /* HTTPSEverywhere_Tests.m */; };
 		018333E91A35746500670CD1 /* https-everywhere_rules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018333E71A35746500670CD1 /* https-everywhere_rules.plist */; };
 		018333EA1A35746500670CD1 /* https-everywhere_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018333E81A35746500670CD1 /* https-everywhere_targets.plist */; };
-		019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 019516CB1B7D858C0078586A /* CKHTTPConnection.m */; };
-		019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 019516CE1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m */; };
 		01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB361B4DBA8D00A02482 /* BookmarkController.m */; };
 		01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB481B4ED48000A02482 /* Bookmark.m */; };
 		01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */; };
-		01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */; };
 		01D7412C1A45F8EB007B7033 /* injected.js in Resources */ = {isa = PBXBuildFile; fileRef = 01D7412B1A45F8EB007B7033 /* injected.js */; };
 		01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */; };
 		01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741311A49EA14007B7033 /* RuleEditorController.m */; };
@@ -43,8 +39,6 @@
 		01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7CB481A5253DD00F42B73 /* HSTSCache.m */; };
 		01F7CB4B1A526B9C00F42B73 /* HSTSCache_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7CB4A1A526B9C00F42B73 /* HSTSCache_Tests.m */; };
 		01F7CB4E1A52FC4E00F42B73 /* NSString+IPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7CB4D1A52FC4E00F42B73 /* NSString+IPAddress.m */; };
-		01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F8793A1A4108DD00A63654 /* URLBlocker.m */; };
-		01F879411A4112E500A63654 /* URLBlocker_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F879401A4112E500A63654 /* URLBlocker_Tests.m */; };
 		01F879441A41140D00A63654 /* https-everywhere_mock_rules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F879421A41140D00A63654 /* https-everywhere_mock_rules.plist */; };
 		01F879451A41140D00A63654 /* https-everywhere_mock_targets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F879431A41140D00A63654 /* https-everywhere_mock_targets.plist */; };
 		01F879481A41141800A63654 /* urlblocker_mock_rules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F879461A41141800A63654 /* urlblocker_mock_rules.plist */; };
@@ -59,6 +53,10 @@
 		444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 444CEFB21E54DA2D0085F3D4 /* NYAlertViewController.m */; };
 		446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446CB09F1DFF613900AEC0A9 /* Root.strings */; };
 		4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */; };
+		44864F8E1E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */; };
+		44864F8F1E708EE900865705 /* JAHPCacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */; };
+		44864F901E708EE900865705 /* JAHPCanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */; };
+		44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */; };
 		449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */; };
 		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -132,8 +130,6 @@
 		01801E9F1A32CA2A002B4718 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		01801EA01A32CA2A002B4718 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WebViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01801EA51A32CA2A002B4718 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Endless/Resources/Images.xcassets; sourceTree = "<group>"; };
-		01801EBE1A335BEC002B4718 /* URLInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLInterceptor.h; sourceTree = "<group>"; };
-		01801EBF1A335BEC002B4718 /* URLInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLInterceptor.m; sourceTree = "<group>"; };
 		01801EC21A3360F8002B4718 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = Endless/InAppSettings.bundle; sourceTree = "<group>"; };
 		0182AD991AACC55400F3B7ED /* HTTPSEverywhereRuleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPSEverywhereRuleController.h; sourceTree = "<group>"; };
 		0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPSEverywhereRuleController.m; sourceTree = "<group>"; };
@@ -148,17 +144,12 @@
 		018333E71A35746500670CD1 /* https-everywhere_rules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "https-everywhere_rules.plist"; path = "Endless/Resources/https-everywhere_rules.plist"; sourceTree = "<group>"; };
 		018333E81A35746500670CD1 /* https-everywhere_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "https-everywhere_targets.plist"; path = "Endless/Resources/https-everywhere_targets.plist"; sourceTree = "<group>"; };
 		018333EB1A357D8B00670CD1 /* libPods-OCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-OCMock.a"; path = "Pods/build/Debug-iphoneos/libPods-OCMock.a"; sourceTree = "<group>"; };
-		019516CA1B7D858C0078586A /* CKHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKHTTPConnection.h; sourceTree = "<group>"; };
-		019516CB1B7D858C0078586A /* CKHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKHTTPConnection.m; sourceTree = "<group>"; };
-		019516CD1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CocoaDevUsersAdditions.h"; sourceTree = "<group>"; };
-		019516CE1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CocoaDevUsersAdditions.m"; sourceTree = "<group>"; };
 		01AFEB351B4DBA8D00A02482 /* BookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkController.h; sourceTree = "<group>"; };
 		01AFEB361B4DBA8D00A02482 /* BookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkController.m; sourceTree = "<group>"; };
 		01AFEB471B4ED48000A02482 /* Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bookmark.h; sourceTree = "<group>"; };
 		01AFEB481B4ED48000A02482 /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bookmark.m; sourceTree = "<group>"; };
 		01AFEB4C1B4F2A5F00A02482 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePasswordExtension.h; sourceTree = "<group>"; };
 		01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnePasswordExtension.m; sourceTree = "<group>"; };
-		01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLInterceptor_Tests.m; sourceTree = "<group>"; };
 		01D7412B1A45F8EB007B7033 /* injected.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = injected.js; path = Endless/Resources/injected.js; sourceTree = "<group>"; };
 		01D7412D1A466AF0007B7033 /* NSString+JavascriptEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JavascriptEscape.h"; sourceTree = "<group>"; };
 		01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JavascriptEscape.m"; sourceTree = "<group>"; };
@@ -180,9 +171,6 @@
 		01F7CB4A1A526B9C00F42B73 /* HSTSCache_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTSCache_Tests.m; sourceTree = "<group>"; };
 		01F7CB4C1A52FC4E00F42B73 /* NSString+IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IPAddress.h"; sourceTree = "<group>"; };
 		01F7CB4D1A52FC4E00F42B73 /* NSString+IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IPAddress.m"; sourceTree = "<group>"; };
-		01F879391A4108DD00A63654 /* URLBlocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLBlocker.h; sourceTree = "<group>"; };
-		01F8793A1A4108DD00A63654 /* URLBlocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLBlocker.m; sourceTree = "<group>"; };
-		01F879401A4112E500A63654 /* URLBlocker_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLBlocker_Tests.m; sourceTree = "<group>"; };
 		01F879421A41140D00A63654 /* https-everywhere_mock_rules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "https-everywhere_mock_rules.plist"; sourceTree = "<group>"; };
 		01F879431A41140D00A63654 /* https-everywhere_mock_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "https-everywhere_mock_targets.plist"; sourceTree = "<group>"; };
 		01F879461A41141800A63654 /* urlblocker_mock_rules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = urlblocker_mock_rules.plist; sourceTree = "<group>"; };
@@ -199,6 +187,14 @@
 		446CB0A21DFF614600AEC0A9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Root.strings; sourceTree = "<group>"; };
 		4484C8A61E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PsiphonSettingsTextFieldViewCell.h; sourceTree = SOURCE_ROOT; };
 		4484C8A71E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsiphonSettingsTextFieldViewCell.m; sourceTree = SOURCE_ROOT; };
+		44864F861E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPAuthenticatingHTTPProtocol.h; sourceTree = "<group>"; };
+		44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPAuthenticatingHTTPProtocol.m; sourceTree = "<group>"; };
+		44864F881E708EE900865705 /* JAHPCacheStoragePolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPCacheStoragePolicy.h; sourceTree = "<group>"; };
+		44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPCacheStoragePolicy.m; sourceTree = "<group>"; };
+		44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPCanonicalRequest.h; sourceTree = "<group>"; };
+		44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPCanonicalRequest.m; sourceTree = "<group>"; };
+		44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAHPQNSURLSessionDemux.h; sourceTree = "<group>"; };
+		44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAHPQNSURLSessionDemux.m; sourceTree = "<group>"; };
 		449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonConnectionModalViewController.h; path = Endless/PsiphonConnectionModalViewController.h; sourceTree = SOURCE_ROOT; };
 		449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionModalViewController.m; path = Endless/PsiphonConnectionModalViewController.m; sourceTree = SOURCE_ROOT; };
 		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
@@ -382,10 +378,6 @@
 				01F2AE381B7FEF5E00D5651A /* SSLCertificate.m */,
 				01F2AE3E1B82666900D5651A /* SSLCertificateViewController.h */,
 				01F2AE3F1B82666900D5651A /* SSLCertificateViewController.m */,
-				01F879391A4108DD00A63654 /* URLBlocker.h */,
-				01F8793A1A4108DD00A63654 /* URLBlocker.m */,
-				01801EBE1A335BEC002B4718 /* URLInterceptor.h */,
-				01801EBF1A335BEC002B4718 /* URLInterceptor.m */,
 				0135F47D1A3E548F005A8F16 /* WebViewTab.h */,
 				0135F47E1A3E548F005A8F16 /* WebViewTab.m */,
 			);
@@ -440,8 +432,6 @@
 				01F7CB4A1A526B9C00F42B73 /* HSTSCache_Tests.m */,
 				018333DB1A35727C00670CD1 /* HTTPSEverywhere_Tests.m */,
 				01F2AE411B827BC200D5651A /* SSLCertificate_Tests.m */,
-				01F879401A4112E500A63654 /* URLBlocker_Tests.m */,
-				01D42C3C1E0A4FE400566022 /* URLInterceptor_Tests.m */,
 				018333D91A35727C00670CD1 /* Supporting Files */,
 			);
 			path = "Endless Tests";
@@ -466,11 +456,8 @@
 		01AFEB4A1B4F2A5F00A02482 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				44864F851E708EE900865705 /* JiveAuthenticatingHTTPProtocol */,
 				444CEFB51E54DA610085F3D4 /* NYAlertViewController */,
-				019516CA1B7D858C0078586A /* CKHTTPConnection.h */,
-				019516CB1B7D858C0078586A /* CKHTTPConnection.m */,
-				019516CD1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.h */,
-				019516CE1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m */,
 				01AFEB4C1B4F2A5F00A02482 /* OnePasswordExtension.h */,
 				01AFEB4D1B4F2A5F00A02482 /* OnePasswordExtension.m */,
 			);
@@ -503,6 +490,21 @@
 				444CEFB21E54DA2D0085F3D4 /* NYAlertViewController.m */,
 			);
 			name = NYAlertViewController;
+			sourceTree = "<group>";
+		};
+		44864F851E708EE900865705 /* JiveAuthenticatingHTTPProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				44864F861E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.h */,
+				44864F871E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m */,
+				44864F881E708EE900865705 /* JAHPCacheStoragePolicy.h */,
+				44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */,
+				44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */,
+				44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */,
+				44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */,
+				44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */,
+			);
+			path = JiveAuthenticatingHTTPProtocol;
 			sourceTree = "<group>";
 		};
 		44E778F71DDB723900854379 /* Psiphon */ = {
@@ -836,6 +838,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */,
+				44864F901E708EE900865705 /* JAHPCanonicalRequest.m in Sources */,
 				4EFB34801E366C6F0067C7C3 /* FeedbackViewController.m in Sources */,
 				01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */,
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
@@ -843,21 +846,21 @@
 				4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
+				44864F8E1E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m in Sources */,
 				018333D21A35291200670CD1 /* HTTPSEverywhereRule.m in Sources */,
 				01AFEB4F1B4F2A5F00A02482 /* OnePasswordExtension.m in Sources */,
+				44864F8F1E708EE900865705 /* JAHPCacheStoragePolicy.m in Sources */,
 				4E6332CA1E54F7280093819C /* Tutorial.m in Sources */,
 				01801EA11A32CA2A002B4718 /* WebViewController.m in Sources */,
 				4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */,
-				019516CF1B7D8A0C0078586A /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				44BF73F21EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m in Sources */,
 				4EA463921E395BCD00674DEA /* PsiphonData.m in Sources */,
-				01F8793B1A4108DD00A63654 /* URLBlocker.m in Sources */,
 				444CEFB31E54DA2D0085F3D4 /* NYAlertView.m in Sources */,
 				4E7094601E4CD14A00679B3F /* OnboardingChildViewController.m in Sources */,
 				4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */,
-				01801EC01A335BEC002B4718 /* URLInterceptor.m in Sources */,
 				4484C8A81E32D8B400DF0CB6 /* PsiphonSettingsTextFieldViewCell.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
+				44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */,
@@ -872,7 +875,6 @@
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
 				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */,
-				019516CC1B7D858C0078586A /* CKHTTPConnection.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */,
@@ -885,8 +887,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F7CB4B1A526B9C00F42B73 /* HSTSCache_Tests.m in Sources */,
-				01D42C3D1E0A4FE400566022 /* URLInterceptor_Tests.m in Sources */,
-				01F879411A4112E500A63654 /* URLBlocker_Tests.m in Sources */,
 				018333DC1A35727C00670CD1 /* HTTPSEverywhere_Tests.m in Sources */,
 				01F2AE421B827BC200D5651A /* SSLCertificate_Tests.m in Sources */,
 			);

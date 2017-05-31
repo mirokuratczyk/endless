@@ -33,8 +33,6 @@
 #import "PsiphonData.h"
 #import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
-#import "URLInterceptor.h"
-
 
 @implementation AppDelegate {
 	BOOL _needsResume;
@@ -46,26 +44,28 @@
 
 	SystemSoundID _notificationSound;
 	Reachability *_reachability;
+	UIAlertController *authAlertController;
 }
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef USE_DUMMY_URLINTERCEPTOR
-	[NSURLProtocol registerClass:[DummyURLInterceptor class]];
-#else
-	[NSURLProtocol registerClass:[URLInterceptor class]];
-#endif
+	[JAHPAuthenticatingHTTPProtocol setDelegate:self];
+	[JAHPAuthenticatingHTTPProtocol start];
+
 
 	[self initializeDefaults];
 
 	self.hstsCache = [HSTSCache retrieve];
 	[CookieJar syncCookieAcceptPolicy];
 	[Bookmark retrieveList];
+	self.sslCertCache = [[NSCache alloc] init];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 
 	self.socksProxyPort = 0;
+	self.httpProxyPort = 0;
+	
 	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
 
 	_needsResume = false;
@@ -294,6 +294,10 @@
 	[self startPsiphon];
 }
 
++ (AppDelegate *)sharedAppDelegate{
+	return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
 // MARK: TunneledAppDelegate protocol implementation
 
 - (NSString *) getPsiphonConfig {
@@ -365,7 +369,16 @@
 
 - (void) onListeningSocksProxyPort:(NSInteger)port {
 	dispatch_async(dispatch_get_main_queue(), ^{
+		[JAHPAuthenticatingHTTPProtocol resetSharedDemux];
 		self.socksProxyPort = port;
+	});
+}
+
+
+- (void) onListeningHttpProxyPort:(NSInteger)port {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[JAHPAuthenticatingHTTPProtocol resetSharedDemux];
+		self.httpProxyPort = port;
 	});
 }
 
@@ -449,7 +462,7 @@
 
 	[prevWebViewController dismissViewControllerAnimated:NO completion:^{
 		// Remove the root view in case it is still showing
-		 [prevWebViewController.view removeFromSuperview];
+		[prevWebViewController.view removeFromSuperview];
 	}];
 
 	[self notifyPsiphonConnectionState];
@@ -480,8 +493,109 @@
 	}
 }
 
-+ (AppDelegate *)sharedAppDelegate{
-	return (AppDelegate *)[UIApplication sharedApplication].delegate;
+// MARK: JAHPAuthenticatingHTTPProtocol delegate methods
+#ifdef TRACE
+- (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
+	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
 }
+#endif
+
+- (BOOL)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol canAuthenticateAgainstProtectionSpace:( NSURLProtectionSpace *)protectionSpace {
+	return ([protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]
+			|| [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic]);
+}
+
+- (JAHPDidCancelAuthenticationChallengeHandler)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol didReceiveAuthenticationChallenge:( NSURLAuthenticationChallenge *)challenge {
+	NSURLCredential *nsuc;
+
+	/* if we have existing credentials for this realm, try it first */
+	if ([challenge previousFailureCount] == 0) {
+		NSDictionary *d = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:[challenge protectionSpace]];
+		if (d != nil) {
+			for (id u in d) {
+				nsuc = [d objectForKey:u];
+				break;
+			}
+		}
+	}
+
+	/* no credentials, prompt the user */
+	if (nsuc == nil) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			authAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Authentication Required", @"HTTP authentication  alert title") message:@"" preferredStyle:UIAlertControllerStyleAlert];
+
+			if ([[challenge protectionSpace] realm] != nil && ![[[challenge protectionSpace] realm] isEqualToString:@""])
+				[authAlertController setMessage:[NSString stringWithFormat:@"%@: \"%@\"", [[challenge protectionSpace] host], [[challenge protectionSpace] realm]]];
+			else
+				[authAlertController setMessage:[[challenge protectionSpace] host]];
+
+			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+				textField.placeholder = NSLocalizedString(@"User Name", "HTTP authentication alert user name input title");
+			}];
+
+			[authAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+				textField.placeholder = NSLocalizedString(@"Password", @"HTTP authentication alert password input title");
+				textField.secureTextEntry = YES;
+			}];
+
+			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+				[[challenge sender] cancelAuthenticationChallenge:challenge];
+				[authenticatingHTTPProtocol.client URLProtocol:authenticatingHTTPProtocol didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
+			}]];
+
+			[authAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", @"HTTP authentication alert log in button action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+				UITextField *login = authAlertController.textFields.firstObject;
+				UITextField *password = authAlertController.textFields.lastObject;
+
+				NSURLCredential *nsuc = [[NSURLCredential alloc] initWithUser:[login text] password:[password text] persistence:NSURLCredentialPersistenceForSession];
+
+				// We only want one set of credentials per [challenge protectionSpace]
+				// in case we stored incorrect credentials on the previous login attempt
+				// Purge stored credentials for the [challenge protectionSpace]
+				// before storing new ones.
+				// Based on a snippet from http://www.springenwerk.com/2008/11/i-am-currently-building-iphone.html
+
+				NSDictionary *credentialsDict = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:[challenge protectionSpace]];
+				if ([credentialsDict count] > 0) {
+					NSEnumerator *userNameEnumerator = [credentialsDict keyEnumerator];
+					id userName;
+
+					// iterate over all usernames, which are the keys for the actual NSURLCredentials
+					while (userName = [userNameEnumerator nextObject]) {
+						NSURLCredential *cred = [credentialsDict objectForKey:userName];
+						if(cred) {
+							[[NSURLCredentialStorage sharedCredentialStorage] removeCredential:cred forProtectionSpace:[challenge protectionSpace]];
+						}
+					}
+				}
+
+				[[NSURLCredentialStorage sharedCredentialStorage] setCredential:nsuc forProtectionSpace:[challenge protectionSpace]];
+
+				[authenticatingHTTPProtocol resolvePendingAuthenticationChallengeWithCredential:nsuc];
+			}]];
+
+			[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:authAlertController animated:YES completion:nil];
+		});
+	}
+	else {
+		[[NSURLCredentialStorage sharedCredentialStorage] setCredential:nsuc forProtectionSpace:[challenge protectionSpace]];
+		[authenticatingHTTPProtocol resolvePendingAuthenticationChallengeWithCredential:nsuc];
+	}
+
+	return nil;
+
+}
+
+- (void)authenticatingHTTPProtocol:( JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol didCancelAuthenticationChallenge:( NSURLAuthenticationChallenge *)challenge {
+	if(authAlertController) {
+		if (authAlertController.isViewLoaded && authAlertController.view.window) {
+			[authAlertController dismissViewControllerAnimated:NO completion:nil];
+		}
+	}
+}
+
+
+
+
 
 @end
