@@ -719,6 +719,13 @@
 	[self removeTab:tabNumber andFocusTab:[NSNumber numberWithInt:-1]];
 }
 
+- (void)removeTabOpenedByHash:(NSNumber *)tabNumber
+{
+	[self removeTab:tabNumber];
+	showingTabs = !showingTabs;
+	[self showTabsWithCompletionBlock:nil];
+}
+
 - (void)removeTab:(NSNumber *)tabNumber andFocusTab:(NSNumber *)toFocus
 {
 	if (tabNumber.intValue > [webViewTabs count] - 1)
