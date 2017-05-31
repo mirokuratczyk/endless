@@ -740,7 +740,7 @@
 	else if (self.openedByTabHash) {
 		for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
 			if ([wvt hash] == [self.openedByTabHash longValue]) {
-				[[[AppDelegate sharedAppDelegate] webViewController] removeTab:self.tabIndex andFocusTab:[wvt tabIndex]];
+				[[[AppDelegate sharedAppDelegate] webViewController] removeTabOpenedByHash:self.tabIndex];
 				return;
 			}
 		}
