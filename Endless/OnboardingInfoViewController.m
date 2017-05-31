@@ -17,32 +17,29 @@
  *
  */
 
-@import AVKit.AVPlayerViewController;
-@import AVFoundation.AVPlayer;
-@import AVFoundation.AVPlayerItem;
-
-#import "OnboardingChildViewController.h"
+#import "OnboardingInfoViewController.h"
 
 #define kLetsGoButtonHeight 40.0f
 
-@interface OnboardingChildViewController ()
-
-@end
-
-@implementation OnboardingChildViewController {
+// 2nd to Nth onboarding screen(s) after the language
+// selection screen (OnboardingLanguageViewController).
+// These views display onboarding text describing
+// Psiphon Browser to the user.
+@implementation OnboardingInfoViewController {
 	UIView *contentView;
-	UIView *avpView;
 	UIImageView *thumbnailView;
 	UILabel *titleView;
 	UILabel *textView;
 	UIButton *letsGoButton;
 
-	AVPlayerViewController *avp;
-
 	NSLayoutConstraint *contentViewYOffsetConstraint;
 }
 
+@synthesize index = _index;
+@synthesize delegate = delegate;
+
 - (void)viewDidLayoutSubviews {
+	letsGoButton.layer.cornerRadius = letsGoButton.frame.size.height / 2;
 	CGFloat bannerOffset = 0;
 
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
@@ -54,27 +51,8 @@
 	[contentViewYOffsetConstraint setConstant:bannerOffset+4];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	if (avp != nil && avp.player != nil) {
-		if (avp.player.rate == 0) {
-			[avp.player play];
-		}
-	}
-}
-
-- (void)onboardingReappeared {
-	if (avp != nil && avp.player != nil) {
-		if (avp.player.rate == 0) {
-			[avp.player play];
-		}
-	}
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onboardingReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
 
 	CGFloat bannerOffset = 0;
 
@@ -100,7 +78,7 @@
 	letsGoButton = [[UIButton alloc] init];
 	letsGoButton.backgroundColor = [UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0];
 	letsGoButton.hidden = false;
-	[letsGoButton setTitle:NSLocalizedString(@"LET'S GO!", @"") forState:UIControlStateNormal];
+	[letsGoButton setTitle:NSLocalizedString(@"Start Browsing", @"") forState:UIControlStateNormal];
 	letsGoButton.layer.cornerRadius = kLetsGoButtonHeight / 2;
 	letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
 	letsGoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -109,44 +87,20 @@
 					 action:@selector(onboardingEnded)
 		   forControlEvents:UIControlEventTouchUpInside];
 
-	/* Setup movie player */
-	NSString *onboardingVideoName = [NSString stringWithFormat:@"onboarding%ld", (long)self.index+1];
-	NSURL *videoURL = [[NSBundle mainBundle]   URLForResource:onboardingVideoName withExtension:@"mov"];
-	avp = [[AVPlayerViewController alloc] init];
-	avp.player = [[AVPlayer alloc] initWithURL:videoURL];
-	avp.showsPlaybackControls = NO;
-	avp.view.backgroundColor = [UIColor whiteColor];
-
-	/* Loop onboarding movie */
-	avp.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(playerItemDidReachEnd:)
-												 name:AVPlayerItemDidPlayToEndTimeNotification
-											   object:[avp.player currentItem]];
-	[avp.player play];
-
-	avpView = avp.view;
-
-	avpView.contentMode = UIViewContentModeScaleAspectFit;
-	[avpView setBackgroundColor:[UIColor whiteColor]];
-
 	/* Setup contentView and its subviews */
 	contentView = [[UIView alloc] init];
-	[contentView addSubview:avpView];
 	[contentView addSubview:titleView];
 	[contentView addSubview:textView];
 	[self.view addSubview:contentView];
 
 	/* Setup autolayout */
 	contentView.translatesAutoresizingMaskIntoConstraints = NO;
-	avpView.translatesAutoresizingMaskIntoConstraints = NO;
 	titleView.translatesAutoresizingMaskIntoConstraints = NO;
 	textView.translatesAutoresizingMaskIntoConstraints = NO;
 	letsGoButton.translatesAutoresizingMaskIntoConstraints = NO;
 
 	NSDictionary *viewsDictionary = @{
 									  @"contentView": contentView,
-									  @"avpView": avpView,
 									  @"titleView": titleView,
 									  @"textView": textView,
 									  @"letsGoButton": letsGoButton
@@ -191,38 +145,6 @@
 														  attribute:NSLayoutAttributeCenterX
 														 multiplier:1.f constant:0.f]];
 
-	/* avpView's constraints */
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
-															attribute:NSLayoutAttributeTop
-															relatedBy:NSLayoutRelationEqual
-															   toItem:contentView
-															attribute:NSLayoutAttributeTop
-														   multiplier:1.f
-															 constant:0]];
-
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
-															attribute:NSLayoutAttributeWidth
-															relatedBy:NSLayoutRelationEqual
-															   toItem:contentView
-															attribute:NSLayoutAttributeWidth
-														   multiplier:1.2f
-															 constant:0]];
-
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
-															attribute:NSLayoutAttributeHeight
-															relatedBy:NSLayoutRelationEqual
-															   toItem:avpView
-															attribute:NSLayoutAttributeWidth
-														   multiplier:1.f
-															 constant:0]];
-
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:avpView
-															attribute:NSLayoutAttributeCenterX
-															relatedBy:NSLayoutRelationEqual
-															   toItem:contentView
-															attribute:NSLayoutAttributeCenterX
-														   multiplier:1.f constant:0.f]];
-
 	/* titleView's constraints */
 	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleView
 															attribute:NSLayoutAttributeWidth
@@ -240,7 +162,7 @@
 															relatedBy:NSLayoutRelationLessThanOrEqual
 															   toItem:contentView
 															attribute:NSLayoutAttributeHeight
-														   multiplier:0.2f
+														   multiplier:0.3f
 															 constant:0]];
 
 	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleView
@@ -249,6 +171,13 @@
 															   toItem:contentView
 															attribute:NSLayoutAttributeCenterX
 														   multiplier:1.f constant:0.f]];
+
+	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleView
+															attribute:NSLayoutAttributeCenterY
+															relatedBy:NSLayoutRelationEqual
+															   toItem:contentView
+															attribute:NSLayoutAttributeCenterY
+														   multiplier:.5f constant:0.f]];
 
 	/* textView's constraints */
 	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:textView
@@ -267,7 +196,7 @@
 															relatedBy:NSLayoutRelationLessThanOrEqual
 															   toItem:contentView
 															attribute:NSLayoutAttributeHeight
-														   multiplier:0.3f
+														   multiplier:0.2f
 															 constant:0]];
 
 	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:textView
@@ -277,25 +206,34 @@
 															attribute:NSLayoutAttributeCenterX
 														   multiplier:1.f constant:0.f]];
 
+
 	/* add vertical constraints for contentView's subviews */
-	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[avpView]-16-[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
+	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
 
 	/* Set page specific content */
 	switch (self.index) {
-		case 0: {
+		case 1: {
 			/* add letsGoButton to view */
 			[contentView addSubview:letsGoButton];
 
-			/* letsGoButton.width = 0.5 * contentView.width */
+			/* letsGoButton.width = 0.55 * self.view.width */
 			[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGoButton
 																  attribute:NSLayoutAttributeWidth
 																  relatedBy:NSLayoutRelationEqual
-																	 toItem:contentView
+																	 toItem:self.view
 																  attribute:NSLayoutAttributeWidth
-																 multiplier:.5f
+																 multiplier:.55f
 																   constant:0]];
 
-			[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton(==letsGoButtonHeight)]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
+			[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGoButton
+																  attribute:NSLayoutAttributeHeight
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:self.view
+																  attribute:NSLayoutAttributeHeight
+																 multiplier:.076f
+																   constant:0]];
+
+			[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
 
 			titleView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
 			//textView.text = ...
@@ -307,12 +245,8 @@
 	}
 }
 
-- (void)playerItemDidReachEnd:(NSNotification *)notification {
-	AVPlayerItem *player = [notification object];
-	[player seekToTime:kCMTimeZero];
-}
-
 - (void)onboardingEnded {
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;

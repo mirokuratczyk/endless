@@ -32,6 +32,9 @@
    Bookmarks table header title */
 "Bookmarks" = "Bookmarks";
 
+/* No comment provided by engineer. */
+"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+
 /* Field name for display in list */
 "Business Category" = "Business Category";
 
@@ -154,6 +157,9 @@
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
+/* No comment provided by engineer. */
+"Language" = "Language";
+
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
 
@@ -226,9 +232,6 @@
 /* Field name for display in list */
 "Protocol" = "Protocol";
 
-/* No comment provided by engineer. */
-"PSIPHON" = "PSIPHON";
-
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
 
@@ -279,6 +282,9 @@
 
 /* No comment provided by engineer. */
 "Spain" = "Spain";
+
+/* No comment provided by engineer. */
+"Start Browsing" = "Start Browsing";
 
 /* Field name for display in list */
 "State/Province" = "State/Province";

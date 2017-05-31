@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Psiphon Inc.
+ * Copyright (c) 2017, Psiphon Inc.
  * All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegionSelectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) UITableView *table;
+@interface OnboardingLanguageViewController : UIViewController <OnboardingChildViewController>
 @end

@@ -35,7 +35,7 @@
 #define STATE_RESTORE_TRY_KEY @"state_restore_lock"
 #define kHasBeenOnboardedKey @"hasBeenOnBoarded"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, JAHPAuthenticatingHTTPProtocolDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, JAHPAuthenticatingHTTPProtocolDelegate, OnboardingViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -63,6 +63,7 @@
 
 - (void) startIfNeeded;
 - (void) reloadAndOpenSettings;
+- (void) reloadOnboardingForl10n;
 - (NSString *) getPsiphonConfig;
 - (void) scheduleRunningTunnelServiceRestart;
 - (void) notifyPsiphonConnectionState;

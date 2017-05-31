@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 
 @interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate,
 	UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
-		TutorialDelegate, FinalPageObserver, OnboardingViewControllerDelegate>
+		TutorialDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
@@ -52,5 +52,6 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 - (void) openPsiphonHomePage:(NSString *) homePage;
 
 @property (nonatomic) BOOL showTutorial;
+@property (nonatomic) BOOL resumePsiphonStart;
 @property (nonatomic) BOOL openSettingImmediatelyOnViewDidAppear;
 @end
