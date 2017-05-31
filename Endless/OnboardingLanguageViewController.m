@@ -141,7 +141,7 @@
 	// Setup language box header text
 	languageBoxHeader = [[UILabel alloc] init];
 	languageBoxHeader.adjustsFontSizeToFitWidth = YES;
-	languageBoxHeader.text = NSLocalizedString(@"Language", @"");
+	languageBoxHeader.text = NSLocalizedString(@"Language", @"Title above language box which displays the current app language and all available languages that the app is localized for");
 	languageBoxHeader.textAlignment = isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
 	languageBoxHeader.font = [UIFont fontWithName:kLanguageBoxFont size:16.0f];
 	languageBoxHeader.translatesAutoresizingMaskIntoConstraints = NO;

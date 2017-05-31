@@ -32,7 +32,7 @@
    Bookmarks table header title */
 "Bookmarks" = "Bookmarks";
 
-/* No comment provided by engineer. */
+/* Title displayed at the top of all onboardings screens */
 "BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
 
 /* Field name for display in list */
@@ -157,7 +157,7 @@
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
-/* No comment provided by engineer. */
+/* Title above language box which displays the current app language and all available languages that the app is localized for */
 "Language" = "Language";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
@@ -274,7 +274,7 @@
 /* No comment provided by engineer. */
 "Singapore" = "Singapore";
 
-/* No comment provided by engineer. */
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
 "SKIP" = "SKIP";
 
 /* No comment provided by engineer. */
@@ -283,7 +283,7 @@
 /* No comment provided by engineer. */
 "Spain" = "Spain";
 
-/* No comment provided by engineer. */
+/* Text of button that user presses to complete onboarding */
 "Start Browsing" = "Start Browsing";
 
 /* Field name for display in list */

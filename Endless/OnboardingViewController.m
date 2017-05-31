@@ -240,7 +240,7 @@
 
 	subtitle.adjustsFontSizeToFitWidth = YES;
 	subtitle.font = [UIFont fontWithName:kSubtitleFontName size:18.0f];
-	subtitle.text = NSLocalizedString(@"BROWSE BEYOND BORDERS", @"");
+	subtitle.text = NSLocalizedString(@"BROWSE BEYOND BORDERS", @"Title displayed at the top of all onboardings screens");
 	subtitle.textAlignment = NSTextAlignmentCenter;
 	subtitle.textColor = [UIColor whiteColor];
 
@@ -287,7 +287,7 @@
 
 	/* Setup skip button */
 	UIButton *skipButton = [[UIButton alloc] init];
-	[skipButton setTitle:NSLocalizedString(@"SKIP", @"") forState:UIControlStateNormal];
+	[skipButton setTitle:NSLocalizedString(@"SKIP", @"Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding") forState:UIControlStateNormal];
 	[skipButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 	[skipButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
 	[skipButton.titleLabel setAdjustsFontSizeToFitWidth:YES];

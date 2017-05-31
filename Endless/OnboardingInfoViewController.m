@@ -78,7 +78,7 @@
 	letsGoButton = [[UIButton alloc] init];
 	letsGoButton.backgroundColor = [UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0];
 	letsGoButton.hidden = false;
-	[letsGoButton setTitle:NSLocalizedString(@"Start Browsing", @"") forState:UIControlStateNormal];
+	[letsGoButton setTitle:NSLocalizedString(@"Start Browsing", @"Text of button that user presses to complete onboarding") forState:UIControlStateNormal];
 	letsGoButton.layer.cornerRadius = kLetsGoButtonHeight / 2;
 	letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
 	letsGoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
