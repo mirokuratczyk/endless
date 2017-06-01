@@ -40,6 +40,7 @@
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "取消";
@@ -53,8 +54,11 @@
 /* Field name for display in list */
 "Cipher" = "Cipher";
 
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Clear Cookies and Data";
+
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name" = "Common Name";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "确认";
@@ -75,7 +79,7 @@
 "Copy URL" = "复制URL";
 
 /* Field name for display in list */
-"Country (C)" = "Country (C)";
+"Country" = "Country";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "已断开连接！";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "LET'S GO!";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality" = "Locality";
 
 /* No comment provided by engineer. */
 "Log In" = "登录";
@@ -195,10 +199,10 @@
 "Open in Safari" = "在 Safari 中打开";
 
 /* Field name for display in list */
-"Organization (O)" = "Organization (O)";
+"Organization" = "Organization";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number" = "Organizational Unit Number";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -240,6 +244,9 @@
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "下拉刷新页面";
 
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+
 /* Title above a list of rules in use */
 "Rules in use on current page" = "目前页面上使用的规则";
 
@@ -251,9 +258,6 @@
 
 /* Field name for display in list */
 "Serial Number" = "Serial Number";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "Serial Number (SN)";
 
 /* Title that is showing above selected server region */
 "Server region:" = "服务器区域：";
@@ -277,7 +281,7 @@
 "Spain" = "Spain";
 
 /* Field name for display in list */
-"State/Province (ST)" = "State/Province (ST)";
+"State/Province" = "State/Province";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "状态标识符";

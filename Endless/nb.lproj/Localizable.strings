@@ -40,6 +40,7 @@
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Avbryt";
@@ -53,8 +54,11 @@
 /* Field name for display in list */
 "Cipher" = "Krypteringsmetode";
 
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Fjern informasjonskapsler og data";
+
 /* Field name for display in list */
-"Common Name (CN)" = "Vanlig navn (CN)";
+"Common Name" = "Vanlig navn";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Bekreft";
@@ -75,7 +79,7 @@
 "Copy URL" = "Kopier nettadresse";
 
 /* Field name for display in list */
-"Country (C)" = "Land (C)";
+"Country" = "Land";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Frakoblet!";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "KOM IGJEN.";
 
 /* Field name for display in list */
-"Locality (L)" = "Lokasjon (L)";
+"Locality" = "Lokasjon";
 
 /* No comment provided by engineer. */
 "Log In" = "Logg inn";
@@ -195,10 +199,10 @@
 "Open in Safari" = "Åpne i Safari";
 
 /* Field name for display in list */
-"Organization (O)" = "Organisasjon (O)";
+"Organization" = "Organisasjon";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organisasjonsenhetsnummer (OU)";
+"Organizational Unit Number" = "Organisasjonsenhetsnummer";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -240,6 +244,9 @@
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Innhent for å gjenoppfriske side";
 
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Fjern alle informasjonskapsler og nettleserhistorikk?";
+
 /* Title above a list of rules in use */
 "Rules in use on current page" = "Regler i bruk på gjeldende side";
 
@@ -251,9 +258,6 @@
 
 /* Field name for display in list */
 "Serial Number" = "Serienummer";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "Serienummer (SN)";
 
 /* Title that is showing above selected server region */
 "Server region:" = "Tjenerregion:";
@@ -277,7 +281,7 @@
 "Spain" = "Spania";
 
 /* Field name for display in list */
-"State/Province (ST)" = "Fylke/provins (ST)";
+"State/Province" = "Fylke/provins";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Statusindikator";

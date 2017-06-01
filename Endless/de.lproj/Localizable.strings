@@ -40,6 +40,7 @@
 
 /* Cancel
    Cancel action
+   Cancel button on alert
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Abbrechen";
@@ -53,8 +54,11 @@
 /* Field name for display in list */
 "Cipher" = "Verschlüsselungsverfahren";
 
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Clear Cookies and Data";
+
 /* Field name for display in list */
-"Common Name (CN)" = "Common Name (CN)";
+"Common Name" = "Common Name";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Bestätigen";
@@ -75,7 +79,7 @@
 "Copy URL" = "URL kopieren";
 
 /* Field name for display in list */
-"Country (C)" = "Land (C)";
+"Country" = "Land";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "Disconnected!" = "Getrennt!";
@@ -157,7 +161,7 @@
 "LET'S GO!" = "LOS!";
 
 /* Field name for display in list */
-"Locality (L)" = "Locality (L)";
+"Locality" = "Locality";
 
 /* No comment provided by engineer. */
 "Log In" = "Anmelden";
@@ -195,10 +199,10 @@
 "Open in Safari" = "In Safari öffnen";
 
 /* Field name for display in list */
-"Organization (O)" = "Organisation (O)";
+"Organization" = "Organisation";
 
 /* Field name for display in list */
-"Organizational Unit Number (OU)" = "Organizational Unit Number (OU)";
+"Organizational Unit Number" = "Organizational Unit Number";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -240,6 +244,9 @@
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Zum Aktualisieren der Seite ziehen";
 
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+
 /* Title above a list of rules in use */
 "Rules in use on current page" = "Regeln, die auf der aktuellen Seite in Gebrauch sind";
 
@@ -251,9 +258,6 @@
 
 /* Field name for display in list */
 "Serial Number" = "Seriennummer";
-
-/* Field name for display in list */
-"Serial Number (SN)" = "Seriennummer (SN)";
 
 /* Title that is showing above selected server region */
 "Server region:" = "Serverregion:";
@@ -277,7 +281,7 @@
 "Spain" = "Spanien";
 
 /* Field name for display in list */
-"State/Province (ST)" = "Bundesland/Provinz (ST)";
+"State/Province" = "Bundesland/Provinz";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Statusanzeige";
@@ -338,5 +342,5 @@
 "Your feedback makes Psiphon better!" = "Ihre Rückmeldung macht Psiphon besser!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "jjjj-MM-tt 'um' HH:mm:ss zzz";
 
