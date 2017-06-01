@@ -17,18 +17,8 @@
  *
  */
 
-
 #import <UIKit/UIKit.h>
+#import "OnboardingViewController.h"
 
-@protocol OnboardingChildViewControllerDelegate;
-
-@interface OnboardingChildViewController : UIViewController
-@property (nonatomic, weak) id<OnboardingChildViewControllerDelegate> delegate;
-@property (assign, nonatomic) NSInteger index;
-
-@end
-
-@protocol OnboardingChildViewControllerDelegate <NSObject>
-- (CGFloat)getBannerOffset;
-- (void)onboardingEnded;
+@interface OnboardingInfoViewController : UIViewController <OnboardingChildViewController>
 @end

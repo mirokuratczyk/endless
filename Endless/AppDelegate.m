@@ -73,12 +73,64 @@
 	_reachability = [Reachability reachabilityForInternetConnection];
 	[_reachability startNotifier];
 
-
+	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-	self.window.rootViewController = [[WebViewController alloc] init];
-	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+
+	if (isOnboarding) {
+		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
+		onboarding.delegate = self;
+		self.window.rootViewController = onboarding;
+		self.window.rootViewController.restorationIdentifier = @"OnboardingViewController";
+	} else {
+		self.window.rootViewController = [[WebViewController alloc] init];
+		self.window.rootViewController.restorationIdentifier = @"WebViewController";
+	}
 
 	return YES;
+}
+
+- (void)reloadOnboardingForl10n {
+	OnboardingViewController *newOnboarding = [[OnboardingViewController alloc] init];
+	newOnboarding.restorationIdentifier = @"OnboardingViewController";
+	newOnboarding.delegate = self;
+
+	[self changeRootViewController:newOnboarding];
+}
+
+- (void)onboardingEnded {
+	WebViewController *webViewController = [[WebViewController alloc] init];
+	webViewController.restorationIdentifier = @"WebViewController";
+	webViewController.resumePsiphonStart = YES;
+	webViewController.showTutorial = YES;
+
+	[self changeRootViewController:webViewController];
+}
+
+// From https://gist.github.com/gimenete/53704124583b5df3b407
+- (void)changeRootViewController:(UIViewController*)viewController {
+	if (!self.window.rootViewController) {
+		self.window.rootViewController = viewController;
+		return;
+	}
+
+	UIViewController *prevViewController = self.window.rootViewController;
+
+	UIView *snapShot = [self.window snapshotViewAfterScreenUpdates:YES];
+	[viewController.view addSubview:snapShot];
+
+	self.window.rootViewController = viewController;
+
+	[prevViewController dismissViewControllerAnimated:NO completion:^{
+		// Remove the root view in case it is still showing
+		[prevViewController.view removeFromSuperview];
+	}];
+
+	[UIView animateWithDuration:.3 animations:^{
+		snapShot.layer.opacity = 0;
+		snapShot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5);
+	} completion:^(BOOL finished) {
+		[snapShot removeFromSuperview];
+	}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -193,7 +245,6 @@
 	[_psiphonTunnel stop];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
-
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -445,7 +496,7 @@
 
 	WebViewController* wvc = [[WebViewController alloc] init];
 	wvc.restorationIdentifier = @"WebViewController";
-	self.window.rootViewController = wvc;
+	[self changeRootViewController:wvc];
 
 	for (WebViewTab *wvt in wvTabs) {
 		BOOL isCurrentTab = NO;

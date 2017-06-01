@@ -52,21 +52,26 @@ PODS:
   - DTFoundation/UIKit_BlocksAdditions (1.7.11):
     - DTFoundation/Core
   - InAppSettingsKit (2.8)
+  - MarqueeLabel (3.0.2):
+    - MarqueeLabel/ObjC (= 3.0.2)
+  - MarqueeLabel/ObjC (3.0.2)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
 
 DEPENDENCIES:
   - DTFoundation
   - InAppSettingsKit
+  - MarqueeLabel
   - OCMock
   - OrderedDictionary
 
 SPEC CHECKSUMS:
   DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
   InAppSettingsKit: fe3e73f8f9530cdd6270065cd7df7b3773f557e6
+  MarqueeLabel: 365d4a7cd5a9504e51a2034d2be83782424223ac
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
 
-PODFILE CHECKSUM: 7d30585d6a7cb06688d0872b7e3bcfc84d9d4251
+PODFILE CHECKSUM: 0c1bb3d1eec9c2d48c029a19b11b69bed1801a7f
 
 COCOAPODS: 1.1.1

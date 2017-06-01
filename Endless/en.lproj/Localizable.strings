@@ -32,6 +32,9 @@
    Bookmarks table header title */
 "Bookmarks" = "Bookmarks";
 
+/* Title displayed at the top of all onboardings screens */
+"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+
 /* Field name for display in list */
 "Business Category" = "Business Category";
 
@@ -154,6 +157,9 @@
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
+/* Title above language box which displays the current app language and all available languages that the app is localized for */
+"Language" = "Language";
+
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
 
@@ -226,9 +232,6 @@
 /* Field name for display in list */
 "Protocol" = "Protocol";
 
-/* No comment provided by engineer. */
-"PSIPHON" = "PSIPHON";
-
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
 
@@ -271,7 +274,7 @@
 /* No comment provided by engineer. */
 "Singapore" = "Singapore";
 
-/* No comment provided by engineer. */
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
 "SKIP" = "SKIP";
 
 /* No comment provided by engineer. */
@@ -279,6 +282,9 @@
 
 /* No comment provided by engineer. */
 "Spain" = "Spain";
+
+/* Text of button that user presses to complete onboarding */
+"Start Browsing" = "Start Browsing";
 
 /* Field name for display in list */
 "State/Province" = "State/Province";

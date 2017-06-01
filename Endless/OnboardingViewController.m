@@ -17,24 +17,26 @@
  *
  */
 
-
 #import "AppDelegate.h"
 #import "OnboardingViewController.h"
-#import "OnboardingChildViewController.h"
+#import "OnboardingInfoViewController.h"
+#import "OnboardingLanguageViewController.h"
 
-#define kNumOnboardingViews 1
-#define kLogoToTitleSpacing 8.0f
-
-@interface OnboardingViewController ()
-@end
+#define kNumOnboardingViews 2
+#define kSubtitleFontName @"SanFranciscoDisplay-Regular"
 
 @implementation OnboardingViewController {
-	NSLayoutConstraint *centreBannerConstraint;
+	UIView *titleView;
+	UIView *subtitleView;
 
+	UIImageView *title;
+	UILabel *subtitle;
+
+	UIImageView *backDrop;
+	UIImageView *moon;
 	CGFloat bannerOffset;
-	UIView *bannerView;
-	UIImageView *bannerLogoView;
-	UILabel *bannerTitleLabel;
+
+	BOOL isRTL;
 }
 
 // Force portrait orientation during onboarding
@@ -42,26 +44,10 @@
 	return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
 }
 
-- (BOOL)shouldAutorotate {
-	return YES;
-}
-
-// Fullscreen onboarding
-- (BOOL)prefersStatusBarHidden {
-	return YES;
-}
-
-- (void)viewDidLayoutSubviews {
-	[super viewDidLayoutSubviews];
-
-	// Shrink bannerTitleLabel to the size of its content
-	[bannerTitleLabel sizeToFit];
-	[centreBannerConstraint setConstant:-((bannerLogoView.frame.size.width + bannerTitleLabel.frame.size.width + kLogoToTitleSpacing) / 2)];
-	bannerOffset = bannerView.frame.origin.y + bannerView.frame.size.height;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
+	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 
 	[self.view setBackgroundColor:[UIColor whiteColor]];
 	[[UIApplication sharedApplication] setStatusBarHidden:YES]; // Full screen onboarding
@@ -79,7 +65,7 @@
 	self.pageController.view.frame = self.view.bounds;
 
 	/* Setup and present initial OnboardingChildViewController */
-	OnboardingChildViewController *initialViewController = [self viewControllerAtIndex:0];
+	UIViewController<OnboardingChildViewController> *initialViewController = [self viewControllerAtIndex:0];
 	NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
 
 	[self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
@@ -90,27 +76,219 @@
 
 	/* Add static views to OnboardingViewController */
 
-	/* Setup bannerTitleLabel */
-	bannerTitleLabel = [[UILabel alloc] init];
-	bannerTitleLabel.text = NSLocalizedString(@"PSIPHON", @"");
-	bannerTitleLabel.textColor = [UIColor colorWithRed:0.27 green:0.27 blue:0.28 alpha:1.0];
-	bannerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue " size:20.0f];
-	bannerTitleLabel.numberOfLines = 0;
-	bannerTitleLabel.adjustsFontSizeToFitWidth = YES;
-	bannerTitleLabel.textAlignment = NSTextAlignmentRight;
-
 	/* Setup bannerLogoView */
-	UIImage *bannerLogo = [UIImage imageNamed:@"onboarding-logo"];
-	bannerLogoView = [[UIImageView alloc] initWithImage:bannerLogo];
 
 	// ChildViewController will call getBannerOffset to determine
 	// how much space the banner consumes and layout accordingly.
 	bannerOffset = 0;
 
+	// Add backdrop
+	UIImage *background = [UIImage imageNamed:@"background"];
+	backDrop = [[UIImageView alloc] initWithImage:background];
+	backDrop.translatesAutoresizingMaskIntoConstraints = NO;
+	backDrop.contentMode = UIViewContentModeScaleAspectFill;
+
+	[self.view addSubview:backDrop];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:backDrop
+														  attribute:NSLayoutAttributeTop
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeTop
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:backDrop
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:backDrop
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:backDrop
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.4f
+														   constant:0]];
+
+	// Add moon
+	moon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-complete"]];
+	moon.translatesAutoresizingMaskIntoConstraints = NO;
+	moon.contentMode = UIViewContentModeScaleAspectFit;
+
+	[backDrop addSubview:moon];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+														  attribute:NSLayoutAttributeCenterY
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeBottom
+														 multiplier:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? .90f :.82f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:.5f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:moon
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:1.f
+														   constant:0]];
+
+	// Setup containers which will hold title and subtitle
+	titleView = [[UIView alloc] init];
+	titleView.translatesAutoresizingMaskIntoConstraints = NO;
+	[backDrop addSubview:titleView];
+
+	subtitleView = [[UIView alloc] init];
+	subtitleView.translatesAutoresizingMaskIntoConstraints = NO;
+	[backDrop addSubview:subtitleView];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitleView
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleView
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitleView
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:titleView
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.8f
+														   constant:0]];
+
+	// Add title
+	title = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon-browser"]];
+	title.translatesAutoresizingMaskIntoConstraints = NO;
+	title.contentMode = UIViewContentModeScaleAspectFit;
+	[title.layer setMinificationFilter:kCAFilterTrilinear]; // Prevent aliasing
+	[titleView addSubview:title];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
+														  attribute:NSLayoutAttributeBottom
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:titleView
+														  attribute:NSLayoutAttributeBottom
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:.65f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.12f
+														   constant:0]];
+
+	// Add subtitle
+	subtitle = [[UILabel alloc] init];
+	subtitle.translatesAutoresizingMaskIntoConstraints = NO;
+	[subtitleView addSubview:subtitle];
+
+	subtitle.adjustsFontSizeToFitWidth = YES;
+	subtitle.font = [UIFont fontWithName:kSubtitleFontName size:18.0f];
+	subtitle.text = NSLocalizedString(@"BROWSE BEYOND BORDERS", @"Title displayed at the top of all onboardings screens");
+	subtitle.textAlignment = NSTextAlignmentCenter;
+	subtitle.textColor = [UIColor whiteColor];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitle
+														  attribute:NSLayoutAttributeCenterY
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:subtitleView
+														  attribute:NSLayoutAttributeCenterY
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitle
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitle
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:title
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:1.f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:subtitle
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.066f
+														   constant:0]];
+
+	// Vertical layout constraints within backdrop
+	NSDictionary *views = @{
+							@"moon": moon,
+							@"titleView": titleView,
+							@"subtitleView": subtitleView
+							};
+
+	[backDrop addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleView][subtitleView][moon]" options:0 metrics:nil views:views]];
+
 	/* Setup skip button */
 	UIButton *skipButton = [[UIButton alloc] init];
-	[skipButton setTitle:NSLocalizedString(@"SKIP", @"") forState:UIControlStateNormal];
-	[skipButton setTitleColor:[UIColor colorWithRed:0.56 green:0.57 blue:0.58 alpha:1.0] forState:UIControlStateNormal];
+	[skipButton setTitle:NSLocalizedString(@"SKIP", @"Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding") forState:UIControlStateNormal];
+	[skipButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 	[skipButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
 	[skipButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
 
@@ -118,19 +296,8 @@
 				   action:@selector(onboardingEnded)
 		 forControlEvents:UIControlEventTouchUpInside];
 
-	/* Init banner view which will contain bannerLogoView and bannerTitleLabel */
-	bannerView = [[UIView alloc] init];
-
-	/* Add views */
 	[self.view addSubview:skipButton];
-	[self.view addSubview:bannerView];
-	[bannerView addSubview:bannerLogoView];
-	[bannerView addSubview:bannerTitleLabel];
 
-	/* Setup autolayout */
-	bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-	bannerLogoView.translatesAutoresizingMaskIntoConstraints = NO;
-	bannerTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 	skipButton.translatesAutoresizingMaskIntoConstraints = NO;
 
 	id <UILayoutSupport> topLayoutGuide =  self.topLayoutGuide;
@@ -138,42 +305,8 @@
 	NSDictionary *viewsDictionary = @{
 									  @"topLayoutGuide": topLayoutGuide,
 									  @"skipButton": skipButton,
-									  @"bannerLogoView": bannerLogoView,
-									  @"bannerTitleLabel": bannerTitleLabel
 									  };
 
-	NSDictionary *metrics = @{
-							  @"logoToTitleSpacing": [NSNumber numberWithFloat:kLogoToTitleSpacing]
-							  };
-
-	[bannerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bannerLogoView]-logoToTitleSpacing-[bannerTitleLabel]" options:NSLayoutFormatAlignAllCenterY metrics:metrics views:viewsDictionary]];
-
-	/* bannerLogoView constraints */
-	[bannerView addConstraint:[NSLayoutConstraint constraintWithItem:bannerLogoView
-														   attribute:NSLayoutAttributeCenterY
-														   relatedBy:NSLayoutRelationEqual
-															  toItem:bannerView
-														   attribute:NSLayoutAttributeCenterY
-														  multiplier:1.f constant:0.f]];
-
-	// This constraint will be updated in viewDidLayoutSubviews
-	// once bannerTitleLabel's frame has been laid out.
-	centreBannerConstraint = [NSLayoutConstraint constraintWithItem:bannerLogoView
-														  attribute:NSLayoutAttributeLeft
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:bannerView
-														  attribute:NSLayoutAttributeCenterX
-														 multiplier:1.f constant:.0f];
-	[bannerView addConstraint:centreBannerConstraint];
-
-	[bannerView addConstraint:[NSLayoutConstraint constraintWithItem:bannerTitleLabel
-														   attribute:NSLayoutAttributeCenterY
-														   relatedBy:NSLayoutRelationEqual
-															  toItem:bannerView
-														   attribute:NSLayoutAttributeCenterY
-														  multiplier:1.f constant:0.f]];
-
-	/* Skip button constraints */
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-[skipButton]" options:0 metrics:nil views:viewsDictionary]];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[skipButton]-|" options:0 metrics:nil views:viewsDictionary]];
 
@@ -185,45 +318,14 @@
 														 multiplier:.04f
 														   constant:0]];
 
-	/* Banner view autolayout */
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-														  attribute:NSLayoutAttributeWidth
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeWidth
-														 multiplier:1.f
-														   constant:0]];
-
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-														  attribute:NSLayoutAttributeHeight
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeHeight
-														 multiplier:.10f
-														   constant:0]];
-
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-														  attribute:NSLayoutAttributeCenterX
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeCenterX
-														 multiplier:1.f constant:0.f]];
-
-	// Banner view's top flush with bottom of skip button's frame
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-														  attribute:NSLayoutAttributeTop
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:skipButton
-														  attribute:NSLayoutAttributeBottom
-														 multiplier:1.f
-														   constant:0]];
+	skipButton.hidden = YES; // Hide skip button until we have > 1 OnboardingInfoViewControllers
 }
 
 #pragma mark - UIPageViewControllerDataSource methods and helper functions
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
 
-	NSUInteger index = [(OnboardingChildViewController *)viewController index];
+	NSUInteger index = [(UIViewController <OnboardingChildViewController>*)viewController index];
 
 	if (index == 0) {
 		return nil;
@@ -236,7 +338,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
 
-	NSUInteger index = [(OnboardingChildViewController *)viewController index];
+	NSUInteger index = [(UIViewController <OnboardingChildViewController>*)viewController index];
 
 	index++;
 
@@ -247,10 +349,15 @@
 	return [self viewControllerAtIndex:index];
 }
 
-- (OnboardingChildViewController *)viewControllerAtIndex:(NSUInteger)index {
-	OnboardingChildViewController *childViewController = [[OnboardingChildViewController alloc] init];
-	childViewController.index = index;
+- (UIViewController <OnboardingChildViewController>*)viewControllerAtIndex:(NSUInteger)index {
+	UIViewController<OnboardingChildViewController> *childViewController;
+	if (index == 0) {
+		childViewController = [[OnboardingLanguageViewController alloc] init];
+	} else {
+		childViewController = [[OnboardingInfoViewController alloc] init];
+	}
 	childViewController.delegate = self;
+	childViewController.index = index;
 
 	return childViewController;
 }
@@ -268,14 +375,13 @@
 #pragma mark - OnboardingChildViewController delegate methods
 
 - (CGFloat)getBannerOffset {
-	return bannerOffset;
+	return moon.frame.origin.y + moon.frame.size.height;
 }
 
 - (void)onboardingEnded {
+	[[UIApplication sharedApplication] setStatusBarHidden:NO]; // Exit full screen
 	[self.pageController.view removeFromSuperview];
 	[self dismissViewControllerAnimated:NO completion:nil];
-
-	[[UIApplication sharedApplication] setStatusBarHidden:NO]; // Exit full screen
 
 	id<OnboardingViewControllerDelegate> strongDelegate = self.delegate;
 

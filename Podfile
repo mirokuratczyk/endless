@@ -4,6 +4,7 @@ target "Psiphon Browser" do
 	pod "DTFoundation"
 	pod "OrderedDictionary"
 	pod "InAppSettingsKit"
+	pod "MarqueeLabel"
 end
 
 target "Psiphon Browser Tests" do

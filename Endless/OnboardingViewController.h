@@ -17,19 +17,23 @@
  *
  */
 
-
 #import <UIKit/UIKit.h>
-#import "OnboardingChildViewController.h"
-
-@protocol OnboardingViewControllerDelegate;
-
-@interface OnboardingViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, OnboardingChildViewControllerDelegate>
-
-@property (nonatomic, weak) id<OnboardingViewControllerDelegate> delegate;
-@property (strong, nonatomic) UIPageViewController *pageController;
-
-@end
 
 @protocol OnboardingViewControllerDelegate <NSObject>
 - (void)onboardingEnded;
+@end
+
+@protocol OnboardingChildViewControllerDelegate <NSObject>
+- (CGFloat)getBannerOffset;
+- (void)onboardingEnded;
+@end
+
+@interface OnboardingViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, OnboardingChildViewControllerDelegate>
+@property (nonatomic, weak) id<OnboardingViewControllerDelegate> delegate;
+@property (strong, nonatomic) UIPageViewController *pageController;
+@end
+
+@protocol OnboardingChildViewController <NSObject>
+@property (nonatomic, weak) id<OnboardingChildViewControllerDelegate> delegate;
+@property (assign, nonatomic) NSInteger index;
 @end

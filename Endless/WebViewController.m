@@ -86,8 +86,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	NSMutableDictionary *preferencesSnapshot;
 
 	Tutorial *tutorial;
-
-	BOOL resumePsiphonStart;
 }
 
 -(id)init {
@@ -266,8 +264,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						tabDoneButton,
 						nil];
 
-	resumePsiphonStart = NO;
-
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -372,7 +368,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[userDefaults removeObjectForKey:STATE_RESTORE_TRY_KEY];
 	[userDefaults synchronize];
 
-	if( self.openSettingImmediatelyOnViewDidAppear) {
+	if(self.openSettingImmediatelyOnViewDidAppear) {
 		[self openSettingsMenu:nil];
 		[self setOpenSettingImmediatelyOnViewDidAppear:NO];
 		return;
@@ -384,15 +380,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		return;
 	}
 
-	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
-
-	if (isOnboarding) {
-		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
-		onboarding.delegate = self;
-		[self presentViewController:onboarding animated:NO completion:nil];
-		return;
-	}
-	
 	[self viewIsVisible];
 }
 
@@ -814,8 +801,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			[self showTabsWithCompletionBlock:nil];
 		}
 	}
-	[self adjustLayout];
 
+	[self adjustLayout];
 }
 
 - (void)removeAllTabs
@@ -1572,13 +1559,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	// we need to ensure it gets reset to display the correct state
 	[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];
 
-	if (resumePsiphonStart) {
+	if (self.resumePsiphonStart) {
 		// Resume setup
 		// Start psiphon and open homepage
 		[[AppDelegate sharedAppDelegate] startIfNeeded];
+		[self viewIsVisible];
+	} else {
+		[self dismissViewControllerAnimated:NO completion:nil];
 	}
-
-	[self viewIsVisible];
 }
 
 #pragma mark - Tutorial methods and helper functions
@@ -1979,17 +1967,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[newEquivURLs removeObjectAtIndex:0];
 		[homePagesEquivalentURLs setObject:newEquivURLs forKey:originalURL];
 	}
-}
-
-#pragma mark - OnboardingViewControllerDelegate methods
-
--(void)onboardingEnded {
-	self.showTutorial = YES;
-	resumePsiphonStart = YES;
-
-	// User has been fully onboarded
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
