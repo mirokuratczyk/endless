@@ -132,7 +132,7 @@ var __endless = {
 				// went away before 1 second elapsed.
 				var ipcAction = "pagefinal";
 				that.ipc(ipcAction);
-				}, 1000);
+				}, 3000);
 	},
 
 	/**
