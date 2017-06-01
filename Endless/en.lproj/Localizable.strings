@@ -16,7 +16,7 @@
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Allow this page to close its tab?";
 
-/* Error alert message text */
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
 "An error occurred downloading image %@" = "An error occurred downloading image %@";
 
 /* HTTP authentication  alert title */
@@ -94,6 +94,12 @@
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Done";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+
+/* Image download in progress alert title */
+"Downloading…" = "Downloading…";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Edit Bookmark";
@@ -294,6 +300,12 @@
 
 /* Field name for display in list */
 "Street Address" = "Street Address";
+
+/* Image download success alert title */
+"Success!" = "Success!";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"Successfully downloaded image %@" = "Successfully downloaded image %@";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
