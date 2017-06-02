@@ -639,17 +639,32 @@
 	UIAlertAction *saveImageAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Save Image", @"Action title for long press on image dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		[self requestAuthorizationWithRedirectionToSettings];
 
-		NSURL *imgurl = [NSURL URLWithString:img];
-		[JAHPAuthenticatingHTTPProtocol temporarilyAllow:imgurl];
-		NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
-		if (imgdata) {
-			UIImage *i = [UIImage imageWithData:imgdata];
-			UIImageWriteToSavedPhotosAlbum(i, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-		}
-		else {
-			UIAlertView *m = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Error alert message text"), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
-			[m show];
-		}
+		UIAlertView *downloadInProgress = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Downloading…", @"Image download in progress alert title") message:[NSString stringWithFormat:NSLocalizedString(@"Downloading image %@. You will be notified when the download completes.", @"Image download in progress alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
+		[downloadInProgress show];
+
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			NSURL *imgurl = [NSURL URLWithString:img];
+			[JAHPAuthenticatingHTTPProtocol temporarilyAllow:imgurl];
+			NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
+
+			if (imgdata) {
+				UIImage *i = [UIImage imageWithData:imgdata];
+				UIImageWriteToSavedPhotosAlbum(i, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+
+				UIAlertView *downloadSuccess = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success!", @"Image download success alert title") message:[NSString stringWithFormat:NSLocalizedString(@"Successfully downloaded image %@", @"Image download success alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[downloadInProgress dismissWithClickedButtonIndex:0 animated:YES];
+					[downloadSuccess show];
+				});
+			}
+			else {
+				UIAlertView *downloadError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Image download error alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[downloadInProgress dismissWithClickedButtonIndex:0 animated:YES];
+					[downloadError show];
+				});
+			}
+		});
 	}];
 
 	UIAlertAction *copyURLAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Copy URL", @"Action title for long press on link dialog") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -683,10 +698,12 @@
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	// Fail silently to the user
-	Throwable *t = [[Throwable alloc] init:[NSString stringWithFormat:@"%@", error] withStackTrace:[NSThread callStackSymbols]];
-	StatusEntry *s = [[StatusEntry alloc] init:@"Failed to download image." formatArgs:nil throwable:t sensitivity:SensitivityLevelNotSensitive priority:PriorityError];
-	[[PsiphonData sharedInstance] addStatusEntry:s];
+	if (error != nil) {
+		// Fail silently to the user
+		Throwable *t = [[Throwable alloc] init:[NSString stringWithFormat:@"%@", error] withStackTrace:[NSThread callStackSymbols]];
+		StatusEntry *s = [[StatusEntry alloc] init:@"Failed to download image." formatArgs:nil throwable:t sensitivity:SensitivityLevelSensitiveLog priority:PriorityError];
+		[[PsiphonData sharedInstance] addStatusEntry:s];
+	}
 }
 
 - (void) requestAuthorizationWithRedirectionToSettings {
