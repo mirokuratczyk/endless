@@ -16,10 +16,10 @@
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Permettre à cette page de fermer son onglet ?";
 
-/* Error alert message text */
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
 "An error occurred downloading image %@" = "Une erreur est survenue lors du téléchargement de l'image %@";
 
-/* Authentication Required alert title */
+/* HTTP authentication  alert title */
 "Authentication Required" = "L'authentification est exigée";
 
 /* Field name for display in list */
@@ -31,6 +31,9 @@
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Signets";
+
+/* Title displayed at the top of all onboardings screens */
+"BROWSE BEYOND BORDERS" = "NAVIGUEZ PAR-DELÀ LES FRONTIÈRES";
 
 /* Field name for display in list */
 "Business Category" = "Catégorie d'entreprise";
@@ -91,6 +94,12 @@
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Terminé";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"Downloading image %@. You will be notified when the download completes." = "Téléchargement de l'image %@. La fin du téléchargement vous sera signalée.";
+
+/* Image download in progress alert title */
+"Downloading…" = "Téléchargement...";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Modifier le signet";
@@ -154,6 +163,9 @@
 /* No comment provided by engineer. */
 "Japan" = "Japon";
 
+/* Title above language box which displays the current app language and all available languages that the app is localized for */
+"Language" = "Langue";
+
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Apprenez-en davantage sur les données que nous recueillons dans notre %@";
 
@@ -163,7 +175,7 @@
 /* Field name for display in list */
 "Locality" = "Localité";
 
-/* No comment provided by engineer. */
+/* HTTP authentication alert log in button action */
 "Log In" = "Authentifiant";
 
 /* Title screen displaying logs */
@@ -208,7 +220,7 @@
    Add bookmark page name field */
 "Page Name (leave blank to use URL)" = "Nom de la page (laisser vide pour utiliser l'URL)";
 
-/* Password */
+/* HTTP authentication alert password input title */
 "Password" = "Mot de passe";
 
 /* Field name for display in list */
@@ -225,9 +237,6 @@
 
 /* Field name for display in list */
 "Protocol" = "Protocole";
-
-/* No comment provided by engineer. */
-"PSIPHON" = "PSIPHON";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "Psiphon ne peut pas démarrer en raison d'une erreur interne, veuillez envoyer une rétroaction.";
@@ -271,7 +280,7 @@
 /* No comment provided by engineer. */
 "Singapore" = "Singapour";
 
-/* No comment provided by engineer. */
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
 "SKIP" = "IGNORER";
 
 /* No comment provided by engineer. */
@@ -279,6 +288,9 @@
 
 /* No comment provided by engineer. */
 "Spain" = "Espagne";
+
+/* Text of button that user presses to complete onboarding */
+"Start Browsing" = "Commencer la navigation";
 
 /* Field name for display in list */
 "State/Province" = "État/Province";
@@ -288,6 +300,12 @@
 
 /* Field name for display in list */
 "Street Address" = "Adresse municipale ";
+
+/* Image download success alert title */
+"Success!" = "Réussi !";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"Successfully downloaded image %@" = "Vous avez téléchargé l'image %@ avec succès";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "La coche verte indique que tout fonctionne parfaitement et que vous pouvez y aller !";
@@ -319,6 +337,9 @@
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
 "URL" = "URL";
+
+/* HTTP authentication alert user name input title */
+"User Name" = "Nom d'utilisateur";
 
 /* Field name for display in list */
 "Version" = "Version";
