@@ -43,10 +43,6 @@ static AppDelegate *appDelegate;
 #define kTutorialSpecifierKey @"tutorial"
 
 @implementation SettingsViewController {
-	UITableViewCell *flagCell;
-	UIImageView *flagImage;
-	UILabel *flagLabel;
-
 	BOOL isRTL;
 }
 
@@ -148,19 +144,13 @@ BOOL linksEnabled;
 
 		// Get currently selected region
 		Region *selectedRegion = [[RegionAdapter sharedInstance] getSelectedRegion];
-		NSString *detailText = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
 		// Style and layout cell
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 		[cell.textLabel setText:specifier.title];
 
 		UIImage *flag = [UIImage imageNamed:selectedRegion.flagResourceId];
-		flagImage = [[UIImageView alloc] initWithImage:flag];
-		flagLabel = [[UILabel alloc] init];
-		flagLabel.adjustsFontSizeToFitWidth = YES;
-		flagLabel.text = detailText;
-		flagLabel.textColor = cell.detailTextLabel.textColor; // Get normal detailText color
-		flagLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
+		UIImageView *flagImage = [[UIImageView alloc] initWithImage:flag];
 
 		// Size and place flag image. Text is sized and placed in viewDidLayoutSubviews
 		if (isRTL) {
@@ -173,9 +163,6 @@ BOOL linksEnabled;
 
 		// Add flag and region name to detailTextLabel section of cell
 		[cell.contentView addSubview:flagImage];
-		[cell.contentView addSubview:flagLabel];
-
-		flagCell = cell;
 	}
 
 	if ([links containsObject:specifier.key]) {
@@ -184,24 +171,6 @@ BOOL linksEnabled;
 		cell.detailTextLabel.enabled = linksEnabled;
 	}
 	return cell;
-}
-
-- (void)viewDidLayoutSubviews {
-	// Resize detailText of region selection cell for new layout
-	CGFloat newWidth;
-	CGFloat xOffset;
-	CGFloat offsetFromSides = 10.0f;
-
-	if (isRTL) {
-		newWidth =  flagCell.textLabel.frame.origin.x - flagImage.frame.size.width - offsetFromSides * 2;
-		xOffset = flagImage.frame.size.width + offsetFromSides;
-	} else {
-		newWidth =  flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width - offsetFromSides * 2;
-		xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth - offsetFromSides;
-	}
-
-	flagLabel.frame = CGRectMake(xOffset, 0, newWidth, flagCell.contentView.frame.size.height);
-	[flagLabel setNeedsDisplay];
 }
 
 - (BOOL)isValidPort:(NSString *)port {
