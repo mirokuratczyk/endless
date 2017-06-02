@@ -56,6 +56,37 @@ BOOL linksEnabled;
 
 @synthesize webViewController;
 
+- (void)layoutFlagLabel {
+	// Resize detailText of region selection cell for new layout
+	CGFloat newWidth;
+	CGFloat xOffset;
+	CGFloat offsetFromSides = 10.0f;
+
+	if (isRTL) {
+		newWidth = flagCell.textLabel.frame.origin.x - flagImage.frame.size.width - offsetFromSides * 2;
+		xOffset = flagImage.frame.size.width + offsetFromSides;
+	} else {
+		newWidth = flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width - offsetFromSides * 2;
+		xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth - offsetFromSides;
+	}
+
+	flagLabel.frame = CGRectMake(xOffset, 0, newWidth, flagCell.contentView.frame.size.height);
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+	{
+		[self layoutFlagLabel];
+	} completion:nil];
+
+	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
+- (void)viewDidLayoutSubviews {
+	[self layoutFlagLabel];
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -157,6 +188,7 @@ BOOL linksEnabled;
 		UIImage *flag = [UIImage imageNamed:selectedRegion.flagResourceId];
 		flagImage = [[UIImageView alloc] initWithImage:flag];
 		flagLabel = [[UILabel alloc] init];
+		flagLabel.numberOfLines=2;
 		flagLabel.adjustsFontSizeToFitWidth = YES;
 		flagLabel.text = detailText;
 		flagLabel.textColor = cell.detailTextLabel.textColor; // Get normal detailText color
@@ -184,24 +216,6 @@ BOOL linksEnabled;
 		cell.detailTextLabel.enabled = linksEnabled;
 	}
 	return cell;
-}
-
-- (void)viewDidLayoutSubviews {
-	// Resize detailText of region selection cell for new layout
-	CGFloat newWidth;
-	CGFloat xOffset;
-	CGFloat offsetFromSides = 10.0f;
-
-	if (isRTL) {
-		newWidth =  flagCell.textLabel.frame.origin.x - flagImage.frame.size.width - offsetFromSides * 2;
-		xOffset = flagImage.frame.size.width + offsetFromSides;
-	} else {
-		newWidth =  flagCell.contentView.frame.size.width - (flagCell.textLabel.frame.size.width + flagCell.textLabel.frame.origin.x) - flagImage.image.size.width - offsetFromSides * 2;
-		xOffset = flagCell.contentView.frame.size.width - flagImage.image.size.width - newWidth - offsetFromSides;
-	}
-
-	flagLabel.frame = CGRectMake(xOffset, 0, newWidth, flagCell.contentView.frame.size.height);
-	[flagLabel setNeedsDisplay];
 }
 
 - (BOOL)isValidPort:(NSString *)port {
