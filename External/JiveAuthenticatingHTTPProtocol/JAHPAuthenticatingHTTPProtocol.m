@@ -954,6 +954,9 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	assert([[self class] propertyForKey:kJAHPRecursiveRequestFlagProperty inRequest:newRequest] != nil);
 
+	/* save any cookies we just received */
+	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
+
 	redirectRequest = [newRequest mutableCopy];
 
 	/* set up properties of the original request */
@@ -1164,8 +1167,11 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	/* rebuild our response with any modified headers */
 	response = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:[httpResponse statusCode] HTTPVersion:@"1.1" headerFields:responseHeaders];
 
-	/* save any cookies we just received */
-	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[httpResponse allHeaderFields] forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_wvt url]];
+	/* save any cookies we just received
+	 Note that we need to do the same thing in the 
+	 - (void)URLSession:task:willPerformHTTPRedirection
+	 */
+	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:responseHeaders forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
 
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
