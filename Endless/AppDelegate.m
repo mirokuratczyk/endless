@@ -412,7 +412,9 @@
 
 - (void) onDiagnosticMessage : (NSString*) message {
 	dispatch_async(dispatch_get_main_queue(), ^{
+#ifdef TRACE
 		NSLog(@"onDiagnosticMessage: %@", message);
+#endif
 		DiagnosticEntry *newDiagnosticEntry = [[DiagnosticEntry alloc] init:message];
 		[[PsiphonData sharedInstance] addDiagnosticEntry:newDiagnosticEntry];
 	});
@@ -547,7 +549,7 @@
 // MARK: JAHPAuthenticatingHTTPProtocol delegate methods
 #ifdef TRACE
 - (void)authenticatingHTTPProtocol:(JAHPAuthenticatingHTTPProtocol *)authenticatingHTTPProtocol logWithFormat:(NSString *)format arguments:(va_list)arguments {
-	NSLog(@"logWithFormat: %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
+	NSLog(@"[JAHPAuthenticatingHTTPProtocol] %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
 }
 #endif
 
