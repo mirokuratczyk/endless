@@ -510,6 +510,9 @@
 		if (focusedTab == wvt) {
 			isCurrentTab = YES;
 		}
+		// Reload tab's localizables
+		[wvt initLocalizables];
+
 		[wvc addWebViewTab:wvt andSetCurrent:isCurrentTab];
 	}
 

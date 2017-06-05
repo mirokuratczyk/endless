@@ -78,7 +78,6 @@
 	[self.webView addGestureRecognizer:swipeLeft];
 
 	self.refresher = [[UIRefreshControl alloc] init];
-	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Pull to Refresh Page", @"UI hint that the webpage can be refreshed by pulling(swiping) down")]];
 	[self.refresher addTarget:self action:@selector(forceRefreshFromRefresher) forControlEvents:UIControlEventValueChanged];
 	[self.webView.scrollView addSubview:self.refresher];
 
@@ -90,7 +89,6 @@
 	[_title setFont:[UIFont boldSystemFontOfSize:16.0]];
 	[_title setLineBreakMode:NSLineBreakByTruncatingTail];
 	[_title setTextAlignment:NSTextAlignmentCenter];
-	[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
 
 	_closer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[_closer setTextColor:[UIColor whiteColor]];
@@ -109,6 +107,8 @@
 	[[_viewHolder layer] setShadowOpacity:0];
 
 	_progress = @0.0;
+
+	[self initLocalizables];
 
 	[self updateFrame:frame];
 
@@ -143,6 +143,13 @@
 		equivalentURLS = [NSMutableArray new];
 	}
 	return self;
+}
+
+-(void) initLocalizables {
+	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Pull to Refresh Page", @"UI hint that the webpage can be refreshed by pulling(swiping) down")]];
+	if(!_title.text) {
+		[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
+	}
 }
 
 /* for long press gesture recognizer to work properly */

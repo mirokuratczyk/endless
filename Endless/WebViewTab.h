@@ -76,8 +76,8 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 - (void)forceRefresh;
 - (void)zoomOut;
 - (void)zoomNormal;
-
 - (void) clearEquivalentURLs;
+-(void) initLocalizables;
 
 @end
 
