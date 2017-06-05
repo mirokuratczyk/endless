@@ -135,7 +135,6 @@ static NSString *_javascriptToInject;
 	}
 
 	if (found > -1) {
-		NSLog(@"[NSURLProtocol] temporarily allowing %@ from allowed list with no matching WebViewTab", url);
 		[tmpAllowed removeObjectAtIndex:found];
 	}
 
@@ -462,8 +461,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	}
 
 	if (_wvt == nil) {
-		NSLog(@"[NSURLProtocol] request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash);
-
+		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash];
 		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 
 		if (![[[[request URL] scheme] lowercaseString] isEqualToString:@"http"] && ![[[[request URL] scheme] lowercaseString] isEqualToString:@"https"]) {
@@ -471,9 +469,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 				UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Open In External App" message:[NSString stringWithFormat:@"Allow URL to be opened by external app? This may compromise your privacy.\n\n%@", [request URL]] preferredStyle:UIAlertControllerStyleAlert];
 
 				UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-#ifdef TRACE
-					NSLog(@"[NSURLProtocol] opening in 3rd party app: %@", [request URL]);
-#endif
+					[[self class] authenticatingHTTPProtocol:self logWithFormat:@"opening in 3rd party app: %@", [request URL]];
 					[[UIApplication sharedApplication] openURL:[request URL]];
 				}];
 
@@ -487,9 +483,8 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 		return nil;
 	}
-#ifdef TRACE
-	NSLog(@"[NSURLProtocol] [Tab %@] initializing %@ to %@ (via %@)", _wvt.tabIndex, [request HTTPMethod], [[request URL] absoluteString], [request mainDocumentURL]);
-#endif
+
+	[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] initializing %@ to %@ (via %@)", _wvt.tabIndex, [request HTTPMethod], [[request URL] absoluteString], [request mainDocumentURL]];
 
 	NSMutableURLRequest *mutableRequest = [request mutableCopy];
 
@@ -530,18 +525,13 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	/* in case our URL changed/upgraded, send back to the webview so it knows what our protocol is for "//" assets */
 	if (_isOrigin && ![[[mutableRequest URL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
-#ifdef TRACE_HOST_SETTINGS
-		NSLog(@"[NSURLProtocol] [Tab %@] canceling origin request to redirect %@ rewritten to %@", _wvt.tabIndex, [[self.request URL] absoluteString], [[mutableRequest URL] absoluteString]);
-#endif
-		[_wvt loadURL:[mutableRequest URL]];
+		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] canceling origin request to redirect %@ rewritten to %@", _wvt.tabIndex, [[self.request URL] absoluteString], [[mutableRequest URL] absoluteString]];
 		return nil;
 	}
 
 	if (!_isOrigin) {
 		if (![LocalNetworkChecker isHostOnLocalNet:[[mutableRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[mutableRequest URL] host]]) {
-#ifdef TRACE_HOST_SETTINGS
-			NSLog(@"[NSURLProtocol] [Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [mutableRequest mainDocumentURL], [mutableRequest URL]);
-#endif
+			[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [mutableRequest mainDocumentURL], [mutableRequest URL]];
 			cancelLoading();
 			return nil;
 		}
@@ -551,9 +541,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	[mutableRequest setHTTPShouldHandleCookies:NO];
 	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[mutableRequest URL]];
 	if (cookies != nil && [cookies count] > 0) {
-#ifdef TRACE_COOKIES
-		NSLog(@"[NSURLProtocol] [Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, [cookies count], [mutableRequest URL]);
-#endif
+		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, (unsigned long)[cookies count], [mutableRequest URL]];
 		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
 		[mutableRequest setAllHTTPHeaderFields:headers];
 	}

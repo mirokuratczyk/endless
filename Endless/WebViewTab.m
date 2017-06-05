@@ -47,7 +47,7 @@
 	_viewHolder = [[UIView alloc] initWithFrame:frame];
 
 	/* re-register user agent with our hash, which should only affect this UIWebView */
-	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [[AppDelegate sharedAppDelegate] defaultUserAgent], self.hash] }];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"UserAgent": [NSString stringWithFormat:@"%@/%lu", [[AppDelegate sharedAppDelegate] defaultUserAgent], (unsigned long)self.hash] }];
 
 	_webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	_isRestoring = NO;
@@ -136,7 +136,7 @@
 	NSString *ua = [_webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
 	NSArray *uap = [ua componentsSeparatedByString:@"/"];
 	NSString *wvthash = uap[uap.count - 1];
-	if (![[NSString stringWithFormat:@"%lu", [self hash]] isEqualToString:wvthash])
+	if (![[NSString stringWithFormat:@"%lu", (unsigned long)[self hash]] isEqualToString:wvthash])
 		abort();
 
 	if(!equivalentURLS) {

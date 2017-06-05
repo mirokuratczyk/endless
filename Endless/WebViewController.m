@@ -632,7 +632,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
 
-	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
+	[tabCount setText:[NSString stringWithFormat:@"%lu", (long)tabChooser.numberOfPages]];
 
 	[tabScroller setContentSize:CGSizeMake(wvt.viewHolder.frame.size.width * tabChooser.numberOfPages, wvt.viewHolder.frame.size.height)];
 	[tabScroller addSubview:wvt.viewHolder];
@@ -657,7 +657,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
 	[wvt setUrl:url];
 
-	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
+	[tabCount setText:[NSString stringWithFormat:@"%lu", (long)tabChooser.numberOfPages]];
 
 	[tabScroller setContentSize:CGSizeMake(wvt.viewHolder.frame.size.width * tabChooser.numberOfPages, wvt.viewHolder.frame.size.height)];
 	[tabScroller addSubview:wvt.viewHolder];
@@ -744,7 +744,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	wvt = nil;
 
 	[tabChooser setNumberOfPages:webViewTabs.count];
-	[tabCount setText:[NSString stringWithFormat:@"%lu", tabChooser.numberOfPages]];
+	[tabCount setText:[NSString stringWithFormat:@"%lu", (long)tabChooser.numberOfPages]];
 
 	if (futureFocusNumber == -1) {
 		if (curTabIndex == tabNumber.intValue) {
