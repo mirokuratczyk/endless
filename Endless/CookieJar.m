@@ -61,6 +61,7 @@
 	NSDictionary *files = [self localStorageFiles];
 	for (NSString *file in [files allKeys]) {
 #ifdef TRACE_COOKIES
+		NSString *fhost = [files objectForKey:file];
 		NSLog(@"[CookieJar] deleting local storage for %@: %@", fhost, file);
 #endif
 		NSError *error;
