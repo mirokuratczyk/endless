@@ -135,6 +135,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	// Migrate old cookie policy values
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	// Casting nil to 0 is OK here:
+	int lastBuildNumber = (int)[defaults integerForKey:kBuildNumber];
+	[CookieJar migrateOldValuesForVersion:lastBuildNumber];
+
+	// Store build number for any future references
+	int buildNumber = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
+	[defaults setInteger:buildNumber forKey:kBuildNumber];
+
 	[self.window makeKeyAndVisible];
 	return YES;
 }

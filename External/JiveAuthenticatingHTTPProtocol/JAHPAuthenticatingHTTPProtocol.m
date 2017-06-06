@@ -47,6 +47,7 @@
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
 #import "LocalNetworkChecker.h"
+#import "CookieJar.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
 
@@ -539,11 +540,27 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	/* we're handling cookies ourself */
 	[mutableRequest setHTTPShouldHandleCookies:NO];
-	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[mutableRequest URL]];
-	if (cookies != nil && [cookies count] > 0) {
-		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, (unsigned long)[cookies count], [mutableRequest URL]];
-		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-		[mutableRequest setAllHTTPHeaderFields:headers];
+	NSString *cookiePolicy = [CookieJar cookiePolicy];
+
+	// Do not send any cookies if current policy is to block all
+	if (![cookiePolicy isEqualToString:kAlwaysBlock]) {
+		NSArray<NSHTTPCookie *> *cookies = nil;
+
+		if ([cookiePolicy isEqualToString:kAllowWebsitesIVisit] || [cookiePolicy isEqualToString:kAlwaysAllow]) {
+			// always send if matching cookies found in the jar
+			cookies = [CookieJar cookiesForURL:[mutableRequest URL]];
+		} else if ([cookiePolicy isEqualToString:kAllowCurrentWebsiteOnly]) {
+			// only send if request URL is of same origin as mainDocumentURL
+			if([CookieJar isSameOrigin:[mutableRequest URL] toURL: [mutableRequest mainDocumentURL]]) {
+				cookies = [CookieJar cookiesForURL:[mutableRequest URL]];
+			}
+		}
+
+		if (cookies != nil && [cookies count] > 0) {
+			[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] sending %lu cookie(s) to %@", _wvt.tabIndex, (unsigned long)[cookies count], [mutableRequest URL]];
+			NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+			[mutableRequest setAllHTTPHeaderFields:headers];
+		}
 	}
 
 	/* add "do not track" header if it's enabled in the settings */
@@ -943,7 +960,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert([[self class] propertyForKey:kJAHPRecursiveRequestFlagProperty inRequest:newRequest] != nil);
 
 	/* save any cookies we just received */
-	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
+	[CookieJar setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
 
 	redirectRequest = [newRequest mutableCopy];
 
@@ -1159,7 +1176,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	 Note that we need to do the same thing in the 
 	 - (void)URLSession:task:willPerformHTTPRedirection
 	 */
-	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:responseHeaders forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
+	[CookieJar setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:responseHeaders forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
 
 	if ([[[self.request URL] scheme] isEqualToString:@"https"]) {
 		NSString *hsts = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:HSTS_HEADER];
