@@ -42,33 +42,36 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Manage what types of cookies Psiphon Browser blocks.</string>
+			<string>Manage what types of cookies Psiphon Browser allows.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>BlockThirdPartyCookies</string>
+			<string>AllowWebsitesIVisit</string>
 			<key>Values</key>
 			<array>
-				<string>BlockThirdPartyCookies</string>
-				<string>BlockAll</string>
-				<string>BlockNone</string>
+				<string>AlwaysBlock</string>
+				<string>AllowCurrentWebsiteOnly</string>
+				<string>AllowWebsitesIVisit</string>
+				<string>AlwaysAllow</string>
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>Block Third Party Cookies</string>
-				<string>Block All Cookies</string>
-				<string>Allow All Cookies</string>
+				<string>Always Block</string>
+				<string>Allow from Current Website Only</string>
+				<string>Allow from Websites I Visit</string>
+				<string>Always Allow</string>
 			</array>
 			<key>ShortTitles</key>
 			<array>
-				<string>Block Third Party</string>
 				<string>Block All</string>
+				<string>Current Website Only</string>
+				<string>Websites I Visit</string>
 				<string>Allow All</string>
 			</array>
 			<key>Key</key>
 			<string>cookiePolicy</string>
 			<key>Title</key>
-			<string>Block Cookies</string>
+			<string>Allow Cookies</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>FooterText</key>

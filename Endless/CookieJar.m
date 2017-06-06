@@ -20,22 +20,47 @@
  */
 
 #define LOCAL_STORAGE_REGEX @"/(https?_(.+)_\\d+|_*IndexedDB)"
-#define kCookiePolicyKey @"cookiePolicy"
-#define kBlockThirdPartyCookies @"BlockThirdPartyCookies"
-#define kBlockAll @"BlockAll"
-#define kBlockNone @"BlockNone"
-
 @implementation CookieJar
 
-+ (void)syncCookieAcceptPolicy {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *cookiePolicy = [userDefaults stringForKey:kCookiePolicyKey];
++(void)migrateOldValuesForVersion:(int)version {
+	if(version <= 1013) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSString *cookiePolicy = [defaults stringForKey:kCookiePolicyKey];
 
-	if ([cookiePolicy isEqualToString:kBlockThirdPartyCookies]) {
+		if([cookiePolicy isEqualToString:@"BlockAll"]) {
+			[defaults setObject:kAlwaysBlock forKey:kCookiePolicyKey];
+		} else if ([cookiePolicy isEqualToString:@"BlockThirdPartyCookies"]) {
+			[defaults setObject:kAllowWebsitesIVisit forKey:kCookiePolicyKey];
+
+		} else if ([cookiePolicy isEqualToString:@"BlockNone"]) {
+			[defaults setObject:kAlwaysAllow forKey:kCookiePolicyKey];
+		}
+	}
+}
+
++ (NSString*) cookiePolicy {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	NSString *cookiePolicy = [defaults stringForKey:kCookiePolicyKey];
+
+	if(!cookiePolicy || cookiePolicy.length == 0) {
+		// our default cookie policy
+		cookiePolicy = kAllowWebsitesIVisit;
+		[defaults setObject:cookiePolicy forKey:kCookiePolicyKey];
+	}
+	return cookiePolicy;
+}
+
++ (void)syncCookieAcceptPolicy {
+	NSString *cookiePolicy = [[self class] cookiePolicy];
+	if ([cookiePolicy isEqualToString:kAllowWebsitesIVisit] || [cookiePolicy isEqualToString:kAllowCurrentWebsiteOnly]) {
+		// Block storing third party
 		[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain];
-	} else if ([cookiePolicy isEqualToString:kBlockAll]) {
+	} else if ([cookiePolicy isEqualToString:kAlwaysBlock]) {
+		// Block storing all cookies
 		[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyNever];
-	} else if ([cookiePolicy isEqualToString:kBlockNone]) {
+	} else if ([cookiePolicy isEqualToString:kAlwaysAllow]) {
+		// Allow storig all cookies
 		[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 	}
 }
@@ -102,6 +127,27 @@
 	}
 
 	return files;
+}
+
++ (NSArray<NSHTTPCookie *> *)cookiesForURL:(NSURL *)URL {
+	return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:URL];
+}
+
++ (void)setCookies:(NSArray<NSHTTPCookie *> *)cookies forURL:(NSURL *)URL mainDocumentURL:(NSURL *)mainDocumentURL {
+	[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:cookies forURL:URL mainDocumentURL:mainDocumentURL];
+}
+
++ (BOOL)isSameOrigin:(NSURL *)aURL toURL:(NSURL *)bURL{
+
+	if ([[aURL scheme] caseInsensitiveCompare:[bURL scheme]] != NSOrderedSame) return NO;
+	if ([[aURL host] caseInsensitiveCompare:[bURL host]] != NSOrderedSame) return NO;
+
+	if ([aURL port] || [bURL port]) {
+		// TODO: should we match ports 80 and 443 to nil for http and https respectively?
+		if (![[aURL port] isEqual:[bURL port]]) return NO;
+	}
+
+	return YES;
 }
 
 @end
