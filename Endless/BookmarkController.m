@@ -8,8 +8,15 @@
 #import "Bookmark.h"
 #import "BookmarkController.h"
 
+@interface EditViewContainer : UIControl
+@property (strong, nonatomic) Bookmark *bookmark;
+@end
+
+@implementation EditViewContainer
+@end
+
 @interface BookmarkCell : UITableViewCell
-@property (strong, nonatomic) UIView *editViewContainer;
+@property (strong, nonatomic) EditViewContainer *editViewContainer;
 @end
 
 @implementation BookmarkCell {
@@ -30,7 +37,7 @@
 		/* Setup bookmark edit button which appears on each cell when in edit mode */
 
 		// Setup views
-		editViewContainer = [[UIView alloc] init];
+		editViewContainer = [[EditViewContainer alloc] init];
 		[self.contentView addSubview:editViewContainer];
 
 		UIImage *editImage = [UIImage imageNamed:@"edit"];
@@ -214,8 +221,6 @@
 @end
 
 @implementation BookmarkController {
-	NSMutableDictionary <NSValue*, Bookmark*>*editViewContainerToBookmark;
-
 	UIBarButtonItem *addItem;
 	UIBarButtonItem *leftItem;
 }
@@ -227,8 +232,6 @@ BOOL isRTL;
 	[super viewDidLoad];
 
 	isRTL = ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
-
-	editViewContainerToBookmark = [[NSMutableDictionary alloc] init];
 
 	self.title = NSLocalizedString(@"Bookmarks", @"Bookmarks main dialog title");
 	self.navigationItem.rightBarButtonItem = addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem:)];
@@ -307,12 +310,9 @@ BOOL isRTL;
 
 	[cell setShowsReorderControl:YES];
 
-	// Add gesture recognition
-	UITapGestureRecognizer *singlePress = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editButtonPressed:)];
-	[singlePress setNumberOfTapsRequired:1];
-	[cell.editViewContainer addGestureRecognizer:singlePress];
+	[cell.editViewContainer addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-	[editViewContainerToBookmark setObject:b forKey:[NSValue valueWithNonretainedObject:cell.editViewContainer]];
+	cell.editViewContainer.bookmark = b;
 
 	return cell;
 }
@@ -338,9 +338,6 @@ BOOL isRTL;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		BookmarkCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-		[editViewContainerToBookmark removeObjectForKey:[NSValue valueWithNonretainedObject:cell.editViewContainer]];
-
 		[[Bookmark list] removeObjectAtIndex:[indexPath row]];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
@@ -370,8 +367,8 @@ BOOL isRTL;
 	}
 }
 
-- (void)editButtonPressed:(UIGestureRecognizer *)recognizer {
-	Bookmark *bookmark = [editViewContainerToBookmark objectForKey:[NSValue valueWithNonretainedObject:recognizer.view]];
+- (void)editButtonPressed:(EditViewContainer *)sender {
+	Bookmark *bookmark = sender.bookmark;
 
 	if (self.embedded)
 		[[[AppDelegate sharedAppDelegate] webViewController] prepareForNewURLFromString:[bookmark urlString]];
