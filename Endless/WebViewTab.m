@@ -327,10 +327,12 @@
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
 		if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
+			// We are not connected:
+			// 1. Show dismissable modal with the connection status if request is for
+			//    mainDocumentURL and mark this tab for reload when we get connected
+			// 2. Cancel loading the request by returning NO
 			if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
-				// mark this tab for reload when
-				// we get connected
-				// TODO: show NO CONNECTION status on the page
+				[[[AppDelegate sharedAppDelegate] webViewController] showPsiphonConnectionStatusAlert];
 				[self setShouldReloadOnConnected:YES];
 			}
 			return NO;
