@@ -12,6 +12,10 @@
 
 #import "Tutorial.h"
 
+#define PAN_GESTURE_RECOGNIZER_NONE 0
+#define PAN_GESTURE_RECOGNIZER_UP 1
+#define PAN_GESTURE_RECOGNIZER_SIDE 2
+
 /* Psiphon tutorial steps */
 typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 {
