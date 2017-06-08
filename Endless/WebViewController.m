@@ -442,6 +442,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+	// reset gesture recognizer type
+	panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
 	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
