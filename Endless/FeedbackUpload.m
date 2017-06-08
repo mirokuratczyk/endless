@@ -20,6 +20,7 @@
 
 #import "FeedbackUpload.h"
 #import "PsiphonData.h"
+#import <PsiphonTunnel/JailbreakCheck.h>
 
 #define kThumbIndexUnselected -1
 #define kQuestionHash "24f5c290039e5b0a2fd17bfcdb8d3108"
@@ -140,7 +141,7 @@
 														 @"SPONSOR_ID": [config objectForKey: @"SponsorId"]
 														 },
 												 @"isAppStoreBuild": @YES,
-												 @"isJailbroken": @NO,
+												 @"isJailbroken": [JailbreakCheck isDeviceJailbroken] ? @YES : @NO,
 												 @"language": safeNullable([[NSUserDefaults standardUserDefaults] objectForKey:appLanguage]),
 												 @"networkTypeName": [FeedbackUpload getConnectionType]
 												 }
