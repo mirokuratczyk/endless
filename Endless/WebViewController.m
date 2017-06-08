@@ -1966,6 +1966,17 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					break;
 				};
 
+				case UIGestureRecognizerStateCancelled: {
+					CGRect frame = tabScroller.frame;
+					frame.origin.x = frame.size.width * curTabIndex;
+					frame.origin.y = 0;
+					[tabScroller setContentOffset:frame.origin animated:YES];
+
+					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+
+					break;
+				}
+
 				default: break;
 			}
 
@@ -2001,6 +2012,17 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 					break;
 				};
+
+				case UIGestureRecognizerStateCancelled: {
+					// Move the view back to the original point
+					[UIView animateWithDuration:0.5 animations:^{
+						[tabView setCenter:originalPoint];
+					} completion:^(BOOL finished) {}];
+					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+
+					break;
+				}
+
 
 				default: break;
 			}
