@@ -41,8 +41,14 @@
 	[self addSubview:_activityIndicator];
 
 	_imgConnected.alpha = _imgDisconnected.alpha = _activityIndicator.alpha = 0.0;
-	_imgConnected.center = _imgDisconnected.center = _activityIndicator.center = CGPointMake(self.bounds.size.width  / 2,
-																							 self.bounds.size.height / 2);
+	_imgConnected.center = _imgDisconnected.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+
+	// Calculate offset so the spinner doesn't appear off center of the main logo circle
+	// The tiny circle on the bottom right sticks out about 1/11 of the image width
+	float offset = (_imgDisconnected.frame.size.width / 11.0)/2;
+	_activityIndicator.center = CGPointMake(self.bounds.size.width / 2 - offset, self.bounds.size.height/2 - offset);
+
+
 	[self displayConnectionState:PsiphonConnectionStateDisconnected];
 	return self;
 }

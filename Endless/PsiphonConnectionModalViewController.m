@@ -20,6 +20,7 @@
 #import "PsiphonConnectionModalViewController.h"
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
+#import "ICDMaterialActivityIndicatorView.h"
 
 @implementation PsiphonConnectionModalViewController {
 	PsiphonConnectionState _connectionState;
@@ -80,13 +81,9 @@
 	if (state == PsiphonConnectionStateConnecting) {
 		contentView = [[UIView alloc] initWithFrame:CGRectZero];
 
-		UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-													  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
-		activityIndicator.transform = transform;
+		ICDMaterialActivityIndicatorView* activityIndicator = [[ICDMaterialActivityIndicatorView alloc] initWithActivityIndicatorStyle:ICDMaterialActivityIndicatorViewStyleLarge];
 		[activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[activityIndicator startAnimating];
-
 		[contentView addSubview:activityIndicator];
 
 		UILabel *serverRegionTextLabel = [[UILabel alloc] init];
@@ -127,7 +124,7 @@
 																	  toItem:contentView
 																   attribute:NSLayoutAttributeTop
 																  multiplier:1.0
-																	constant:15],
+																	constant:10],
 									  [NSLayoutConstraint constraintWithItem:activityIndicator
 																   attribute:NSLayoutAttributeCenterX
 																   relatedBy:NSLayoutRelationEqual
@@ -192,33 +189,35 @@
 								  @"Connection status initial splash modal dialog title for 'Connecting...' state");
 		message = nil;
 	} else if (state == PsiphonConnectionStateWaitingForNetwork) {
-		UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-													  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
-		activityIndicator.transform = transform;
-		[activityIndicator startAnimating];
-
 		contentView = [[UIView alloc] initWithFrame:CGRectZero];
 
+		ICDMaterialActivityIndicatorView* activityIndicator = [[ICDMaterialActivityIndicatorView alloc] initWithActivityIndicatorStyle:ICDMaterialActivityIndicatorViewStyleLarge];
 		[activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+		[activityIndicator startAnimating];
 		[contentView addSubview:activityIndicator];
 
-		NSDictionary *variables = NSDictionaryOfVariableBindings(activityIndicator, contentView);
-
-		NSArray *constraints =
-		[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView(65)]-(<=1)-[activityIndicator]"
-												options: NSLayoutFormatAlignAllCenterX
-												metrics:nil
-												  views:variables];
-		[contentView addConstraints:constraints];
-
-		constraints =
-		[NSLayoutConstraint constraintsWithVisualFormat:@"H:[contentView]-(<=1)-[activityIndicator]"
-												options: NSLayoutFormatAlignAllCenterY
-												metrics:nil
-												  views:variables];
-		[contentView addConstraints:constraints];
+		[contentView addConstraints:@[[NSLayoutConstraint constraintWithItem:activityIndicator
+																   attribute:NSLayoutAttributeTop
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:contentView
+																   attribute:NSLayoutAttributeTop
+																  multiplier:1.0
+																	constant:10],
+									  [NSLayoutConstraint constraintWithItem:activityIndicator
+																   attribute:NSLayoutAttributeCenterX
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:contentView
+																   attribute:NSLayoutAttributeCenterX
+																  multiplier:1.0
+																	constant:0],
+									  [NSLayoutConstraint constraintWithItem:activityIndicator
+																   attribute:NSLayoutAttributeBottom
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:contentView
+																   attribute:NSLayoutAttributeBottom
+																  multiplier:1.0
+																	constant:-10],
+									  ]];
 
 		title = NSLocalizedString(@"Waiting for network...",
 								  @"Connection status initial splash modal dialog title for 'Waiting for network...' state");
