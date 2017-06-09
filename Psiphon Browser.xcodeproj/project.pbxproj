@@ -59,6 +59,7 @@
 		44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */; };
 		449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */; };
 		44AA65C71E29640300C9976D /* blip1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 44AA65C61E29640300C9976D /* blip1.wav */; };
+		44B944361EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B944351EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m */; };
 		44BE19211E26CF2000F94203 /* PsiphonTunnel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44E779411DE6031A00854379 /* PsiphonTunnel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44BF73F21EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BF73F11EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m */; };
 		44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C7B2071E2040A700432BBB /* L10n+Swizzling.m */; };
@@ -200,6 +201,8 @@
 		449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonConnectionModalViewController.h; path = Endless/PsiphonConnectionModalViewController.h; sourceTree = SOURCE_ROOT; };
 		449316E11E8BFA4000D0708D /* PsiphonConnectionModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonConnectionModalViewController.m; path = Endless/PsiphonConnectionModalViewController.m; sourceTree = SOURCE_ROOT; };
 		44AA65C61E29640300C9976D /* blip1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip1.wav; path = Endless/Resources/blip1.wav; sourceTree = "<group>"; };
+		44B944341EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICDMaterialActivityIndicatorView.h; path = Endless/ICDMaterialActivityIndicatorView.h; sourceTree = SOURCE_ROOT; };
+		44B944351EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICDMaterialActivityIndicatorView.m; path = Endless/ICDMaterialActivityIndicatorView.m; sourceTree = SOURCE_ROOT; };
 		44BF73F01EB11B890048E3C7 /* PsiphonHomePagesEquivalentURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonHomePagesEquivalentURLs.h; path = Endless/PsiphonHomePagesEquivalentURLs.h; sourceTree = SOURCE_ROOT; };
 		44BF73F11EB11B8A0048E3C7 /* PsiphonHomePagesEquivalentURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PsiphonHomePagesEquivalentURLs.m; path = Endless/PsiphonHomePagesEquivalentURLs.m; sourceTree = SOURCE_ROOT; };
 		44C7B2071E2040A700432BBB /* L10n+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "L10n+Swizzling.m"; path = "Endless/L10n+Swizzling.m"; sourceTree = SOURCE_ROOT; };
@@ -516,13 +519,15 @@
 		44E778F71DDB723900854379 /* Psiphon */ = {
 			isa = PBXGroup;
 			children = (
+				44E779451DE6038000854379 /* psiphon_config */,
+				6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */,
 				4E0292091EDC7FFF00D1EF43 /* Diagnostics/Feedback */,
 				4E0292081EDC7FA600D1EF43 /* Onboarding */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
-				6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */,
 				44C7B2071E2040A700432BBB /* L10n+Swizzling.m */,
-				44E779451DE6038000854379 /* psiphon_config */,
+				44B944341EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.h */,
+				44B944351EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m */,
 				44E7793F1DE6031A00854379 /* PsiphonConnectionIndicator.h */,
 				44E779401DE6031A00854379 /* PsiphonConnectionIndicator.m */,
 				449316E01E8BFA4000D0708D /* PsiphonConnectionModalViewController.h */,
@@ -871,6 +876,7 @@
 				01AFEB491B4ED48000A02482 /* Bookmark.m in Sources */,
 				4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */,
 				4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */,
+				44B944361EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m in Sources */,
 				01801E981A32CA2A002B4718 /* main.m in Sources */,
 				01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */,
 				44864F8E1E708EE900865705 /* JAHPAuthenticatingHTTPProtocol.m in Sources */,
