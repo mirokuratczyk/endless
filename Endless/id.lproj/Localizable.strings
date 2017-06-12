@@ -75,9 +75,6 @@
 /* Field name for display in list */
 "Connection Information" = "Connection Information";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Kuki dan Penyimpanan Lokal";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "Copy URL";
 
@@ -88,9 +85,9 @@
 "Disconnected!" = "Disconnected!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Selesai";
@@ -100,6 +97,9 @@
 
 /* Image download in progress alert title */
 "Downloading…" = "Downloading…";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Edit";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Ubah Marka";

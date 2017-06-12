@@ -33,7 +33,7 @@
 "Bookmarks" = "Bokmerker";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "SURF FORBI GRENSER";
 
 /* Field name for display in list */
 "Business Category" = "Firmakategori";
@@ -75,9 +75,6 @@
 /* Field name for display in list */
 "Connection Information" = "Tilkoblingsinformasjon";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Informasjonskapsler og lokal lagring";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "Kopier nettadresse";
 
@@ -88,18 +85,21 @@
 "Disconnected!" = "Frakoblet!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Ferdig";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "Laster ned bildet %@. Du vil få beskjed når det er fullført.";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "Laster ned…";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Edit";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Rediger bokmerke";
@@ -164,7 +164,7 @@
 "Japan" = "Japan";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "Språk";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Lær mer om hvilken data vi samler inn i vår %@";
@@ -290,7 +290,7 @@
 "Spain" = "Spania";
 
 /* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+"Start Browsing" = "Start surfing";
 
 /* Field name for display in list */
 "State/Province" = "Fylke/provins";
@@ -302,10 +302,10 @@
 "Street Address" = "Gateadresse";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "Vellykket!";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "Bilde lastet ned %@";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "Den grønne avhukningen indikerer at alt virker i sin skjønneste orden!";
@@ -339,7 +339,7 @@
 "URL" = "Nettadresse";
 
 /* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+"User Name" = "Brukernavn";
 
 /* Field name for display in list */
 "Version" = "Versjon";

@@ -33,7 +33,7 @@
 "Bookmarks" = "Bladwijzers";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "VERKEN BUITEN DE GRENZEN";
 
 /* Field name for display in list */
 "Business Category" = "Zakelijke Categorie";
@@ -75,9 +75,6 @@
 /* Field name for display in list */
 "Connection Information" = "Verbinding Informatie";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Cookies en lokale opslag";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "Kopie URL";
 
@@ -88,18 +85,21 @@
 "Disconnected!" = "Verbroken!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Klaar";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "Afbeelding downloaden %@.  U wordt op de hoogte gesteld wanneer de download is voltooid.";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "Downloaden…";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Bewerk";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Bewerk Bladwijzers";
@@ -164,7 +164,7 @@
 "Japan" = "Japan";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "Taal";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Leren meer over informatie en de gegevens die we verzamelen in onze %@";
@@ -290,7 +290,7 @@
 "Spain" = "Spain";
 
 /* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+"Start Browsing" = "Start Surfen";
 
 /* Field name for display in list */
 "State/Province" = "Staat/Provincie";
@@ -302,10 +302,10 @@
 "Street Address" = "Straat Adres";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "Succes!";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "Succesvol Abeelding gedownload %@";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "Het groene vinkje geeft aan dat alles mooi werkt en dat je klaar bent om te gaan!";
