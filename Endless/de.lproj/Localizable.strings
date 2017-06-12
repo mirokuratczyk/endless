@@ -58,7 +58,7 @@
 "Cipher" = "Verschlüsselungsverfahren";
 
 /* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "Clear Cookies and Data";
+"Clear Cookies and Data" = "Cookies und Daten löschen";
 
 /* Field name for display in list */
 "Common Name" = "Common Name";
@@ -75,9 +75,6 @@
 /* Field name for display in list */
 "Connection Information" = "Verbindungsinformationen";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Cookies und lokaler Speicher";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "URL kopieren";
 
@@ -88,18 +85,21 @@
 "Disconnected!" = "Getrennt!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Fertig";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "Bild %@ wird heruntergeladen. Sie werden benachrichtigt, wenn das Herunterladen abgeschlossen ist.";
 
 /* Image download in progress alert title */
 "Downloading…" = "Wird heruntergeladen…";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Bearbeiten";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Lesezeichen bearbeiten";
@@ -113,10 +113,10 @@
 "Error" = "Fehler";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "Läuft ab nach";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "Erweiterte Validierung: Organisation";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Häufig gestellte Fragen";
@@ -214,7 +214,7 @@
 "Organization" = "Organisation";
 
 /* Field name for display in list */
-"Organizational Unit Number" = "Organizational Unit Number";
+"Organizational Unit Number" = "Organisationseinheitsnummer";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -302,10 +302,10 @@
 "Street Address" = "Adresse";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "Erfolg!";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "Bild %@ erfolgreich heruntergeladen";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";

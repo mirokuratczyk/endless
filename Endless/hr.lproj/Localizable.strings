@@ -11,7 +11,7 @@
 "Add Bookmark" = "Dodaj oznaku";
 
 /* Title above a list of rules */
-"All rules" = "All rules";
+"All rules" = "Sva pravila";
 
 /* Alert dialog text */
 "Allow this page to close its tab?" = "Dozvoliti stranici da zatvori svoju karticu?";
@@ -23,7 +23,7 @@
 "Authentication Required" = "Zahtjevana autentikacija";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "Počinje od";
 
 /* No comment provided by engineer. */
 "Best Performance" = "Najbolje performanse";
@@ -33,10 +33,10 @@
 "Bookmarks" = "Oznake";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "PREGLEDAVAJTE PREKO GRANICA";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "Poslovna kategorija";
 
 /* No comment provided by engineer. */
 "Canada" = "Kanada";
@@ -49,57 +49,57 @@
 "Cancel" = "Otkaži";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "Informacije certifikata";
 
 /* Text of button on alert which will redirect the user to the settings menu */
 "Change Settings" = "Promjeni postavke";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "Šifra";
 
 /* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "Clear Cookies and Data";
+"Clear Cookies and Data" = "Očisti kolačiće i podatke";
 
 /* Field name for display in list */
-"Common Name" = "Common Name";
+"Common Name" = "Zajedničko ime";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Potvrdi";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"Connected!" = "Spojeno!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
+"Connecting..." = "Spajanje...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
-
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Kolačići i lokalna pohrana";
+"Connection Information" = "Informacije veze";
 
 /* Action title for long press on link dialog */
 "Copy URL" = "Kopiraj URL";
 
 /* Field name for display in list */
-"Country" = "Country";
+"Country" = "Država";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"Disconnected!" = "Odspojeno!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Gotovo";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "Preuzimanje slike %@. Bit ćete obaviješteni kad preuzimanje završi.";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "Preuzimanje...";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Edit";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Uredi oznaku";
@@ -113,10 +113,10 @@
 "Error" = "Pogreška";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "Ističe nakon";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "Produžena potvrda: Organizacija";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Često postavljena pitanja";
@@ -125,7 +125,7 @@
 "Germany" = "Njemačka";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+"Go to Settings" = "Idi na Postavke";
 
 /* No comment provided by engineer. */
 "Happy browsing!\nExplore beyond your borders." = "Ugodno pregledavanje!\nIstražite van svojih granica.";
@@ -155,16 +155,16 @@
 "India" = "Indija";
 
 /* Field name for display in list */
-"Issued By" = "Issued By";
+"Issued By" = "Izdao";
 
 /* Field name for display in list */
-"Issued To" = "Issued To";
+"Issued To" = "Izdano za";
 
 /* No comment provided by engineer. */
 "Japan" = "Japan";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "Jezik";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Saznajte više o podatcima koje skupljamo u %@";
@@ -173,7 +173,7 @@
 "LET'S GO!" = "IDEMO!";
 
 /* Field name for display in list */
-"Locality" = "Locality";
+"Locality" = "Lokalitet";
 
 /* HTTP authentication alert log in button action */
 "Log In" = "Prijava";
@@ -185,7 +185,7 @@
 "Mail not configured" = "Mail nije konfiguriran";
 
 /* No comment provided by engineer. */
-"Message Text View" = "Message Text View";
+"Message Text View" = "Pregled teksta poruke";
 
 /* No comment provided by engineer. */
 "Netherlands" = "Nizozemska";
@@ -194,7 +194,7 @@
 "New Tab" = "Nova kartica";
 
 /* Field name for display in list */
-"Object Identifier" = "Object Identifier";
+"Object Identifier" = "Identifikator objekta";
 
 /* InAppSettingsKit
    OK action
@@ -211,10 +211,10 @@
 "Open in Safari" = "Otvori u Safariju";
 
 /* Field name for display in list */
-"Organization" = "Organization";
+"Organization" = "Organizacija";
 
 /* Field name for display in list */
-"Organizational Unit Number" = "Organizational Unit Number";
+"Organizational Unit Number" = "Broj organizacijske jedinice";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -224,22 +224,22 @@
 "Password" = "Lozinka";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "Period valjanosti";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Imajte na umu da Vas ovaj dijagnostički alat ne identificira, a nama pomaže da Psiphon nastavi raditi glatko.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "Poštanski broj";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "Izjava o privatnosti";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "Protokol";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon se ne može pokrenuti zbog interne pogreške, molimo Vas da pošaljete povratne informacije.";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "Psiphon se spaja\ni radi onako\nkako to želim.";
@@ -254,10 +254,10 @@
 "Pull to Refresh Page" = "Povucite za osvježavanje";
 
 /* Title of alert to clear local cookies and browsing data */
-"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+"Remove all cookies and browsing data?" = "Uklonti sve kolačiće i podatke pregledavanja?";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "Rules in use on current page";
+"Rules in use on current page" = "Pravila na snazi na trenutnoj stranici";
 
 /* Action title for long press on image dialog */
 "Save Image" = "Spremi sliku";
@@ -266,16 +266,16 @@
 "Send" = "Pošalji";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
+"Serial Number" = "Serijski broj";
 
 /* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+"Server region:" = "Regija poslužitelja:";
 
 /* No comment provided by engineer. */
 "Settings" = "Postavke";
 
 /* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
+"Signature Algorithm" = "Algoritam potpisa";
 
 /* No comment provided by engineer. */
 "Singapore" = "Singapur";
@@ -290,22 +290,22 @@
 "Spain" = "Španjolska";
 
 /* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+"Start Browsing" = "Počnite pregledavati";
 
 /* Field name for display in list */
-"State/Province" = "State/Province";
+"State/Province" = "Država/Provincija";
 
 /* No comment provided by engineer. */
 "Status Indicator" = "Indikator statusa";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "Adresa";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "Uspjeh!";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "Preuzimanje slike %@ uspješno dovršeno";
 
 /* No comment provided by engineer. */
 "The green checkmark indicates everything is working beautifully and you're good to go!" = "Zelena kvačica označava da sve radi kako treba i da ste spremni!";
@@ -320,7 +320,7 @@
 "This is where you can find information about the status of your connection" = "Ovdje možete pronaći informacije o statusu veze";
 
 /* No comment provided by engineer. */
-"Title Label" = "Title Label";
+"Title Label" = "Naslov";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "Kako bi dali dozvole dodirnite gumb 'Promjeni postavke'";
@@ -339,13 +339,13 @@
 "URL" = "URL";
 
 /* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+"User Name" = "Korisničko ime";
 
 /* Field name for display in list */
-"Version" = "Version";
+"Version" = "Verzija";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
+"Waiting for network..." = "Čekam mrežu...";
 
 /* No comment provided by engineer. */
 "Welcome! Here is how to use Psiphon" = "Dobrodošli! Ovako se koristi Psiphon";
@@ -363,5 +363,5 @@
 "Your feedback makes Psiphon better!" = "Vaše povratne informacije čine Psiphon boljim!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'u' HH:mm:ss zzz";
 

@@ -33,7 +33,7 @@
 "Bookmarks" = "Signets";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "NAVIGUEZ PAR-DELÀ LES FRONTIÈRES";
+"BROWSE BEYOND BORDERS" = "NAVIGUER PAR-DELÀ LES FRONTIÈRES";
 
 /* Field name for display in list */
 "Business Category" = "Catégorie d'entreprise";
@@ -75,9 +75,6 @@
 /* Field name for display in list */
 "Connection Information" = "Informations de connexion";
 
-/* 'Cookies and Local Storage' dialog title */
-"Cookies and Local Storage" = "Témoins et stockage local";
-
 /* Action title for long press on link dialog */
 "Copy URL" = "Copier l'URL";
 
@@ -88,9 +85,9 @@
 "Disconnected!" = "Déconnecté !";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Cookies and Local Storage 'Done button title, dismisses the controller
    Done action button. dismisses SSL certificate information dialog
    Done button
+   Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog */
 "Done" = "Terminé";
@@ -100,6 +97,9 @@
 
 /* Image download in progress alert title */
 "Downloading…" = "Téléchargement...";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Modifier";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Modifier le signet";

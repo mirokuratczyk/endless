@@ -1,1 +1,13 @@
-hr: {app_name: Psiphon Preglednik}
+hr:
+  app_name: Psiphon Preglednik
+  description: |
+    Nakon što je pomogao desecima milijuna korisnika iz najneprijateljskijih okruženja da pristupe stranicama koje vole, Psiphon je lansirao svoju prvu službenu iOS aplikaciju! Naša nova aplikacije besprijekorno integrira pristup Psiphon mreži za obilaženje, sigurno Vas spajajući s Vašim stranicama.
+
+    Psiphon je najsnažniji alat za obilaženje na mreži. Psiphon Browser aplikacija će Vas spojitit sa stranicama koje su cenzurirane, blokirane ili na drugi način nedostupne, bez obzira gdje u svijetu se nalazite. Aplikacija također pruža dodatni sloj sigurnosti kad koristite javne Wi-Fi usluge ili druge mreže koje su nepouzdane.
+
+    Ključne značajke uključuju:
+    • Besplatna, neograničena osobna upotreba.
+    • Jednostavno preuzimanje, instalacija i korištenje. Prijava i konfiguracija nisu potrebne.
+    • Višestruka jezična podrška i podesiva lokacija poslužitelja.
+    • Automatski odabir protokola za pružanje brzog i pouzdanog obilaženja cenzure, svaki put.
+  keywords: Psiphon, preglednik, cenzura, obilaženje, VPN, proxy
