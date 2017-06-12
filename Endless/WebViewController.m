@@ -125,7 +125,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[navigationBar setClipsToBounds:YES];
 	[[self view] addSubview:navigationBar];
 
-
 	bottomToolBar = [[UIToolbar alloc] init];
 	[bottomToolBar setClipsToBounds:YES];
 	[[self view] addSubview:bottomToolBar];
@@ -272,6 +271,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
 						tabDoneButton,
 						nil];
+
+	UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnNavBar:)];
+	singleTapGestureRecognizer.numberOfTapsRequired = 1;
+	singleTapGestureRecognizer.enabled = YES;
+	singleTapGestureRecognizer.cancelsTouchesInView = NO;
+	[navigationBar addGestureRecognizer:singleTapGestureRecognizer];
 
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -1419,6 +1424,40 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:scvc];
 	[self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)tappedOnNavBar:(UITapGestureRecognizer *)gesture
+{
+	CGPoint point = [gesture locationInView:navigationBar];
+
+	// Make targets vertically flush with the navigation bar
+	// and fuzz slightly horizontally for easier interaction.
+
+	CGRect connectionIndicatorTarget = CGRectMake(isRTL ? urlField.frame.origin.x + urlField.frame.size.width : 0, 0, isRTL ? navigationBar.frame.size.width - (urlField.frame.origin.x + urlField.frame.size.width) : urlField.frame.origin.x, navigationBar.frame.size.height);
+
+	CGRect lockTarget = CGRectZero;
+	if (urlField.leftView != nil) {
+		CGRect lockFrame = [urlField convertRect:urlField.leftView.frame toView:navigationBar];
+		lockTarget = CGRectMake(lockFrame.origin.x, 0, lockFrame.size.width, navigationBar.frame.size.height);
+	}
+
+	CGRect refreshTarget = CGRectZero;
+	if (urlField.rightView != nil) {
+		CGRect refreshFrame = [urlField convertRect:urlField.rightView.frame toView:navigationBar];
+		refreshTarget = CGRectMake(isRTL ? 0 : refreshFrame.origin.x - 15, 0, isRTL ? refreshFrame.origin.x + refreshFrame.size.width + 15 : navigationBar.frame.size.width - refreshFrame.origin.x + 15, navigationBar.frame.size.height);
+	}
+
+	CGRect urlFieldTarget = CGRectMake(urlField.frame.origin.x, 0, navigationBar.frame.size.width - urlField.frame.origin.x, navigationBar.frame.size.height);
+
+	if (CGRectContainsPoint(connectionIndicatorTarget, point)) {
+		[self showPsiphonConnectionStatusAlert];
+	} else if (CGRectContainsPoint(lockTarget, point)) {
+		[self showSSLCertificate];
+	} else if (CGRectContainsPoint(refreshTarget, point)) {
+		[self forceRefresh];
+	} else if (CGRectContainsPoint(urlFieldTarget, point)) {
+		[urlField becomeFirstResponder];
+	}
 }
 
 - (void)tappedOnPageControlDot:(id)sender {
