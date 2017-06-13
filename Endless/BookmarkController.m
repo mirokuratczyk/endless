@@ -276,23 +276,91 @@ BOOL isRTL;
 {
 	if (self.embedded && [view isKindOfClass:[UITableViewHeaderFooterView class]]) {
 		UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
-		int buttonSize = tableViewHeaderFooterView.frame.size.height - 8;
 
 		UIButton *b = [[UIButton alloc] init];
-
-		CGRect frame;
-		if(isRTL) {
-			frame = CGRectMake(buttonSize + 6, 3, buttonSize, buttonSize);
-		} else {
-			frame = CGRectMake(tableViewHeaderFooterView.frame.size.width - buttonSize - 6, 3, buttonSize, buttonSize);
-		}
-		[b setFrame:frame];
 		[b setImage:[UIImage imageNamed:@"close_round"] forState:UIControlStateNormal];
 		[b setClipsToBounds:YES];
 
 		[b addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
 
 		[tableViewHeaderFooterView addSubview:b];
+
+		// Autolayout close button
+		b.translatesAutoresizingMaskIntoConstraints = NO;
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:b
+																			  attribute:isRTL ? NSLayoutAttributeLeft : NSLayoutAttributeRight
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:isRTL ? NSLayoutAttributeLeft : NSLayoutAttributeRight
+																			 multiplier:1.0f
+																			   constant:isRTL? 6.f : -6.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:b
+																			  attribute:NSLayoutAttributeCenterY
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:NSLayoutAttributeCenterY
+																			 multiplier:1.0f
+																			   constant:0.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:b
+																			  attribute:NSLayoutAttributeHeight
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:NSLayoutAttributeHeight
+																			 multiplier:1.0f
+																			   constant:-8.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:b
+																			  attribute:NSLayoutAttributeWidth
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:b
+																			  attribute:NSLayoutAttributeHeight
+																			 multiplier:1.0f
+																			   constant:0.f]];
+
+		// Setup closeHitBox and autolayout constraints
+		// This view overlays and expands the close button's click
+		// box to allow easier user interaction.
+		UIControl *closeHitBox = [[UIControl alloc] init];
+		[tableViewHeaderFooterView addSubview:closeHitBox];
+
+		closeHitBox.translatesAutoresizingMaskIntoConstraints = NO;
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:closeHitBox
+																			  attribute:NSLayoutAttributeTop
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:NSLayoutAttributeTop
+																			 multiplier:1.0f
+																			   constant:0.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:closeHitBox
+																			  attribute:isRTL ? NSLayoutAttributeLeft : NSLayoutAttributeRight
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:isRTL ? NSLayoutAttributeLeft : NSLayoutAttributeRight
+																			 multiplier:1.0f
+																			   constant:0.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:closeHitBox
+																			  attribute:NSLayoutAttributeHeight
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:tableViewHeaderFooterView
+																			  attribute:NSLayoutAttributeHeight
+																			 multiplier:1.0f
+																			   constant:0.f]];
+
+		[tableViewHeaderFooterView addConstraint:[NSLayoutConstraint constraintWithItem:closeHitBox
+																			  attribute:NSLayoutAttributeWidth
+																			  relatedBy:NSLayoutRelationEqual
+																				 toItem:closeHitBox
+																			  attribute:NSLayoutAttributeHeight
+																			 multiplier:2.0f
+																			   constant:0.f]];
+
+		[closeHitBox addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
 	}
 }
 

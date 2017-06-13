@@ -23,7 +23,7 @@
 
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
-#define TOOLBAR_BUTTON_SIZE 30
+#define TOOLBAR_BUTTON_SIZE 40
 #define kLetsGoButtonHeight 60
 
 static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
@@ -81,7 +81,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	BookmarkController *bookmarks;
 
-	BOOL isRTL;
+	NSLayoutConstraint *bookmarksViewBottom;
 
 	NSMutableDictionary *preferencesSnapshot;
 
@@ -91,6 +91,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	CGPoint originalPoint; // Where the tab was before dragging
 	CGPoint panGestureOriginPoint; // Where the user started dragging
 	int panGestureRecognizerType; // 0: None, 1: Remove tab, 2: Change page
+
+	BOOL isRTL;
 }
 
 -(id)init {
@@ -122,7 +124,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	navigationBar = [[UIView alloc] init];
 	[navigationBar setClipsToBounds:YES];
 	[[self view] addSubview:navigationBar];
-
 
 	bottomToolBar = [[UIToolbar alloc] init];
 	[bottomToolBar setClipsToBounds:YES];
@@ -204,7 +205,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tabCount setTextAlignment:NSTextAlignmentCenter];
 	[tabCount setFont:[UIFont systemFontOfSize:11]];
 	[tabCount setTextColor:[progressBar tintColor]];
-	[tabCount setFrame:CGRectMake(7, 11, 12, 12)];
+	[tabCount setAdjustsFontSizeToFitWidth:YES];
+	// offset ratios from centre of `tabsImage` to
+	// centre of the square in the forefront of `tabsImage`.
+	CGSize tabCountOffsetRatios = CGSizeMake(-1/8.f, 1/8.f);
+	[tabCount setFrame:CGRectMake(0, 0, 12, 12)];
+	[tabCount setCenter:CGPointMake(tabsButton.center.x + (tabsButton.frame.size.width * tabCountOffsetRatios.width)/2, tabsButton.center.y + (tabsButton.frame.size.height * tabCountOffsetRatios.height)/2)];
 	[tabsButton addSubview:tabCount];
 
 	settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -247,6 +253,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tabScroller setDelegate:self];
 
 	tabChooser = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TOOLBAR_HEIGHT)];
+
 	[tabChooser setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin)];
 	[tabChooser addTarget:self action:@selector(slideToCurrentTab:) forControlEvents:UIControlEventValueChanged];
 	[tabChooser addTarget:self action:@selector(tappedOnPageControlDot:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,6 +276,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
 						tabDoneButton,
 						nil];
+
+	UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnNavBar:)];
+	singleTapGestureRecognizer.numberOfTapsRequired = 1;
+	singleTapGestureRecognizer.enabled = YES;
+	singleTapGestureRecognizer.cancelsTouchesInView = NO;
+	[navigationBar addGestureRecognizer:singleTapGestureRecognizer];
 
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -525,8 +538,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 
 	navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
-	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT - keyboardHeight, size.width, TOOLBAR_HEIGHT + keyboardHeight);
-
+	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT, size.width, TOOLBAR_HEIGHT);
 
 	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
 
@@ -560,6 +572,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	urlField.frame = [self frameForUrlField];
 	psiphonConnectionIndicator.frame = [self frameForConnectionIndicator];
 	[self updateSearchBarDetails];
+
+	if (bookmarks != nil && bookmarksViewBottom != nil) {
+		bookmarksViewBottom.constant = keyboardHeight + navigationBar.frame.size.height;
+		[self.view layoutIfNeeded];
+	}
+
 	[self.view setNeedsDisplay];
 }
 
@@ -975,9 +993,46 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	if (bookmarks == nil) {
 		bookmarks = [[BookmarkController alloc] init];
 		bookmarks.embedded = true;
-		bookmarks.view.frame = CGRectMake(0, navigationBar.frame.size.height + navigationBar.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+
 		[self addChildViewController:bookmarks];
 		[self.view insertSubview:[bookmarks view] belowSubview:navigationBar];
+
+		// Setup autolayout
+		bookmarks.view.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bookmarks.view
+															  attribute:NSLayoutAttributeTop
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:navigationBar
+															  attribute:NSLayoutAttributeBottom
+															 multiplier:1.0f
+															   constant:0.f]];
+
+		bookmarksViewBottom = [NSLayoutConstraint constraintWithItem:bookmarks.view
+													   attribute:NSLayoutAttributeBottom
+													   relatedBy:NSLayoutRelationEqual
+														  toItem:bottomToolBar
+													   attribute:NSLayoutAttributeTop
+													  multiplier:1.0f
+														constant:bottomToolBar.frame.size.height + keyboardHeight];
+		[self.view addConstraint:bookmarksViewBottom];
+
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bookmarks.view
+															  attribute:NSLayoutAttributeLeft
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeLeft
+															 multiplier:1.0f
+															   constant:0.f]];
+
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bookmarks.view
+															  attribute:NSLayoutAttributeRight
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:navigationBar
+															  attribute:NSLayoutAttributeRight
+															 multiplier:1.0f
+															   constant:0.f]];
+
+		[self.view layoutIfNeeded];
 	}
 
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1376,6 +1431,40 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self presentViewController:navController animated:YES completion:nil];
 }
 
+- (void)tappedOnNavBar:(UITapGestureRecognizer *)gesture
+{
+	CGPoint point = [gesture locationInView:navigationBar];
+
+	// Make targets vertically flush with the navigation bar
+	// and fuzz slightly horizontally for easier interaction.
+
+	CGRect connectionIndicatorTarget = CGRectMake(isRTL ? urlField.frame.origin.x + urlField.frame.size.width : 0, 0, isRTL ? navigationBar.frame.size.width - (urlField.frame.origin.x + urlField.frame.size.width) : urlField.frame.origin.x, navigationBar.frame.size.height);
+
+	CGRect lockTarget = CGRectZero;
+	if (urlField.leftView != nil) {
+		CGRect lockFrame = [urlField convertRect:urlField.leftView.frame toView:navigationBar];
+		lockTarget = CGRectMake(lockFrame.origin.x, 0, lockFrame.size.width, navigationBar.frame.size.height);
+	}
+
+	CGRect refreshTarget = CGRectZero;
+	if (urlField.rightView != nil) {
+		CGRect refreshFrame = [urlField convertRect:urlField.rightView.frame toView:navigationBar];
+		refreshTarget = CGRectMake(isRTL ? 0 : refreshFrame.origin.x - 15, 0, isRTL ? refreshFrame.origin.x + refreshFrame.size.width + 15 : navigationBar.frame.size.width - refreshFrame.origin.x + 15, navigationBar.frame.size.height);
+	}
+
+	CGRect urlFieldTarget = CGRectMake(urlField.frame.origin.x, 0, navigationBar.frame.size.width - urlField.frame.origin.x, navigationBar.frame.size.height);
+
+	if (CGRectContainsPoint(connectionIndicatorTarget, point)) {
+		[self showPsiphonConnectionStatusAlert];
+	} else if (CGRectContainsPoint(lockTarget, point)) {
+		[self showSSLCertificate];
+	} else if (CGRectContainsPoint(refreshTarget, point)) {
+		[self forceRefresh];
+	} else if (CGRectContainsPoint(urlFieldTarget, point)) {
+		[urlField becomeFirstResponder];
+	}
+}
+
 - (void)tappedOnPageControlDot:(id)sender {
 	UIPageControl *pager = sender;
 	NSInteger page = pager.currentPage;
@@ -1400,8 +1489,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	CGPoint point = [gesture locationInView:self.curWebViewTab.viewHolder];
 
 	/* fuzz a bit to make it easier to tap */
-	int fuzz = 8;
+	int fuzz = 40;
 	CGRect closerFrame = CGRectMake(self.curWebViewTab.closer.frame.origin.x - fuzz, self.curWebViewTab.closer.frame.origin.y - fuzz, self.curWebViewTab.closer.frame.size.width + (fuzz * 2), self.curWebViewTab.closer.frame.size.width + (fuzz * 2));
+
 	if (CGRectContainsPoint(closerFrame, point)) {
 		[self removeTab:[NSNumber numberWithLong:curTabIndex]];
 	}
