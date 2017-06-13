@@ -23,7 +23,7 @@
 
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
-#define TOOLBAR_BUTTON_SIZE 30
+#define TOOLBAR_BUTTON_SIZE 40
 #define kLetsGoButtonHeight 60
 
 static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
@@ -205,7 +205,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tabCount setTextAlignment:NSTextAlignmentCenter];
 	[tabCount setFont:[UIFont systemFontOfSize:11]];
 	[tabCount setTextColor:[progressBar tintColor]];
-	[tabCount setFrame:CGRectMake(7, 11, 12, 12)];
+	[tabCount setAdjustsFontSizeToFitWidth:YES];
+	// offset ratios from centre of `tabsImage` to
+	// centre of the square in the forefront of `tabsImage`.
+	CGSize tabCountOffsetRatios = CGSizeMake(-1/8.f, 1/8.f);
+	[tabCount setFrame:CGRectMake(0, 0, 12, 12)];
+	[tabCount setCenter:CGPointMake(tabsButton.center.x + (tabsButton.frame.size.width * tabCountOffsetRatios.width)/2, tabsButton.center.y + (tabsButton.frame.size.height * tabCountOffsetRatios.height)/2)];
 	[tabsButton addSubview:tabCount];
 
 	settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
