@@ -23,7 +23,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdjustableLabel : UILabel
+@interface AdjustableLabel : UITextView
 /**
  If set to YES, font size will be automatically adjusted to frame.
  Note: numberOfLines can't be specified so it will be set to 0.

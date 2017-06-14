@@ -1784,7 +1784,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
 														  attribute:NSLayoutAttributeHeight
-														 multiplier:.5f
+														 multiplier:1.f
 														   constant:0]];
 
 	// contentView.centerX = self.view.centerX
@@ -1937,7 +1937,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	centreTextView.priority = 15; // we'll need to break this constraint on smaller screens
 	[tutorial.contentView addConstraint:centreTextView];
 
-	tutorial.textView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio * textViewWidthRatio;
 	[tutorial.textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 	[tutorial.textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 
@@ -1955,7 +1954,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tutorial.constraintsDictionary addEntriesFromDictionary:NSDictionaryOfVariableBindings(centreTextView)];
 
 	// Vertical constraints for contentView's subviews
-	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(>=24)-[titleView]-(==24)-[textView]-(>=0)-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
+	NSDictionary *metrics = @{
+							  @"verticalPadding":[NSNumber numberWithFloat:MAX(self.view.frame.size.width, self.view.frame.size.height) * 0.03f]
+							  };
+	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(==verticalPadding)-[titleView]-(==verticalPadding)-[textView]-(>=0)-|" options:0 metrics:metrics views:tutorial.viewsDictionary]];
 
 	/* Start tutorial */
 	[tutorial startTutorial];
