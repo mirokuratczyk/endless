@@ -28,6 +28,8 @@
 
 @property (readonly, nonatomic) int step;
 
+@property (strong, nonatomic) NSTimer *connectionStateCycler;
+
 @property (readonly, strong, nonatomic) CAShapeLayer *fillLayer;
 @property (strong, nonatomic) UIView *blockingView;
 @property (strong, nonatomic) UIView *contentView;

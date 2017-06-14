@@ -82,12 +82,12 @@
 
 - (void)addToView:(UIView*)view {
 	[view.layer addSublayer:_fillLayer];
-	[view addSubview:_skipButton];
 	[self.contentView addSubview:_headerView];
 	[self.contentView addSubview:_titleView];
 	[self.contentView addSubview:_textView];
 	[view addSubview:self.contentView];
 	[view addSubview:_arrowView];
+	[view addSubview:_skipButton];
 }
 
 - (void)constructViewsDictionaryForAutoLayout:(NSDictionary*)yourViews {

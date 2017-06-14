@@ -1583,6 +1583,15 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self.view removeConstraints:tutorial.removeBeforeNextStep];
 
 	if (step == PsiphonTutorialStep1) {
+		// Cycle connection indicator to show user different connection states
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self cycleConnectionStateForTutorial]; // reset indicator state
+			tutorial.connectionStateCycler = [NSTimer scheduledTimerWithTimeInterval:1.4
+																			  target:self
+																			selector:@selector(cycleConnectionStateForTutorial)
+																			userInfo:nil
+																			 repeats:YES];
+		});
 		/* Hello from Psiphon. Also, highlight and describe psiphonConnectionIndicator */
 
 		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
@@ -1598,6 +1607,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		return YES;
 	} else if (step == PsiphonTutorialStep2) {
 		[tutorial.headerView removeFromSuperview];
+
+		// Stop cycling connection indicator
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[tutorial.connectionStateCycler invalidate];
+			tutorial.connectionStateCycler = nil;
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+		});
 
 		// If we are not using iPad need to change alignment from
 		// textView.top = contentView.centerY
@@ -1666,6 +1682,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 -(void)tutorialEnded
 {
+	// Stop cycling connection indicator if tutorial was skipped
+	if (tutorial.connectionStateCycler != nil) {
+		[tutorial.connectionStateCycler invalidate];
+		tutorial.connectionStateCycler = nil;
+		[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+	}
 	tutorial = nil;
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
@@ -1693,6 +1715,31 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	if (tutorial != nil) {
 		[self drawSpotlight:tutorial.step];
 	}
+}
+
+-(void)cycleConnectionStateForTutorial {
+	static NSInteger state = 0;
+
+	// Timer will be created or restarted
+	if (tutorial != nil && tutorial.connectionStateCycler == nil) {
+		state = 0;
+	}
+
+	// Connection indicator will start on the disconnected state
+	switch (state % 3) {
+		case 0:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateDisconnected];
+			break;
+		case 1:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnecting];
+			break;
+		case 2:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+			break;
+		default:
+			break;
+	}
+	state += 1;
 }
 
 - (void)drawSpotlight:(int)step
@@ -1740,9 +1787,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	// We need to stop and start animations on app backgrounded and app became active
 	[center addObserver:self selector:@selector(tutorialBackgrounded) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[center addObserver:self selector:@selector(tutorialReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
-
-	// Force connectionIndicator to show connected state
-	[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
 
 	// Init
 	tutorial = [[Tutorial alloc] init];
