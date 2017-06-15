@@ -37,7 +37,7 @@
 #define kBuildNumber @"buildNumber"
 
 #define APP_ACTIVE_TIMER_INTERVAL_SECONDS 60 * 5 // store elapsed time every 5 minutes
-#define APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS 60 * 60 * 2 // do not open more home pages if app has been active less than 2 hours since last home page
+#define APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS 60 * 30 // do not open more home pages if app has been active less than 30 minutes since last home page
 #define kAppActiveTimeSinceLastHomePage @"appActiveTimeSinceLastHomePage"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, TunneledAppDelegate, JAHPAuthenticatingHTTPProtocolDelegate, OnboardingViewControllerDelegate>
