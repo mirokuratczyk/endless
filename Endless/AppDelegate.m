@@ -226,7 +226,7 @@
 
 - (void) startAppActiveTimer {
 	if (!_appActiveTimer || ![_appActiveTimer isValid]) {
-		_lastActiveTickTime = CACurrentMediaTime();
+		_lastActiveTickTime = (long)CACurrentMediaTime();
 		_appActiveTimer = [NSTimer scheduledTimerWithTimeInterval:APP_ACTIVE_TIMER_INTERVAL_SECONDS
 														   target:self
 														 selector:@selector(onAppActiveTimerTick:)
@@ -389,9 +389,22 @@
 
 - (void)onAppActiveTimerTick:(NSTimer *)timer {
 	long elapsedInterval = (long)CACurrentMediaTime() - _lastActiveTickTime;
+	if(elapsedInterval > 0) {
+		long currentAppActiveTime = [[NSUserDefaults standardUserDefaults] integerForKey:kAppActiveTimeSinceLastHomePage];
+		if(currentAppActiveTime < 0) {
+			// Guard against defaults corruption.
+			// We care less if the number is too large, worst case we will prematurely
+			// open a home page on the next reconnect.
+			currentAppActiveTime = 0;
+		}
+		long newAppActiveTime;
 
-	long currentAppActiveTime = [[NSUserDefaults standardUserDefaults] integerForKey:kAppActiveTimeSinceLastHomePage];
-	[[NSUserDefaults standardUserDefaults] setInteger:(currentAppActiveTime + elapsedInterval) forKey:kAppActiveTimeSinceLastHomePage];
+		if(!__builtin_saddl_overflow(currentAppActiveTime, elapsedInterval, &newAppActiveTime)){
+			// no overlow, write new value to defaults
+			[[NSUserDefaults standardUserDefaults] setInteger:(newAppActiveTime) forKey:kAppActiveTimeSinceLastHomePage];
+		}
+		// do nothing in case of overflow
+	}
 
 	_lastActiveTickTime = (long)CACurrentMediaTime();
 }
@@ -508,7 +521,7 @@
 			AudioServicesPlaySystemSound (_notificationSound);
 		}
 
-		// If kAppActiveTimeSinceLastHomePage doesn't exist then it is probably is the very first app run
+		// If kAppActiveTimeSinceLastHomePage doesn't exist then it is probably the very first app run
 		// and we should show a home page
 		BOOL shouldOpenHomePage = ([[NSUserDefaults standardUserDefaults] objectForKey:kAppActiveTimeSinceLastHomePage] == nil);
 		NSLog(@"shouldOpenHomePage == %@ , kAppActiveTimeSinceLastHomePage exists == %@", shouldOpenHomePage ? @"YES" : @"NO", !shouldOpenHomePage ? @"YES" : @"NO");
@@ -517,7 +530,10 @@
 		if(!shouldOpenHomePage) {
 			// Check if enough uptime has passed and we should show a home page
 			long activeTime = [[NSUserDefaults standardUserDefaults] integerForKey:kAppActiveTimeSinceLastHomePage];
-			shouldOpenHomePage = (activeTime > APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS);
+
+			// If activeTime is negative then defaults are probably corrupted
+			// Fix it by showing a home page which will also reset the corrupted value to 0
+			shouldOpenHomePage = (activeTime < 0 || activeTime > APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS);
 #ifdef TRACE
 			NSLog(@"shouldOpenHomePage == %@, App active time == %ld, APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS == %d", shouldOpenHomePage ? @"YES" : @"NO", activeTime, APP_ACTIVE_TIME_BEFORE_NEXT_HOMEPAGE_SECONDS);
 #endif
@@ -549,12 +565,14 @@
 				// Otherwise it should be started when the app becomes active
 				// in the - (void)applicationDidBecomeActive:(UIApplication *)application
 				BOOL shouldStartTimer = ([[NSUserDefaults standardUserDefaults] objectForKey:kAppActiveTimeSinceLastHomePage] == nil);
+
+				// Reset active time since last home page once we open a homepage
+				// That will also create kAppActiveTimeSinceLastHomePage if it didn't exist
+				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kAppActiveTimeSinceLastHomePage];
+
 				if(shouldStartTimer) {
 					[self startAppActiveTimer];
 				}
-
-				// Also reset active time since last home page once we open a homepage
-				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kAppActiveTimeSinceLastHomePage];
 			}
 		}
 	});
