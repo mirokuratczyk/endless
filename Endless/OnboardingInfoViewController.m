@@ -39,6 +39,10 @@
 @synthesize delegate = delegate;
 
 - (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+
+	[self.view layoutIfNeeded]; // ensure views have been laid out
+
 	letsGoButton.layer.cornerRadius = letsGoButton.frame.size.height / 2;
 	CGFloat bannerOffset = 0;
 
