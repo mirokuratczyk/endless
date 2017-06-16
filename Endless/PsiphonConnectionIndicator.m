@@ -18,11 +18,12 @@
  */
 
 #import "PsiphonConnectionIndicator.h"
+#import "ICDMaterialActivityIndicatorView.h"
 
 @implementation PsiphonConnectionIndicator {
 	UIImageView *_imgConnected;
 	UIImageView *_imgDisconnected;
-	UIActivityIndicatorView *_activityIndicator;
+	ICDMaterialActivityIndicatorView *_activityIndicator;
 }
 
 - (id) initWithFrame:(CGRect)frame {
@@ -35,8 +36,8 @@
 	_imgDisconnected.alpha = 0.0;
 	[self addSubview:_imgDisconnected];
 
-	_activityIndicator = [[UIActivityIndicatorView alloc]
-						  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	_activityIndicator = [[ICDMaterialActivityIndicatorView alloc]
+						  initWithActivityIndicatorStyle:ICDMaterialActivityIndicatorViewStyleMedium];
 	_activityIndicator.alpha = 0.0;
 	[self addSubview:_activityIndicator];
 
@@ -47,7 +48,6 @@
 	// The tiny circle on the bottom right sticks out about 1/11 of the image width
 	float offset = (_imgDisconnected.frame.size.width / 11.0)/2;
 	_activityIndicator.center = CGPointMake(self.bounds.size.width / 2 - offset, self.bounds.size.height/2 - offset);
-
 
 	[self displayConnectionState:PsiphonConnectionStateDisconnected];
 	return self;

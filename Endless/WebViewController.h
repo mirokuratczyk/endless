@@ -49,14 +49,13 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 - (void)forceRefresh;
 - (void)prepareForNewURLFromString:(NSString *)url;
 
-
 - (void) stopLoading;
 
 - (void) overlayTutorial;
 - (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated;
 - (void) openPsiphonHomePage:(NSString *) homePage;
 - (void) showPsiphonConnectionStatusAlert;
-
+- (void) setRestorationTabCurrent;
 
 @property (nonatomic) BOOL showTutorial;
 @property (nonatomic) BOOL resumePsiphonStart;

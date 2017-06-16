@@ -45,6 +45,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	UIScrollView *tabScroller;
 	UIPageControl *tabChooser;
 	int curTabIndex;
+	int curTabIndexFromRestoration;
 	NSMutableArray *webViewTabs;
 
 	PsiphonConnectionIndicator *psiphonConnectionIndicator;
@@ -113,6 +114,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
 	curTabIndex = 0;
+	curTabIndexFromRestoration = 0;
 
 	self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height)];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
@@ -362,18 +364,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[[wvt title] setText:[params objectForKey:@"title"]];
 	}
 
-	/*
-	 NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
-	 if (cp != nil) {
-		if ([cp intValue] <= [webViewTabs count] - 1)
-	 [self setCurTabIndex:[cp intValue]];
-
-		[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:tabChooser.currentPage].origin.x, 0) animated:NO];
-
-		// wait for the UI to catch up
-		[[self curWebViewTab] performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
-	 }
-	 */
+	NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
+	if (cp != nil && [webViewTabs count] > 0) {
+		if ([cp intValue] <= [webViewTabs count] - 1) {
+			curTabIndexFromRestoration = [cp intValue];
+		}
+	}
 
 	[self updateSearchBarDetails];
 }
@@ -813,6 +809,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}];
 }
 
+- (void) setRestorationTabCurrent {
+	if( [[self webViewTabs] count] > 0) {
+		[self setCurTabIndex:curTabIndexFromRestoration];
+	}
+}
+
 - (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated {
 	int focusTabNumber = tab.tabIndex.intValue;
 	[self setCurTabIndex:focusTabNumber];
@@ -1141,21 +1143,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	if(contentOffsetY + scrollViewHeight < scrollContentSizeHeight) {
 		self->currentWebViewScrollOffsetY = contentOffsetY;
 	}
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-	if (scrollView != tabScroller)
-		return;
-
-	int page = round(scrollView.contentOffset.x / scrollView.frame.size.width);
-	if (page < 0) {
-		page = 0;
-	}
-	else if (page > tabChooser.numberOfPages) {
-		page = (int)tabChooser.numberOfPages;
-	}
-	[self setCurTabIndex:page];
 }
 
 - (void)goBack:(id)_id
@@ -2039,10 +2026,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						// Moved enough to change page (go right), and there is at least 1 page on the right
 						[tabChooser setCurrentPage:curTabIndex + 1];
 						curTabIndex += 1;
+						[self setCurTabIndex:curTabIndex];
 					} else if ((xDistance >= 100 || vel.x >= 300) && curTabIndex > 0) {
 						// Moved enough to change page (go left), and there is at least 1 page on the left
 						[tabChooser setCurrentPage:curTabIndex - 1];
 						curTabIndex -= 1;
+						[self setCurTabIndex:curTabIndex];
 					}
 
 					// If the page index wasn't changed, it will just scroll back to the page's original position
