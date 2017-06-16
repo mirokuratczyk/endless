@@ -36,6 +36,8 @@
 	UIImageView *moon;
 	CGFloat bannerOffset;
 
+	NSInteger presentationIndex;
+
 	BOOL isRTL;
 }
 
@@ -319,6 +321,8 @@
 														   constant:0]];
 
 	skipButton.hidden = YES; // Hide skip button until we have > 1 OnboardingInfoViewControllers
+
+	presentationIndex = 0;
 }
 
 #pragma mark - UIPageViewControllerDataSource methods and helper functions
@@ -369,13 +373,18 @@
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
 	// The selected dot in the UIPageControl
-	return 0;
+	return presentationIndex;
 }
 
 #pragma mark - OnboardingChildViewController delegate methods
 
 - (CGFloat)getBannerOffset {
 	return moon.frame.origin.y + moon.frame.size.height;
+}
+
+- (void)moveToViewAtIndex:(NSInteger)index {
+	presentationIndex = index;
+	[self.pageController setViewControllers:@[[self viewControllerAtIndex:index]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)onboardingEnded {

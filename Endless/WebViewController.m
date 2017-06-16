@@ -1570,6 +1570,15 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self.view removeConstraints:tutorial.removeBeforeNextStep];
 
 	if (step == PsiphonTutorialStep1) {
+		// Cycle connection indicator to show user different connection states
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self cycleConnectionStateForTutorial]; // reset indicator state
+			tutorial.connectionStateCycler = [NSTimer scheduledTimerWithTimeInterval:1.4
+																			  target:self
+																			selector:@selector(cycleConnectionStateForTutorial)
+																			userInfo:nil
+																			 repeats:YES];
+		});
 		/* Hello from Psiphon. Also, highlight and describe psiphonConnectionIndicator */
 
 		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
@@ -1585,6 +1594,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		return YES;
 	} else if (step == PsiphonTutorialStep2) {
 		[tutorial.headerView removeFromSuperview];
+
+		// Stop cycling connection indicator
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[tutorial.connectionStateCycler invalidate];
+			tutorial.connectionStateCycler = nil;
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+		});
 
 		// If we are not using iPad need to change alignment from
 		// textView.top = contentView.centerY
@@ -1653,6 +1669,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 -(void)tutorialEnded
 {
+	// Stop cycling connection indicator if tutorial was skipped
+	if (tutorial.connectionStateCycler != nil) {
+		[tutorial.connectionStateCycler invalidate];
+		tutorial.connectionStateCycler = nil;
+		[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+	}
 	tutorial = nil;
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
@@ -1680,6 +1702,31 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	if (tutorial != nil) {
 		[self drawSpotlight:tutorial.step];
 	}
+}
+
+-(void)cycleConnectionStateForTutorial {
+	static NSInteger state = 0;
+
+	// Timer will be created or restarted
+	if (tutorial != nil && tutorial.connectionStateCycler == nil) {
+		state = 0;
+	}
+
+	// Connection indicator will start on the disconnected state
+	switch (state % 3) {
+		case 0:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateDisconnected];
+			break;
+		case 1:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnecting];
+			break;
+		case 2:
+			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+			break;
+		default:
+			break;
+	}
+	state += 1;
 }
 
 - (void)drawSpotlight:(int)step
@@ -1728,9 +1775,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[center addObserver:self selector:@selector(tutorialBackgrounded) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[center addObserver:self selector:@selector(tutorialReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
 
-	// Force connectionIndicator to show connected state
-	[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
-
 	// Init
 	tutorial = [[Tutorial alloc] init];
 	tutorial.delegate = self;
@@ -1771,7 +1815,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
 														  attribute:NSLayoutAttributeHeight
-														 multiplier:.5f
+														 multiplier:1.f
 														   constant:0]];
 
 	// contentView.centerX = self.view.centerX
@@ -1924,7 +1968,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	centreTextView.priority = 15; // we'll need to break this constraint on smaller screens
 	[tutorial.contentView addConstraint:centreTextView];
 
-	tutorial.textView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio * textViewWidthRatio;
 	[tutorial.textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 	[tutorial.textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 
@@ -1942,7 +1985,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[tutorial.constraintsDictionary addEntriesFromDictionary:NSDictionaryOfVariableBindings(centreTextView)];
 
 	// Vertical constraints for contentView's subviews
-	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(>=24)-[titleView]-(==24)-[textView]-(>=0)-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
+	NSDictionary *metrics = @{
+							  @"verticalPadding":[NSNumber numberWithFloat:MAX(self.view.frame.size.width, self.view.frame.size.height) * 0.03f]
+							  };
+	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(==verticalPadding)-[titleView]-(==verticalPadding)-[textView]-(>=0)-|" options:0 metrics:metrics views:tutorial.viewsDictionary]];
 
 	/* Start tutorial */
 	[tutorial startTutorial];

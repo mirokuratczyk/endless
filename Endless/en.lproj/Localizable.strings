@@ -193,6 +193,9 @@
 /* New browser tab title text */
 "New Tab" = "New Tab";
 
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"Next" = "Next";
+
 /* Field name for display in list */
 "Object Identifier" = "Object Identifier";
 
