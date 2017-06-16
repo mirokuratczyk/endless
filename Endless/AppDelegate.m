@@ -99,6 +99,8 @@
 }
 
 - (void)onboardingEnded {
+	[Bookmark addDefaultBookmarks];
+
 	WebViewController *webViewController = [[WebViewController alloc] init];
 	webViewController.restorationIdentifier = @"WebViewController";
 	webViewController.resumePsiphonStart = YES;
