@@ -19,6 +19,14 @@ NSString * const BOOKMARK_KEY_LIST = @"bookmarks";
 
 const int BOOKMARK_FILE_VERSION = 1;
 
++ (void)addDefaultBookmarks {
+	[Bookmark addBookmarkForURLString:@"https://m.facebook.com" withName:@"Facebook"];
+	[Bookmark addBookmarkForURLString:@"https://mobile.twitter.com" withName:@"Twitter"];
+	[Bookmark addBookmarkForURLString:@"https://google.com" withName:@"Google"];
+	[Bookmark addBookmarkForURLString:@"https://m.youtube.com" withName:@"Youtube"];
+	[Bookmark addBookmarkForURLString:@"https://gmail.com" withName:@"Gmail"];
+}
+
 + (NSString *)bookmarksPath
 {
 	NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
