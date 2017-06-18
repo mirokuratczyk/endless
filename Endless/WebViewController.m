@@ -5,6 +5,7 @@
  * See LICENSE file for redistribution terms.
  */
 
+#import "Bookmark.h"
 #import "BookmarkController.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "IASKSettingsReader.h"
@@ -18,7 +19,6 @@
 #import "WebViewTab.h"
 #import "PsiphonConnectionIndicator.h"
 #import "PsiphonConnectionModalViewController.h"
-#import "Tutorial.h"
 #import "PsiphonHomePagesEquivalentURLs.h"
 
 #define TOOLBAR_HEIGHT 44
@@ -86,7 +86,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	NSMutableDictionary *preferencesSnapshot;
 
-	Tutorial *tutorial;
+	TutorialViewController *tutorial;
 
 	UIPanGestureRecognizer *tabSelectionPanGestureRecognizer;
 	CGPoint originalPoint; // Where the tab was before dragging
@@ -94,6 +94,15 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	int panGestureRecognizerType; // 0: None, 1: Remove tab, 2: Change page
 
 	BOOL isRTL;
+}
+
+// Force portrait orientation during onboarding
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+	if (self.showTutorial && ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey]) {
+		return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+	} else {
+		return UIInterfaceOrientationMaskAll;
+	}
 }
 
 -(id)init {
@@ -390,8 +399,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 
 	if (self.showTutorial) {
-		self.showTutorial = NO;
-		[self overlayTutorial];
+		if (tutorial == nil) {
+			[self overlayTutorial];
+		}
 		return;
 	}
 
@@ -415,7 +425,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		}
 	}
 
-	if (shouldShowSplash) {
+	if (shouldShowSplash && !self.showTutorial) {
 		__weak  WebViewController *weakSelf = self;
 
 		PsiphonConnectionSplashViewController *connectionSplashViewController = [[PsiphonConnectionSplashViewController alloc]
@@ -463,7 +473,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[self adjustLayout];
 	} completion:nil];
 }
-
 
 - (void) showToolBars:(BOOL) show {
 	CGFloat navBarOffsetY  = 0.0;
@@ -587,14 +596,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	CGRect frame;
 	if(isRTL) {
 		frame = CGRectMake(size.width - TOOLBAR_HEIGHT + TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+						   TOOLBAR_PADDING,
+						   TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+						   TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
 	} else {
 		frame = CGRectMake(TOOLBAR_PADDING,
-									TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
-									TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
+						   TOOLBAR_PADDING,
+						   TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING,
+						   TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING);
 	}
 	return frame;
 
@@ -1647,125 +1656,76 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 }
 
 #pragma mark - Tutorial Delegate Methods
-// Draw the next tutorial step
-// Add constraints and draw spotlight
--(BOOL)drawStep:(int)step
-{
-	[self drawSpotlight:step];
 
-	[self.view removeConstraints:tutorial.removeBeforeNextStep];
-
-	if (step == PsiphonTutorialStep1) {
-		// Cycle connection indicator to show user different connection states
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[self cycleConnectionStateForTutorial]; // reset indicator state
-			tutorial.connectionStateCycler = [NSTimer scheduledTimerWithTimeInterval:1.4
-																			  target:self
-																			selector:@selector(cycleConnectionStateForTutorial)
-																			userInfo:nil
-																			 repeats:YES];
-		});
-		/* Hello from Psiphon. Also, highlight and describe psiphonConnectionIndicator */
-
-		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
-
-		// Verticaly constrain arrowView to be centered to psiphonConnectionIndicator
-		tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[psiphonConnectionIndicator]-30-[arrowView(==arrowHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-
-		[self.view addConstraints:tutorial.removeBeforeNextStep];
-
-		// Start arrow animation
-		[tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
-
-		return YES;
-	} else if (step == PsiphonTutorialStep2) {
-		[tutorial.headerView removeFromSuperview];
-
-		// Stop cycling connection indicator
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[tutorial.connectionStateCycler invalidate];
-			tutorial.connectionStateCycler = nil;
-			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
-		});
-
-		// If we are not using iPad need to change alignment from
-		// textView.top = contentView.centerY
-		// to
-		// textView.centerY = contentView.centerY
-		if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-			NSLayoutConstraint *centreTextView = [tutorial.constraintsDictionary valueForKey:@"centreTextView"];
-			if (centreTextView != nil) {
-				[tutorial.contentView removeConstraint:centreTextView];
-				centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
-															  attribute: NSLayoutAttributeCenterY
-															  relatedBy:NSLayoutRelationEqual
-																 toItem:tutorial.contentView
-															  attribute:NSLayoutAttributeCenterY
-															 multiplier:1.f constant:0.f];
-				centreTextView.constant = 10;
-				[tutorial.contentView addConstraint:centreTextView];
-			}
-		}
-
-		/* Highlight settings button and describe settings menu */
-
-		tutorial.arrowView.image = [UIImage imageNamed:@"arrow-down"];
-		NSDictionary *metrics = @{ @"arrowHeight":[NSNumber numberWithFloat: tutorial.arrowView.image.size.height] };
-
-		// Vertically constrain arrowView to be placed above the settings button spotlight
-		tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[arrowView(==arrowHeight)]-50-[bottomToolBar]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-
-		// Vertically constrain the textView to be above arrowView to prevent unwanted overlap or cutoff
-		tutorial.removeBeforeNextStep = [tutorial.removeBeforeNextStep arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[arrowView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
-
-		[self.view addConstraints:tutorial.removeBeforeNextStep];
-
-		return YES;
-	} else if (step == PsiphonTutorialStep3) {
-		/* Tutorial goodbye with no spotlight */
-
-		[tutorial.arrowView removeFromSuperview]; // arrowView not used on this screen
-		[tutorial.contentView addSubview:tutorial.letsGo]; // add letsGo button
-
-		if (tutorial.letsGo != nil) {
-			CGFloat buttonWidth = (tutorial.contentView.frame.size.width) / 3;
-			buttonWidth = buttonWidth > 120 ? buttonWidth : 120;
-			CGFloat buttonHeight = 40;
-
-			NSDictionary *metrics = @{
-									  @"buttonWidth": [NSNumber numberWithFloat:buttonWidth],
-									  @"buttonHeight": [NSNumber numberWithFloat:buttonHeight]
-									  };
-
-			// Horizontal constraints for letsGo button
-			[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[letsGo(==buttonWidth)]" options:0 metrics:metrics views:tutorial.viewsDictionary]];
-			[tutorial.letsGo.layer setCornerRadius:buttonHeight/2];
-
-			// textView to letsGo button vertical spacing
-			tutorial.removeBeforeNextStep = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-32-[letsGo(==buttonHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:tutorial.viewsDictionary];
-
-			[tutorial.contentView addConstraints:tutorial.removeBeforeNextStep];
-		}
-
-		return YES;
-	}
-
-	return NO;
+- (CGRect)getBottomToolbarFrame {
+	return [self.view convertRect:bottomToolBar.frame toView:self.view];;
 }
 
--(void)tutorialEnded
+- (CGRect)getConnectionIndicatorFrame {
+	return [self.view convertRect:psiphonConnectionIndicator.frame fromView:navigationBar];
+}
+
+- (CGRect)getCurrentSpotlightFrame:(NSUInteger)page
 {
-	// Stop cycling connection indicator if tutorial was skipped
-	if (tutorial.connectionStateCycler != nil) {
-		[tutorial.connectionStateCycler invalidate];
-		tutorial.connectionStateCycler = nil;
-		[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+	int radius = psiphonConnectionIndicator.frame.size.width * 1.2;
+
+	if (page == PsiphonTutorialPage1Index) {
+		return CGRectMake(psiphonConnectionIndicator.frame.origin.x - (radius - psiphonConnectionIndicator.frame.size.width / 2), psiphonConnectionIndicator.frame.origin.y + navigationBar.frame.origin.y - (radius - psiphonConnectionIndicator.frame.size.height / 2), radius * 2.0, radius * 2.0);
+	} else if (page == PsiphonTutorialPage2Index) {
+		return CGRectMake(bottomToolBar.frame.size.width / 2 - radius, self.view.frame.size.height - bottomToolBar.frame.size.height / 2 - radius, radius * 2.0, radius * 2.0);
 	}
+	return CGRectNull;
+}
+
+- (CGRect)getSkipButtonFrame {
+	return [navigationBar convertRect:urlField.frame toView:self.view];
+}
+
+- (void)moveToStep:(NSInteger)step {
+	// Stop cycling connection indicator
+	[self resetConnectionStateCycler];
+
+	if (step == PsiphonTutorialPage1Index) {
+		/* Tutorial highlights psiphon connection indicator */
+		// Reset indicator state
+		[self cycleConnectionStateForTutorial];
+		// Cycle connection indicator to show user different connection states
+		tutorial.connectionStateCycler = [NSTimer scheduledTimerWithTimeInterval:1.4
+																		  target:self
+																		selector:@selector(cycleConnectionStateForTutorial)
+																		userInfo:nil
+																		 repeats:YES];
+	} else if (step == PsiphonTutorialPage2Index) {
+		/* Tutorial highlights settings button */
+	} else if (step == PsiphonTutorialPage3Index) {
+		/* Tutorial goodbye with no spotlight */
+	} else if (step >= PsiphonTutorialPageFinalIndex) {
+		[self tutorialEnded];
+	}
+}
+
+- (void)tutorialEnded
+{
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (![userDefaults boolForKey:kHasBeenOnboardedKey]) {
+		[Bookmark addDefaultBookmarks];
+		[[UIApplication sharedApplication] setStatusBarHidden:NO]; // Exit full screen
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
+	}
+
+	self.showTutorial = NO;
+
+	// Remove from view
+	[tutorial.view removeFromSuperview];
+	[tutorial removeFromParentViewController];
+	[tutorial didMoveToParentViewController:nil];
+
+	// Stop cycling connection indicator if tutorial was skipped
+	[self resetConnectionStateCycler];
 	tutorial = nil;
+
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
-	[center removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[center removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 
 	// Since we have modified the psiphonConnectionIndicator's state manually for the tutorial
 	// we need to ensure it gets reset to display the correct state
@@ -1783,14 +1743,15 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 #pragma mark - Tutorial methods and helper functions
 
-- (void)viewDidLayoutSubviews
-{
-	if (tutorial != nil) {
-		[self drawSpotlight:tutorial.step];
+- (void)resetConnectionStateCycler {
+	if (tutorial != nil && tutorial.connectionStateCycler != nil) {
+		[tutorial.connectionStateCycler invalidate];
+		tutorial.connectionStateCycler = nil;
 	}
+	[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
 }
 
--(void)cycleConnectionStateForTutorial {
+- (void)cycleConnectionStateForTutorial {
 	static NSInteger state = 0;
 
 	// Timer will be created or restarted
@@ -1815,284 +1776,49 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	state += 1;
 }
 
-- (void)drawSpotlight:(int)step
-{
-	CGRect frame = [self getCurrentSpotlightFrame:step];
-	[self wrappedTutorialCall:^(void){ [tutorial setSpotlightFrame:frame withView:self.view]; }];
-}
-
-- (CGRect)getCurrentSpotlightFrame:(int)step
-{
-	int radius = psiphonConnectionIndicator.frame.size.width * 1.2;
-
-	if (step == 0) {
-		return CGRectMake(psiphonConnectionIndicator.frame.origin.x - (radius - psiphonConnectionIndicator.frame.size.width / 2), psiphonConnectionIndicator.frame.origin.y + navigationBar.frame.origin.y - (radius - psiphonConnectionIndicator.frame.size.height / 2), radius * 2.0, radius * 2.0);
-	} else if (step == 1) {
-		return CGRectMake(bottomToolBar.frame.size.width / 2 - radius, self.view.frame.size.height - bottomToolBar.frame.size.height / 2 - radius, radius * 2.0, radius * 2.0);
-	}
-	return CGRectNull;
-}
-
-- (void)handleTutorialClick:(UITapGestureRecognizer *)recognizer {
-	[self wrappedTutorialCall:^(void){ [tutorial nextStep]; }];
-}
-
-- (void)wrappedTutorialCall:(void (^)())f{
-	if (tutorial != nil) {
-		f();
-	}
-}
-
--(void)tutorialBackgrounded {
-	[tutorial.arrowView.layer removeAllAnimations];
-}
-
--(void)tutorialReappeared {
-	[tutorial animateArrow:CGAffineTransformMakeTranslation(0.0, 20.0)];
-}
-
--(void)overlayTutorial
+- (void)overlayTutorial
 {
 	// Unsubscribe from psiphonConnectionState notifications
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center removeObserver:self name:kPsiphonConnectionStateNotification object:nil];
 
-	// We need to stop and start animations on app backgrounded and app became active
-	[center addObserver:self selector:@selector(tutorialBackgrounded) name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[center addObserver:self selector:@selector(tutorialReappeared) name:UIApplicationDidBecomeActiveNotification object:nil];
+	// Init tutorial
+	tutorial = [[TutorialViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+	tutorial.webViewController = self;
 
-	// Init
-	tutorial = [[Tutorial alloc] init];
-	tutorial.delegate = self;
+	[self addChildViewController:tutorial];
+	[self.view addSubview:tutorial.view];
+	[tutorial didMoveToParentViewController:self];
 
-	/* Add completely clear background which prevents user clicking around */
-	// We will not add any subviews to this view as we need to
-	// layout against browser elements.
-	tutorial.blockingView = [[UIView alloc] initWithFrame:self.view.bounds];
-	tutorial.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; // If this doesn't auto-resize on rotate we'll be able to click through
-	tutorial.blockingView.backgroundColor = [UIColor clearColor];
-	[self.view addSubview:tutorial.blockingView];
-
-	// Created centred contentView which will hold tutorial
-	// headerView, titleView and textView.
-	tutorial.contentView = [[UIView alloc] init];
-	tutorial.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-	tutorial.contentView.backgroundColor = [UIColor clearColor];
-
-	/* Add tutorial views to self.view */
-	[tutorial addToView:self.view];
-
-	/* contentView's constraints */
-
-	CGFloat contentViewWidthRatio = 0.68f;
-
-	// contentView.width = contentViewWidthRatio * self.view.width
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-														  attribute:NSLayoutAttributeWidth
+	// Setup constraints
+	tutorial.view.translatesAutoresizingMaskIntoConstraints = NO;
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.view
+														  attribute:NSLayoutAttributeLeft
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
-														  attribute:NSLayoutAttributeWidth
-														 multiplier:contentViewWidthRatio
-														   constant:0]];
-
-	// contentView.height = self.view.height
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-														  attribute:NSLayoutAttributeHeight
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeHeight
-														 multiplier:1.f
-														   constant:0]];
-
-	// contentView.centerX = self.view.centerX
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.contentView
-														  attribute:NSLayoutAttributeCenterX
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeCenterX
+														  attribute:NSLayoutAttributeLeft
 														 multiplier:1.f constant:0.f]];
-
-	// contentView.centerY = self.view.centerY (low-priority)
-	NSLayoutConstraint *contentViewCentreY = [NSLayoutConstraint constraintWithItem:tutorial.contentView
-																		  attribute:NSLayoutAttributeCenterY
-																		  relatedBy:NSLayoutRelationEqual
-																			 toItem:self.view
-																		  attribute:NSLayoutAttributeCenterY
-																		 multiplier:1.f constant:0.f];
-	contentViewCentreY.priority = 10;
-	[self.view addConstraint:contentViewCentreY];
-
-	id <UILayoutSupport> topLayoutGuide =  self.topLayoutGuide;
-
-	[tutorial constructViewsDictionaryForAutoLayout:NSDictionaryOfVariableBindings(topLayoutGuide, psiphonConnectionIndicator, bottomToolBar)];
-
-	/* skipButton constraints */
-	[tutorial.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[skipButton]-30-|" options:0 metrics:nil views:tutorial.viewsDictionary]];
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[skipButton]-(>=0)-[headerView]" options:0 metrics:nil views:tutorial.viewsDictionary]];
-
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
-														  attribute:NSLayoutAttributeWidth
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.view
+														  attribute:NSLayoutAttributeRight
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
-														  attribute:NSLayoutAttributeWidth
-														 multiplier:.35f
-														   constant:0]];
-
-	// Centre skip button vertically in nav bar
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.skipButton
-														  attribute:NSLayoutAttributeCenterY
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:navigationBar
-														  attribute:NSLayoutAttributeCenterY
+														  attribute:NSLayoutAttributeRight
 														 multiplier:1.f constant:0.f]];
-
-	/* Add constraints to contentViews's subviews */
-
-	/* headerView's constraints */
-
-	// headerView.top = contentView.top (low-priority)
-	NSLayoutConstraint *headerViewToTop = [NSLayoutConstraint constraintWithItem:tutorial.headerView
-																	   attribute:NSLayoutAttributeTop
-																	   relatedBy:NSLayoutRelationEqual
-																		  toItem:tutorial.contentView
-																	   attribute:NSLayoutAttributeTop
-																	  multiplier:1.f constant:0.f];
-	headerViewToTop.priority = 10;
-	[tutorial.contentView addConstraint:headerViewToTop];
-
-	// headerView.centerX = contentView.centerX
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-																	 attribute:NSLayoutAttributeCenterX
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeCenterX
-																	multiplier:1.f constant:0.f]];
-
-	// headerView.width = contentView.width
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-																	 attribute:NSLayoutAttributeWidth
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeWidth
-																	multiplier:1.f
-																	  constant:0]];
-
-	// headerView.height <= 0.25 * contentView.height
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.headerView
-																	 attribute:NSLayoutAttributeHeight
-																	 relatedBy:NSLayoutRelationLessThanOrEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeHeight
-																	multiplier:.25f
-																	  constant:0]];
-
-	tutorial.headerView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
-	[tutorial.headerView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-	[tutorial.headerView setContentCompressionResistancePriority:999 forAxis:UILayoutConstraintAxisVertical];
-
-	/* titleView's constraints */
-
-	// titleView.centerX = contentView.centerX
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-																	 attribute:NSLayoutAttributeCenterX
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeCenterX
-																	multiplier:1.f constant:0.f]];
-
-	// titleView.width = contentView.width
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-																	 attribute:NSLayoutAttributeWidth
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeWidth
-																	multiplier:1.f
-																	  constant:0]];
-
-	// titlteView.height <= 0.15 * contentView.height
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.titleView
-																	 attribute:NSLayoutAttributeHeight
-																	 relatedBy:NSLayoutRelationLessThanOrEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeHeight
-																	multiplier:.15f
-																	  constant:0]];
-
-	tutorial.titleView.preferredMaxLayoutWidth = self.view.frame.size.width * contentViewWidthRatio;
-	[tutorial.titleView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-	[tutorial.titleView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-
-	/* textView's constraints */
-
-	CGFloat textViewWidthRatio = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? .8f : 1.f;
-
-	// textView.centerX = contentView.centerX
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-																	 attribute:NSLayoutAttributeCenterX
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeCenterX
-																	multiplier:1.f constant:0.f]];
-
-	// textView.width = textViewWidthRatio * contentView.width
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-																	 attribute:NSLayoutAttributeWidth
-																	 relatedBy:NSLayoutRelationEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeWidth
-																	multiplier:textViewWidthRatio
-																	  constant:0]];
-
-	// textView.top = contentView.centerX
-	NSLayoutConstraint *centreTextView = [NSLayoutConstraint constraintWithItem:tutorial.textView
-																	  attribute:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? NSLayoutAttributeCenterY : NSLayoutAttributeTop
-																	  relatedBy:NSLayoutRelationEqual
-																		 toItem:tutorial.contentView
-																	  attribute:NSLayoutAttributeCenterY
-																	 multiplier:1.f constant:0.f];
-	centreTextView.priority = 15; // we'll need to break this constraint on smaller screens
-	[tutorial.contentView addConstraint:centreTextView];
-
-	[tutorial.textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-	[tutorial.textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-
-	// textView.height <= 0.6 * contentView.height
-	[tutorial.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.textView
-																	 attribute:NSLayoutAttributeHeight
-																	 relatedBy:NSLayoutRelationLessThanOrEqual
-																		toItem:tutorial.contentView
-																	 attribute:NSLayoutAttributeHeight
-																	multiplier:.6f
-																	  constant:0]];
-
-	/* Construct constraints dictionary */
-	tutorial.constraintsDictionary = [[NSMutableDictionary alloc] init];
-	[tutorial.constraintsDictionary addEntriesFromDictionary:NSDictionaryOfVariableBindings(centreTextView)];
-
-	// Vertical constraints for contentView's subviews
-	NSDictionary *metrics = @{
-							  @"verticalPadding":[NSNumber numberWithFloat:MAX(self.view.frame.size.width, self.view.frame.size.height) * 0.03f]
-							  };
-	[tutorial.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[headerView]-(==verticalPadding)-[titleView]-(==verticalPadding)-[textView]-(>=0)-|" options:0 metrics:metrics views:tutorial.viewsDictionary]];
-
-	/* Start tutorial */
-	[tutorial startTutorial];
-
-	UITapGestureRecognizer *tutorialBlockingViewPress =
-	[[UITapGestureRecognizer alloc] initWithTarget:self
-											action:@selector(handleTutorialClick:)];
-
-	[tutorial.blockingView addGestureRecognizer:tutorialBlockingViewPress];
-
-	UITapGestureRecognizer *tutorialContentViewPress =
-	[[UITapGestureRecognizer alloc] initWithTarget:self
-											action:@selector(handleTutorialClick:)];
-
-	[tutorial.contentView addGestureRecognizer:tutorialContentViewPress];
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.view
+														  attribute:NSLayoutAttributeTop
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeTop
+														 multiplier:1.f constant:0.f]];
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:tutorial.view
+														  attribute:NSLayoutAttributeBottom
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeBottom
+														 multiplier:1.f constant:0.f]];
 }
 
-- (void) showPsiphonConnectionStatusAlert {
+- (void)showPsiphonConnectionStatusAlert {
 	PsiphonConnectionAlertViewController *connectionAlertViewController = [[PsiphonConnectionAlertViewController alloc]
 																		   initWithState:[[AppDelegate sharedAppDelegate] psiphonConectionState]];
 	connectionAlertViewController.delegate = self;

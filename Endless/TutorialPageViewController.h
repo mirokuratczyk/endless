@@ -18,24 +18,17 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "OnboardingViewController.h"
 
-@protocol OnboardingViewControllerDelegate <NSObject>
+@protocol TutorialPageViewControllerDelegate <NSObject>
 - (void)onboardingEnded;
+- (void)tutorialEnded;
+- (CGRect)getBottomToolbarFrame;
+- (CGRect)getConnectionIndicatorFrame;
+- (CGRect)getCurrentSpotlightFrame:(NSUInteger)step;
 @end
 
-@protocol OnboardingChildViewControllerDelegate <NSObject>
-- (CGFloat)getBannerOffset;
-- (void)onboardingEnded;
-- (void)moveToViewAtIndex:(NSInteger)index;
-@end
-
-@interface OnboardingViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, OnboardingChildViewControllerDelegate>
-@property (nonatomic, weak) id<OnboardingViewControllerDelegate> delegate;
-@property (strong, nonatomic) UIPageViewController *pageController;
-- (void)moveToNextPage;
-@end
-
-@protocol OnboardingChildViewController <NSObject>
-@property (nonatomic, weak) id<OnboardingChildViewControllerDelegate> delegate;
-@property (assign, nonatomic) NSInteger index;
+@interface TutorialPageViewController : UIViewController <OnboardingViewControllerDelegate>
+@property (assign, nonatomic) NSUInteger index;
+@property (nonatomic, weak) id<TutorialPageViewControllerDelegate> delegate;
 @end

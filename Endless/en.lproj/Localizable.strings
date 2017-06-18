@@ -171,7 +171,7 @@
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
 
 /* No comment provided by engineer. */
-"LET'S GO!" = "LET'S GO!";
+"Let's Go!" = "Let's Go!";
 
 /* Field name for display in list */
 "Locality" = "Locality";
@@ -350,9 +350,6 @@
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "Waiting for network...";
-
-/* No comment provided by engineer. */
-"Welcome! Here is how to use Psiphon" = "Welcome! Here is how to use Psiphon";
 
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "What's on your mind? Please leave us your feedback";

@@ -250,9 +250,6 @@
 }
 
 - (void)onboardingEnded {
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
 
 	if ([strongDelegate respondsToSelector:@selector(onboardingEnded)]) {

@@ -9,24 +9,13 @@
 #import "IASKAppSettingsViewController.h"
 #import "SettingsViewController.h"
 #import "WebViewTab.h"
-
-#import "Tutorial.h"
+#import "TutorialViewController.h"
 
 #define PAN_GESTURE_RECOGNIZER_NONE 0
 #define PAN_GESTURE_RECOGNIZER_UP 1
 #define PAN_GESTURE_RECOGNIZER_SIDE 2
 
-/* Psiphon tutorial steps */
-typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
-{
-	PsiphonTutorialStep1 = 0,
-	PsiphonTutorialStep2,
-	PsiphonTutorialStep3
-};
-
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate,
-	UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate,
-		TutorialDelegate, FinalPageObserver>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate, TutorialViewControllerDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;

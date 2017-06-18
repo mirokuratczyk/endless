@@ -76,37 +76,21 @@
 
 	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-
-	if (isOnboarding) {
-		OnboardingViewController *onboarding = [[OnboardingViewController alloc] init];
-		onboarding.delegate = self;
-		self.window.rootViewController = onboarding;
-		self.window.rootViewController.restorationIdentifier = @"OnboardingViewController";
-	} else {
-		self.window.rootViewController = [[WebViewController alloc] init];
-		self.window.rootViewController.restorationIdentifier = @"WebViewController";
-	}
+	self.window.rootViewController = [[WebViewController alloc] init];
+	self.window.rootViewController.restorationIdentifier = @"WebViewController";
+	[(WebViewController*)self.window.rootViewController setResumePsiphonStart:isOnboarding];
+	[(WebViewController*)self.window.rootViewController setShowTutorial:isOnboarding];
 
 	return YES;
 }
 
 - (void)reloadOnboardingForl10n {
-	OnboardingViewController *newOnboarding = [[OnboardingViewController alloc] init];
-	newOnboarding.restorationIdentifier = @"OnboardingViewController";
-	newOnboarding.delegate = self;
+	WebViewController *newOnboarding = [[WebViewController alloc] init];
+	newOnboarding.restorationIdentifier = @"WebViewController";
+	newOnboarding.resumePsiphonStart = YES;
+	newOnboarding.showTutorial = YES;
 
 	[self changeRootViewController:newOnboarding];
-}
-
-- (void)onboardingEnded {
-	[Bookmark addDefaultBookmarks];
-
-	WebViewController *webViewController = [[WebViewController alloc] init];
-	webViewController.restorationIdentifier = @"WebViewController";
-	webViewController.resumePsiphonStart = YES;
-	webViewController.showTutorial = YES;
-
-	[self changeRootViewController:webViewController];
 }
 
 // From https://gist.github.com/gimenete/53704124583b5df3b407
