@@ -24,7 +24,7 @@
 #define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
 #define TOOLBAR_BUTTON_SIZE 40
-#define kLetsGoButtonHeight 60
+#define kBookmarksCancelButtonWidth 70
 
 static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSString *b) {
 	return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
@@ -80,7 +80,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	SettingsViewController *appSettingsViewController;
 
 	BookmarkController *bookmarks;
-
+	UIButton *bookmarksCancelButton;
 	NSLayoutConstraint *bookmarksViewBottom;
 
 	NSMutableDictionary *preferencesSnapshot;
@@ -574,7 +574,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self updateSearchBarDetails];
 
 	if (bookmarks != nil && bookmarksViewBottom != nil) {
-		bookmarksViewBottom.constant = keyboardHeight + navigationBar.frame.size.height;
+		bookmarksViewBottom.constant = keyboardHeight;
 		[self.view layoutIfNeeded];
 	}
 
@@ -614,6 +614,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 	float y = TOOLBAR_PADDING;
 	float w = navigationBar.frame.size.width - 3 * TOOLBAR_PADDING - TOOLBAR_BUTTON_SIZE;
+	if ([urlField isFirstResponder]) { // embedded bookmarks view is visible
+		// create space for embedded bookmarks view cancel button
+		if (isRTL) {
+			x += kBookmarksCancelButtonWidth;
+		}
+		w -= kBookmarksCancelButtonWidth;
+	}
 	float h = TOOLBAR_HEIGHT - 2 * TOOLBAR_PADDING;
 	return CGRectMake(x, y, w, h);
 }
@@ -1008,12 +1015,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 															   constant:0.f]];
 
 		bookmarksViewBottom = [NSLayoutConstraint constraintWithItem:bookmarks.view
-													   attribute:NSLayoutAttributeBottom
-													   relatedBy:NSLayoutRelationEqual
-														  toItem:bottomToolBar
-													   attribute:NSLayoutAttributeTop
-													  multiplier:1.0f
-														constant:bottomToolBar.frame.size.height + keyboardHeight];
+														   attribute:NSLayoutAttributeBottom
+														   relatedBy:NSLayoutRelationEqual
+															  toItem:bottomToolBar
+														   attribute:NSLayoutAttributeTop
+														  multiplier:1.0f
+															constant:keyboardHeight];
 		[self.view addConstraint:bookmarksViewBottom];
 
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:bookmarks.view
@@ -1035,6 +1042,66 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[self.view layoutIfNeeded];
 	}
 
+	if (bookmarksCancelButton == nil) {
+		// Setup cancel button which dimisses embedded bookmarks view
+		bookmarksCancelButton = [[UIButton alloc] init];
+		[bookmarksCancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel button text which allows user to exit bookmarks view") forState:UIControlStateNormal];
+		[bookmarksCancelButton.titleLabel setFont:[UIFont systemFontOfSize:20.0f]];
+		[bookmarksCancelButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+		[bookmarksCancelButton setTitleColor:[progressBar tintColor] forState:UIControlStateNormal];
+		[bookmarksCancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+
+		[bookmarksCancelButton addTarget:self
+							action:@selector(dismissEmbeddedBookmarksView)
+				  forControlEvents:UIControlEventTouchUpInside];
+
+		bookmarksCancelButton.translatesAutoresizingMaskIntoConstraints = NO;
+		[navigationBar addSubview:bookmarksCancelButton];
+
+		// Autolayout
+		[navigationBar addConstraint:[NSLayoutConstraint constraintWithItem:bookmarksCancelButton
+																  attribute:isRTL ? NSLayoutAttributeRight : NSLayoutAttributeLeft
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:urlField
+																  attribute:isRTL ? NSLayoutAttributeLeft : NSLayoutAttributeRight
+																 multiplier:1.0f
+																   constant:0.f]];
+
+		CGFloat cancelButtonWidth = kBookmarksCancelButtonWidth;
+		if (isRTL) {
+			cancelButtonWidth += urlField.frame.origin.x;
+		} else {
+			cancelButtonWidth += self.view.frame.size.width - urlField.frame.origin.x - urlField.frame.size.width;
+		}
+
+		[navigationBar addConstraint:[NSLayoutConstraint constraintWithItem:bookmarksCancelButton
+																  attribute:NSLayoutAttributeWidth
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:nil
+																  attribute:NSLayoutAttributeNotAnAttribute
+																 multiplier:1.0f
+																   constant:cancelButtonWidth]];
+
+		[navigationBar addConstraint:[NSLayoutConstraint constraintWithItem:bookmarksCancelButton
+																  attribute:NSLayoutAttributeHeight
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:urlField
+																  attribute:NSLayoutAttributeHeight
+																 multiplier:1.0f
+																   constant:0.f]];
+
+		[navigationBar addConstraint:[NSLayoutConstraint constraintWithItem:bookmarksCancelButton
+																  attribute:NSLayoutAttributeCenterY
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:urlField
+																  attribute:NSLayoutAttributeCenterY
+																 multiplier:1.0f
+																   constant:0.f]];
+	}
+
+	// perform layout so we don't animate previous layout changes
+	[self.view layoutIfNeeded];
+
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 		[urlField setTextAlignment:NSTextAlignmentNatural];
 		[urlField setFrame:[self frameForUrlField]];
@@ -1043,6 +1110,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}];
 
 	[self updateSearchBarDetails];
+}
+
+- (void)dismissEmbeddedBookmarksView {
+	[urlField resignFirstResponder]; // end editing
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -1057,6 +1128,11 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[[bookmarks view] removeFromSuperview];
 		[bookmarks removeFromParentViewController];
 		bookmarks = nil;
+	}
+
+	if (bookmarksCancelButton != nil) {
+		[bookmarksCancelButton removeFromSuperview];
+		bookmarksCancelButton = nil;
 	}
 
 	[UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{

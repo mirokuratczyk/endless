@@ -44,6 +44,7 @@
 /* Cancel
    Cancel action
    Cancel button on alert
+   Cancel button text which allows user to exit bookmarks view
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Cancel";
