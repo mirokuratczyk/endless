@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, PsiphonTutorialStep)
 - (void)removeTab:(NSNumber *)tabNumber;
 - (void)removeTabOpenedByHash:(NSNumber *)tabNumber;
 - (void)removeAllTabs;
+- (void)removeAllTabsForBackgrounded;
 
 - (void)webViewTouched;
 - (void)updateProgress;

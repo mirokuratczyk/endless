@@ -197,7 +197,7 @@
 	}
 
 	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
-		[[self webViewController] removeAllTabs];
+		[[self webViewController] removeAllTabsForBackgrounded];
 		[CookieJar clearAllData];
 	}
 
