@@ -848,6 +848,16 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self updateSearchBarDetails];
 }
 
+// Remove all tabs and open a blank one
+// with embedded bookmarks view visible.
+- (void)removeAllTabsForBackgrounded {
+	[self removeAllTabs];
+
+	[self addNewTabForURL:nil forRestoration:NO andFocus:YES withCompletionBlock:nil];
+
+	[urlField becomeFirstResponder];
+}
+
 - (void)updateSearchBarDetails
 {
 	/* TODO: cache curURL and only do anything here if it changed, these changes might be expensive */
