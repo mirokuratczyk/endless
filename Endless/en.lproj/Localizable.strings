@@ -293,8 +293,8 @@
 /* No comment provided by engineer. */
 "Spain" = "Spain";
 
-/* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+/* Text of button that user presses to complete onboarding and start tutorial */
+"Start Tutorial" = "Start Tutorial";
 
 /* Field name for display in list */
 "State/Province" = "State/Province";
