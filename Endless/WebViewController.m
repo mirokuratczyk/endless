@@ -1270,7 +1270,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		appSettingsViewController.delegate = appSettingsViewController;
 		appSettingsViewController.showCreditsFooter = NO;
 		appSettingsViewController.showDoneButton = YES;
-		appSettingsViewController.webViewController = self;
 		appSettingsViewController.neverShowPrivacySettings = YES;
 	}
 
@@ -1308,7 +1307,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
-- (void)settingsViewControllerDidEnd:(BOOL)forceReconnect
+- (void)settingsWillDismissWithForceReconnect:(BOOL)forceReconnect
 {
 	// Allow ARC to dealloc appSettingsViewController
 	appSettingsViewController = nil;

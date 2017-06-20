@@ -46,13 +46,5 @@
 #define kMinTlsVersionTLS_1_1 @"TLS_1_1"
 #define kMinTlsVersionTLS_1_0 @"TLS_1_0"
 
-@protocol SettingsViewControllerDelegate <NSObject>
-- (long)curWebViewTabHttpsRulesCount;
-- (void)settingsViewControllerDidEnd:(BOOL)forceReconnect;
-@end
-
 @interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate, UIAlertViewDelegate>
-
-@property (nonatomic, weak) id <SettingsViewControllerDelegate> webViewController;
-
 @end

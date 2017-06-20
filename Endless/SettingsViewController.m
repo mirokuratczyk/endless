@@ -47,11 +47,8 @@ static AppDelegate *appDelegate;
 	BOOL isRTL;
 }
 
-
 static NSArray *links;
 BOOL linksEnabled;
-
-@synthesize webViewController;
 
 - (void)viewDidLoad
 {
@@ -97,7 +94,7 @@ BOOL linksEnabled;
 		[cell.textLabel setText:specifier.title];
 
 		// Set detail text label to # of https everywhere rules in use for current browser tab
-		long ruleCount = [self.webViewController curWebViewTabHttpsRulesCount];
+		long ruleCount = [[[AppDelegate sharedAppDelegate] webViewController] curWebViewTabHttpsRulesCount];
 
 		if (ruleCount > 0) {
 			cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
@@ -224,7 +221,7 @@ BOOL linksEnabled;
 		[self.navigationController pushViewController:targetViewController animated:YES];
 	} else if ([specifier.key isEqualToString:kTutorialSpecifierKey]) {
 		[AppDelegate sharedAppDelegate].webViewController.showTutorial = YES;
-		[self settingsViewControllerDidEnd:nil];
+		[self dismiss:nil];
 	}
 }
 
@@ -239,8 +236,7 @@ BOOL linksEnabled;
 		[alert show];
 	} else if ([specifier.key isEqualToString:kForceReconnect]) {
 		forceReconnect = YES;
-		[self.navigationController popToRootViewControllerAnimated:NO];
-		[self settingsViewControllerDidEnd:nil];
+		[self dismiss:nil];
 	}
 }
 
@@ -365,7 +361,7 @@ BOOL linksEnabled;
 	} else if  ([fieldName isEqual:appLanguage]) {
 		[[NSNotificationCenter defaultCenter] removeObserver:self];
 		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-		[self.webViewController settingsViewControllerDidEnd:NO];
+		[[[AppDelegate sharedAppDelegate] webViewController] settingsWillDismissWithForceReconnect:forceReconnect];
 		[appDelegate reloadAndOpenSettings];
 	}
 }
@@ -379,10 +375,11 @@ BOOL linksEnabled;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-	[self.webViewController settingsViewControllerDidEnd:forceReconnect];
+	[[[AppDelegate sharedAppDelegate] webViewController] settingsWillDismissWithForceReconnect:forceReconnect];
 	// upon completion force connection state notification in case connection modal is
 	// still blocking UI but needs to be dismissed
-	[self dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
+	[self.navigationController popViewControllerAnimated:NO];
+	[self.navigationController dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
 }
 
 - (void) updateAvailableRegions:(NSNotification*) notification {
