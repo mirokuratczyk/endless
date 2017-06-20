@@ -43,6 +43,7 @@ static AppDelegate *appDelegate;
 #define kTutorialSpecifierKey @"tutorial"
 
 @implementation SettingsViewController {
+	BOOL forceReconnect;
 	BOOL isRTL;
 }
 
@@ -68,6 +69,7 @@ BOOL linksEnabled;
 	[center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 	[center addObserver:self selector:@selector(updateLinksState:) name:kPsiphonConnectionStateNotification object:nil];
 	[center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
+	[center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonSelectedNewRegionNotification object:nil];
 }
 
 - (void)dealloc
@@ -235,6 +237,10 @@ BOOL linksEnabled;
 											  otherButtonTitles:NSLocalizedString(@"Clear Cookies and Data", @"Accept button on alert which triggers clearing all local cookies and browsing data"), nil];
 
 		[alert show];
+	} else if ([specifier.key isEqualToString:kForceReconnect]) {
+		forceReconnect = YES;
+		[self.navigationController popToRootViewControllerAnimated:NO];
+		[self settingsViewControllerDidEnd:nil];
 	}
 }
 
@@ -359,7 +365,7 @@ BOOL linksEnabled;
 	} else if  ([fieldName isEqual:appLanguage]) {
 		[[NSNotificationCenter defaultCenter] removeObserver:self];
 		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-		[self.webViewController settingsViewControllerDidEnd];
+		[self.webViewController settingsViewControllerDidEnd:NO];
 		[appDelegate reloadAndOpenSettings];
 	}
 }
@@ -373,7 +379,7 @@ BOOL linksEnabled;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-	[self.webViewController settingsViewControllerDidEnd];
+	[self.webViewController settingsViewControllerDidEnd:forceReconnect];
 	// upon completion force connection state notification in case connection modal is
 	// still blocking UI but needs to be dismissed
 	[self dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];

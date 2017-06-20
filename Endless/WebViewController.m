@@ -1308,7 +1308,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
-- (void)settingsViewControllerDidEnd
+- (void)settingsViewControllerDidEnd:(BOOL)forceReconnect
 {
 	// Allow ARC to dealloc appSettingsViewController
 	appSettingsViewController = nil;
@@ -1323,7 +1323,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 
 	// Check if settings which have changed require a tunnel service restart to take effect
-	if ([self isSettingsRestartRequired]) {
+	if (forceReconnect || [self isSettingsRestartRequired]) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
 	}
 	// Check if settings which have changed require reload tabs
