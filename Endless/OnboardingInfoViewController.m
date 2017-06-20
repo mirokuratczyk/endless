@@ -82,7 +82,8 @@
 	letsGoButton = [[UIButton alloc] init];
 	letsGoButton.backgroundColor = [UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0];
 	letsGoButton.hidden = false;
-	[letsGoButton setTitle:NSLocalizedString(@"Start Browsing", @"Text of button that user presses to complete onboarding") forState:UIControlStateNormal];
+	[letsGoButton setTitle:NSLocalizedString(@"Start Tutorial", @"Text of button that user presses to complete onboarding and start tutorial") forState:UIControlStateNormal];
+	letsGoButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 	letsGoButton.layer.cornerRadius = kLetsGoButtonHeight / 2;
 	letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
 	letsGoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -250,9 +251,6 @@
 }
 
 - (void)onboardingEnded {
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasBeenOnboardedKey];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
 
 	if ([strongDelegate respondsToSelector:@selector(onboardingEnded)]) {
