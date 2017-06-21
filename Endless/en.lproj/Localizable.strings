@@ -90,7 +90,8 @@
    Done button
    Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
 "Done" = "Done";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
