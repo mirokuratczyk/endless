@@ -43,14 +43,12 @@ static AppDelegate *appDelegate;
 #define kTutorialSpecifierKey @"tutorial"
 
 @implementation SettingsViewController {
+	BOOL forceReconnect;
 	BOOL isRTL;
 }
 
-
 static NSArray *links;
 BOOL linksEnabled;
-
-@synthesize webViewController;
 
 - (void)viewDidLoad
 {
@@ -68,6 +66,7 @@ BOOL linksEnabled;
 	[center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 	[center addObserver:self selector:@selector(updateLinksState:) name:kPsiphonConnectionStateNotification object:nil];
 	[center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonAvailableRegionsNotification object:nil];
+	[center addObserver:self selector:@selector(updateAvailableRegions:) name:kPsiphonSelectedNewRegionNotification object:nil];
 }
 
 - (void)dealloc
@@ -95,7 +94,7 @@ BOOL linksEnabled;
 		[cell.textLabel setText:specifier.title];
 
 		// Set detail text label to # of https everywhere rules in use for current browser tab
-		long ruleCount = [self.webViewController curWebViewTabHttpsRulesCount];
+		long ruleCount = [[[AppDelegate sharedAppDelegate] webViewController] curWebViewTabHttpsRulesCount];
 
 		if (ruleCount > 0) {
 			cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
@@ -222,7 +221,7 @@ BOOL linksEnabled;
 		[self.navigationController pushViewController:targetViewController animated:YES];
 	} else if ([specifier.key isEqualToString:kTutorialSpecifierKey]) {
 		[AppDelegate sharedAppDelegate].webViewController.showTutorial = YES;
-		[self settingsViewControllerDidEnd:nil];
+		[self dismiss:nil];
 	}
 }
 
@@ -235,6 +234,9 @@ BOOL linksEnabled;
 											  otherButtonTitles:NSLocalizedString(@"Clear Cookies and Data", @"Accept button on alert which triggers clearing all local cookies and browsing data"), nil];
 
 		[alert show];
+	} else if ([specifier.key isEqualToString:kForceReconnect]) {
+		forceReconnect = YES;
+		[self dismiss:nil];
 	}
 }
 
@@ -359,7 +361,7 @@ BOOL linksEnabled;
 	} else if  ([fieldName isEqual:appLanguage]) {
 		[[NSNotificationCenter defaultCenter] removeObserver:self];
 		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-		[self.webViewController settingsViewControllerDidEnd];
+		[[[AppDelegate sharedAppDelegate] webViewController] settingsWillDismissWithForceReconnect:forceReconnect];
 		[appDelegate reloadAndOpenSettings];
 	}
 }
@@ -373,10 +375,11 @@ BOOL linksEnabled;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-	[self.webViewController settingsViewControllerDidEnd];
+	[[[AppDelegate sharedAppDelegate] webViewController] settingsWillDismissWithForceReconnect:forceReconnect];
 	// upon completion force connection state notification in case connection modal is
 	// still blocking UI but needs to be dismissed
-	[self dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
+	[self.navigationController popViewControllerAnimated:NO];
+	[self.navigationController dismissViewControllerAnimated:NO completion:^(){[[AppDelegate sharedAppDelegate]notifyPsiphonConnectionState];}];
 }
 
 - (void) updateAvailableRegions:(NSNotification*) notification {

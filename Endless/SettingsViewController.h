@@ -28,6 +28,7 @@
 // Upstream proxy settings keys (found in PsiphonSettings.plist)
 #define kClearWebsiteData			@"clearWebsiteData"
 #define kDisableTimeouts			@"disableTimeouts"
+#define kForceReconnect				@"forceReconnect"
 #define kMinTlsVersion				@"minTlsVersion"
 #define kUseUpstreamProxy			@"useUpstreamProxy"
 #define kUseProxyAuthentication		@"useProxyAuthentication"
@@ -45,13 +46,5 @@
 #define kMinTlsVersionTLS_1_1 @"TLS_1_1"
 #define kMinTlsVersionTLS_1_0 @"TLS_1_0"
 
-@protocol SettingsViewControllerDelegate <NSObject>
-- (long)curWebViewTabHttpsRulesCount;
-- (void)settingsViewControllerDidEnd;
-@end
-
 @interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate, UIAlertViewDelegate>
-
-@property (nonatomic, weak) id <SettingsViewControllerDelegate> webViewController;
-
 @end

@@ -92,3 +92,8 @@
 "Clear cookies and website data" = "Clear cookies and website data";
 "Cookies and local storage will be cleared." = "Cookies and local storage will be cleared.";
 "All tabs, cookies and website data will be cleared when switching to another app." = "All tabs, cookies and website data will be cleared when switching to another app.";
+"My connection is bad, help!" = "My connection is bad, help!";
+"Changing your region to Best Performance increases your chances of getting connected." = "Changing your region to Best Performance increases your chances of getting connected.";
+"Disabling timeouts may help you stay connected on slower networks." = "Disabling timeouts may help you stay connected on slower networks.";
+"Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive." = "Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive.";
+"Reconnect to the Psiphon server" = "Reconnect to the Psiphon server";
