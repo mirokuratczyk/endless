@@ -300,7 +300,7 @@
 	NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 	[attributedString appendAttributedString:attrStringWithImage];
 	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"The green checkmark indicates Psiphon Browser is connected and ready for you to start browsing!", @"Text on first tutorial screen which highlights the connection indicator")]];
+	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!", @"Text on first tutorial screen which highlights the connection indicator")]];
 
 	NSArray<NSAttributedString*>* bodyText = @[
 											   [[NSAttributedString alloc] initWithString:@""],
