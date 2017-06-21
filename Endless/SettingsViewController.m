@@ -62,7 +62,7 @@ BOOL linksEnabled;
 		links = @[kAboutSpecifierKey, kFAQSpecifierKey, kPrivacyPolicySpecifierKey, kTermsOfUseSpecifierKey];
 	});
 
-	linksEnabled = ([[AppDelegate sharedAppDelegate] psiphonConectionState] == PsiphonConnectionStateConnected);
+	linksEnabled = ([[AppDelegate sharedAppDelegate] psiphonConectionState] == ConnectionStateConnected);
 
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
@@ -384,8 +384,8 @@ BOOL linksEnabled;
 }
 
 - (void) updateLinksState:(NSNotification*) notification {
-	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
-	if(state == PsiphonConnectionStateConnected) {
+	ConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
+	if(state == ConnectionStateConnected) {
 		linksEnabled = true;
 	} else {
 		linksEnabled = false;
