@@ -266,7 +266,7 @@
 	letsGo = [[UIButton alloc] init];
 
 	[letsGo setBackgroundColor:[UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0]];
-	[letsGo setTitle:NSLocalizedString(@"Let's Go!", @"") forState:UIControlStateNormal];
+	[letsGo setTitle:NSLocalizedString(@"Let's Go!", @"Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser") forState:UIControlStateNormal];
 
 	[letsGo.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
 	[letsGo.titleLabel setAdjustsFontSizeToFitWidth:YES];
@@ -281,9 +281,9 @@
 {
 	NSArray<NSString*>* titleText = @[
 									  @"",
-									  NSLocalizedString(@"Status Indicator", @""),
-									  NSLocalizedString(@"Settings", @""),
-									  NSLocalizedString(@"You're all set!", @"")
+									  NSLocalizedString(@"Status Indicator", @"Title of first tutorial screen which highlights the connection indicator"),
+									  NSLocalizedString(@"Settings & Help", @"Title of second tutorial screen which highlights the settings button"),
+									  NSLocalizedString(@"Learning time is over", @"Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser")
 									  ];
 
 	if (self.index < titleText.count) {
@@ -294,20 +294,19 @@
 
 - (NSAttributedString*)getBodyTextForPage
 {
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"This is where you can find information about the status of your connection", @"")];
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@""];
 	NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 	textAttachment.image = [UIImage imageNamed:@"small-status-connected"];
 	NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
 	[attributedString appendAttributedString:attrStringWithImage];
 	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"The green checkmark indicates everything is working beautifully and you're good to go!", @"")]];
+	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"The green checkmark indicates Psiphon Browser is connected and ready for you to start browsing!", @"Text on first tutorial screen which highlights the connection indicator")]];
 
 	NSArray<NSAttributedString*>* bodyText = @[
 											   [[NSAttributedString alloc] initWithString:@""],
 											   attributedString,
-											   [[NSAttributedString alloc] initWithString:NSLocalizedString(@"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!", @"")],
-											   [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Happy browsing!\nExplore beyond your borders.", @"")]
+											   [[NSAttributedString alloc] initWithString:NSLocalizedString(@"This is where you can access settings and find help!", @"Text on second tutorial screen which highlights the settings button")],
+											   [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Now we'll connect to a Psiphon server so you can start browsing.", @"Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser")]
 											   ];
 
 	if (self.index < bodyText.count) {
