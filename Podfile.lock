@@ -1,77 +1,86 @@
 PODS:
-  - DTFoundation (1.7.11):
-    - DTFoundation/AppKit (= 1.7.11)
-    - DTFoundation/Core (= 1.7.11)
-    - DTFoundation/Debug (= 1.7.11)
-    - DTFoundation/DTAnimatedGIF (= 1.7.11)
-    - DTFoundation/DTASN1 (= 1.7.11)
-    - DTFoundation/DTAsyncFileDeleter (= 1.7.11)
-    - DTFoundation/DTAWS (= 1.7.11)
-    - DTFoundation/DTHTMLParser (= 1.7.11)
-    - DTFoundation/DTProgressHUD (= 1.7.11)
-    - DTFoundation/DTReachability (= 1.7.11)
-    - DTFoundation/DTScripting (= 1.7.11)
-    - DTFoundation/DTSidePanel (= 1.7.11)
-    - DTFoundation/DTSQLite (= 1.7.11)
-    - DTFoundation/DTUTI (= 1.7.11)
-    - DTFoundation/DTZipArchive (= 1.7.11)
-    - DTFoundation/Runtime (= 1.7.11)
-    - DTFoundation/UIKit (= 1.7.11)
-    - DTFoundation/UIKit_BlocksAdditions (= 1.7.11)
-  - DTFoundation/Core (1.7.11)
-  - DTFoundation/Debug (1.7.11):
+  - DTFoundation (1.7.12):
+    - DTFoundation/AppKit (= 1.7.12)
+    - DTFoundation/Core (= 1.7.12)
+    - DTFoundation/Debug (= 1.7.12)
+    - DTFoundation/DTAnimatedGIF (= 1.7.12)
+    - DTFoundation/DTASN1 (= 1.7.12)
+    - DTFoundation/DTAsyncFileDeleter (= 1.7.12)
+    - DTFoundation/DTAWS (= 1.7.12)
+    - DTFoundation/DTHTMLParser (= 1.7.12)
+    - DTFoundation/DTProgressHUD (= 1.7.12)
+    - DTFoundation/DTReachability (= 1.7.12)
+    - DTFoundation/DTScripting (= 1.7.12)
+    - DTFoundation/DTSidePanel (= 1.7.12)
+    - DTFoundation/DTSQLite (= 1.7.12)
+    - DTFoundation/DTUTI (= 1.7.12)
+    - DTFoundation/DTZipArchive (= 1.7.12)
+    - DTFoundation/Runtime (= 1.7.12)
+    - DTFoundation/UIKit (= 1.7.12)
+    - DTFoundation/UIKit_BlocksAdditions (= 1.7.12)
+  - DTFoundation/Core (1.7.12)
+  - DTFoundation/Debug (1.7.12):
     - DTFoundation/Core
     - DTFoundation/Runtime
-  - DTFoundation/DTAnimatedGIF (1.7.11)
-  - DTFoundation/DTASN1 (1.7.11):
+  - DTFoundation/DTAnimatedGIF (1.7.12)
+  - DTFoundation/DTASN1 (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTAsyncFileDeleter (1.7.11):
+  - DTFoundation/DTAsyncFileDeleter (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTAWS (1.7.11):
+  - DTFoundation/DTAWS (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTHTMLParser (1.7.11):
+  - DTFoundation/DTHTMLParser (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTProgressHUD (1.7.11):
+  - DTFoundation/DTProgressHUD (1.7.12):
     - DTFoundation/Core
     - DTFoundation/UIKit
-  - DTFoundation/DTReachability (1.7.11):
+  - DTFoundation/DTReachability (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTScripting (1.7.11):
+  - DTFoundation/DTScripting (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTSidePanel (1.7.11):
+  - DTFoundation/DTSidePanel (1.7.12):
     - DTFoundation/UIKit
-  - DTFoundation/DTSQLite (1.7.11):
+  - DTFoundation/DTSQLite (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/DTUTI (1.7.11)
-  - DTFoundation/DTZipArchive (1.7.11):
-    - DTFoundation/DTZipArchive/Minizip (= 1.7.11)
-  - DTFoundation/DTZipArchive/Minizip (1.7.11)
-  - DTFoundation/Runtime (1.7.11)
-  - DTFoundation/UIKit (1.7.11):
+  - DTFoundation/DTUTI (1.7.12)
+  - DTFoundation/DTZipArchive (1.7.12):
+    - DTFoundation/DTZipArchive/Minizip (= 1.7.12)
+  - DTFoundation/DTZipArchive/Minizip (1.7.12)
+  - DTFoundation/Runtime (1.7.12)
+  - DTFoundation/UIKit (1.7.12):
     - DTFoundation/Core
-  - DTFoundation/UIKit_BlocksAdditions (1.7.11):
+  - DTFoundation/UIKit_BlocksAdditions (1.7.12):
     - DTFoundation/Core
-  - InAppSettingsKit (2.8)
-  - MarqueeLabel (3.0.2):
-    - MarqueeLabel/ObjC (= 3.0.2)
-  - MarqueeLabel/ObjC (3.0.2)
+  - InAppSettingsKit (2.8.1)
+  - MarqueeLabel (3.1.0):
+    - MarqueeLabel/ObjC (= 3.1.0)
+  - MarqueeLabel/ObjC (3.1.0)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
 
 DEPENDENCIES:
   - DTFoundation
-  - InAppSettingsKit
+  - InAppSettingsKit (from `https://github.com/Psiphon-Inc/InAppSettingsKit.git`)
   - MarqueeLabel
   - OCMock
   - OrderedDictionary
 
+EXTERNAL SOURCES:
+  InAppSettingsKit:
+    :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
+
+CHECKOUT OPTIONS:
+  InAppSettingsKit:
+    :commit: e0dfb73924359ca42f1551220a55117d91d0ab6f
+    :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
+
 SPEC CHECKSUMS:
-  DTFoundation: 0ef29c70a9814e15518694862bd739347abe2a50
-  InAppSettingsKit: fe3e73f8f9530cdd6270065cd7df7b3773f557e6
-  MarqueeLabel: 365d4a7cd5a9504e51a2034d2be83782424223ac
+  DTFoundation: 26a164ef510877387906fb92bff524a792db4bf8
+  InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
+  MarqueeLabel: 061d04687ee5485ac035b45c8e292274a87afe01
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
 
-PODFILE CHECKSUM: ce158605ce28fabac4e65045b6da03d0788c7608
+PODFILE CHECKSUM: aa8e087fff984950d89d108d159b2ee0f8011088
 
 COCOAPODS: 1.1.1
