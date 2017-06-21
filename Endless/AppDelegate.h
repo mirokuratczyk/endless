@@ -62,7 +62,7 @@
 @property(strong, nonatomic) PsiphonTunnel* psiphonTunnel;
 @property NSInteger socksProxyPort;
 @property NSInteger httpProxyPort;
-@property PsiphonConnectionState psiphonConectionState;
+@property ConnectionState psiphonConectionState;
 @property NSCache *sslCertCache;
 
 - (void) startIfNeeded;

@@ -139,21 +139,12 @@
 
 - (void) startPsiphon {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		// Read in the embedded server entries
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSString *bundledEmbeddedServerEntriesPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"embedded_server_entries"];
-		NSString *embeddedServerEntries = [[NSString alloc] initWithData:[fileManager contentsAtPath:bundledEmbeddedServerEntriesPath] encoding:NSASCIIStringEncoding];
-		if(!embeddedServerEntries) {
-			NSLog(@"Embedded server entries file not found. Aborting now.");
-			abort();
-		}
-
 		if(_handshakeHomePages && [_handshakeHomePages count] > 0) {
 			[_handshakeHomePages removeAllObjects];
 		}
 		// Start the Psiphon tunnel
-		if( ! [self.psiphonTunnel start:embeddedServerEntries] ) {
-			self.psiphonConectionState = PsiphonConnectionStateDisconnected;
+        if( ! [self.psiphonTunnel start:NO] ) {
+			self.psiphonConectionState = ConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
 		}
 	});
@@ -161,7 +152,7 @@
 
 - (void) stopAndWaitForInternetConnection {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+		self.psiphonConectionState = ConnectionStateWaitingForNetwork;
 		[self notifyPsiphonConnectionState];
 		[self.psiphonTunnel stop];
 	});
@@ -227,7 +218,7 @@
 	BOOL needStart = false;
 
 	// Auto start if not connected
-	if (self.psiphonConectionState != PsiphonConnectionStateConnected) {
+	if (self.psiphonConectionState != ConnectionStateConnected) {
 		needStart = true;
 	} else if (self.socksProxyPort > 0) {
 		// check if SOCKS local proxy is still accessible
@@ -254,9 +245,9 @@
 
 	if(needStart) {
 		if (_reachability.currentReachabilityStatus == NotReachable) {
-			self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+			self.psiphonConectionState = ConnectionStateWaitingForNetwork;
 		} else {
-			self.psiphonConectionState = PsiphonConnectionStateConnecting;
+			self.psiphonConectionState = ConnectionStateConnecting;
 		}
 		[self notifyPsiphonConnectionState];
 		[self startPsiphon];
@@ -364,7 +355,7 @@
 }
 
 - (void)scheduleRunningTunnelServiceRestart {
-	self.psiphonConectionState = PsiphonConnectionStateConnecting;
+	self.psiphonConectionState = ConnectionStateConnecting;
 	[self notifyPsiphonConnectionState];
 	[self startPsiphon];
 }
@@ -450,6 +441,20 @@
 	return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
+- (NSString *) getEmbeddedServerEntries {
+    // Read in the embedded server entries
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *bundledEmbeddedServerEntriesPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"embedded_server_entries"];
+    NSString *embeddedServerEntries = [[NSString alloc] initWithData:[fileManager contentsAtPath:bundledEmbeddedServerEntriesPath] encoding:NSASCIIStringEncoding];
+    if(!embeddedServerEntries) {
+        NSLog(@"Embedded server entries file not found. Aborting now.");
+        abort();
+        return NULL;
+    }
+
+    return embeddedServerEntries;
+}
+
 - (void) onAvailableEgressRegions:(NSArray *)regions {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[RegionAdapter sharedInstance] onAvailableEgressRegions:regions];
@@ -484,9 +489,9 @@
 - (void) onConnecting {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (_reachability.currentReachabilityStatus == NotReachable) {
-			self.psiphonConectionState = PsiphonConnectionStateWaitingForNetwork;
+			self.psiphonConectionState = ConnectionStateWaitingForNetwork;
 		} else {
-			self.psiphonConectionState = PsiphonConnectionStateConnecting;
+			self.psiphonConectionState = ConnectionStateConnecting;
 		}
 		[self notifyPsiphonConnectionState];
 	});
@@ -494,7 +499,7 @@
 
 - (void) onConnected {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		self.psiphonConectionState = PsiphonConnectionStateConnected;
+		self.psiphonConectionState = ConnectionStateConnected;
 		[self notifyPsiphonConnectionState];
 
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -631,7 +636,7 @@
 {
 	Reachability* currentReachability = [note object];
 	if([currentReachability currentReachabilityStatus] == NotReachable) {
-		if(self.psiphonConectionState != PsiphonConnectionStateDisconnected) {
+		if(self.psiphonConectionState != ConnectionStateDisconnected) {
 			_needsResume = true;
 			[self stopAndWaitForInternetConnection];
 		}
