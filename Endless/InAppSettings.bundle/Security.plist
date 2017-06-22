@@ -39,9 +39,9 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>TLS 1.2 only (no SSL)</string>
-				<string>TLS 1.1 or 1.2 (no SSL)</string>
-				<string>TLS 1.0, 1.1, or 1.2 (no SSL)</string>
+				<string>TLS 1.2 or higher</string>
+				<string>TLS 1.1 or higher</string>
+				<string>TLS 1.0 or higher</string>
 			</array>
 			<key>ShortTitles</key>
 			<array>
