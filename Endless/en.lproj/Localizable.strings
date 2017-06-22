@@ -331,7 +331,7 @@
 "Successfully downloaded image %@" = "Successfully downloaded image %@";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
 "The Internet at your fingertips" = "The Internet at your fingertips";
@@ -340,7 +340,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help!" = "This is where you can access settings and find help!";
+"This is where you can access settings and find help" = "This is where you can access settings and find help";
 
 /* No comment provided by engineer. */
 "Title Label" = "Title Label";
