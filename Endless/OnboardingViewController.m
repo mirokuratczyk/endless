@@ -241,7 +241,7 @@
 
 	subtitle.adjustsFontSizeToFitWidth = YES;
 	subtitle.font = [UIFont fontWithName:kSubtitleFontName size:18.0f];
-	subtitle.text = NSLocalizedString(@"BROWSE BEYOND BORDERS", @"Title displayed at the top of all onboardings screens");
+	subtitle.text = NSLocalizedString(@"BROWSE BEYOND BORDERS", @"Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy.");
 	subtitle.textAlignment = NSTextAlignmentCenter;
 	subtitle.textColor = [UIColor whiteColor];
 

@@ -28,14 +28,14 @@
 /* Field name for display in list */
 "Begins On" = "Begins On";
 
-/* No comment provided by engineer. */
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "Best Performance";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Bookmarks";
 
-/* Title displayed at the top of all onboardings screens */
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
 "BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
 
 /* Field name for display in list */
@@ -44,7 +44,7 @@
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
 "Bypass Censorship" = "Bypass Censorship";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "Canada";
 
 /* Cancel
@@ -129,7 +129,7 @@
 /* FAQ link text */
 "Frequently Asked Questions" = "Frequently Asked Questions";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "Germany";
 
 /* No comment provided by engineer. */
@@ -138,7 +138,7 @@
 /* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
 "Happy Browsing!" = "Happy Browsing!";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Hong Kong" = "Hong Kong";
 
 /* HTTPS Everywhere menu title */
@@ -162,7 +162,7 @@
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
 "If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "India";
 
 /* Field name for display in list */
@@ -171,7 +171,7 @@
 /* Field name for display in list */
 "Issued To" = "Issued To";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "Japan";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
@@ -201,7 +201,7 @@
 /* No comment provided by engineer. */
 "Message Text View" = "Message Text View";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "Netherlands";
 
 /* New browser tab title text */
@@ -300,7 +300,7 @@
 /* Field name for display in list */
 "Signature Algorithm" = "Signature Algorithm";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "Singapore";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
@@ -309,7 +309,7 @@
 /* No comment provided by engineer. */
 "SKIP TUTORIAL" = "SKIP TUTORIAL";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "Spain";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
@@ -348,10 +348,10 @@
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "United Kingdom";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "United States";
 
 /* No comment provided by engineer. */
