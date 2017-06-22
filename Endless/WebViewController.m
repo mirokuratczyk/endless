@@ -36,6 +36,15 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 }
 @end
 
+@implementation UIGestureRecognizer (Cancel)
+
+- (void)cancel {
+	self.enabled = NO;
+	self.enabled = YES;
+}
+
+@end
+
 @interface WebViewController (RegionSelectionControllerDelegate) <RegionSelectionControllerDelegate>
 @end
 
@@ -1439,6 +1448,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 - (void)doneWithTabsButton:(id)_id
 {
+	[tabScrollerPanGestureRecognizer cancel];
 	[self showTabs:nil];
 }
 
@@ -1500,14 +1510,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	NSInteger page = pager.currentPage;
 	[tabChooser setCurrentPage:page];
 	curTabIndex = (int)page;
-	CGRect frame = tabScroller.frame;
-	frame.origin.x = frame.size.width * page;
-	frame.origin.y = 0;
-	[tabScroller setContentOffset:frame.origin animated:YES];
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:YES];
 }
 
 - (void)tappedOnWebViewTab:(UITapGestureRecognizer *)gesture
 {
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
+	[tabScrollerPanGestureRecognizer cancel];
 	if (!showingTabs) {
 		if ([urlField isFirstResponder]) {
 			[urlField resignFirstResponder];
@@ -1794,6 +1804,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	if (showingTabs) {
 		CGPoint vel = [gesture velocityInView:tabScroller];
 		if (panGestureRecognizerType == PAN_GESTURE_RECOGNIZER_NONE) {
+			// Adjust tabScroller content offset before getting its center
+			// in case we were mid scrolling
+			[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
 			if ((fabs(vel.y) > fabs(vel.x) && vel.y < -50) || webViewTabs.count == 1) {
 				// We only care about speed < 0 because the user needs to swipe up to close the tab
 				/* User is trying to remove a tab */
@@ -1840,10 +1854,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					}
 
 					// If the page index wasn't changed, it will just scroll back to the page's original position
-					CGRect frame = tabScroller.frame;
-					frame.origin.x = frame.size.width * curTabIndex;
-					frame.origin.y = 0;
-					[tabScroller setContentOffset:frame.origin animated:YES];
+					[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:YES];
 
 					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
 
@@ -1851,10 +1862,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 				};
 
 				case UIGestureRecognizerStateCancelled: {
-					CGRect frame = tabScroller.frame;
-					frame.origin.x = frame.size.width * curTabIndex;
-					frame.origin.y = 0;
-					[tabScroller setContentOffset:frame.origin animated:YES];
+					[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 
 					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
 
@@ -1907,11 +1915,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					break;
 				}
 
-
 				default: break;
 			}
 		}
-
 	} else {
 		// these are gestures on a current tab in full view
 		// we need to recalculate toolbars and tabScroller positions
@@ -1996,6 +2002,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 				navigationBar.frame = navigationBarFrame;
 				tabScroller.frame = tabScrollerFrame;
 				bottomToolBar.frame = bottomToolBarFrame;
+
+				[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
 				panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
 				break;
 			}
