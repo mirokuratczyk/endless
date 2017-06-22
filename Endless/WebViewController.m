@@ -1976,6 +1976,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					// That will have an effect of not scrolling in the webview when navbar is moving
 					CGPoint contentOffset = [wvs contentOffset];
 					contentOffset.y += deltaY;
+
+					// Make sure content srolled all the way up
+					// Otherwise cancel moving
+					if(contentOffset.y < 0.f) {
+						panGestureOriginPoint = loc;
+						return;
+					}
 					[wvs setContentOffset:contentOffset];
 					toolBarAlpha = pow(((navigationBarFrame.origin.y + navigationBarFrame.size.height) - statusBarHeight) / navigationBarFrame.size.height, 2);
 				}
