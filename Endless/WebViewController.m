@@ -288,7 +288,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
-	[center addObserver:self selector:@selector(adjustLayoutForWebTabStartLoading) name:kPsiphonWebTabStartLoadNotification object:nil];
 
 	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
 	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
@@ -549,9 +548,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	navigationBar.alpha = 1.f;
 }
 
-- (void) adjustLayoutForWebTabStartLoading {
+- (void) adjustLayoutForNewHTTPResponse:(WebViewTab*) tab {
 	if (showingTabs == true) {
 		// not a full view tab, do nothing
+		return;
+	}
+	if(tab != [self curWebViewTab]) {
 		return;
 	}
 	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;

@@ -1111,6 +1111,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	if(_wvt && [[dataTask.currentRequest URL] isEqual:[dataTask.currentRequest mainDocumentURL]]) {
 		[_wvt setUrl:[dataTask.currentRequest URL]];
+		[[[AppDelegate sharedAppDelegate] webViewController] adjustLayoutForNewHTTPResponse:_wvt];
 	}
 
 	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;

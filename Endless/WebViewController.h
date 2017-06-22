@@ -47,6 +47,7 @@
 - (void) openPsiphonHomePage:(NSString *) homePage;
 - (void) showPsiphonConnectionStatusAlert;
 - (void) setRestorationTabCurrent;
+- (void) adjustLayoutForNewHTTPResponse:(WebViewTab*)tab;
 
 - (long)curWebViewTabHttpsRulesCount;
 - (void)settingsWillDismissWithForceReconnect:(BOOL)forceReconnect;
