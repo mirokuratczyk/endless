@@ -215,6 +215,13 @@
 	/* add vertical constraints for contentView's subviews */
 	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
 
+	/* TEMP: just adding strings so they get translated */
+	NSString* temp = NSLocalizedString(@"Access the Web", @"Title text on one of the on-boarding screens");
+	temp = NSLocalizedString(@"The Internet at your fingertips", @"Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship).");
+	temp = NSLocalizedString(@"Bypass Censorship", @"Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship.");
+	temp = NSLocalizedString(@"If your favourite app is blocked, try their website in Psiphon Browser", @"Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages.");
+	temp = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet.");
+
 	/* Set page specific content */
 	switch (self.index) {
 		case 1: {
