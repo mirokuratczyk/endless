@@ -30,11 +30,19 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	return (([a length] == 0) && ([b length] == 0)) || ([a isEqualToString:b]);
 };
 
-
 @implementation UIColor (DefaultNavigationControllerColor)
 + (UIColor *)defaultNavigationControllerColor {
 	return [UIColor colorWithRed:(247/255.0f) green:(247/255.0f) blue:(247/255.0f) alpha:1];
 }
+@end
+
+@implementation UIGestureRecognizer (Cancel)
+
+- (void)cancel {
+	self.enabled = NO;
+	self.enabled = YES;
+}
+
 @end
 
 @interface WebViewController (RegionSelectionControllerDelegate) <RegionSelectionControllerDelegate>
@@ -71,12 +79,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	UIBarButtonItem *tabDoneButton;
 	UIBarButtonItem *bookmarkAddButton;
 
-	float currentWebViewScrollOffsetY;
-	BOOL isShowingToolBars;
-
 	BOOL showingTabs;
-	BOOL webViewScrollIsDecelerating;
-	BOOL webViewScrollIsDragging;
 
 	SettingsViewController *appSettingsViewController;
 
@@ -88,10 +91,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	TutorialViewController *tutorial;
 
-	UIPanGestureRecognizer *tabSelectionPanGestureRecognizer;
+	UIPanGestureRecognizer *tabScrollerPanGestureRecognizer;
 	CGPoint originalPoint; // Where the tab was before dragging
 	CGPoint panGestureOriginPoint; // Where the user started dragging
 	int panGestureRecognizerType; // 0: None, 1: Remove tab, 2: Change page
+
+	UITapGestureRecognizer *tapWebViewGestureRecognizer;
 
 	BOOL isRTL;
 }
@@ -129,7 +134,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
 	tabScroller = [[UIScrollView alloc] init];
+
+	// Disable touches, we are handling pan gestures ourselves
 	[tabScroller setScrollEnabled:NO];
+	[tabScroller setPagingEnabled:NO];
 	[[self view] addSubview:tabScroller];
 
 	navigationBar = [[UIView alloc] init];
@@ -139,7 +147,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	bottomToolBar = [[UIToolbar alloc] init];
 	[bottomToolBar setClipsToBounds:YES];
 	[[self view] addSubview:bottomToolBar];
-
 
 	keyboardHeight = 0;
 
@@ -172,7 +179,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	[navigationBar addSubview:psiphonConnectionIndicator];
 
-
 	lockIcon = [UIButton buttonWithType:UIButtonTypeCustom];
 	[lockIcon setFrame:CGRectMake(0, 0, 24, 16)];
 	[lockIcon setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
@@ -202,7 +208,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[forwardButton setImage:forwardImage forState:UIControlStateNormal];
 	[forwardButton addTarget:self action:@selector(goForward:) forControlEvents:UIControlEventTouchUpInside];
 	[forwardButton setFrame:CGRectMake(0, 0, TOOLBAR_BUTTON_SIZE, TOOLBAR_BUTTON_SIZE)];
-
 
 	tabsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *tabsImage = [[UIImage imageNamed:@"tabs"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -240,8 +245,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	bookmarkAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(addBookmarkFromBottomToolbar:)];
 
-
-
 	bottomToolBar.items = [NSArray arrayWithObjects:
 						   [[UIBarButtonItem alloc] initWithCustomView:backButton ],
 						   [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
@@ -253,7 +256,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						   [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
 						   [[UIBarButtonItem alloc] initWithCustomView:tabsButton],
 						   nil];
-
 
 	[tabScroller setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
 	[tabScroller setAutoresizesSubviews:NO];
@@ -299,7 +301,49 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 	[center addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
 
-	[self adjustLayout];
+	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+
+	/* main background view starts at 0,0, but actual content starts at 0,(app frame origin y to account for status bar/location warning) */
+	self.view.frame = CGRectMake(0, 0, size.width, size.height + statusBarHeight);
+
+	tabChooser.frame = CGRectMake(0, size.height - (TOOLBAR_HEIGHT + 20), self.view.frame.size.width, 24);
+
+	navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
+	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT, size.width, TOOLBAR_HEIGHT);
+
+	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
+
+	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height -statusBarHeight);
+
+	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
+	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
+	[navigationBar setBackgroundColor:[UIColor defaultNavigationControllerColor]];
+	[urlField setBackgroundColor:[UIColor whiteColor]];
+	[bottomToolBar setBarTintColor:[UIColor defaultNavigationControllerColor]];
+
+	[tabAddButton setTintColor:[progressBar tintColor]];
+	[tabDoneButton setTintColor:[progressBar tintColor]];
+	[settingsButton setTintColor:[progressBar tintColor]];
+	[tabsButton setTintColor:[progressBar tintColor]];
+	[tabCount setTextColor:[progressBar tintColor]];
+
+	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
+	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
+
+	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
+
+	urlField.frame = [self frameForUrlField];
+	psiphonConnectionIndicator.frame = [self frameForConnectionIndicator];
+
+	tabScrollerPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
+	[tabScrollerPanGestureRecognizer setDelegate: self];
+	[tabScrollerPanGestureRecognizer setMinimumNumberOfTouches:1];
+	[tabScrollerPanGestureRecognizer setMaximumNumberOfTouches:1];
+	[tabScroller addGestureRecognizer:tabScrollerPanGestureRecognizer];
 
 	[self.view.window makeKeyAndVisible];
 }
@@ -441,7 +485,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 						 completion:^(){[[AppDelegate sharedAppDelegate] notifyPsiphonConnectionState];}];
 	}
 
-	[self adjustLayout];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -451,12 +494,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	/* on devices with a bluetooth keyboard attached, both values should be the same for a 0 height */
 	keyboardHeight = keyboardStart.origin.y - keyboardEnd.origin.y;
 
-	[self adjustLayout];
+	[self adjustLayoutForKeyBoard];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
 	keyboardHeight = 0;
-	[self adjustLayout];
+	[self adjustLayoutForKeyBoard];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -467,115 +510,83 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
 	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		if (showingTabs)
+		if (showingTabs) {
 			[self showTabsWithCompletionBlock:nil];
-
-		[self adjustLayout];
+		}
+		[self adjustLayoutForTransition];
 	} completion:nil];
 }
 
-- (void) showToolBars:(BOOL) show {
-	CGFloat navBarOffsetY  = 0.0;
-	CGFloat bottomBarOffsetY = 0.0;
-	CGRect navBarFrame = navigationBar.frame;
-	CGRect bottomToolBarFrame = bottomToolBar.frame;
-	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-
-	if (isShowingToolBars == show) {
-		return;
-	}
-
-	if(show) {
-		navBarOffsetY = statusBarHeight ;
-		bottomBarOffsetY = self.view.frame.size.height - TOOLBAR_HEIGHT;
-		isShowingToolBars = YES;
-	}
-	else {
-		navBarOffsetY = statusBarHeight - TOOLBAR_HEIGHT;
-		bottomBarOffsetY = self.view.frame.size.height;
-		isShowingToolBars = NO;
-	}
-
-	navBarFrame.origin.y = navBarOffsetY;
-	bottomToolBarFrame.origin.y = bottomBarOffsetY;
-
-	CGFloat toolBarAlpha = show ? 1.0f : 0.0f;
-	[UIView animateWithDuration: 0.1 animations:^{
-		navigationBar.frame = navBarFrame;
-		bottomToolBar.frame = bottomToolBarFrame;
-		navigationBar.alpha = toolBarAlpha;
-		bottomToolBar.alpha = toolBarAlpha;
-
-		tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - (navigationBar.frame.origin.y + navigationBar.frame.size.height) - (self.view.frame.size.height - bottomBarOffsetY));
-		[self adjustWebViewTabsLayout];
-	}];
-	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
-	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
-	[urlField setBackgroundColor:[UIColor whiteColor]];
-
-	[tabAddButton setTintColor:[progressBar tintColor]];
-	[tabDoneButton setTintColor:[progressBar tintColor]];
-	[settingsButton setTintColor:[progressBar tintColor]];
-	[tabsButton setTintColor:[progressBar tintColor]];
-	[tabCount setTextColor:[progressBar tintColor]];
-
-	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
-	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
-
-	/* tabScroller.frame is now our actual webview viewing area */
-}
-
-- (void)adjustLayout
-{
+- (void) adjustLayoutForTransition {
 	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
 	CGSize size = [[UIScreen mainScreen] applicationFrame].size;
 
-	/* main background view starts at 0,0, but actual content starts at 0,(app frame origin y to account for status bar/location warning) */
 	self.view.frame = CGRectMake(0, 0, size.width, size.height + statusBarHeight);
-
 	tabChooser.frame = CGRectMake(0, size.height - (TOOLBAR_HEIGHT + 20), self.view.frame.size.width, 24);
-
-	UIWebView *wv = [[self curWebViewTab] webView];
-	currentWebViewScrollOffsetY = wv.scrollView.contentOffset.y;
-
-
 	navigationBar.frame = tabToolbar.frame = CGRectMake(0, statusBarHeight, self.view.frame.size.width, TOOLBAR_HEIGHT);
 	bottomToolBar.frame = CGRectMake(0, self.view.frame.size.height - TOOLBAR_HEIGHT, size.width, TOOLBAR_HEIGHT);
-
 	progressBar.frame = CGRectMake(0, navigationBar.frame.size.height - 2, navigationBar.frame.size.width, 2);
-
-	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height - navigationBar.frame.size.height - bottomToolBar.frame.size.height - statusBarHeight);
-
-	[self.view setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
-	[tabScroller setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-	[tabToolbar setBarTintColor:[UIColor defaultNavigationControllerColor]];
-	[navigationBar setBackgroundColor:[UIColor defaultNavigationControllerColor]];
-	[urlField setBackgroundColor:[UIColor whiteColor]];
-	[bottomToolBar setBarTintColor:[UIColor defaultNavigationControllerColor]];
-
-	[tabAddButton setTintColor:[progressBar tintColor]];
-	[tabDoneButton setTintColor:[progressBar tintColor]];
-	[settingsButton setTintColor:[progressBar tintColor]];
-	[tabsButton setTintColor:[progressBar tintColor]];
-	[tabCount setTextColor:[progressBar tintColor]];
-
-	[tabChooser setPageIndicatorTintColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
-	[tabChooser setCurrentPageIndicatorTintColor:[UIColor grayColor]];
-
-	if(!showingTabs) {
-		[self adjustWebViewTabsLayout];
-	}
-
+	tabScroller.frame = CGRectMake(0, navigationBar.frame.origin.y + navigationBar.frame.size.height, navigationBar.frame.size.width, self.view.frame.size.height -statusBarHeight);
 	tabScroller.contentSize = CGSizeMake(size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
-	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
-
 	urlField.frame = [self frameForUrlField];
 	psiphonConnectionIndicator.frame = [self frameForConnectionIndicator];
+
+	for (int i = 0; i < webViewTabs.count; i++) {
+		WebViewTab *wvt = webViewTabs[i];
+		[wvt updateFrame:[self frameForTabIndex:i]];
+	}
+}
+
+- (void) adjustLayoutForShowTabs {
+	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+
+	CGRect navigationBarFrame = navigationBar.frame;
+	CGRect tabScrollerFrame = tabScroller.frame;
+	CGRect bottomToolBarFrame = bottomToolBar.frame;
+
+	if (showingTabs == false) {
+		navigationBarFrame.origin.y = statusBarHeight - navigationBarFrame.size.height;
+		navigationBar.hidden  = true;
+	} else {
+		navigationBarFrame.origin.y = statusBarHeight;
+		navigationBar.hidden  = false;
+	}
+	bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
+	tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
+
+	navigationBar.frame = navigationBarFrame;
+	tabScroller.frame = tabScrollerFrame;
+	bottomToolBar.frame = bottomToolBarFrame;
+	navigationBar.alpha = 1.f;
+}
+
+- (void) adjustLayoutForNewHTTPResponse:(WebViewTab*) tab {
+	if (showingTabs == true) {
+		// not a full view tab, do nothing
+		return;
+	}
+	if(tab != [self curWebViewTab]) {
+		return;
+	}
+	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+	CGRect navigationBarFrame = navigationBar.frame;
+	CGRect tabScrollerFrame = tabScroller.frame;
+	CGRect bottomToolBarFrame = bottomToolBar.frame;
+
+	navigationBarFrame.origin.y = statusBarHeight;
+	bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
+	tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
+
+	[UIView animateWithDuration: 0.1 animations:^{
+		navigationBar.frame = navigationBarFrame;
+		tabScroller.frame = tabScrollerFrame;
+		bottomToolBar.frame = bottomToolBarFrame;
+		navigationBar.alpha = 1.f;
+	}];
+}
+
+- (void)adjustLayoutForKeyBoard
+{
 	[self updateSearchBarDetails];
 
 	if (bookmarks != nil && bookmarksViewBottom != nil) {
@@ -665,8 +676,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 }
 
 -(void) addWebViewTab:(WebViewTab*) wvt andSetCurrent:(BOOL)current{
-	[wvt.webView.scrollView setDelegate:self];
-
 	[webViewTabs addObject:wvt];
 	[tabChooser setNumberOfPages:webViewTabs.count];
 	[wvt setTabIndex:[NSNumber numberWithLong:(webViewTabs.count - 1)]];
@@ -846,8 +855,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			[self showTabsWithCompletionBlock:nil];
 		}
 	}
-
-	[self adjustLayout];
 }
 
 - (void)removeAllTabs
@@ -954,7 +961,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 
 	[urlField setFrame:[self frameForUrlField]];
-	[self showToolBars:YES];
 }
 
 - (void)updateProgress
@@ -1203,43 +1209,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
-- (void) adjustWebViewTabsLayout {
-	for (int i = 0; i < webViewTabs.count; i++) {
-		WebViewTab *wvt = webViewTabs[i];
-		[wvt updateFrame:[self frameForTabIndex:i]];
-	}
-}
-
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-	if (scrollView == tabScroller || showingTabs == YES) {
-		return;
-	}
-
-	CGFloat contentOffsetY = scrollView.contentOffset.y;
-	CGFloat scrollViewHeight = scrollView.frame.size.height;
-	CGFloat scrollContentSizeHeight = scrollView.contentSize.height;
-
-	if(scrollViewHeight >= scrollContentSizeHeight && isShowingToolBars) {
-		return;
-	}
-
-	if (contentOffsetY < 0.0) {
-		return;
-	}
-
-	if (self->currentWebViewScrollOffsetY >= contentOffsetY) {
-		[self showToolBars:YES];
-	}
-	else {
-		[self showToolBars:NO];
-	}
-
-	// check if scrolled beyond the scrollView bounds
-	if(contentOffsetY + scrollViewHeight < scrollContentSizeHeight) {
-		self->currentWebViewScrollOffsetY = contentOffsetY;
-	}
-}
-
 - (void)goBack:(id)_id
 {
 	[self.curWebViewTab goBack];
@@ -1433,6 +1402,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 - (void)showTabsWithCompletionBlock:(void(^)(BOOL))block
 {
+	[self adjustLayoutForShowTabs];
+
 	if (showingTabs == false) {
 		/* zoom out */
 
@@ -1443,44 +1414,31 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			for (int i = 0; i < webViewTabs.count; i++) {
 				[(WebViewTab *)webViewTabs[i] zoomOut];
 			}
-
 			tabChooser.hidden = false;
-			navigationBar.hidden = true;
 			tabToolbar.hidden = false;
 			progressBar.alpha = 0.0;
 		} completion:block];
 
 		tabScroller.contentOffset = CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0);
-		tabScroller.scrollEnabled = YES;
-		tabScroller.pagingEnabled = YES;
 
-		UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnWebViewTab:)];
-		singleTapGestureRecognizer.numberOfTapsRequired = 1;
-		singleTapGestureRecognizer.enabled = YES;
-		singleTapGestureRecognizer.cancelsTouchesInView = NO;
-		[tabScroller addGestureRecognizer:singleTapGestureRecognizer];
-
-		tabSelectionPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
-		[tabSelectionPanGestureRecognizer setMinimumNumberOfTouches:1];
-		[tabSelectionPanGestureRecognizer setMaximumNumberOfTouches:1];
-		[tabScroller addGestureRecognizer:tabSelectionPanGestureRecognizer];
+		tapWebViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnWebViewTab:)];
+		tapWebViewGestureRecognizer.numberOfTapsRequired = 1;
+		tapWebViewGestureRecognizer.enabled = YES;
+		tapWebViewGestureRecognizer.cancelsTouchesInView = NO;
+		[tabScroller addGestureRecognizer:tapWebViewGestureRecognizer];
 	}
 	else {
-		[tabScroller removeGestureRecognizer:tabSelectionPanGestureRecognizer];
-		tabSelectionPanGestureRecognizer = nil;
+		[tabScroller removeGestureRecognizer:tapWebViewGestureRecognizer];
+		tapWebViewGestureRecognizer = nil;
 		[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^(void) {
 			for (int i = 0; i < webViewTabs.count; i++) {
 				[(WebViewTab *)webViewTabs[i] zoomNormal];
 			}
 
 			tabChooser.hidden = true;
-			navigationBar.hidden = false;
 			tabToolbar.hidden = true;
 			progressBar.alpha = (progressBar.progress > 0.0 && progressBar.progress < 1.0 ? 1.0 : 0.0);
 		} completion:block];
-
-		tabScroller.scrollEnabled = NO;
-		tabScroller.pagingEnabled = NO;
 
 		[self updateSearchBarDetails];
 	}
@@ -1490,6 +1448,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 - (void)doneWithTabsButton:(id)_id
 {
+	[tabScrollerPanGestureRecognizer cancel];
 	[self showTabs:nil];
 }
 
@@ -1551,14 +1510,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	NSInteger page = pager.currentPage;
 	[tabChooser setCurrentPage:page];
 	curTabIndex = (int)page;
-	CGRect frame = tabScroller.frame;
-	frame.origin.x = frame.size.width * page;
-	frame.origin.y = 0;
-	[tabScroller setContentOffset:frame.origin animated:YES];
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:YES];
 }
 
 - (void)tappedOnWebViewTab:(UITapGestureRecognizer *)gesture
 {
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
+	[tabScrollerPanGestureRecognizer cancel];
 	if (!showingTabs) {
 		if ([urlField isFirstResponder]) {
 			[urlField resignFirstResponder];
@@ -1844,8 +1803,11 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 - (void)handleDrag:(UIPanGestureRecognizer *)gesture {
 	if (showingTabs) {
 		CGPoint vel = [gesture velocityInView:tabScroller];
-
 		if (panGestureRecognizerType == PAN_GESTURE_RECOGNIZER_NONE) {
+			// Adjust tabScroller content offset before getting its center
+			// in case we were mid scrolling
+			[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
 			if ((fabs(vel.y) > fabs(vel.x) && vel.y < -50) || webViewTabs.count == 1) {
 				// We only care about speed < 0 because the user needs to swipe up to close the tab
 				/* User is trying to remove a tab */
@@ -1892,10 +1854,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					}
 
 					// If the page index wasn't changed, it will just scroll back to the page's original position
-					CGRect frame = tabScroller.frame;
-					frame.origin.x = frame.size.width * curTabIndex;
-					frame.origin.y = 0;
-					[tabScroller setContentOffset:frame.origin animated:YES];
+					[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:YES];
 
 					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
 
@@ -1903,10 +1862,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 				};
 
 				case UIGestureRecognizerStateCancelled: {
-					CGRect frame = tabScroller.frame;
-					frame.origin.x = frame.size.width * curTabIndex;
-					frame.origin.y = 0;
-					[tabScroller setContentOffset:frame.origin animated:YES];
+					[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 
 					panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
 
@@ -1959,12 +1915,115 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 					break;
 				}
 
-
 				default: break;
 			}
 		}
+	} else {
+		// these are gestures on a current tab in full view
+		// we need to recalculate toolbars and tabScroller positions
+		// when drag occurs
 
+		UIScrollView *wvs = [[[self curWebViewTab] webView] scrollView];
+
+		CGPoint loc = [gesture locationInView:self.view];
+		CGPoint vel = [gesture velocityInView:self.view];
+		if(panGestureRecognizerType == PAN_GESTURE_RECOGNIZER_NONE) {
+			if(vel.y < 0) {
+				panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_UP;
+			} else {
+				panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_DOWN;
+			}
+		}
+		// if direction changed during the drag, we need to reset origin point
+		if((vel.y < 0 && panGestureRecognizerType == PAN_GESTURE_RECOGNIZER_DOWN) ||
+		   (vel.y >=0 && panGestureRecognizerType == PAN_GESTURE_RECOGNIZER_UP)) {
+			panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+			panGestureOriginPoint = loc;
+		}
+
+		float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+		CGRect navigationBarFrame = navigationBar.frame;
+		CGRect bottomToolBarFrame = bottomToolBar.frame;
+		CGRect tabScrollerFrame = tabScroller.frame;
+		CGFloat toolBarAlpha = 0.f;
+		switch (gesture.state) {
+			case UIGestureRecognizerStateBegan: {
+				panGestureOriginPoint = loc;
+				break;
+			}
+			case UIGestureRecognizerStateChanged: {
+				CGFloat deltaY = loc.y - panGestureOriginPoint.y;
+
+				panGestureOriginPoint = loc;
+
+				navigationBarFrame.origin.y = navigationBarFrame.origin.y + deltaY;
+				bottomToolBarFrame.origin.y = bottomToolBarFrame.origin.y - deltaY;
+
+				if( navigationBarFrame.origin.y >= statusBarHeight ) {
+					// Don't move down any further.
+					navigationBarFrame.origin.y = statusBarHeight;
+					bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
+					toolBarAlpha = 1.f;
+				} else if (navigationBarFrame.origin.y + navigationBarFrame.size.height <= statusBarHeight) {
+					// Don't move up any further.
+					navigationBarFrame.origin.y = statusBarHeight - navigationBarFrame.size.height;
+					bottomToolBarFrame.origin.y = self.view.frame.size.height;
+					toolBarAlpha = 0.f;
+				} else {
+					// We are moving.
+					// Offset content the same deltaY in the webview
+					// if the navbar is in the movable boundaries
+					// That will have an effect of not scrolling in the webview when navbar is moving
+					CGPoint contentOffset = [wvs contentOffset];
+					contentOffset.y += deltaY;
+
+					// Make sure content srolled all the way up
+					// Otherwise cancel moving
+					if(contentOffset.y < 0.f) {
+						panGestureOriginPoint = loc;
+						return;
+					}
+					[wvs setContentOffset:contentOffset];
+					toolBarAlpha = pow(((navigationBarFrame.origin.y + navigationBarFrame.size.height) - statusBarHeight) / navigationBarFrame.size.height, 2);
+				}
+
+
+				// Reset all frames and apply alpha
+				tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
+				navigationBar.frame = navigationBarFrame;
+				tabScroller.frame = tabScrollerFrame;
+				bottomToolBar.frame = bottomToolBarFrame;
+				navigationBar.alpha = toolBarAlpha;
+
+				break;
+			}
+			case UIGestureRecognizerStateEnded: {
+				panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+				break;
+			}
+			case UIGestureRecognizerStateCancelled: {
+				navigationBarFrame.origin.y = statusBarHeight;
+				bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
+				tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
+
+				navigationBar.frame = navigationBarFrame;
+				tabScroller.frame = tabScrollerFrame;
+				bottomToolBar.frame = bottomToolBarFrame;
+
+				[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
+
+				panGestureRecognizerType = PAN_GESTURE_RECOGNIZER_NONE;
+				break;
+			}
+			default: break;
+		}
 	}
+}
+
+#pragma mark UIGestureRecognizerDelegate method implementation
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+	// Make sure we recognize gestures simultaneously with the tab's scrollview
+	return YES;
 }
 
 #pragma mark RegionSelectionControllerDelegate method implementation

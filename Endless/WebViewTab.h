@@ -26,7 +26,7 @@
 
 #import "SSLCertificate.h"
 
-#define ZOOM_OUT_SCALE 0.8
+#define ZOOM_OUT_SCALE 0.6
 
 #define MAX_EQUIVALENT_URLS 5
 
