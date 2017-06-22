@@ -62,12 +62,6 @@ DEFAULT_LANGS = {
 RTL_LANGS = ('ar', 'fa', 'he')
 
 
-IOS_BROWSER_RESOURCES = \
-    ['ios-browser-iasklocalizablestrings', 'ios-browser-localizablestrings',
-     'ios-browser-onepasswordextensionstrings', 'ios-browser-rootstrings',
-     'ios-browser-app-store-assets']
-
-
 def process_resource(resource, output_path_fn, output_mutator_fn, bom,
                      langs=None, skip_untranslated=False, encoding='utf-8'):
     '''
@@ -160,7 +154,6 @@ def pull_ios_browser_translations():
     resources = (
         ('ios-browser-iasklocalizablestrings', 'IASKLocalizable.strings'),
         ('ios-browser-localizablestrings', 'Localizable.strings'),
-        ('ios-browser-onepasswordextensionstrings', 'OnePasswordExtension.strings'),
         ('ios-browser-rootstrings', 'Root.strings')
     )
 

@@ -90,7 +90,8 @@
    Done button
    Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
 "Done" = "Done";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
@@ -127,9 +128,6 @@
 
 /* No comment provided by engineer. */
 "Go to Settings" = "Go to Settings";
-
-/* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "Happy browsing!\nExplore beyond your borders.";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "Hong Kong";
@@ -170,7 +168,10 @@
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
 
-/* No comment provided by engineer. */
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Learning time is over" = "Learning time is over";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
 "Let's Go!" = "Let's Go!";
 
 /* Field name for display in list */
@@ -196,6 +197,9 @@
 
 /* Text of the button that the user presses to proceed to the next screen of onboarding */
 "Next" = "Next";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
 
 /* Field name for display in list */
 "Object Identifier" = "Object Identifier";
@@ -278,6 +282,9 @@
 /* No comment provided by engineer. */
 "Settings" = "Settings";
 
+/* Title of second tutorial screen which highlights the settings button */
+"Settings & Help" = "Settings & Help";
+
 /* Field name for display in list */
 "Signature Algorithm" = "Signature Algorithm";
 
@@ -299,7 +306,7 @@
 /* Field name for display in list */
 "State/Province" = "State/Province";
 
-/* No comment provided by engineer. */
+/* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "Status Indicator";
 
 /* Field name for display in list */
@@ -311,17 +318,14 @@
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
 "Successfully downloaded image %@" = "Successfully downloaded image %@";
 
-/* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "The green checkmark indicates everything is working beautifully and you're good to go!";
+/* Text on first tutorial screen which highlights the connection indicator */
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
-/* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!";
-
-/* No comment provided by engineer. */
-"This is where you can find information about the status of your connection" = "This is where you can find information about the status of your connection";
+/* Text on second tutorial screen which highlights the settings button */
+"This is where you can access settings and find help!" = "This is where you can access settings and find help!";
 
 /* No comment provided by engineer. */
 "Title Label" = "Title Label";
@@ -356,9 +360,6 @@
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
 "You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
-
-/* No comment provided by engineer. */
-"You're all set!" = "You're all set!";
 
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "Your feedback makes Psiphon better!";

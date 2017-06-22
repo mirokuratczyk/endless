@@ -36,17 +36,18 @@
 @import Foundation;
 
 /* Psiphon connection states */
-typedef NS_ENUM(NSInteger, PsiphonConnectionState)
+typedef NS_ENUM(NSInteger, ConnectionState)
 {
-	PsiphonConnectionStateDisconnected,
-	PsiphonConnectionStateConnecting,
-	PsiphonConnectionStateConnected,
-    PsiphonConnectionStateWaitingForNetwork
+	ConnectionStateDisconnected,
+	ConnectionStateConnecting,
+	ConnectionStateConnected,
+    ConnectionStateWaitingForNetwork
 };
 
 #define kPsiphonConnectionStateNotification @"kPsiphonConnectionStateNotification"
 #define kPsiphonConnectionState @"kPsiphonConnectionState"
 #define kPsiphonAvailableRegionsNotification @"kPsiphonAvailableRegionsNotification"
+#define kPsiphonSelectedNewRegionNotification @"kPsiphonSelectedNewRegionNotification"
 #define kPsiphonRegionBestPerformance @""
 #define kPsiphonWebTabStartLoadNotification @"kPsiphonWebTabStartLoadNotification"
 

@@ -371,7 +371,7 @@
 	}
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
-		if ([AppDelegate sharedAppDelegate].psiphonConectionState != PsiphonConnectionStateConnected) {
+		if ([AppDelegate sharedAppDelegate].psiphonConectionState != ConnectionStateConnected) {
 			// We are not connected:
 			// 1. Show dismissable modal with the connection status if request is for
 			//    mainDocumentURL and mark this tab for reload when we get connected

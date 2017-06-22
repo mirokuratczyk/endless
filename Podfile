@@ -3,7 +3,7 @@ platform :ios, "7.0"
 target "Psiphon Browser" do 
 	pod "DTFoundation"
 	pod "OrderedDictionary"
-	pod "InAppSettingsKit"
+	pod "InAppSettingsKit", :git => "https://github.com/Psiphon-Inc/InAppSettingsKit.git"
 	pod "MarqueeLabel"
 end
 

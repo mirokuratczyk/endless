@@ -16,7 +16,7 @@
 #define PAN_GESTURE_RECOGNIZER_DOWN 2
 #define PAN_GESTURE_RECOGNIZER_SIDE 3
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SettingsViewControllerDelegate, TutorialViewControllerDelegate, FinalPageObserver>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, TutorialViewControllerDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;
@@ -47,6 +47,9 @@
 - (void) openPsiphonHomePage:(NSString *) homePage;
 - (void) showPsiphonConnectionStatusAlert;
 - (void) setRestorationTabCurrent;
+
+- (long)curWebViewTabHttpsRulesCount;
+- (void)settingsWillDismissWithForceReconnect:(BOOL)forceReconnect;
 
 @property (nonatomic) BOOL showTutorial;
 @property (nonatomic) BOOL resumePsiphonStart;

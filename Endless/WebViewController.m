@@ -1225,7 +1225,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		appSettingsViewController.delegate = appSettingsViewController;
 		appSettingsViewController.showCreditsFooter = NO;
 		appSettingsViewController.showDoneButton = YES;
-		appSettingsViewController.webViewController = self;
 		appSettingsViewController.neverShowPrivacySettings = YES;
 	}
 
@@ -1263,7 +1262,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
-- (void)settingsViewControllerDidEnd
+- (void)settingsWillDismissWithForceReconnect:(BOOL)forceReconnect
 {
 	// Allow ARC to dealloc appSettingsViewController
 	appSettingsViewController = nil;
@@ -1278,7 +1277,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 
 	// Check if settings which have changed require a tunnel service restart to take effect
-	if ([self isSettingsRestartRequired]) {
+	if (forceReconnect || [self isSettingsRestartRequired]) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
 	}
 	// Check if settings which have changed require reload tabs
@@ -1579,9 +1578,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 - (void) psiphonConnectionStateNotified:(NSNotification *)notification
 {
-	PsiphonConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
+	ConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
 	[psiphonConnectionIndicator displayConnectionState:state];
-	if(state != PsiphonConnectionStateConnected) {
+	if(state != ConnectionStateConnected) {
 		[self stopLoading];
 	} else {
 		for (WebViewTab *wvt in webViewTabs) {
@@ -1697,7 +1696,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[tutorial.connectionStateCycler invalidate];
 		tutorial.connectionStateCycler = nil;
 	}
-	[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+	[psiphonConnectionIndicator displayConnectionState:ConnectionStateConnected];
 }
 
 - (void)cycleConnectionStateForTutorial {
@@ -1711,13 +1710,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	// Connection indicator will start on the disconnected state
 	switch (state % 3) {
 		case 0:
-			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateDisconnected];
+			[psiphonConnectionIndicator displayConnectionState:ConnectionStateDisconnected];
 			break;
 		case 1:
-			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnecting];
+			[psiphonConnectionIndicator displayConnectionState:ConnectionStateConnecting];
 			break;
 		case 2:
-			[psiphonConnectionIndicator displayConnectionState:PsiphonConnectionStateConnected];
+			[psiphonConnectionIndicator displayConnectionState:ConnectionStateConnected];
 			break;
 		default:
 			break;

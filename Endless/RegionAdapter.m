@@ -148,6 +148,7 @@ static AppDelegate *appDelegate;
 	selectedRegion = regionCode;
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setValue:selectedRegion forKey:kRegionSelectionSpecifierKey];
+	[self notifySelectedNewRegion];
 }
 
 - (NSString*)getLocalizedRegionTitle:(NSString*)regionCode {
@@ -161,6 +162,13 @@ static AppDelegate *appDelegate;
 - (void)notifyAvailableRegionsChanged {
 	[[NSNotificationCenter defaultCenter]
 	 postNotificationName:kPsiphonAvailableRegionsNotification
+	 object:self
+	 userInfo:nil];
+}
+
+-(void)notifySelectedNewRegion {
+	[[NSNotificationCenter defaultCenter]
+	 postNotificationName:kPsiphonSelectedNewRegionNotification
 	 object:self
 	 userInfo:nil];
 }
