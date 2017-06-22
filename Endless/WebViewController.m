@@ -125,7 +125,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
 	tabScroller = [[UIScrollView alloc] init];
+
+	// Disable touches, we are handling pan gestures ourselves
 	[tabScroller setScrollEnabled:NO];
+	[tabScroller setPagingEnabled:NO];
 	[[self view] addSubview:tabScroller];
 
 	navigationBar = [[UIView alloc] init];
@@ -1408,8 +1411,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		} completion:block];
 
 		tabScroller.contentOffset = CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0);
-		tabScroller.scrollEnabled = YES;
-		tabScroller.pagingEnabled = YES;
 
 		tapWebViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnWebViewTab:)];
 		tapWebViewGestureRecognizer.numberOfTapsRequired = 1;
@@ -1429,9 +1430,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			tabToolbar.hidden = true;
 			progressBar.alpha = (progressBar.progress > 0.0 && progressBar.progress < 1.0 ? 1.0 : 0.0);
 		} completion:block];
-
-		tabScroller.scrollEnabled = NO;
-		tabScroller.pagingEnabled = NO;
 
 		[self updateSearchBarDetails];
 	}
@@ -1956,39 +1954,34 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 				bottomToolBarFrame.origin.y = bottomToolBarFrame.origin.y - deltaY;
 
 				if( navigationBarFrame.origin.y >= statusBarHeight ) {
-					//don't move down any further
+					// Don't move down any further.
 					navigationBarFrame.origin.y = statusBarHeight;
 					bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
 					toolBarAlpha = 1.f;
 				} else if (navigationBarFrame.origin.y + navigationBarFrame.size.height <= statusBarHeight) {
-					//don't move up any further
+					// Don't move up any further.
 					navigationBarFrame.origin.y = statusBarHeight - navigationBarFrame.size.height;
 					bottomToolBarFrame.origin.y = self.view.frame.size.height;
 					toolBarAlpha = 0.f;
-				}
-
-				// Offset content the same deltaY in the webview
-				// if the navbar is in the movable boundaries
-				// That will have an effect of not scrolling in the webview when navbar is moving
-				if(navigationBarFrame.origin.y < statusBarHeight && navigationBarFrame.origin.y + navigationBarFrame.size.height > statusBarHeight) {
+				} else {
+					// We are moving.
+					// Offset content the same deltaY in the webview
+					// if the navbar is in the movable boundaries
+					// That will have an effect of not scrolling in the webview when navbar is moving
 					CGPoint contentOffset = [wvs contentOffset];
 					contentOffset.y += deltaY;
 					[wvs setContentOffset:contentOffset];
-
-					toolBarAlpha = ((navigationBarFrame.origin.y + navigationBarFrame.size.height) - statusBarHeight) / navigationBarFrame.size.height;
-					navigationBar.alpha = toolBarAlpha;
-
+					toolBarAlpha = pow(((navigationBarFrame.origin.y + navigationBarFrame.size.height) - statusBarHeight) / navigationBarFrame.size.height, 2);
 				}
 
-				tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
 
+				// Reset all frames and apply alpha
+				tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
 				navigationBar.frame = navigationBarFrame;
 				tabScroller.frame = tabScrollerFrame;
 				bottomToolBar.frame = bottomToolBarFrame;
+				navigationBar.alpha = toolBarAlpha;
 
-				if(navigationBar.alpha != toolBarAlpha) {
-					navigationBar.alpha = toolBarAlpha;
-				}
 				break;
 			}
 			case UIGestureRecognizerStateEnded: {
@@ -2011,10 +2004,11 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
+#pragma mark UIGestureRecognizerDelegate method implementation
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+	// Make sure we recognize gestures simultaneously with the tab's scrollview
 	return YES;
 }
-
 
 #pragma mark RegionSelectionControllerDelegate method implementation
 - (void) regionSelectionControllerWillStart {
