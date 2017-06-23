@@ -43,10 +43,9 @@
 - (void) stopLoading;
 
 - (void) overlayTutorial;
-- (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated;
+- (void) focusTabWithIndex:(int)tabIndex andRefresh:(BOOL)refresh animated:(BOOL)animated;
 - (void) openPsiphonHomePage:(NSString *) homePage;
 - (void) showPsiphonConnectionStatusAlert;
-- (void) setRestorationTabCurrent;
 - (void) adjustLayoutForNewHTTPResponse:(WebViewTab*)tab;
 
 - (long)curWebViewTabHttpsRulesCount;
@@ -55,4 +54,6 @@
 @property (nonatomic) BOOL showTutorial;
 @property (nonatomic) BOOL resumePsiphonStart;
 @property (nonatomic) BOOL openSettingImmediatelyOnViewDidAppear;
+@property (strong) NSNumber *tabIndexFromRestoration;
+
 @end
