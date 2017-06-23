@@ -535,6 +535,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		WebViewTab *wvt = webViewTabs[i];
 		[wvt updateFrame:[self frameForTabIndex:i]];
 	}
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 }
 
 - (void) adjustLayoutForShowTabs {
