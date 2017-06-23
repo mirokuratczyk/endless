@@ -23,9 +23,12 @@ const int BOOKMARK_FILE_VERSION = 1;
 	[Bookmark addBookmarkForURLString:@"https://psiphon3.com" withName:@"Psiphon"];
 	[Bookmark addBookmarkForURLString:@"https://m.facebook.com" withName:@"Facebook"];
 	[Bookmark addBookmarkForURLString:@"https://mobile.twitter.com" withName:@"Twitter"];
-	[Bookmark addBookmarkForURLString:@"https://google.com" withName:@"Google"];
-	[Bookmark addBookmarkForURLString:@"https://m.youtube.com" withName:@"Youtube"];
+	[Bookmark addBookmarkForURLString:@"https://m.youtube.com" withName:@"YouTube"];
 	[Bookmark addBookmarkForURLString:@"https://gmail.com" withName:@"Gmail"];
+	[Bookmark addBookmarkForURLString:@"https://instagram.com" withName:@"Instagram"];
+	[Bookmark addBookmarkForURLString:@"https://google.com" withName:@"Google"];
+	[Bookmark addBookmarkForURLString:@"https://duckduckgo.com" withName:@"DuckDuckGo"];
+	[Bookmark addBookmarkForURLString:@"https://startpage.com" withName:@"StartPage"];
 }
 
 + (NSString *)bookmarksPath

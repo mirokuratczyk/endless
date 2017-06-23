@@ -91,13 +91,13 @@
 			<array>
 				<string>DuckDuckGo</string>
 				<string>Google</string>
-				<string>Startpage</string>
+				<string>StartPage</string>
 			</array>
 			<key>Titles</key>
 			<array>
 				<string>DuckDuckGo</string>
 				<string>Google</string>
-				<string>Startpage</string>
+				<string>StartPage</string>
 			</array>
 			<key>Key</key>
 			<string>search_engine</string>
