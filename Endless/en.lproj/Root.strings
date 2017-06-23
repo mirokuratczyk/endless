@@ -91,20 +91,10 @@
 "Send \"Do-Not-Track\" requests" = "Send \"Do-Not-Track\" requests";
 /* Explanatory text for the "Do Not Track" setting. */
 "Ask sites and their third party content providers not to track you." = "Ask sites and their third party content providers not to track you.";
-/* Settings section header for HTTPS Everywhere and TLS version settings. Acronym for "Hyper Text Transfer Protocol Secure". */
-"HTTPS" = "HTTPS";
-/* The name of a browser extension. More info: https://www.eff.org/https-everywhere */
-"HTTPS EVERYWHERE" = "HTTPS EVERYWHERE";
 /* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
 "Minimum SSL/TLS Version" = "Minimum SSL/TLS Version";
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
 "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
-/* One of the options for the "Minimum SSL/TLS Version" setting. TLS has versions like 1.0, 1.1, etc. that introduce security improvements. A higher version is better, but not accepting lower versions means possible incompatibility with some websites. This text should be kept short. */
-"TLS 1.2 or higher" = "TLS 1.2 or higher";
-/* One of the options for the "Minimum SSL/TLS Version" setting. TLS has versions like 1.0, 1.1, etc. that introduce security improvements. A higher version is better, but not accepting lower versions means possible incompatibility with some websites. This text should be kept short. */
-"TLS 1.1 or higher" = "TLS 1.1 or higher";
-/* One of the options for the "Minimum SSL/TLS Version" setting. TLS has versions like 1.0, 1.1, etc. that introduce security improvements. A higher version is better, but not accepting lower versions means possible incompatibility with some websites. This text should be kept short. */
-"TLS 1.0 or higher" = "TLS 1.0 or higher";
 /* On the feedback screen, this is the label on the text box where the user can supply their comments that will be sent to Psiphon Inc. This text should be kept short. */
 "Your Comments" = "Your Comments";
 /* On the feedback screen, this is the label on the text box where the user can supply their email address along with their feedback that will be sent to Psiphon Inc. This text should be kept short. */

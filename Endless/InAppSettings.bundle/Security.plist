@@ -39,15 +39,15 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>TLS 1.2 or higher</string>
-				<string>TLS 1.1 or higher</string>
-				<string>TLS 1.0 or higher</string>
+				<string>TLS 1.2</string>
+				<string>TLS 1.1</string>
+				<string>TLS 1.0</string>
 			</array>
 			<key>ShortTitles</key>
 			<array>
 				<string>TLS 1.2</string>
-				<string>TLS 1.1+</string>
-				<string>TLS 1.0+</string>
+				<string>TLS 1.1</string>
+				<string>TLS 1.0</string>
 			</array>
 			<key>Key</key>
 			<string>minTlsVersion</string>
