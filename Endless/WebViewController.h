@@ -16,7 +16,7 @@
 #define PAN_GESTURE_RECOGNIZER_DOWN 2
 #define PAN_GESTURE_RECOGNIZER_SIDE 3
 
-@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, TutorialViewControllerDelegate, FinalPageObserver>
+@interface WebViewController : UIViewController <UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, TutorialViewControllerDelegate, FinalPageObserver>
 
 - (NSMutableArray *)webViewTabs;
 - (__strong WebViewTab *)curWebViewTab;

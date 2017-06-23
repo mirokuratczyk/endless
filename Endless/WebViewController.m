@@ -701,7 +701,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 - (WebViewTab *)addNewTabForURL:(NSURL *)url forRestoration:(BOOL)restoration andFocus:(BOOL)focus withCompletionBlock:(void(^)(BOOL))block
 {
 	WebViewTab *wvt = [[WebViewTab alloc] initWithFrame:[self frameForTabIndex:webViewTabs.count] withRestorationIdentifier:(restoration ? [url absoluteString] : nil)];
-	[wvt.webView.scrollView setDelegate:self];
 
 	[webViewTabs addObject:wvt];
 	[tabChooser setNumberOfPages:webViewTabs.count];
