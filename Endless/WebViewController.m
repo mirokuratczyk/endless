@@ -53,7 +53,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	UIScrollView *tabScroller;
 	UIPageControl *tabChooser;
 	int curTabIndex;
-	int curTabIndexFromRestoration;
 	NSMutableArray *webViewTabs;
 
 	PsiphonConnectionIndicator *psiphonConnectionIndicator;
@@ -128,7 +127,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	webViewTabs = [[NSMutableArray alloc] initWithCapacity:10];
 	curTabIndex = 0;
-	curTabIndexFromRestoration = 0;
 
 	self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height)];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
@@ -397,7 +395,11 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 #endif
 		}
 		[coder encodeObject:wvtd forKey:@"webViewTabs"];
-		[coder encodeObject:[NSNumber numberWithInt:curTabIndex] forKey:@"curTabIndex"];
+		NSNumber *cti = [NSNumber numberWithInt:curTabIndex];
+#ifdef TRACE
+		NSLog(@"encoded restoration state current tab index %@", cti);
+#endif
+		[coder encodeObject:cti forKey:@"curTabIndex"];
 	}
 }
 
@@ -420,10 +422,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	NSNumber *cp = [coder decodeObjectForKey:@"curTabIndex"];
 	if (cp != nil && [webViewTabs count] > 0) {
 		if ([cp intValue] <= [webViewTabs count] - 1) {
-			curTabIndexFromRestoration = [cp intValue];
+			[self setTabIndexFromRestoration:cp];
 		}
 	}
-
 	[self updateSearchBarDetails];
 }
 
@@ -559,6 +560,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	tabScroller.frame = tabScrollerFrame;
 	bottomToolBar.frame = bottomToolBarFrame;
 	navigationBar.alpha = 1.f;
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:NO];
 }
 
 - (void) adjustLayoutForNewHTTPResponse:(WebViewTab*) tab {
@@ -835,26 +837,22 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}];
 }
 
-- (void) setRestorationTabCurrent {
-	if( [[self webViewTabs] count] > 0) {
-		[self setCurTabIndex:curTabIndexFromRestoration];
-	}
-}
-
-- (void) focusTab:(WebViewTab *)tab andRefresh:(BOOL)refresh animated:(BOOL)animated {
-	int focusTabNumber = tab.tabIndex.intValue;
-	[self setCurTabIndex:focusTabNumber];
+- (void) focusTabWithIndex:(int)tabIndex andRefresh:(BOOL)refresh animated:(BOOL)animated{
 	// Only force refresh tabs that are loaded.
 	// Restoration tabs are refreshed when
-	// they are switched to
-	if(refresh && tab.url) {
+	// current index is set
+	WebViewTab* tab = webViewTabs[tabIndex];
+	[self setCurTabIndex:tabIndex];
+
+	if(refresh && !tab.isRestoring && tab.url) {
 		[tab forceRefresh];
 	}
-	if(animated) {
-		[self slideToCurrentTabWithCompletionBlock:nil];
-		if (showingTabs) {
-			[self showTabsWithCompletionBlock:nil];
-		}
+
+	[tabScroller setContentOffset:CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0) animated:animated];
+
+	// zoom normal if zoomed out
+	if (showingTabs) {
+		[self showTabsWithCompletionBlock:nil];
 	}
 }
 
@@ -1419,8 +1417,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			tabToolbar.hidden = false;
 			progressBar.alpha = 0.0;
 		} completion:block];
-
-		tabScroller.contentOffset = CGPointMake([self frameForTabIndex:curTabIndex].origin.x, 0);
 
 		tapWebViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnWebViewTab:)];
 		tapWebViewGestureRecognizer.numberOfTapsRequired = 1;
@@ -2058,7 +2054,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	NSURL *homePageURL = [NSURL URLWithString:homePageURLString];
 
-	for (WebViewTab *wvt in [self webViewTabs]) {
+	int tabIndex;
+	for (tabIndex = 0; tabIndex < webViewTabs.count; tabIndex++) {
+		WebViewTab *wvt = webViewTabs[tabIndex];
 		if ([wvt.url isEqual:homePageURL] || [wvt.webView.restorationIdentifier isEqual:homePageURLString]) {
 			// we have a tab with the URL same as home pages map key
 			found = true;
@@ -2074,7 +2072,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			}
 		}
 		if(found) {
-			[self focusTab:wvt andRefresh:YES animated:YES];
+			[self focusTabWithIndex:tabIndex andRefresh:YES animated:YES];
 			// Do not check other tabs if we got at least one
 			break;
 		}

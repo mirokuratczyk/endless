@@ -533,11 +533,6 @@
 		if(!shouldOpenHomePage) {
 			// Check if there are any tabs. If none then we should show a home page
 			shouldOpenHomePage = ([[[self webViewController] webViewTabs] count]== 0);
-			if(!shouldOpenHomePage) {
-				// Set current index if restoration tab.
-				// That will refresh the tab's content.
-				[[self webViewController] setRestorationTabCurrent];
-			}
 #ifdef TRACE
 			NSLog(@"shouldOpenHomePage == %@, [[[self webViewController] webViewTabs] count]== %lu", shouldOpenHomePage ? @"YES" : @"NO", (unsigned long)[[[self webViewController] webViewTabs] count]);
 #endif
@@ -563,6 +558,27 @@
 
 				if(shouldStartTimer) {
 					[self startAppActiveTimer];
+				}
+			}
+		} else {
+			// Check if all present tabs are from restoration
+			// In that case we need to focus one with the restoration index
+			// to make sure it is switched to and refreshed
+			BOOL shouldFocusRestorationTab = YES;
+			int tabIndex;
+			for (tabIndex = 0; tabIndex < [[[self webViewController] webViewTabs] count]; tabIndex++) {
+				WebViewTab* wvt = [[self webViewController] webViewTabs][tabIndex];
+				if (!wvt.isRestoring) {
+					shouldFocusRestorationTab = NO;
+					break;
+				}
+			}
+
+			if(shouldFocusRestorationTab) {
+				NSNumber *rti = [[self webViewController] tabIndexFromRestoration];
+				if (rti != nil) {
+					tabIndex = [rti intValue];
+					[[self webViewController] focusTabWithIndex: tabIndex andRefresh:NO animated:NO];
 				}
 			}
 		}
