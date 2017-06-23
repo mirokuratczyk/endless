@@ -12,7 +12,16 @@
 
 /* note that UIWebView has its own HSTS cache that comes preloaded with a big plist of hosts, but we can't change it or manually add to it */
 
-@implementation HSTSCache
+@implementation HSTSCache {
+	// NSMutableDictionary is not thread safe
+	// if it gets mutated while writing to file
+	// the app will crash with an exception thrown
+	// in __NSFastEnumerationMutationHandler.
+	// To avoid that we will
+	// perform add/remove operations and
+	// writing on disk on the same serial queue
+	dispatch_queue_t hstsQueue;
+}
 
 static NSDictionary *_preloadedHosts;
 
@@ -26,6 +35,7 @@ static NSDictionary *_preloadedHosts;
 {
 	self = [super init];
 	_dict = [[NSMutableDictionary alloc] init];
+	hstsQueue = dispatch_queue_create("com.psiphon3.hstsQueue", NULL);
 	return self;
 }
 
@@ -72,7 +82,9 @@ static NSDictionary *_preloadedHosts;
 
 - (void)persist
 {
-	[self writeToFile:[[self class] hstsCachePath] atomically:YES];
+	dispatch_async(hstsQueue, ^{
+		[self writeToFile:[[self class] hstsCachePath] atomically:YES];
+	});
 }
 
 - (NSURL *)rewrittenURI:(NSURL *)URL
@@ -207,12 +219,16 @@ static NSDictionary *_preloadedHosts;
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
-	[[self dict] setValue:value forKey:key];
+	dispatch_async(hstsQueue, ^{
+		[[self dict] setValue:value forKey:key];
+	});
 }
 
 - (void)removeObjectForKey:(id)aKey
 {
-	[[self dict] removeObjectForKey:aKey];
+	dispatch_async(hstsQueue, ^{
+		[[self dict] removeObjectForKey:aKey];
+	});
 }
 
 - (NSArray *)allKeys
