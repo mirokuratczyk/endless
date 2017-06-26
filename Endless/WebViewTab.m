@@ -458,20 +458,23 @@
 		}
 	}
 	else if ([action isEqualToString:@"window.close"]) {
-		// Close the current tab.
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
+		// Close the current tab if it is opened by hash
+		// same style as 'Back' button behaviour
+		NSString *callBack = @"console.warn('Scripts may close only the windows that were opened by it.')";
+		if (self.openedByTabHash) {
+			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm", @"Title for the 'Allow this page to close its tab?' alert") message:NSLocalizedString(@"Allow this page to close its tab?", @"Alert dialog text") preferredStyle:UIAlertControllerStyleAlert];
 
-		UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			[[[AppDelegate sharedAppDelegate] webViewController] removeTab:[self tabIndex]];
-		}];
+			UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+				[[[AppDelegate sharedAppDelegate] webViewController] removeTabOpenedByHash:self.tabIndex];
+			}];
 
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
-		[alertController addAction:cancelAction];
-		[alertController addAction:okAction];
-
-		[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
-
-		[self webView:__webView callbackWith:@""];
+			UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];
+			[alertController addAction:cancelAction];
+			[alertController addAction:okAction];
+			callBack = @"";
+			[[[AppDelegate sharedAppDelegate] webViewController] presentViewController:alertController animated:YES completion:nil];
+		}
+		[self webView:__webView callbackWith:callBack];
 	}
 	else if ([action isEqualToString:@"noscript"]) {
 		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
@@ -483,7 +486,6 @@
 		}
 		[self webView:__webView callbackWith:callBack];
 	}
-
 	return NO;
 }
 
@@ -817,14 +819,7 @@
 		[[self webView] goBack];
 	}
 	else if (self.openedByTabHash) {
-		for (WebViewTab *wvt in [[[AppDelegate sharedAppDelegate] webViewController] webViewTabs]) {
-			if ([wvt hash] == [self.openedByTabHash longValue]) {
-				[[[AppDelegate sharedAppDelegate] webViewController] removeTabOpenedByHash:self.tabIndex];
-				return;
-			}
-		}
-
-		[[[AppDelegate sharedAppDelegate] webViewController] removeTab:self.tabIndex];
+		[[[AppDelegate sharedAppDelegate] webViewController] removeTabOpenedByHash:self.tabIndex];
 	}
 }
 

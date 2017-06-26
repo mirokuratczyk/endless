@@ -824,6 +824,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		tabScroller.contentSize = CGSizeMake(self.view.frame.size.width * tabChooser.numberOfPages, tabScroller.frame.size.height);
 
+		// TODO: Investigate the for loop below code closer,
+		// seems like not having it breaks UI, but we don't know why
 		for (int i = 0; i < webViewTabs.count; i++) {
 			WebViewTab *wvt = webViewTabs[i];
 
