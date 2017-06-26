@@ -45,6 +45,10 @@
 	<string>Launch Screen</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This lets you save and upload photos.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Bourbon-RegularOblique.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>

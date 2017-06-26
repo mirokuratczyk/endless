@@ -71,11 +71,9 @@
 		4E628E991EF89D1A00F8B3B5 /* PsiphonSettingsTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E628E981EF89D1A00F8B3B5 /* PsiphonSettingsTextFieldViewCell.m */; };
 		4E628E9E1EF89D2C00F8B3B5 /* TutorialPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E628E9B1EF89D2C00F8B3B5 /* TutorialPageViewController.m */; };
 		4E628E9F1EF89D2C00F8B3B5 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E628E9D1EF89D2C00F8B3B5 /* TutorialViewController.m */; };
-		4E6590C91EAE74DF00825A7A /* onboarding1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C61EAE74DF00825A7A /* onboarding1.mov */; };
-		4E6590CA1EAE74DF00825A7A /* onboarding2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C71EAE74DF00825A7A /* onboarding2.mov */; };
-		4E6590CB1EAE74DF00825A7A /* onboarding3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4E6590C81EAE74DF00825A7A /* onboarding3.mov */; };
 		4E7094601E4CD14A00679B3F /* OnboardingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70945D1E4CD14A00679B3F /* OnboardingInfoViewController.m */; };
 		4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70945F1E4CD14A00679B3F /* OnboardingViewController.m */; };
+		4E7645061F01CB1500DD7ACA /* Bourbon-RegularOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7645051F01CB1500DD7ACA /* Bourbon-RegularOblique.otf */; };
 		4E9610121E36A32C00CDE62E /* FeedbackUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9610111E36A32C00CDE62E /* FeedbackUpload.m */; };
 		4EA463921E395BCD00674DEA /* PsiphonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA463911E395BCD00674DEA /* PsiphonData.m */; };
 		4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB51ECD1E941FBD008676A7 /* AdjustableLabel.m */; };
@@ -219,13 +217,11 @@
 		4E628E9B1EF89D2C00F8B3B5 /* TutorialPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPageViewController.m; path = Endless/TutorialPageViewController.m; sourceTree = SOURCE_ROOT; };
 		4E628E9C1EF89D2C00F8B3B5 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialViewController.h; path = Endless/TutorialViewController.h; sourceTree = SOURCE_ROOT; };
 		4E628E9D1EF89D2C00F8B3B5 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialViewController.m; path = Endless/TutorialViewController.m; sourceTree = SOURCE_ROOT; };
-		4E6590C61EAE74DF00825A7A /* onboarding1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding1.mov; path = Endless/Resources/onboarding1.mov; sourceTree = "<group>"; };
-		4E6590C71EAE74DF00825A7A /* onboarding2.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding2.mov; path = Endless/Resources/onboarding2.mov; sourceTree = "<group>"; };
-		4E6590C81EAE74DF00825A7A /* onboarding3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = onboarding3.mov; path = Endless/Resources/onboarding3.mov; sourceTree = "<group>"; };
 		4E70945C1E4CD14A00679B3F /* OnboardingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingInfoViewController.h; path = Endless/OnboardingInfoViewController.h; sourceTree = SOURCE_ROOT; };
 		4E70945D1E4CD14A00679B3F /* OnboardingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingInfoViewController.m; path = Endless/OnboardingInfoViewController.m; sourceTree = SOURCE_ROOT; };
 		4E70945E1E4CD14A00679B3F /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = Endless/OnboardingViewController.h; sourceTree = SOURCE_ROOT; };
 		4E70945F1E4CD14A00679B3F /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingViewController.m; path = Endless/OnboardingViewController.m; sourceTree = SOURCE_ROOT; };
+		4E7645051F01CB1500DD7ACA /* Bourbon-RegularOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bourbon-RegularOblique.otf"; path = "Endless/Resources/Bourbon-RegularOblique.otf"; sourceTree = "<group>"; };
 		4E9610101E36A32C00CDE62E /* FeedbackUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackUpload.h; path = Endless/FeedbackUpload.h; sourceTree = SOURCE_ROOT; };
 		4E9610111E36A32C00CDE62E /* FeedbackUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackUpload.m; path = Endless/FeedbackUpload.m; sourceTree = SOURCE_ROOT; };
 		4EA463901E395BCD00674DEA /* PsiphonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PsiphonData.h; path = Endless/PsiphonData.h; sourceTree = SOURCE_ROOT; };
@@ -414,11 +410,9 @@
 				01801EC21A3360F8002B4718 /* InAppSettings.bundle */,
 				01D7412B1A45F8EB007B7033 /* injected.js */,
 				01FC0E561B38FB6B00955D9A /* Launch Screen.xib */,
-				4E6590C61EAE74DF00825A7A /* onboarding1.mov */,
-				4E6590C71EAE74DF00825A7A /* onboarding2.mov */,
-				4E6590C81EAE74DF00825A7A /* onboarding3.mov */,
 				0135F4751A3D2931005A8F16 /* SearchEngines.plist */,
 				01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */,
+				4E7645051F01CB1500DD7ACA /* Bourbon-RegularOblique.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -707,6 +701,7 @@
 				6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */,
 				01801EC31A3360F8002B4718 /* InAppSettings.bundle in Resources */,
 				446CB0A11DFF613900AEC0A9 /* Root.strings in Resources */,
+				4E7645061F01CB1500DD7ACA /* Bourbon-RegularOblique.otf in Resources */,
 				01D7412C1A45F8EB007B7033 /* injected.js in Resources */,
 				4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */,
 				4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */,
@@ -716,9 +711,6 @@
 				01F8794C1A4124FE00A63654 /* credits.html in Resources */,
 				44E7792D1DE4DCCF00854379 /* Localizable.strings in Resources */,
 				44E7792A1DE4DCCA00854379 /* IASKLocalizable.strings in Resources */,
-				4E6590CB1EAE74DF00825A7A /* onboarding3.mov in Resources */,
-				4E6590C91EAE74DF00825A7A /* onboarding1.mov in Resources */,
-				4E6590CA1EAE74DF00825A7A /* onboarding2.mov in Resources */,
 				016B2FCB1A53466D002D2730 /* hsts_preload.plist in Resources */,
 				01FC0E571B38FB6B00955D9A /* Launch Screen.xib in Resources */,
 			);

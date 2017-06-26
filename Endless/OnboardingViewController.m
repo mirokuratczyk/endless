@@ -22,19 +22,23 @@
 #import "OnboardingInfoViewController.h"
 #import "OnboardingLanguageViewController.h"
 
-#define kNumOnboardingViews 2
+#define kNumOnboardingViews 4
 #define kSubtitleFontName @"SanFranciscoDisplay-Regular"
 
 @implementation OnboardingViewController {
+	UIButton *skipButton;
+
 	UIView *titleView;
 	UIView *subtitleView;
 
-	UIImageView *title;
+	UILabel *title;
 	UILabel *subtitle;
 
 	UIImageView *backDrop;
-	UIImageView *moon;
+	UIImageView *logo;
 	CGFloat bannerOffset;
+
+	NSLayoutConstraint *titleViewTopConstraint;
 
 	BOOL isRTL;
 }
@@ -123,14 +127,14 @@
 														 multiplier:.4f
 														   constant:0]];
 
-	// Add moon
-	moon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-complete"]];
-	moon.translatesAutoresizingMaskIntoConstraints = NO;
-	moon.contentMode = UIViewContentModeScaleAspectFit;
+	// Add logo
+	logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"language-selector-logo"]];
+	logo.translatesAutoresizingMaskIntoConstraints = NO;
+	logo.contentMode = UIViewContentModeScaleAspectFit;
 
-	[backDrop addSubview:moon];
+	[backDrop addSubview:logo];
 
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:logo
 														  attribute:NSLayoutAttributeCenterY
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:backDrop
@@ -138,7 +142,7 @@
 														 multiplier:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? .90f :.82f
 														   constant:0]];
 
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:logo
 														  attribute:NSLayoutAttributeCenterX
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
@@ -146,7 +150,7 @@
 														 multiplier:1.f
 														   constant:0]];
 
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:logo
 														  attribute:NSLayoutAttributeWidth
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
@@ -154,10 +158,10 @@
 														 multiplier:.5f
 														   constant:0]];
 
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:moon
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:logo
 														  attribute:NSLayoutAttributeHeight
 														  relatedBy:NSLayoutRelationEqual
-															 toItem:moon
+															 toItem:logo
 														  attribute:NSLayoutAttributeWidth
 														 multiplier:1.f
 														   constant:0]];
@@ -166,6 +170,15 @@
 	titleView = [[UIView alloc] init];
 	titleView.translatesAutoresizingMaskIntoConstraints = NO;
 	[backDrop addSubview:titleView];
+
+	titleViewTopConstraint = [NSLayoutConstraint constraintWithItem:titleView
+														  attribute:NSLayoutAttributeTop
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:backDrop
+														  attribute:NSLayoutAttributeTop
+														 multiplier:1.f
+														   constant:0];
+	[self.view addConstraint:titleViewTopConstraint];
 
 	subtitleView = [[UIView alloc] init];
 	subtitleView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -196,10 +209,18 @@
 														   constant:0]];
 
 	// Add title
-	title = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"psiphon-browser"]];
+	title = [[UILabel alloc] init];
+	title.numberOfLines = 0;
+	title.adjustsFontSizeToFitWidth = YES;
+	title.userInteractionEnabled = NO;
+	title.font = [UIFont fontWithName:@"Bourbon-RegularOblique" size:34.0f];
+	title.textColor = [UIColor whiteColor];
+	title.textAlignment = NSTextAlignmentCenter;
+	title.text = NSLocalizedString(@"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language.");
+	if ([self unsupportedCharactersForFont:title.font.fontName withString:title.text]) {
+		title.font = [UIFont systemFontOfSize:24.0f];
+	}
 	title.translatesAutoresizingMaskIntoConstraints = NO;
-	title.contentMode = UIViewContentModeScaleAspectFit;
-	[title.layer setMinificationFilter:kCAFilterTrilinear]; // Prevent aliasing
 	[titleView addSubview:title];
 
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
@@ -223,15 +244,15 @@
 														  relatedBy:NSLayoutRelationEqual
 															 toItem:self.view
 														  attribute:NSLayoutAttributeWidth
-														 multiplier:.65f
+														 multiplier:.9f
 														   constant:0]];
 
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:title
 														  attribute:NSLayoutAttributeHeight
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:backDrop
+														  relatedBy:NSLayoutRelationLessThanOrEqual
+															 toItem:titleView
 														  attribute:NSLayoutAttributeHeight
-														 multiplier:.12f
+														 multiplier:1.f
 														   constant:0]];
 
 	// Add subtitle
@@ -279,19 +300,20 @@
 
 	// Vertical layout constraints within backdrop
 	NSDictionary *views = @{
-							@"moon": moon,
+							@"logo": logo,
 							@"titleView": titleView,
 							@"subtitleView": subtitleView
 							};
 
-	[backDrop addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleView][subtitleView][moon]" options:0 metrics:nil views:views]];
+	[backDrop addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView][subtitleView][logo]" options:0 metrics:nil views:views]];
 
 	/* Setup skip button */
-	UIButton *skipButton = [[UIButton alloc] init];
+	skipButton = [[UIButton alloc] init];
 	[skipButton setTitle:NSLocalizedString(@"SKIP", @"Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding") forState:UIControlStateNormal];
 	[skipButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 	[skipButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
 	[skipButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+	skipButton.alpha = 0; // initially hidden
 
 	[skipButton addTarget:self
 				   action:@selector(onboardingEnded)
@@ -323,10 +345,92 @@
 	[[UITapGestureRecognizer alloc] initWithTarget:self
 											action:@selector(moveToNextPage)];
 	[self.view addGestureRecognizer:tutorialPress];
-
-	skipButton.hidden = YES; // Hide skip button until we have > 1 OnboardingInfoViewControllers
 }
-#pragma mark - Helper functions
+#pragma mark - UIPageViewControllerDelegate methods and helper functions
+
+- (BOOL)unsupportedCharactersForFont:(NSString*)font withString:(NSString*)string {
+	for (NSInteger charIdx = 0; charIdx < string.length; charIdx++) {
+		NSString *character = [NSString stringWithFormat:@"%C", [string characterAtIndex:charIdx]];
+		// TODO: need to enumerate a longer list of special characters for this to be more correct.
+		if ([character isEqualToString:@" "]) {
+			// Skip special characters
+			continue;
+		}
+		CGFontRef cgFont = CGFontCreateWithFontName((CFStringRef)font);
+		if (CGFontGetGlyphWithGlyphName(cgFont,  (__bridge CFStringRef)character) == 0) {
+			return YES;
+		}
+	}
+	return NO;
+}
+
+- (void)beginHideLanguageScreenHeader {
+	if (backDrop.image == nil) {
+		backDrop.image = [UIImage imageNamed:@"background"];
+	}
+	title.textColor = [UIColor whiteColor];
+	if ([self getCurrentPageIndex] == PsiphonOnboardingPage1Index) {
+		backDrop.alpha = 0; // should start hidden
+	}
+	titleViewTopConstraint.constant = 0;
+	[UIView animateWithDuration:0.3 animations:^{
+		skipButton.alpha = 0;
+		titleView.alpha = 0.5;
+		subtitleView.alpha = 0.5;
+		backDrop.alpha = 0.5;
+		logo.alpha = 0.5;
+	}];
+}
+
+- (void)hideLanguageScreenHeader {
+	backDrop.image = nil; // remove backdrop
+	title.textColor = [UIColor colorWithRed:0.76 green:0.29 blue:0.21 alpha:1.0];
+	titleViewTopConstraint.constant = 40;
+
+	[UIView animateWithDuration:0.3 animations:^{
+		skipButton.alpha = 1;
+		titleView.alpha = 1;
+		subtitleView.alpha = 0;
+		backDrop.alpha = 1;
+		logo.alpha = 0;
+	}];
+}
+
+- (void)showLanguageScreenHeader {
+	if (backDrop.image == nil) {
+		backDrop.image = [UIImage imageNamed:@"background"];
+	}
+	title.textColor = [UIColor whiteColor];
+	titleViewTopConstraint.constant = 0;
+	[UIView animateWithDuration:0.3 animations:^{
+		skipButton.alpha = 0;
+		titleView.alpha = 1;
+		subtitleView.alpha = 1;
+		backDrop.alpha = 1;
+		logo.alpha = 1;
+	}];
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+	UIViewController <OnboardingChildViewController>*presentedViewController = [_pageController.viewControllers objectAtIndex:0];
+
+	if (presentedViewController.index > PsiphonOnboardingLanguageSelectionScreenIndex) {
+		[self hideLanguageScreenHeader];
+	} else {
+		[self showLanguageScreenHeader];
+	}
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+	UIViewController <OnboardingChildViewController>*presentedViewController = [_pageController.viewControllers objectAtIndex:0];
+	UIViewController <OnboardingChildViewController>*pendingViewController = (UIViewController <OnboardingChildViewController> *)[pendingViewControllers objectAtIndex:0];
+
+	if ((presentedViewController.index == PsiphonOnboardingLanguageSelectionScreenIndex && pendingViewController.index == PsiphonOnboardingPage1Index ) || (presentedViewController.index == PsiphonOnboardingPage1Index && pendingViewController.index == PsiphonOnboardingLanguageSelectionScreenIndex)) {
+		// If we are transitioning from language selection screen to first onboarding screen or vice versa
+		[self beginHideLanguageScreenHeader];
+	}
+}
+
 
 - (NSInteger)getCurrentPageIndex {
 	if ([_pageController.viewControllers count] == 0) {
@@ -391,7 +495,11 @@
 #pragma mark - OnboardingChildViewController delegate methods
 
 - (CGFloat)getBannerOffset {
-	return moon.frame.origin.y + moon.frame.size.height;
+	return logo.frame.origin.y + logo.frame.size.height;
+}
+
+- (CGFloat)getTitleOffset {
+	return titleView.frame.origin.y + titleView.frame.size.height;
 }
 
 - (void)moveToNextPage {
@@ -402,6 +510,11 @@
 	if (index >= kNumOnboardingViews) {
 		[self onboardingEnded];
 	} else {
+		if (index == PsiphonOnboardingLanguageSelectionScreenIndex) {
+			[self showLanguageScreenHeader];
+		} else {
+			[self hideLanguageScreenHeader];
+		}
 		[self.pageController setViewControllers:@[[self viewControllerAtIndex:index]] direction:isRTL ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 	}
 }

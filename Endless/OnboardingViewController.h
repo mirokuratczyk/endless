@@ -19,12 +19,22 @@
 
 #import <UIKit/UIKit.h>
 
+/* Psiphon onboarding pages */
+typedef NS_ENUM(NSInteger, PsiphonOnboardingStep)
+{
+	PsiphonOnboardingLanguageSelectionScreenIndex = 0,
+	PsiphonOnboardingPage1Index,
+	PsiphonOnboardingPage2Index,
+	PsiphonOnboardingPage3Index
+};
+
 @protocol OnboardingViewControllerDelegate <NSObject>
 - (void)onboardingEnded;
 @end
 
 @protocol OnboardingChildViewControllerDelegate <NSObject>
 - (CGFloat)getBannerOffset;
+- (CGFloat)getTitleOffset;
 - (void)onboardingEnded;
 - (void)moveToViewAtIndex:(NSInteger)index;
 @end
