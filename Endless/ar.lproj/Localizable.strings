@@ -7,6 +7,9 @@
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
 "\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"متصفح سايفون\" يحتاج إلى إذن الوصول إلى مكتبة الصور لحفظ وتحميل الصور";
 
+/* Title text on one of the on-boarding screens */
+"Access the Web" = "الوصول للأنترنت";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "إضافة إشارة مرجعية";
 
@@ -33,10 +36,13 @@
 "Bookmarks" = "الإشارات المرجعية";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "تصفح بلا حدود";
 
 /* Field name for display in list */
 "Business Category" = "نوع العمل";
+
+/* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
+"Bypass Censorship" = "تجاوز الحجب";
 
 /* No comment provided by engineer. */
 "Canada" = "كندا";
@@ -44,6 +50,7 @@
 /* Cancel
    Cancel action
    Cancel button on alert
+   Cancel button text which allows user to exit bookmarks view
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "إلغاء";
@@ -89,17 +96,18 @@
    Done button
    Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
 "Done" = "تم ";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "تنزيل الصورة%@. سنقوم بإعلامك فور إنتهاء التنزيل. ";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "جاري التحميل ...";
 
 /* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+"Edit" = "تغيير";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "تغيير إشارة مرجعية";
@@ -127,8 +135,8 @@
 /* No comment provided by engineer. */
 "Go to Settings" = "الذهاب إلى الإعدادات ";
 
-/* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "تصفح سعيد!\nاستكشف أبعد من حدودك.";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+"Happy Browsing!" = "تصفح ممتع!";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "هونغ كونغ";
@@ -151,6 +159,9 @@
 /* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "إذا كان النموذج أعلاه لا يعمل، أو كنتم ترغبون في إرسال لقطة شاشة صورية ، يرجى مراسلتنا على %@";
 
+/* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
+"If your favourite app is blocked, try their website in Psiphon Browser" = "إذا تم حجب تطبيقك المفضل، حاول الدخول إلى موقع التطبيق عبر متصفح سايفون ";
+
 /* No comment provided by engineer. */
 "India" = "الهند";
 
@@ -164,13 +175,16 @@
 "Japan" = "اليابان";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "اللغة";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "اعرف المزيد حول ما نجمعه من بيانات في %@";
 
-/* No comment provided by engineer. */
-"LET'S GO!" = "لنذهب!";
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Learning time is over" = "نهاية فترة التعلم ";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"Let's Go!" = "فلننطلق!";
 
 /* Field name for display in list */
 "Locality" = "المكان";
@@ -192,6 +206,12 @@
 
 /* New browser tab title text */
 "New Tab" = "علامة تبويب جديدة";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"Next" = "التالي";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Now we'll connect to a Psiphon server so you can start browsing." = "سنقوم الآن بالإتصال بخادوم سايفون لتمكينك من التصفح ";
 
 /* Field name for display in list */
 "Object Identifier" = "معرف الكائن ";
@@ -274,6 +294,9 @@
 /* No comment provided by engineer. */
 "Settings" = "إعدادات";
 
+/* Title of second tutorial screen which highlights the settings button */
+"Settings & Help" = "إعدادات و مساعدة";
+
 /* Field name for display in list */
 "Signature Algorithm" = "خوارزمية التوقيع";
 
@@ -289,35 +312,35 @@
 /* No comment provided by engineer. */
 "Spain" = "إسبانيا";
 
-/* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+/* Text of button that user presses to complete onboarding and start tutorial */
+"Start Tutorial" = "بدأ البرنامج التعليمي";
 
 /* Field name for display in list */
 "State/Province" = "الولاية/المقاطعة";
 
-/* No comment provided by engineer. */
+/* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "مؤشر الحالة";
 
 /* Field name for display in list */
 "Street Address" = "عنوان الشارع ";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "نجاح! ";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "تم تنزيل الصورة بنجاح %@";
 
-/* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "علامة الاختيار الخضراء تشير الى أن كل شيء يعمل بشكل جيد و يمكنك أن تبدأ!";
+/* Text on first tutorial screen which highlights the connection indicator */
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "العلامة الخضراء تدل على أن متصفح سايفون متصل وجاهز للإستعمال! ";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"The Internet at your fingertips" = "الإنترنت في متناول يديك";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "إعدادات الجهاز لا تسمح إراسل البريد إلكتروني. الرجاء التحقق من إعدادات البريد الإلكتروني ضمن الإعدادات.";
 
-/* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "هذا هو المكان أين يمكنك الوصول إلى إعدادات المتصفح و البروكسي والحصول على مساعدة و تغيير بلد خادم الشبكة الخاصة الافتراضية وأكثر!";
-
-/* No comment provided by engineer. */
-"This is where you can find information about the status of your connection" = "هذا هو المكان أين يمكنك العثور على معلومات حول حالة الاتصال";
+/* Text on second tutorial screen which highlights the settings button */
+"This is where you can access settings and find help!" = "هنا يمكنك الوصول للإعدادات و إيجاد المساعدة! ";
 
 /* No comment provided by engineer. */
 "Title Label" = "تسمية العنوان ";
@@ -347,17 +370,11 @@
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "جارٍ انتظار الشبكة...";
 
-/* No comment provided by engineer. */
-"Welcome! Here is how to use Psiphon" = "أهلا بك! هنا كيفية استخدام سايفون";
-
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "ما رأيكم؟ من فضلكم، أرسلوا لنا آراءكم وردود فعلكم";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
 "You can find solutions to many common problems in our %@." = "يمكنك العثور على حلول للعديد من المشاكل الشائعة في  %@.";
-
-/* No comment provided by engineer. */
-"You're all set!" = "كل شيء جاهز!";
 
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "ملاحظاتك تجعل سايفون أفضل!";

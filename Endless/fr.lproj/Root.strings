@@ -2,93 +2,146 @@
 "Language" = "Langue";
 /* Item in a list of languages. Sets the application UI language to the one used by the system. */
 "Default language" = "Langue par défaut";
+/* Settings item text. Leads to info about Psiphon Inc. */
 "About" = "À propos";
+/* Settings item text. Leads to the user being able to choose which country/region they want to use a Psiphon Server in. Should be kept short. */
 "Change Region" = "Changer de région";
+/* Settings item text. Leads to a frequently asked questions page. */
 "FAQ" = "FAQ";
+/* Settings section text. This section contains 'Feedback', 'FAQ', 'About', etc.  */
 "Help" = "Aide";
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "Notifications" = "Notifications";
+/* Settings item text. Leads to privacy related options. */
 "Privacy" = "Confidentialité";
+/* Settings item text. Leads to a web page with the Psiphon privacy policy. */
 "Privacy Policy" = "Politique de confidentialité";
 "Psiphon & Browser" = "Psiphon et navigateur";
+/* Settings item text. Leads to settings specific to the Psiphon tunnel, like 'Disable timeouts' and 'Use upstream proxy'. */
 "Psiphon Settings" = "Paramètres de Psiphon";
-"Rate Us" = "Évaluez-nous";
+/* Settings item text. Leads to security related options. */
 "Security" = "Securité";
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
 "Search engine" = "Moteur de recherche";
-"Share on Facebook" = "Partager sur Facebook";
-"Share on Twitter" = "Partager sur Twitter";
-"Social" = "Social";
+/* Settings item text. Leads to screen where user can send feedback about the app to Psiphon Inc. Should be kept short. */
 "Feedback" = "Rétroaction";
+/* Settings item text. Leads to web page with Psiphon's end user license agreement. Should be kept short. */
 "Terms of Use" = "Conditions générales d'utilisation ";
+/* Settings item text. Opens app tutorial. Should be kept short. */
 "Tutorial" = "Tutoriel";
+/* Settings item text, under 'Psiphon Settings'. Disabling timeouts in the Psiphon tunnel can help in really bad network conditions. Text should be kept short. */
 "Disable Timeouts" = "Désactiver les temporisations";
+/* Settings sub-group text. The group contains 'Use upstream proxy'. Text should be kept short. */
 "Proxy" = "Mandataire";
+/* Settings sub-group text. The group contains 'Disable timeouts'. Refers to network request timeouts. Text should be kept short. */
 "Timeouts" = "Temporisations";
+/* Settings item text. User can configure Psiphon to a server connect through another proxy. So the proxy is 'upstream' of the client -- between the client and the server. Text should be kept short. */
 "Use upstream proxy" = "Mandataire ascendant";
+/* Settings item text. The host name or address for the upstream proxy. Text should be kept short. */
 "Host address" = "Adresse de l'hôte";
+/* Settings item text. The network port number for the upstream proxy. Text should be kept short. */
 "Port" = "Port";
+/* Settings item text. Some upstream proxies will require authentication (like username and password) to use. This enables that authentication. Text should be kept short. */
 "Use proxy authentication" = "Authentification pour le mandataire";
+/* Placeholder text for the upstream proxy authentication username. Text should be kept short. */
 "username" = "nom d'utilisateur";
+/* Placeholder text for the upstream proxy authentication password. Text should be kept short. */
 "password" = "mot de passe";
+/* Placeholder text for the upstream proxy authentication domain. This should convey to the user that a domain name should be used in this field. Text should be kept short. */
 "example.com" = "exemple.com";
+/* Settings item text for upstream proxy authentication username. Text should be kept short. */
 "Proxy username" = "Mandataire - Nom d'utilisateur";
+/* Settings item text for upstream proxy authentication password. Text should be kept short. */
 "Proxy password" = "Mandataire - Mot de passe";
+/* Settings item text for upstream proxy authentication domain. Text should be kept short. */
 "Proxy domain" = "Mandataire - Domaine";
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
 "Sound" = "Son";
+/* Settings explanatory text for the sound notification toggle. */
 "Play sound when connection status changes" = "Émettre un son quand l'état de connexion change";
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
 "Vibrate" = "Vibrer";
+/* Settings explanatory text for the vibration notification toggle. */
 "Vibrate when connection status changes" = "Vibrer quand l'état de connexion change";
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "Les meilleures performances";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "États-Unis";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "Royaume-Uni";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "Canada";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "Japon";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "Allemagne";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "Singapour";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "Pays-Bas";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "Inde";
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "Espagne";
-"DuckDuckGo" = "DuckDuckGo";
-"Google" = "Google";
-"Startpage" = "Startpage";
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). */
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
 "Clear all when backgrounded" = "Tout effacer lorsque mis en arrière-plan";
-"All tabs and non-whitelisted cookies will be cleared when switching to another app." = "Tous les onglets et les témoins absents de la liste blanche seront effacés lors du passage à une autre appli.";
-"Clear cookies if unused for" = "Effacer les témoins s'ils sont inutilisés pendant";
-/* Text explaining to the user the 'Clear cookies if unused for' setting. */
-"Clear cookies and local storage data from non-whitelisted hosts if not in use for this amount of time" = "Effacer les témoins et les données de stockage locales des hôtes absents de la liste blanche s'ils ne sont pas utilisés pendant ce délai";
-"Cookie Whitelist" = "Liste blanche des témoins";
-"Send \"Do-Not-Track\" requests" = "Envoyer des requêtes « Ne pas me suivre à la trace »";
-"15 min" = "15 min";
-"30 min" = "30 min";
-"12 hrs" = "12 h";
-"24 hrs" = "24 h";
-"HTTPS" = "HTTPS";
-"HTTPS EVERYWHERE" = "HTTPS PARTOUT";
-"Minimum SSL/TLS Version" = "Version minimale de SSL/TLS";
-"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Version minimale de SSL/TLS exigée pour les connexion HTTPS ; il pourrait être nécessaire de forcer la fermeture de l'appli pour que cette option prenne effet.";
-"TLS 1.2 only (no SSL)" = "TLS 1.2 seulement (pas de SSL)";
-"TLS 1.1 or 1.2 (no SSL)" = "TLS 1.1 ou 1.2 (pas de SSL)";
-"TLS 1.0, 1.1, or 1.2 (no SSL)" = "TLS 1.0, 1.1 ou 1.2 (pas de SSL)";
-"Auto-negotiate\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)" = "Négociation automatique\n(SSL v2 / v3, TLS 1.0 / 1.1 / 1.2)";
-"Your Comments" = "Vos commentaires";
-"Your Email Address" = "Votre adresse courriel";
-"Where can we respond to you?" = "Où pouvons-nous vous répondre ?";
-"Diagnostic Data" = "Données de diagnostic";
-"Upload diagnostic data" = "Téléverser les données de diagnostic";
-"Ask sites and their third party content providers not to track you." = "Demander aux sites et à leurs fournisseurs de contenu tiers de ne pas vous suivre à la trace.";
-"Disable JavaScript" = "Désactiver JavaScript";
-"Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web." = "Empêche JavaScript d'être exécuté dans votre navigateur. Cela empêchera le bon fonctionnement de la plupart des sites Web, mais pourrait aider à vous protéger alors que vous naviguez sur le Web.";
-"Allow Cookies" = "Autoriser les témoins";
-"Manage what types of cookies Psiphon Browser allows." = "Gérer quels types de témoins le navigateur Psiphon autorise.";
-"Always Block" = "Toujours bloquer";
-"Block All" = "Tout bloquer";
-"Always Allow" = "Toujours autoriser";
-"Allow All" = "Tout autoriser";
-"Allow from Current Website Only" = "Autoriser du site Web actuel seulement";
-"Current Website Only" = "Site Web actuel seulement";
-"Allow from Websites I Visit" = "Autoriser des sites Web | Visite";
-"Websites I Visit" = "Sites Web | Visite";
-"Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "Les sites Web peuvent enregistrer des témoins et d'autres données sur votre appareil pour vous identifier lors de votre navigation. Ces données sont habituellement utilisées pour fournir des services et du contenu qui vous sont spécifiques. Cela peut inclure des informations de connexion, des préférences et des informations personnelles telles que votre nom et votre adresse courriel. Le navigateur Psiphon bloque par défaut les témoins provenant de sites autres que ceux que vous visitez (témoins tiers) afin d'aider à empêcher les annonceurs publicitaires de stocker des données sur votre appareil.";
-"Clear cookies and website data" = "Effacer les témoins et les données de sites Web";
-"Cookies and local storage will be cleared." = "Les témoins et le stockage local seront effacés";
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
 "All tabs, cookies and website data will be cleared when switching to another app." = "Tous les onglets, témoins et données de sites Web seront effacés lors du passage à une autre appli.";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"Send \"Do-Not-Track\" requests" = "Envoyer des requêtes « Ne pas me suivre à la trace »";
+/* Explanatory text for the "Do Not Track" setting. */
+"Ask sites and their third party content providers not to track you." = "Demander aux sites et à leurs fournisseurs de contenu tiers de ne pas vous suivre à la trace.";
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"Minimum SSL/TLS Version" = "Version minimale de SSL/TLS";
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "Version minimale de SSL/TLS exigée pour les connexion HTTPS ; il pourrait être nécessaire de forcer la fermeture de l'appli pour que cette option prenne effet.";
+/* On the feedback screen, this is the label on the text box where the user can supply their comments that will be sent to Psiphon Inc. This text should be kept short. */
+"Your Comments" = "Vos commentaires";
+/* On the feedback screen, this is the label on the text box where the user can supply their email address along with their feedback that will be sent to Psiphon Inc. This text should be kept short. */
+"Your Email Address" = "Votre adresse courriel";
+/* On the feedback screen, this is the placeholder text for the email address text field. This text should be kept short. */
+"Where can we respond to you?" = "Où pouvons-nous vous répondre ?";
+/* On the feedback screen, this is the label above the "Upload diagnostic data" option. This text should be kept short. */
+"Diagnostic Data" = "Données de diagnostic";
+/* On the feedback screen, this is the label for the option that causes some diagnostic data to be send along with the feedback. The diagnostic data is stuff like OS version, app configuration, and logs indicating Psiphon connection info. This text should be kept short. */ 
+"Upload diagnostic data" = "Téléverser les données de diagnostic";
+/* Label for a privacy-related setting. This toggle enables/disables JavaScript from functioning in the browser. Text should be kept short. */
+"Disable JavaScript" = "Désactiver JavaScript";
+/* Explanatory text for the "Disable JavaScript" setting. */
+"Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web." = "Empêche JavaScript d'être exécuté dans votre navigateur. Cela empêchera le bon fonctionnement de la plupart des sites Web, mais pourrait aider à vous protéger alors que vous naviguez sur le Web.";
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"Allow Cookies" = "Autoriser les témoins";
+/* Explanatory text for the "Allow Cookies" setting. */
+"Manage what types of cookies Psiphon Browser allows." = "Gérer quels types de témoins le navigateur Psiphon autorise.";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Always Block" = "Toujours bloquer";
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Block All" = "Tout bloquer";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Always Allow" = "Toujours autoriser";
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Allow All" = "Tout autoriser";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Allow from Current Website Only" = "Autoriser du site Web actuel seulement";
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Current Website Only" = "Site Web actuel seulement";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Allow from Websites I Visit" = "Autoriser des sites Web | Visite";
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"Websites I Visit" = "Sites Web | Visite";
+/* Explanatory text on the "Allow Cookies" setting options page. */
+"Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "Les sites Web peuvent enregistrer des témoins et d'autres données sur votre appareil pour vous identifier lors de votre navigation. Ces données sont habituellement utilisées pour fournir des services et du contenu qui vous sont spécifiques. Cela peut inclure des informations de connexion, des préférences et des informations personnelles telles que votre nom et votre adresse courriel. Le navigateur Psiphon bloque par défaut les témoins provenant de sites autres que ceux que vous visitez (témoins tiers) afin d'aider à empêcher les annonceurs publicitaires de stocker des données sur votre appareil.";
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"Clear cookies and website data" = "Effacer les témoins et les données de sites Web";
+/* Explanatory text for the "Clear cookies and website data" command. */
+"Cookies and local storage will be cleared." = "Les témoins et le stockage local seront effacés";
+/* Label for a settings item that will lead the user to some suggestions for improving a "bad" -- slow, unresponsive, etc. -- connection. This text should be kept short. */
+"My connection is bad, help!" = "Ma connexion est mauvaise, aidez-moi !";
+/* Explanatory text for the "Change Region" setting on the "My connection is bad, help!" settings page. */
+"Changing your region to Best Performance increases your chances of getting connected." = "Sélectionner Les meilleures performances comme région augmente vos chances d'être connecté.";
+/* Explanatory text for the "Disable Timeouts" setting on the "My connection is bad, help!" settings page. */
+"Disabling timeouts may help you stay connected on slower networks." = "La désactivation des temporisations pourrait vous aider à rester connecté sur les réseaux plus lents.";
+/* Explanatory text for the "Reconnect to the Psiphon server" command on the "My connection is bad, help!" settings page. */
+"Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive." = "Vous reconnecter au serveur Psiphon pourrait vous aider si votre connexion actuelle est lente ou ne répond plus.";
+/* Label for a command on the "My connection is bad, help!" settings page that causes Psiphon to close its server connection and open a new one. */
+"Reconnect to the Psiphon server" = "Se reconnecter au serveur Psiphon";
