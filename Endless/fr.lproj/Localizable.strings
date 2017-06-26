@@ -7,6 +7,9 @@
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
 "\"Psiphon Browser\" needs access to your photo library to save and upload images" = "Le « navigateur Psiphon » doit accéder à votre photothèque pour enregistrer et téléverser des images";
 
+/* Title text on one of the on-boarding screens */
+"Access the Web" = "Accéder au Web";
+
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Ajouter un signet";
 
@@ -38,12 +41,16 @@
 /* Field name for display in list */
 "Business Category" = "Catégorie d'entreprise";
 
+/* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
+"Bypass Censorship" = "Contourner la censure";
+
 /* No comment provided by engineer. */
 "Canada" = "Canada";
 
 /* Cancel
    Cancel action
    Cancel button on alert
+   Cancel button text which allows user to exit bookmarks view
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Annuler";
@@ -89,7 +96,8 @@
    Done button
    Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
 "Done" = "Terminé";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
@@ -127,8 +135,8 @@
 /* No comment provided by engineer. */
 "Go to Settings" = "Aller aux Paramètres";
 
-/* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "Bonne navigation !\nExplorez par-delà vos frontières.";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+"Happy Browsing!" = "Bonne navigation !";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "Hong Kong";
@@ -151,6 +159,9 @@
 /* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "Si le formulaire ci-dessus ne fonctionne pas ou si vous souhaitez nous faire parvenir des captures d'écran, veuillez nous envoyer un courriel à %@";
 
+/* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
+"If your favourite app is blocked, try their website in Psiphon Browser" = "Si votre appli préférée est bloquée, essayez leur site Web avec le navigateur Psiphon.";
+
 /* No comment provided by engineer. */
 "India" = "Inde";
 
@@ -169,8 +180,11 @@
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Apprenez-en davantage sur les données que nous recueillons dans notre %@";
 
-/* No comment provided by engineer. */
-"LET'S GO!" = "ALLONS-Y !";
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Learning time is over" = "Le temps d'apprentissage est terminé";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"Let's Go!" = "Allons-y !";
 
 /* Field name for display in list */
 "Locality" = "Localité";
@@ -192,6 +206,12 @@
 
 /* New browser tab title text */
 "New Tab" = "Nouvelle onglet";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"Next" = "Suivant";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Now we'll connect to a Psiphon server so you can start browsing." = "Nous nous connecterons maintenant à un serveur Psiphon pour que vous puissiez naviguer.";
 
 /* Field name for display in list */
 "Object Identifier" = "Identificateur d'objet";
@@ -274,6 +294,9 @@
 /* No comment provided by engineer. */
 "Settings" = "Paramètres";
 
+/* Title of second tutorial screen which highlights the settings button */
+"Settings & Help" = "Paramètres et aide";
+
 /* Field name for display in list */
 "Signature Algorithm" = "Algorithme de signature";
 
@@ -289,13 +312,13 @@
 /* No comment provided by engineer. */
 "Spain" = "Espagne";
 
-/* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Commencer la navigation";
+/* Text of button that user presses to complete onboarding and start tutorial */
+"Start Tutorial" = "Lancer le tutoriel";
 
 /* Field name for display in list */
 "State/Province" = "État/Province";
 
-/* No comment provided by engineer. */
+/* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "Indicateur d'état";
 
 /* Field name for display in list */
@@ -307,17 +330,17 @@
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
 "Successfully downloaded image %@" = "Vous avez téléchargé l'image %@ avec succès";
 
-/* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "La coche verte indique que tout fonctionne parfaitement et que vous pouvez y aller !";
+/* Text on first tutorial screen which highlights the connection indicator */
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "La coche verte indique que le navigateur Psiphon est connecté et prêt pour que vous commenciez à naviguer.";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"The Internet at your fingertips" = "Internet au bout de vos doigts";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Cet appareil n'est pas configuré pour envoyer des courriels. Veuillez configurer les paramètres de courriel dans l'appli Paramètres.";
 
-/* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "C'est ici que vous pouvez accéder aux paramètres du navigateur et du mandataire, trouver de l'aide, changer le pays du serveur RPV et plus encore !";
-
-/* No comment provided by engineer. */
-"This is where you can find information about the status of your connection" = "C'est ici que vous trouverez des informations sur l'état de votre connexion";
+/* Text on second tutorial screen which highlights the settings button */
+"This is where you can access settings and find help!" = "C'est ici que vous pouvez accéder aux paramètres et trouver de l'aide.";
 
 /* No comment provided by engineer. */
 "Title Label" = "Étiquette de titre";
@@ -347,17 +370,11 @@
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "En attente du réseau...";
 
-/* No comment provided by engineer. */
-"Welcome! Here is how to use Psiphon" = "Bienvenue ! Voici comment utiliser Psiphon";
-
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "À quoi pensez-vous ? Veuillez nous laisser une rétroaction";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
 "You can find solutions to many common problems in our %@." = "Vous trouverez des solutions à de nombreux problèmes habituels dans notre %@.";
-
-/* No comment provided by engineer. */
-"You're all set!" = "Tout est prêt !";
 
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "Votre rétroaction améliore Psiphon !";

@@ -7,14 +7,17 @@
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
 "\"Psiphon Browser\" needs access to your photo library to save and upload images" = "«مرورگر سایفون» برای ذخیره و بارگذاری عکس‌ها، نیازمند دسترسی به آلبوم عکس شما است. ";
 
+/* Title text on one of the on-boarding screens */
+"Access the Web" = "دسترسی به وب";
+
 /* 'Add bookmark' dialog title */
-"Add Bookmark" = "اضافه کردن نشانک";
+"Add Bookmark" = "اضافه کردن بوکمارک";
 
 /* Title above a list of rules */
 "All rules" = "تمام قوانین";
 
 /* Alert dialog text */
-"Allow this page to close its tab?" = "به این صفحه اجازه‌ی بستن زبانه‌اش را می‌دهید؟";
+"Allow this page to close its tab?" = "اجازه‌ی بستن این صفحه را می‌دهید؟";
 
 /* Image download error alert text. %@ will be replaced with the URL of the image. */
 "An error occurred downloading image %@" = "خطا در دانلود عکس %@";
@@ -30,13 +33,16 @@
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"Bookmarks" = "نشانک‌ها";
+"Bookmarks" = "بوکمارک‌ها";
 
 /* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "فراتر از مرزها را پیدا کن";
 
 /* Field name for display in list */
 "Business Category" = "دسته‌ی بازرگانی";
+
+/* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
+"Bypass Censorship" = "سانسور و فیلتر‌ها را دور بزن";
 
 /* No comment provided by engineer. */
 "Canada" = "کانادا";
@@ -44,6 +50,7 @@
 /* Cancel
    Cancel action
    Cancel button on alert
+   Cancel button text which allows user to exit bookmarks view
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "لغو";
@@ -58,25 +65,25 @@
 "Cipher" = "صفر";
 
 /* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "پاک کردن کوکی‌ها و داده";
+"Clear Cookies and Data" = "پاک کردن کوکی‌ها و داده‌ها";
 
 /* Field name for display in list */
 "Common Name" = "نام عمومی";
 
 /* Title for the 'Allow this page to close its tab?' alert */
-"Confirm" = "تأیید";
+"Confirm" = "تایید";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "متصل شد!";
+"Connected!" = "وصل شد!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "Connecting..." = "در حال اتصال...";
 
 /* Field name for display in list */
-"Connection Information" = "اطاعات اتصال";
+"Connection Information" = "اطلاعات اتصال";
 
 /* Action title for long press on link dialog */
-"Copy URL" = "کپی برداری نشانی وب";
+"Copy URL" = "کپی کردن نشانی وب";
 
 /* Field name for display in list */
 "Country" = "کشور";
@@ -89,24 +96,25 @@
    Done button
    Done button at bottom of screen in bookmarks view
    Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
 "Done" = "تمام";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "در حال دانلود عکس %@. بعد از اتمام دانلود به شما اطلاع خواهیم داد.  ";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "درحال دانلود ...";
 
 /* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+"Edit" = "ویرایش";
 
 /* Edit Bookmark dialog title */
-"Edit Bookmark" = "تغییر نشانک";
+"Edit Bookmark" = "ویرایش بوکمارک";
 
 /* 'Add bookmark' dialog text
    Edit Bookmark dialog title text */
-"Enter the details of the URL to bookmark:" = "جزئیات وبسایت را برای نشانک وارد کنید:";
+"Enter the details of the URL to bookmark:" = "جزئیات وبسایت را برای بوکمارک وارد کنید:";
 
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
@@ -119,7 +127,7 @@
 "Extended Validation: Organization" = "اعتبار تمدید شده: سازمان";
 
 /* FAQ link text */
-"Frequently Asked Questions" = "سوال های متداول ";
+"Frequently Asked Questions" = "سوال‌های متداول ";
 
 /* No comment provided by engineer. */
 "Germany" = "آلمان";
@@ -127,8 +135,8 @@
 /* No comment provided by engineer. */
 "Go to Settings" = "رفتن به تنظیمات";
 
-/* No comment provided by engineer. */
-"Happy browsing!\nExplore beyond your borders." = "اوقات خوبی در اینترنت داشته باشید!\nفراتر از مرز‌های خودتان را بیابید.";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+"Happy Browsing!" = "گردش خوبی داشته باشی! ";
 
 /* No comment provided by engineer. */
 "Hong Kong" = "هنگ کنگ";
@@ -149,7 +157,10 @@
 "https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/fa/privacy.html";
 
 /* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"If the above form is not working or you would like to send screenshots, please email us at %@" = "اگر فرم بالا کار نمی‌کند و می‌خواهید تصویری از صفحه‌ موبایلتان برای ما بفرستید، می‌توانید آن را به آدرس  %@  ایمیل کنید.";
+"If the above form is not working or you would like to send screenshots, please email us at %@" = "اگر می‌خواهید تصویری از صفحه‌ موبایلتان برای ما بفرستید و فرم بالا کار نمی‌کند، آن را به آدرس  %@  ایمیل کنید.";
+
+/* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
+"If your favourite app is blocked, try their website in Psiphon Browser" = "اگر اپلیکیشن مورد علاقه‌ی شما فیلتر‌شده، نسخه‌ی وب آن را با مرورگر سایفون امتحان کنید";
 
 /* No comment provided by engineer. */
 "India" = "هند";
@@ -164,13 +175,16 @@
 "Japan" = "ژاپن";
 
 /* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "زبان";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"Learn more about the data we collect in our %@" = "اگر تمایل دارید بدانید ما چه داده‌هایی را جمع آوری می کنیم، به این صفحه بروید %@";
+"Learn more about the data we collect in our %@" = " در صفحه‌ی زیر درباره‌ی داده‌های جمع‌آوری توسط ما بیشتر بخوانید %@";
 
-/* No comment provided by engineer. */
-"LET'S GO!" = "بزن بریم!";
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Learning time is over" = "خودآموز به پایان رسید";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"Let's Go!" = "بزن بریم! ";
 
 /* Field name for display in list */
 "Locality" = "محل";
@@ -185,13 +199,19 @@
 "Mail not configured" = "ایمیل پیکربندی نشده است";
 
 /* No comment provided by engineer. */
-"Message Text View" = "نمای متن پیغام";
+"Message Text View" = "نمایش متن پیغام";
 
 /* No comment provided by engineer. */
 "Netherlands" = "هلند";
 
 /* New browser tab title text */
 "New Tab" = "صفحه‌ی جدید";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"Next" = "بعدی";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Now we'll connect to a Psiphon server so you can start browsing." = "حالا شما را به یکی از سرورهای سایفون وصل می‌کنیم تا در اینترنت بچرخید";
 
 /* Field name for display in list */
 "Object Identifier" = "معرف شئ";
@@ -205,10 +225,10 @@
 "Open" = "بازکردن";
 
 /* Action title for long press on link dialog */
-"Open in a New Tab" = "بازکردن در صفحه‌ای جدید";
+"Open in a New Tab" = "بازکردن در صفحه‌ی جدید";
 
 /* Action title for long press on link dialog */
-"Open in Safari" = "بازکردن در سافاری";
+"Open in Safari" = "بازکردن در Safari";
 
 /* Field name for display in list */
 "Organization" = "سازمان";
@@ -218,7 +238,7 @@
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
-"Page Name (leave blank to use URL)" = "نام صفحه (استفاده‌ی نشانی وب در صورت خالی گذاشتن)";
+"Page Name (leave blank to use URL)" = "نام صفحه ( برای استفاده‌ی نشانی وب،‌ این قسمت را خالی بگذارید )";
 
 /* HTTP authentication alert password input title */
 "Password" = "رمز عبور";
@@ -227,19 +247,19 @@
 "Period of Validity" = "مدت زمان اعتبار";
 
 /* Feedback footer text. */
-"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "لطفاً به خاطر داشته باشید که این داده‌‌های تشخیصی به هیچ عنوان هویت شما را آشکار نمی‌کند و به ما کمک می‌کند که سایفون کارکرد بهتری داشته باشد.";
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "لطفاً به خاطر داشته باشید که این داده‌‌های تشخیصی به هیچ عنوان هویت شما را آشکار نمی‌کند و به بهبود عملکرد سایفون کمک می‌کند.";
 
 /* Field name for display in list */
 "Postal Code" = "کد‌ پستی";
 
 /* Privacy Policy link text */
-"Privacy Policy" = "سیاست حریم خصوصی";
+"Privacy Policy" = "حریم خصوصی";
 
 /* Field name for display in list */
 "Protocol" = "پروتکل";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "به‌دلیل خطا در اپلیکیشن، سایفون قادر به باز شدن نیست، لطفا بازخورد‌های خود را برای ما بفرستید. ";
+"Psiphon can not start due to an internal error, please send feedback." = "سایفون به‌دلیل خطا در اپلیکیشن قادر به باز شدن نیست، لطفا بازخورد‌های خود را برای ما بفرستید. ";
 
 /* Text explaining thumbs up choice in feedback */
 "Psiphon connects\nand performs the\nway I want it to." = "سایفون به‌ خوبی \nوصل می‌شود و\n کار می‌کند.";
@@ -251,28 +271,31 @@
 "Psiphon opens all the wonders of the web to you, no matter where you are" = "فرقی نمی‌کند کجا هستید، سایفون تمام شگفتی‌های وب را به شما نشان ‌می‌دهد.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "جهت به روز کردن صفحه, بکشید";
+"Pull to Refresh Page" = "برای به روز کردن، صفحه را به سمت پایین بکشید";
 
 /* Title of alert to clear local cookies and browsing data */
-"Remove all cookies and browsing data?" = "حذف همه کوکی‌ها و اطلاعات مرورها؟";
+"Remove all cookies and browsing data?" = "حذف همه‌ی کوکی‌ها و اطلاعات مرور شده؟";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "دستورها در این صفحه در حال اجرا هستند. ";
+"Rules in use on current page" = "دستورهای این صفحه در حال اجرا هستند. ";
 
 /* Action title for long press on image dialog */
-"Save Image" = "ذخیره تصویر";
+"Save Image" = "ذخیره‌ی تصویر";
 
 /* Text of button to send feedback */
 "Send" = "فرستادن";
 
 /* Field name for display in list */
-"Serial Number" = "شماره سریال";
+"Serial Number" = "شماره‌ی سریال";
 
 /* Title that is showing above selected server region */
 "Server region:" = "ناحیه‌ی سرور:";
 
 /* No comment provided by engineer. */
 "Settings" = "تنظیمات";
+
+/* Title of second tutorial screen which highlights the settings button */
+"Settings & Help" = "تنظیمات و پشتیبانی";
 
 /* Field name for display in list */
 "Signature Algorithm" = "الگوریتم خاص";
@@ -284,40 +307,40 @@
 "SKIP" = "پرش";
 
 /* No comment provided by engineer. */
-"SKIP TUTORIAL" = "پرش از آموزش";
+"SKIP TUTORIAL" = "پرش از خودآموز";
 
 /* No comment provided by engineer. */
 "Spain" = "اسپانیا";
 
-/* Text of button that user presses to complete onboarding */
-"Start Browsing" = "Start Browsing";
+/* Text of button that user presses to complete onboarding and start tutorial */
+"Start Tutorial" = "خودآموز را شروع کن";
 
 /* Field name for display in list */
 "State/Province" = "ایالت/استان";
 
-/* No comment provided by engineer. */
+/* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "وضعیت نمایشگر";
 
 /* Field name for display in list */
 "Street Address" = "آدرس خیابان";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "با موفقیت دانلود شد";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "عکس %@با موفقیت دانلود شد";
 
-/* No comment provided by engineer. */
-"The green checkmark indicates everything is working beautifully and you're good to go!" = "علامت تیک سبز نشان‌ دهنده‌ی این است که همه چیز به خوبی در حال کار کردن است و برای شما آماده است!";
+/* Text on first tutorial screen which highlights the connection indicator */
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "علامت تیک سبز نشان‌ دهنده‌ی این است که مرورگر سایفون وصل شده‌ و آماده‌ی گردش در وب است. ";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"The Internet at your fingertips" = "اینترنت در دستان شما";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "دستگاه برای فرستادن ایمیل پیکربندی نشده است. لطفاً تنظیمات ایمیل را در تنظیمات اپلیکیشن پیکربندی کنید. ";
 
-/* No comment provided by engineer. */
-"This is where you can access Browser and Proxy Settings, find Help, change the VPN server country, and more!" = "از اینجا می‌توانید به مرورگر و تنظیمات پروکسی، پشتیبانی ، تغییر منطقه‌ی و‌ی پی‌ان  و تنظیمات بیشتر دسترسی پیدا کنید. ";
-
-/* No comment provided by engineer. */
-"This is where you can find information about the status of your connection" = "اینجا می‌توانید از وضعیت اتصال  مطلع شوید. ";
+/* Text on second tutorial screen which highlights the settings button */
+"This is where you can access settings and find help!" = "از اینجا می‌توانید به تنظیمات و پشتیبانی دسترسی پیدا کنید.";
 
 /* No comment provided by engineer. */
 "Title Label" = "عنوان برچسب";
@@ -339,7 +362,7 @@
 "URL" = "نشانی وب";
 
 /* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+"User Name" = "نام کاربری";
 
 /* Field name for display in list */
 "Version" = "نسخه";
@@ -347,20 +370,14 @@
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "Waiting for network..." = "انتظار برای اتصال به شبکه...";
 
-/* No comment provided by engineer. */
-"Welcome! Here is how to use Psiphon" = "خوش آمدید! اینگونه از سایفون استفاده کنید";
-
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "لطفاً نظرهای خود را اینجا بنویسید";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can find solutions to many common problems in our %@." = "شما می‌توانید جواب بیشتر مشکلات رایج را در قسمت %@ پیدا کنید.  ";
-
-/* No comment provided by engineer. */
-"You're all set!" = "همه چیز برای شما آماده است!";
+"You can find solutions to many common problems in our %@." = "پاسخ بیشتر مشکلات رایج را در قسمت %@ پیدا کنید.  ";
 
 /* Introduction text at top of feedback form */
-"Your feedback makes Psiphon better!" = "بازخورد‌های شما کارایی سایفون را بهبود می‌بخشد!";
+"Your feedback makes Psiphon better!" = "بازخورد‌های شما عملکرد سایفون را بهبود می‌بخشد!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
 "yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
