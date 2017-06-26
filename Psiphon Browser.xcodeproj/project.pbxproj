@@ -293,6 +293,14 @@
 		6685BDFE1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Root.strings"; sourceTree = "<group>"; };
 		6685BDFF1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		6685BE001E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		66C7E87A1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/Root.strings; sourceTree = "<group>"; };
+		66C7E87B1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		66C7E87C1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		66C7E87D1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		66C7E87E1F0190BE002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/Root.strings; sourceTree = "<group>"; };
+		66C7E87F1F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		66C7E8801F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/Localizable.strings; sourceTree = "<group>"; };
+		66C7E8811F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -683,6 +691,8 @@
 				es,
 				"pt-PT",
 				nb,
+				bo,
+				km,
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -938,6 +948,8 @@
 				6685BDFA1E314FB100F0E414 /* es */,
 				6685BDFE1E315E1B00F0E414 /* pt-PT */,
 				66094F701E6DEFCF0069EC4E /* nb */,
+				66C7E87A1F01907E002200C3 /* bo */,
+				66C7E87E1F0190BE002200C3 /* km */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -957,6 +969,8 @@
 				6685BDFB1E314FB100F0E414 /* es */,
 				6685BDFF1E315E1B00F0E414 /* pt-PT */,
 				66094F711E6DEFCF0069EC4E /* nb */,
+				66C7E87B1F01907E002200C3 /* bo */,
+				66C7E87F1F0190BF002200C3 /* km */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -976,6 +990,8 @@
 				6685BDFC1E314FB100F0E414 /* es */,
 				6685BE001E315E1B00F0E414 /* pt-PT */,
 				66094F721E6DEFCF0069EC4E /* nb */,
+				66C7E87C1F01907E002200C3 /* bo */,
+				66C7E8801F0190BF002200C3 /* km */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -995,6 +1011,8 @@
 				4EEC58421E3FF4A8006D4087 /* es */,
 				4EEC58451E3FF9E2006D4087 /* pt-PT */,
 				66094F741E6DEFCF0069EC4E /* nb */,
+				66C7E87D1F01907E002200C3 /* bo */,
+				66C7E8811F0190BF002200C3 /* km */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

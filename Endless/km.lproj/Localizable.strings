@@ -1,0 +1,384 @@
+/* %ld will be replaced with the number 1 */
+"%ld rule in use" = "%ld ក្បួនកំពុងប្រើ";
+
+/* %ld will be replaced with a natural number */
+"%ld rules in use" = "%ld ក្បួនកំពុងប្រើ";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"កម្មវិធីរុករក Psiphon\" ត្រូវការចូលប្រើប្រាស់បណ្ណាល័យរូបភាពរបស់អ្នក ដើម្បីរក្សា និងបញ្ជូនរូបភាព";
+
+/* Title text on one of the on-boarding screens */
+"Access the Web" = "Access the Web";
+
+/* 'Add bookmark' dialog title */
+"Add Bookmark" = "បន្ថែមការចំណាំ";
+
+/* Title above a list of rules */
+"All rules" = "ក្បួនទាំងអស់";
+
+/* Alert dialog text */
+"Allow this page to close its tab?" = "អនុញ្ញាតទំព័រនេះបិទផ្ទាំងរបស់វា?";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"An error occurred downloading image %@" = "មានបញ្ហាកើតឡើងពេលកំពុងទាញយករូបភាព %@";
+
+/* HTTP authentication  alert title */
+"Authentication Required" = "ទាមទារការផ្ទៀងផ្ទាត់";
+
+/* Field name for display in list */
+"Begins On" = "Begins On";
+
+/* No comment provided by engineer. */
+"Best Performance" = "ដំណើរការល្អបំផុត";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"Bookmarks" = "ការចំណាំ";
+
+/* Title displayed at the top of all onboardings screens */
+"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+
+/* Field name for display in list */
+"Business Category" = "ផ្នែកពាណិជ្ជកម្ម";
+
+/* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
+"Bypass Censorship" = "Bypass Censorship";
+
+/* No comment provided by engineer. */
+"Canada" = "កាណាដា";
+
+/* Cancel
+   Cancel action
+   Cancel button on alert
+   Cancel button text which allows user to exit bookmarks view
+   Text of button to discard feedback and return to main settings menu
+   Text of cancel button on alert which will dismiss the popup */
+"Cancel" = "បោះបង់";
+
+/* Field name for display in list */
+"Certificate Information" = "ព័ត៌មានវិញ្ញាបនប័ត្រ";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"Change Settings" = "ផ្លាស់ប្តូរការកំណត់";
+
+/* Field name for display in list */
+"Cipher" = "កូដសម្ងាត់";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"Clear Cookies and Data" = "Clear Cookies and Data";
+
+/* Field name for display in list */
+"Common Name" = "Common Name";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"Confirm" = "យល់ព្រម";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"Connected!" = "បានតភ្ជាប់!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"Connecting..." = "កំពុងតភ្ជាប់...";
+
+/* Field name for display in list */
+"Connection Information" = "ព័ត៌មានការតភ្ជាប់";
+
+/* Action title for long press on link dialog */
+"Copy URL" = "ចម្លងអាសយដ្ឋានគេហទំព័រ";
+
+/* Field name for display in list */
+"Country" = "Country";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"Disconnected!" = "ផ្តាច់ការតភ្ជាប់!";
+
+/* Bookmarks dialog 'Done' button title, dismisses the dialog
+   Done action button. dismisses SSL certificate information dialog
+   Done button
+   Done button at bottom of screen in bookmarks view
+   Done button title, dismisses the tab chooser
+   Title of the button that dismisses region selection dialog
+   Title of the button that dismisses the settings menu */
+"Done" = "បញ្ចប់";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+
+/* Image download in progress alert title */
+"Downloading…" = "Downloading…";
+
+/* Edit button at bottom of screen in bookmarks view */
+"Edit" = "Edit";
+
+/* Edit Bookmark dialog title */
+"Edit Bookmark" = "កែប្រែការចំណាំ";
+
+/* 'Add bookmark' dialog text
+   Edit Bookmark dialog title text */
+"Enter the details of the URL to bookmark:" = "បញ្ចូលអាសយដ្ឋានលម្អិតរបស់ URL ទៅកាន់ការចំណាំ៖";
+
+/* Alert dialog title when webpage has failed to load
+   Image download error alert title */
+"Error" = "បញ្ហា";
+
+/* Field name for display in list */
+"Expires After" = "ហួសកំណត់បន្ទាប់ពី";
+
+/* Field name for display in list */
+"Extended Validation: Organization" = "ពន្យាសុពលភាព៖ ស្ថាប័ន";
+
+/* FAQ link text */
+"Frequently Asked Questions" = "សំណួរសួរញឹកញាប់";
+
+/* No comment provided by engineer. */
+"Germany" = "អាល្លឺម៉ង់";
+
+/* No comment provided by engineer. */
+"Go to Settings" = "ទៅការកំណត់";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+"Happy Browsing!" = "Happy Browsing!";
+
+/* No comment provided by engineer. */
+"Hong Kong" = "ហុងកុង";
+
+/* HTTPS Everywhere menu title */
+"HTTPS Everywhere Rules" = "ក្បួន HTTPS Everywhere";
+
+/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
+"https://psiphon.ca/en/about.html" = "https://psiphon.ca/en/about.html";
+
+/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
+"https://psiphon.ca/en/faq.html" = "https://psiphon.ca/en/faq.html";
+
+/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
+"https://psiphon.ca/en/license.html" = "https://psiphon.ca/en/license.html";
+
+/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
+"https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/en/privacy.html";
+
+/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
+"If the above form is not working or you would like to send screenshots, please email us at %@" = "ប្រសិនបើទម្រង់ខាងលើមិនដំណើរការ ឬអ្នកចង់ផ្ញើរូបអេក្រង់ សូមផ្ញើអ៊ីម៉ែលមកកាន់យើង %@";
+
+/* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
+"If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
+
+/* No comment provided by engineer. */
+"India" = "ឥណ្ឌា";
+
+/* Field name for display in list */
+"Issued By" = "ចេញផ្សាយដោយ";
+
+/* Field name for display in list */
+"Issued To" = "ចេញផ្សាយទៅកាន់";
+
+/* No comment provided by engineer. */
+"Japan" = "ជប៉ុន";
+
+/* Title above language box which displays the current app language and all available languages that the app is localized for */
+"Language" = "Language";
+
+/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
+"Learn more about the data we collect in our %@" = "ស្វែងយល់បន្ថែមពីទិន្នន័យ យើងប្រមូលពី %@ របស់យើង";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Learning time is over" = "Learning time is over";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"Let's Go!" = "Let's Go!";
+
+/* Field name for display in list */
+"Locality" = "Locality";
+
+/* HTTP authentication alert log in button action */
+"Log In" = "ចូលប្រើ";
+
+/* Title screen displaying logs */
+"Logs" = "កំណត់ត្រា";
+
+/* InAppSettingsKit */
+"Mail not configured" = "សារមិនបានកំណត់";
+
+/* No comment provided by engineer. */
+"Message Text View" = "បង្ហាញសារជាអក្សរ";
+
+/* No comment provided by engineer. */
+"Netherlands" = "ហូឡង់";
+
+/* New browser tab title text */
+"New Tab" = "ផ្ទាំងថ្មី";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"Next" = "Next";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
+
+/* Field name for display in list */
+"Object Identifier" = "Object Identifier";
+
+/* InAppSettingsKit
+   OK action
+   OK action button */
+"OK" = "យល់ព្រម";
+
+/* Action title for long press on link dialog */
+"Open" = "បើក";
+
+/* Action title for long press on link dialog */
+"Open in a New Tab" = "បើកក្នុងផ្ទាំងថ្មីមួយ";
+
+/* Action title for long press on link dialog */
+"Open in Safari" = "បើកក្នុង កម្មវិធីSafari";
+
+/* Field name for display in list */
+"Organization" = "Organization";
+
+/* Field name for display in list */
+"Organizational Unit Number" = "Organizational Unit Number";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"Page Name (leave blank to use URL)" = "ឈ្មោះទំព័រ (ទុកទំនេរ ដើម្បីប្រើប្រាស់ អាស័យដ្ឋាន URL)";
+
+/* HTTP authentication alert password input title */
+"Password" = "ពាក្យសម្ងាត់";
+
+/* Field name for display in list */
+"Period of Validity" = "រយៈពេលសុពលភាព";
+
+/* Feedback footer text. */
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "សូមចំណាំថាទិន្នន័យវិភាគ មិនអាចបង្ហាញអត្តសញ្ញាណអ្នកឡើយ និងវាជួយអ្នកដំណើរការ Psiphon យ៉ាងរលូន។";
+
+/* Field name for display in list */
+"Postal Code" = "លេខ​កូដ​ប្រៃ​ស​ណី​យ";
+
+/* Privacy Policy link text */
+"Privacy Policy" = "គោលការណ៍​ភាព​ឯកជន";
+
+/* Field name for display in list */
+"Protocol" = "ច្រក";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon មិនអាចដំណើរការដោយសារបញ្ហាខាងក្នុង សូមបញ្ជូនមតិយោបល់។";
+
+/* Text explaining thumbs up choice in feedback */
+"Psiphon connects\nand performs the\nway I want it to." = "Psiphon តភ្ជាប់\nនិងដំណើរការ\nតាមអ្វីដែលខ្ញុំចង់បាន។";
+
+/* Text explaining thumbs down choice in feedback */
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon ជាញឹកញយបរាជ័យ\nក្នុងការតភ្ជាប់ ឬ\nមិនដំណើរការដោយ\nប្រក្រតី។";
+
+/* No comment provided by engineer. */
+"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon បង្ហាញរាល់ចម្ងល់នៃគេហទំព័រមកកាន់អ្នក មិនថាអ្នកនៅទីណាទេ";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"Pull to Refresh Page" = "ទាញ ដើម្បីបង្ហាញទំព័រជាថ្មី";
+
+/* Title of alert to clear local cookies and browsing data */
+"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+
+/* Title above a list of rules in use */
+"Rules in use on current page" = "ក្បួនក្នុងការប្រើប្រាស់ទំព័របច្ចុប្បន្ន";
+
+/* Action title for long press on image dialog */
+"Save Image" = "រក្សាទុករូបភាព";
+
+/* Text of button to send feedback */
+"Send" = "បញ្ជូន";
+
+/* Field name for display in list */
+"Serial Number" = "លេខ​សម្គាល់";
+
+/* Title that is showing above selected server region */
+"Server region:" = "តំបន់ម៉ាស៊ីន៖";
+
+/* No comment provided by engineer. */
+"Settings" = "ការកំណត់";
+
+/* Title of second tutorial screen which highlights the settings button */
+"Settings & Help" = "Settings & Help";
+
+/* Field name for display in list */
+"Signature Algorithm" = "Signature Algorithm";
+
+/* No comment provided by engineer. */
+"Singapore" = "សឹង្ហបុរី";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"SKIP" = "រំលង";
+
+/* No comment provided by engineer. */
+"SKIP TUTORIAL" = "រំលងការណែនាំ";
+
+/* No comment provided by engineer. */
+"Spain" = "អេស៉្បាញ";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"Start Tutorial" = "Start Tutorial";
+
+/* Field name for display in list */
+"State/Province" = "State/Province";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"Status Indicator" = "ស្ថានភាពសូចនាករ";
+
+/* Field name for display in list */
+"Street Address" = "អាសយដ្ឋាន";
+
+/* Image download success alert title */
+"Success!" = "Success!";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"Successfully downloaded image %@" = "Successfully downloaded image %@";
+
+/* Text on first tutorial screen which highlights the connection indicator */
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"The Internet at your fingertips" = "The Internet at your fingertips";
+
+/* InAppSettingsKit */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
+
+/* Text on second tutorial screen which highlights the settings button */
+"This is where you can access settings and find help!" = "This is where you can access settings and find help!";
+
+/* No comment provided by engineer. */
+"Title Label" = "ឈ្មោះចំណងជើង";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"To give permissions tap on 'Change Settings' button" = "ដើម្បីផ្តល់សិទ្ធិ ចុចលើប៊ូតុង 'ផ្លាស់ប្តូរការកំណត់'";
+
+/* No comment provided by engineer. */
+"United Kingdom" = "ចក្រភពអង់គ្លេស";
+
+/* No comment provided by engineer. */
+"United States" = "សហរដ្ឋអាមេរិក";
+
+/* No comment provided by engineer. */
+"Unknown Organization" = "ស្ថាប័នមិនស្គាល់";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"URL" = "អាសយដ្ឋាន URL";
+
+/* HTTP authentication alert user name input title */
+"User Name" = "User Name";
+
+/* Field name for display in list */
+"Version" = "ជំនាន់";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"Waiting for network..." = "កំពុងរង់ចាំបណ្តាញ...";
+
+/* Comments section placeholder text */
+"What's on your mind? Please leave us your feedback" = "តើអ្នកគិតអ្វី? សូមផ្តល់មតិយោបល់របស់អ្នក";
+
+/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
+"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+
+/* Introduction text at top of feedback form */
+"Your feedback makes Psiphon better!" = "មតិអ្នកធ្វើឲ្យ Psiphon កាន់តែប្រសើរ!";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'នៅ' HH:mm:ss zzz";
+
