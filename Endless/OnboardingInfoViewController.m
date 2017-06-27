@@ -25,14 +25,17 @@
 // selection screen (OnboardingLanguageViewController).
 // These views display onboarding text describing
 // Psiphon Browser to the user.
+// Note: we should have the full screen to work with
+// because OnboardingViewController should not be presenting
+// any other views.
 @implementation OnboardingInfoViewController {
 	UIView *contentView;
-	UIImageView *thumbnailView;
+	UIImageView *graphic;
 	UILabel *titleView;
 	UILabel *textView;
 	UIButton *letsGoButton;
 
-	NSLayoutConstraint *contentViewYOffsetConstraint;
+	NSLayoutConstraint *graphicYOffsetConstraint;
 }
 
 @synthesize index = _index;
@@ -44,21 +47,29 @@
 	[self.view layoutIfNeeded]; // ensure views have been laid out
 
 	letsGoButton.layer.cornerRadius = letsGoButton.frame.size.height / 2;
-	CGFloat bannerOffset = 0;
+
+	CGFloat titleOffset = 0;
 
 	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
 
-	if ([strongDelegate respondsToSelector:@selector(getBannerOffset)]) {
-		bannerOffset = [strongDelegate getBannerOffset];
+	if ([strongDelegate respondsToSelector:@selector(getTitleOffset)]) {
+		titleOffset = [strongDelegate getTitleOffset];
 	}
 
-	[contentViewYOffsetConstraint setConstant:bannerOffset+4];
+	[graphicYOffsetConstraint setConstant:titleOffset + 40.f];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	CGFloat bannerOffset = 0;
+	/* setup graphic view */
+	graphic = [[UIImageView alloc] init];
+	UIImage *graphicImage = [UIImage imageNamed:[NSString stringWithFormat:@"onboarding-%ld", (long)self.index]];
+	if (graphicImage != nil) {
+		graphic.image = graphicImage;
+	}
+	graphic.contentMode = UIViewContentModeScaleAspectFit;
+	[graphic.layer setMinificationFilter:kCAFilterTrilinear]; // Prevent aliasing
 
 	/* Setup title view */
 	titleView = [[UILabel alloc] init];
@@ -93,43 +104,65 @@
 		   forControlEvents:UIControlEventTouchUpInside];
 
 	/* Setup contentView and its subviews */
+	[self.view addSubview:graphic];
 	contentView = [[UIView alloc] init];
 	[contentView addSubview:titleView];
 	[contentView addSubview:textView];
 	[self.view addSubview:contentView];
 
 	/* Setup autolayout */
+	graphic.translatesAutoresizingMaskIntoConstraints = NO;
 	contentView.translatesAutoresizingMaskIntoConstraints = NO;
 	titleView.translatesAutoresizingMaskIntoConstraints = NO;
 	textView.translatesAutoresizingMaskIntoConstraints = NO;
 	letsGoButton.translatesAutoresizingMaskIntoConstraints = NO;
 
 	NSDictionary *viewsDictionary = @{
+									  @"graphic": graphic,
 									  @"contentView": contentView,
 									  @"titleView": titleView,
 									  @"textView": textView,
 									  @"letsGoButton": letsGoButton
 									  };
 
-	id<OnboardingChildViewControllerDelegate> strongDelegate = self.delegate;
-
-	if ([strongDelegate respondsToSelector:@selector(getBannerOffset)]) {
-		bannerOffset = [strongDelegate getBannerOffset];
-	}
-
 	NSDictionary *metrics = @{
-							  @"bannerOffset": [NSNumber numberWithFloat:bannerOffset],
 							  @"letsGoButtonHeight": [NSNumber numberWithFloat:kLetsGoButtonHeight]
 							  };
 
-	contentViewYOffsetConstraint = [NSLayoutConstraint constraintWithItem:contentView
-																attribute:NSLayoutAttributeTop
-																relatedBy:NSLayoutRelationEqual
-																   toItem:self.view
-																attribute:NSLayoutAttributeTop
-															   multiplier:1.f
-																 constant:0];
-	[self.view addConstraint:contentViewYOffsetConstraint];
+	/* graphic's constraints */
+
+	graphicYOffsetConstraint = [NSLayoutConstraint constraintWithItem:graphic
+															attribute:NSLayoutAttributeTop
+															relatedBy:NSLayoutRelationEqual
+															   toItem:self.view
+															attribute:NSLayoutAttributeTop
+														   multiplier:1.f
+															 constant:0];
+	[self.view addConstraint:graphicYOffsetConstraint];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:graphic
+														  attribute:NSLayoutAttributeHeight
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeHeight
+														 multiplier:.55f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:graphic
+														  attribute:NSLayoutAttributeWidth
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeWidth
+														 multiplier:.8f
+														   constant:0]];
+
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:graphic
+														  attribute:NSLayoutAttributeCenterX
+														  relatedBy:NSLayoutRelationEqual
+															 toItem:self.view
+														  attribute:NSLayoutAttributeCenterX
+														 multiplier:1.f
+														   constant:0]];
 
 	/* contentView's constraints */
 	CGFloat contentViewWidthRatio = 0.7f;
@@ -141,7 +174,7 @@
 														 multiplier:contentViewWidthRatio
 														   constant:0]];
 
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[contentView]|" options:0 metrics:metrics views:viewsDictionary]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[graphic][contentView]|" options:0 metrics:metrics views:viewsDictionary]];
 
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
 														  attribute:NSLayoutAttributeCenterX
@@ -190,19 +223,12 @@
 															relatedBy:NSLayoutRelationEqual
 															   toItem:contentView
 															attribute:NSLayoutAttributeWidth
-														   multiplier:.9f
+														   multiplier:1.f
 															 constant:0]];
 
 	textView.preferredMaxLayoutWidth = 0.9 * contentViewWidthRatio * self.view.frame.size.width;
 	[textView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
 	[textView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:textView
-															attribute:NSLayoutAttributeHeight
-															relatedBy:NSLayoutRelationLessThanOrEqual
-															   toItem:contentView
-															attribute:NSLayoutAttributeHeight
-														   multiplier:0.2f
-															 constant:0]];
 
 	[contentView addConstraint:[NSLayoutConstraint constraintWithItem:textView
 															attribute:NSLayoutAttributeCenterX
@@ -215,16 +241,22 @@
 	/* add vertical constraints for contentView's subviews */
 	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
 
-	/* TEMP: just adding strings so they get translated */
-	NSString* temp = NSLocalizedString(@"Access the Web", @"Title text on one of the on-boarding screens");
-	temp = NSLocalizedString(@"The Internet at your fingertips", @"Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship).");
-	temp = NSLocalizedString(@"Bypass Censorship", @"Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship.");
-	temp = NSLocalizedString(@"If your favourite app is blocked, try their website in Psiphon Browser", @"Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages.");
-	temp = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet.");
-
 	/* Set page specific content */
 	switch (self.index) {
-		case 1: {
+		case PsiphonOnboardingPage1Index: {
+			titleView.text = NSLocalizedString(@"Access the Web", @"Title text on one of the on-boarding screens");
+			textView.text = NSLocalizedString(@"The Internet at your fingertips", @"Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship).");
+			break;
+		}
+		case PsiphonOnboardingPage2Index: {
+			titleView.text = NSLocalizedString(@"Bypass Censorship", @"Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship.");
+			textView.text =  NSLocalizedString(@"If your favourite app is blocked, try their website in Psiphon Browser", @"Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages.");
+			break;
+		}
+		case PsiphonTutorialPage3Index: {
+			titleView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
+			textView.text = @"";
+
 			/* add letsGoButton to view */
 			[contentView addSubview:letsGoButton];
 
@@ -247,8 +279,6 @@
 
 			[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
 
-			titleView.text = NSLocalizedString(@"Psiphon opens all the wonders of the web to you, no matter where you are", @"");
-			//textView.text = ...
 			break;
 		}
 		default:

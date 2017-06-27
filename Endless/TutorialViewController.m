@@ -142,6 +142,8 @@
 
 	if ([self getCurrentPageIndex] < PsiphonTutorialPage1Index || [self getCurrentPageIndex] >= PsiphonTutorialPage3Index) {
 		skipButton.alpha = 0;
+	} else {
+		skipButton.alpha = 1;
 	}
 }
 
