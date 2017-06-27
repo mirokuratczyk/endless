@@ -630,6 +630,9 @@
 		[wvc addWebViewTab:wvt andSetCurrent:isCurrentTab];
 	}
 
+	// Ensure the navigation bar URL field is filled in correctly.
+	[wvc updateSearchBarDetails];
+
 	[prevWebViewController dismissViewControllerAnimated:NO completion:^{
 		// Remove the root view in case it is still showing
 		[prevWebViewController.view removeFromSuperview];
