@@ -34,6 +34,7 @@ import requests
 DEFAULT_LANGS = {
     'ar': 'ar',         # Arabic
     'de': 'de',         # German
+    'bo': 'bo',         # Tibetan
     'el_GR': 'el',      # Greek
     'es': 'es',         # Spanish
     'fa': 'fa',         # Farsi/Persian
@@ -43,6 +44,7 @@ DEFAULT_LANGS = {
     'id': 'id',         # Indonesian
     'it': 'it',         # Italian
     #'kk': 'kk',         # Kazakh
+    'km': 'km',         # Khmer
     'ko': 'ko',         # Korean
     'nb_NO': 'nb',      # Norwegian
     'nl': 'nl',         # Dutch
