@@ -196,8 +196,7 @@ BOOL linksEnabled;
 
 		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
 
-		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:targetViewController];
-		[self presentViewController:navController animated:YES completion:nil];
+		[self.navigationController pushViewController:targetViewController animated:YES];
 	} else if ([specifier.key isEqualToString:kHttpsEverywhereSpecifierKey]) {
 		[self menuHTTPSEverywhere];
 	} else if ([specifier.key isEqualToString:kUpstreamProxyPort] || [specifier.key isEqualToString:kUpstreamProxyHostAddress]) {
