@@ -306,7 +306,7 @@
 	nextButton.hidden = false;
 	[nextButton setTitle:NSLocalizedString(@"Next", @"Text of the button that the user presses to proceed to the next screen of onboarding") forState:UIControlStateNormal];
 	nextButton.layer.cornerRadius = knextButtonHeight / 2;
-	nextButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+	nextButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:(self.view.frame.size.width - 320) * 0.0112f + 16.0f];
 	nextButton.titleLabel.adjustsFontSizeToFitWidth = YES;
 
 	[nextButton addTarget:self
@@ -320,13 +320,15 @@
 
 
 	/* nextButton.width = 0.55 * self.view.width */
+	CGFloat nextButtonWidth = self.view.frame.size.width * 0.55f;
+	nextButtonWidth = nextButtonWidth > 300 ? 300: nextButtonWidth;
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:nextButton
 														  attribute:NSLayoutAttributeWidth
 														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeWidth
-														 multiplier:.55f
-														   constant:0]];
+															 toItem:nil
+														  attribute:NSLayoutAttributeNotAnAttribute
+														 multiplier:1.f
+														   constant:nextButtonWidth]];
 
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:nextButton
 														  attribute:NSLayoutAttributeHeight
