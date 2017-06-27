@@ -278,8 +278,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self.view insertSubview:tabToolbar aboveSubview:navigationBar];
 
 	tabAddButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTabFromToolbar:)];
-	tabDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWithTabsButton:)];
-	tabDoneButton.title = NSLocalizedString(@"Done", @"Done button title, dismisses the tab chooser");
+	tabDoneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Done button title, dismisses the tab chooser") style:UIBarButtonItemStyleDone target:self action:@selector(doneWithTabsButton:)];
 
 	tabToolbar.items = [NSArray arrayWithObjects:
 						[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
