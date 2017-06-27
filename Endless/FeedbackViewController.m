@@ -27,12 +27,12 @@
 
 #define kCommentsFrameHeight 44*3
 
-#define kCommentsSpecifierKey        @"comments"
-#define kEmailSpecifierKey           @"email"
-#define kFooterTextSpecifierKey      @"footerText"
-#define kIntroTextSpecifierKey       @"introText"
-#define kSendDiagnosticsSpecifierKey @"sendDiagnostics"
-#define kThumbsSpecifierKey          @"thumbs"
+#define kCommentsSpecifierKey			@"comments"
+#define kEmailSpecifierKey				@"email"
+#define kFooterTextSpecifierKey			@"footerText"
+#define kIntroTextSpecifierKey			@"introText"
+#define kSendDiagnosticsSpecifierKey	@"sendDiagnostics"
+#define kThumbsSpecifierKey				@"thumbs"
 
 @implementation FeedbackViewController {
 	FeedbackThumbsCell *_thumbsCell;
@@ -62,8 +62,8 @@
 																			 action:@selector(sendFeedback:)];
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", "Text of button to discard feedback and return to main settings menu")
 																			 style:UIBarButtonItemStyleDone
-																			target:self.navigationController
-																			action:@selector(dismissModalViewControllerAnimated:)];
+																			target:self
+																			action:@selector(dismiss:)];
 
 	// UISegmentedControl content initialization
 	_thumbsCell = [[FeedbackThumbsCell alloc] init];
@@ -107,7 +107,7 @@
 							 sendDiagnosticInfo:uploadDiagnostics
 							  withPsiphonConfig:psiphonConfig];
 	});
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - IASK UITableView delegate methods
@@ -278,14 +278,10 @@
 	if ([[URL scheme] containsString:@"mailto"]) { // User has clicked feedback email address
 		return YES;
 	}
-	UIViewController *wvc = [[UIViewController alloc] init];
-	UIWebView *wv = [[UIWebView alloc] initWithFrame:self.navigationController.view.bounds];
-	wv.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-	[wv loadRequest:[NSURLRequest requestWithURL:URL]];
-	[wvc.view addSubview:wv];
-
-	[self.navigationController pushViewController:wvc animated:YES];
+	[[AppDelegate sharedAppDelegate].webViewController addNewTabForURL:URL];
+	[[AppDelegate sharedAppDelegate].webViewController settingsWillDismissWithForceReconnect:NO];
+	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	return NO;
 }
 
@@ -344,7 +340,13 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Helper functions
+
+- (void)dismiss:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
