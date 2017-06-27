@@ -172,8 +172,6 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	psiphonConnectionIndicator = [[PsiphonConnectionIndicator alloc]
 								  initWithFrame: [self frameForConnectionIndicator]];
-	[psiphonConnectionIndicator addTarget:self action:@selector(showPsiphonConnectionStatusAlert)
-						 forControlEvents:UIControlEventTouchUpInside];
 
 	[navigationBar addSubview:psiphonConnectionIndicator];
 
@@ -181,19 +179,16 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[lockIcon setFrame:CGRectMake(0, 0, 24, 16)];
 	[lockIcon setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
 	[[lockIcon imageView] setContentMode:UIViewContentModeScaleAspectFit];
-	[lockIcon addTarget:self action:@selector(showSSLCertificate) forControlEvents:UIControlEventTouchUpInside];
 
 	brokenLockIcon = [UIButton buttonWithType:UIButtonTypeCustom];
 	[brokenLockIcon setFrame:CGRectMake(0, 0, 24, 16)];
 	[brokenLockIcon setImage:[UIImage imageNamed:@"broken_lock"] forState:UIControlStateNormal];
 	[[brokenLockIcon imageView] setContentMode:UIViewContentModeScaleAspectFit];
-	[brokenLockIcon addTarget:self action:@selector(showSSLCertificate) forControlEvents:UIControlEventTouchUpInside];
 
 	refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[refreshButton setFrame:CGRectMake(0, 0, 24, 16)];
 	[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
 	[[refreshButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
-	[refreshButton addTarget:self action:@selector(forceRefresh) forControlEvents:UIControlEventTouchUpInside];
 
 	backButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *backImage = [[UIImage imageNamed: isRTL ? @"arrow_right" : @"arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -1489,8 +1484,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		refreshTarget = CGRectMake(isRTL ? 0 : refreshFrame.origin.x - 15, 0, isRTL ? refreshFrame.origin.x + refreshFrame.size.width + 15 : navigationBar.frame.size.width - refreshFrame.origin.x + 15, navigationBar.frame.size.height);
 	}
 
-	CGRect urlFieldTarget = CGRectMake(urlField.frame.origin.x, 0, navigationBar.frame.size.width - urlField.frame.origin.x, navigationBar.frame.size.height);
+	CGRect urlFieldFrame = [navigationBar convertRect:urlField.frame toView:navigationBar];
+	CGRect urlFieldTarget = CGRectMake(urlFieldFrame.origin.x, 0, urlFieldFrame.size.width, navigationBar.frame.size.height);
 
+	// Do not add target/actions for touch events to views fuzzed
+	// this way. This prevents triggering an action twice if the
+	// view is pressed within its frame.
 	if (CGRectContainsPoint(connectionIndicatorTarget, point)) {
 		[self showPsiphonConnectionStatusAlert];
 	} else if (CGRectContainsPoint(lockTarget, point)) {
