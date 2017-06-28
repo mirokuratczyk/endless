@@ -92,6 +92,7 @@
 	backDrop = [[UIImageView alloc] initWithImage:background];
 	backDrop.translatesAutoresizingMaskIntoConstraints = NO;
 	backDrop.contentMode = UIViewContentModeScaleAspectFill;
+	[backDrop.layer setMinificationFilter:kCAFilterTrilinear];
 
 	[self.view addSubview:backDrop];
 
@@ -131,6 +132,7 @@
 	logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"language-selector-logo"]];
 	logo.translatesAutoresizingMaskIntoConstraints = NO;
 	logo.contentMode = UIViewContentModeScaleAspectFit;
+	[logo.layer setMinificationFilter:kCAFilterTrilinear];
 
 	[backDrop addSubview:logo];
 
