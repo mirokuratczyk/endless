@@ -215,7 +215,7 @@
 	title.numberOfLines = 0;
 	title.adjustsFontSizeToFitWidth = YES;
 	title.userInteractionEnabled = NO;
-	title.font = [UIFont fontWithName:@"Bourbon-RegularOblique" size:self.view.frame.size.width * 0.10625f];
+	title.font = [UIFont fontWithName:@"Bourbon-Oblique" size:self.view.frame.size.width * 0.10625f];
 	title.textColor = [UIColor whiteColor];
 	title.textAlignment = NSTextAlignmentCenter;
 	title.text = NSLocalizedString(@"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language.");
