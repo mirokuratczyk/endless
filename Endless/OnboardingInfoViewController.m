@@ -19,7 +19,7 @@
 
 #import "OnboardingInfoViewController.h"
 
-#define kLetsGoButtonHeight 40.0f
+#define k5sScreenWidth 320.f
 
 // 2nd to Nth onboarding screen(s) after the language
 // selection screen (OnboardingLanguageViewController).
@@ -76,7 +76,7 @@
 	titleView.numberOfLines = 0;
 	titleView.adjustsFontSizeToFitWidth = YES;
 	titleView.userInteractionEnabled = NO;
-	titleView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:19.0f];
+	titleView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:(self.view.frame.size.width - k5sScreenWidth) * 0.0134f + 19.0f];
 	titleView.textColor = [UIColor colorWithRed:0.27 green:0.27 blue:0.28 alpha:1.0];
 	titleView.textAlignment = NSTextAlignmentCenter;
 
@@ -85,7 +85,7 @@
 	textView.numberOfLines = 0;
 	textView.adjustsFontSizeToFitWidth = YES;
 	textView.userInteractionEnabled = NO;
-	textView.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+	textView.font = [UIFont fontWithName:@"HelveticaNeue" size:(self.view.frame.size.width - k5sScreenWidth) * 0.0112f + 18.0f];
 	textView.textColor = [UIColor colorWithRed:0.56 green:0.57 blue:0.58 alpha:1.0];
 	textView.textAlignment = NSTextAlignmentCenter;
 
@@ -95,8 +95,7 @@
 	letsGoButton.hidden = false;
 	[letsGoButton setTitle:NSLocalizedString(@"Start Tutorial", @"Text of button that user presses to complete onboarding and start tutorial") forState:UIControlStateNormal];
 	letsGoButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-	letsGoButton.layer.cornerRadius = kLetsGoButtonHeight / 2;
-	letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+	letsGoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:(self.view.frame.size.width - k5sScreenWidth) * 0.0112f + 16.0f];
 	letsGoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
 
 	[letsGoButton addTarget:self
@@ -124,10 +123,6 @@
 									  @"textView": textView,
 									  @"letsGoButton": letsGoButton
 									  };
-
-	NSDictionary *metrics = @{
-							  @"letsGoButtonHeight": [NSNumber numberWithFloat:kLetsGoButtonHeight]
-							  };
 
 	/* graphic's constraints */
 
@@ -174,7 +169,7 @@
 														 multiplier:contentViewWidthRatio
 														   constant:0]];
 
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[graphic][contentView]|" options:0 metrics:metrics views:viewsDictionary]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[graphic][contentView]|" options:0 metrics:nil views:viewsDictionary]];
 
 	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
 														  attribute:NSLayoutAttributeCenterX
@@ -239,7 +234,7 @@
 
 
 	/* add vertical constraints for contentView's subviews */
-	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView]-[textView]-(>=0)-|" options:0 metrics:metrics views:viewsDictionary]];
+	[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleView]-[textView]-(>=0)-|" options:0 metrics:nil views:viewsDictionary]];
 
 	/* Set page specific content */
 	switch (self.index) {
@@ -254,20 +249,22 @@
 			break;
 		}
 		case PsiphonTutorialPage3Index: {
-			titleView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
-			textView.text = @"";
+			titleView.text = @"";
+			textView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
 
 			/* add letsGoButton to view */
 			[contentView addSubview:letsGoButton];
 
 			/* letsGoButton.width = 0.55 * self.view.width */
+			CGFloat letsGoButtonWidth = self.view.frame.size.width * 0.55f;
+			letsGoButtonWidth = letsGoButtonWidth > 300 ? 300 : letsGoButtonWidth;
 			[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGoButton
 																  attribute:NSLayoutAttributeWidth
 																  relatedBy:NSLayoutRelationEqual
-																	 toItem:self.view
-																  attribute:NSLayoutAttributeWidth
-																 multiplier:.55f
-																   constant:0]];
+																	 toItem:nil
+																  attribute:NSLayoutAttributeNotAnAttribute
+																 multiplier:1.f
+																   constant:letsGoButtonWidth]];
 
 			[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGoButton
 																  attribute:NSLayoutAttributeHeight
@@ -277,7 +274,7 @@
 																 multiplier:.076f
 																   constant:0]];
 
-			[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary]];
+			[contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textView]-(>=0)-[letsGoButton]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewsDictionary]];
 
 			break;
 		}

@@ -87,7 +87,7 @@
 {
 	[super viewDidLoad];
 
-	self.title = NSLocalizedString(@"Language", @"");
+	self.title = NSLocalizedString(@"Language", @"Text above language selection box");
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																				  target:self
 																				  action:@selector(dismiss:)];

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,21 +15,24 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HfL-Sx-SP0">
-                    <rect key="frame" x="60" y="140" width="200" height="200"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HfL-Sx-SP0">
+                    <rect key="frame" x="50" y="100" width="275" height="467"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="89y-Fk-4a0"/>
-                        <constraint firstAttribute="width" constant="200" id="Le8-OY-yjc"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="15t-27-w3A"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="HfL-Sx-SP0" secondAttribute="centerX" id="8H3-Bf-b1G"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HfL-Sx-SP0" secondAttribute="trailing" priority="999" constant="50" id="GWy-XY-nkT"/>
+                <constraint firstAttribute="bottom" secondItem="HfL-Sx-SP0" secondAttribute="bottom" constant="100" id="KYE-GN-YHq"/>
+                <constraint firstItem="HfL-Sx-SP0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" priority="999" constant="50" id="a5k-Z1-rBE"/>
+                <constraint firstItem="HfL-Sx-SP0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="fRc-Yv-n3V"/>
                 <constraint firstAttribute="centerY" secondItem="HfL-Sx-SP0" secondAttribute="centerY" id="o92-C3-ylZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="404" y="445"/>
+            <point key="canvasLocation" x="403.5" y="444.5"/>
         </view>
     </objects>
     <resources>
