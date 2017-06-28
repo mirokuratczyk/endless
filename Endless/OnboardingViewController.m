@@ -92,6 +92,7 @@
 	backDrop = [[UIImageView alloc] initWithImage:background];
 	backDrop.translatesAutoresizingMaskIntoConstraints = NO;
 	backDrop.contentMode = UIViewContentModeScaleAspectFill;
+	[backDrop.layer setMinificationFilter:kCAFilterTrilinear];
 
 	[self.view addSubview:backDrop];
 
@@ -131,6 +132,7 @@
 	logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"language-selector-logo"]];
 	logo.translatesAutoresizingMaskIntoConstraints = NO;
 	logo.contentMode = UIViewContentModeScaleAspectFit;
+	[logo.layer setMinificationFilter:kCAFilterTrilinear];
 
 	[backDrop addSubview:logo];
 
@@ -213,12 +215,12 @@
 	title.numberOfLines = 0;
 	title.adjustsFontSizeToFitWidth = YES;
 	title.userInteractionEnabled = NO;
-	title.font = [UIFont fontWithName:@"Bourbon-RegularOblique" size:34.0f];
+	title.font = [UIFont fontWithName:@"Bourbon-Oblique" size:self.view.frame.size.width * 0.10625f];
 	title.textColor = [UIColor whiteColor];
 	title.textAlignment = NSTextAlignmentCenter;
 	title.text = NSLocalizedString(@"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language.");
 	if ([self unsupportedCharactersForFont:title.font.fontName withString:title.text]) {
-		title.font = [UIFont systemFontOfSize:24.0f];
+		title.font = [UIFont systemFontOfSize:self.view.frame.size.width * 0.075f];
 	}
 	title.translatesAutoresizingMaskIntoConstraints = NO;
 	[titleView addSubview:title];

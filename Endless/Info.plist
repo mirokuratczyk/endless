@@ -47,7 +47,7 @@
 	<string>This lets you save and upload photos.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Bourbon-RegularOblique.otf</string>
+		<string>Bourbon-Oblique.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

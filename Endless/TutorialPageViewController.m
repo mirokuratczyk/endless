@@ -21,6 +21,8 @@
 #import "AdjustableLabel.h"
 #import "TutorialPageViewController.h"
 
+#define k5sScreenHeight 568.f
+
 @implementation TutorialPageViewController {
 	UIImageView *arrowView;
 	UILabel *titleView;
@@ -169,7 +171,7 @@
 		[self.view addSubview:letsGo];
 
 		CGFloat buttonWidth = (self.view.frame.size.width) / 3;
-		buttonWidth = buttonWidth > 120 ? buttonWidth : 120;
+		buttonWidth = buttonWidth > 250 ? 250 : buttonWidth;
 
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGo
 															  attribute:NSLayoutAttributeWidth
@@ -179,13 +181,16 @@
 															 multiplier:1.f
 															   constant:buttonWidth]];
 
+		CGFloat buttonHeight = MAX(self.view.frame.size.width, self.view.frame.size.height) * 0.076f;
+		buttonHeight = buttonHeight < 40.f ? 40.f : buttonHeight;
+
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:letsGo
 															  attribute:NSLayoutAttributeHeight
 															  relatedBy:NSLayoutRelationEqual
 																 toItem:nil
 															  attribute:NSLayoutAttributeNotAnAttribute
 															 multiplier:1.f
-															   constant:40.f]];
+															   constant:buttonHeight]];
 
 		NSDictionary *viewsDictionary = @{
 										  @"titleView": titleView,
@@ -233,7 +238,7 @@
 	titleView = [[UILabel alloc] init];
 	titleView.numberOfLines = 0;
 	titleView.textColor = [UIColor whiteColor];
-	titleView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:19.0f];
+	titleView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:(MAX(self.view.frame.size.width, self.view.frame.size.height) - 568) * 0.01096f + 19.0f];
 	titleView.backgroundColor = [UIColor clearColor];
 	titleView.textAlignment = NSTextAlignmentCenter;
 	titleView.adjustsFontSizeToFitWidth = YES;
@@ -243,7 +248,8 @@
 }
 
 - (void)setupTextView {
-	textView = [[AdjustableLabel alloc] initWithDesiredFontSize:16.0f];
+	CGFloat desiredFont = (MAX(self.view.frame.size.width, self.view.frame.size.height) - k5sScreenHeight) * 0.0088f + 16.f;
+	textView = [[AdjustableLabel alloc] initWithDesiredFontSize:desiredFont];
 
 	NSAttributedString *bodyText = [self getBodyTextForPage];
 	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:bodyText];
@@ -255,7 +261,7 @@
 	textView.attributedText = attributedString;
 	textView.textAlignment = NSTextAlignmentCenter;
 	textView.textColor = [UIColor whiteColor];
-	textView.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+	textView.font = [UIFont fontWithName:@"HelveticaNeue" size:desiredFont];
 	textView.backgroundColor = [UIColor clearColor];
 	textView.adjustsFontSizeToFitFrame = YES;
 
@@ -268,7 +274,7 @@
 	[letsGo setBackgroundColor:[UIColor colorWithRed:0.83 green:0.25 blue:0.16 alpha:1.0]];
 	[letsGo setTitle:NSLocalizedString(@"Let's Go!", @"Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser") forState:UIControlStateNormal];
 
-	[letsGo.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
+	[letsGo.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:(MAX(self.view.frame.size.width, self.view.frame.size.height) - k5sScreenHeight) * 0.0088f + 16.f]];
 	[letsGo.titleLabel setAdjustsFontSizeToFitWidth:YES];
 
 	[letsGo addTarget:self
