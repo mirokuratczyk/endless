@@ -244,13 +244,8 @@
 			break;
 		}
 		case PsiphonOnboardingPage2Index: {
-			titleView.text = NSLocalizedString(@"Bypass Censorship", @"Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship.");
-			textView.text =  NSLocalizedString(@"If your favourite app is blocked, try their website in Psiphon Browser", @"Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages.");
-			break;
-		}
-		case PsiphonTutorialPage3Index: {
-			titleView.text = @"";
-			textView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
+			titleView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
+			textView.text = @"";
 
 			/* add letsGoButton to view */
 			[contentView addSubview:letsGoButton];
@@ -290,6 +285,11 @@
 	if ([strongDelegate respondsToSelector:@selector(onboardingEnded)]) {
 		[strongDelegate onboardingEnded];
 	}
+}
+
+- (void)tempStrings {
+	NSString *temp = NSLocalizedString(@"Bypass Censorship", @"Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship.");
+	temp = NSLocalizedString(@"If your favourite app is blocked, try their website in Psiphon Browser", @"Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages.");
 }
 
 @end
