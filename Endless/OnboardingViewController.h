@@ -24,8 +24,7 @@ typedef NS_ENUM(NSInteger, PsiphonOnboardingStep)
 {
 	PsiphonOnboardingLanguageSelectionScreenIndex = 0,
 	PsiphonOnboardingPage1Index,
-	PsiphonOnboardingPage2Index,
-	PsiphonOnboardingPage3Index
+	PsiphonOnboardingPage2Index
 };
 
 @protocol OnboardingViewControllerDelegate <NSObject>
