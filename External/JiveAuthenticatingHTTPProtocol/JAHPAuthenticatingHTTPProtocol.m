@@ -1124,7 +1124,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
 	NSString *CSPheader = nil;
 
-	BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
+	BOOL disableJavascript = NO; // TODO-DISABLE-JAVASCRIPT: hardcode off until fixed
 	if (disableJavascript) {
 		CSPheader = @"script-src 'none';";
 	}

@@ -477,7 +477,7 @@
 		[self webView:__webView callbackWith:callBack];
 	}
 	else if ([action isEqualToString:@"noscript"]) {
-		BOOL disableJavascript = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript];
+		BOOL disableJavascript = NO; // TODO-DISABLE-JAVASCRIPT: hardcode off until fixed
 		NSString* callBack;
 		if (disableJavascript) {
 			callBack = @"__endless.removeNoscript();";
