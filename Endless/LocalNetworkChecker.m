@@ -81,61 +81,63 @@ static NSMutableDictionary *dnsCache;
 
 + (BOOL)isHostOnLocalNet:(NSString *)host
 {
-	if (!localNets) {
-		NSMutableArray *tLocalNets = [[NSMutableArray alloc] initWithCapacity:11];
-		[@{
-			/* rfc6890 */
-			@"0.0.0.0" : @8,
-			@"10.0.0.0" : @8,
-			@"100.64.0.0" : @10,
-			@"127.0.0.0" : @8,
-			@"169.254.0.0" : @16,
-			@"172.16.0.0" : @12,
-			@"192.0.0.0" : @24,
-			@"192.0.2.0" : @24,
-			@"192.88.99.0" : @24,
-			@"192.168.0.0" : @16,
-			@"198.18.0.0" : @15,
-			@"198.51.100.0" : @24,
-			@"203.0.113.0" : @24,
-			@"224.0.0.0" : @4,
-			@"240.0.0.0" : @4,
-			@"255.255.255.255" : @32,
-		} enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-			struct in_addr addr;
+	return NO; // tunneled webview requests will be relative to the Psiphon server and subsequently not have access to the local network
 
-			if (inet_aton([key UTF8String], &addr) != 0) {
-				uint32_t ip = ntohl(addr.s_addr);
-				int cidr = [(NSNumber *)value intValue];
-				uint32_t last = ip + (uint32_t)pow(2, (32 - cidr)) - 1;
-				
-				[tLocalNets addObject:@[ [NSNumber numberWithInt:ip], [NSNumber numberWithInt:last] ]];
-			}
-		}];
-		
-		localNets = [NSArray arrayWithArray:tLocalNets];
-	}
-	
-	NSArray *ips = [[self class] addressesForHostname:host];
-	if (ips == nil)
-		return NO;
-	
-	for (NSString *ip in ips) {
-		struct in_addr addr;
-
-		if (inet_aton([ip UTF8String], &addr) == 0) {
-			continue;
-		}
-		uint32_t uip = ntohl(addr.s_addr);
-
-		for (NSArray *net in localNets) {
-			if (uip >= [((NSNumber *)net[0]) intValue] && uip <= [((NSNumber *)net[1]) intValue]) {
-				return YES;
-			}
-		}
-	}
-	
-	return NO;
+//	if (!localNets) {
+//		NSMutableArray *tLocalNets = [[NSMutableArray alloc] initWithCapacity:11];
+//		[@{
+//			/* rfc6890 */
+//			@"0.0.0.0" : @8,
+//			@"10.0.0.0" : @8,
+//			@"100.64.0.0" : @10,
+//			@"127.0.0.0" : @8,
+//			@"169.254.0.0" : @16,
+//			@"172.16.0.0" : @12,
+//			@"192.0.0.0" : @24,
+//			@"192.0.2.0" : @24,
+//			@"192.88.99.0" : @24,
+//			@"192.168.0.0" : @16,
+//			@"198.18.0.0" : @15,
+//			@"198.51.100.0" : @24,
+//			@"203.0.113.0" : @24,
+//			@"224.0.0.0" : @4,
+//			@"240.0.0.0" : @4,
+//			@"255.255.255.255" : @32,
+//		} enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+//			struct in_addr addr;
+//
+//			if (inet_aton([key UTF8String], &addr) != 0) {
+//				uint32_t ip = ntohl(addr.s_addr);
+//				int cidr = [(NSNumber *)value intValue];
+//				uint32_t last = ip + (uint32_t)pow(2, (32 - cidr)) - 1;
+//
+//				[tLocalNets addObject:@[ [NSNumber numberWithInt:ip], [NSNumber numberWithInt:last] ]];
+//			}
+//		}];
+//
+//		localNets = [NSArray arrayWithArray:tLocalNets];
+//	}
+//
+//	NSArray *ips = [[self class] addressesForHostname:host];
+//	if (ips == nil)
+//		return NO;
+//
+//	for (NSString *ip in ips) {
+//		struct in_addr addr;
+//
+//		if (inet_aton([ip UTF8String], &addr) == 0) {
+//			continue;
+//		}
+//		uint32_t uip = ntohl(addr.s_addr);
+//
+//		for (NSArray *net in localNets) {
+//			if (uip >= [((NSNumber *)net[0]) intValue] && uip <= [((NSNumber *)net[1]) intValue]) {
+//				return YES;
+//			}
+//		}
+//	}
+//
+//	return NO;
 }
 
 @end
