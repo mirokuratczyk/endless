@@ -701,23 +701,37 @@
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			NSURL *imgurl = [NSURL URLWithString:img];
 			[JAHPAuthenticatingHTTPProtocol temporarilyAllow:imgurl];
-			NSData *imgdata = [NSData dataWithContentsOfURL:imgurl];
 
-			if (imgdata) {
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:imgurl];
+			[request setValue:[[AppDelegate sharedAppDelegate] defaultUserAgent] forHTTPHeaderField:@"User-Agent"]; // TODO: we could always set user agent to default if nil in JAHPAuthenticatingHTTPProtocol.m
+
+			NSHTTPURLResponse *response = nil;
+			NSError *error = nil;
+			NSData *imgdata = [NSURLConnection sendSynchronousRequest:request
+													returningResponse:&response
+																error:&error];
+			if (error != nil || (response != nil && [response statusCode] != 200) || imgdata == nil) {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Image download error alert text. %@ will be replaced with the URL of the image."), img];
+					if (error != nil) {
+						errorMessage = [errorMessage stringByAppendingString:[NSString stringWithFormat:@". %@ %@.", NSLocalizedString(@"Error:", @"Text preceeding error description"), [error localizedDescription]]];
+					}
+					if ([response statusCode] != 200) {
+						errorMessage = [errorMessage stringByAppendingString:[NSString stringWithFormat:@". %@ %@.", NSLocalizedString(@"Status code:", @"Text preceeding http response status code"), [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]]]];
+					}
+					UIAlertView *downloadError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:errorMessage delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
+					[downloadInProgress dismissWithClickedButtonIndex:0 animated:YES];
+					[downloadError show];
+				});
+			} else {
 				UIImage *i = [UIImage imageWithData:imgdata];
 				UIImageWriteToSavedPhotosAlbum(i, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
-				UIAlertView *downloadSuccess = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success!", @"Image download success alert title") message:[NSString stringWithFormat:NSLocalizedString(@"Successfully downloaded image %@", @"Image download success alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
 				dispatch_async(dispatch_get_main_queue(), ^{
+					UIAlertView *downloadSuccess = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success!", @"Image download success alert title") message:[NSString stringWithFormat:NSLocalizedString(@"Successfully downloaded image %@", @"Image download success alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
+
 					[downloadInProgress dismissWithClickedButtonIndex:0 animated:YES];
 					[downloadSuccess show];
-				});
-			}
-			else {
-				UIAlertView *downloadError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Image download error alert title") message:[NSString stringWithFormat:NSLocalizedString(@"An error occurred downloading image %@", @"Image download error alert text. %@ will be replaced with the URL of the image."), img] delegate:self cancelButtonTitle: NSLocalizedString(@"OK", @"OK action button") otherButtonTitles:nil];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[downloadInProgress dismissWithClickedButtonIndex:0 animated:YES];
-					[downloadError show];
 				});
 			}
 		});
