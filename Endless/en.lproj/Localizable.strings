@@ -120,6 +120,9 @@
    Image download error alert title */
 "Error" = "Error";
 
+/* Text preceeding error description */
+"Error:" = "Error:";
+
 /* Field name for display in list */
 "Expires After" = "Expires After";
 
@@ -318,6 +321,9 @@
 
 /* Field name for display in list */
 "State/Province" = "State/Province";
+
+/* Text preceeding http response status code */
+"Status code:" = "Status code:";
 
 /* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "Status Indicator";

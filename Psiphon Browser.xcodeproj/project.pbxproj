@@ -27,7 +27,6 @@
 		01D7412C1A45F8EB007B7033 /* injected.js in Resources */ = {isa = PBXBuildFile; fileRef = 01D7412B1A45F8EB007B7033 /* injected.js */; };
 		01D7412F1A466AF0007B7033 /* NSString+JavascriptEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */; };
 		01D741321A49EA14007B7033 /* RuleEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D741311A49EA14007B7033 /* RuleEditorController.m */; };
-		01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EFA7FE1A63851400688398 /* LocalNetworkChecker.m */; };
 		01F2AE391B7FEF5E00D5651A /* SSLCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F2AE381B7FEF5E00D5651A /* SSLCertificate.m */; };
 		01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F2AE3F1B82666900D5651A /* SSLCertificateViewController.m */; };
 		01F2AE421B827BC200D5651A /* SSLCertificate_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F2AE411B827BC200D5651A /* SSLCertificate_Tests.m */; };
@@ -153,8 +152,6 @@
 		01D7412E1A466AF0007B7033 /* NSString+JavascriptEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JavascriptEscape.m"; sourceTree = "<group>"; };
 		01D741301A49EA14007B7033 /* RuleEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuleEditorController.h; sourceTree = "<group>"; };
 		01D741311A49EA14007B7033 /* RuleEditorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuleEditorController.m; sourceTree = "<group>"; };
-		01EFA7FD1A63851400688398 /* LocalNetworkChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNetworkChecker.h; sourceTree = "<group>"; };
-		01EFA7FE1A63851400688398 /* LocalNetworkChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalNetworkChecker.m; sourceTree = "<group>"; };
 		01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLCertificate.h; sourceTree = "<group>"; };
 		01F2AE381B7FEF5E00D5651A /* SSLCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLCertificate.m; sourceTree = "<group>"; };
 		01F2AE3E1B82666900D5651A /* SSLCertificateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLCertificateViewController.h; sourceTree = "<group>"; };
@@ -390,8 +387,6 @@
 			children = (
 				018333CF1A351B3B00670CD1 /* Endless-Prefix.pch */,
 				01801E961A32CA2A002B4718 /* Info.plist */,
-				01EFA7FD1A63851400688398 /* LocalNetworkChecker.h */,
-				01EFA7FE1A63851400688398 /* LocalNetworkChecker.m */,
 				01801E971A32CA2A002B4718 /* main.m */,
 				01F7CB4C1A52FC4E00F42B73 /* NSString+IPAddress.h */,
 				01F7CB4D1A52FC4E00F42B73 /* NSString+IPAddress.m */,
@@ -891,7 +886,6 @@
 				449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */,
 				44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
-				01EFA7FF1A63851400688398 /* LocalNetworkChecker.m in Sources */,
 				4E628E9F1EF89D2C00F8B3B5 /* TutorialViewController.m in Sources */,
 				4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */,
 				4E628E991EF89D1A00F8B3B5 /* PsiphonSettingsTextFieldViewCell.m in Sources */,

@@ -26,22 +26,6 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web.</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>disableJavascript</string>
-			<key>Title</key>
-			<string>Disable JavaScript</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
 			<string>Manage what types of cookies Psiphon Browser allows.</string>
 		</dict>
 		<dict>

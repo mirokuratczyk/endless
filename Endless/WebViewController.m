@@ -1310,15 +1310,17 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 }
 
 - (BOOL) isTabsReloadRequired {
-	if (preferencesSnapshot) {
-		// Check if "disable Javascript" has changed
-		BOOL disableJavascript = [[preferencesSnapshot objectForKey:kDisableJavascript] boolValue];
 
-		if (disableJavascript != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript]) {
-			return YES;
-		}
-	}
-	return NO;
+	return NO; // TODO-DISABLE-JAVASCRIPT: disable javascript hardcoded off until fixed
+//	if (preferencesSnapshot) {
+//		// Check if "disable Javascript" has changed
+//		BOOL disableJavascript = [[preferencesSnapshot objectForKey:kDisableJavascript] boolValue];
+//
+//		if (disableJavascript != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableJavascript]) {
+//			return YES;
+//		}
+//	}
+//	return NO;
 }
 
 - (BOOL)isSettingsRestartRequired
