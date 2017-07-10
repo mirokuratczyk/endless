@@ -46,7 +46,6 @@
  */
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
-#import "LocalNetworkChecker.h"
 #import "CookieJar.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
@@ -492,23 +491,12 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	[mutableRequest setValue:_userAgent forHTTPHeaderField:@"User-Agent"];
 	[mutableRequest setHTTPShouldUsePipelining:YES];
 
-
-	void (^cancelLoading)(void) = ^(void) {
-		/* need to continue the chain with a blank response so downstream knows we're done */
-		[self.client URLProtocol:self didReceiveResponse:[[NSURLResponse alloc] init] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-		[self.client URLProtocolDidFinishLoading:self];
-	};
-
 	if ([NSURLProtocol propertyForKey:ORIGIN_KEY inRequest:mutableRequest]) {
 		_isOrigin = YES;
 	} else if ([[mutableRequest URL] isEqual:[mutableRequest mainDocumentURL]]) {
 		_isOrigin = YES;
 	} else {
 		_isOrigin = NO;
-	}
-
-	if (_isOrigin) {
-		[LocalNetworkChecker clearCache];
 	}
 
 	/* check HSTS cache first to see if scheme needs upgrading */
@@ -530,14 +518,6 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		[_wvt setUrl:[mutableRequest URL]];
 		[_wvt loadURL:[mutableRequest URL]];
 		return nil;
-	}
-
-	if (!_isOrigin) {
-		if (![LocalNetworkChecker isHostOnLocalNet:[[mutableRequest mainDocumentURL] host]] && [LocalNetworkChecker isHostOnLocalNet:[[mutableRequest URL] host]]) {
-			[[self class] authenticatingHTTPProtocol:self logWithFormat:@"[Tab %@] blocking request from origin %@ to local net host %@", _wvt.tabIndex, [mutableRequest mainDocumentURL], [mutableRequest URL]];
-			cancelLoading();
-			return nil;
-		}
 	}
 
 	/* we're handling cookies ourself */
