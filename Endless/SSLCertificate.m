@@ -234,7 +234,12 @@
 		return nil;
 	}
 
-	if (index > ([arr count] - 1)) {
+	if (index < 0) {
+		NSLog(@"[SSLCertificate] invalid index %ld, index must be a non-negative integer", (long)index);
+		return nil;
+	}
+
+	if (index > [arr count]) {
 		NSLog(@"[SSLCertificate] array count is %lu, need index %lu", (unsigned long)[arr count], (long)index);
 		return nil;
 	}
