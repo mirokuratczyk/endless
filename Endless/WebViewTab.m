@@ -427,6 +427,11 @@
 		 */
 
 		/* try to prevent universal links from triggering by refusing the initial request and starting a new one */
+
+		// NOTE that this doesn't seem to protect against opening Apple Maps for http(s)://maps.apple.com and
+		// App Store for http(s)://itunes.apple.com links, it looks like Apple own links are being more 'universal'
+		// than others.
+
 		BOOL iframe = ![[[request URL] absoluteString] isEqualToString:[[request mainDocumentURL] absoluteString]];
 		if (iframe) {
 #ifdef TRACE
