@@ -27,6 +27,7 @@
 #import "SSLCertificate.h"
 
 #define ZOOM_OUT_SCALE 0.6
+#define UNIVERSAL_LINKS_WORKAROUND_KEY @"universalLinksWorkaroundKey"
 
 #define MAX_EQUIVALENT_URLS 5
 

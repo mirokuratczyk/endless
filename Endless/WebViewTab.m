@@ -382,6 +382,76 @@
 			}
 			return NO;
 		}
+
+		/* Taken from upstream:
+		 https://github.com/jcs/endless/commit/436091ff17f3b8724eebb21b235250ae6286fc01
+		 https://github.com/jcs/endless/commit/c08cc646aad41691a371c23ac0311fed6cf23b2d
+
+		 "WVT: add Universal Link protection
+		 Universal Links in iOS allow 3rd party apps to claim URL hosts that
+		 they own, so when links to those hosts are being opened in other
+		 apps, that 3rd party app is executed to handle that URL request.
+
+		 Unfortunately there is no way to disable this, so in a web browser
+		 app like Endless (I also tested in Chrome, Firefox, Brave, Tob, and
+		 Onion Browser), tapping on a link can immediately spawn an installed
+		 3rd party app which will make that URL request without any
+		 confirmation or warning.
+
+		 For example, if the user has the eBay app installed and taps on a
+		 link in Endless pointing to a http://rover.ebay.com/ URL, the eBay
+		 app will immediately be opened and show the auction page being
+		 requested, which could contain an <img> tag in the auction
+		 description that loads from a 3rd party server.  While this isn't a
+		 big deal for Endless, it is for Tor- and VPN-based apps that are
+		 based on Endless which are trying to keep the user's network
+		 activity contained inside the app.
+
+		 Since UIWebView (and WKWebView) offer no indication that such a URL
+		 will be opened as a Universal Link (and probably won't ever, for the
+		 same reason that iOS disabled UIApplication:canOpenURL: so apps
+		 can't figure out which other apps the user has installed), implement
+		 a workaround.
+
+		 In WebViewTab's webView:shouldStartLoadWithRequest: delegate method,
+		 always return NO for top-level requests that get here (which are
+		 links that have been tapped on, window.location= calls, and iframes)
+		 but then just start a new request for the same URL.  This seems
+		 enough to bypass Universal Link activation and still works with a
+		 bunch of sites and Javascript that I tested.
+
+		 Test URL: https://endl.es/tests/decloak"
+
+		 More on the subject:
+		 https://jcs.org/notaweblog/2017/02/14/ios_universal_links_and_privacy
+		 */
+
+		/* try to prevent universal links from triggering by refusing the initial request and starting a new one */
+
+		// NOTE that this doesn't seem to protect against opening Apple Maps for http(s)://maps.apple.com and
+		// App Store for http(s)://itunes.apple.com links, it looks like Apple own links are being more 'universal'
+		// than others.
+
+		BOOL iframe = ![[[request URL] absoluteString] isEqualToString:[[request mainDocumentURL] absoluteString]];
+		if (iframe) {
+#ifdef TRACE
+			NSLog(@"[Tab %@] not doing universal link workaround for iframe %@", [self tabIndex], url);
+#endif
+		} else if (navigationType == UIWebViewNavigationTypeBackForward) {
+#ifdef TRACE
+			NSLog(@"[Tab %@] not doing universal link workaround for back/forward navigation to %@", [self tabIndex], url);
+#endif
+		} else if ([[[url scheme] lowercaseString] hasPrefix:@"http"] && ![NSURLProtocol propertyForKey:UNIVERSAL_LINKS_WORKAROUND_KEY inRequest:request]) {
+			NSMutableURLRequest *tr = [request mutableCopy];
+			[NSURLProtocol setProperty:@YES forKey:UNIVERSAL_LINKS_WORKAROUND_KEY inRequest:tr];
+#ifdef TRACE
+			NSLog(@"[Tab %@] doing universal link workaround for %@", [self tabIndex], url);
+#endif
+			[self.webView loadRequest:tr];
+			return NO;
+		}
+
+		// build a dictionary of equivalent URLs
 		if ([[[request mainDocumentURL] absoluteString] isEqualToString:[[request URL] absoluteString]]) {
 			[self reset];
 
