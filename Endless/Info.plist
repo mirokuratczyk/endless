@@ -41,8 +41,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This lets you take and upload pictures.</string>
 	<key>NSMainNibFile</key>
 	<string>Launch Screen</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This lets you record and upload audio.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This lets you save and upload photos.</string>
 	<key>UIAppFonts</key>
