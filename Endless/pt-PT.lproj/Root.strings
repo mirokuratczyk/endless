@@ -46,7 +46,7 @@
 /* Placeholder text for the upstream proxy authentication username. Text should be kept short. */
 "username" = "username";
 /* Placeholder text for the upstream proxy authentication password. Text should be kept short. */
-"password" = "password";
+"password" = "palavra-passe";
 /* Placeholder text for the upstream proxy authentication domain. This should convey to the user that a domain name should be used in this field. Text should be kept short. */
 "example.com" = "example.com";
 /* Settings item text for upstream proxy authentication username. Text should be kept short. */
@@ -78,7 +78,7 @@
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "Singapura";
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Netherlands" = "Países Baixos";
+"Netherlands" = "Holanda";
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "Índia";
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
@@ -86,7 +86,7 @@
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
 "Clear all when backgrounded" = "Limpar tudo quando em segundo plano";
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"All tabs, cookies and website data will be cleared when switching to another app." = "All tabs, cookies and website data will be cleared when switching to another app.";
+"All tabs, cookies and website data will be cleared when switching to another app." = "Serão limpos todos os separadores, cookies e site da Web quando mudar para outra aplicação.";
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
 "Send \"Do-Not-Track\" requests" = "Enviar pedidos de \"Não Monitoriza\"";
 /* Explanatory text for the "Do Not Track" setting. */
@@ -106,29 +106,29 @@
 /* On the feedback screen, this is the label for the option that causes some diagnostic data to be send along with the feedback. The diagnostic data is stuff like OS version, app configuration, and logs indicating Psiphon connection info. This text should be kept short. */ 
 "Upload diagnostic data" = "Upload diagnostic data";
 /* Label for a privacy-related setting. This toggle enables/disables JavaScript from functioning in the browser. Text should be kept short. */
-"Disable JavaScript" = "Disable JavaScript";
+"Disable JavaScript" = "Desativar JavaScript";
 /* Explanatory text for the "Disable JavaScript" setting. */
 "Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web." = "Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web.";
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"Allow Cookies" = "Allow Cookies";
+"Allow Cookies" = "Permitir Cookies";
 /* Explanatory text for the "Allow Cookies" setting. */
 "Manage what types of cookies Psiphon Browser allows." = "Manage what types of cookies Psiphon Browser allows.";
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Always Block" = "Always Block";
+"Always Block" = "Bloquear Sempre";
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Block All" = "Block All";
+"Block All" = "Bloquear Tudo";
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Always Allow" = "Always Allow";
+"Always Allow" = "Permitir Sempre";
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Allow All" = "Allow All";
+"Allow All" = "Permitir Tudo";
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "Allow from Current Website Only" = "Allow from Current Website Only";
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Current Website Only" = "Current Website Only";
+"Current Website Only" = "Apenas Site da Web Atual";
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Allow from Websites I Visit" = "Allow from Websites I Visit";
+"Allow from Websites I Visit" = "Permitir de Sites da Web I Visitar";
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Websites I Visit" = "Websites I Visit";
+"Websites I Visit" = "Sites da Web I Visitar";
 /* Explanatory text on the "Allow Cookies" setting options page. */
 "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
@@ -136,7 +136,7 @@
 /* Explanatory text for the "Clear cookies and website data" command. */
 "Cookies and local storage will be cleared." = "Cookies and local storage will be cleared.";
 /* Label for a settings item that will lead the user to some suggestions for improving a "bad" -- slow, unresponsive, etc. -- connection. This text should be kept short. */
-"My connection is bad, help!" = "My connection is bad, help!";
+"My connection is bad, help!" = "A minha ligação é má, ajuda!";
 /* Explanatory text for the "Change Region" setting on the "My connection is bad, help!" settings page. */
 "Changing your region to Best Performance increases your chances of getting connected." = "Changing your region to Best Performance increases your chances of getting connected.";
 /* Explanatory text for the "Disable Timeouts" setting on the "My connection is bad, help!" settings page. */

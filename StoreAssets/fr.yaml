@@ -1,13 +1,13 @@
 fr:
   app_name: Navigateur Psiphon
   description: |
-    Après avoir aidé des millions d'utilisateurs à obtenir l'accès aux sites qu'ils aiment dans les environnements les plus hostiles du monde, Psiphon a lancé sa première appli officielle pour iOS ! Notre nouvelle appli de navigation intègre de façon transparente l'accès au réseau de contournement de Psiphon, vous connectant en toute sécurité à vos sites.
+    Après avoir aidé des millions d'utilisateurs à obtenir l'accès aux sites qu'ils aiment, Psiphon a lancé sa première appli officielle pour iOS ! Notre nouvelle appli de navigation intègre de façon transparente l'accès au réseau de Psiphon, vous connectant en toute sécurité à vos sites.
 
-    Psiphon est l'outil de contournement le plus robuste sur le Web. L'appli de navigation Psiphon vous connectera à des sites Web qui sont censurés, bloqués ou autrement non accessibles, où que vous soyez dans le monde. L'appli vous fournit aussi une couche supplémentaire de protection quand vous utilisez des services Wi-Fi publics ou d'autres réseaux qui pourraient ne pas être dignes de confiance.
+    Où que vous soyez dans le monde, l'appli de navigation de Psiphon vous connectera à vos sites Web de destination. L'appli vous fournit aussi une couche supplémentaire de protection quand vous utilisez des services Wi-Fi publics ou d'autres réseaux qui pourraient ne pas être dignes de confiance.
 
     Les caractéristiques clés incluent :
     • Usage personnel gratuit et illimité.
-    • Facile à télécharger, à installer et à utiliser. Aucune inscription ni configuration requise.
-    • Prise en charge de multilingue et emplacement des serveurs configurable.
-    • Sélection automatique des protocoles pour fournir un contournement rapide et fiable, en tout temps.
-  keywords: Psiphon, navigateur, censure, contournement, RPV, VPN, mandataire, proxy
+    • Facile à télécharger, à installer et à utiliser. Aucune inscription ni configuration n'est requise.
+    • Sélection automatique des protocoles pour fournir un accès rapide et fiable en tout temps.
+    • Prise en charge multilingue et emplacement des serveurs configurable.
+  keywords: Psiphon, navigateur, RPV, VPN, mandataire, proxy

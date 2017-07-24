@@ -289,6 +289,10 @@
 		6685BDFE1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Root.strings"; sourceTree = "<group>"; };
 		6685BDFF1E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		6685BE001E315E1B00F0E414 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		66A11B741F2688E100829523 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Root.strings; sourceTree = "<group>"; };
+		66A11B751F2688E100829523 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		66A11B761F2688E100829523 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		66A11B771F2688E100829523 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		66C7E87A1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/Root.strings; sourceTree = "<group>"; };
 		66C7E87B1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		66C7E87C1F01907E002200C3 /* bo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bo; path = bo.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -687,6 +691,7 @@
 				nb,
 				bo,
 				km,
+				vi,
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -942,6 +947,7 @@
 				66094F701E6DEFCF0069EC4E /* nb */,
 				66C7E87A1F01907E002200C3 /* bo */,
 				66C7E87E1F0190BE002200C3 /* km */,
+				66A11B741F2688E100829523 /* vi */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -963,6 +969,7 @@
 				66094F711E6DEFCF0069EC4E /* nb */,
 				66C7E87B1F01907E002200C3 /* bo */,
 				66C7E87F1F0190BF002200C3 /* km */,
+				66A11B751F2688E100829523 /* vi */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -984,6 +991,7 @@
 				66094F721E6DEFCF0069EC4E /* nb */,
 				66C7E87C1F01907E002200C3 /* bo */,
 				66C7E8801F0190BF002200C3 /* km */,
+				66A11B761F2688E100829523 /* vi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1005,6 +1013,7 @@
 				66094F741E6DEFCF0069EC4E /* nb */,
 				66C7E87D1F01907E002200C3 /* bo */,
 				66C7E8811F0190BF002200C3 /* km */,
+				66A11B771F2688E100829523 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

@@ -16,9 +16,9 @@
 "Privacy" = "གསང་དོན།";
 /* Settings item text. Leads to a web page with the Psiphon privacy policy. */
 "Privacy Policy" = "གསང་དོན་སྲིད་བྱུས།";
-"Psiphon & Browser" = "སཡི་ཕྷོན་དང་བལྟ་ཆས།";
+"Psiphon & Browser" = "སཡི་ཕོན་དང་བལྟ་ཆས།";
 /* Settings item text. Leads to settings specific to the Psiphon tunnel, like 'Disable timeouts' and 'Use upstream proxy'. */
-"Psiphon Settings" = "སཡི་ཕྷོན་སྒྲིག་བཀོད།";
+"Psiphon Settings" = "སཡི་ཕོན་སྒྲིག་བཀོད།";
 /* Settings item text. Leads to security related options. */
 "Security" = "སྲུང་སྐྱོབ།";
 /* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
@@ -112,7 +112,7 @@
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
 "Allow Cookies" = "ཡིག་ཆ་གསོག་ཉར་བྱེད་དུ་འཇུག";
 /* Explanatory text for the "Allow Cookies" setting. */
-"Manage what types of cookies Psiphon Browser allows." = "སཡི་ཕྷོན་བལྟ་ཆས་ཀྱིས་ཡིག་ཆ་གསོག་ཉར་ཀྱི་རིགས་གང་འདྲ་ཞིག་བཏང་འཛིན་དང་ངོས་ལེན་བྱས་སམ།";
+"Manage what types of cookies Psiphon Browser allows." = "སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་ཡིག་ཆ་གསོག་ཉར་ཀྱི་རིགས་གང་འདྲ་ཞིག་བཏང་འཛིན་དང་ངོས་ལེན་བྱས་སམ།";
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "Always Block" = "རྟག་ཏུ་བཀག";
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
@@ -130,7 +130,7 @@
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "Websites I Visit" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས།";
 /* Explanatory text on the "Allow Cookies" setting options page. */
-"Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "བལྟ་ཆས་བེད་སྤྱོད་བྱས་སྐབས་རང་གི་ཡོ་བྱད་ཀྱིས་རང་ངོས་འཛིན་ཐུབ་པ་ལ་དྲྭ་རྒྱའི་ནང་ཡིག་ཆ་གསོག་ཉར་དང་ཡིག་ཚགས་གཞན་གསོག་ཉར་བྱེད་སྲིད། ཡིག་ཆས་ཁྱེད་རང་ལ་ཞབས་ཞུ་དང་ནང་དོན་བྱེ་བྲག་པ་མཐུན་སྦྱོར་བྱེད་ཀྱི་ཡོད། དེའི་ནང་ནང་འཛུལ་གནད་ཚུལ། གདམ་ཁ། སྒེར་གྱི་མིང་དང་གློག་འཕྲིན་ཁ་བྱང་སོགས་ཀྱི་གནས་ཚུལ་རྣམས་འདིའི་ནང་དུ་ཚུད་ཡོད། སཡི་ཕྷོན་བལྟ་ཆས་ཀྱིས་རང་གིས་བསྔོགས་བཞིན་པའི་དྲྭ་ཚིགས་ལས་གཞན་རྣམས་ཀྱི་ཡིག་ཆ་རང་སོར་བཞག་པའི་ཐོག་ནས་གསོག་ཉར་བཀག་གི་ཡོད། རྒྱུ་མཚན་ནི་རང་གི་ཡོ་བྱད་སྒང་ལ་ཁྱབ་བསྒྲགས་འདྲ་མིན་བྱས་པའི་ཡིག་ཆ་གསོག་ཉར་རྣམས་བཀག་པའི་ཆེད་དུ་ཡིན།";
+"Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "བལྟ་ཆས་བེད་སྤྱོད་བྱས་སྐབས་རང་གི་ཡོ་བྱད་ཀྱིས་རང་ངོས་འཛིན་ཐུབ་པ་ལ་དྲྭ་རྒྱའི་ནང་ཡིག་ཆ་གསོག་ཉར་དང་ཡིག་ཚགས་གཞན་གསོག་ཉར་བྱེད་སྲིད། ཡིག་ཆས་ཁྱེད་རང་ལ་ཞབས་ཞུ་དང་ནང་དོན་བྱེ་བྲག་པ་མཐུན་སྦྱོར་བྱེད་ཀྱི་ཡོད། དེའི་ནང་ནང་འཛུལ་གནད་ཚུལ། གདམ་ཁ། སྒེར་གྱི་མིང་དང་གློག་འཕྲིན་ཁ་བྱང་སོགས་ཀྱི་གནས་ཚུལ་རྣམས་འདིའི་ནང་དུ་ཚུད་ཡོད། སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་རང་གིས་བསྔོགས་བཞིན་པའི་དྲྭ་ཚིགས་ལས་གཞན་རྣམས་ཀྱི་ཡིག་ཆ་རང་སོར་བཞག་པའི་ཐོག་ནས་གསོག་ཉར་བཀག་གི་ཡོད། རྒྱུ་མཚན་ནི་རང་གི་ཡོ་བྱད་སྒང་ལ་ཁྱབ་བསྒྲགས་འདྲ་མིན་བྱས་པའི་ཡིག་ཆ་གསོག་ཉར་རྣམས་བཀག་པའི་ཆེད་དུ་ཡིན།";
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
 "Clear cookies and website data" = "ཡིག་ཆ་གསོག་ཉར་དང་དྲྭ་ཚིགས་ཡིག་ཚགས་གཙང་བཟོ།";
 /* Explanatory text for the "Clear cookies and website data" command. */
@@ -142,6 +142,6 @@
 /* Explanatory text for the "Disable Timeouts" setting on the "My connection is bad, help!" settings page. */
 "Disabling timeouts may help you stay connected on slower networks." = "དུས་རྫོགས་མེད་པ་བཟོས་པ་དེས་ཁྱེད་རང་དྲྭ་རྒྱ་ཞན་པོ་ཡོད་ནའང་མཐུད་ཐུབ་པར་ཕན་ཐོག་སྲིད།";
 /* Explanatory text for the "Reconnect to the Psiphon server" command on the "My connection is bad, help!" settings page. */
-"Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive." = "གལ་ཏེ་ཁྱེད་རང་གི་དྲྭ་རྒྱའི་མཐུད་ཀ་ཞན་པོ་དང་བརྡ་ལན་སྤྲད་ཀྱི་མེད་ན་སཡི་ཕྷོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ལ་ཡང་སྐྱར་མཐུད་ན་ཕན་ཐོག་ཡོང་སྲིད།";
+"Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive." = "གལ་ཏེ་ཁྱེད་རང་གི་དྲྭ་རྒྱའི་མཐུད་ཀ་ཞན་པོ་དང་བརྡ་ལན་སྤྲད་ཀྱི་མེད་ན་སཡི་ཕོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ལ་ཡང་སྐྱར་མཐུད་ན་ཕན་ཐོག་ཡོང་སྲིད།";
 /* Label for a command on the "My connection is bad, help!" settings page that causes Psiphon to close its server connection and open a new one. */
-"Reconnect to the Psiphon server" = "སཡི་ཕྷོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ཡང་སྐྱར་མཐུད།";
+"Reconnect to the Psiphon server" = "སཡི་ཕོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ཡང་སྐྱར་མཐུད།";
