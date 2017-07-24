@@ -1201,7 +1201,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		NSMutableData *tData = [[NSMutableData alloc] init];
 		if (_isFirstChunk) {
 			// Prepend a doctype to force into standards mode and throw in any javascript overrides
-			[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@;\n __psiphon.urlProxyPort='%d';</script>",
+			[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@;\n __psiphon.urlProxyPort=%d;</script>",
 								[self cspNonce],
 								[[self class] javascriptToInject],
 								(int)[[AppDelegate sharedAppDelegate] httpProxyPort]

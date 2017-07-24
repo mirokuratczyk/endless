@@ -30,6 +30,12 @@
 
 if (typeof __psiphon == "undefined") {
 var __psiphon = {
+	// Override if you want to see console messages coming from this script
+	DEBUG: false,
+
+	// Override if you want console messages to be sent back to the Obj C via IPC
+	USE_IPC_CONSOLE: false,
+
 	/**
 	 * The time (in milliseconds) that we will wait for an ObjC call to complete.
 	 */
@@ -75,7 +81,9 @@ var __psiphon = {
 
 		while (this.ipcDone == null) {
 			if ((new Date()).getTime() - start > this.ipcTimeoutMS) {
-				console.log("took too long waiting for IPC reply");
+				if(__psiphon.DEBUG) {
+					console.log("took too long waiting for IPC reply");
+				}
 				break;
 			}
 		}
@@ -107,7 +115,9 @@ var __psiphon = {
 					return false;
 				}
 				else {
-					console.log("not opening _blank a from " + event.type + " event");
+					if (__psiphon.DEBUG) {
+						console.log("not opening _blank a from " + event.type + " event");
+					}
 				}
 			}
 		}, false);
@@ -247,16 +257,23 @@ var __psiphon = {
 
 		// Check if the attribute has been previously proxied but URL proxy port has changed
 		__psiphon.helperAnchorElement.href = originalSrc;
-		if(__psiphon.helperAnchorElement.hostname == '127.0.0.1' && __psiphon.helperAnchorElement.port != __psiphon.urlProxyPort) {
+		if (__psiphon.helperAnchorElement.hostname === '127.0.0.1' && parseInt(__psiphon.helperAnchorElement.port) !== __psiphon.urlProxyPort) {
 			// update just the port
 			__psiphon.helperAnchorElement.port = __psiphon.urlProxyPort;
-			console.debug('urlProxyElementSrc: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
+			if (__psiphon.DEBUG) {
+				console.debug('urlProxyElementSrc: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
+			}
 			elem.setAttribute('src', __psiphon.helperAnchorElement.href);
+			if(elem.parentElement && ['video', 'audio'].includes(elem.parentElement.tagName.toLowerCase())) {
+				// reload the media
+				elem.parentElement.load();
+			}
 			return;
 		}
 
-
-		console.debug('urlProxyElementSrc: replacing ' + elem.tagName + ' element src: ' + originalSrc);
+		if (__psiphon.DEBUG) {
+			console.debug('urlProxyElementSrc: replacing ' + elem.tagName + ' element src: ' + originalSrc);
+		}
 		elem.setAttribute('src', urlProxyPrefix + encodeURIComponent(originalSrc));
 	},
 
@@ -281,11 +298,13 @@ var __psiphon = {
 			var i, j, mutation, node;
 
 			for (i = 0; i < mutations.length; i++) {
-				var mutation = mutations[i];
+				mutation = mutations[i];
 
 				// If the mutation was a src attribute changes, try to proxy the new value.
 				if (mutation.type === 'attributes' && ['video', 'audio', 'source'].includes(mutation.target.tagName.toLowerCase())) {
-					console.debug('monitorElement::MutationObserver: ' + mutation.target.tagName + ' attr src changed');
+					if (__psiphon.DEBUG) {
+						console.debug('monitorElement::MutationObserver: ' + mutation.target.tagName + ' attr src changed');
+					}
 					__psiphon.urlProxyElementSrc(mutation.target)
 					continue;
 				}
@@ -301,7 +320,7 @@ var __psiphon = {
 					if (node.nodeType !== Node.ELEMENT_NODE) {
 						continue;
 					}
-					if (node.tagName == 'SOURCE') {
+					if (node.tagName.toLowerCase() == 'source') {
 						// New 'source' node has been added to the element
 						// and needs to be proxied and monitored.
 						__psiphon.urlProxyElementSrc(node);
@@ -385,13 +404,17 @@ var __psiphon = {
 					// Check if the new node or its children contain media elements
 					// and set them for monitoring and proxying.
 					if (mediaTags.includes(node.tagName.toLowerCase())) {
-						console.debug('onLoad::MutationObserver: found new ' + node.tagName);
+						if (__psiphon.DEBUG) {
+							console.debug('onLoad::MutationObserver: found new ' + node.tagName);
+						}
 						__psiphon.urlProxyMediaElement(node)
 					} else {
 						for (k = 0; k < mediaTags.length; k++) {
 							var mediaElements = node.getElementsByTagName(mediaTags[k]);
 							for (l = 0; l < mediaElements.length; l++) {
-								console.debug('onLoad::MutationObserver: found new ' + mediaElements[l].tagName);
+								if (__psiphon.DEBUG) {
+									console.debug('onLoad::MutationObserver: found new ' + mediaElements[l].tagName);
+								}
 								__psiphon.urlProxyMediaElement(mediaElements[l])
 							}
 						}
@@ -408,11 +431,15 @@ var __psiphon = {
 
 	// Listens for URL proxy port change message
 	// and updates __psiphon.urlProxyPort with new value.
-	listenToUrlProxyPortMessage: function(){
+	listenToUrlProxyPortMessage: function () {
 		window.addEventListener('message', function (event) {
-			if (event.data.event_id === 'urlProxyPort') {
+			if (event.data.event_id === '__psiphon_urlProxyPort') {
 				__psiphon.urlProxyPort = event.data.urlProxyPort;
 				__psiphon.urlProxyCurrentMediaElements();
+				var iframes = document.getElementsByTagName('iframe');
+				for (var i = 0; i < iframes.length; i++) {
+					iframes[0].contentWindow.postMessage(event.data, '*');
+				}
 			}
 		}, false);
 	},
@@ -422,18 +449,11 @@ var __psiphon = {
 	// NOTE: This function is called from Obj C on top window only.
 	messageUrlProxyPort:function (port) {
 		var message = {
-			event_id: 'urlProxyPort',
+			event_id: '__psiphon_urlProxyPort',
 			urlProxyPort: port
 		}
-
 		// message top window
 		window.postMessage(message, '*');
-
-		// message iframes
-		var iframes = document.getElementsByTagName('iframe');
-		for (var i = 0; i < iframes.length; i++) {
-			iframes[0].contentWindow.postMessage(message, '*');
-		}
 	}
 };
 
@@ -479,17 +499,20 @@ var __psiphon = {
 		__psiphon.ipcAndWaitForReply("window.close");
 	};
 
-	// Override `console.log()` (etc.) in order to use IPC to send log info to ObjC.
-	console._log = function(urg, args) {
-		if (args.length == 1)
-			args = args[0];
-		__psiphon.ipc("console.log/" + urg + "?" + encodeURIComponent(JSON.stringify(args)));
-	};
-	console.log = function() { console._log("log", arguments); };
-	console.debug = function() { console._log("debug", arguments); };
-	console.info = function() { console._log("info", arguments); };
-	console.warn = function() { console._log("warn", arguments); };
-	console.error = function() { console._log("error", arguments); };
+	// Uncomment to override native console logging
+	if(__psiphon.USE_IPC_CONSOLE) {
+		// Override `console.log()` (etc.) in order to use IPC to send log info to ObjC.
+		console._log = function(urg, args) {
+			if (args.length == 1)
+				args = args[0];
+			__psiphon.ipc("console.log/" + urg + "?" + encodeURIComponent(JSON.stringify(args)));
+		};
+		console.log = function() { console._log("log", arguments); };
+		console.debug = function() { console._log("debug", arguments); };
+		console.info = function() { console._log("info", arguments); };
+		console.warn = function() { console._log("warn", arguments); };
+		console.error = function() { console._log("error", arguments); };
+	}
 
 	if (document.readyState == "complete" || document.readyState == "interactive") {
 		__psiphon.onLoad();
