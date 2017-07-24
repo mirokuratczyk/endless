@@ -49,6 +49,7 @@
 				<string>pt-PT</string>
 				<string>ru</string>
 				<string>tr</string>
+				<string>vi</string>
 			</array>
 			<key>Titles</key>
 			<array>
@@ -70,6 +71,7 @@
 				<string>Português (Portugal)</string>
 				<string>Русский</string>
 				<string>Türkçe</string>
+				<string>Tiếng Việt</string>
 			</array>
 		</dict>
 		<dict>

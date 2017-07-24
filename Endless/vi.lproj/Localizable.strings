@@ -1,51 +1,51 @@
 /* %ld will be replaced with the number 1 */
-"%ld rule in use" = "%ld rule in use";
+"%ld rule in use" = "%ld quy luật đang dùng";
 
 /* %ld will be replaced with a natural number */
-"%ld rules in use" = "%ld rules in use";
+"%ld rules in use" = "%ld quy luật đang dùng";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Trình duyệt Psiphon\" cần truy cập vào thư viện ảnh để lưu và tải hình";
 
 /* Title text on one of the on-boarding screens */
-"Access the Web" = "Access the Web";
+"Access the Web" = "Truy cập mạng";
 
 /* 'Add bookmark' dialog title */
-"Add Bookmark" = "新增書籤";
+"Add Bookmark" = "Thêm Dấu Trang";
 
 /* Title above a list of rules */
-"All rules" = "All rules";
+"All rules" = "Thêm quy luật";
 
 /* Alert dialog text */
-"Allow this page to close its tab?" = "這頁可關閉它的分頁";
+"Allow this page to close its tab?" = "Cho phép trang này đóng tab lại?";
 
 /* Image download error alert text. %@ will be replaced with the URL of the image. */
-"An error occurred downloading image %@" = "下載 %@影像時發生了錯誤";
+"An error occurred downloading image %@" = "Có lỗi lúc tải xuống hình %@";
 
 /* HTTP authentication  alert title */
-"Authentication Required" = "需要授權";
+"Authentication Required" = "Yêu cầu Xác thực";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "Bắt đầu Lúc";
 
 /* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"Best Performance" = "最佳性能";
+"Best Performance" = "Hiệu năng tốt nhất";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"Bookmarks" = "書籤";
+"Bookmarks" = "Dấu trang";
 
 /* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+"BROWSE BEYOND BORDERS" = "LƯỚT MẠNG XUYÊN BIÊN GIỚI";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "Thể loại Kinh Doanh";
 
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
-"Bypass Censorship" = "Bypass Censorship";
+"Bypass Censorship" = "Vượt Kiểm Duyệt";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Canada" = "加拿大";
+"Canada" = "Canada";
 
 /* Cancel
    Cancel action
@@ -53,43 +53,43 @@
    Cancel button text which allows user to exit bookmarks view
    Text of button to discard feedback and return to main settings menu
    Text of cancel button on alert which will dismiss the popup */
-"Cancel" = "取消";
+"Cancel" = "Hủy";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "Thông tin Chứng chỉ";
 
 /* Text of button on alert which will redirect the user to the settings menu */
-"Change Settings" = "Change Settings";
+"Change Settings" = "Thay đổi Thiết đặt";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "Mã hóa";
 
 /* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "Clear Cookies and Data";
+"Clear Cookies and Data" = "Làm sạch Cookies và Dữ liệu";
 
 /* Field name for display in list */
-"Common Name" = "Common Name";
+"Common Name" = "Tên Thông Thường";
 
 /* Title for the 'Allow this page to close its tab?' alert */
-"Confirm" = "確認";
+"Confirm" = "Xác nhận";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"Connected!" = "Đã kết nối!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
+"Connecting..." = "Đang kết nối...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
+"Connection Information" = "Thông tin kết nối";
 
 /* Action title for long press on link dialog */
-"Copy URL" = "複制URL";
+"Copy URL" = "Chép URL";
 
 /* Field name for display in list */
-"Country" = "Country";
+"Country" = "Quốc gia";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"Disconnected!" = "Ngắt kết nối!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Done action button. dismisses SSL certificate information dialog
@@ -98,124 +98,124 @@
    Done button title, dismisses the tab chooser
    Title of the button that dismisses region selection dialog
    Title of the button that dismisses the settings menu */
-"Done" = "完成";
+"Done" = "Xong";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "Tải xuống ảnh %@. Bạn sẽ được thông báo khi nào xong.";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "Đang tải xuống...";
 
 /* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+"Edit" = "Sửa";
 
 /* Edit Bookmark dialog title */
-"Edit Bookmark" = "編輯書籤";
+"Edit Bookmark" = "Sửa Dấu trang";
 
 /* 'Add bookmark' dialog text
    Edit Bookmark dialog title text */
-"Enter the details of the URL to bookmark:" = "輸入網址書籤記號的細節";
+"Enter the details of the URL to bookmark:" = "Điền chi tiết của URL để dấu trang:";
 
 /* Alert dialog title when webpage has failed to load
    Image download error alert title */
-"Error" = "錯誤";
+"Error" = "Lỗi";
 
 /* Text preceeding error description */
-"Error:" = "Error:";
+"Error:" = "Lỗi:";
 
 /* Field name for display in list */
-"Expires After" = "Expires After";
+"Expires After" = "Hết Hạn Sau";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Extended Validation: Organization" = "Kiểm Nhận Thêm: Tổ Chức";
 
 /* FAQ link text */
-"Frequently Asked Questions" = "常見問題與解答";
+"Frequently Asked Questions" = "Các câu hỏi thường gặp";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Germany" = "德國";
+"Germany" = "Đức";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+"Go to Settings" = "Vào Thiết Đặt";
 
 /* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"Happy Browsing!" = "Happy Browsing!";
+"Happy Browsing!" = "Lướt Mạng Vui Vẻ!";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Hong Kong" = "香港";
+"Hong Kong" = "Hồng Kông";
 
 /* HTTPS Everywhere menu title */
-"HTTPS Everywhere Rules" = "HTTPS Everywhere 規則";
+"HTTPS Everywhere Rules" = "Quy luật HTTPS Everywhere";
 
 /* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"https://psiphon.ca/en/about.html" = "https://psiphon.ca/en/about.html";
+"https://psiphon.ca/en/about.html" = "https://psiphon.ca/vi/about.html";
 
 /* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"https://psiphon.ca/en/faq.html" = "https://psiphon.ca/en/faq.html";
+"https://psiphon.ca/en/faq.html" = "https://psiphon.ca/vi/faq.html";
 
 /* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"https://psiphon.ca/en/license.html" = "https://psiphon.ca/en/license.html";
+"https://psiphon.ca/en/license.html" = "https://psiphon.ca/vi/license.html";
 
 /* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/en/privacy.html";
+"https://psiphon.ca/en/privacy.html" = "https://psiphon.ca/vi/privacy.html";
 
 /* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"If the above form is not working or you would like to send screenshots, please email us at %@" = "如果上方的表格無法運作，用戶可以將螢幕截圖，用電郵方式寄給我們%@";
+"If the above form is not working or you would like to send screenshots, please email us at %@" = "Nếu mẫu trên không chạy, hoặc bạn muốn gửi ảnh chụp màn hình, xin email cho chúng tôi qua địa chỉ %@";
 
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
-"If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
+"If your favourite app is blocked, try their website in Psiphon Browser" = "Nếu ứng dụng bạn thích bị chặn, thử vào trang web của họ trong Trình Duyệt Psiphon";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"India" = "印度";
+"India" = "Ấn Độ";
 
 /* Field name for display in list */
-"Issued By" = "Issued By";
+"Issued By" = "Cấp phép Bởi";
 
 /* Field name for display in list */
-"Issued To" = "Issued To";
+"Issued To" = "Cấp phép Cho";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Japan" = "日本";
+"Japan" = "Nhật Bản";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+"Language" = "Ngôn ngữ";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"Learn more about the data we collect in our %@" = "了解我們收集哪些資料，請見%@";
+"Learn more about the data we collect in our %@" = "Tìm hiểu thêm về dữ liệu chúng tôi thu thập trong %@";
 
 /* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Learning time is over" = "Learning time is over";
+"Learning time is over" = "Thời gian học hỏi đã xong";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"Let's Go!" = "Let's Go!";
+"Let's Go!" = "Hãy bắt đầu!";
 
 /* Field name for display in list */
-"Locality" = "Locality";
+"Locality" = "Địa phương";
 
 /* HTTP authentication alert log in button action */
-"Log In" = "登入";
+"Log In" = "Đăng nhập";
 
 /* Title screen displaying logs */
-"Logs" = "日誌";
+"Logs" = "Ký sự";
 
 /* InAppSettingsKit */
-"Mail not configured" = "未設定郵件";
+"Mail not configured" = "Email chưa được cấu hình";
 
 /* No comment provided by engineer. */
-"Message Text View" = "Message Text View";
+"Message Text View" = "Dạng Văn Bản của Tin Nhắn";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Netherlands" = "荷蘭";
+"Netherlands" = "Hà Lan";
 
 /* New browser tab title text */
-"New Tab" = "新分頁";
+"New Tab" = "Tab mới";
 
 /* Text of the button that the user presses to proceed to the next screen of onboarding */
-"Next" = "Next";
+"Next" = "Kế tiếp";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
+"Now we'll connect to a Psiphon server so you can start browsing." = "Bây giờ chúng tôi sẽ kết nối vào một máy chủ Psiphon để bạn bắt đầu lướt mạng.";
 
 /* Field name for display in list */
 "Object Identifier" = "Object Identifier";
@@ -226,166 +226,166 @@
 "OK" = "OK";
 
 /* Action title for long press on link dialog */
-"Open" = "打開";
+"Open" = "Mở";
 
 /* Action title for long press on link dialog */
-"Open in a New Tab" = "在新標籤頁中打開";
+"Open in a New Tab" = "Mở ra trong Tab Mới";
 
 /* Action title for long press on link dialog */
-"Open in Safari" = "在Safari瀏覧器下打開";
+"Open in Safari" = "Mở ra trong Safari";
 
 /* Field name for display in list */
-"Organization" = "Organization";
+"Organization" = "Tổ Chức";
 
 /* Field name for display in list */
-"Organizational Unit Number" = "Organizational Unit Number";
+"Organizational Unit Number" = "Số Đơn Vị Tổ Chức";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
-"Page Name (leave blank to use URL)" = "頁名 (保留空白來使用URL)";
+"Page Name (leave blank to use URL)" = "Tên Trang (để trống để dùng URL)";
 
 /* HTTP authentication alert password input title */
-"Password" = "密碼";
+"Password" = "Mật khẩu";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "Thời gian Hiệu lực";
 
 /* Feedback footer text. */
-"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "請注意此診斷資料不會泄露您的身份，它將幫助我們保持賽風平穩運行";
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Lưu ý là dữ liệu chẩn đoán này không tiết lộ danh tính bạn, và nó chỉ giúp chúng tôi làm Psiphon tốt hơn.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "Mã số Bưu điện";
 
 /* Privacy Policy link text */
-"Privacy Policy" = "隱私政策";
+"Privacy Policy" = "Chính sách quyền Riêng Tư";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "Giao thức";
 
 /* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"PSIPHON BROWSER" = "PSIPHON BROWSER";
+"PSIPHON BROWSER" = "TRÌNH DUYỆT PSIPHON";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
+"Psiphon can not start due to an internal error, please send feedback." = "Psiphon không khởi động được vì lỗi nội bộ, xin gửi phản hồi.";
 
 /* Text explaining thumbs up choice in feedback */
-"Psiphon connects\nand performs the\nway I want it to." = "賽風連線\n表現如我所願";
+"Psiphon connects\nand performs the\nway I want it to." = "Psiphon kết nối\nvà làm việc\nđúng ý tôi.";
 
 /* Text explaining thumbs down choice in feedback */
-"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "賽風經常連線失敗\n表現不盡人意。\n　　　";
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon thường không\nkết nối được hoặc\nkhông làm việc đủ\ntốt.";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "Pull to Refresh Page";
+"Pull to Refresh Page" = "Kéo để làm Mới Trang";
 
 /* Title of alert to clear local cookies and browsing data */
-"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+"Remove all cookies and browsing data?" = "Xóa tất cả cookies và dữ liệu lướt mạng?";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "Rules in use on current page";
+"Rules in use on current page" = "Quy luật đang sử dụng cho trang hiện thời";
 
 /* Action title for long press on image dialog */
-"Save Image" = "存圖像";
+"Save Image" = "Lưu hình ảnh";
 
 /* Text of button to send feedback */
-"Send" = "傳送";
+"Send" = "Gửi";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
+"Serial Number" = "Số Serial";
 
 /* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+"Server region:" = "Khu vực máy chủ:";
 
 /* No comment provided by engineer. */
-"Settings" = "設定";
+"Settings" = "Thiết đặt";
 
 /* Title of second tutorial screen which highlights the settings button */
-"Settings & Help" = "Settings & Help";
+"Settings & Help" = "Thiết đặt & Trợ giúp";
 
 /* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
+"Signature Algorithm" = "Thuật Toán Chữ Ký";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Singapore" = "新加坡";
+"Singapore" = "Singapore";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"SKIP" = "SKIP";
+"SKIP" = "BỎ";
 
 /* No comment provided by engineer. */
-"SKIP TUTORIAL" = "SKIP TUTORIAL";
+"SKIP TUTORIAL" = "BỎ CHỈ DẪN";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Spain" = "西班牙";
+"Spain" = "Tây Ban Nha";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
-"Start Tutorial" = "Start Tutorial";
+"Start Tutorial" = "Bắt đầu Chỉ Dẫn";
 
 /* Field name for display in list */
-"State/Province" = "State/Province";
+"State/Province" = "Bang/Tỉnh";
 
 /* Text preceeding http response status code */
-"Status code:" = "Status code:";
+"Status code:" = "Mã số tình trạng:";
 
 /* Title of first tutorial screen which highlights the connection indicator */
-"Status Indicator" = "Status Indicator";
+"Status Indicator" = "Chỉ dấu Tình trạng:";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "Tên đường";
 
 /* Image download success alert title */
-"Success!" = "Success!";
+"Success!" = "Thành công!";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
+"Successfully downloaded image %@" = "Tải hình ảnh %@ xuống thành công";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "Dấu tíc xanh cho biết là Trình Duyệt Psiphon đã kết nối và sẵn sàng để bạn lướt mạng";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"The Internet at your fingertips" = "The Internet at your fingertips";
+"The Internet at your fingertips" = "Internet nơi đầu ngón tay bạn";
 
 /* InAppSettingsKit */
-"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "這台設備未設定好傳送郵件，請在應用程式的設定處來配置電郵設定";
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Thiết bị này chưa được cấu hình để gửi Email. Xin cấu hình thiết đặt email trong ứng dụng thiết đặt";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help" = "This is where you can access settings and find help";
+"This is where you can access settings and find help" = "Đây là nơi bạn xem các thiết đặt và tìm trợ giúp";
 
 /* No comment provided by engineer. */
-"Title Label" = "Title Label";
+"Title Label" = "Nhãn Tựa Đề";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
+"To give permissions tap on 'Change Settings' button" = "Để cho phép, bấm vào nút 'Đổi Thiết Đặt'";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"United Kingdom" = "英國";
+"United Kingdom" = "Anh Quốc";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"United States" = "美國";
+"United States" = "Hoa Kỳ";
 
 /* No comment provided by engineer. */
-"Unknown Organization" = "不未名的組織";
+"Unknown Organization" = "Tổ chức Vô danh";
 
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
 "URL" = "URL";
 
 /* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+"User Name" = "Tên người dùng";
 
 /* Field name for display in list */
-"Version" = "Version";
+"Version" = "Phiên bản";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
+"Waiting for network..." = "Đang chờ mạng...";
 
 /* Comments section placeholder text */
-"What's on your mind? Please leave us your feedback" = "您有什麼想法？請提供我們回饋意見。";
+"What's on your mind? Please leave us your feedback" = "Bạn có ý kiến gì? Xin phản hồi cho chúng tôi";
 
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"You can find solutions to many common problems in our %@." = "You can find solutions to many common problems in our %@.";
+"You can find solutions to many common problems in our %@." = "Bạn có thể tìm các giải pháp cho những vấn đề thông thường trong  %@.";
 
 /* Introduction text at top of feedback form */
-"Your feedback makes Psiphon better!" = "Your feedback makes Psiphon better!";
+"Your feedback makes Psiphon better!" = "Phản hồi của bạn giúp Psiphon tốt hơn!";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'lúc' HH:mm:ss zzz";
 

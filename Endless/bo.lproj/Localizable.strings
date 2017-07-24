@@ -5,7 +5,7 @@
 "%ld rules in use" = "%ld རྒྱུན་སྤྱོད་ཀྱི་སྒྲིག་ཁྲིམས།";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "སཡི་ཕྷོན་བལྟ་ཆས་ཀྱིས་པར་རིས་གསོག་ཉར་དང་པར་རིས་ནང་དུ་བཅུག་པའི་ཆེད་དུ་ཁྱེད་རང་གི་པར་རིས་དཔེ་མཛོད་བེད་སྤྱོད་བྱེད་ཆོག་པའི་ཆོག་མཆན་དགོས།";
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་པར་རིས་གསོག་ཉར་དང་པར་རིས་ནང་དུ་བཅུག་པའི་ཆེད་དུ་ཁྱེད་རང་གི་པར་རིས་དཔེ་མཛོད་བེད་སྤྱོད་བྱེད་ཆོག་པའི་ཆོག་མཆན་དགོས།";
 
 /* Title text on one of the on-boarding screens */
 "Access the Web" = "དྲྭ་རྒྱ་བེད་སྤྱོད་བྱེད།";
@@ -28,14 +28,14 @@
 /* Field name for display in list */
 "Begins On" = "འདི་ནས་འགོ་འཛུགས།";
 
-/* No comment provided by engineer. */
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "ནུས་པ་ཡག་ཤོས།";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "དེབ་རྟགས།";
 
-/* Title displayed at the top of all onboardings screens */
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
 "BROWSE BEYOND BORDERS" = "བརྒལ་མཚམས་མེད་པར་འཚོལ་ཐུབ།";
 
 /* Field name for display in list */
@@ -44,7 +44,7 @@
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
 "Bypass Censorship" = "དམ་བསྒྲགས་ལས་གཡོལ་བ།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "ཀེ་ན་ཌ།";
 
 /* Cancel
@@ -120,6 +120,9 @@
    Image download error alert title */
 "Error" = "ནོར་བ།";
 
+/* Text preceeding error description */
+"Error:" = "ནོར་སྐྱོན།";
+
 /* Field name for display in list */
 "Expires After" = "དུས་ཡུན་རྫོགས་པའི་རྗེས།";
 
@@ -129,16 +132,16 @@
 /* FAQ link text */
 "Frequently Asked Questions" = "ཡང་ཡང་འདྲི་བའི་དྲི་བ།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "ཇར་མ་ནི།";
 
 /* No comment provided by engineer. */
 "Go to Settings" = "སྒྲིག་བཀོད་ལ་རྒྱུགས།";
 
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
 "Happy Browsing!" = "སྤྲོ་པོ་བྱས་ནས་གཟིགས་རོགས།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Hong Kong" = "ཧོང་ཀོང་།";
 
 /* HTTPS Everywhere menu title */
@@ -160,9 +163,9 @@
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "གོང་གི་འགེངས་ཤོག་འདི་ལས་ཀ་མ་བྱས་པའམ་ཡང་ན་ཁྱེད་རང་གིས་པར་ལེན་རྒྱུད་དེ་གཏོང་འདོད་ན་ང་ཚོའི་གློག་འཕྲིན་ཐོག་འབྲེལ་བ་གནང་རོགས།%@";
 
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
-"If your favourite app is blocked, try their website in Psiphon Browser" = "གལ་ཏེ་ཁྱེད་རང་གི་དགའ་མོས་བྱས་སའི་མཉེན་ཆས་འདི་བཀག་ཚེ། དྲྭ་ཚིགས་འདི་སཡི་ཕྷོན་བལྟ་ཆས་སྒང་ལ་ཐབས་ཤེས་ཤིག་གནང་དང།";
+"If your favourite app is blocked, try their website in Psiphon Browser" = "གལ་ཏེ་ཁྱེད་རང་གི་དགའ་མོས་བྱས་སའི་མཉེན་ཆས་འདི་བཀག་ཚེ། དྲྭ་ཚིགས་འདི་སཡི་ཕོན་བལྟ་ཆས་སྒང་ལ་ཐབས་ཤེས་ཤིག་གནང་དང།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "རྒྱ་གར།";
 
 /* Field name for display in list */
@@ -171,10 +174,11 @@
 /* Field name for display in list */
 "Issued To" = "ཆོག་མཆན་སྤྲོད་ས།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "ཉི་ཧོང་།";
 
-/* Title above language box which displays the current app language and all available languages that the app is localized for */
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
 "Language" = "སྐད་རིགས།";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
@@ -201,7 +205,7 @@
 /* No comment provided by engineer. */
 "Message Text View" = "འཕྲིན་ཐུང་བལྟ་བྱེད།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "ནེ་ཐར་ལེཌ།";
 
 /* New browser tab title text */
@@ -211,7 +215,7 @@
 "Next" = "རྗེས་མ།";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Now we'll connect to a Psiphon server so you can start browsing." = "ཁྱེད་རང་བལྟ་འགོ་འཛུགས་པའི་ཆེད་དུ་ང་ཚོས་ད་ལྟ་་སཡི་ཕྷོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ལ་མཐུད་ཆོག";
+"Now we'll connect to a Psiphon server so you can start browsing." = "ཁྱེད་རང་བལྟ་འགོ་འཛུགས་པའི་ཆེད་དུ་ང་ཚོས་ད་ལྟ་་སཡི་ཕོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ལ་མཐུད་ཆོག";
 
 /* Field name for display in list */
 "Object Identifier" = "ཅ་དངོས་ངོས་འཛིན།";
@@ -247,7 +251,7 @@
 "Period of Validity" = "བེད་སྤྱོད་ཀྱི་ཡུན་ཚད།";
 
 /* Feedback footer text. */
-"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "ཁྱེད་རང་གི་མཁྱེན་རྟོགས་ཀྱི་སླད་དུ་ཞུ་རྒྱུར། དྲྭ་ནད་ཅན་གྱི་ཡིག་ཆ་འདིས་ཁྱེད་རང་ངོས་འཛིན་ཐུབ་མ་སོང་། འདིས་སཡི་ཕྷོན་ལས་སླ་པོའི་ངང་ནས་འཁོར་སྐྱོད་བྱེད་ཐུབ།";
+"Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "ཁྱེད་རང་གི་མཁྱེན་རྟོགས་ཀྱི་སླད་དུ་ཞུ་རྒྱུར། དྲྭ་ནད་ཅན་གྱི་ཡིག་ཆ་འདིས་ཁྱེད་རང་ངོས་འཛིན་ཐུབ་མ་སོང་། འདིས་སཡི་ཕོན་ལས་སླ་པོའི་ངང་ནས་འཁོར་སྐྱོད་བྱེད་ཐུབ།";
 
 /* Field name for display in list */
 "Postal Code" = "སྦྲག་ཁང་ཨང་རྟགས།";
@@ -258,17 +262,17 @@
 /* Field name for display in list */
 "Protocol" = "གྲོས་མཐུན།";
 
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
+"PSIPHON BROWSER" = "སཡི་ཕོན་བལྟ་ཆས།";
+
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "ནང་སྐྱོན་ཤོར་བ་ལ་བརྟེན་ནས་སཡི་ཕྷོན་འགོ་འཛུགས་ཐུབ་མ་སོང་། དགོངས་འཆར་གཏོང་རོགས་གནང་།";
+"Psiphon can not start due to an internal error, please send feedback." = "ནང་སྐྱོན་ཤོར་བ་ལ་བརྟེན་ནས་སཡི་ཕོན་འགོ་འཛུགས་ཐུབ་མ་སོང་། དགོངས་འཆར་གཏོང་རོགས་གནང་།";
 
 /* Text explaining thumbs up choice in feedback */
-"Psiphon connects\nand performs the\nway I want it to." = "སཡི་ཕྷོན་གྱིས་\nངའི་རང་གི་འདོད་མོས་ལྟར་\nལས་ཀ་བྱེད་ཐུབ།";
+"Psiphon connects\nand performs the\nway I want it to." = "སཡི་ཕོན་གྱིས་\nངའི་རང་གི་འདོད་མོས་ལྟར་\nལས་ཀ་བྱེད་ཐུབ།";
 
 /* Text explaining thumbs down choice in feedback */
-"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "སཡི་ཕྷོན་ཡང་སེ་མཐུད་ཀ་ཆད་ཅིང་།\nལས་ཀ་དེ་ཙམ་\nཡག་པོ་\nབྱེད་ཐུབ་ཀྱི་མིན་འདུག";
-
-/* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "ཁྱེད་རང་ས་ཕྱོགས་གང་དུ་གནས་ཀྱང་སཡི་ཕྷོན་རྒྱུད་དེ་ངོ་མཚར་ཅན་གྱི་དྲྭ་རྒྱ་ཡོངས་རྫོགས་བལྟ་ཐུབ།";
+"Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "སཡི་ཕོན་ཡང་སེ་མཐུད་ཀ་ཆད་ཅིང་།\nལས་ཀ་དེ་ཙམ་\nཡག་པོ་\nབྱེད་ཐུབ་ཀྱི་མིན་འདུག";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "དྲྭ་ཤོག་ཡང་སྐྱར་ཁ་ཕྱེས།";
@@ -300,7 +304,7 @@
 /* Field name for display in list */
 "Signature Algorithm" = "རྩིས་ཐབས་མིང་རྟགས།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "སིངྒ་པུར།";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
@@ -309,7 +313,7 @@
 /* No comment provided by engineer. */
 "SKIP TUTORIAL" = "ཟུར་ཁྲིད་མི་དགོས།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "སི་པན།";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
@@ -317,6 +321,9 @@
 
 /* Field name for display in list */
 "State/Province" = "མངའ་སྡེ། ཞིང་ཆེན།";
+
+/* Text preceeding http response status code */
+"Status code:" = "གནས་བབས་ཨང་རྟགས།";
 
 /* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "གནས་བབས་མཚོན་བྱེད།";
@@ -331,7 +338,7 @@
 "Successfully downloaded image %@" = "པར་རིས་ཕབ་ལེན་ལེགས་སྒྲུབ་བྱུང་སོང་།%@";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "མཚོན་རྟགས་ལྗང་ཁུ་ཐོན་པ་དེས་སཡི་ཕྷོན་བལྟ་ཆས་ལ་མཐུད་ཟིན་པས་ཁྱེད་རང་གིས་བལྟ་འགོ་འཛུགས་ན་འགྲིག་གི་རེད།";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "མཚོན་རྟགས་ལྗང་ཁུ་ཐོན་པ་དེས་སཡི་ཕོན་བལྟ་ཆས་ལ་མཐུད་ཟིན་པས་ཁྱེད་རང་གིས་བལྟ་འགོ་འཛུགས་ན་འགྲིག་གི་རེད།";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
 "The Internet at your fingertips" = "ཁྱེད་རང་གི་མཛུབ་མོའི་རྩེ་ལ་དྲྭ་རྒྱ།";
@@ -340,7 +347,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "ཡོ་བྱད་འདི་གློག་འཕྲིན་གཏོང་བ་རྒྱུར་སྡེབ་སྒྲིབ་བྱེད་མིན་འདུག ཁྱེད་ཀྱིས་མཉེན་ཆས་སྒྲིབ་བཀོད་ནང་ནསགློག་འཕྲིན་སྒྲིག་བཀོད་སྡེབ་སྒྲིབ་གནང་རོགས།";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help!" = "འདིར་ཁྱེད་རང་གིས་སྒྲིག་བཀོད་བེད་སྤྱོད་དང་རོགས་རམ་འཚོལ་ས་དེ་རེད།";
+"This is where you can access settings and find help" = "འདིར་ཁྱེད་རང་གིས་སྒྲིག་བཀོད་བེད་སྤྱོད་དང་རོགས་རམ་འཚོལ་ས་རེད།";
 
 /* No comment provided by engineer. */
 "Title Label" = "འགོ་བརྗོད་མིང་བཏགས།";
@@ -348,10 +355,10 @@
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "'བསྒྱུར་བཅོས་སྒྲིག་བཀོད་'མཐེབ་སྣོན་སྒང་ལ་སྣོན་ཆོག་པའི་ཆོག་མཆན་གནང་རོགས།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "དབྱིན་ཡུལ།";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "ཨ་རི།";
 
 /* No comment provided by engineer. */
@@ -377,7 +384,7 @@
 "You can find solutions to many common problems in our %@." = "ཁྱེད་རང་ཚོ་ལ་ཕྲད་བཞིན་པའི་དཀའ་ངལ་མང་དག་ཅིག་གི་ཐབས་ལམ་ང་ཚོའི།%@.";
 
 /* Introduction text at top of feedback form */
-"Your feedback makes Psiphon better!" = "ཁྱེད་རང་གི་དགོངས་འཆར་འདིས་་སཡི་ཕྷོན་གོང་འཕེལ་དུ་བཏང་ཡོད། !";
+"Your feedback makes Psiphon better!" = "ཁྱེད་རང་གི་དགོངས་འཆར་འདིས་་སཡི་ཕོན་གོང་འཕེལ་དུ་བཏང་ཡོད། !";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
 "yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";

@@ -5,46 +5,46 @@
 "%ld rules in use" = "%ld rules in use";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "O \"Navegador Psiphon\" precisa de aceder à sua biblioteca de fotos para guardar e enviar imagens";
 
 /* Title text on one of the on-boarding screens */
-"Access the Web" = "Access the Web";
+"Access the Web" = "Aceder à Web";
 
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Adicionar Favorito";
 
 /* Title above a list of rules */
-"All rules" = "All rules";
+"All rules" = "Todas as regras";
 
 /* Alert dialog text */
-"Allow this page to close its tab?" = "Allow this page to close its tab?";
+"Allow this page to close its tab?" = "Permitir que esta página feche o seu separador?";
 
 /* Image download error alert text. %@ will be replaced with the URL of the image. */
-"An error occurred downloading image %@" = "An error occurred downloading image %@";
+"An error occurred downloading image %@" = "Ocorreu um erro ao transferir a imagem %@";
 
 /* HTTP authentication  alert title */
 "Authentication Required" = "Autenticação Obrigatória";
 
 /* Field name for display in list */
-"Begins On" = "Begins On";
+"Begins On" = "Começa Em";
 
-/* No comment provided by engineer. */
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "Melhor Desempenho";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Favoritos";
 
-/* Title displayed at the top of all onboardings screens */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"BROWSE BEYOND BORDERS" = "EXPLORAR ALÉM FRONTEIRAS";
 
 /* Field name for display in list */
-"Business Category" = "Business Category";
+"Business Category" = "Categoria de Empresa";
 
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
-"Bypass Censorship" = "Bypass Censorship";
+"Bypass Censorship" = "Contornar Censura";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "Canadá";
 
 /* Cancel
@@ -56,40 +56,40 @@
 "Cancel" = "Cancelar";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"Certificate Information" = "Informação do Certificado";
 
 /* Text of button on alert which will redirect the user to the settings menu */
-"Change Settings" = "Change Settings";
+"Change Settings" = "Alterar Definições";
 
 /* Field name for display in list */
-"Cipher" = "Cipher";
+"Cipher" = "Cifrar";
 
 /* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "Clear Cookies and Data";
+"Clear Cookies and Data" = "Limpar Cookies e dados";
 
 /* Field name for display in list */
-"Common Name" = "Common Name";
+"Common Name" = "Nome Comum";
 
 /* Title for the 'Allow this page to close its tab?' alert */
 "Confirm" = "Confirmar";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"Connected!" = "Ligado!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
+"Connecting..." = "A ligar...";
 
 /* Field name for display in list */
-"Connection Information" = "Connection Information";
+"Connection Information" = "Informação da Ligação";
 
 /* Action title for long press on link dialog */
 "Copy URL" = "Copiar URL";
 
 /* Field name for display in list */
-"Country" = "Country";
+"Country" = "País";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"Disconnected!" = "Desligado!";
 
 /* Bookmarks dialog 'Done' button title, dismisses the dialog
    Done action button. dismisses SSL certificate information dialog
@@ -101,13 +101,13 @@
 "Done" = "Concluído";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+"Downloading image %@. You will be notified when the download completes." = "A transferir a imagem %@. Será notificado quando a transferência estiver concluída.";
 
 /* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+"Downloading…" = "A transferir...";
 
 /* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+"Edit" = "Editar";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Editar Favorito";
@@ -120,29 +120,32 @@
    Image download error alert title */
 "Error" = "Erro";
 
-/* Field name for display in list */
-"Expires After" = "Expires After";
+/* Text preceeding error description */
+"Error:" = "Error:";
 
 /* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"Expires After" = "Expira Depois de";
+
+/* Field name for display in list */
+"Extended Validation: Organization" = "Validação prolongada: Organização";
 
 /* FAQ link text */
 "Frequently Asked Questions" = "Perguntas Mais Frequentes";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "Alemanha";
 
 /* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+"Go to Settings" = "Ir para Definições";
 
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
-"Happy Browsing!" = "Happy Browsing!";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"Happy Browsing!" = "Boa Navegação!";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Hong Kong" = "Hong-Kong";
 
 /* HTTPS Everywhere menu title */
-"HTTPS Everywhere Rules" = "HTTPS Everywhere Rules";
+"HTTPS Everywhere Rules" = "Regras de HTTPS Everywhere";
 
 /* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
 "https://psiphon.ca/en/about.html" = "https://psiphon.ca/pt_PT/about.html";
@@ -160,9 +163,9 @@
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "If the above form is not working or you would like to send screenshots, please email us at %@";
 
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
-"If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
+"If your favourite app is blocked, try their website in Psiphon Browser" = "Se a sua aplicação favorita está bloqueada, tente o site da Web da mesma no Navegador Psiphon";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "Índia";
 
 /* Field name for display in list */
@@ -171,11 +174,12 @@
 /* Field name for display in list */
 "Issued To" = "Issued To";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "Japão";
 
-/* Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"Language" = "Idioma";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Learn more about the data we collect in our %@";
@@ -184,10 +188,10 @@
 "Learning time is over" = "Learning time is over";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"Let's Go!" = "Let's Go!";
+"Let's Go!" = "Avançar!";
 
 /* Field name for display in list */
-"Locality" = "Locality";
+"Locality" = "Localmente";
 
 /* HTTP authentication alert log in button action */
 "Log In" = "Iniciar sessão";
@@ -201,14 +205,14 @@
 /* No comment provided by engineer. */
 "Message Text View" = "Message Text View";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "Países Baixos";
 
 /* New browser tab title text */
 "New Tab" = "Novo Separador";
 
 /* Text of the button that the user presses to proceed to the next screen of onboarding */
-"Next" = "Next";
+"Next" = "Seguinte";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
 "Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
@@ -231,7 +235,7 @@
 "Open in Safari" = "Abrir no Safari";
 
 /* Field name for display in list */
-"Organization" = "Organization";
+"Organization" = "Organização";
 
 /* Field name for display in list */
 "Organizational Unit Number" = "Organizational Unit Number";
@@ -244,19 +248,22 @@
 "Password" = "Palavra-passe";
 
 /* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+"Period of Validity" = "Período de Validade";
 
 /* Feedback footer text. */
 "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly." = "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly.";
 
 /* Field name for display in list */
-"Postal Code" = "Postal Code";
+"Postal Code" = "Código Postal";
 
 /* Privacy Policy link text */
 "Privacy Policy" = "Política de Privacidade";
 
 /* Field name for display in list */
-"Protocol" = "Protocol";
+"Protocol" = "Protocolo";
+
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
+"PSIPHON BROWSER" = "NAVEGADOR PSIPHON";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
@@ -266,9 +273,6 @@
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon often fails\nto connect or\ndoesn't perform well\nenough.";
-
-/* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon opens all the wonders of the web to you, no matter where you are";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Pull to Refresh Page";
@@ -286,43 +290,46 @@
 "Send" = "Enviar";
 
 /* Field name for display in list */
-"Serial Number" = "Serial Number";
+"Serial Number" = "Número de Série";
 
 /* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+"Server region:" = "Região do servidor:";
 
 /* No comment provided by engineer. */
 "Settings" = "Configurações";
 
 /* Title of second tutorial screen which highlights the settings button */
-"Settings & Help" = "Settings & Help";
+"Settings & Help" = "Definições e Ajuda";
 
 /* Field name for display in list */
 "Signature Algorithm" = "Signature Algorithm";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "Singapura";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"SKIP" = "SKIP";
+"SKIP" = "IGNORAR";
 
 /* No comment provided by engineer. */
-"SKIP TUTORIAL" = "SKIP TUTORIAL";
+"SKIP TUTORIAL" = "IGNORAR TUTORIAL";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "Espanha";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
-"Start Tutorial" = "Start Tutorial";
+"Start Tutorial" = "Iniciar Tutorial";
 
 /* Field name for display in list */
-"State/Province" = "State/Province";
+"State/Province" = "Concelho/Distrito";
+
+/* Text preceeding http response status code */
+"Status code:" = "Status code:";
 
 /* Title of first tutorial screen which highlights the connection indicator */
-"Status Indicator" = "Status Indicator";
+"Status Indicator" = "Indicador de Estado";
 
 /* Field name for display in list */
-"Street Address" = "Street Address";
+"Street Address" = "Morada";
 
 /* Image download success alert title */
 "Success!" = "Success!";
@@ -331,7 +338,7 @@
 "Successfully downloaded image %@" = "Successfully downloaded image %@";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
 "The Internet at your fingertips" = "The Internet at your fingertips";
@@ -340,7 +347,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help!" = "This is where you can access settings and find help!";
+"This is where you can access settings and find help" = "This is where you can access settings and find help";
 
 /* No comment provided by engineer. */
 "Title Label" = "Title Label";
@@ -348,10 +355,10 @@
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "Reino Unido";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "Estados Unidos da América";
 
 /* No comment provided by engineer. */
@@ -362,13 +369,13 @@
 "URL" = "URL";
 
 /* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+"User Name" = "Nome do Utilizador";
 
 /* Field name for display in list */
-"Version" = "Version";
+"Version" = "Versão";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
+"Waiting for network..." = "A aguardar por rede...";
 
 /* Comments section placeholder text */
 "What's on your mind? Please leave us your feedback" = "What's on your mind? Please leave us your feedback";

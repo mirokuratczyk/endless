@@ -8,7 +8,7 @@
 "\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon-nettleser\" trenger tilgang til ditt billedbibliotek for å lagre og laste opp bilder";
 
 /* Title text on one of the on-boarding screens */
-"Access the Web" = "Access the Web";
+"Access the Web" = "Få tilgang til veven";
 
 /* 'Add bookmark' dialog title */
 "Add Bookmark" = "Legg til bokmerke";
@@ -28,23 +28,23 @@
 /* Field name for display in list */
 "Begins On" = "Begynner den";
 
-/* No comment provided by engineer. */
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "Best ytelse";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "Bokmerker";
 
-/* Title displayed at the top of all onboardings screens */
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
 "BROWSE BEYOND BORDERS" = "SURF FORBI GRENSER";
 
 /* Field name for display in list */
 "Business Category" = "Firmakategori";
 
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
-"Bypass Censorship" = "Bypass Censorship";
+"Bypass Censorship" = "Omgå sensur";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "Kanada";
 
 /* Cancel
@@ -107,7 +107,7 @@
 "Downloading…" = "Laster ned…";
 
 /* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+"Edit" = "Rediger";
 
 /* Edit Bookmark dialog title */
 "Edit Bookmark" = "Rediger bokmerke";
@@ -120,6 +120,9 @@
    Image download error alert title */
 "Error" = "Feil";
 
+/* Text preceeding error description */
+"Error:" = "Feil:";
+
 /* Field name for display in list */
 "Expires After" = "Utløper etter";
 
@@ -129,16 +132,16 @@
 /* FAQ link text */
 "Frequently Asked Questions" = "Ofte Stilte Spørsmål";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "Tyskland";
 
 /* No comment provided by engineer. */
 "Go to Settings" = "Gå til innstillinger";
 
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
-"Happy Browsing!" = "Happy Browsing!";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"Happy Browsing!" = "Til lykke med surfingen!";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Hong Kong" = "Hongkong";
 
 /* HTTPS Everywhere menu title */
@@ -160,9 +163,9 @@
 "If the above form is not working or you would like to send screenshots, please email us at %@" = "Hvis skjemaet ovenfor ikke virker eller du ønsker å sende oss skjermbilder, send e-post til %@";
 
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
-"If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
+"If your favourite app is blocked, try their website in Psiphon Browser" = "Hvis ditt favorittprogram er blokkert, prøv nettsiden deres i Psiphon-nettleseren";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "India";
 
 /* Field name for display in list */
@@ -171,20 +174,21 @@
 /* Field name for display in list */
 "Issued To" = "Utstedt til";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "Japan";
 
-/* Title above language box which displays the current app language and all available languages that the app is localized for */
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
 "Language" = "Språk";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
 "Learn more about the data we collect in our %@" = "Lær mer om hvilken data vi samler inn i vår %@";
 
 /* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Learning time is over" = "Learning time is over";
+"Learning time is over" = "Læringstiden er over";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"Let's Go!" = "Let's Go!";
+"Let's Go!" = "La oss komme igang!";
 
 /* Field name for display in list */
 "Locality" = "Lokasjon";
@@ -201,17 +205,17 @@
 /* No comment provided by engineer. */
 "Message Text View" = "Meldingstekstvisning";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "Holland";
 
 /* New browser tab title text */
 "New Tab" = "Ny fane";
 
 /* Text of the button that the user presses to proceed to the next screen of onboarding */
-"Next" = "Next";
+"Next" = "Neste";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
+"Now we'll connect to a Psiphon server so you can start browsing." = "Vi vil nå koble til Psiphon-tjeneren slik at du kan starte å surfe.";
 
 /* Field name for display in list */
 "Object Identifier" = "Objektidentifikator";
@@ -258,6 +262,9 @@
 /* Field name for display in list */
 "Protocol" = "Protokoll";
 
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
+"PSIPHON BROWSER" = "PSIPHON-NETTLESER";
+
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "Psiphon kan ikke starte opp som følge av en intern feil, send tilbakemelding.";
 
@@ -266,9 +273,6 @@
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "Psiphon klarer ofte ikke\nå koble til\neller fungerer ikke bra\nnok.";
-
-/* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "Psiphon åpner opp surfe-skjærgården for deg, uansett hvor du er";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "Innhent for å gjenoppfriske side";
@@ -295,12 +299,12 @@
 "Settings" = "Innstillinger";
 
 /* Title of second tutorial screen which highlights the settings button */
-"Settings & Help" = "Settings & Help";
+"Settings & Help" = "Innstillinger og hjelp";
 
 /* Field name for display in list */
 "Signature Algorithm" = "Signaturalgoritme";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "Singapore";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
@@ -309,14 +313,17 @@
 /* No comment provided by engineer. */
 "SKIP TUTORIAL" = "HOPP OVER VEIVISNING";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "Spania";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
-"Start Tutorial" = "Start Tutorial";
+"Start Tutorial" = "Start veiviser";
 
 /* Field name for display in list */
 "State/Province" = "Fylke/provins";
+
+/* Text preceeding http response status code */
+"Status code:" = "Statuskode:";
 
 /* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "Statusindikator";
@@ -331,16 +338,16 @@
 "Successfully downloaded image %@" = "Bilde lastet ned %@";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "Den grønne avhukningen indikerer at Psiphon-nettleseren er tilkoblet og klar til at du skal starte å surfe";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"The Internet at your fingertips" = "The Internet at your fingertips";
+"The Internet at your fingertips" = "Internett, for eget grep";
 
 /* InAppSettingsKit */
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Denne enheten er ikke oppsatt til forsendelse av E-post. Sett opp e-postinnstillingene i innstillingsprogrammet.";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help!" = "This is where you can access settings and find help!";
+"This is where you can access settings and find help" = "Her har du tilgang til innstillinger og hjelp";
 
 /* No comment provided by engineer. */
 "Title Label" = "Tittel-merkelapp";
@@ -348,10 +355,10 @@
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "For å gi tilganger, trykk på 'Endre innstillinger'";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "Storbritannia";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "Amerikas forente stater";
 
 /* No comment provided by engineer. */

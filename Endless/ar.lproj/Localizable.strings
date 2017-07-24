@@ -28,14 +28,14 @@
 /* Field name for display in list */
 "Begins On" = "في البداية";
 
-/* No comment provided by engineer. */
+/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
 "Best Performance" = "أفضل أداء ";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "Bookmarks" = "الإشارات المرجعية";
 
-/* Title displayed at the top of all onboardings screens */
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
 "BROWSE BEYOND BORDERS" = "تصفح بلا حدود";
 
 /* Field name for display in list */
@@ -44,7 +44,7 @@
 /* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
 "Bypass Censorship" = "تجاوز الحجب";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Canada" = "كندا";
 
 /* Cancel
@@ -120,6 +120,9 @@
    Image download error alert title */
 "Error" = "خطأ ";
 
+/* Text preceeding error description */
+"Error:" = "خطأ:";
+
 /* Field name for display in list */
 "Expires After" = "إنتهاء الصلاحية بعد ";
 
@@ -129,16 +132,16 @@
 /* FAQ link text */
 "Frequently Asked Questions" = "الأسئلة الشائعة ";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Germany" = "ألمانيا";
 
 /* No comment provided by engineer. */
 "Go to Settings" = "الذهاب إلى الإعدادات ";
 
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sneding the user off on their journey across the Internet. */
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
 "Happy Browsing!" = "تصفح ممتع!";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Hong Kong" = "هونغ كونغ";
 
 /* HTTPS Everywhere menu title */
@@ -162,7 +165,7 @@
 /* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
 "If your favourite app is blocked, try their website in Psiphon Browser" = "إذا تم حجب تطبيقك المفضل، حاول الدخول إلى موقع التطبيق عبر متصفح سايفون ";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "India" = "الهند";
 
 /* Field name for display in list */
@@ -171,10 +174,11 @@
 /* Field name for display in list */
 "Issued To" = "حُولت إلى";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Japan" = "اليابان";
 
-/* Title above language box which displays the current app language and all available languages that the app is localized for */
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
 "Language" = "اللغة";
 
 /* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
@@ -201,7 +205,7 @@
 /* No comment provided by engineer. */
 "Message Text View" = "عرض نص الرسالة";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "هولندا";
 
 /* New browser tab title text */
@@ -211,7 +215,7 @@
 "Next" = "التالي";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Now we'll connect to a Psiphon server so you can start browsing." = "سنقوم الآن بالإتصال بخادوم سايفون لتمكينك من التصفح ";
+"Now we'll connect to a Psiphon server so you can start browsing." = "سنقوم الآن بالإتصال بخادوم سايفون لتمكينك من التصفح.";
 
 /* Field name for display in list */
 "Object Identifier" = "معرف الكائن ";
@@ -258,6 +262,9 @@
 /* Field name for display in list */
 "Protocol" = "بروتوكول ";
 
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
+"PSIPHON BROWSER" = "متصفح سايفون";
+
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
 "Psiphon can not start due to an internal error, please send feedback." = "لم يتمكن سايفون من البدأ نظراً لمشاكل داخلية، الرجاء إرسال الملاحظات.";
 
@@ -266,9 +273,6 @@
 
 /* Text explaining thumbs down choice in feedback */
 "Psiphon often fails\nto connect or\ndoesn't perform well\nenough." = "غالبا ما يفشل سايفون\n بالإتصال أو\nلا يعمل بشكل جيد.";
-
-/* No comment provided by engineer. */
-"Psiphon opens all the wonders of the web to you, no matter where you are" = "سيفون يفتح أمامك كل عجائب الويب لك, بغض النظر عن مكان تواجدك";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "Pull to Refresh Page" = "اسحب لتحديث الصفحة ";
@@ -300,7 +304,7 @@
 /* Field name for display in list */
 "Signature Algorithm" = "خوارزمية التوقيع";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Singapore" = "سنغافورة";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
@@ -309,7 +313,7 @@
 /* No comment provided by engineer. */
 "SKIP TUTORIAL" = "تخطي الشرح";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Spain" = "إسبانيا";
 
 /* Text of button that user presses to complete onboarding and start tutorial */
@@ -317,6 +321,9 @@
 
 /* Field name for display in list */
 "State/Province" = "الولاية/المقاطعة";
+
+/* Text preceeding http response status code */
+"Status code:" = "رمز الحالة:";
 
 /* Title of first tutorial screen which highlights the connection indicator */
 "Status Indicator" = "مؤشر الحالة";
@@ -331,7 +338,7 @@
 "Successfully downloaded image %@" = "تم تنزيل الصورة بنجاح %@";
 
 /* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing!" = "العلامة الخضراء تدل على أن متصفح سايفون متصل وجاهز للإستعمال! ";
+"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "تشير العلامة الخضراء على أن متصفح سايفون مُتصل وجاهز للبدء بالتصفح.";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
 "The Internet at your fingertips" = "الإنترنت في متناول يديك";
@@ -340,7 +347,7 @@
 "This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "إعدادات الجهاز لا تسمح إراسل البريد إلكتروني. الرجاء التحقق من إعدادات البريد الإلكتروني ضمن الإعدادات.";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help!" = "هنا يمكنك الوصول للإعدادات و إيجاد المساعدة! ";
+"This is where you can access settings and find help" = "هذا المكان الذي يمكنك من وصول الاعدادات والعثور على المساعدة";
 
 /* No comment provided by engineer. */
 "Title Label" = "تسمية العنوان ";
@@ -348,10 +355,10 @@
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "To give permissions tap on 'Change Settings' button" = "لإعطاء الأذونات اضغط على زر \"تغيير إعدادات\"";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United Kingdom" = "المملكة المتحدة";
 
-/* No comment provided by engineer. */
+/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "United States" = "الولايات المتحدة";
 
 /* No comment provided by engineer. */
