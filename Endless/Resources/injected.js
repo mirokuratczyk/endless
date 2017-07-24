@@ -1,6 +1,22 @@
 /*
- * Note: This block of Javascript has been injected via the Endless browser and is
+ * Note: This block of Javascript has been injected via the Psiphon browser and is
  * not a part of this website.
+ *
+ * Copyright (c) 2017, Psiphon Inc.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Endless
  * Copyright (c) 2014-2017 joshua stein <jcs@jcs.org>
@@ -12,8 +28,8 @@
  * ObjC IPC interface. Everything available via IPC must be **bulletproof**.
  */
 
-if (typeof __endless == "undefined") {
-var __endless = {
+if (typeof __psiphon == "undefined") {
+var __psiphon = {
 	/**
 	 * The time (in milliseconds) that we will wait for an ObjC call to complete.
 	 */
@@ -105,6 +121,11 @@ var __endless = {
 	 */
 	elementsAtPoint: function(x, y) {
 		var tags = [];
+		// Do nothing if run in a frame
+		// TODO: make this run properly in a frame
+		if (__psiphon.isInIframe()) {
+			return tags;
+		}
 		var e = document.elementFromPoint(x,y);
 		while (e) {
 			if (e.tagName) {
@@ -118,6 +139,7 @@ var __endless = {
 		}
 		return tags;
 	},
+
 	runFinalPageReporting: function() {
 		/**
 		 * Start a timer when page is loaded and report back to the browser after a delay via IPC.
@@ -125,13 +147,12 @@ var __endless = {
 		 * A list of all redirect URLs(if any) is passed then to the observer delegate
 		 * of this tab in the ObjC.
 		 */
-		var that = this;
 		setTimeout(function() {
 				// If this fires, then the page has been loaded for 1 second.
 				// If the timer was created but this doesn't fire, it means this page
 				// went away before 1 second elapsed.
 				var ipcAction = "pagefinal";
-				that.ipc(ipcAction);
+				__psiphon.ipc(ipcAction);
 				}, 3000);
 	},
 
@@ -144,14 +165,22 @@ var __endless = {
 		if (document && document.body)
 			document.body.style.webkitTouchCallout = "none";
 
-		__endless.hookIntoBlankAs();
+		__psiphon.hookIntoBlankAs();
 
 		/* start final page reporting */
-		__endless.runFinalPageReporting();
+		if (!__psiphon.isInIframe) {
+			__psiphon.runFinalPageReporting();
+		}
 
+		// TODO-DISABLE-JAVASCRIPT: comment out until fixed
 		/* ask obj C if js is disabled and noscript tags should be removed */
-		__endless.ipcAndWaitForReply("noscript");
+		//__psiphon.ipcAndWaitForReply("noscript");
 
+		/* setup media links rewriting to go via URL proxy */
+		__psiphon.setupMediaObservers();
+
+		/* setup URL proxy change listener */
+		__psiphon.listenToUrlProxyPortMessage();
 	},
 
 	/**
@@ -160,20 +189,250 @@ var __endless = {
 	 * absolute, it will not be altered.
 	 */
 	absoluteURL: function (url) {
-		var a = document.createElement("a");
-		a.href = url; /* browser will make this absolute for us */
-		return a.href;
+		if(!__psiphon.helperAnchorElement) {
+			__psiphon.helperAnchorElement = document.createElement("a");
+		}
+		__psiphon.helperAnchorElement.href = url; /* browser will make this absolute for us */
+		return __psiphon.helperAnchorElement.href;
 	},
+	// TODO-DISABLE-JAVASCRIPT: comment out until fixed
 	/**
 	 * Removes <noscript> tags from DOM.
 	 * Called from Obj C when javascript is disabled
 	 * we need to remove <noscript> tags because we do not actually
 	 * disable js in the browser but rather restrict it with CSP
 	 */
+	 /*
 	removeNoscript: function() {
 		var noscript = document.getElementsByTagName('noscript');
 		for (var i = 0; i < noscript.length; i++) {
 			noscript[i].outerHTML = noscript[i].childNodes[0].nodeValue;
+		}
+	}
+	*/
+
+	isInIframe: function () {
+		try {
+			return window.self !== window.top;
+		} catch (e) {
+			return true;
+		}
+	},
+
+	// Media links rewriting related functions below:
+
+	// Modifies the src attribute on the element to use the URL proxy, if it
+	// hasn't already been modified.
+	urlProxyElementSrc: function (elem) {
+		var originalSrc = elem.src;
+
+		if (!originalSrc || !originalSrc.length) {
+			return;
+		}
+
+		// Don't try to proxy data URIs.
+		if (originalSrc.indexOf('data:') === 0) {
+			return;
+		}
+
+		// Make the src attr absolute. We can't URL-proxy relative URLs.
+		originalSrc = __psiphon.absoluteURL(originalSrc);
+
+		var urlProxyPrefix = 'http://127.0.0.1:' + __psiphon.urlProxyPort + '/tunneled/';
+
+		if (originalSrc.indexOf(urlProxyPrefix) === 0) {
+			// Already proxied with current urlProxyPrefix
+			return;
+		}
+
+		// Check if the attribute has been previously proxied but URL proxy port has changed
+		__psiphon.helperAnchorElement.href = originalSrc;
+		if(__psiphon.helperAnchorElement.hostname == '127.0.0.1' && __psiphon.helperAnchorElement.port != __psiphon.urlProxyPort) {
+			// update just the port
+			__psiphon.helperAnchorElement.port = __psiphon.urlProxyPort;
+			console.debug('urlProxyElementSrc: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
+			elem.setAttribute('src', __psiphon.helperAnchorElement.href);
+			return;
+		}
+
+
+		console.debug('urlProxyElementSrc: replacing ' + elem.tagName + ' element src: ' + originalSrc);
+		elem.setAttribute('src', urlProxyPrefix + encodeURIComponent(originalSrc));
+	},
+
+	// Monitors an element for mutations that might require configuring/reconfiguring
+	// the URL proxy setup.
+	monitorElement: function (elem) {
+		// We'll add a custom property to avoid re-adding the MutationObserver.
+		if (elem.__psiphon_monitorElement) {
+			return;
+		}
+		elem.__psiphon_monitorElement = true;
+
+		var mutationObserverConfig = {
+			attributes: true,
+			attributeFilter: ['src'],
+			childList: true,
+			characterData: false,
+			subtree: true
+		};
+
+		var mutationObserver = new MutationObserver(function (mutations) {
+			var i, j, mutation, node;
+
+			for (i = 0; i < mutations.length; i++) {
+				var mutation = mutations[i];
+
+				// If the mutation was a src attribute changes, try to proxy the new value.
+				if (mutation.type === 'attributes' && ['video', 'audio', 'source'].includes(mutation.target.tagName.toLowerCase())) {
+					console.debug('monitorElement::MutationObserver: ' + mutation.target.tagName + ' attr src changed');
+					__psiphon.urlProxyElementSrc(mutation.target)
+					continue;
+				}
+
+				if (mutation.type !== 'childList' || mutation.addedNodes.length === 0) {
+					continue;
+				}
+
+				// If the mutation was new child elements, configure them for proxying.
+				for (j = 0; j < mutation.addedNodes.length; j++) {
+					node = mutation.addedNodes[j];
+
+					if (node.nodeType !== Node.ELEMENT_NODE) {
+						continue;
+					}
+					if (node.tagName == 'SOURCE') {
+						// New 'source' node has been added to the element
+						// and needs to be proxied and monitored.
+						__psiphon.urlProxyElementSrc(node);
+						__psiphon.monitorElement(node);
+					}
+				}
+			}
+		});
+
+		// Start the mutation observation.
+		mutationObserver.observe(elem, mutationObserverConfig);
+	},
+
+	// Sets up the given media element to have its media data URL proxied.
+	// This will involve changing its src attribute, checking for src changes,
+	// and doing the same for any <source> child element.
+	urlProxyMediaElement: function (elem) {
+		var i;
+
+		// Modify any existing src attribute.
+		__psiphon.urlProxyElementSrc(elem);
+		// Monitor for future changes.
+		__psiphon.monitorElement(elem);
+
+		// If there's a <source> child element, modify and monitor it as well.
+		if (elem.children && elem.children.length) {
+			for (i = 0; i < elem.children.length; i++) {
+				if (elem.children[i].tagName.toLowerCase() === 'source') {
+					__psiphon.urlProxyElementSrc(elem.children[i]);
+					__psiphon.monitorElement(elem.children[i]);
+				}
+			}
+		}
+	},
+
+	// Proxies all current media elements in the document
+	urlProxyCurrentMediaElements: function() {
+		var i, j;
+		var mediaTags = ['video', 'audio'];
+		for (i = 0; i < mediaTags.length; i++) {
+			var elems = document.getElementsByTagName(mediaTags[i]);
+			for (j = 0; j < elems.length; j++) {
+				__psiphon.urlProxyMediaElement(elems[j]);
+			}
+		}
+	},
+
+	// Go through all existing media elements and modify+monitor them
+	setupMediaObservers: function () {
+		__psiphon.urlProxyCurrentMediaElements();
+
+		var mediaTags = ['video', 'audio'];
+		// Not all media elements exist in the page at this point, so we'll monitor
+		// the body of the page for additions.
+
+		var mutationObserverConfig = {
+			attributes: false,
+			childList: true,
+			characterData: false,
+			subtree: true
+		};
+
+		// create an observer instance
+		var mutationObserver = new MutationObserver(function (mutations) {
+			var i, j, k, l, mutation, node;
+
+			for (i = 0; i < mutations.length; i++) {
+				var mutation = mutations[i];
+
+				if (mutation.type !== 'childList' || mutation.addedNodes.length === 0) {
+					continue;
+				}
+
+				for (j = 0; j < mutation.addedNodes.length; j++) {
+					node = mutation.addedNodes[j];
+
+					if (node.nodeType !== Node.ELEMENT_NODE) {
+						continue;
+					}
+
+					// Check if the new node or its children contain media elements
+					// and set them for monitoring and proxying.
+					if (mediaTags.includes(node.tagName.toLowerCase())) {
+						console.debug('onLoad::MutationObserver: found new ' + node.tagName);
+						__psiphon.urlProxyMediaElement(node)
+					} else {
+						for (k = 0; k < mediaTags.length; k++) {
+							var mediaElements = node.getElementsByTagName(mediaTags[k]);
+							for (l = 0; l < mediaElements.length; l++) {
+								console.debug('onLoad::MutationObserver: found new ' + mediaElements[l].tagName);
+								__psiphon.urlProxyMediaElement(mediaElements[l])
+							}
+						}
+					}
+				}
+			}
+		});
+		// Start the mutation observer. Note that document.body isn't guaranteed to
+		// exist for all pages.
+		if (document.body) {
+			mutationObserver.observe(document.body, mutationObserverConfig);
+		}
+	},
+
+	// Listens for URL proxy port change message
+	// and updates __psiphon.urlProxyPort with new value.
+	listenToUrlProxyPortMessage: function(){
+		window.addEventListener('message', function (event) {
+			if (event.data.event_id === 'urlProxyPort') {
+				__psiphon.urlProxyPort = event.data.urlProxyPort;
+				__psiphon.urlProxyCurrentMediaElements();
+			}
+		}, false);
+	},
+
+	// Messages all URL proxy port listeners
+	// with the new proxy port.
+	// NOTE: This function is called from Obj C on top window only.
+	messageUrlProxyPort:function (port) {
+		var message = {
+			event_id: 'urlProxyPort',
+			urlProxyPort: port
+		}
+
+		// message top window
+		window.postMessage(message, '*');
+
+		// message iframes
+		var iframes = document.getElementsByTagName('iframe');
+		for (var i = 0; i < iframes.length; i++) {
+			iframes[0].contentWindow.postMessage(message, '*');
 		}
 	}
 };
@@ -190,7 +449,7 @@ var __endless = {
 	// More info about `window.open` here, although there's a lot not implemented here:
 	// https://developer.mozilla.org/en-US/docs/Web/API/Window/open
 	window.open = function (url, name, specs, replace) {
-		var ipcURL = "endlessipc://window.open/?" + encodeURIComponent(__endless.absoluteURL(url));
+		var ipcURL = "endlessipc://window.open/?" + encodeURIComponent(__psiphon.absoluteURL(url));
 
 		/*
 		 * Fake a mouse event clicking on a link, so that our webview sees the
@@ -217,14 +476,14 @@ var __endless = {
 
 	// Override `window.close()` so that we can use IPC to ObjC to request that this tab be closed.
 	window.close = function () {
-		__endless.ipcAndWaitForReply("window.close");
+		__psiphon.ipcAndWaitForReply("window.close");
 	};
 
 	// Override `console.log()` (etc.) in order to use IPC to send log info to ObjC.
 	console._log = function(urg, args) {
 		if (args.length == 1)
 			args = args[0];
-		__endless.ipc("console.log/" + urg + "?" + encodeURIComponent(JSON.stringify(args)));
+		__psiphon.ipc("console.log/" + urg + "?" + encodeURIComponent(JSON.stringify(args)));
 	};
 	console.log = function() { console._log("log", arguments); };
 	console.debug = function() { console._log("debug", arguments); };
@@ -233,10 +492,10 @@ var __endless = {
 	console.error = function() { console._log("error", arguments); };
 
 	if (document.readyState == "complete" || document.readyState == "interactive") {
-		__endless.onLoad();
+		__psiphon.onLoad();
 	}
 	else {
-		document.addEventListener("DOMContentLoaded", __endless.onLoad, false);
+		document.addEventListener("DOMContentLoaded", __psiphon.onLoad, false);
 	}
 }());
 }
