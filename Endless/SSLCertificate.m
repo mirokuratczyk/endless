@@ -239,7 +239,7 @@
 		return nil;
 	}
 
-	if (index > [arr count]) {
+	if (index >= [arr count]) {
 		NSLog(@"[SSLCertificate] array count is %lu, need index %lu", (unsigned long)[arr count], (long)index);
 		return nil;
 	}
