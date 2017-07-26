@@ -1011,12 +1011,14 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 			if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
 				SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-				[_wvt setSSLCertificate:certificate];
-				// Also cache the cert for displaying when
-				// -URLSession:task:didReceiveChallenge: is not getting called
-				// due to NSURLSession internal TLS caching
-				// or UIWebView content caching
-				[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
+				if (certificate != nil) {
+					[_wvt setSSLCertificate:certificate];
+					// Also cache the cert for displaying when
+					// -URLSession:task:didReceiveChallenge: is not getting called
+					// due to NSURLSession internal TLS caching
+					// or UIWebView content caching
+					[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
+				}
 			}
 			NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
 			assert(credential != nil);
