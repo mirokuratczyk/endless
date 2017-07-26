@@ -42,7 +42,7 @@ DEFAULT_LANGS = {
     'fr': 'fr',         # French
     'hr': 'hr',         # Croation
     'id': 'id',         # Indonesian
-    'it': 'it',         # Italian
+    #'it': 'it',         # Italian
     #'kk': 'kk',         # Kazakh
     'km': 'km',         # Khmer
     'ko': 'ko',         # Korean
