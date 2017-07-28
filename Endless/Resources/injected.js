@@ -237,27 +237,54 @@ var __psiphon = {
 			if (element instanceof HTMLMediaElement) {
 				__psiphon.debug('createElement:' + element.tagName);
 
-				// patch DOM mutation functions
-				var originalAppendChild = element.appendChild;
-				try {
-					element.appendChild = function () {
-						__psiphon.debug('appendChild' + ': ' + arguments[0]);
-						__psiphon.urlProxyElementSrc.apply(this, arguments);
-						return originalAppendChild.apply(this, arguments);
-					};
-				} catch (e) {
-					__psiphon.error(e);
+				// patch DOM mutation functions:
+				var props = ['appendChild', 'replaceChild', 'insertBefore'];
+
+				var getPropertyDescriptor = function (obj, prop) {
+					var desc;
+					try {
+						desc = Object.getOwnPropertyDescriptor(obj, prop);
+					} catch (e) {
+						__psiphon.warn('Can not get property ' + prop + ' of ' + element.tagName + ': ' + e.message);
+						return desc;
+					}
+					if (typeof desc === 'undefined') {
+						try {
+							var objProto = Object.getPrototypeOf(obj);
+						} catch (e) { }
+						if (objProto)
+							return getPropertyDescriptor(objProto, prop);
+					}
+					return desc;
 				}
 
-				var originalReplaceChild = element.replaceChild;
-				try {
-					element.replaceChild = function () {
-						__psiphon.debug('appendChild' + ': ' + arguments[0]);
-						__psiphon.urlProxyElementSrc.apply(this, arguments);
-						return originalReplaceChild.apply(this, arguments);
-					};
-				} catch (e) {
-					__psiphon.error(e);
+				for (var i = 0; i < props.length; i++) {
+					(function (el) {
+						var prop = props[i];
+						var desc = getPropertyDescriptor(el, prop);
+						if (desc) {
+							if (desc.configurable) {
+								if (desc.value) {
+									if (typeof desc.value === 'function') {
+										var originalValue = desc.value;
+										desc.value = function () {
+											__psiphon.debug(prop + ': ' + arguments[0]);
+											__psiphon.urlProxyElementSrc.apply(this, arguments);
+											return originalValue.apply(this, arguments);
+										};
+									} else {
+										__psiphon.warn('Can not patch ' + prop + ': not a function');
+									}
+								} else {
+									__psiphon.warn('Can not patch ' + prop + ': no such property value');
+								}
+								__psiphon.debug('Patching ' + prop);
+								Object.defineProperty(el, prop, desc);
+							} else {
+								__psiphon.warn('Can not patch ' + prop + ': not configurable');
+							}
+						}
+					})(element);
 				}
 
 				// patch src property
@@ -267,7 +294,7 @@ var __psiphon = {
 					__psiphon.log(e);
 				}
 			} else {
-				// TODO patch innerHTML, inspect for media elements
+				// TODO patch innerHTML and insertAdjacentHTML, inspect for media elements
 			}
 			return element;
 		};
@@ -310,7 +337,7 @@ var __psiphon = {
 				element.__psiphon_setAttribute = element.setAttribute;
 				element.setAttribute = function () {
 					if (arguments.length > 1) {
-						if (arguments[0] === 'src') {
+						if (arguments[0].toLowerCase() === 'src') {
 							var proxiedVal = __psiphon.proxifyURL(arguments[1]);
 							arguments[1] = proxiedVal;
 							__psiphon.debug("Modifying " + element.tagName + ".src with " + proxiedVal);
@@ -329,8 +356,8 @@ var __psiphon = {
 			return "";
 		}
 
-		// Don't try to proxy data URIs.
-		if (url.indexOf('data:') === 0) {
+		// Don't try to proxy data or blob URIs.
+		if (url.indexOf('data:') === 0 || url.indexOf('blob:') === 0 ) {
 			return url;
 		}
 
@@ -366,12 +393,10 @@ var __psiphon = {
 		if (element.children && element.children.length) {
 			for (var i = 0; i < element.children.length; i++) {
 				var child = element.children[i];
-				if (child.tagName.toLowerCase() === 'source') {
-					__psiphon.urlProxyElementSrc(child);
-					if (child.parentElement && child.parentElement instanceof HTMLMediaElement) {
-						// reload the media
-						child.parentElement.load();
-					}
+				__psiphon.urlProxyElementSrc(child);
+				if (child.parentElement && child.parentElement instanceof HTMLMediaElement) {
+					// reload the media
+					child.parentElement.load();
 				}
 			}
 		}
@@ -401,7 +426,7 @@ var __psiphon = {
 				__psiphon.urlProxyCurrentMediaElements();
 				var iframes = document.getElementsByTagName('iframe');
 				for (var i = 0; i < iframes.length; i++) {
-					iframes[0].contentWindow.postMessage(event.data, '*');
+					iframes[i].contentWindow.postMessage(event.data, '*');
 				}
 			}
 		}, false);
