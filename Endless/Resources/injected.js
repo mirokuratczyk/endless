@@ -31,7 +31,7 @@
 if (typeof __psiphon == "undefined") {
 var __psiphon = {
 	// Override if you want to see console messages coming from this script
-	DEBUG: false,
+	TRACE: false,
 
 	// Override if you want console messages to be sent back to the Obj C via IPC
 	USE_IPC_CONSOLE: false,
@@ -81,9 +81,7 @@ var __psiphon = {
 
 		while (this.ipcDone == null) {
 			if ((new Date()).getTime() - start > this.ipcTimeoutMS) {
-				if(__psiphon.DEBUG) {
-					console.log("took too long waiting for IPC reply");
-				}
+				__psiphon.log("took too long waiting for IPC reply");
 				break;
 			}
 		}
@@ -115,9 +113,7 @@ var __psiphon = {
 					return false;
 				}
 				else {
-					if (__psiphon.DEBUG) {
-						console.log("not opening _blank a from " + event.type + " event");
-					}
+					__psiphon.log("not opening _blank a from " + event.type + " event");
 				}
 			}
 		}, false);
@@ -186,8 +182,8 @@ var __psiphon = {
 		/* ask obj C if js is disabled and noscript tags should be removed */
 		//__psiphon.ipcAndWaitForReply("noscript");
 
-		/* setup media links rewriting to go via URL proxy */
-		__psiphon.setupMediaObservers();
+		// URL proxify all current media elements
+		__psiphon.urlProxyCurrentMediaElements();
 
 		/* setup URL proxy change listener */
 		__psiphon.listenToUrlProxyPortMessage();
@@ -231,132 +227,159 @@ var __psiphon = {
 
 	// Media links rewriting related functions below:
 
-	// Modifies the src attribute on the element to use the URL proxy, if it
-	// hasn't already been modified.
-	urlProxyElementSrc: function (elem) {
-		var originalSrc = elem.src;
+	// Hooks into DOM mutation functions of an element
+	// created with document.createElement(...) and
+	// patches element's src' attribute setter
+	patchCreateElement: function () {
+		var originalCreateElement = document.createElement;
+		document.createElement = function () {
+			var element = originalCreateElement.apply(this, arguments);
+			if (element instanceof HTMLMediaElement) {
+				__psiphon.debug('createElement:' + element.tagName);
 
-		if (!originalSrc || !originalSrc.length) {
-			return;
+				// patch DOM mutation functions
+				var originalAppendChild = element.appendChild;
+				try {
+					element.appendChild = function () {
+						__psiphon.debug('appendChild' + ': ' + arguments[0]);
+						__psiphon.urlProxyElementSrc.apply(this, arguments);
+						return originalAppendChild.apply(this, arguments);
+					};
+				} catch (e) {
+					__psiphon.error(e);
+				}
+
+				var originalReplaceChild = element.replaceChild;
+				try {
+					element.replaceChild = function () {
+						__psiphon.debug('appendChild' + ': ' + arguments[0]);
+						__psiphon.urlProxyElementSrc.apply(this, arguments);
+						return originalReplaceChild.apply(this, arguments);
+					};
+				} catch (e) {
+					__psiphon.error(e);
+				}
+
+				// patch src property
+				try {
+					__psiphon.patchElementSrc(element);
+				} catch (e) {
+					__psiphon.log(e);
+				}
+			} else {
+				// TODO patch innerHTML, inspect for media elements
+			}
+			return element;
+		};
+	},
+
+	// URL proxifies element's src attribute and
+	// modifies 'src' property setter so all
+	// future mutations of the property will be
+	// URL proxified.
+	urlProxyElementSrc: function (element) {
+		if (element && typeof element.__psiphon_setAttribute === 'undefined' && element.src) {
+			try {
+				__psiphon.patchElementSrc(element);
+				// Reload src so it gets proxied.
+				element.src = element.src;
+			} catch (e) {
+				// Patching failed, just proxify current value.
+				__psiphon.log(e);
+				element.src = __psiphon.proxifyURL(element.src);
+			}
+		} else {
+			// Just reload the element
+			element.src = element.src;
+		}
+	},
+
+	// Modify element's src property and override setAttribute('src')
+	patchElementSrc: function (element) {
+		if (typeof element.__psiphon_setAttribute === 'undefined') {
+			try {
+				Object.defineProperty(element, 'src', {
+					get: function () {
+						return this.getAttribute('src');
+					},
+					set: function (val) {
+						this.setAttribute('src', val);
+					}
+				});
+				// Store original setAttribute of the element
+				element.__psiphon_setAttribute = element.setAttribute;
+				element.setAttribute = function () {
+					if (arguments.length > 1) {
+						if (arguments[0] === 'src') {
+							var proxiedVal = __psiphon.proxifyURL(arguments[1]);
+							arguments[1] = proxiedVal;
+							__psiphon.debug("Modifying " + element.tagName + ".src with " + proxiedVal);
+						}
+					}
+					return this.__psiphon_setAttribute.apply(this, arguments);
+				};
+			} catch (e) {
+				throw "Could not patch " + element.tagName + " error:" + e.message;
+			}
+		}
+	},
+
+	proxifyURL: function (url) {
+		if (!url || !url.length) {
+			return "";
 		}
 
 		// Don't try to proxy data URIs.
-		if (originalSrc.indexOf('data:') === 0) {
-			return;
+		if (url.indexOf('data:') === 0) {
+			return url;
 		}
 
 		// Make the src attr absolute. We can't URL-proxy relative URLs.
-		originalSrc = __psiphon.absoluteURL(originalSrc);
+		url = __psiphon.absoluteURL(url);
 
 		var urlProxyPrefix = 'http://127.0.0.1:' + __psiphon.urlProxyPort + '/tunneled/';
 
-		if (originalSrc.indexOf(urlProxyPrefix) === 0) {
+		if (url.indexOf(urlProxyPrefix) === 0) {
 			// Already proxied with current urlProxyPrefix
-			return;
+			return url;
 		}
 
 		// Check if the attribute has been previously proxied but URL proxy port has changed
-		__psiphon.helperAnchorElement.href = originalSrc;
+		__psiphon.helperAnchorElement.href = url;
 		if (__psiphon.helperAnchorElement.hostname === '127.0.0.1' && parseInt(__psiphon.helperAnchorElement.port) !== __psiphon.urlProxyPort) {
-			// update just the port
+			// update just the port and return
 			__psiphon.helperAnchorElement.port = __psiphon.urlProxyPort;
-			if (__psiphon.DEBUG) {
-				console.debug('urlProxyElementSrc: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
-			}
-			elem.setAttribute('src', __psiphon.helperAnchorElement.href);
-			if(elem.parentElement && ['video', 'audio'].includes(elem.parentElement.tagName.toLowerCase())) {
-				// reload the media
-				elem.parentElement.load();
-			}
-			return;
+			__psiphon.debug('proxifyURL: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
+			return __psiphon.helperAnchorElement.href;
 		}
-
-		if (__psiphon.DEBUG) {
-			console.debug('urlProxyElementSrc: replacing ' + elem.tagName + ' element src: ' + originalSrc);
-		}
-		elem.setAttribute('src', urlProxyPrefix + encodeURIComponent(originalSrc));
+		return urlProxyPrefix + encodeURIComponent(url);
 	},
 
-	// Monitors an element for mutations that might require configuring/reconfiguring
-	// the URL proxy setup.
-	monitorElement: function (elem) {
-		// We'll add a custom property to avoid re-adding the MutationObserver.
-		if (elem.__psiphon_monitorElement) {
-			return;
-		}
-		elem.__psiphon_monitorElement = true;
-
-		var mutationObserverConfig = {
-			attributes: true,
-			attributeFilter: ['src'],
-			childList: true,
-			characterData: false,
-			subtree: true
-		};
-
-		var mutationObserver = new MutationObserver(function (mutations) {
-			var i, j, mutation, node;
-
-			for (i = 0; i < mutations.length; i++) {
-				mutation = mutations[i];
-
-				// If the mutation was a src attribute changes, try to proxy the new value.
-				if (mutation.type === 'attributes' && ['video', 'audio', 'source'].includes(mutation.target.tagName.toLowerCase())) {
-					if (__psiphon.DEBUG) {
-						console.debug('monitorElement::MutationObserver: ' + mutation.target.tagName + ' attr src changed');
-					}
-					__psiphon.urlProxyElementSrc(mutation.target)
-					continue;
-				}
-
-				if (mutation.type !== 'childList' || mutation.addedNodes.length === 0) {
-					continue;
-				}
-
-				// If the mutation was new child elements, configure them for proxying.
-				for (j = 0; j < mutation.addedNodes.length; j++) {
-					node = mutation.addedNodes[j];
-
-					if (node.nodeType !== Node.ELEMENT_NODE) {
-						continue;
-					}
-					if (node.tagName.toLowerCase() == 'source') {
-						// New 'source' node has been added to the element
-						// and needs to be proxied and monitored.
-						__psiphon.urlProxyElementSrc(node);
-						__psiphon.monitorElement(node);
-					}
-				}
-			}
-		});
-
-		// Start the mutation observation.
-		mutationObserver.observe(elem, mutationObserverConfig);
-	},
-
-	// Sets up the given media element to have its media data URL proxied.
-	// This will involve changing its src attribute, checking for src changes,
-	// and doing the same for any <source> child element.
-	urlProxyMediaElement: function (elem) {
-		var i;
-
+	// Proxifies media data URL of the element.
+	// This will involve changing its and any
+	// <source> child element src attribute,
+	urlProxyMediaElement: function (element) {
 		// Modify any existing src attribute.
-		__psiphon.urlProxyElementSrc(elem);
-		// Monitor for future changes.
-		__psiphon.monitorElement(elem);
+		__psiphon.urlProxyElementSrc(element);
 
 		// If there's a <source> child element, modify and monitor it as well.
-		if (elem.children && elem.children.length) {
-			for (i = 0; i < elem.children.length; i++) {
-				if (elem.children[i].tagName.toLowerCase() === 'source') {
-					__psiphon.urlProxyElementSrc(elem.children[i]);
-					__psiphon.monitorElement(elem.children[i]);
+		if (element.children && element.children.length) {
+			for (var i = 0; i < element.children.length; i++) {
+				var child = element.children[i];
+				if (child.tagName.toLowerCase() === 'source') {
+					__psiphon.urlProxyElementSrc(child);
+					if (child.parentElement && child.parentElement instanceof HTMLMediaElement) {
+						// reload the media
+						child.parentElement.load();
+					}
 				}
 			}
 		}
 	},
 
-	// Proxies all current media elements in the document
+	// Proxifies all current media elements in the document
+	// We call this function when DOM loads or URL proxy port changes
+	// in order to apply the change to all current media DOM nodes
 	urlProxyCurrentMediaElements: function() {
 		var i, j;
 		var mediaTags = ['video', 'audio'];
@@ -368,69 +391,9 @@ var __psiphon = {
 		}
 	},
 
-	// Go through all existing media elements and modify+monitor them
-	setupMediaObservers: function () {
-		__psiphon.urlProxyCurrentMediaElements();
-
-		var mediaTags = ['video', 'audio'];
-		// Not all media elements exist in the page at this point, so we'll monitor
-		// the body of the page for additions.
-
-		var mutationObserverConfig = {
-			attributes: false,
-			childList: true,
-			characterData: false,
-			subtree: true
-		};
-
-		// create an observer instance
-		var mutationObserver = new MutationObserver(function (mutations) {
-			var i, j, k, l, mutation, node;
-
-			for (i = 0; i < mutations.length; i++) {
-				var mutation = mutations[i];
-
-				if (mutation.type !== 'childList' || mutation.addedNodes.length === 0) {
-					continue;
-				}
-
-				for (j = 0; j < mutation.addedNodes.length; j++) {
-					node = mutation.addedNodes[j];
-
-					if (node.nodeType !== Node.ELEMENT_NODE) {
-						continue;
-					}
-
-					// Check if the new node or its children contain media elements
-					// and set them for monitoring and proxying.
-					if (mediaTags.includes(node.tagName.toLowerCase())) {
-						if (__psiphon.DEBUG) {
-							console.debug('onLoad::MutationObserver: found new ' + node.tagName);
-						}
-						__psiphon.urlProxyMediaElement(node)
-					} else {
-						for (k = 0; k < mediaTags.length; k++) {
-							var mediaElements = node.getElementsByTagName(mediaTags[k]);
-							for (l = 0; l < mediaElements.length; l++) {
-								if (__psiphon.DEBUG) {
-									console.debug('onLoad::MutationObserver: found new ' + mediaElements[l].tagName);
-								}
-								__psiphon.urlProxyMediaElement(mediaElements[l])
-							}
-						}
-					}
-				}
-			}
-		});
-		// Start the mutation observer. Note that document.body isn't guaranteed to
-		// exist for all pages.
-		if (document.body) {
-			mutationObserver.observe(document.body, mutationObserverConfig);
-		}
-	},
-
-	// Listens for URL proxy port change message
-	// and updates __psiphon.urlProxyPort with new value.
+	// Listens for URL proxy port change message, 
+	// updates __psiphon.urlProxyPort with new value
+	// and applies the change to all currentl media elements
 	listenToUrlProxyPortMessage: function () {
 		window.addEventListener('message', function (event) {
 			if (event.data.event_id === '__psiphon_urlProxyPort') {
@@ -454,11 +417,14 @@ var __psiphon = {
 		}
 		// message top window
 		window.postMessage(message, '*');
-	}
+	},
 };
 
 (function () {
 	"use strict";
+
+	// Patch document.createElement early
+	__psiphon.patchCreateElement();
 
 	// Log global errors
 	window.onerror = function(msg, url, line) {
@@ -499,7 +465,6 @@ var __psiphon = {
 		__psiphon.ipcAndWaitForReply("window.close");
 	};
 
-	// Uncomment to override native console logging
 	if(__psiphon.USE_IPC_CONSOLE) {
 		// Override `console.log()` (etc.) in order to use IPC to send log info to ObjC.
 		console._log = function(urg, args) {
@@ -513,6 +478,13 @@ var __psiphon = {
 		console.warn = function() { console._log("warn", arguments); };
 		console.error = function() { console._log("error", arguments); };
 	}
+
+	// Blackhole log messages if __psiphon.TRACE is false
+	__psiphon.log = __psiphon.TRACE ? console.log : function () { };
+	__psiphon.debug = __psiphon.TRACE ? console.debug : function () { };
+	__psiphon.info = __psiphon.TRACE ? console.info : function () { };
+	__psiphon.warn = __psiphon.TRACE ? console.warn : function () { };
+	__psiphon.error = __psiphon.TRACE ? console.error : function () { };
 
 	if (document.readyState == "complete" || document.readyState == "interactive") {
 		__psiphon.onLoad();
