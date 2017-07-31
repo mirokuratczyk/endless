@@ -22,7 +22,7 @@
 #import "OnboardingInfoViewController.h"
 #import "OnboardingLanguageViewController.h"
 
-#define kNumOnboardingViews 3
+#define kNumOnboardingViews 4
 #define kSubtitleFontName @"SanFranciscoDisplay-Regular"
 
 @implementation OnboardingViewController {
