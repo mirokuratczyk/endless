@@ -183,7 +183,7 @@ var __psiphon = {
 		//__psiphon.ipcAndWaitForReply("noscript");
 
 		// URL proxify all current media elements
-		__psiphon.urlProxyCurrentMediaElements();
+		__psiphon.urlProxyCurrentMediaElements(document);
 
 		/* setup URL proxy change listener */
 		__psiphon.listenToUrlProxyPortMessage();
@@ -230,9 +230,9 @@ var __psiphon = {
 	// Hooks into DOM mutation functions of an element
 	// created with document.createElement(...) and
 	// patches element's src' attribute setter
-	patchCreateElement: function () {
-		var originalCreateElement = document.createElement;
-		document.createElement = function () {
+	patchCreateElement: function (doc) {
+		var originalCreateElement = doc.createElement;
+		doc.createElement = function () {
 			var element = originalCreateElement.apply(this, arguments);
 			if (element instanceof HTMLMediaElement) {
 				__psiphon.debug('createElement:' + element.tagName);
@@ -293,8 +293,27 @@ var __psiphon = {
 				} catch (e) {
 					__psiphon.log(e);
 				}
+			} else if (element instanceof HTMLIFrameElement) {
+				element.addEventListener('load', function (event) {
+					var el = event.target;
+					var original;
+					if (!el.src || el.src.length === 0) {
+						__psiphon.patchCreateElement(el.contentDocument);
+						try {
+							original = el.contentDocument.write;
+						} catch (e) { }
+					}
+					if (original) {
+						el.contentDocument.write = function () {
+							__psiphon.debug('Will IFRAME contentDocument.write: ' + arguments[0]);
+							var ret = original.apply(this, arguments);
+							__psiphon.urlProxyCurrentMediaElements(el.contentDocument);
+							return ret;
+						};
+					}
+				});
 			} else {
-				// TODO patch innerHTML and insertAdjacentHTML, inspect for media elements
+				// TODO: patch innerHTML and insertAdjacentHTML.
 			}
 			return element;
 		};
@@ -305,7 +324,10 @@ var __psiphon = {
 	// future mutations of the property will be
 	// URL proxified.
 	urlProxyElementSrc: function (element) {
-		if (element && typeof element.__psiphon_setAttribute === 'undefined' && element.src) {
+		if(!element || typeof element.src === 'undefined') {
+			return;
+		}
+		if (typeof element.__psiphon_setAttribute === 'undefined') {
 			try {
 				__psiphon.patchElementSrc(element);
 				// Reload src so it gets proxied.
@@ -405,11 +427,11 @@ var __psiphon = {
 	// Proxifies all current media elements in the document
 	// We call this function when DOM loads or URL proxy port changes
 	// in order to apply the change to all current media DOM nodes
-	urlProxyCurrentMediaElements: function() {
+	urlProxyCurrentMediaElements: function(doc) {
 		var i, j;
 		var mediaTags = ['video', 'audio'];
 		for (i = 0; i < mediaTags.length; i++) {
-			var elems = document.getElementsByTagName(mediaTags[i]);
+			var elems = doc.getElementsByTagName(mediaTags[i]);
 			for (j = 0; j < elems.length; j++) {
 				__psiphon.urlProxyMediaElement(elems[j]);
 			}
@@ -423,7 +445,7 @@ var __psiphon = {
 		window.addEventListener('message', function (event) {
 			if (event.data.event_id === '__psiphon_urlProxyPort') {
 				__psiphon.urlProxyPort = event.data.urlProxyPort;
-				__psiphon.urlProxyCurrentMediaElements();
+				__psiphon.urlProxyCurrentMediaElements(document);
 				var iframes = document.getElementsByTagName('iframe');
 				for (var i = 0; i < iframes.length; i++) {
 					iframes[i].contentWindow.postMessage(event.data, '*');
@@ -449,7 +471,7 @@ var __psiphon = {
 	"use strict";
 
 	// Patch document.createElement early
-	__psiphon.patchCreateElement();
+	__psiphon.patchCreateElement(document);
 
 	// Log global errors
 	window.onerror = function(msg, url, line) {
