@@ -244,6 +244,11 @@
 			break;
 		}
 		case PsiphonOnboardingPage2Index: {
+			titleView.text = NSLocalizedString(@"Your Apps in Your Browser", @"Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages.");
+			textView.text =  NSLocalizedString(@"Your favorite apps have a web interface that works great in Psiphon Browser", @"Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages.");
+			break;
+		}
+		case PsiphonOnboardingPage3Index: {
 			titleView.text = NSLocalizedString(@"Happy Browsing!", @"Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet.");
 			textView.text = @"";
 
