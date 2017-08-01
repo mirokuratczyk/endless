@@ -107,6 +107,7 @@ static JAHPWeakDelegateHolder* weakDelegateHolder;
 static NSMutableArray *tmpAllowed;
 
 static NSString *_javascriptToInject;
+
 + (NSString *)javascriptToInject
 {
 	if (!_javascriptToInject) {
@@ -1118,10 +1119,10 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	NSMutableDictionary *responseHeaders = [[NSMutableDictionary alloc] initWithDictionary:[httpResponse allHeaderFields]];
 
-
 	/* directives and their values (normal and nonced versions) to prepend */
 	NSDictionary *wantedDirectives = @{
 									   @"child-src": @[ @"endlessipc:", @"endlessipc:" ],
+									   @"media-src": @[ @"http://127.0.0.1:*/tunneled/", @"http://127.0.0.1:*/tunneled/"], // for URL proxy
 									   @"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
 									   @"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
 									   @"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
@@ -1198,14 +1199,19 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(data != nil);
 	assert([NSThread currentThread] == self.clientThread);
 
-	NSURLRequest* request = dataTask.currentRequest;
-	if ([[request URL] isEqual:[request mainDocumentURL]] && _isFirstChunk) {
+	if (_contentType == CONTENT_TYPE_HTML) {
 		NSMutableData *tData = [[NSMutableData alloc] init];
-		if (_contentType == CONTENT_TYPE_HTML)
-			// prepend a doctype to force into standards mode and throw in any javascript overrides
-			[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@</script>", [self cspNonce], [[self class] javascriptToInject]] dataUsingEncoding:NSUTF8StringEncoding]];
-		[tData appendData:data];
-		data = tData;
+		if (_isFirstChunk) {
+			// Prepend a doctype to force into standards mode and throw in any javascript overrides
+			[tData appendData:[[NSString stringWithFormat:@"<!DOCTYPE html><script type=\"text/javascript\" nonce=\"%@\">%@;\n __psiphon.urlProxyPort=%d;</script>",
+								[self cspNonce],
+								[[self class] javascriptToInject],
+								(int)[[AppDelegate sharedAppDelegate] httpProxyPort]
+								] dataUsingEncoding:NSUTF8StringEncoding]
+				];
+			[tData appendData:data];
+			data = tData;
+		}
 	}
 
 	_isFirstChunk = NO;

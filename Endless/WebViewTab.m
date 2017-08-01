@@ -70,6 +70,9 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webKitprogressEstimateChanged:) name:@"WebProgressEstimateChangedNotification" object:[_webView valueForKeyPath:@"documentView.webView"]];
 
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(psiphonConnectionStateNotified:) name:kPsiphonConnectionStateNotification object:nil];
+
+
 	/* swiping goes back and forward in current webview */
 	UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightAction:)];
 	[swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -546,16 +549,19 @@
 		}
 		[self webView:__webView callbackWith:callBack];
 	}
+	/*
+	// TODO-DISABLE-JAVASCRIPT: comment out until fixed
 	else if ([action isEqualToString:@"noscript"]) {
 		BOOL disableJavascript = NO; // TODO-DISABLE-JAVASCRIPT: hardcode off until fixed
 		NSString* callBack;
 		if (disableJavascript) {
-			callBack = @"__endless.removeNoscript();";
+			callBack = @"__psiphon.removeNoscript();";
 		} else {
 			callBack = @"";
 		}
 		[self webView:__webView callbackWith:callBack];
 	}
+	 */
 	return NO;
 }
 
@@ -650,7 +656,7 @@
 
 - (void)webView:(UIWebView *)__webView callbackWith:(NSString *)callback
 {
-	NSString *finalcb = [NSString stringWithFormat:@"(function() { %@; __endless.ipcDone = (new Date()).getTime(); })();", callback];
+	NSString *finalcb = [NSString stringWithFormat:@"(function() { %@; __psiphon.ipcDone = (new Date()).getTime(); })();", callback];
 
 #ifdef TRACE_IPC
 	NSLog(@"[Javascript IPC]: calling back with: %@", finalcb);
@@ -970,13 +976,21 @@
 	CGPoint tapOnPage = CGPointMake(tap.x * ratio, tap.y * ratio);
 
 	/* now find if there are usable elements at those coordinates and extract their attributes */
-	NSString *json = [[self webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify(__endless.elementsAtPoint(%li, %li));", (long)tapOnPage.x, (long)tapOnPage.y]];
+	NSString *json = [[self webView] stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify(__psiphon.elementsAtPoint(%li, %li));", (long)tapOnPage.x, (long)tapOnPage.y]];
 	if (json == nil) {
-		NSLog(@"[Tab %@] didn't get any JSON back from __endless.elementsAtPoint", self.tabIndex);
+		NSLog(@"[Tab %@] didn't get any JSON back from __psiphon.elementsAtPoint", self.tabIndex);
 		return @[];
 	}
 
 	return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+}
+
+- (void) psiphonConnectionStateNotified:(NSNotification *)notification {
+	ConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
+	if(state == ConnectionStateConnected) {
+		[[self webView] stringByEvaluatingJavaScriptFromString:
+		 [NSString stringWithFormat:@"if(__psiphon) {__psiphon.messageUrlProxyPort(%d);}", (int)[[AppDelegate sharedAppDelegate] httpProxyPort]]];
+	}
 }
 
 @end
