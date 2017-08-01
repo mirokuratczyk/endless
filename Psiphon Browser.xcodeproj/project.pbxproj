@@ -80,6 +80,7 @@
 		4EE4FF9C1ECA2700001C3D15 /* OnboardingLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE4FF9B1ECA2700001C3D15 /* OnboardingLanguageViewController.m */; };
 		4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEC58391E3FF48B006D4087 /* InfoPlist.strings */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
+		4EF89B6F1F040D2A007C74BF /* DownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF89B6E1F040D2A007C74BF /* DownloadHelper.m */; };
 		4EFB34771E366C0A0067C7C3 /* UpstreamProxySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */; };
 		4EFB347C1E366C370067C7C3 /* RegionAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34791E366C370067C7C3 /* RegionAdapter.m */; };
 		4EFB347D1E366C370067C7C3 /* RegionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB347B1E366C370067C7C3 /* RegionSelectionViewController.m */; };
@@ -241,6 +242,8 @@
 		4EEC58421E3FF4A8006D4087 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EEC58451E3FF9E2006D4087 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psiphon-banner.png"; sourceTree = "<group>"; };
+		4EF89B6D1F040D2A007C74BF /* DownloadHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DownloadHelper.h; path = Endless/DownloadHelper.h; sourceTree = SOURCE_ROOT; };
+		4EF89B6E1F040D2A007C74BF /* DownloadHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DownloadHelper.m; path = Endless/DownloadHelper.m; sourceTree = SOURCE_ROOT; };
 		4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpstreamProxySettings.h; path = Endless/UpstreamProxySettings.h; sourceTree = SOURCE_ROOT; };
 		4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpstreamProxySettings.m; path = Endless/UpstreamProxySettings.m; sourceTree = SOURCE_ROOT; };
 		4EFB34781E366C370067C7C3 /* RegionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionAdapter.h; path = Endless/RegionAdapter.h; sourceTree = SOURCE_ROOT; };
@@ -524,6 +527,8 @@
 				4E0292081EDC7FA600D1EF43 /* Onboarding */,
 				44E7793D1DE6031A00854379 /* AppDelegate.h */,
 				44E7793E1DE6031A00854379 /* AppDelegate.m */,
+				4EF89B6D1F040D2A007C74BF /* DownloadHelper.h */,
+				4EF89B6E1F040D2A007C74BF /* DownloadHelper.m */,
 				44C7B2071E2040A700432BBB /* L10n+Swizzling.m */,
 				44B944341EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.h */,
 				44B944351EEB21D6003B6B9A /* ICDMaterialActivityIndicatorView.m */,
@@ -893,6 +898,7 @@
 				4E7094601E4CD14A00679B3F /* OnboardingInfoViewController.m in Sources */,
 				4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */,
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
+				4EF89B6F1F040D2A007C74BF /* DownloadHelper.m in Sources */,
 				44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
@@ -1155,9 +1161,6 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1186,8 +1189,6 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Endless/Endless-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

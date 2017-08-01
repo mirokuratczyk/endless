@@ -47,6 +47,8 @@
 	<string>Launch Screen</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This lets you record and upload audio.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This lets you add pictures to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This lets you save and upload photos.</string>
 	<key>UIAppFonts</key>

@@ -21,7 +21,6 @@
 #import "PsiphonConnectionModalViewController.h"
 #import "PsiphonHomePagesEquivalentURLs.h"
 
-#define TOOLBAR_HEIGHT 44
 #define TOOLBAR_PADDING 6
 #define TOOLBAR_BUTTON_SIZE 40
 #define kBookmarksCancelButtonWidth 70

@@ -49,6 +49,7 @@
 
 #define CONTENT_TYPE_OTHER	0
 #define CONTENT_TYPE_HTML	1
+#define CONTENT_TYPE_FILE	2
 #define WVT_KEY @"_wvt"
 #define ORIGIN_KEY @"_origin"
 
@@ -64,7 +65,7 @@
  *  callbacks; see the docs for JAHPAuthenticatingHTTPProtocolDelegate for the details.
  */
 
-@interface JAHPAuthenticatingHTTPProtocol : NSURLProtocol
+@interface JAHPAuthenticatingHTTPProtocol : NSURLProtocol <NSURLSessionDownloadDelegate>
 
 /*! Call this to start the module.  Prior to this the module is just dormant, and
  *  all HTTP requests proceed as normal.  After this all HTTP and HTTPS requests

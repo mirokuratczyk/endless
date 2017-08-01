@@ -22,8 +22,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <QuickLook/QuickLook.h>
 #import <UIKit/UIKit.h>
 
+#import "DownloadHelper.h"
 #import "SSLCertificate.h"
 
 #define ZOOM_OUT_SCALE 0.6
@@ -40,7 +42,7 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 
 @protocol FinalPageObserver;
 
-@interface WebViewTab : NSObject <UIWebViewDelegate, UIGestureRecognizerDelegate>
+@interface WebViewTab : NSObject <DownloadTaskDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate>
 
 @property (strong, atomic) UIView *viewHolder;
 @property (strong, atomic) UIWebView *webView;
@@ -77,8 +79,8 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 - (void)forceRefresh;
 - (void)zoomOut;
 - (void)zoomNormal;
-- (void) clearEquivalentURLs;
--(void) initLocalizables;
+- (void)clearEquivalentURLs;
+- (void)initLocalizables;
 
 @end
 

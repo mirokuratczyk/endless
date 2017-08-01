@@ -35,6 +35,13 @@
 	NSMutableArray *equivalentURLS;
 
 	BOOL isRTL;
+
+	// For downloads
+	NSURL *filePath;
+	QLPreviewController *previewController;
+	UIView *downloadPreview;
+	UIDocumentInteractionController *documentInteractionController;
+	UIView *previewControllerOverlay;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -194,7 +201,7 @@
 	return self;
 }
 
--(void) initLocalizables {
+- (void)initLocalizables {
 	[self.refresher setAttributedTitle:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Pull to Refresh Page", @"UI hint that the webpage can be refreshed by pulling(swiping) down")]];
 	if(!_title.text) {
 		[_title setText:NSLocalizedString(@"New Tab", @"New browser tab title text")];
@@ -236,6 +243,7 @@
 
 - (void)close
 {
+	[self cancelDownloadAndRemovePreview];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"WebProgressEstimateChangedNotification" object:[_webView valueForKeyPath:@"documentView.webView"]];
 	// Make sure delegate will not try to call back when webview is already gone;
 	[_webView setDelegate:nil];
@@ -470,6 +478,7 @@
 			}
 		}
 
+		[self cancelDownloadAndRemovePreview];
 		return YES;
 	}
 
@@ -692,7 +701,9 @@
 - (void)setProgress:(NSNumber *)pr
 {
 	_progress = pr;
-	[[[AppDelegate sharedAppDelegate] webViewController] updateProgress];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[[AppDelegate sharedAppDelegate] webViewController] updateProgress];
+	});
 }
 
 - (void)swipeRightAction:(UISwipeGestureRecognizer *)gesture
@@ -941,6 +952,12 @@
 
 - (void)zoomOut
 {
+	if (previewControllerOverlay != nil) {
+		// If we are displaying a file preview on this tab
+		// we want to prevent user interaction with it while
+		// zoomed out in the all-tabs view.
+		previewControllerOverlay.hidden = NO;
+	}
 	[[self webView] setUserInteractionEnabled:NO];
 
 	[_titleHolder setHidden:false];
@@ -952,6 +969,13 @@
 
 - (void)zoomNormal
 {
+	if (previewControllerOverlay != nil) {
+		// Re-enable interaction with file preview on this tab
+		// so the user can continue to interact with it once again
+		// after returning from the all-tabs view (zoomed out) to
+		// the normal tab view (zoom normal).
+		previewControllerOverlay.hidden = YES;
+	}
 	[[self webView] setUserInteractionEnabled:YES];
 
 	[_titleHolder setHidden:true];
@@ -968,9 +992,9 @@
 
 	/* translate tap coordinates from view to scale of page */
 	CGSize windowSize = CGSizeMake(
-				       [[[self webView] stringByEvaluatingJavaScriptFromString:@"window.innerWidth"] intValue],
-				       [[[self webView] stringByEvaluatingJavaScriptFromString:@"window.innerHeight"] intValue]
-				       );
+								   [[[self webView] stringByEvaluatingJavaScriptFromString:@"window.innerWidth"] intValue],
+								   [[[self webView] stringByEvaluatingJavaScriptFromString:@"window.innerHeight"] intValue]
+								   );
 	CGSize viewSize = [[self webView] frame].size;
 	float ratio = windowSize.width / viewSize.width;
 	CGPoint tapOnPage = CGPointMake(tap.x * ratio, tap.y * ratio);
@@ -985,12 +1009,257 @@
 	return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
 }
 
-- (void) psiphonConnectionStateNotified:(NSNotification *)notification {
+- (void)psiphonConnectionStateNotified:(NSNotification *)notification {
 	ConnectionState state = [[notification.userInfo objectForKey:kPsiphonConnectionState] unsignedIntegerValue];
 	if(state == ConnectionStateConnected) {
 		[[self webView] stringByEvaluatingJavaScriptFromString:
 		 [NSString stringWithFormat:@"if(__psiphon) {__psiphon.messageUrlProxyPort(%d);}", (int)[[AppDelegate sharedAppDelegate] httpProxyPort]]];
 	}
+}
+
+#pragma mark - DownloadTaskDelegate methods
+
+- (void)didFinishDownloadingToURL:(NSURL *)location {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (location != nil) {
+			filePath = location;
+			previewController = [[QLPreviewController alloc] init];
+			previewController.delegate = self;
+			previewController.dataSource = self;
+			[self addPreviewControllerToWebViewController:previewController andView:self.webView]; // add preview controller to view
+		} else {
+#ifdef TRACE
+			NSLog(@"didFinishDownloadingToURL called with nil location");
+#endif
+		}
+	});
+}
+
+#pragma mark - DownloadTaskDelegate helpers
+
+- (void)addPreviewControllerToWebViewController:(UIViewController*)previewController andView:(UIView*)view {
+	// Setup preview overlay
+	downloadPreview = [[UIView alloc] init];
+	downloadPreview.translatesAutoresizingMaskIntoConstraints = NO;
+	[view addSubview:downloadPreview];
+
+	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+													 attribute:NSLayoutAttributeLeft
+													 relatedBy:NSLayoutRelationEqual
+														toItem:view
+													 attribute:NSLayoutAttributeLeft
+													multiplier:1.f
+													  constant:0]];
+	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+													 attribute:NSLayoutAttributeRight
+													 relatedBy:NSLayoutRelationEqual
+														toItem:view
+													 attribute:NSLayoutAttributeRight
+													multiplier:1.f
+													  constant:0]];
+	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+													 attribute:NSLayoutAttributeTop
+													 relatedBy:NSLayoutRelationEqual
+														toItem:view
+													 attribute:NSLayoutAttributeTop
+													multiplier:1.f
+													  constant:0]];
+	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+													 attribute:NSLayoutAttributeBottom
+													 relatedBy:NSLayoutRelationEqual
+														toItem:view
+													 attribute:NSLayoutAttributeBottom
+													multiplier:1.f
+													  constant:0]];
+
+	// Add viewController as a child of WebViewController
+	UIViewController *parent = [[AppDelegate sharedAppDelegate] webViewController];
+	[parent addChildViewController:previewController];
+
+	// Add previewController.view as a subview of view
+	[downloadPreview addSubview:previewController.view];
+
+	// Setup previewController's autolayout
+	previewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewController.view
+																attribute:NSLayoutAttributeLeft
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeLeft
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewController.view
+																attribute:NSLayoutAttributeRight
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeRight
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewController.view
+																attribute:NSLayoutAttributeTop
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeTop
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewController.view
+																attribute:NSLayoutAttributeBottom
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeBottom
+															   multiplier:1.f
+																 constant:-TOOLBAR_HEIGHT * 2.0 - TOOLBAR_HEIGHT  /* top and bottom toolbars plus "more" button's height */]];
+	[previewController didMoveToParentViewController:parent];
+
+	// Add "more" button which allows user to push DocumentInteractionController for presented file
+	UIButton *more = [[UIButton alloc] init];
+	[more setTitleColor:[parent.view tintColor] forState:UIControlStateNormal];
+	[more setTitle:NSLocalizedString(@"More...", @"Text of button on download preview screen which allows users to see what other actions they can perform with the file") forState:UIControlStateNormal];
+	[more addTarget:self action:@selector(presentOptionsMenuForCurrentDownload:) forControlEvents:UIControlEventTouchUpInside];
+	[downloadPreview  addSubview:more];
+
+	// Setup "more" button's autolayout
+	more.frame = CGRectMake(0, 0, 120, TOOLBAR_HEIGHT);
+	more.translatesAutoresizingMaskIntoConstraints = NO;
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:more
+																attribute:NSLayoutAttributeCenterX
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeCenterX
+															   multiplier:1.f
+																 constant:0]];
+
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:more
+																attribute:NSLayoutAttributeTop
+																relatedBy:NSLayoutRelationEqual
+																   toItem:previewController.view
+																attribute:NSLayoutAttributeBottom
+															   multiplier:1.f
+																 constant:0]];
+
+	// Add another overlay (a hack to create a transparant clickable view)
+	// which doesn't influence the alpha of the "more" button but allows us
+	// to disable interaction with the file preview when zoomed out in the
+	// all-tabs view.
+	previewControllerOverlay = [[UIView alloc] init];
+	previewControllerOverlay.backgroundColor = [UIColor whiteColor];
+	previewControllerOverlay.alpha = 0.11;
+	previewControllerOverlay.userInteractionEnabled = NO;
+	previewControllerOverlay.translatesAutoresizingMaskIntoConstraints = NO;
+	previewControllerOverlay.hidden = YES;
+	[downloadPreview addSubview:previewControllerOverlay];
+
+	// Setup autolayout
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewControllerOverlay
+																attribute:NSLayoutAttributeLeft
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeLeft
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewControllerOverlay
+																attribute:NSLayoutAttributeRight
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeRight
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewControllerOverlay
+																attribute:NSLayoutAttributeTop
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeTop
+															   multiplier:1.f
+																 constant:0]];
+	[downloadPreview addConstraint:[NSLayoutConstraint constraintWithItem:previewControllerOverlay
+																attribute:NSLayoutAttributeBottom
+																relatedBy:NSLayoutRelationEqual
+																   toItem:downloadPreview
+																attribute:NSLayoutAttributeBottom
+															   multiplier:1.f
+																 constant:0]];
+}
+
+- (void)presentOptionsMenuForCurrentDownload:(id)sender {
+	if (filePath != nil) {
+		documentInteractionController = [self setupControllerWithURL:filePath usingDelegate:self];
+		BOOL presented = [documentInteractionController presentOptionsMenuFromRect:[AppDelegate sharedAppDelegate].webViewController.view.frame inView:[AppDelegate sharedAppDelegate].webViewController.view animated:YES];
+		if (!presented) {
+#ifdef TRACE
+			NSLog(@"Failed to present options menu for current download");
+#endif
+		}
+	}
+}
+
+// Should be called whenever navigation occurs or
+// when the WebViewTab is being closed.
+- (void)cancelDownloadAndRemovePreview {
+	if (filePath != nil) {
+		// Delete the temporary file
+		NSError *err;
+		[[NSFileManager defaultManager] removeItemAtPath:filePath.path error:&err];
+		if (err != nil) {
+#ifdef TRACE
+			NSLog(@"File delete error %@", err);
+#endif
+		}
+		filePath = nil;
+	}
+	[self removePreviewController];
+}
+
+- (void)removeDownloadPreview {
+	if (downloadPreview != nil) {
+		[downloadPreview removeFromSuperview];
+		downloadPreview = nil;
+	}
+}
+
+- (void)removePreviewController {
+	documentInteractionController = nil;
+
+	if (previewController != nil) {
+		[previewController.view removeFromSuperview];
+		[previewController removeFromParentViewController];
+		previewController = nil;
+		previewControllerOverlay = nil;
+		documentInteractionController = nil;
+	}
+	[self removeDownloadPreview];
+}
+
+#pragma mark - UIDocumentInteractionControllerDelegate methods and helpers
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller {
+	return [[AppDelegate sharedAppDelegate] webViewController];
+}
+
+- (UIDocumentInteractionController *) setupControllerWithURL: (NSURL*) fileURL
+											   usingDelegate: (id <UIDocumentInteractionControllerDelegate>) interactionDelegate {
+	UIDocumentInteractionController *interactionController = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+	interactionController.delegate = interactionDelegate;
+
+	return interactionController;
+}
+
+- (void)documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller {
+	if ([documentInteractionController isEqual:controller]) {
+		documentInteractionController = nil;
+	}
+}
+
+#pragma mark - QLPreviewControllerDataSource methods
+
+- (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
+	return filePath;
+}
+
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
+	if (filePath != nil) {
+		return 1;
+	}
+	return 0;
 }
 
 @end
