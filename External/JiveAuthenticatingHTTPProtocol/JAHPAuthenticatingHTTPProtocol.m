@@ -390,6 +390,12 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		}
 	}
 
+	// Do not try and handle requests to localhost
+
+	if (shouldAccept) {
+		shouldAccept = (![[url host] isEqualToString:@"127.0.0.1"]);
+	}
+
 	// Look for "http" or "https".
 	//
 	// Flip either or both of the following to YESes to control which schemes go through this custom
@@ -1122,7 +1128,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	/* directives and their values (normal and nonced versions) to prepend */
 	NSDictionary *wantedDirectives = @{
 									   @"child-src": @[ @"endlessipc:", @"endlessipc:" ],
-									   @"media-src": @[ @"http://127.0.0.1:*/tunneled/", @"http://127.0.0.1:*/tunneled/"], // for URL proxy
+									   @"media-src": @[ @"http://127.0.0.1:*/tunneled-rewrite/", @"http://127.0.0.1:*/tunneled-rewrite/"], // for URL proxy
 									   @"default-src" : @[ @"endlessipc:", [NSString stringWithFormat:@"'nonce-%@' endlessipc:", [self cspNonce]] ],
 									   @"frame-src": @[ @"endlessipc:", @"endlessipc:" ],
 									   @"script-src" : @[ @"", [NSString stringWithFormat:@"'nonce-%@'", [self cspNonce]] ],
