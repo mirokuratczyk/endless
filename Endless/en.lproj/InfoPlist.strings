@@ -17,5 +17,14 @@
  *
  */
 
+/* Text of prompt for user to grant app permission to take and upload pictures */
+"NSCameraUsageDescription" = "This lets you take and upload pictures.";
+
+/* Text of prompt for user to grant app permission to record and upload audio */
+"NSMicrophoneUsageDescription" = "This lets you record and upload audio.";
+
+/* Text of prompt for user to grant app permission to add pictures to their photo library */
+"NSPhotoLibraryAddUsageDescription" = "This lets you add pictures to your photo library.";
+
 /* Text of prompt for user to grant app permission to access their photo library */
 "NSPhotoLibraryUsageDescription" = "This lets you save and upload photos";

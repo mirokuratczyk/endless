@@ -1097,7 +1097,9 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	if(_wvt && [[dataTask.currentRequest URL] isEqual:[dataTask.currentRequest mainDocumentURL]]) {
 		[_wvt setUrl:[dataTask.currentRequest URL]];
-		[[[AppDelegate sharedAppDelegate] webViewController] adjustLayoutForNewHTTPResponse:_wvt];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[[[AppDelegate sharedAppDelegate] webViewController] adjustLayoutForNewHTTPResponse:_wvt];
+		});
 	}
 
 	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
@@ -1148,6 +1150,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		// E.g. "content-type" will be automatically adjusted to "Content-Type".
 		// See: https://developer.apple.com/documentation/foundation/httpurlresponse/1417930-allheaderfields
 		[fakeHeaders setObject:@"text/html" forKey:@"Content-Type"];
+		[fakeHeaders setObject:@"0" forKey:@"Content-Length"];
 		NSURLResponse *fakeResponse = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:200 HTTPVersion:@"1.1" headerFields:fakeHeaders];
 
 		// Notify the client that the request finished loading so that
@@ -1376,6 +1379,9 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask {
 	self.task = downloadTask;
+	if (_wvt != nil) {
+		[_wvt didStartDownloadingFile];
+	}
 }
 
 # pragma mark * NSURLSessionDownloadDelegate methods
@@ -1388,7 +1394,6 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
 	if (_wvt != nil) {
-		NSLog(@"exists %d", [[NSFileManager defaultManager] fileExistsAtPath:[location path]]);
 		[_wvt didFinishDownloadingToURL:location];
 	}
 }

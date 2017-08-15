@@ -889,6 +889,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[urlField setRightView:nil];
 	}
 	else {
+		// Allow the user to cancel file downloads
+		if ([self curWebViewTab].isDownloadingFile) {
+			[refreshButton setImage:[UIImage imageNamed:@"close_round"] forState:UIControlStateNormal];
+		} else {
+			[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+		}
+
 		[urlField setTextAlignment:NSTextAlignmentCenter];
 		[urlField setRightView:refreshButton];
 		BOOL isEV = NO;
@@ -1496,7 +1503,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	} else if (CGRectContainsPoint(lockTarget, point)) {
 		[self showSSLCertificate];
 	} else if (CGRectContainsPoint(refreshTarget, point)) {
-		[self forceRefresh];
+		WebViewTab *wvt = [self curWebViewTab];
+		if (wvt.isDownloadingFile) {
+			// Cancel download
+			[wvt.webView stopLoading];
+			wvt.isDownloadingFile = NO;
+		} else {
+			[self forceRefresh];
+		}
 	} else if (CGRectContainsPoint(urlFieldTarget, point)) {
 		[urlField becomeFirstResponder];
 	}

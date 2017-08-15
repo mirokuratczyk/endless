@@ -37,7 +37,7 @@
 	BOOL isRTL;
 
 	// For downloads
-	NSURL *filePath;
+	NSURL *downloadedFile;
 	QLPreviewController *previewController;
 	UIView *downloadPreview;
 	UIDocumentInteractionController *documentInteractionController;
@@ -1019,14 +1019,16 @@
 
 #pragma mark - DownloadTaskDelegate methods
 
+- (void)didStartDownloadingFile {
+	self.isDownloadingFile= YES;
+}
+
 - (void)didFinishDownloadingToURL:(NSURL *)location {
+	self.isDownloadingFile = NO;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (location != nil) {
-			filePath = location;
-			previewController = [[QLPreviewController alloc] init];
-			previewController.delegate = self;
-			previewController.dataSource = self;
-			[self addPreviewControllerToWebViewController:previewController andView:self.webView]; // add preview controller to view
+			downloadedFile = location;
+			[self addPreviewController]; // add preview controller to view
 		} else {
 #ifdef TRACE
 			NSLog(@"didFinishDownloadingToURL called with nil location");
@@ -1036,38 +1038,43 @@
 }
 
 #pragma mark - DownloadTaskDelegate helpers
+// Add preview controller as a child of WebViewController and
+// its view as a subview of self.webView
+- (void)addPreviewController {
+	previewController = [[QLPreviewController alloc] init];
+	previewController.delegate = self;
+	previewController.dataSource = self;
 
-- (void)addPreviewControllerToWebViewController:(UIViewController*)previewController andView:(UIView*)view {
 	// Setup preview overlay
 	downloadPreview = [[UIView alloc] init];
 	downloadPreview.translatesAutoresizingMaskIntoConstraints = NO;
-	[view addSubview:downloadPreview];
+	[self.webView addSubview:downloadPreview];
 
-	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+	[self.webView addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
 													 attribute:NSLayoutAttributeLeft
 													 relatedBy:NSLayoutRelationEqual
-														toItem:view
+														toItem:self.webView
 													 attribute:NSLayoutAttributeLeft
 													multiplier:1.f
 													  constant:0]];
-	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+	[self.webView addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
 													 attribute:NSLayoutAttributeRight
 													 relatedBy:NSLayoutRelationEqual
-														toItem:view
+														toItem:self.webView
 													 attribute:NSLayoutAttributeRight
 													multiplier:1.f
 													  constant:0]];
-	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+	[self.webView addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
 													 attribute:NSLayoutAttributeTop
 													 relatedBy:NSLayoutRelationEqual
-														toItem:view
+														toItem:self.webView
 													 attribute:NSLayoutAttributeTop
 													multiplier:1.f
 													  constant:0]];
-	[view addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
+	[self.webView addConstraint:[NSLayoutConstraint constraintWithItem:downloadPreview
 													 attribute:NSLayoutAttributeBottom
 													 relatedBy:NSLayoutRelationEqual
-														toItem:view
+														toItem:self.webView
 													 attribute:NSLayoutAttributeBottom
 													multiplier:1.f
 													  constant:0]];
@@ -1181,8 +1188,8 @@
 }
 
 - (void)presentOptionsMenuForCurrentDownload:(id)sender {
-	if (filePath != nil) {
-		documentInteractionController = [self setupControllerWithURL:filePath usingDelegate:self];
+	if (downloadedFile != nil) {
+		documentInteractionController = [self setupControllerWithURL:downloadedFile usingDelegate:self];
 		BOOL presented = [documentInteractionController presentOptionsMenuFromRect:[AppDelegate sharedAppDelegate].webViewController.view.frame inView:[AppDelegate sharedAppDelegate].webViewController.view animated:YES];
 		if (!presented) {
 #ifdef TRACE
@@ -1195,16 +1202,16 @@
 // Should be called whenever navigation occurs or
 // when the WebViewTab is being closed.
 - (void)cancelDownloadAndRemovePreview {
-	if (filePath != nil) {
+	if (downloadedFile != nil) {
 		// Delete the temporary file
 		NSError *err;
-		[[NSFileManager defaultManager] removeItemAtPath:filePath.path error:&err];
+		[[NSFileManager defaultManager] removeItemAtPath:downloadedFile.path error:&err];
 		if (err != nil) {
 #ifdef TRACE
 			NSLog(@"File delete error %@", err);
 #endif
 		}
-		filePath = nil;
+		downloadedFile = nil;
 	}
 	[self removePreviewController];
 }
@@ -1252,11 +1259,11 @@
 #pragma mark - QLPreviewControllerDataSource methods
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
-	return filePath;
+	return downloadedFile;
 }
 
 - (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
-	if (filePath != nil) {
+	if (downloadedFile != nil) {
 		return 1;
 	}
 	return 0;

@@ -26,6 +26,7 @@
  */
 
 @protocol DownloadTaskDelegate <NSObject>
+- (void)didStartDownloadingFile;
 - (void)didFinishDownloadingToURL:(NSURL*)location;
 - (void)setProgress:(NSNumber *)pr;
 @end
