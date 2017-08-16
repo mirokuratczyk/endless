@@ -25,6 +25,7 @@
 #import <netinet/in.h>
 #import <sys/socket.h>
 #import <AudioToolbox/AudioServices.h>
+#import <AVFoundation/AVFoundation.h>
 #import <CoreFoundation/CFSocket.h>
 
 #import "AppDelegate.h"
@@ -133,6 +134,18 @@
 	int buildNumber = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
 	[defaults setInteger:buildNumber forKey:kBuildNumber];
 
+	// Enable background audio playback
+	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+	BOOL ok;
+	NSError *setCategoryError = nil;
+	ok = [audioSession setCategory:AVAudioSessionCategoryPlayback
+							 error:&setCategoryError];
+	if (!ok) {
+#ifdef DEBUG
+		NSLog(@"AVAudioSession setCategoryError=%@", setCategoryError);
+#endif
+	}
+
 	[self.window makeKeyAndVisible];
 	return YES;
 }
@@ -143,7 +156,7 @@
 			[_handshakeHomePages removeAllObjects];
 		}
 		// Start the Psiphon tunnel
-        if( ! [self.psiphonTunnel start:NO] ) {
+		if( ! [self.psiphonTunnel start:NO] ) {
 			self.psiphonConectionState = ConnectionStateDisconnected;
 			[self notifyPsiphonConnectionState];
 		}
