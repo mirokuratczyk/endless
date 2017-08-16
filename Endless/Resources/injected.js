@@ -195,9 +195,6 @@ var __psiphon = {
 	 * absolute, it will not be altered.
 	 */
 	absoluteURL: function (url) {
-		if(!__psiphon.helperAnchorElement) {
-			__psiphon.helperAnchorElement = document.createElement("a");
-		}
 		__psiphon.helperAnchorElement.href = url; /* browser will make this absolute for us */
 		return __psiphon.helperAnchorElement.href;
 	},
@@ -331,15 +328,21 @@ var __psiphon = {
 			try {
 				__psiphon.patchElementSrc(element);
 				// Reload src so it gets proxied.
-				element.src = element.src;
+				if (element.src) {
+					element.src = element.src;
+				}
 			} catch (e) {
 				// Patching failed, just proxify current value.
 				__psiphon.log(e);
-				element.src = __psiphon.proxifyURL(element.src);
+				if (element.src) {
+					element.src = __psiphon.proxifyURL(element.src);
+				}
 			}
 		} else {
 			// Just reload the element
-			element.src = element.src;
+			if (element.src) {
+				element.src = element.src;
+			}
 		}
 	},
 
@@ -359,7 +362,7 @@ var __psiphon = {
 				element.__psiphon_setAttribute = element.setAttribute;
 				element.setAttribute = function () {
 					if (arguments.length > 1) {
-						if (arguments[0].toLowerCase() === 'src') {
+						if (arguments[0].toLowerCase() === 'src' && arguments[1] && arguments[1].length > 0) {
 							var proxiedVal = __psiphon.proxifyURL(arguments[1]);
 							arguments[1] = proxiedVal;
 							__psiphon.debug("Modifying " + element.tagName + ".src with " + proxiedVal);
@@ -386,7 +389,7 @@ var __psiphon = {
 		// Make the src attr absolute. We can't URL-proxy relative URLs.
 		url = __psiphon.absoluteURL(url);
 
-		var urlProxyPrefix = 'http://127.0.0.1:' + __psiphon.urlProxyPort + '/tunneled/';
+		var urlProxyPrefix = 'http://127.0.0.1:' + __psiphon.urlProxyPort + '/tunneled-rewrite/';
 
 		if (url.indexOf(urlProxyPrefix) === 0) {
 			// Already proxied with current urlProxyPrefix
@@ -401,7 +404,7 @@ var __psiphon = {
 			__psiphon.debug('proxifyURL: updating previously proxied ' + elem.tagName + ' with new URL proxy port:' + __psiphon.urlProxyPort);
 			return __psiphon.helperAnchorElement.href;
 		}
-		return urlProxyPrefix + encodeURIComponent(url);
+		return urlProxyPrefix + encodeURIComponent(url) + '?m3u8=true';
 	},
 
 	// Proxifies media data URL of the element.
@@ -469,6 +472,8 @@ var __psiphon = {
 
 (function () {
 	"use strict";
+
+	__psiphon.helperAnchorElement = document.createElement("a");
 
 	// Patch document.createElement early
 	__psiphon.patchCreateElement(document);
