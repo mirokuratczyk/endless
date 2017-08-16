@@ -29,6 +29,8 @@ import json
 import codecs
 import argparse
 import requests
+import localizable
+import yaml
 
 
 DEFAULT_LANGS = {
@@ -64,25 +66,31 @@ DEFAULT_LANGS = {
 RTL_LANGS = ('ar', 'fa', 'he')
 
 
-def process_resource(resource, output_path_fn, output_mutator_fn, bom,
-                     langs=None, skip_untranslated=False, encoding='utf-8'):
+def process_resource(resource, output_path_fn, output_mutator_fn, output_merge_fn,
+                     bom, encoding='utf-8'):
     '''
     `output_path_fn` must be callable. It will be passed the language code and
     must return the path+filename to write to.
     `output_mutator_fn` must be callable. It will be passed the output and the
     current language code. May be None.
-    If `skip_untranslated` is True, translations that are less than X% complete
-    will be skipped.
     '''
-    if not langs:
-        langs = DEFAULT_LANGS
 
+    langs = DEFAULT_LANGS
+
+    print('\nResource: %s' % (resource,))
+
+    # Check for high-translation languages that we won't be pulling
+    stats = request('resource/%s/stats' % (resource,))
+    for lang in stats:
+        if int(stats[lang]['completed'].rstrip('%')) > 35:
+            if lang not in langs and lang != 'en':
+                print('Skipping language "%s" with %s translation (%d of %d)' %
+                      (lang, stats[lang]['completed'],
+                       stats[lang]['translated_entities'],
+                       stats[lang]['translated_entities'] +
+                       stats[lang]['untranslated_entities']))
+    
     for in_lang, out_lang in langs.items():
-        if skip_untranslated:
-            stats = request('resource/%s/stats/%s' % (resource, in_lang))
-            if int(stats['completed'].rstrip('%')) < 25:
-                continue
-
         r = request('resource/%s/translation/%s' % (resource, in_lang))
 
         if output_mutator_fn:
@@ -96,8 +104,11 @@ def process_resource(resource, output_path_fn, output_mutator_fn, bom,
 
         # Make line endings consistently Unix-y.
         content = content.replace('\r\n', '\n')
-
+        
         output_path = output_path_fn(out_lang)
+
+        if output_merge_fn:
+            content = output_merge_fn(out_lang, os.path.basename(output_path), content)
 
         # Path sure the output directory exists.
         try:
@@ -152,19 +163,86 @@ def html_doctype_add(in_html, to_lang):
     return '<!DOCTYPE html>\n' + in_html
 
 
+def merge_storeassets_translations(lang, fname, fresh):
+    """
+    Often using an old translation is better than reverting to the English when 
+    a translation is incomplete. So we'll merge old translations into fresh ones.
+    """
+
+    fresh_translation = yaml.load(fresh)
+
+    with open('./StoreAssets/master.yaml') as f:
+        english_translation = yaml.load(f)
+
+    existing_fname = './StoreAssets/%s' % fname
+    try:
+        with open(existing_fname) as f:
+            existing_translation = yaml.load(f)
+    except Exception as ex:
+        print('merge_storeassets_translations: failed to open existing translation: %s -- %s\n' % (existing_fname, ex))
+        return fresh
+
+    # Transifex does not populate YAML translations with the English fallback
+    # for missing values. 
+    
+    for key, value in english_translation['en']:
+        if not fresh_translation[lang].get(key) and existing_translation[lang].get(key):
+            fresh_translation[lang][key] = existing_translation[lang].get(key)
+
+    return yaml.dump(fresh_translation)
+
+
+def merge_applestrings_translations(lang, fname, fresh):
+    """
+    Often using an old translation is better than reverting to the English when 
+    a translation is incomplete. So we'll merge old translations into fresh ones.
+    """
+    fresh_translation = localizable.parse_strings(content=fresh)
+    english_translation = localizable.parse_strings(filename='./Endless/en.lproj/%s' % fname)
+
+    try:
+        existing_fname = './Endless/%s.lproj/%s' % (lang, fname)
+        existing_translation = localizable.parse_strings(filename=existing_fname)
+    except Exception as ex:
+        print('merge_applestrings_translations: failed to open existing translation: %s -- %s\n' % (existing_fname, ex))
+        return fresh
+
+    fresh_merged = ''
+
+    for entry in fresh_translation:
+        try: english = next(x['value'] for x in english_translation if x['key'] == entry['key'])
+        except: english = None
+        try: existing = next(x['value'] for x in existing_translation if x['key'] == entry['key'])
+        except: existing = None
+
+        fresh = entry['value']
+
+        if fresh == english and existing is not None and existing != english:
+            # DEBUG
+            #print('merge_applestrings_translations:', entry['key'], fresh, existing)
+
+            # The fresh translation has the English fallback
+            fresh = existing
+
+        fresh_merged += '/* %s */\n"%s" = "%s";\n\n' % (entry['key'], entry['comment'], fresh)
+    
+    return fresh_merged
+
+
 def pull_ios_browser_translations():
     resources = (
         ('ios-browser-iasklocalizablestrings', 'IASKLocalizable.strings'),
         ('ios-browser-localizablestrings', 'Localizable.strings'),
-        ('ios-browser-rootstrings', 'Root.strings')
+        ('ios-browser-rootstrings', 'Root.strings'),
+        ('ios-browser-app-infopliststrings', 'InfoPlist.strings')
     )
 
     for resname, fname in resources:
         process_resource(resname,
                          lambda lang: './Endless/%s.lproj/%s' % (lang, fname),
                          None,
-                         bom=False,
-                         skip_untranslated=True)
+                         merge_applestrings_translations,
+                         bom=False)
         print('%s: DONE' % (resname,))
 
 
@@ -174,8 +252,8 @@ def pull_ios_asset_translations():
         resname,
         lambda lang: './StoreAssets/%s.yaml' % (lang, ),
         yaml_lang_change,
-        bom=False,
-        skip_untranslated=True, )
+        None,
+        bom=False)
     print('%s: DONE' % (resname, ))
 
 
