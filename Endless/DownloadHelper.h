@@ -18,8 +18,6 @@
  */
 
 
-#import "PsiphonConnectionModalViewController.h"
-
 /*
  * DownloadTaskDelegate is utilized by JAHPAuthenticatingHTTPProtocol
  * to signal file download events and progress to the implementer (WebViewTab).

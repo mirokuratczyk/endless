@@ -40,6 +40,14 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 	WebViewTabSecureModeSecureEV,
 };
 
+typedef NS_ENUM(NSInteger, WebViewTabFileDownloadState) {
+	WebViewTabFileDownloadStateNone,
+	WebViewTabFileDownloadStateDownloadInProgress,
+	WebViewTabFileDownloadStateDownloadCancelled,
+	WebViewTabFileDownloadStateDownloadFailed,
+	WebViewTabFileDownloadStateDownloadCompleted,
+};
+
 @protocol FinalPageObserver;
 
 @interface WebViewTab : NSObject <DownloadTaskDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate>
@@ -48,7 +56,7 @@ typedef NS_ENUM(NSInteger, WebViewTabSecureMode) {
 @property (strong, atomic) UIWebView *webView;
 @property (strong, atomic) UIRefreshControl *refresher;
 @property (strong, atomic) NSURL *url;
-@property BOOL isDownloadingFile;
+@property WebViewTabFileDownloadState fileDownloadState;
 @property BOOL isRestoring;
 @property BOOL shouldReloadOnConnected;
 @property (strong, atomic) NSNumber *tabIndex;

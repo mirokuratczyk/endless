@@ -301,6 +301,7 @@
 	[self reset];
 
 	NSMutableURLRequest *ur = [NSMutableURLRequest requestWithURL:u];
+	ur.timeoutInterval = INT_MAX; // 2^31 - 1 (this is the default timeout seen on requests formed internally by UIWebView)
 	if (force)
 		[ur setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 
@@ -609,11 +610,15 @@
 
 - (void)webView:(UIWebView *)__webView didFailLoadWithError:(NSError *)error
 {
-	self.url = self.webView.request.URL;
 	[self setProgress:@0];
 
-	if ([[error domain] isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled)
+	if ([[error domain] isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
+		if (self.fileDownloadState == WebViewTabFileDownloadStateDownloadInProgress) {
+			self.fileDownloadState = WebViewTabFileDownloadStateDownloadFailed;
+			[[[AppDelegate sharedAppDelegate] webViewController] updateSearchBarDetails];
+		}
 		return;
+	}
 
 	/* "The operation couldn't be completed. (Cocoa error 3072.)" - useless */
 	if ([[error domain] isEqualToString:NSCocoaErrorDomain] && error.code == NSUserCancelledError) {
@@ -1020,11 +1025,11 @@
 #pragma mark - DownloadTaskDelegate methods
 
 - (void)didStartDownloadingFile {
-	self.isDownloadingFile= YES;
+	self.fileDownloadState = WebViewTabFileDownloadStateDownloadInProgress;
 }
 
 - (void)didFinishDownloadingToURL:(NSURL *)location {
-	self.isDownloadingFile = NO;
+	self.fileDownloadState = WebViewTabFileDownloadStateDownloadCompleted;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (location != nil) {
 			downloadedFile = location;
@@ -1202,6 +1207,7 @@
 // Should be called whenever navigation occurs or
 // when the WebViewTab is being closed.
 - (void)cancelDownloadAndRemovePreview {
+	self.fileDownloadState = WebViewTabFileDownloadStateNone;
 	if (downloadedFile != nil) {
 		// Delete the temporary file
 		NSError *err;

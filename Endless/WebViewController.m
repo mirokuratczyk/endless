@@ -96,6 +96,9 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 
 	UITapGestureRecognizer *tapWebViewGestureRecognizer;
 
+	CAGradientLayer *gradient; // Loading bar for file downloads
+	CAShapeLayer *loadingBar; // Mask for gradient loading bar
+
 	BOOL isRTL;
 }
 
@@ -508,7 +511,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			[self showTabsWithCompletionBlock:nil];
 		}
 		[self adjustLayoutForTransition];
-	} completion:nil];
+	} completion:^(id<UIViewControllerTransitionCoordinatorContext>context) {
+		if (!showingTabs) {
+			WebViewTabFileDownloadState downloadState = [self curWebViewTab].fileDownloadState;
+			if (!urlField.isFirstResponder && downloadState != WebViewTabFileDownloadStateNone && downloadState != WebViewTabFileDownloadStateDownloadCompleted) {
+				[self updateFileDownloadProgressBar];
+			}
+		}
+	}];
 }
 
 - (void) adjustLayoutForTransition {
@@ -876,6 +886,119 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[urlField becomeFirstResponder];
 }
 
+#pragma mark - Helper functions for updateSearchBar
+
+// Based on https://stackoverflow.com/a/17018706
+- (UIImage *)resizeImage:(UIImage*)image toSize:(CGSize)size
+{
+	CGFloat scale = [[UIScreen mainScreen]scale];
+	UIGraphicsBeginImageContextWithOptions(size, NO, scale);
+	[image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return newImage;
+}
+
+// Based on https://stackoverflow.com/a/9259986
+- (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
+	CGFloat padding = 5;
+	UIImage *image = nil;
+
+	CGSize newImageSize = CGSizeMake(MAX(firstImage.size.width, secondImage.size.width) * 2 + padding, MAX(firstImage.size.height, secondImage.size.height));
+	UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
+	[firstImage drawAtPoint:CGPointMake(0,0)];
+	[secondImage drawAtPoint:CGPointMake(firstImage.size.width + padding, 0)];
+	image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+
+	return image;
+}
+
+- (void)resetUrlFieldAndProgressbar {
+	[loadingBar removeFromSuperlayer];
+	loadingBar = nil;
+	[gradient removeFromSuperlayer];
+	gradient = nil;
+
+	[lockIcon setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
+	lockIcon.frame = CGRectMake(0, 0, 24, 16);
+	[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+
+	progressBar.progressTintColor = [self.view tintColor];
+
+	urlField.backgroundColor = [UIColor whiteColor];
+}
+
+- (UIImage*)getLockIconWithDownloadIcon {
+	UIImage *lockImage = [UIImage imageNamed:@"lock"];
+	UIImage *scaledDownloadIcon = [self resizeImage:[UIImage imageNamed:@"download"] toSize:lockImage.size];
+	UIImage *lockIconWithDownloadIcon = [self imageByCombiningImage:lockImage withImage:scaledDownloadIcon];
+
+	return lockIconWithDownloadIcon;
+}
+
+- (void)displayFileDownloadIndicator {
+	if (self.curWebViewTab && self.curWebViewTab.secureMode >= WebViewTabSecureModeSecure)  {
+		// If download is secure add download icon to the right of the lock icon
+		[lockIcon setImage:[self getLockIconWithDownloadIcon] forState:UIControlStateNormal];
+		lockIcon.frame = CGRectMake(0, 0, 48, 16); // adjust frame horizontally to fit new image
+		urlField.leftView = lockIcon;
+	} else {
+		// Add download icon to the left of the urlField to signify to the user that
+		// a download is in progress.
+		UIImageView *combinedView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"download"]];
+		combinedView.frame = CGRectMake(0, 0, 24, 20);
+		combinedView.contentMode = UIViewContentModeScaleAspectFit;
+		urlField.leftView = combinedView;
+	}
+	urlField.backgroundColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.91 alpha:1.0];
+}
+
+- (void)showBrowserChrome {
+	float statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+	CGRect navigationBarFrame = navigationBar.frame;
+	CGRect bottomToolBarFrame = bottomToolBar.frame;
+	CGRect tabScrollerFrame = tabScroller.frame;
+
+	navigationBarFrame.origin.y = statusBarHeight;
+	bottomToolBarFrame.origin.y = self.view.frame.size.height - bottomToolBarFrame.size.height;
+	tabScrollerFrame.origin.y = navigationBarFrame.origin.y + navigationBarFrame.size.height;
+
+	navigationBar.frame = navigationBarFrame;
+	bottomToolBar.frame = bottomToolBarFrame;
+	tabScroller.frame = tabScrollerFrame;
+	navigationBar.alpha = 1.f;
+}
+
+- (void)updateFileDownloadProgressBar {
+	progressBar.progressTintColor = [UIColor clearColor]; // hide normal progress bar
+	if (loadingBar == nil) {
+		loadingBar = [CAShapeLayer layer];
+	}
+	if (gradient == nil) {
+		gradient = [CAGradientLayer layer];
+		[urlField.layer insertSublayer:gradient atIndex:0];
+		gradient.startPoint = CGPointMake(0, 0.5);
+		gradient.endPoint = CGPointMake(1.0, 0.5);
+		gradient.mask = loadingBar;
+	}
+
+	CGFloat loadingBarWidth;
+	CGFloat progressBarRadius = [urlField.layer cornerRadius];
+
+	WebViewTabFileDownloadState downloadState = [self curWebViewTab].fileDownloadState;
+	if (downloadState == WebViewTabFileDownloadStateDownloadCancelled || downloadState == WebViewTabFileDownloadStateDownloadFailed) {
+		loadingBarWidth = urlField.frame.size.width;
+		gradient.colors = @[(id)[UIColor colorWithRed:0.91 green:0.56 blue:0.53 alpha:1.0].CGColor, (id)[UIColor colorWithRed:0.98 green:0.36 blue:0.30 alpha:1.0].CGColor]; // red gradient
+	} else {
+		loadingBarWidth = 2 * progressBarRadius + (urlField.frame.size.width - 2 * progressBarRadius) * [self.curWebViewTab progress].floatValue; // prevent loading bar from protruding out of urlField
+		gradient.colors = @[(id)[UIColor colorWithRed:0.55 green:0.93 blue:0.64 alpha:1.0].CGColor, (id)[UIColor colorWithRed:0.14 green:0.74 blue:0.48 alpha:1.0].CGColor]; // green gradient
+	}
+
+	loadingBar.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, loadingBarWidth, urlField.frame.size.height) cornerRadius:progressBarRadius].CGPath;
+	gradient.frame = CGRectMake(0, 0, urlField.frame.size.width, urlField.frame.size.height);
+}
+
 - (void)updateSearchBarDetails
 {
 	/* TODO: cache curURL and only do anything here if it changed, these changes might be expensive */
@@ -883,18 +1006,36 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[urlField setTextColor:[UIColor darkTextColor]];
 
 	if (urlField.isFirstResponder) {
+		[self resetUrlFieldAndProgressbar];
+
 		/* focused, don't muck with the URL while it's being edited */
 		[urlField setTextAlignment:NSTextAlignmentNatural];
 		[urlField setLeftView:nil];
 		[urlField setRightView:nil];
 	}
-	else {
-		// Allow the user to cancel file downloads
-		if ([self curWebViewTab].isDownloadingFile) {
-			[refreshButton setImage:[UIImage imageNamed:@"close_round"] forState:UIControlStateNormal];
-		} else {
+	else if ([self curWebViewTab].fileDownloadState != WebViewTabFileDownloadStateNone && [self curWebViewTab].fileDownloadState != WebViewTabFileDownloadStateDownloadCompleted) {
+		[self displayFileDownloadIndicator];
+		[self updateFileDownloadProgressBar];
+
+		if ([self curWebViewTab].fileDownloadState == WebViewTabFileDownloadStateDownloadCancelled) {
 			[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+			urlField.text = NSLocalizedString(@"Cancelled", @"Text displayed on navigation bar reflecting file download state");
+			urlField.textAlignment = NSTextAlignmentCenter;
+			urlField.rightView = refreshButton;
+		} else if ([self curWebViewTab].fileDownloadState == WebViewTabFileDownloadStateDownloadFailed) {
+			[refreshButton setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+			urlField.text = NSLocalizedString(@"Error", @"Text displayed on navigation bar reflecting file download state");
+			urlField.textAlignment = NSTextAlignmentCenter;
+			urlField.rightView = refreshButton;
+		} else {
+			// Allow the user to cancel file downloads by replacing refresh button with cancel button
+			[refreshButton setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+			urlField.text = [NSString stringWithFormat:@"%.0f%%", [self curWebViewTab].progress.floatValue * 100.f];
+			urlField.textAlignment = NSTextAlignmentCenter;
+			urlField.rightView = refreshButton;
 		}
+	} else {
+		[self resetUrlFieldAndProgressbar];
 
 		[urlField setTextAlignment:NSTextAlignmentCenter];
 		[urlField setRightView:refreshButton];
@@ -941,6 +1082,11 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			if ([urlField.text isEqualToString:@""]) {
 				[urlField setTextAlignment:NSTextAlignmentLeft];
 			}
+		}
+
+		if ([self curWebViewTab].fileDownloadState == WebViewTabFileDownloadStateDownloadCompleted) {
+			[self showBrowserChrome];
+			[self displayFileDownloadIndicator];
 		}
 	}
 
@@ -993,8 +1139,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		} completion:^(BOOL finished) {
 			[self updateSearchBarDetails];
 		}];
-	}
-	else {
+	} else {
 		[UIView animateWithDuration:(animated ? fadeAnimationDuration : 0.0) delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
 			[progressBar setProgress:progress animated:YES];
 
@@ -1504,11 +1649,13 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		[self showSSLCertificate];
 	} else if (CGRectContainsPoint(refreshTarget, point)) {
 		WebViewTab *wvt = [self curWebViewTab];
-		if (wvt.isDownloadingFile) {
+		if (wvt.fileDownloadState == WebViewTabFileDownloadStateDownloadInProgress) {
 			// Cancel download
 			[wvt.webView stopLoading];
-			wvt.isDownloadingFile = NO;
+			wvt.fileDownloadState = WebViewTabFileDownloadStateDownloadCancelled;
+			[self updateSearchBarDetails];
 		} else {
+			// None, Cancelled, Completed or Failed
 			[self forceRefresh];
 		}
 	} else if (CGRectContainsPoint(urlFieldTarget, point)) {

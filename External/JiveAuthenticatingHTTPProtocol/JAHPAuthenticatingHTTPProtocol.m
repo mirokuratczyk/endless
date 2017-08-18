@@ -1112,12 +1112,16 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 			// Determine if the content type is a file type
 			// we can present.
 			NSArray *types = @[
+							   @"application/x-apple-diskimage",
+							   @"application/binary",
 							   @"application/octet-stream",
 							   @"application/pdf",
 							   @"application/x-gzip",
+							   @"application/x-xz",
 							   @"application/zip",
 							   @"audio/",
 							   @"audio/mpeg",
+							   @"image/",
 							   @"image/gif",
 							   @"image/jpg",
 							   @"image/jpeg",
@@ -1151,6 +1155,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		// See: https://developer.apple.com/documentation/foundation/httpurlresponse/1417930-allheaderfields
 		[fakeHeaders setObject:@"text/html" forKey:@"Content-Type"];
 		[fakeHeaders setObject:@"0" forKey:@"Content-Length"];
+		[fakeHeaders setObject:@"Cache-Control: no-cache, no-store, must-revalidate" forKey:@"Cache-Control"];
 		NSURLResponse *fakeResponse = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:200 HTTPVersion:@"1.1" headerFields:fakeHeaders];
 
 		// Notify the client that the request finished loading so that
