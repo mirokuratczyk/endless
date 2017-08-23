@@ -55,6 +55,9 @@
    Text of cancel button on alert which will dismiss the popup */
 "Cancel" = "Cancel";
 
+/* Text displayed on navigation bar reflecting file download state */
+"Cancelled" = "Cancelled";
+
 /* Field name for display in list */
 "Certificate Information" = "Certificate Information";
 
@@ -117,7 +120,8 @@
 "Enter the details of the URL to bookmark:" = "Enter the details of the URL to bookmark:";
 
 /* Alert dialog title when webpage has failed to load
-   Image download error alert title */
+   Image download error alert title
+   Text displayed on navigation bar reflecting file download state */
 "Error" = "Error";
 
 /* Text preceeding error description */
@@ -204,6 +208,9 @@
 
 /* No comment provided by engineer. */
 "Message Text View" = "Message Text View";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"More..." = "More...";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "Netherlands" = "Netherlands";

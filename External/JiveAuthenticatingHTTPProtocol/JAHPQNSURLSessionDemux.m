@@ -52,7 +52,7 @@
 - (instancetype)initWithTask:(NSURLSessionDataTask *)task delegate:(id<NSURLSessionDataDelegate>)delegate modes:(NSArray *)modes;
 
 @property (atomic, strong, readonly ) NSURLSessionDataTask *        task;
-@property (atomic, strong, readonly ) id<NSURLSessionDataDelegate>  delegate;
+@property (atomic, strong, readonly ) id<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>  delegate;
 @property (atomic, strong, readonly ) NSThread *                    thread;
 @property (atomic, copy,   readonly ) NSArray *                     modes;
 
@@ -64,14 +64,14 @@
 
 @interface JAHPQNSURLSessionDemuxTaskInfo ()
 
-@property (atomic, strong, readwrite) id<NSURLSessionDataDelegate>  delegate;
+@property (atomic, strong, readwrite) id<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>  delegate;
 @property (atomic, strong, readwrite) NSThread *                    thread;
 
 @end
 
 @implementation JAHPQNSURLSessionDemuxTaskInfo
 
-- (instancetype)initWithTask:(NSURLSessionDataTask *)task delegate:(id<NSURLSessionDataDelegate>)delegate modes:(NSArray *)modes
+- (instancetype)initWithTask:(NSURLSessionDataTask *)task delegate:(id<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>)delegate modes:(NSArray *)modes
 {
 	assert(task != nil);
 	assert(delegate != nil);
@@ -290,18 +290,6 @@
 	}
 }
 
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
-{
-	JAHPQNSURLSessionDemuxTaskInfo *    taskInfo;
-
-	taskInfo = [self taskInfoForTask:dataTask];
-	if (taskInfo && [taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didBecomeDownloadTask:)]) {
-		[taskInfo performBlock:^{
-			[taskInfo.delegate URLSession:session dataTask:dataTask didBecomeDownloadTask:downloadTask];
-		}];
-	}
-}
-
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
 	JAHPQNSURLSessionDemuxTaskInfo *    taskInfo;
@@ -328,5 +316,65 @@
 	}
 }
 
-@end
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
+{
+	JAHPQNSURLSessionDemuxTaskInfo *    taskInfo;
 
+	taskInfo = [self taskInfoForTask:dataTask];
+	if (taskInfo && [taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didBecomeDownloadTask:)]) {
+		[taskInfo performBlock:^{
+			[taskInfo.delegate URLSession:session dataTask:dataTask didBecomeDownloadTask:downloadTask];
+		}];
+	}
+}
+
+#pragma mark - NSURLSessionDownloadDelegate methods
+
+/* From NSURLSession.h:
+ * Sent when a download task that has completed a download.  The delegate should
+ * copy or move the file at the given location to a new location as it will be
+ * removed when the delegate message returns. URLSession:task:didCompleteWithError: will
+ * still be called.
+ */
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+	JAHPQNSURLSessionDemuxTaskInfo *    taskInfo;
+	NSURL *newLocation; // must move to a new location before returning, see comment above function declaration
+	if ([downloadTask.response.suggestedFilename length] > 0) {
+		newLocation = [DownloadHelper moveFileToDownloadsDirectory:location withFilename:downloadTask.response.suggestedFilename];
+	} else {
+		newLocation = [DownloadHelper moveFileToDownloadsDirectory:location withFilename:downloadTask.currentRequest.URL.lastPathComponent];
+	}
+	taskInfo = [self taskInfoForTask:downloadTask];
+	if (taskInfo && [taskInfo.delegate respondsToSelector:@selector(URLSession:downloadTask:didFinishDownloadingToURL:)]) {
+		[taskInfo performBlock:^{
+			[taskInfo.delegate URLSession:session downloadTask:downloadTask didFinishDownloadingToURL:newLocation];
+		}];
+	}
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+	JAHPQNSURLSessionDemuxTaskInfo *    taskInfo;
+	taskInfo = [self taskInfoForTask:downloadTask];
+	if (taskInfo && [taskInfo.delegate respondsToSelector:@selector(URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:)]) {
+		[taskInfo performBlock:^{
+			[taskInfo.delegate URLSession:session downloadTask:downloadTask didWriteData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+		}];
+	}
+}
+
+/* Sent when a download has been resumed. If a download failed with an
+ * error, the -userInfo dictionary of the error will contain an
+ * NSURLSessionDownloadTaskResumeData key, whose value is the resume
+ * data.
+ */
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes {
+	// TODO: handle interrupted downloads.
+	// Add download tasks to an array of interrupted downloads when psiphon tunnel is lost
+	// in URLSession:session:task:didCompleteWithError: and resume when tunnel re-established
+	// using [downloadTask.error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData] and
+	// [NSURLSessionDownloadTask downloadTaskWithResumeData:(NSData *)resumeData].
+}
+
+@end

@@ -17,14 +17,25 @@
  *
  */
 
-/* Text of prompt for user to grant app permission to take and upload pictures */
-"NSCameraUsageDescription" = "This lets you take and upload pictures.";
 
-/* Text of prompt for user to grant app permission to record and upload audio */
-"NSMicrophoneUsageDescription" = "This lets you record and upload audio.";
+/*
+ * DownloadTaskDelegate is utilized by JAHPAuthenticatingHTTPProtocol
+ * to signal file download events and progress to the implementer (WebViewTab).
+ */
 
-/* Text of prompt for user to grant app permission to add pictures to their photo library */
-"NSPhotoLibraryAddUsageDescription" = "This lets you add pictures to your photo library.";
+@protocol DownloadTaskDelegate <NSObject>
+- (void)didStartDownloadingFile;
+- (void)didFinishDownloadingToURL:(NSURL*)location;
+- (void)setProgress:(NSNumber *)pr;
+@end
 
-/* Text of prompt for user to grant app permission to access their photo library */
-"NSPhotoLibraryUsageDescription" = "This lets you save and upload photos";
+/*
+ * DownloadHelper is utilized by JAHPQNSURLSessionDemux to move newly downloaded
+ * files to our temporary "downloads" directory which is cleared on the first
+ * download of the application life cycle.
+ */
+
+@interface DownloadHelper: NSObject
++ (void)deleteDownloadsDirectory;
++ (NSURL*)moveFileToDownloadsDirectory:(NSURL*)filePath withFilename:(NSString*)filename;
+@end

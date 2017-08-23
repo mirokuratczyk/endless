@@ -1,3 +1,4 @@
+
 /*
  File: JAHPAuthenticatingHTTPProtocol.m
  Abstract: An NSURLProtocol subclass that overrides the built-in HTTP/HTTPS protocol.
@@ -44,12 +45,12 @@
  Copyright (C) 2014 Apple Inc. All Rights Reserved.
 
  */
+
+#import "CookieJar.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
-#import "CookieJar.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
-
 #import "JAHPCanonicalRequest.h"
 #import "JAHPCacheStoragePolicy.h"
 #import "JAHPQNSURLSessionDemux.h"
@@ -73,6 +74,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 	NSString *_userAgent;
 	NSURLRequest *_actualRequest;
 	BOOL _isOrigin;
+	BOOL _isTemporarilyAllowed;
 }
 
 @property (atomic, strong, readwrite) NSThread *                        clientThread;       ///< The thread on which we should call the client.
@@ -88,7 +90,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 @property (atomic, copy,   readwrite) NSArray *                         modes;
 @property (atomic, assign, readwrite) NSTimeInterval                    startTime;          ///< The start time of the request; written by client thread only; read by any thread.
-@property (atomic, strong, readwrite) NSURLSessionDataTask *            task;               ///< The NSURLSession task for that request; client thread only.
+@property (atomic, strong, readwrite) NSURLSessionTask *                task;               ///< The NSURLSession task for that request; client thread only.
 @property (atomic, strong, readwrite) NSURLAuthenticationChallenge *    pendingChallenge;
 @property (atomic, copy,   readwrite) JAHPChallengeCompletionHandler        pendingChallengeCompletionHandler;  ///< The completion handler that matches pendingChallenge; main thread only.
 @property (atomic, copy,   readwrite) JAHPDidCancelAuthenticationChallengeHandler pendingDidCancelAuthenticationChallengeHandler;  ///< The handler that runs when we cancel the pendingChallenge; main thread only.
@@ -464,6 +466,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	}
 
 	if (_wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]]) {
+		_isTemporarilyAllowed = YES;
 		_wvt = [[[[AppDelegate sharedAppDelegate] webViewController] webViewTabs] firstObject];
 	}
 
@@ -1100,14 +1103,74 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 
 	if(_wvt && [[dataTask.currentRequest URL] isEqual:[dataTask.currentRequest mainDocumentURL]]) {
 		[_wvt setUrl:[dataTask.currentRequest URL]];
-		[[[AppDelegate sharedAppDelegate] webViewController] adjustLayoutForNewHTTPResponse:_wvt];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[[[AppDelegate sharedAppDelegate] webViewController] adjustLayoutForNewHTTPResponse:_wvt];
+		});
 	}
 
 	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
 	NSString *ctype = [[self caseInsensitiveHeader:@"content-type" inResponse:httpResponse] lowercaseString];
 	if (ctype != nil) {
-		if ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"])
+		if ([ctype hasPrefix:@"text/html"] || [ctype hasPrefix:@"application/html"] || [ctype hasPrefix:@"application/xhtml+xml"]) {
 			_contentType = CONTENT_TYPE_HTML;
+		} else {
+			// TODO: keep adding new content types as needed
+			// Determine if the content type is a file type
+			// we can present.
+			NSArray *types = @[
+							   @"application/x-apple-diskimage",
+							   @"application/binary",
+							   @"application/octet-stream",
+							   @"application/pdf",
+							   @"application/x-gzip",
+							   @"application/x-xz",
+							   @"application/zip",
+							   @"audio/",
+							   @"audio/mpeg",
+							   @"image/",
+							   @"image/gif",
+							   @"image/jpg",
+							   @"image/jpeg",
+							   @"image/png",
+							   @"video/",
+							   @"video/x-flv",
+							   @"video/ogg",
+							   @"video/webm"
+							   ];
+			// TODO: (performance) could use a dictionary of dictionaries matching on type and subtype
+			for (NSString *type in types) {
+				if ([ctype hasPrefix:type]) {
+					_contentType = CONTENT_TYPE_FILE;
+				}
+			}
+		}
+	}
+
+	if (_contentType == CONTENT_TYPE_FILE && _isOrigin && !_isTemporarilyAllowed) {
+		/*
+		 * If we've determined that the response's content type corresponds to a
+		 * file type that we can attempt to preview we turn the request into a download.
+		 * Once the download has completed we present it on the WebViewTab corresponding
+		 * to the original request.
+		 */
+
+		// Create a fake response for the client with all headers but content type preserved
+		NSMutableDictionary *fakeHeaders = [[NSMutableDictionary alloc] initWithDictionary:[httpResponse allHeaderFields]];
+		// allHeaderFields canonicalizes header field names to their standard form.
+		// E.g. "content-type" will be automatically adjusted to "Content-Type".
+		// See: https://developer.apple.com/documentation/foundation/httpurlresponse/1417930-allheaderfields
+		[fakeHeaders setObject:@"text/html" forKey:@"Content-Type"];
+		[fakeHeaders setObject:@"0" forKey:@"Content-Length"];
+		[fakeHeaders setObject:@"Cache-Control: no-cache, no-store, must-revalidate" forKey:@"Cache-Control"];
+		NSURLResponse *fakeResponse = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:200 HTTPVersion:@"1.1" headerFields:fakeHeaders];
+
+		// Notify the client that the request finished loading so that
+		// the requests's url enters its navigation history.
+		[self.client URLProtocol:self didReceiveResponse:fakeResponse cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+
+		// Turn the request into a download
+		completionHandler(NSURLSessionResponseBecomeDownload);
+		return;
 	}
 
 	/* rewrite or inject Content-Security-Policy (and X-Webkit-CSP just in case) headers */
@@ -1165,7 +1228,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	response = [[NSHTTPURLResponse alloc] initWithURL:[httpResponse URL] statusCode:[httpResponse statusCode] HTTPVersion:@"1.1" headerFields:responseHeaders];
 
 	/* save any cookies we just received
-	 Note that we need to do the same thing in the 
+	 Note that we need to do the same thing in the
 	 - (void)URLSession:task:willPerformHTTPRedirection
 	 */
 	[CookieJar setCookies:[NSHTTPCookie cookiesWithResponseHeaderFields:responseHeaders forURL:[_actualRequest URL]] forURL:[_actualRequest URL] mainDocumentURL:[_actualRequest mainDocumentURL]];
@@ -1323,6 +1386,27 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	}
 
 	return _cspNonce;
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask {
+	self.task = downloadTask;
+	if (_wvt != nil) {
+		[_wvt didStartDownloadingFile];
+	}
+}
+
+# pragma mark * NSURLSessionDownloadDelegate methods
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+	if (_wvt != nil) {
+		[_wvt setProgress:[NSNumber numberWithDouble:(double)totalBytesWritten/(double)totalBytesExpectedToWrite]];
+	}
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+	if (_wvt != nil) {
+		[_wvt didFinishDownloadingToURL:location];
+	}
 }
 
 @end

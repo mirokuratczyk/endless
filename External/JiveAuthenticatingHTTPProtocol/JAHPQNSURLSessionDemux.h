@@ -56,7 +56,7 @@
  these callbacks.
  */
 
-@interface JAHPQNSURLSessionDemux : NSObject
+@interface JAHPQNSURLSessionDemux : NSObject <NSURLSessionDownloadDelegate>
 
 /*! Create a demultiplex for the specified session configuration.
  *  \param configuration The session configuration to use; if nil, a default session is created.
@@ -86,6 +86,6 @@
  *  \returns A suspended data task that you must resume.
  */
 
-- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request delegate:(id<NSURLSessionDataDelegate>)delegate modes:(NSArray *)modes;
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request delegate:(id<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>)delegate modes:(NSArray *)modes;
 
 @end

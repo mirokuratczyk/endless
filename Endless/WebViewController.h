@@ -11,6 +11,8 @@
 #import "WebViewTab.h"
 #import "TutorialViewController.h"
 
+#define TOOLBAR_HEIGHT 44
+
 #define PAN_GESTURE_RECOGNIZER_NONE 0
 #define PAN_GESTURE_RECOGNIZER_UP 1
 #define PAN_GESTURE_RECOGNIZER_DOWN 2

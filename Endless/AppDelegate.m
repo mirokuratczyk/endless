@@ -82,6 +82,8 @@
 	[(WebViewController*)self.window.rootViewController setResumePsiphonStart:isOnboarding];
 	[(WebViewController*)self.window.rootViewController setShowTutorial:isOnboarding];
 
+	[DownloadHelper deleteDownloadsDirectory];
+
 	return YES;
 }
 
@@ -187,6 +189,7 @@
 	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
 		[[self webViewController] removeAllTabsForBackgrounded];
 		[CookieJar clearAllData];
+		[DownloadHelper deleteDownloadsDirectory];
 	}
 
 	if(_appActiveTimer && [_appActiveTimer isValid]) {
@@ -273,6 +276,7 @@
 	[_psiphonTunnel stop];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
+	[DownloadHelper deleteDownloadsDirectory];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
