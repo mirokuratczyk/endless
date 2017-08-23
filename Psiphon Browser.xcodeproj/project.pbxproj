@@ -316,6 +316,10 @@
 		66C7E8811F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		66D92B4F1F4DDD0C005A06DF /* UIImage+CountryFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+CountryFlag.h"; path = "Endless/UIImage+CountryFlag.h"; sourceTree = SOURCE_ROOT; };
 		66D92B501F4DDD0C005A06DF /* UIImage+CountryFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CountryFlag.m"; path = "Endless/UIImage+CountryFlag.m"; sourceTree = SOURCE_ROOT; };
+		66D92B521F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/Root.strings; sourceTree = "<group>"; };
+		66D92B531F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		66D92B541F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		66D92B551F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -712,6 +716,7 @@
 				"zh-Hans",
 				tr,
 				ru,
+				tk,
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -972,6 +977,7 @@
 				669541BA1F290C290038E125 /* zh-Hans */,
 				669541BE1F2910190038E125 /* tr */,
 				669541C21F29106F0038E125 /* ru */,
+				66D92B521F4E1A1A005A06DF /* tk */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -997,6 +1003,7 @@
 				669541BB1F290C290038E125 /* zh-Hans */,
 				669541BF1F2910190038E125 /* tr */,
 				669541C31F29106F0038E125 /* ru */,
+				66D92B531F4E1A1A005A06DF /* tk */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -1022,6 +1029,7 @@
 				669541BC1F290C290038E125 /* zh-Hans */,
 				669541C01F2910190038E125 /* tr */,
 				669541C41F29106F0038E125 /* ru */,
+				66D92B541F4E1A1A005A06DF /* tk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1047,6 +1055,7 @@
 				669541BD1F290C290038E125 /* zh-Hans */,
 				669541C11F2910190038E125 /* tr */,
 				669541C51F29106F0038E125 /* ru */,
+				66D92B551F4E1A1A005A06DF /* tk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
