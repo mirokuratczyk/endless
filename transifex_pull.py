@@ -89,7 +89,7 @@ def process_resource(resource, output_path_fn, output_mutator_fn, output_merge_f
                        stats[lang]['translated_entities'],
                        stats[lang]['translated_entities'] +
                        stats[lang]['untranslated_entities']))
-    
+
     for in_lang, out_lang in langs.items():
         r = request('resource/%s/translation/%s' % (resource, in_lang))
 
@@ -104,7 +104,7 @@ def process_resource(resource, output_path_fn, output_mutator_fn, output_merge_f
 
         # Make line endings consistently Unix-y.
         content = content.replace('\r\n', '\n')
-        
+
         output_path = output_path_fn(out_lang)
 
         if output_merge_fn:
@@ -184,7 +184,7 @@ def merge_storeassets_translations(lang, fname, fresh):
 
     # Transifex does not populate YAML translations with the English fallback
     # for missing values. 
-    
+
     for key, value in english_translation['en']:
         if not fresh_translation[lang].get(key) and existing_translation[lang].get(key):
             fresh_translation[lang][key] = existing_translation[lang].get(key)
@@ -224,8 +224,12 @@ def merge_applestrings_translations(lang, fname, fresh):
             # The fresh translation has the English fallback
             fresh = existing
 
-        fresh_merged += '/* %s */\n"%s" = "%s";\n\n' % (entry['key'], entry['comment'], fresh)
-    
+        escaped_fresh = fresh.replace('"', '\\"').replace('\n', '\\n')
+
+        fresh_merged += '/*%s*/\n"%s" = "%s";\n\n' % (entry['comment'],
+                                                      entry['key'],
+                                                      escaped_fresh)
+
     return fresh_merged
 
 
