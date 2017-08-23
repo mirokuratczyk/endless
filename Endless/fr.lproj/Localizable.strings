@@ -383,6 +383,12 @@
 /* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
 "You can find solutions to many common problems in our %@." = "Vous trouverez des solutions à de nombreux problèmes habituels dans notre %@.";
 
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"Your Apps in Your Browser" = "Vos applis dans votre navigateur";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"Your favorite apps have a web interface that works great in Psiphon Browser" = "Vos applis favorites ont une interface Web qui fonctionne à merveille dans le navigateur Psiphon";
+
 /* Introduction text at top of feedback form */
 "Your feedback makes Psiphon better!" = "Votre rétroaction améliore Psiphon !";
 
