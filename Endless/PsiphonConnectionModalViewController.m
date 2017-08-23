@@ -21,6 +21,7 @@
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
 #import "ICDMaterialActivityIndicatorView.h"
+#import "UIImage+CountryFlag.h"
 
 @implementation PsiphonConnectionModalViewController {
 	ConnectionState _connectionState;
@@ -107,7 +108,7 @@
 		NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
 		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-		textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
+		textAttachment.image = [[UIImage imageNamed:selectedRegion.flagResourceId] countryFlag];
 		NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 		textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
 
@@ -246,7 +247,7 @@
 		NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
 		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-		textAttachment.image = [UIImage imageNamed:selectedRegion.flagResourceId];
+		textAttachment.image = [[UIImage imageNamed:selectedRegion.flagResourceId] countryFlag];
 		NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 		textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
 

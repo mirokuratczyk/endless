@@ -10,6 +10,14 @@ When `transifex_pull.py` finds a new language that has crossed the desired thres
 
 Do some testing. Commit.
 
+### Adding a new server region
+
+1. In Xcode, under the Resources group, click on `Images.xcassets`. Note the assets list that appears.
+2. In Finder, go to `endless/External/flag-icon-css/flags/4x3`. Select the files `flag-zz.png`, `flag-zz@2x.png`, and `flag-zz@3x.png`, where `zz` is the region you want. 
+3. Drag the selected files onto the assets list in Xcode.
+4. In `RegionAdapter.m`, update the `init` and `getLocalizedRegionTitles` functions with the new region.
+5. Compile the app, so that the strings files get updated.
+
 
 ###Endless
 

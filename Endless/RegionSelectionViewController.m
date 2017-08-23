@@ -19,6 +19,7 @@
 
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
+#import "UIImage+CountryFlag.h"
 
 @implementation RegionSelectionViewController {
 	NSString *selectedRegion;
@@ -68,7 +69,7 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
 
-	cell.imageView.image = [UIImage imageNamed:r.flagResourceId];
+	cell.imageView.image = [[UIImage imageNamed:r.flagResourceId] countryFlag];
 	cell.textLabel.text = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:r.code];
 	cell.userInteractionEnabled = YES;
 	cell.hidden = !r.serverExists;

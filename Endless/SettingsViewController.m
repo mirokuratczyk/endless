@@ -29,6 +29,7 @@
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
 #import "SettingsViewController.h"
+#import "UIImage+CountryFlag.h"
 
 
 static AppDelegate *appDelegate;
@@ -148,7 +149,7 @@ BOOL linksEnabled;
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 		[cell.textLabel setText:specifier.title];
 
-		UIImage *flag = [UIImage imageNamed:selectedRegion.flagResourceId];
+		UIImage *flag = [[UIImage imageNamed:selectedRegion.flagResourceId] countryFlag];
 		UIImageView *flagImage = [[UIImageView alloc] initWithImage:flag];
 
 		// Size and place flag image. Text is sized and placed in viewDidLayoutSubviews
