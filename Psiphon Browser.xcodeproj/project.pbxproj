@@ -87,6 +87,7 @@
 		4EFB34831E366E1D0067C7C3 /* FeedbackThumbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34821E366E1D0067C7C3 /* FeedbackThumbsCell.m */; };
 		4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB34851E366E4D0067C7C3 /* LogViewController.m */; };
 		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
+		66D92B511F4DDD0C005A06DF /* UIImage+CountryFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D92B501F4DDD0C005A06DF /* UIImage+CountryFlag.m */; };
 		D61D8FFD45ED8F65C6CD4048 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0016F06CBF958E51B2CC6862 /* libPods-Psiphon Browser Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -310,6 +311,8 @@
 		66C7E87F1F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		66C7E8801F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/Localizable.strings; sourceTree = "<group>"; };
 		66C7E8811F0190BF002200C3 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		66D92B4F1F4DDD0C005A06DF /* UIImage+CountryFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+CountryFlag.h"; path = "Endless/UIImage+CountryFlag.h"; sourceTree = SOURCE_ROOT; };
+		66D92B501F4DDD0C005A06DF /* UIImage+CountryFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CountryFlag.m"; path = "Endless/UIImage+CountryFlag.m"; sourceTree = SOURCE_ROOT; };
 		80E5FC217E500BA7A9597CEC /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8559DBCF077714C189AF2423 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9294AA2922D5BDB6EBCE396A /* Pods-Endless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Endless.release.xcconfig"; path = "Pods/Target Support Files/Pods-Endless/Pods-Endless.release.xcconfig"; sourceTree = "<group>"; };
@@ -540,6 +543,8 @@
 				4EFB34791E366C370067C7C3 /* RegionAdapter.m */,
 				4EFB347A1E366C370067C7C3 /* RegionSelectionViewController.h */,
 				4EFB347B1E366C370067C7C3 /* RegionSelectionViewController.m */,
+				66D92B4F1F4DDD0C005A06DF /* UIImage+CountryFlag.h */,
+				66D92B501F4DDD0C005A06DF /* UIImage+CountryFlag.m */,
 				4EFB34751E366C0A0067C7C3 /* UpstreamProxySettings.h */,
 				4EFB34761E366C0A0067C7C3 /* UpstreamProxySettings.m */,
 			);
@@ -904,6 +909,7 @@
 				01AFEB371B4DBA8D00A02482 /* BookmarkController.m in Sources */,
 				4EFB34861E366E4D0067C7C3 /* LogViewController.m in Sources */,
 				449316E21E8BFA4000D0708D /* PsiphonConnectionModalViewController.m in Sources */,
+				66D92B511F4DDD0C005A06DF /* UIImage+CountryFlag.m in Sources */,
 				44C7B2081E2040A700432BBB /* L10n+Swizzling.m in Sources */,
 				44E779421DE6031A00854379 /* AppDelegate.m in Sources */,
 				4E628E9F1EF89D2C00F8B3B5 /* TutorialViewController.m in Sources */,
