@@ -36,5 +36,6 @@
  */
 
 @interface DownloadHelper: NSObject
-+ (NSURL*)moveFileToDownloadDirectory:(NSURL*)filePath withExtension:(NSString*)extension;
++ (void)deleteDownloadsDirectory;
++ (NSURL*)moveFileToDownloadsDirectory:(NSURL*)filePath withFilename:(NSString*)filename;
 @end

@@ -884,6 +884,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	[self addNewTabForURL:nil forRestoration:NO andFocus:YES withCompletionBlock:nil];
 
 	[urlField becomeFirstResponder];
+
+	[self updateProgress];
 }
 
 #pragma mark - Helper functions for updateSearchBar

@@ -27,14 +27,17 @@
 
 #pragma mark - helper functions
 
-+ (NSString*)getDownloadsDirectory {
-	NSString *downloadsPath = [NSTemporaryDirectory() stringByAppendingPathComponent:kDownloadsDirectory];
++ (NSString*)getDesiredDownloadsDirectory {
+	return [NSTemporaryDirectory() stringByAppendingPathComponent:kDownloadsDirectory];
+}
 
-	// Clear directory on the first download of this session
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		[[NSFileManager defaultManager] removeItemAtPath:downloadsPath error:nil];
-	});
++ (void)deleteDownloadsDirectory {
+	NSString *downloadsPath = [DownloadHelper getDesiredDownloadsDirectory];
+	[[NSFileManager defaultManager] removeItemAtPath:downloadsPath error:nil];
+}
+
++ (NSString*)getDownloadsDirectory {
+	NSString *downloadsPath = [DownloadHelper getDesiredDownloadsDirectory];
 
 	BOOL isDirectory = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:downloadsPath isDirectory:&isDirectory]) {
@@ -52,10 +55,10 @@
 	return downloadsPath;
 }
 
-+ (NSURL*)moveFileToDownloadDirectory:(NSURL*)filePath withExtension:(NSString*)extension {
-	if (filePath == nil || extension ==  nil) {
++ (NSURL*)moveFileToDownloadsDirectory:(NSURL*)filePath withFilename:(NSString*)filename {
+	if (filePath == nil || filename ==  nil) {
 #ifdef TRACE
-		NSLog(@"DownloadManager: move file failed filePath was %@ and extension was %@", filePath, extension);
+		NSLog(@"DownloadManager: move file failed filePath was %@ and extension was %@", filePath, filename);
 #endif
 		return nil;
 	}
@@ -64,10 +67,10 @@
 	 *	If a file already exists at the new location then rename it
 	 *	e.g. example.extension would be renamed to example(1).extension.
 	 */
-	NSURL *newLocation = [NSURL fileURLWithPath:[[DownloadHelper getDownloadsDirectory] stringByAppendingPathComponent:extension]];
+	NSURL *newLocation = [NSURL fileURLWithPath:[[DownloadHelper getDownloadsDirectory] stringByAppendingPathComponent:filename]];
 	int i = 1;
 	while ([[NSFileManager defaultManager] fileExistsAtPath:[newLocation path]]) {
-		NSArray <NSString*> *split = [extension componentsSeparatedByString:@"."];
+		NSArray <NSString*> *split = [filename componentsSeparatedByString:@"."];
 		newLocation = [NSURL fileURLWithPath:[[DownloadHelper getDownloadsDirectory] stringByAppendingPathComponent:[[split objectAtIndex:0] stringByAppendingString:[NSString stringWithFormat:@"(%d)", i++]]]];
 		for (int i = 1; i < [split count]; i++) {
 			NSString *str = [NSString stringWithFormat:@"%@.%@", [newLocation absoluteString], [split objectAtIndex:i]];
