@@ -23,7 +23,7 @@
 
 - (UIImage *)countryFlag {
     CGFloat blur = 2;
-    UIColor* shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    UIColor* shadowColor = [UIColor colorWithWhite:0 alpha:0.25];
     CGSize offset = CGSizeMake(1, 1);
 
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.size.width + 2 * blur, self.size.height + 2 * blur), NO, 0);
