@@ -158,17 +158,19 @@
 			[_handshakeHomePages removeAllObjects];
 		}
 		// Start the Psiphon tunnel
-		if( ! [self.psiphonTunnel start:NO] ) {
-			self.psiphonConectionState = ConnectionStateDisconnected;
-			[self notifyPsiphonConnectionState];
-		}
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			if( ! [self.psiphonTunnel start:NO] ) {
+				self.psiphonConectionState = ConnectionStateDisconnected;
+				[self notifyPsiphonConnectionState];
+			}
+		});
 	});
 }
 
 - (void) stopAndWaitForInternetConnection {
-	dispatch_async(dispatch_get_main_queue(), ^{
-		self.psiphonConectionState = ConnectionStateWaitingForNetwork;
-		[self notifyPsiphonConnectionState];
+	self.psiphonConectionState = ConnectionStateWaitingForNetwork;
+	[self notifyPsiphonConnectionState];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[self.psiphonTunnel stop];
 	});
 }
@@ -273,7 +275,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	/* this definitely ends our sessions */
-	[_psiphonTunnel stop];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[self.psiphonTunnel stop];
+	});
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 	[application ignoreSnapshotOnNextApplicationLaunch];
 	[DownloadHelper deleteDownloadsDirectory];
