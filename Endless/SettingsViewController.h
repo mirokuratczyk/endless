@@ -18,27 +18,13 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "IASKAppSettingsViewController.h"
+#import "PsiphonSettingsViewController.h"
 
-//app language key
-#define appLanguage	@"appLanguage"
-
-// Globally used specifier keys
-#define kRegionSelectionSpecifierKey	@"regionSelection"
-// Upstream proxy settings keys (found in PsiphonSettings.plist)
+// Specifier keys for cells in settings menu
 #define kClearWebsiteData			@"clearWebsiteData"
-#define kDisableTimeouts			@"disableTimeouts"
-#define kForceReconnect				@"forceReconnect"
 #define kMinTlsVersion				@"minTlsVersion"
-#define kUseUpstreamProxy			@"useUpstreamProxy"
-#define kUseProxyAuthentication		@"useProxyAuthentication"
-#define kProxyUsername				@"proxyUsername"
-#define kProxyPassword				@"proxyPassword"
-#define kProxyDomain				@"proxyDomain"
-#define kUpstreamProxyHostAddress	@"upstreamProxyHostAddress"
-#define kUpstreamProxyPort			@"upstreamProxyPort"
 
-// disable Javascript settings key in Privacy.plist
+// Disable Javascript settings key in Privacy.plist
 #define kDisableJavascript			@"disableJavascript"
 
 // These strings correspond to the option's value in MinTLSSettings.plist
@@ -46,5 +32,5 @@
 #define kMinTlsVersionTLS_1_1 @"TLS_1_1"
 #define kMinTlsVersionTLS_1_0 @"TLS_1_0"
 
-@interface SettingsViewController : IASKAppSettingsViewController <UITableViewDelegate, IASKSettingsDelegate, UIAlertViewDelegate>
+@interface SettingsViewController : PsiphonSettingsViewController
 @end

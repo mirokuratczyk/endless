@@ -7,6 +7,8 @@
 
 #import "Bookmark.h"
 #import "BookmarkController.h"
+#import "FeedbackUpload.h"
+#import "FeedbackViewController.h"
 #import "HTTPSEverywhereRuleController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifierValuesViewController.h"
@@ -17,6 +19,7 @@
 #import "JAHPAuthenticatingHTTPProtocol.h"
 #import "WebViewController.h"
 #import "WebViewTab.h"
+#import "PsiphonClientCommonLibraryHelpers.h"
 #import "PsiphonConnectionIndicator.h"
 #import "PsiphonConnectionModalViewController.h"
 #import "PsiphonHomePagesEquivalentURLs.h"
@@ -1387,6 +1390,8 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 		appSettingsViewController.showCreditsFooter = NO;
 		appSettingsViewController.showDoneButton = YES;
 		appSettingsViewController.neverShowPrivacySettings = YES;
+		appSettingsViewController.preferencesSnapshot = preferencesSnapshot;
+		appSettingsViewController.settingsDelegate = self;
 	}
 
 	// These keys correspond to settings in PsiphonOptions.plist
@@ -1423,6 +1428,16 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 }
 
+#pragma mark - PsiphonSettingsViewControllerDelegate methods
+
+- (void)notifyPsiphonConnectionState {
+	[AppDelegate.sharedAppDelegate notifyPsiphonConnectionState];
+}
+
+- (void)reloadAndOpenSettings {
+	[AppDelegate.sharedAppDelegate reloadAndOpenSettings];
+}
+
 - (void)settingsWillDismissWithForceReconnect:(BOOL)forceReconnect
 {
 	// Allow ARC to dealloc appSettingsViewController
@@ -1438,7 +1453,7 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	}
 
 	// Check if settings which have changed require a tunnel service restart to take effect
-	if (forceReconnect || [self isSettingsRestartRequired]) {
+	if (forceReconnect) {
 		[[AppDelegate sharedAppDelegate] scheduleRunningTunnelServiceRestart];
 	}
 	// Check if settings which have changed require reload tabs
@@ -1447,6 +1462,10 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 			[(WebViewTab *)webViewTabs[i] refresh];
 		}
 	}
+}
+
+- (BOOL)shouldEnableSettingsLinks; {
+	return ([AppDelegate.sharedAppDelegate psiphonConectionState] == ConnectionStateConnected);
 }
 
 - (BOOL) isURLSessionResetRequired {
@@ -1476,72 +1495,50 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 //	return NO;
 }
 
-- (BOOL)isSettingsRestartRequired
-{
-	UpstreamProxySettings *proxySettings = [UpstreamProxySettings sharedInstance];
+#pragma mark - FeedbackViewControllerDelegate methods
 
-	if (preferencesSnapshot) {
-		// Check if "disable timeouts" has changed
-		BOOL disableTimeouts = [[preferencesSnapshot objectForKey:kDisableTimeouts] boolValue];
+- (void)userSubmittedFeedback:(NSUInteger)selectedThumbIndex
+					 comments:(NSString*)comments
+						email:(NSString*)email
+			uploadDiagnostics:(BOOL)uploadDiagnostics {
 
-		if (disableTimeouts != [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts]) {
-			return YES;
-		}
+	SendFeedbackHandler sendFeedbackHandler = ^(NSString *jsonString, NSString *pubKey, NSString *uploadServer, NSString *uploadServerHeaders){
+		[[AppDelegate sharedAppDelegate].psiphonTunnel sendFeedback:jsonString publicKey:pubKey uploadServer:uploadServer uploadServerHeaders:uploadServerHeaders]; // TODO: weak ref?
+	};
 
-		// Check if the selected region has changed
-		NSString *region = [preferencesSnapshot objectForKey:kRegionSelectionSpecifierKey];
+	[FeedbackUpload generateAndSendFeedback:selectedThumbIndex
+								  buildInfo:[PsiphonTunnel getBuildInfo]
+								   comments:comments
+									  email:email
+						 sendDiagnosticInfo:uploadDiagnostics
+						  withPsiphonConfig:[PsiphonClientCommonLibraryHelpers getPsiphonConfigForFeedbackUpload]
+						 withClientPlatform:@"ios-browser"
+						 withConnectionType:[self getConnectionType]
+							   isJailbroken:[JailbreakCheck isDeviceJailbroken]
+						sendFeedbackHandler:sendFeedbackHandler];
+}
 
-		if (!safeStringsEqual(region, [[RegionAdapter sharedInstance] getSelectedRegion].code)) {
-			return YES;
-		}
+// Get connection type
+- (NSString*)getConnectionType {
 
-		// Check if "use proxy" has changed
-		BOOL useUpstreamProxy = [[preferencesSnapshot objectForKey:kUseUpstreamProxy] boolValue];
+	Reachability *reachability = [Reachability reachabilityForInternetConnection];
 
-		if (useUpstreamProxy != [proxySettings getUseCustomProxySettings]) {
-			return YES;
-		}
+	NetworkStatus status = [reachability currentReachabilityStatus];
 
-		// No further checking if "use proxy" is off and has not
-		// changed
-		if (!useUpstreamProxy) {
-			return NO;
-		}
-
-		// If "use proxy" is selected, check if host || port have changed
-		NSString *hostAddress = [preferencesSnapshot objectForKey:kUpstreamProxyHostAddress];
-		NSString *proxyPort = [preferencesSnapshot objectForKey:kUpstreamProxyPort];
-
-		if (!safeStringsEqual(hostAddress, [proxySettings getCustomProxyHost]) || !safeStringsEqual(proxyPort, [proxySettings getCustomProxyPort])) {
-			return YES;
-		}
-
-		// Check if "use proxy authentication" has changed
-		BOOL useProxyAuthentication = [[preferencesSnapshot objectForKey:kUseProxyAuthentication] boolValue];
-
-		if (useProxyAuthentication != [proxySettings getUseProxyAuthentication]) {
-			return YES;
-		}
-
-		// No further checking if "use proxy authentication" is off
-		// and has not changed
-		if (!useProxyAuthentication) {
-			return NO;
-		}
-
-		// "use proxy authentication" is checked, check if
-		// username || password || domain have changed
-		NSString *username = [preferencesSnapshot objectForKey:kProxyUsername];
-		NSString *password = [preferencesSnapshot objectForKey:kProxyPassword];
-		NSString *domain = [preferencesSnapshot objectForKey:kProxyDomain];
-
-		if (!safeStringsEqual(username,[proxySettings getProxyUsername]) ||
-			!safeStringsEqual(password, [proxySettings getProxyPassword]) ||
-			!safeStringsEqual(domain, [proxySettings getProxyDomain])) {
-			return YES;
-		}
+	if (status == NotReachable) {
+		return @"none";
+	} else if (status == ReachableViaWiFi) {
+		return @"WIFI";
+	} else if (status == ReachableViaWWAN) {
+		return @"mobile";
 	}
-	return NO;
+
+	return @"error";
+}
+
+- (void)userPressedURL:(NSURL*)URL {
+	[[AppDelegate sharedAppDelegate].webViewController addNewTabForURL:URL];
+	[[AppDelegate sharedAppDelegate].webViewController settingsWillDismissWithForceReconnect:NO];
 }
 
 - (void)showTabs:(id)_id
