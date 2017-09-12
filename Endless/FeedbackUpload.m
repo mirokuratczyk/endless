@@ -156,7 +156,7 @@
 
 	NSDictionary *metadata = @{
 							   @"id": rndmHexId,
-							   @"platform": @"ios",
+							   @"platform": @"ios-browser",
 							   @"version": @1
 							   };
 	[feedbackBlob setObject:metadata forKey:@"Metadata"];
