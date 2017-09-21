@@ -21,6 +21,7 @@
 #import "OnboardingViewController.h"
 #import "OnboardingInfoViewController.h"
 #import "OnboardingLanguageViewController.h"
+#import "PsiphonClientCommonLibraryHelpers.h"
 
 #define kNumOnboardingViews 4
 #define kSubtitleFontName @"SanFranciscoDisplay-Regular"
@@ -219,7 +220,7 @@
 	title.textColor = [UIColor whiteColor];
 	title.textAlignment = NSTextAlignmentCenter;
 	title.text = NSLocalizedString(@"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language.");
-	if ([self unsupportedCharactersForFont:title.font.fontName withString:title.text]) {
+	if ([PsiphonClientCommonLibraryHelpers unsupportedCharactersForFont:title.font.fontName withString:title.text]) {
 		title.font = [UIFont systemFontOfSize:self.view.frame.size.width * 0.075f];
 	}
 	title.translatesAutoresizingMaskIntoConstraints = NO;
@@ -349,22 +350,6 @@
 	[self.view addGestureRecognizer:tutorialPress];
 }
 #pragma mark - UIPageViewControllerDelegate methods and helper functions
-
-- (BOOL)unsupportedCharactersForFont:(NSString*)font withString:(NSString*)string {
-	for (NSInteger charIdx = 0; charIdx < string.length; charIdx++) {
-		NSString *character = [NSString stringWithFormat:@"%C", [string characterAtIndex:charIdx]];
-		// TODO: need to enumerate a longer list of special characters for this to be more correct.
-		if ([character isEqualToString:@" "]) {
-			// Skip special characters
-			continue;
-		}
-		CGFontRef cgFont = CGFontCreateWithFontName((CFStringRef)font);
-		if (CGFontGetGlyphWithGlyphName(cgFont,  (__bridge CFStringRef)character) == 0) {
-			return YES;
-		}
-	}
-	return NO;
-}
 
 - (void)beginHideLanguageScreenHeader {
 	if (backDrop.image == nil) {

@@ -32,11 +32,9 @@
 #import "Bookmark.h"
 #import "HTTPSEverywhere.h"
 #import "PsiphonData.h"
-#import "RegionAdapter.h"
 #import "UpstreamProxySettings.h"
 
 @implementation AppDelegate {
-	BOOL _needsResume;
 	// Array of home pages from the handshake.
 	// We will pick only one URL from this array
 	// when it's time to open a home page
@@ -70,10 +68,7 @@
 	
 	self.psiphonTunnel = [PsiphonTunnel newPsiphonTunnel:self];
 
-	_needsResume = false;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	_reachability = [Reachability reachabilityForInternetConnection];
-	[_reachability startNotifier];
 
 	BOOL isOnboarding = ![[NSUserDefaults standardUserDefaults] boolForKey:kHasBeenOnboardedKey];
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -167,13 +162,6 @@
 	});
 }
 
-- (void) stopAndWaitForInternetConnection {
-	self.psiphonConectionState = ConnectionStateWaitingForNetwork;
-	[self notifyPsiphonConnectionState];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self.psiphonTunnel stop];
-	});
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -663,7 +651,7 @@
 	[self.webViewController setOpenSettingImmediatelyOnViewDidAppear:YES];
 }
 
-- (void) notifyPsiphonConnectionState {
+- (void)notifyPsiphonConnectionState {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[NSNotificationCenter defaultCenter]
 		 postNotificationName:kPsiphonConnectionStateNotification
@@ -672,18 +660,14 @@
 	});
 }
 
-- (void) internetReachabilityChanged:(NSNotification *)note
-{
-	Reachability* currentReachability = [note object];
+- (void)onInternetReachabilityChanged:(Reachability*)currentReachability {
 	if([currentReachability currentReachabilityStatus] == NotReachable) {
 		if(self.psiphonConectionState != ConnectionStateDisconnected) {
-			_needsResume = true;
-			[self stopAndWaitForInternetConnection];
+			self.psiphonConectionState = ConnectionStateWaitingForNetwork;
+			[self notifyPsiphonConnectionState];
 		}
 	} else {
-		if(_needsResume){
-			[self startPsiphon];
-		}
+		self.psiphonConectionState = ConnectionStateConnecting;
 	}
 }
 
@@ -787,9 +771,5 @@
 		}
 	}
 }
-
-
-
-
 
 @end

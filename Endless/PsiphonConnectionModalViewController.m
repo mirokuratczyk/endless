@@ -17,6 +17,7 @@
  *
  */
 
+#import "PsiphonClientCommonLibraryHelpers.h"
 #import "PsiphonConnectionModalViewController.h"
 #import "RegionAdapter.h"
 #import "RegionSelectionViewController.h"
@@ -108,7 +109,7 @@
 		NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
 		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-		textAttachment.image = [[UIImage imageNamed:selectedRegion.flagResourceId] countryFlag];
+		textAttachment.image = [[PsiphonClientCommonLibraryHelpers imageFromCommonLibraryNamed:selectedRegion.flagResourceId] countryFlag];
 		NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 		textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
 
@@ -247,7 +248,7 @@
 		NSString *regionTitle = [[RegionAdapter sharedInstance] getLocalizedRegionTitle:selectedRegion.code];
 
 		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-		textAttachment.image = [[UIImage imageNamed:selectedRegion.flagResourceId] countryFlag];
+		textAttachment.image = [[PsiphonClientCommonLibraryHelpers imageFromCommonLibraryNamed:selectedRegion.flagResourceId] countryFlag];
 		NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 		textAttachment.bounds = CGRectMake(0, connectionRegionLabel.font.descender - 5, textAttachment.image.size.width, textAttachment.image.size.height);
 

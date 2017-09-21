@@ -27,6 +27,7 @@
 #import <PsiphonTunnel/PsiphonTunnel.h>
 #import "CookieJar.h"
 #import "HSTSCache.h"
+#import "RegionAdapter.h"
 #import "WebViewController.h"
 #import "JAHPAuthenticatingHTTPProtocol.h"
 
