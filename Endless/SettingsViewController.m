@@ -42,7 +42,7 @@ static AppDelegate *appDelegate;
 
 		if (ruleCount > 0) {
 			cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
-			cell.detailTextLabel.text = [NSString stringWithFormat:(ruleCount == 1 ? NSLocalizedString(@"%ld rule in use", @"%ld will be replaced with the number 1") : NSLocalizedString(@"%ld rules in use", @"%ld will be replaced with a natural number")), ruleCount];
+			cell.detailTextLabel.text = [NSString stringWithFormat:(ruleCount == 1 ? NSLocalizedStringWithDefaultValue(@"RULES_IN_USE_SINGULAR", nil, [NSBundle mainBundle], @"%ld rule in use", @"%ld will be replaced with the number 1") : NSLocalizedStringWithDefaultValue(@"RULES_IN_USE_PLURAL", nil, [NSBundle mainBundle], @"%ld rules in use", @"%ld will be replaced with a natural number")), ruleCount];
 			cell.detailTextLabel.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
 		}
 	}
@@ -66,10 +66,10 @@ static AppDelegate *appDelegate;
 
 	if ([specifier.key isEqualToString:kClearWebsiteData]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-														message:NSLocalizedString(@"Remove all cookies and browsing data?", @"Title of alert to clear local cookies and browsing data")
+														message:NSLocalizedStringWithDefaultValue(@"SETTINGS_CLEAR_ALL_COOKIES_PROMPT", nil, [NSBundle mainBundle], @"Remove all cookies and browsing data?", @"Title of alert to clear local cookies and browsing data")
 													   delegate:self
-											  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel button on alert")
-											  otherButtonTitles:NSLocalizedString(@"Clear Cookies and Data", @"Accept button on alert which triggers clearing all local cookies and browsing data"), nil];
+											  cancelButtonTitle:NSLocalizedStringWithDefaultValue(@"CANCEL_ACTION", nil, [NSBundle mainBundle], @"Cancel", @"Cancel action")
+											  otherButtonTitles:NSLocalizedStringWithDefaultValue(@"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON", nil, [NSBundle mainBundle], @"Clear Cookies and Data", @"Accept button on alert which triggers clearing all local cookies and browsing data"), nil];
 
 		[alert show];
 	}
