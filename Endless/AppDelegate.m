@@ -470,7 +470,7 @@
 	});
 }
 
-- (void) onDiagnosticMessage : (NSString*) message {
+- (void)onDiagnosticMessage:(NSString *)message withTimestamp:(NSString *)timestamp {
 	dispatch_async(dispatch_get_main_queue(), ^{
 #ifdef TRACE
 		NSLog(@"onDiagnosticMessage: %@", message);
