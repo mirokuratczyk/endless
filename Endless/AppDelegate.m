@@ -369,8 +369,16 @@
 	[self startPsiphon];
 }
 
-+ (AppDelegate *)sharedAppDelegate{
-	return (AppDelegate *)[UIApplication sharedApplication].delegate;
++ (AppDelegate *)sharedAppDelegate {
+	__block AppDelegate *delegate;
+	if([NSThread isMainThread]) {
+		delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+	} else {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+		});
+	}
+	return delegate;
 }
 
 - (void)onAppActiveTimerTick:(NSTimer *)timer {
