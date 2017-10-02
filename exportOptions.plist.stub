@@ -4,6 +4,11 @@
 <dict>
     <key>method</key>
     <string>app-store</string>
+    <key>provisioningProfiles</key>
+	<dict>
+		<key>com.psiphon3.browser</key>
+		<string>Psiphon Browser Distribution</string>
+	</dict>
     <key>teamID</key>
     <string>Q6HLNEX92A</string>
     <key>uploadSymbols</key>
