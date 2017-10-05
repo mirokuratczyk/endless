@@ -141,9 +141,10 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
 /*!
  Gets runtime errors info that may be useful for debugging.
  @param message  The diagnostic message string.
+ @param timestamp RFC3339 encoded timestamp.
  Swift: @code func onDiagnosticMessage(_ message: String) @endcode
  */
-- (void)onDiagnosticMessage:(NSString * _Nonnull)message;
+- (void)onDiagnosticMessage:(NSString * _Nonnull)message withTimestamp:(NSString * _Nonnull)timestamp;
 
 /*!
  Called when the tunnel is in the process of connecting.
@@ -277,6 +278,13 @@ Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachabil
  Swift: @code func onHomepage(_ url: String) @endcode
  */
 - (void)onHomepage:(NSString * _Nonnull)url;
+
+/*!
+ Called when tunnel-core receives server timetamp in the handshake
+ @param timestamp  The server timestamp in RFC3339 format.
+ Swift: @code func onServerTimestamp(_ timestamp: String) @endcode
+ */
+- (void)onServerTimestamp:(NSString * _Nonnull)timestamp;
 
 @end
 
