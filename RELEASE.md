@@ -18,7 +18,9 @@
 
 * Increment CFBundleVersion number in the Endless/Info.plist and commit the change. Create a git tag with the same number `git tag "beta.<new_bundle_version_number>"` and push the commit and the tag to remote.
 
-* Assuming you have your Apple signing identity installed run the following script in the repo root directory
+* Rename `exportOptions.plist.stub` to `exportOptions.plist` and edit `provisioningProfiles` section if provisioning profile name is different from the one in the stub. Also, you should be able to remove the `provisioningProfiles`, `signingCertificate` and `signingStyle` sections if you are using automatic signing.
+
+* Run the following script in the repo root directory
 ```
 xcodebuild clean -workspace Psiphon\ Browser.xcworkspace -scheme Psiphon\ Browser
 xcodebuild -workspace Psiphon\ Browser.xcworkspace  -scheme Psiphon\ Browser  -sdk iphoneos -configuration AppStoreDistribution archive -archivePath $PWD/build/PsiphonBrowser.xcarchive

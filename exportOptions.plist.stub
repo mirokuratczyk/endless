@@ -4,6 +4,15 @@
 <dict>
     <key>method</key>
     <string>app-store</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.psiphon3.browser</key>
+        <string>Psiphon Browser Distribution</string>
+    </dict>
+    <key>signingCertificate</key>
+    <string>iPhone Distribution</string>
+    <key>signingStyle</key>
+    <string>manual</string>
     <key>teamID</key>
     <string>Q6HLNEX92A</string>
     <key>uploadSymbols</key>
