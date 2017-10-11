@@ -26,7 +26,11 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>SECURITY_TLS_MINIMUM_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text for the "Minimum SSL/TLS Version" setting.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -39,20 +43,27 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>TLS 1.2</string>
-				<string>TLS 1.1</string>
-				<string>TLS 1.0</string>
-			</array>
-			<key>ShortTitles</key>
-			<array>
-				<string>TLS 1.2</string>
-				<string>TLS 1.1</string>
-				<string>TLS 1.0</string>
+				<dict>
+					<key>Title</key>
+					<string>TLS 1.2</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>TLS 1.1</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>TLS 1.0</string>
+				</dict>
 			</array>
 			<key>Key</key>
 			<string>minTlsVersion</string>
 			<key>Title</key>
+			<string>SECURITY_TLS_MINIMUM_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Minimum SSL/TLS Version</string>
+			<key>TitleDescription</key>
+			<string>Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short.</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>

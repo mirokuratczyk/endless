@@ -1,0 +1,11 @@
+{
+    "objcRootDir": ".",
+    "objcIgnoreDirs": [],
+    "plistFiles": [
+        "Endless/InAppSettings.bundle/Root.inApp.plist",
+        "Endless/InAppSettings.bundle/Privacy.plist",
+        "Endless/InAppSettings.bundle/Security.plist",
+        "Endless/InAppSettings.bundle/Notifications~iphone.plist",
+        "Endless/InAppSettings.bundle/Notifications~ipad.plist"],
+    "enLprojDir": "Endless/en.lproj"
+}

@@ -1511,11 +1511,12 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 								   comments:comments
 									  email:email
 						 sendDiagnosticInfo:uploadDiagnostics
-						  withPsiphonConfig:[PsiphonClientCommonLibraryHelpers getPsiphonConfigForFeedbackUpload]
+						  withPsiphonConfig:[PsiphonClientCommonLibraryHelpers getPsiphonBundledConfig]
 						 withClientPlatform:@"ios-browser"
 						 withConnectionType:[self getConnectionType]
 							   isJailbroken:[JailbreakCheck isDeviceJailbroken]
-						sendFeedbackHandler:sendFeedbackHandler];
+						sendFeedbackHandler:sendFeedbackHandler
+						  diagnosticEntries:[PsiphonData sharedInstance].diagnosticHistory];
 }
 
 // Get connection type

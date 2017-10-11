@@ -10,7 +10,11 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>NOTIFICATIONS_SOUND_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Play sound when connection status changes</string>
+			<key>FooterTextDescription</key>
+			<string>Settings explanatory text for the sound notification toggle.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -18,7 +22,11 @@
 			<key>Key</key>
 			<string>sound_notification</string>
 			<key>Title</key>
+			<string>NOTIFICATIONS_SOUND_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Sound</string>
+			<key>TitleDescription</key>
+			<string>Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short.</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -26,7 +34,11 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>NOTIFICATIONS_VIBRATE_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Vibrate when connection status changes</string>
+			<key>FooterTextDescription</key>
+			<string>Settings explanatory text for the vibration notification toggle.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -34,7 +46,11 @@
 			<key>Key</key>
 			<string>vibrate_notification</string>
 			<key>Title</key>
+			<string>NOTIFICATIONS_VIBRATE_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Vibrate</string>
+			<key>TitleDescription</key>
+			<string>Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short.</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
