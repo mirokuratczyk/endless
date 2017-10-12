@@ -62,7 +62,7 @@
 
 - (NSArray<NSString*>*)getLanguageNames {
 	// Language titles are dicts in an array
-	NSMutableArray<NSString*>* languageNames = [languageNameEntries valueForKey:@"Title"];
+	NSMutableArray<NSString*>* languageNames = [NSMutableArray arrayWithArray:[languageNameEntries valueForKey:@"Title"]];
 
 	NSString* translatedDefaultLanguage =
 		[IASKSettingsReader localizeStringForKey:[languageNameEntries[kDefaultLanguageRow] valueForKey:kIASKTitle]
