@@ -18,10 +18,11 @@
  */
 
 #import "LanguageSelectionViewController.h"
+#import "IASKSettingsReader.h"
 
 @implementation LanguageSettings {
 	NSArray<NSString*> *languageCodes;
-	NSArray<NSString*> *languageNames;
+	NSArray<NSDictionary*> *languageNameEntries;
 }
 
 - (id)init {
@@ -38,10 +39,10 @@
 
 			if (key != nil && [key isEqualToString:appLanguage]) {
 				languageCodes = [pref objectForKey:@"Values"];
-				languageNames = [pref objectForKey:@"Titles"];
+				languageNameEntries = [pref objectForKey:@"Titles"];
 
-				if (languageCodes.count != languageNames.count || languageCodes.count == 0) {
-					[NSException raise:@"Invalid appLanguage specifier in Root.inApp.plist." format:@"Titles and Values arrays should have the same number of entries and a length greater than 0. Got languageNames.count = %lu and languageCodes.count = %lu", (unsigned long)languageNames.count, (unsigned long)languageCodes.count];
+				if (languageCodes.count != languageNameEntries.count || languageCodes.count == 0) {
+					[NSException raise:@"Invalid appLanguage specifier in Root.inApp.plist." format:@"Titles and Values arrays should have the same number of entries and a length greater than 0. Got languageNames.count = %lu and languageCodes.count = %lu", (unsigned long)languageNameEntries.count, (unsigned long)languageCodes.count];
 				}
 				break;
 			}
@@ -60,6 +61,18 @@
 }
 
 - (NSArray<NSString*>*)getLanguageNames {
+	// Language titles are dicts in an array
+	NSMutableArray<NSString*>* languageNames = [NSMutableArray arrayWithArray:[languageNameEntries valueForKey:@"Title"]];
+
+	NSString* translatedDefaultLanguage =
+		[IASKSettingsReader localizeStringForKey:[languageNameEntries[kDefaultLanguageRow] valueForKey:kIASKTitle]
+								withDefaultValue:[languageNameEntries[kDefaultLanguageRow] valueForKey:kIASKTitleDefault]
+								 fromBundleTable:[languageNameEntries[kDefaultLanguageRow] valueForKey:kIASKBundleTable]
+								   defaultBundle:nil
+									defaultTable:nil];
+
+	languageNames[kDefaultLanguageRow] = translatedDefaultLanguage;
+
 	return languageNames;
 }
 
@@ -87,7 +100,7 @@
 {
 	[super viewDidLoad];
 
-	self.title = NSLocalizedString(@"Language", @"Text above language selection box");
+	self.title = NSLocalizedStringWithDefaultValue(@"LANGUAGE_SELECT_TITLE", nil, [NSBundle mainBundle], @"Language", @"Text above language selection box");
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																				  target:self
 																				  action:@selector(dismiss:)];

@@ -9,16 +9,18 @@
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<!-- Translated in Notifications~iphone.plist -->
 			<key>FooterText</key>
-			<string>Play sound when connection status changes</string>
+			<string>NOTIFICATIONS_SOUND_DESCRIPTION</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
 			<string>sound_notification</string>
+			<!-- Translated in Notifications~iphone.plist -->
 			<key>Title</key>
-			<string>Sound</string>
+			<string>NOTIFICATIONS_SOUND_LABEL</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

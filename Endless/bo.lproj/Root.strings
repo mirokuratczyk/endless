@@ -1,222 +1,84 @@
-/* Settings item to change the application UI language. */
-"Language" = "སྐད་རིགས།";
-
-/* Item in a list of languages. Sets the application UI language to the one used by the system. */
-"Default language" = "སྐད་རིགས་སོར་བཞག";
-
-/* Settings item text. Leads to info about Psiphon Inc. */
-"About" = "སྐོར།";
-
-/* Settings item text. Leads to the user being able to choose which country/region they want to use a Psiphon Server in. Should be kept short. */
-"Change Region" = "ས་གནས་བརྗེ་བ།";
-
-/* Settings item text. Leads to a frequently asked questions page. */
-"FAQ" = "FAQ";
-
-/* Settings section text. This section contains 'Feedback', 'FAQ', 'About', etc.  */
-"Help" = "རོགས་པ།";
-
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
-"Notifications" = "བརྡ་ཐོ།";
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "བརྡ་ཐོ།";
 
 /* Settings item text. Leads to privacy related options. */
-"Privacy" = "གསང་དོན།";
-
-/* Settings item text. Leads to a web page with the Psiphon privacy policy. */
-"Privacy Policy" = "གསང་དོན་སྲིད་བྱུས།";
-
-/**/
-"Psiphon & Browser" = "སཡི་ཕོན་དང་བལྟ་ཆས།";
-
-/* Settings item text. Leads to settings specific to the Psiphon tunnel, like 'Disable timeouts' and 'Use upstream proxy'. */
-"Psiphon Settings" = "སཡི་ཕོན་སྒྲིག་བཀོད།";
+"PRIVACY_SUBSETTINGS_LABEL" = "གསང་དོན།";
 
 /* Settings item text. Leads to security related options. */
-"Security" = "སྲུང་སྐྱོབ།";
+"SECURITY_SUBSETTINGS_LABEL" = "སྲུང་སྐྱོབ།";
 
 /* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"Search engine" = "འཚོལ་ཆས།";
-
-/* Settings item text. Leads to screen where user can send feedback about the app to Psiphon Inc. Should be kept short. */
-"Feedback" = "དགོངས་འཆར།";
-
-/* Settings item text. Leads to web page with Psiphon's end user license agreement. Should be kept short. */
-"Terms of Use" = "བེད་སྤྱོད་ཀྱི་དུས་ཡུན";
+"SETTINGS_SEARCH_ENGINE" = "འཚོལ་ཆས།";
 
 /* Settings item text. Opens app tutorial. Should be kept short. */
-"Tutorial" = "ཟུར་ཁྲིད།";
-
-/* Settings item text, under 'Psiphon Settings'. Disabling timeouts in the Psiphon tunnel can help in really bad network conditions. Text should be kept short. */
-"Disable Timeouts" = "དུས་རྫོགས་མེད་པ་བཟོས།";
-
-/* Settings sub-group text. The group contains 'Use upstream proxy'. Text should be kept short. */
-"Proxy" = "ངོ་ཚབ།";
-
-/* Settings sub-group text. The group contains 'Disable timeouts'. Refers to network request timeouts. Text should be kept short. */
-"Timeouts" = "དུས་རྫོགས།";
-
-/* Settings item text. User can configure Psiphon to a server connect through another proxy. So the proxy is 'upstream' of the client -- between the client and the server. Text should be kept short. */
-"Use upstream proxy" = "ནང་བཅུག་ངོ་ཚབ་བེད་སྤྱོད།";
-
-/* Settings item text. The host name or address for the upstream proxy. Text should be kept short. */
-"Host address" = "དོ་བདག་གི་ཁ་བྱང་།";
-
-/* Settings item text. The network port number for the upstream proxy. Text should be kept short. */
-"Port" = "མཐུད་སྒོ།";
-
-/* Settings item text. Some upstream proxies will require authentication (like username and password) to use. This enables that authentication. Text should be kept short. */
-"Use proxy authentication" = "ངོ་ཚབ་ཁུངས་ལྡན་བེད་སྤྱོད།";
-
-/* Placeholder text for the upstream proxy authentication username. Text should be kept short. */
-"username" = "སྤྱོད་མིང་།";
-
-/* Placeholder text for the upstream proxy authentication password. Text should be kept short. */
-"password" = "གསང་ཨང་།";
-
-/* Placeholder text for the upstream proxy authentication domain. This should convey to the user that a domain name should be used in this field. Text should be kept short. */
-"example.com" = "example.com";
-
-/* Settings item text for upstream proxy authentication username. Text should be kept short. */
-"Proxy username" = "ངོ་ཚབ་ཀྱི་སྤྱོད་མིང་།";
-
-/* Settings item text for upstream proxy authentication password. Text should be kept short. */
-"Proxy password" = "ངོ་ཚབ་གསང་བའི་ཨང་གྲངས།";
-
-/* Settings item text for upstream proxy authentication domain. Text should be kept short. */
-"Proxy domain" = "ངོ་ཚབ་ཀྱི་ཁ་བྱང་།";
+"SETTINGS_TUTORIAL" = "ཟུར་ཁྲིད།";
 
 /* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"Sound" = "སྒྲ།";
+"NOTIFICATIONS_SOUND_LABEL" = "སྒྲ།";
 
 /* Settings explanatory text for the sound notification toggle. */
-"Play sound when connection status changes" = "འབྲེལ་མཐུད་འཕྲུལ་ཆས་ཀྱི་གནས་བབ་བརྗེ་སྐབས་སྐད་བརྡ་བཏང་རོགས།";
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "འབྲེལ་མཐུད་འཕྲུལ་ཆས་ཀྱི་གནས་བབ་བརྗེ་སྐབས་སྐད་བརྡ་བཏང་རོགས།";
 
 /* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"Vibrate" = "འབེར་རྒྱབ་པ།";
+"NOTIFICATIONS_VIBRATE_LABEL" = "འབེར་རྒྱབ་པ།";
 
 /* Settings explanatory text for the vibration notification toggle. */
-"Vibrate when connection status changes" = "འབྲེལ་གཏུགས་ཀྱི་གནས་བབ་འགྱུར་ཚེ་འབེར་རྒྱབ།:";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"Best Performance" = "ནུས་པ་བཟང་ཤོས།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"United States" = "ཨ་རི།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"United Kingdom" = "དབྱིན་ཡུལ།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Canada" = "ཀེ་ན་ཌ།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Japan" = "ཉི་ཧོང་།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Germany" = "ཇར་མ་ནི།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Singapore" = "སིངྒ་པུར།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Netherlands" = "ནེ་ཐར་ལེཌ།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"India" = "རྒྱ་གར།";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"Spain" = "སི་པན།";
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "འབྲེལ་གཏུགས་ཀྱི་གནས་བབ་འགྱུར་ཚེ་འབེར་རྒྱབ།:";
 
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"Clear all when backgrounded" = "མཉེན་ཆས་ནས་ཕྱིར་ཐོན་སྐབས་རྒྱབ་ལྗོངས་ཤུལ་དང་བཅས་་པ་གཙང་མ་བཟོས།";
+"PRIVACY_CLEAR_DATA_LABEL" = "མཉེན་ཆས་ནས་ཕྱིར་ཐོན་སྐབས་རྒྱབ་ལྗོངས་ཤུལ་དང་བཅས་་པ་གཙང་མ་བཟོས།";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"All tabs, cookies and website data will be cleared when switching to another app." = "མཉེན་ཆས་གཞན་ལ་ཁ་སྤོས་པའི་སྐབས་སུ་དྲྭ་ཤོག་གསར་པ། ཡིག་ཆ་གསོག་ཉར། དྲྭ་ཚིགས་ཡིག་ཆ་ཚང་མ་བསུབ་ཀྱི་རེད།";
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "མཉེན་ཆས་གཞན་ལ་ཁ་སྤོས་པའི་སྐབས་སུ་དྲྭ་ཤོག་གསར་པ། ཡིག་ཆ་གསོག་ཉར། དྲྭ་ཚིགས་ཡིག་ཆ་ཚང་མ་བསུབ་ཀྱི་རེད།";
 
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"Send \"Do-Not-Track\" requests" = "\"རྫེས་ཤུལ་མ་གཏོང་། (Do-Not-Track)\" རེ་སྐུལ་གཏོང་།";
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"རྫེས་ཤུལ་མ་གཏོང་། (Do-Not-Track)\" རེ་སྐུལ་གཏོང་།";
 
 /* Explanatory text for the "Do Not Track" setting. */
-"Ask sites and their third party content providers not to track you." = "དྲྭ་ཚིགས་ཁག་དང་དེ་རྒྱུད་དེ་གནས་ཚུལ་སྤྲད་མཁན་གྱི་ཚོགས་སྡེ་གསུམ་པ་ལ་ཁྱེད་རང་བརྗེད་དེད་མ་བཏང་རོགས་ལབ།";
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "དྲྭ་ཚིགས་ཁག་དང་དེ་རྒྱུད་དེ་གནས་ཚུལ་སྤྲད་མཁན་གྱི་ཚོགས་སྡེ་གསུམ་པ་ལ་ཁྱེད་རང་བརྗེད་དེད་མ་བཏང་རོགས་ལབ།";
 
 /* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"Minimum SSL/TLS Version" = "SSL/TLS ཐོན་ཉུང་ཤོས།";
+"SECURITY_TLS_MINIMUM_LABEL" = "SSL/TLS ཐོན་ཉུང་ཤོས།";
 
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect." = "HTTPS མཐུད་རྒྱབ་པ་ལ་ཐོན SSL/TLS མ་མཐའ་ཡིན་ཡང་དགོས། མཉེན་ཆས་ལ་བསྒྱུབ་བ་ཐོན་པར་བཙན་ཤུགས་ཀྱིས་སྒོ་རྒྱབ་དགོས་པའང་ཐུག་སྲིད།";
-
-/* On the feedback screen, this is the label on the text box where the user can supply their comments that will be sent to Psiphon Inc. This text should be kept short. */
-"Your Comments" = "ཁྱེད་ཀྱི་མཆན།";
-
-/* On the feedback screen, this is the label on the text box where the user can supply their email address along with their feedback that will be sent to Psiphon Inc. This text should be kept short. */
-"Your Email Address" = "ཁྱེད་ཀྱི་གློག་འཕྲིན་ཁ་བྱང།";
-
-/* On the feedback screen, this is the placeholder text for the email address text field. This text should be kept short. */
-"Where can we respond to you?" = "ང་ཚོས་ཁྱེད་རང་ལ་ལན་འདེབས་གང་དུ་བྱེད་དགོས་སམ།";
-
-/* On the feedback screen, this is the label above the "Upload diagnostic data" option. This text should be kept short. */
-"Diagnostic Data" = "བརྟག་དཔྱད་བྱས་པའི་ཡིག་ཆ།";
-
-/* On the feedback screen, this is the label for the option that causes some diagnostic data to be send along with the feedback. The diagnostic data is stuff like OS version, app configuration, and logs indicating Psiphon connection info. This text should be kept short. */
-"Upload diagnostic data" = "བརྟག་དཔྱད་བྱས་པའི་ཡིག་ཆ་ནང་འཇུག";
-
-/* Label for a privacy-related setting. This toggle enables/disables JavaScript from functioning in the browser. Text should be kept short. */
-"Disable JavaScript" = "JavaScript བེད་མེད་དུ་བཟོས།";
-
-/* Explanatory text for the "Disable JavaScript" setting. */
-"Prevent JavaScript from running in your browser. Will prevent most websites from working properly, but may help protect you while browsing the web." = "རང་གི་བལྟ་ཆས་ནང་JavaScript འཁོར་བསྐྱོད་བྱེད་རྒྱུར་བཀག་འདོམས་བྱེད། དེས་དྲྭ་ཚིགས་མང་པོ་ལས་ཀ་ཏག་ཏག་བྱེད་རྒྱུར་འགོག་རྐྱེན་བཟོ་གི་ཡོད། འོན་ཀྱང་དྲྭ་རྒྱ་བལྟ་ཆས་ལ་ཕན་ཐོག་དང་སྲུང་སྐྱོབ་བྱེད་ཐུབ།";
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS མཐུད་རྒྱབ་པ་ལ་ཐོན SSL/TLS མ་མཐའ་ཡིན་ཡང་དགོས། མཉེན་ཆས་ལ་བསྒྱུབ་བ་ཐོན་པར་བཙན་ཤུགས་ཀྱིས་སྒོ་རྒྱབ་དགོས་པའང་ཐུག་སྲིད།";
 
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"Allow Cookies" = "ཡིག་ཆ་གསོག་ཉར་བྱེད་དུ་འཇུག";
+"PRIVACY_ALLOW_COOKIES_LABEL" = "ཡིག་ཆ་གསོག་ཉར་བྱེད་དུ་འཇུག";
 
 /* Explanatory text for the "Allow Cookies" setting. */
-"Manage what types of cookies Psiphon Browser allows." = "སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་ཡིག་ཆ་གསོག་ཉར་ཀྱི་རིགས་གང་འདྲ་ཞིག་བཏང་འཛིན་དང་ངོས་ལེན་བྱས་སམ།";
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་ཡིག་ཆ་གསོག་ཉར་ཀྱི་རིགས་གང་འདྲ་ཞིག་བཏང་འཛིན་དང་ངོས་ལེན་བྱས་སམ།";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Always Block" = "རྟག་ཏུ་བཀག";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "རྟག་ཏུ་བཀག";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Block All" = "ཡོངས་རྫོགས་བཀག";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "ཡོངས་རྫོགས་བཀག";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Always Allow" = "ཆོག་མཆན་རྟག་ཏུ་ཡོད།";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "ཆོག་མཆན་རྟག་ཏུ་ཡོད།";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Allow All" = "ཚང་མར་ཆོག་མཆན་ཡོད།";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "ཚང་མར་ཆོག་མཆན་ཡོད།";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Allow from Current Website Only" = "ད་ལྟའི་དྲྭ་ཚིགས་གཅིག་པུར་ཆོག་མཆན་ཡོད།";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "ད་ལྟའི་དྲྭ་ཚིགས་གཅིག་པུར་ཆོག་མཆན་ཡོད།";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Current Website Only" = "ད་ལྟའི་དྲྭ་ཚིགས་ཁོ་ན།";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "ད་ལྟའི་དྲྭ་ཚིགས་ཁོ་ན།";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Allow from Websites I Visit" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས་རྣམས་ལས་ཆོག་མཆན་སྤྲད་རོགས།";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས་རྣམས་ལས་ཆོག་མཆན་སྤྲད་རོགས།";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"Websites I Visit" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས།";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས།";
 
 /* Explanatory text on the "Allow Cookies" setting options page. */
-"Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device." = "བལྟ་ཆས་བེད་སྤྱོད་བྱས་སྐབས་རང་གི་ཡོ་བྱད་ཀྱིས་རང་ངོས་འཛིན་ཐུབ་པ་ལ་དྲྭ་རྒྱའི་ནང་ཡིག་ཆ་གསོག་ཉར་དང་ཡིག་ཚགས་གཞན་གསོག་ཉར་བྱེད་སྲིད། ཡིག་ཆས་ཁྱེད་རང་ལ་ཞབས་ཞུ་དང་ནང་དོན་བྱེ་བྲག་པ་མཐུན་སྦྱོར་བྱེད་ཀྱི་ཡོད། དེའི་ནང་ནང་འཛུལ་གནད་ཚུལ། གདམ་ཁ། སྒེར་གྱི་མིང་དང་གློག་འཕྲིན་ཁ་བྱང་སོགས་ཀྱི་གནས་ཚུལ་རྣམས་འདིའི་ནང་དུ་ཚུད་ཡོད། སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་རང་གིས་བསྔོགས་བཞིན་པའི་དྲྭ་ཚིགས་ལས་གཞན་རྣམས་ཀྱི་ཡིག་ཆ་རང་སོར་བཞག་པའི་ཐོག་ནས་གསོག་ཉར་བཀག་གི་ཡོད། རྒྱུ་མཚན་ནི་རང་གི་ཡོ་བྱད་སྒང་ལ་ཁྱབ་བསྒྲགས་འདྲ་མིན་བྱས་པའི་ཡིག་ཆ་གསོག་ཉར་རྣམས་བཀག་པའི་ཆེད་དུ་ཡིན།";
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "བལྟ་ཆས་བེད་སྤྱོད་བྱས་སྐབས་རང་གི་ཡོ་བྱད་ཀྱིས་རང་ངོས་འཛིན་ཐུབ་པ་ལ་དྲྭ་རྒྱའི་ནང་ཡིག་ཆ་གསོག་ཉར་དང་ཡིག་ཚགས་གཞན་གསོག་ཉར་བྱེད་སྲིད། ཡིག་ཆས་ཁྱེད་རང་ལ་ཞབས་ཞུ་དང་ནང་དོན་བྱེ་བྲག་པ་མཐུན་སྦྱོར་བྱེད་ཀྱི་ཡོད། དེའི་ནང་ནང་འཛུལ་གནད་ཚུལ། གདམ་ཁ། སྒེར་གྱི་མིང་དང་གློག་འཕྲིན་ཁ་བྱང་སོགས་ཀྱི་གནས་ཚུལ་རྣམས་འདིའི་ནང་དུ་ཚུད་ཡོད། སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་རང་གིས་བསྔོགས་བཞིན་པའི་དྲྭ་ཚིགས་ལས་གཞན་རྣམས་ཀྱི་ཡིག་ཆ་རང་སོར་བཞག་པའི་ཐོག་ནས་གསོག་ཉར་བཀག་གི་ཡོད། རྒྱུ་མཚན་ནི་རང་གི་ཡོ་བྱད་སྒང་ལ་ཁྱབ་བསྒྲགས་འདྲ་མིན་བྱས་པའི་ཡིག་ཆ་གསོག་ཉར་རྣམས་བཀག་པའི་ཆེད་དུ་ཡིན།";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
-"Clear cookies and website data" = "ཡིག་ཆ་གསོག་ཉར་དང་དྲྭ་ཚིགས་ཡིག་ཚགས་གཙང་བཟོ།";
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "ཡིག་ཆ་གསོག་ཉར་དང་དྲྭ་ཚིགས་ཡིག་ཚགས་གཙང་བཟོ།";
 
 /* Explanatory text for the "Clear cookies and website data" command. */
-"Cookies and local storage will be cleared." = "ཡིག་ཆ་གསོག་ཉར་དང་ས་ཁུལ་གྱི་གསོག་ཉར་ཁང་གཉིས་གཙང་མ་བཟོ་རྒྱུ་ཡིན།";
-
-/* Label for a settings item that will lead the user to some suggestions for improving a "bad" -- slow, unresponsive, etc. -- connection. This text should be kept short. */
-"My connection is bad, help!" = "ངའི་དྲྭ་རྒྱའི་མཐུད་ཀ་ཡག་པོ་མིན་འདུག། རོགས་པ་དགོས།";
-
-/* Explanatory text for the "Change Region" setting on the "My connection is bad, help!" settings page. */
-"Changing your region to Best Performance increases your chances of getting connected." = "ནུས་པ་ཆེ་ཤོས་ཐོན་སའི་ས་གནས་ལ་བརྗེ་པོ་རྒྱབ་པ་དེས་དྲྭ་རྒྱར་མཐུད་ཐུབ་པའི་རེ་བ་ཆེ་བ་ཡོད།";
-
-/* Explanatory text for the "Disable Timeouts" setting on the "My connection is bad, help!" settings page. */
-"Disabling timeouts may help you stay connected on slower networks." = "དུས་རྫོགས་མེད་པ་བཟོས་པ་དེས་ཁྱེད་རང་དྲྭ་རྒྱ་ཞན་པོ་ཡོད་ནའང་མཐུད་ཐུབ་པར་ཕན་ཐོག་སྲིད།";
-
-/* Explanatory text for the "Reconnect to the Psiphon server" command on the "My connection is bad, help!" settings page. */
-"Reconnecting to the Psiphon server may help if your current connection is slow or non-responsive." = "གལ་ཏེ་ཁྱེད་རང་གི་དྲྭ་རྒྱའི་མཐུད་ཀ་ཞན་པོ་དང་བརྡ་ལན་སྤྲད་ཀྱི་མེད་ན་སཡི་ཕོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ལ་ཡང་སྐྱར་མཐུད་ན་ཕན་ཐོག་ཡོང་སྲིད།";
-
-/* Label for a command on the "My connection is bad, help!" settings page that causes Psiphon to close its server connection and open a new one. */
-"Reconnect to the Psiphon server" = "སཡི་ཕོན་ཞབས་ཞུ་འཕྲུལ་ཆས་ཡང་སྐྱར་མཐུད།";
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ཡིག་ཆ་གསོག་ཉར་དང་ས་ཁུལ་གྱི་གསོག་ཉར་ཁང་གཉིས་གཙང་མ་བཟོ་རྒྱུ་ཡིན།";
 

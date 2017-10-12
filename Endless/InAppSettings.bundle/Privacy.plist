@@ -10,7 +10,11 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>PRIVACY_DO_NOT_TRACK_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Ask sites and their third party content providers not to track you.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text for the "Do Not Track" setting.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -18,7 +22,11 @@
 			<key>Key</key>
 			<string>sendDoNotTrack</string>
 			<key>Title</key>
+			<string>PRIVACY_DO_NOT_TRACK_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Send &quot;Do-Not-Track&quot; requests</string>
+			<key>TitleDescription</key>
+			<string>Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short.</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -26,7 +34,11 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>PRIVACY_ALLOW_COOKIES_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Manage what types of cookies Psiphon Browser allows.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text for the "Allow Cookies" setting.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -40,32 +52,100 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>Always Block</string>
-				<string>Allow from Current Website Only</string>
-				<string>Allow from Websites I Visit</string>
-				<string>Always Allow</string>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK</string>
+					<key>TitleDefault</key>
+					<string>Always Block</string>
+					<key>TitleDescription</key>
+					<string>One of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE</string>
+					<key>TitleDefault</key>
+					<string>Allow from Current Website Only</string>
+					<key>TitleDescription</key>
+					<string>One of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED</string>
+					<key>TitleDefault</key>
+					<string>Allow from Websites I Visit</string>
+					<key>TitleDescription</key>
+					<string>One of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW</string>
+					<key>TitleDefault</key>
+					<string>Always Allow</string>
+					<key>TitleDescription</key>
+					<string>One of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
 			</array>
 			<key>ShortTitles</key>
 			<array>
-				<string>Block All</string>
-				<string>Current Website Only</string>
-				<string>Websites I Visit</string>
-				<string>Allow All</string>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT</string>
+					<key>TitleDefault</key>
+					<string>Block All</string>
+					<key>TitleDescription</key>
+					<string>Short version of one of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT</string>
+					<key>TitleDefault</key>
+					<string>Current Website Only</string>
+					<key>TitleDescription</key>
+					<string>Short version of one of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT</string>
+					<key>TitleDefault</key>
+					<string>Websites I Visit</string>
+					<key>TitleDescription</key>
+					<string>Short version of one of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT</string>
+					<key>TitleDefault</key>
+					<string>Allow All</string>
+					<key>TitleDescription</key>
+					<string>Short version of one of the options for the "Allow Cookies" setting. This text should be kept short.</string>
+				</dict>
 			</array>
 			<key>Key</key>
 			<string>cookiePolicy</string>
 			<key>Title</key>
+			<string>PRIVACY_ALLOW_COOKIES_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Allow Cookies</string>
+			<key>TitleDescription</key>
+			<string>Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short.</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>FooterText</key>
+			<string>PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text on the "Allow Cookies" setting options page.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>PRIVACY_CLEAR_DATA_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>All tabs, cookies and website data will be cleared when switching to another app.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text for the 'Clear all when backgrounded' privacy setting.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -73,7 +153,11 @@
 			<key>Key</key>
 			<string>clearAllWhenBackgrounded</string>
 			<key>Title</key>
+			<string>PRIVACY_CLEAR_DATA_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Clear all when backgrounded</string>
+			<key>TitleDescription</key>
+			<string>Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short.</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -81,13 +165,21 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
+			<string>PRIVACY_CLEAR_DATA_NOW_DESCRIPTION</string>
+			<key>FooterTextDefault</key>
 			<string>Cookies and local storage will be cleared.</string>
+			<key>FooterTextDescription</key>
+			<string>Explanatory text for the "Clear cookies and website data" command.</string>
 		</dict>
 		<dict>
 			<key>Key</key>
 			<string>clearWebsiteData</string>
 			<key>Title</key>
+			<string>PRIVACY_CLEAR_DATA_NOW_LABEL</string>
+			<key>TitleDefault</key>
 			<string>Clear cookies and website data</string>
+			<key>TitleDescription</key>
+			<string>On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short.</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>

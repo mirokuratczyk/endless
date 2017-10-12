@@ -1,138 +1,156 @@
-/* %ld will be replaced with the number 1 */
-"%ld rule in use" = "%ld rule in use";
-
-/* %ld will be replaced with a natural number */
-"%ld rules in use" = "%ld rules in use";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"\"Psiphon Browser\" needs access to your photo library to save and upload images" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
+/* THIS FILE IS GENERATED. DO NOT EDIT. */
 
 /* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
 "ABOUT_PAGE_URL" = "https://psiphon.ca/en/about.html";
 
-/* Title text on one of the on-boarding screens */
-"Access the Web" = "Access the Web";
-
 /* 'Add bookmark' dialog title */
-"Add Bookmark" = "Add Bookmark";
+"ADD_BOOKMARK_TITLE" = "Add Bookmark";
 
-/* Title above a list of rules */
-"All rules" = "All rules";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Page Name (leave blank to use URL)";
 
-/* Alert dialog text */
-"Allow this page to close its tab?" = "Allow this page to close its tab?";
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "Enter the details of the URL to bookmark:";
 
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"An error occurred downloading image %@" = "An error occurred downloading image %@";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
 
-/* HTTP authentication  alert title */
-"Authentication Required" = "Authentication Required";
-
-/* Field name for display in list */
-"Begins On" = "Begins On";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Edit";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"Bookmarks" = "Bookmarks";
-
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"BROWSE BEYOND BORDERS" = "BROWSE BEYOND BORDERS";
-
-/* Field name for display in list */
-"Business Category" = "Business Category";
-
-/* Title text on one of the on-boarding screens. It indicates to the user that Psiphon Browser's primary purpose is to get past censorship. */
-"Bypass Censorship" = "Bypass Censorship";
-
-/* Cancel
-   Cancel action
-   Cancel button on alert
-   Cancel button text which allows user to exit bookmarks view
-   Text of cancel button on alert which will dismiss the popup */
-"Cancel" = "Cancel";
+"BOOKMARKS_TITLE" = "Bookmarks";
 
 /* Cancel action */
 "CANCEL_ACTION" = "Cancel";
 
-/* Text displayed on navigation bar reflecting file download state */
-"Cancelled" = "Cancelled";
+/* Field name for display in list */
+"CERT_BEGINS_ON" = "Begins On";
 
 /* Field name for display in list */
-"Certificate Information" = "Certificate Information";
+"CERT_BUSCAT" = "Business Category";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Certificate Information";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Cipher";
+
+/* Field name for display in list */
+"CERT_CN" = "Common Name";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "Connection Information";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "Country";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "Extended Validation: Organization";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Expires After";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "Issued By";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "Issued To";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "Locality";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Object Identifier";
+
+/* Field name for display in list */
+"CERT_ORG" = "Organization";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Organizational Unit Number";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "Period of Validity";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Postal Code";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Protocol";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Serial Number";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "Signature Algorithm";
+
+/* Field name for display in list */
+"CERT_STATE" = "State/Province";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Street Address";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Unknown Organization";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Version";
 
 /* Text of button on alert which will redirect the user to the settings menu */
-"Change Settings" = "Change Settings";
-
-/* Field name for display in list */
-"Cipher" = "Cipher";
-
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"Clear Cookies and Data" = "Clear Cookies and Data";
-
-/* Field name for display in list */
-"Common Name" = "Common Name";
+"CHANGE_SETTINGS_BUTTON" = "Change Settings";
 
 /* Title for the 'Allow this page to close its tab?' alert */
-"Confirm" = "Confirm";
+"CLOSE_TABS_CONFIRM" = "Confirm";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Allow this page to close its tab?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Go to Settings";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Settings";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Server region:";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"Connected!" = "Connected!";
+"CONNECTION_STATUS_CONNECTED" = "Connected!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"Connecting..." = "Connecting...";
-
-/* Field name for display in list */
-"Connection Information" = "Connection Information";
-
-/* Action title for long press on link dialog */
-"Copy URL" = "Copy URL";
-
-/* Field name for display in list */
-"Country" = "Country";
+"CONNECTION_STATUS_CONNECTING" = "Connecting...";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"Disconnected!" = "Disconnected!";
+"CONNECTION_STATUS_DISCONNECTED" = "Disconnected!";
 
-/* Bookmarks dialog 'Done' button title, dismisses the dialog
-   Done action button. dismisses SSL certificate information dialog
-   Done button
-   Done button at bottom of screen in bookmarks view
-   Done button title, dismisses the tab chooser
-   Title of the button that dismisses region selection dialog */
-"Done" = "Done";
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon can not start due to an internal error, please send feedback.";
 
-/* Title of the button that dismisses the settings menu (InAppSettingsKit) */
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Waiting for network...";
+
+/* Done action
+   Title of the button that dismisses the settings menu (InAppSettingsKit) */
 "DONE_ACTION" = "Done";
 
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"Downloading image %@. You will be notified when the download completes." = "Downloading image %@. You will be notified when the download completes.";
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "More...";
 
-/* Image download in progress alert title */
-"Downloading…" = "Downloading…";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Cancelled";
 
-/* Edit button at bottom of screen in bookmarks view */
-"Edit" = "Edit";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Error";
 
 /* Edit Bookmark dialog title */
-"Edit Bookmark" = "Edit Bookmark";
-
-/* 'Add bookmark' dialog text
-   Edit Bookmark dialog title text */
-"Enter the details of the URL to bookmark:" = "Enter the details of the URL to bookmark:";
-
-/* Alert dialog title when webpage has failed to load
-   Image download error alert title
-   Text displayed on navigation bar reflecting file download state */
-"Error" = "Error";
-
-/* Text preceeding error description */
-"Error:" = "Error:";
-
-/* Field name for display in list */
-"Expires After" = "Expires After";
-
-/* Field name for display in list */
-"Extended Validation: Organization" = "Extended Validation: Organization";
+"EDIT_BOOKMARK_TITLE" = "Edit Bookmark";
 
 /* FAQ link text */
 "FAQ_LINK_TEXT" = "Frequently Asked Questions";
@@ -167,42 +185,66 @@
 /* Text explaining thumbs up choice in feedback */
 "FEEDBACK_THUMBS_UP_TEXT" = "Psiphon connects\nand performs the\nway I want it to.";
 
-/* No comment provided by engineer. */
-"Go to Settings" = "Go to Settings";
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Log In";
 
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"Happy Browsing!" = "Happy Browsing!";
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Password";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Authentication Required";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "User Name";
 
 /* HTTPS Everywhere menu title */
-"HTTPS Everywhere Rules" = "HTTPS Everywhere Rules";
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Everywhere Rules";
 
-/* Body text on one of the on-boarding screens. This intention of this text to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be access within Psiphon Browser via web pages. */
-"If your favourite app is blocked, try their website in Psiphon Browser" = "If your favourite app is blocked, try their website in Psiphon Browser";
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "An error occurred downloading image %@";
 
-/* Field name for display in list */
-"Issued By" = "Issued By";
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Error:";
 
-/* Field name for display in list */
-"Issued To" = "Issued To";
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Error";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Status code:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Successfully downloaded image %@";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Success!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Downloading image %@. You will be notified when the download completes.";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Downloading…";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Save Image";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
-"Language" = "Language";
-
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Learning time is over" = "Learning time is over";
-
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"Let's Go!" = "Let's Go!";
+"LANGUAGE_SELECT_TITLE" = "Language";
 
 /* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
 "LICENSE_PAGE_URL" = "https://psiphon.ca/en/license.html";
 
-/* Field name for display in list */
-"Locality" = "Locality";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "Copy URL";
 
-/* HTTP authentication alert log in button action */
-"Log In" = "Log In";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "Open";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "Open in a New Tab";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "Open in Safari";
 
 /* Title of screen that displays logs */
 "LOGS_TITLE" = "Logs";
@@ -213,58 +255,53 @@
 /* Description for the 'Mail not configured' message. (InAppSettingsKit) */
 "MAIL_NOT_CONFIGURED_DESC" = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 
-/* No comment provided by engineer. */
-"Message Text View" = "Message Text View";
-
-/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
-"More..." = "More...";
-
 /* New browser tab title text */
-"New Tab" = "New Tab";
+"NEW_TAB_TITLE" = "New Tab";
 
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"Next" = "Next";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Message Text View";
 
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"Now we'll connect to a Psiphon server so you can start browsing." = "Now we'll connect to a Psiphon server so you can start browsing.";
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "Title Label";
 
-/* Field name for display in list */
-"Object Identifier" = "Object Identifier";
-
-/* OK action
-   OK action button */
-"OK" = "OK";
+/* OK action */
+"OK_ACTION" = "OK";
 
 /* Alert OK Button. (InAppSettingsKit) */
 "OK_BUTTON" = "OK";
 
-/* Action title for long press on link dialog */
-"Open" = "Open";
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "The Internet at your fingertips";
 
-/* Action title for long press on link dialog */
-"Open in a New Tab" = "Open in a New Tab";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Access the Web";
 
-/* Action title for long press on link dialog */
-"Open in Safari" = "Open in Safari";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
+"ONBOARDING_APP_NAME" = "PSIPHON BROWSER";
 
-/* Field name for display in list */
-"Organization" = "Organization";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "BROWSE BEYOND BORDERS";
 
-/* Field name for display in list */
-"Organizational Unit Number" = "Organizational Unit Number";
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TEXT" = "Your favorite apps have a web interface that works great in Psiphon Browser";
 
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"Page Name (leave blank to use URL)" = "Page Name (leave blank to use URL)";
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "Your Apps in Your Browser";
 
-/* HTTP authentication alert password input title */
-"Password" = "Password";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Happy Browsing!";
 
-/* Field name for display in list */
-"Period of Validity" = "Period of Validity";
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Next";
 
-/* Field name for display in list */
-"Postal Code" = "Postal Code";
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "SKIP";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "To give permissions tap on 'Change Settings' button";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon Browser\" needs access to your photo library to save and upload images";
 
 /* Privacy Policy link text */
 "PRIVACY_POLICY_LINK_TEXT" = "Privacy Policy";
@@ -272,32 +309,20 @@
 /* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
 "PRIVACY_POLICY_URL" = "https://psiphon.ca/en/privacy.html";
 
-/* Field name for display in list */
-"Protocol" = "Protocol";
-
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"PSIPHON BROWSER" = "PSIPHON BROWSER";
-
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"Psiphon can not start due to an internal error, please send feedback." = "Psiphon can not start due to an internal error, please send feedback.";
-
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"Pull to Refresh Page" = "Pull to Refresh Page";
+"PULL_TO_REFRESH_PAGE" = "Pull to Refresh Page";
 
-/* Title of alert to clear local cookies and browsing data */
-"Remove all cookies and browsing data?" = "Remove all cookies and browsing data?";
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "All rules";
 
 /* Title above a list of rules in use */
-"Rules in use on current page" = "Rules in use on current page";
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Rules in use on current page";
 
-/* Action title for long press on image dialog */
-"Save Image" = "Save Image";
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld rules in use";
 
-/* Field name for display in list */
-"Serial Number" = "Serial Number";
-
-/* Title that is showing above selected server region */
-"Server region:" = "Server region:";
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld rule in use";
 
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "SERVER_REGION_AT" = "Austria";
@@ -368,82 +393,42 @@
 /* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
 "SERVER_REGION_US" = "United States";
 
-/* No comment provided by engineer. */
-"Settings" = "Settings";
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Remove all cookies and browsing data?";
 
-/* Title of second tutorial screen which highlights the settings button */
-"Settings & Help" = "Settings & Help";
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Clear Cookies and Data";
 
 /* Title of the settings (aka preferences) view (InAppSettingsKit) */
 "SETTINGS_TITLE" = "Settings";
 
-/* Field name for display in list */
-"Signature Algorithm" = "Signature Algorithm";
-
-/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"SKIP" = "SKIP";
-
-/* No comment provided by engineer. */
-"SKIP TUTORIAL" = "SKIP TUTORIAL";
-
 /* Text of button that user presses to complete onboarding and start tutorial */
-"Start Tutorial" = "Start Tutorial";
+"START_TUTORIAL_BUTTON" = "Start Tutorial";
 
-/* Field name for display in list */
-"State/Province" = "State/Province";
-
-/* Text preceeding http response status code */
-"Status code:" = "Status code:";
-
-/* Title of first tutorial screen which highlights the connection indicator */
-"Status Indicator" = "Status Indicator";
-
-/* Field name for display in list */
-"Street Address" = "Street Address";
-
-/* Image download success alert title */
-"Success!" = "Success!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"Successfully downloaded image %@" = "Successfully downloaded image %@";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
-
-/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"The Internet at your fingertips" = "The Internet at your fingertips";
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_BODY_FINAL" = "Now we'll connect to a Psiphon server so you can start browsing.";
 
 /* Text on second tutorial screen which highlights the settings button */
-"This is where you can access settings and find help" = "This is where you can access settings and find help";
+"TUTORIAL_BODY_SETTINGS" = "This is where you can access settings and find help";
 
-/* No comment provided by engineer. */
-"Title Label" = "Title Label";
+/* Text on first tutorial screen which highlights the connection indicator */
+"TUTORIAL_BODY_STATUS" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
 
-/* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"To give permissions tap on 'Change Settings' button" = "To give permissions tap on 'Change Settings' button";
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "Let's Go!";
 
-/* No comment provided by engineer. */
-"Unknown Organization" = "Unknown Organization";
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "SKIP TUTORIAL";
 
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"URL" = "URL";
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Learning time is over";
 
-/* HTTP authentication alert user name input title */
-"User Name" = "User Name";
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Settings & Help";
 
-/* Field name for display in list */
-"Version" = "Version";
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Status Indicator";
 
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"Waiting for network..." = "Waiting for network...";
-
-/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"Your Apps in Your Browser" = "Your Apps in Your Browser";
-
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"Your favorite apps have a web interface that works great in Psiphon Browser" = "Your favorite apps have a web interface that works great in Psiphon Browser";
-
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"yyyy-MM-dd 'at' HH:mm:ss zzz" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Error";
 
