@@ -57,7 +57,7 @@ PODS:
   - MarqueeLabel/ObjC (3.1.2)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
-  - PsiphonClientCommonLibrary (0.2.14):
+  - PsiphonClientCommonLibrary (0.2.16):
     - InAppSettingsKit
 
 DEPENDENCIES:
@@ -66,14 +66,14 @@ DEPENDENCIES:
   - MarqueeLabel
   - OCMock
   - OrderedDictionary
-  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `c1f162f`)
+  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `1ed5573`)
 
 EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   PsiphonClientCommonLibrary:
-    :commit: c1f162f
+    :commit: 1ed5573
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 CHECKOUT OPTIONS:
@@ -81,7 +81,7 @@ CHECKOUT OPTIONS:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   PsiphonClientCommonLibrary:
-    :commit: c1f162f
+    :commit: 1ed5573
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 SPEC CHECKSUMS:
@@ -90,8 +90,8 @@ SPEC CHECKSUMS:
   MarqueeLabel: fcd7057a779422d86589be759036f1510b08c6a0
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
-  PsiphonClientCommonLibrary: 74fb17a3bb72c4648a87cfd59478c7d1dda7244e
+  PsiphonClientCommonLibrary: a661420ee4f00f628bd729030e90b4b95f685138
 
-PODFILE CHECKSUM: 457320c1db724725e1badeff6b19dd25227dc2ae
+PODFILE CHECKSUM: fe76ec3727b6286258eef5c6335a089493847349
 
 COCOAPODS: 1.3.1
