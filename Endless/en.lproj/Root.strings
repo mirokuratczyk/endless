@@ -1,6 +1,6 @@
 /* THIS FILE IS GENERATED. DO NOT EDIT. */
 
-/* Settings view subheading for Psiphon-specific settings. */
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
 "PSIPHON_BROWSER" = "Psiphon Browser";
 
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
@@ -24,7 +24,7 @@
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
 "PRIVACY_DO_NOT_TRACK_LABEL" = "Send \"Do-Not-Track\" requests";
 
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Manage what types of cookies Psiphon Browser allows.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
@@ -54,7 +54,7 @@
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_LABEL" = "Allow Cookies";
 
-/* Explanatory text on the "Allow Cookies" setting options page. */
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */

@@ -38,7 +38,7 @@
 			<key>FooterTextDefault</key>
 			<string>Manage what types of cookies Psiphon Browser allows.</string>
 			<key>FooterTextDescription</key>
-			<string>Explanatory text for the "Allow Cookies" setting.</string>
+			<string>Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -135,7 +135,7 @@
 			<key>FooterTextDefault</key>
 			<string>Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.</string>
 			<key>FooterTextDescription</key>
-			<string>Explanatory text on the "Allow Cookies" setting options page.</string>
+			<string>Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

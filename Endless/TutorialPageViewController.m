@@ -306,13 +306,13 @@
 	NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 	[attributedString appendAttributedString:attrStringWithImage];
 	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"TUTORIAL_BODY_STATUS", nil, [NSBundle mainBundle], @"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing", @"Text on first tutorial screen which highlights the connection indicator")]];
+	[attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"TUTORIAL_BODY_STATUS", nil, [NSBundle mainBundle], @"The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing", @"Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'.")]];
 
 	NSArray<NSAttributedString*>* bodyText = @[
 											   [[NSAttributedString alloc] initWithString:@""],
 											   attributedString,
 											   [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"TUTORIAL_BODY_SETTINGS", nil, [NSBundle mainBundle], @"This is where you can access settings and find help", @"Text on second tutorial screen which highlights the settings button")],
-											   [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"TUTORIAL_BODY_FINAL", nil, [NSBundle mainBundle], @"Now we'll connect to a Psiphon server so you can start browsing.", @"Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser")]
+											   [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"TUTORIAL_BODY_FINAL", nil, [NSBundle mainBundle], @"Now we'll connect to a Psiphon server so you can start browsing.", @"Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'.")]
 											   ];
 
 	if (self.index < bodyText.count) {

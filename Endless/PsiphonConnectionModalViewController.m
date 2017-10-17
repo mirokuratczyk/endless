@@ -323,7 +323,7 @@
 								  @"Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state");
 		message = NSLocalizedStringWithDefaultValue(@"CONNECTION_STATUS_ERROR_MESSAGE", nil, [NSBundle mainBundle], 
 									@"Psiphon can not start due to an internal error, please send feedback.",
-									@"Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state");
+									@"Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'.");
 		// TODO: display 'can't start' icon in the contentView
 		contentView = [[UIView alloc] initWithFrame:CGRectZero];
 	}

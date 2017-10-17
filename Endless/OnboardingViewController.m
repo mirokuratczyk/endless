@@ -219,7 +219,7 @@
 	title.font = [UIFont fontWithName:@"Bourbon-Oblique" size:self.view.frame.size.width * 0.10625f];
 	title.textColor = [UIColor whiteColor];
 	title.textAlignment = NSTextAlignmentCenter;
-	title.text = NSLocalizedStringWithDefaultValue(@"ONBOARDING_APP_NAME", nil, [NSBundle mainBundle], @"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language.");
+	title.text = NSLocalizedStringWithDefaultValue(@"ONBOARDING_APP_NAME", nil, [NSBundle mainBundle], @"PSIPHON BROWSER", @"Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'.");
 	if ([PsiphonClientCommonLibraryHelpers unsupportedCharactersForFont:title.font.fontName withString:title.text]) {
 		title.font = [UIFont systemFontOfSize:self.view.frame.size.width * 0.075f];
 	}
