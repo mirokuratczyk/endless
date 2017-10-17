@@ -33,6 +33,7 @@
 #import "HTTPSEverywhere.h"
 #import "PsiphonData.h"
 #import "UpstreamProxySettings.h"
+#import "PsiphonClientCommonLibraryHelpers.h"
 
 @implementation AppDelegate {
 	// Array of home pages from the handshake.
@@ -319,41 +320,9 @@
 	return YES;
 }
 
--(void)initializeDefaultsFor:(NSString*)plist
-{
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-	NSString *plistPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"InAppSettings.bundle"] stringByAppendingPathComponent:plist];
-	NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-
-	for (NSDictionary *pref in [settingsDictionary objectForKey:@"PreferenceSpecifiers"]) {
-		NSString *key = [pref objectForKey:@"Key"];
-		if (key == nil)
-			continue;
-
-		if ([userDefaults objectForKey:key] == NULL) {
-			NSObject *val = [pref objectForKey:@"DefaultValue"];
-			if (val == nil)
-				continue;
-
-			[userDefaults setObject:val forKey:key];
-#ifdef TRACE
-			NSLog(@"initialized default preference for %@ to %@", key, val);
-#endif
-		}
-	}
-	[userDefaults synchronize];
-}
-
 - (void)initializeDefaults
 {
-	[self initializeDefaultsFor:@"Root.inApp.plist"];
-	[self initializeDefaultsFor:@"Feedback.plist"];
-	[self initializeDefaultsFor:@"Security.plist"];
-	[self initializeDefaultsFor:@"Privacy.plist"];
-	[self initializeDefaultsFor:@"PsiphonSettings.plist"];
-	[self initializeDefaultsFor:@"Notifications~iphone.plist"];
-	[self initializeDefaultsFor:@"Notifications~ipad.plist"];
+	[PsiphonClientCommonLibraryHelpers initializeDefaultsForPlistsFromRoot:@"Root.inApp"];
 
 	_searchEngines = [NSMutableDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"SearchEngines.plist"]];
 }
