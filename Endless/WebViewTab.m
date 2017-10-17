@@ -888,7 +888,7 @@
 					// changes privacy settings in the settings menu.
 					// It will be automatically relaunched when the user
 					// navigates back.
-					NSString *accessDescription = NSLocalizedStringWithDefaultValue(@"PHOTO_LIBRARY_ACCESS_PROMPT", nil, [NSBundle mainBundle], @"\"Psiphon Browser\" needs access to your photo library to save and upload images", @"Alert text telling user additional permissions must be granted to save and upload photos in the browser");
+					NSString *accessDescription = NSLocalizedStringWithDefaultValue(@"PHOTO_LIBRARY_ACCESS_PROMPT", nil, [NSBundle mainBundle], @"\"Psiphon Browser\" needs access to your photo library to save and upload images", @"Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'.");
 					UIAlertController *alertController = [UIAlertController alertControllerWithTitle:accessDescription message:NSLocalizedStringWithDefaultValue(@"PHOTO_LIBRARY_ACCESS_INSTRUCTION", nil, [NSBundle mainBundle], @"To give permissions tap on 'Change Settings' button", @"Alert text telling user which button to press if they want to be redirected to the settings menu") preferredStyle:UIAlertControllerStyleAlert];
 
 					UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"CANCEL_ACTION", nil, [NSBundle mainBundle], @"Cancel", @"Cancel action") style:UIAlertActionStyleCancel handler:nil];

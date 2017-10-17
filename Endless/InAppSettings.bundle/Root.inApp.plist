@@ -10,7 +10,7 @@
 			<key>TitleDefault</key>
 			<string>Psiphon Browser</string>
 			<key>TitleDescription</key>
-			<string>Settings view subheading for Psiphon-specific settings.</string>
+			<string>Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'.</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

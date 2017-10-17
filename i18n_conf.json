@@ -1,6 +1,6 @@
 {
     "objcRootDir": ".",
-    "objcIgnoreDirs": [],
+    "objcIgnoreDirs": ["Pods"],
     "plistFiles": [
         "Endless/InAppSettings.bundle/Root.inApp.plist",
         "Endless/InAppSettings.bundle/Privacy.plist",
