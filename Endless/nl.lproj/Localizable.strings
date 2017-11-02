@@ -1,155 +1,57 @@
-/* %ld will be replaced with the number 1 */
-"RULES_IN_USE_SINGULAR" = "%ld-regel in gebruik";
-
-/* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "%ld-regels in gebruik";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon Browser\" moet toegang tot uw bibliotheek van de foto op te slaan en het uploaden van afbeeldingen ";
-
-/* Title text on one of the on-boarding screens */
-"ONBOARDING_ACCESS_TITLE" = "Toegang tot het Web";
-
 /* 'Add bookmark' dialog title */
 "ADD_BOOKMARK_TITLE" = "Toevoegen Bladwijzers";
 
-/* Title above a list of rules */
-"RULES_ALL_LIST_TITLE" = "Alle regels";
-
-/* Alert dialog text */
-"CLOSE_TABS_PROMPT" = "Toestaan deze pagina te sluiten van de tabblad?";
-
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Er is een fout opgetreden bij het downloaden van afbeelding %@";
-
-/* HTTP authentication alert title */
-"HTTP_AUTH_TITLE" = "Verificatie vereist";
-
-/* Field name for display in list */
-"CERT_BEGINS_ON" = "Begint Op";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"SERVER_REGION_BEST" = "Beste Prestaties";
-
-/* Bookmarks main dialog title
-   Bookmarks table header title */
-"BOOKMARKS_TITLE" = "Bladwijzers";
-
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"ONBOARDING_APP_SUBTITLE" = "VERKEN BUITEN DE GRENZEN";
-
-/* Field name for display in list */
-"CERT_BUSCAT" = "Zakelijke Categorie";
-
-/* Cancel action */
-"CANCEL_ACTION" = "Annuleer";
-
-/* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Certificaat Informatie";
-
-/* Text of button on alert which will redirect the user to the settings menu */
-"CHANGE_SETTINGS_BUTTON" = "Instellingen wijzigen ";
-
-/* Field name for display in list */
-"CERT_CIPHER" = "Cijfer";
-
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Wis Cookies en Gegevens";
-
-/* Field name for display in list */
-"CERT_CN" = "Algemene Naam";
-
-/* Title for the 'Allow this page to close its tab?' alert */
-"CLOSE_TABS_CONFIRM" = "Bevestigen";
-
-/* Connection status initial splash modal dialog title for 'Connected' state */
-"CONNECTION_STATUS_CONNECTED" = "Verbonden!";
-
-/* Connection status initial splash modal dialog title for 'Connecting...' state */
-"CONNECTION_STATUS_CONNECTING" = "Verbinden...";
-
-/* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "Verbinding Informatie";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "Kopie URL";
-
-/* Field name for display in list */
-"CERT_COUNTRY" = "Land";
-
-/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_DISCONNECTED" = "Verbroken!";
-
-/* Done action
-   Title of the button that dismisses the settings menu (InAppSettingsKit) */
-"DONE_ACTION" = "Klaar";
-
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_TEXT" = "Afbeelding downloaden %@.  U wordt op de hoogte gesteld wanneer de download is voltooid.";
-
-/* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Downloaden…";
-
-/* Edit button at bottom of screen in bookmarks view */
-"BOOKMARKS_EDIT_BUTTON" = "Bewerk";
-
-/* Edit Bookmark dialog title */
-"EDIT_BOOKMARK_TITLE" = "Bewerk Bladwijzers";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Pagina Naam (laat leeg om URL te gebruiken)";
 
 /* 'Add Bookmark' dialog text
    'Edit Bookmark' dialog text */
 "ADD_EDIT_BOOKMARK_TEXT" = "Invoeren de details van de URL naar bladwijzer:";
 
-/* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_ERROR" = "Fout";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
 
-/* Image download error alert title */
-"IMAGE_DOWNLOAD_ERROR_TITLE" = "Fout";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Bewerken";
 
-/* Alert dialog title when webpage has failed to load */
-"WEB_LOAD_ERROR_TEXT" = "Fout";
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "Bladwijzers";
 
-/* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Fout";
+/* Cancel action */
+"CANCEL_ACTION" = "Annuleren";
 
 /* Field name for display in list */
-"CERT_EXPIRES_AFTER" = "Vervalt Na ";
+"CERT_BEGINS_ON" = "Begint Op";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "Zakelijke Categorie";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Certificaat Informatie";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Cijfer";
+
+/* Field name for display in list */
+"CERT_CN" = "Algemene Naam";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "Verbinding Informatie";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "Land";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
 
 /* Field name for display in list */
 "CERT_EV_ORG" = "Uitgebreide Validatie: Organisatie ";
 
-/* FAQ link text */
-"FAQ_LINK_TEXT" = "Veel gestelde vragen";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_DE" = "Germany";
-
-/* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "Ga naar Instellingen";
-
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"ONBOARDING_BROWSING_TITLE" = "Blij Surfen!";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_HK" = "Hong Kong";
-
-/* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Overal Regels";
-
-/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"ABOUT_PAGE_URL" = "https://psiphon.ca/en/about.html";
-
-/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"FAQ_URL" = "https://psiphon.ca/en/faq.html";
-
-/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"LICENSE_PAGE_URL" = "https://psiphon.ca/en/license.html";
-
-/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"PRIVACY_POLICY_URL" = "https://psiphon.ca/en/privacy.html";
-
-/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"FEEDBACK_FOOTER_EMAIL" = "Als bovenstaand formulier niet werkt, of u wilt screenshots te sturen, kunt u mailen naar %@";
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Vervalt Na ";
 
 /* Field name for display in list */
 "CERT_ISSUED_BY" = "Uitgegeven Door";
@@ -157,60 +59,144 @@
 /* Field name for display in list */
 "CERT_ISSUED_TO" = "Uitgegeven Aan";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_JP" = "Japan";
+/* Field name for display in list */
+"CERT_LOCALITY" = "Plaats";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Object Id";
+
+/* Field name for display in list */
+"CERT_ORG" = "Organisatie";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Organisatorische Eenheidsnummer";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "Geldigheidsduur ";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Postcode";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Protocol ";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Serieel Nummer";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "Handtekening Algoritme ";
+
+/* Field name for display in list */
+"CERT_STATE" = "Staat/Provincie";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Straat Adres";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Onbekende Organisatie";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Versie";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "Instellingen wijzigen ";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "Bevestig";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Toestaan deze pagina te sluiten van de tabblad?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Ga naar Instellingen";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Instellingen";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Server Regio:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "Verbonden!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "Verbinden...";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "Verbinding verbroken!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon kan niet starten door een interne fout,  stuur een feedback.";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Wachten voor netwerk...";
+
+/* Done action */
+"DONE_ACTION" = "Klaar";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "Meer..";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Geannuleerd";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Fout";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "Bewerk Bladwijzers";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Inloggen";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Wachtwoord";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Verificatie vereist";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "Gebruikersnaam";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Overal Regels";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Er is een fout opgetreden bij het downloaden van afbeelding %@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Fout";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Fout";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Status code:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Succesvol Abeelding gedownload %@";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Succes!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Afbeelding downloaden %@.  U wordt op de hoogte gesteld wanneer de download is voltooid.";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Downloaden…";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Afbeelding opslaan";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
 "LANGUAGE_SELECT_TITLE" = "Taal";
 
-/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"FEEDBACK_FOOTER_DATA_COLLECTION" = "Leren meer over informatie en de gegevens die we verzamelen in onze %@";
-
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_TITLE_FINAL" = "Leertijd is over";
-
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_GO_BUTTON" = "Laten  we Gaan!";
-
-/* Field name for display in list */
-"CERT_LOCALITY" = "Plaats";
-
-/* HTTP authentication alert log in button action */
-"HTTP_AUTH_LOG_IN" = "Inloggen";
-
-/* Title of screen that displays logs */
-"LOGS_TITLE" = "Logbestanden";
-
-/* Shown when the device is not configured for sending email. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED" = "Mail niet geconfigureerd";
-
-/* No comment provided by engineer. */
-"NYALERT_TEXT" = "Tekst Bericht Tonen ";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_NL" = "Netherlands";
-
-/* New browser tab title text */
-"NEW_TAB_TITLE" = "Nieuw tabblad";
-
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"ONBOARDING_NEXT_BUTTON" = "Volgende";
-
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_BODY_FINAL" = "Nu we zijn verbonden met een Psiphon-server, je kunt nu Starten met surfen.";
-
-/* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "Object Id";
-
-/* OK action */
-"OK_ACTION" = "Oke";
-
-/* Alert OK Button. (InAppSettingsKit) */
-"OK_BUTTON" = "Oke";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "Kopie URL";
 
 /* Action title for long press on link dialog */
-"LINK_LONG_PRESS_OPEN" = "Open";
+"LINK_LONG_PRESS_OPEN" = "Openen";
 
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN_NEW_TAB" = "Open in een nieuw tabblad";
@@ -218,167 +204,99 @@
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN_SAFARI" = "Open in Safari";
 
-/* Field name for display in list */
-"CERT_ORG" = "Organisatie ";
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "Nieuw tabblad";
 
-/* Field name for display in list */
-"CERT_ORG_UNIT_NUMBER" = "Organisatorische Eenheidsnummer";
-
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "Pagina Naam (laat leeg om URL te gebruiken)";
-
-/* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "Paswoord";
-
-/* Field name for display in list */
-"CERT_PERIOD_OF_VALIDITY" = "Geldigheidsduur ";
-
-/* Feedback footer text. */
-"FEEDBACK_FOOTER_DIAGNOSTIC" = "Houdt u er rekening mee dat deze diagnostische gegevens  u niet zal identificeren, maar het helpt ons Psiphon te verbeteren.";
-
-/* Field name for display in list */
-"CERT_POSTAL_CODE" = "Postcode";
-
-/* Privacy Policy link text */
-"PRIVACY_POLICY_LINK_TEXT" = "privacybeleid";
-
-/* Field name for display in list */
-"CERT_PROTOCOL" = "Protocol ";
-
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"ONBOARDING_APP_NAME" = "PSIPHON BROWSER";
-
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon kan niet starten door een interne fout,  stuur een feedback.";
-
-/* Text explaining thumbs up choice in feedback */
-"FEEDBACK_THUMBS_UP_TEXT" = "Psiphon verbindt\nen presteert de\nmanier waarop ik het wil.";
-
-/* Text explaining thumbs down choice in feedback */
-"FEEDBACK_THUMBS_DOWN_TEXT" = "Pishon kan niet goed\nVerbinding maken\n of het presteren er van.";
-
-/* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"PULL_TO_REFRESH_PAGE" = "Trek om pagina vernieuwen";
-
-/* Title of alert to clear local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Verwijder alle cookies en internet gegevens?";
-
-/* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "Regels die gebruikt worden op de huidige pagina ";
-
-/* Action title for long press on image dialog */
-"IMAGE_LONG_PRESS_SAVE" = "Afbeelding opslaan";
-
-/* Text of button to send feedback */
-"FEEDBACK_SEND_BUTTON" = "Verstuur";
-
-/* Field name for display in list */
-"CERT_SERIAL_NUMBER" = "Serieel Nummer";
-
-/* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "Server Regio:";
-
-/* Button text on connection status modal that brings the user to the app Settings */
-"CONNECTION_ALERT_SETTINGS_ACTION" = "Instellingen";
-
-/* Title of the settings (aka preferences) view (InAppSettingsKit) */
-"SETTINGS_TITLE" = "Instellingen";
-
-/* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Instellingen & Help";
-
-/* Field name for display in list */
-"CERT_SIG_ALGO" = "Handtekening Algoritme ";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_SG" = "Singapore";
-
-/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"ONBOARDING_SKIP_BUTTON" = "Overslaan";
-
-/* Text that can be clicked to skip the tutorial */
-"TUTORIAL_SKIP_BUTTON" = "UITLEG OVERSLAAN";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_ES" = "Spain";
-
-/* Text of button that user presses to complete onboarding and start tutorial */
-"START_TUTORIAL_BUTTON" = "Start de handleiding";
-
-/* Field name for display in list */
-"CERT_STATE" = "Staat/Provincie";
-
-/* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Status code:";
-
-/* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "Status Indicator ";
-
-/* Field name for display in list */
-"CERT_STREET_ADDR" = "Straat Adres";
-
-/* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Succes!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Succesvol Abeelding gedownload %@";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"TUTORIAL_BODY_STATUS" = "Het groene vinkje geeft aan dat Psiphon Browser is verbonden en klaar voor jou te start surfen";
-
-/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"ONBOARDING_ACCESS_TEXT" = "Het internet binnen handbereik";
-
-/* Description for the 'Mail not configured' message. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED_DESC" = "Dit apparaat is niet geconfigureerd voor het verzenden van e-mail. Configureer aub eerst de Mail-instellingen in de Instellingen-app.";
-
-/* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "Hier kun je toegang krijgen tot instellingen en hulp vinden";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Tekst Bericht Tonen ";
 
 /* No comment provided by engineer. */
 "NYALERT_TITLE" = "Titel Label";
 
-/* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Om toestemmingen te geven tik op 'Wijzig Intellings' knop";
+/* OK action */
+"OK_ACTION" = "Oke";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_GB" = "United Kingdom";
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "Het internet binnen handbereik";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_US" = "United States";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Toegang tot het Web";
 
-/* No comment provided by engineer. */
-"CERT_UNKNOWN_ORGANIZATION" = "Onbekende Organisatie";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "PSIPHON BROWSER";
 
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "URL";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "VERKEN BUITEN DE GRENZEN";
 
-/* HTTP authentication alert user name input title */
-"HTTP_AUTH_USER_NAME" = "Gebruikersnaam";
-
-/* Field name for display in list */
-"CERT_VERSION" = "Versie";
-
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "Wachten voor netwerk...";
-
-/* Comments section placeholder text */
-"FEEDBACK_COMMENTS_PLACEHOLDER" = "Wat zijn verbeteringen in jou gedachten? Geef ons jouw feeback";
-
-/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"FEEDBACK_FAQ_DIRECTION" = "U kunt oplossingen voor veel voorkomende problemen in vinden onze %@.";
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "Uw favoriete apps hebben een webinterface die goed werkt in Psiphon ";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
 "ONBOARDING_APPS_TITLE" = "Je Apps in Je Verkenner";
 
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TEXT" = "Uw favoriete apps hebben een webinterface die goed werkt in Psiphon ";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Blij Surfen!";
 
-/* Introduction text at top of feedback form */
-"FEEDBACK_INTRODUCTION" = "U feedback maakt Psiphon beter! ";
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Volgende";
 
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "Overslaan";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Om toestemmingen te geven tik op 'Wijzig Intellings' knop";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon Browser\" moet toegang tot uw bibliotheek van de foto op te slaan en het uploaden van afbeeldingen ";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "Trek om pagina vernieuwen";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "Alle regels";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Regels die gebruikt worden op de huidige pagina ";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld-regels in gebruik";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld-regel in gebruik";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Verwijder alle cookies en internet gegevens?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Wis Cookies en Gegevens";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "Start de handleiding";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "Nu we zijn verbonden met een Psiphon-server, je kunt nu Starten met surfen.";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "Hier kun je toegang krijgen tot instellingen en hulp vinden";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "Het groene vinkje geeft aan dat Psiphon Browser is verbonden en klaar voor jou te start surfen";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "Laten  we Gaan!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "UITLEG OVERSLAAN";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Leertijd is over";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Instellingen & Help";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Status Indicator ";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Fout";
 

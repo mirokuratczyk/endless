@@ -1,0 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Psiphon brauzeri";
+
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "Bildirishnomalar";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "Qidiruv tizimi";
+
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "Maxfiylik";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "Xavfsizlik";
+
+/* Settings item text. Opens app tutorial. Should be kept short. */
+"SETTINGS_TUTORIAL" = "Qo‘llanma";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Tashqi kontent provayderlari sizni kuzatmoqchi bo‘lganda ruxsat so‘ralsin.";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "“kuzatilmasin” so‘rovlari yuborilsin";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Psiphon brauzerida ruxsat etilgan cookie-fayllarni boshqarish.";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Har doim bloklansin";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Faqat joriy saytda ruxsat berilsin";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Men tashrif buyurgan saytlarda ruxsat berilsin";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Har doim ruxsat berilsin";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Barchasi bloklansin";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Faqat joriy saytda";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Men tashrif buyurgan saytlar";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Barchasiga ruxsat berilsin";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Cookie-fayllarni yoqish";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Veb-saytlar kimligingizni aniqlash uchun cookie-fayllari va boshqa ma’lumotlarni qurilmangizda saqlashi mumkin. Bu axborot odatda sizga mos xizmat yoki kontent taklif qilish uchun ishlatiladi. Unda loginlar, afzalliklar, ism yoki e-pochta kabi shaxsiy ma’lumotlaringiz saqlanishi mumkin. Psiphon brauzeri birlamchi holatda siz tashrif buyurmagan tashqi saytlarda cookie-fayllar saqlanishini (tashqi cookie-fayllar) bloklaydi va reklama beruvchilar qurilmangizda axborot saqlashini taqiqlaydi.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Boshqa ilovaga o‘tishda barcha varaqlar, cookie-fayllar va sayt ma’lumotlari tozalanadi.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "Ilova fondaligida barchasi tozalansin";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookie-fayllar va mahalliy ombor tozalanadi.";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Cookie-fayllar va saytlar axborotini tozalash";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS ulanishlar uchun minimal SSL/TLS versiyasi; ilova majburiy yopilishi talab qilinishi mumkin.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "Minimal SSL/TLS versiyasi";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Aloqa ahvoli o‘zgarganda jiringlasin";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "Tovushlar";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Aloqa ahvoli o‘zgarganda tebranish";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "Tebranish";
+

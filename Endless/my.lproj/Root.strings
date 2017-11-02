@@ -1,0 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Psiphon Browser";
+
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "အသိပေးချက်များ";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "ရှာဖွေရေးအင်ဂျင်";
+
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "ကိုယ်ရေးကိုယ်တာအချက်အလက် လုံခြုံရေး";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "လုံခြုံရေး";
+
+/* Settings item text. Opens app tutorial. Should be kept short. */
+"SETTINGS_TUTORIAL" = "လမ်းညွှန်သင်ကြားပြသပေးမှု";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "ဝက်ဆိုက်များနှင့် သူတို့တွင်ပါဝင်သည့် အကြောင်းအရာများထောက်ပံ့ပေးနေသောတတိယပုဂ္ဂိုလ်များ သင့်ကိုခြေရာမခံရန် တောင်းဆိုပါ။";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"ခြေရာမခံရန်\" တောင်းဆိုချက်များပို့ရန်";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Psiphon ဘရောက်ဇာတွင် မည်သည့်ကွတ်ကီးအမျိုးအစားများခွင့်ပြုမည်ကို စီမံရန်။";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "အမြဲတမ်းပိတ်ဆို့ရန်";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "လက်ရှိဝက်ဆိုက်မှသာခွင့်ပြုရန်";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ကျွန်ုပ်လည်ပတ်ထားသောဝက်ဆိုက်များမှာခွင့်ပြုရန်";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "အမြဲတမ်းခွင့်ပြုရန်";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "အားလုံးပိတ်ဆို့ရန်";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "လက်ရှိဝက်ဆိုက်သာ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "ကျွန်ုပ်လည်ပတ်ထားသောဝက်ဆိုက်များ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "အားလုံးခွင့်ပြုရန်";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "ကွတ်ကီးများခွင့်ပြုရန်";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "ဘရောက်လုပ်နေစဥ်အတွင်း ဝက်ဆိုက်များသည် သင်မည်သူဖြစ်သည်ကို သိရှိရန်အတွက် ကွတ်ကီးများနှင့် အခြားအချက်အလက်များ သိမ်းဆည်းပါလိမ့်မည်၊ ဤသည်မှာ သင်နှင့်ကိုက်ညီမှုအရှိဆုံးဝန်ဆောင်မှုများနှင့် အကြောင်းအရာများထောက်ပံ့ပေးရန်အတွက်ဖြစ်သည်။ ဤတွင် သင်၏အကောင့်ဝင်ရောက်ရန် သတင်းအချက်အလက်များ၊ စိတ်ကြိုက်ပြင်ဆင်မှုများနှင့် သင်၏အမည် သို့မဟုတ် အီးမေးလိပ်စာကဲ့သို့သော ကိုယ်ရေးကိုယ်တာသတင်းအချက်အလက်များ ပါဝင်သည်။ Psiphon ဘရောက်ဇာသည် သင်ဝင်ရောက် လည်ပတ်သော ဝက်ဆိုက်များ(တတိယပုဂ္ဂိုလ်ကွတ်ကီးများ) မှလွဲ၍ အခြားဝက်ဆိုက်များမှ ကွတ်ကီးများကို ကြေငြာသူများသင်၏စက်ထဲတွင် အချက်အလက်များသိမ်းဆည်းထားခြင်းမရှိစေရန်အတွက် ကြိုတင်သတ်မှတ်ထားသောပုံစံဖြင့် ပိတ်ဆို့ပေးသည်။ ";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "အခြား app တစ်ခုသို့ပြောင်းသည်နှင့် စာမျက်နှာများအားလုံး၊ ကွတ်ကီးများနှင့် ဝက်ဆိုက်အသုံးပြုမှု အချက်အလက်များကိုရှင်းလင်းမည်။";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "နောက်ကွယ်သို့ပို့လိုက်သည်နှင့် ရှင်းလင်းရန်";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ကွတ်ကီးများနှင့် စက်တွင်းသိမ်းဆည်းမှုများကိုရှင်းလင်းမည်။";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "ကွတ်ကီးများနှင့် ဝက်ဆိုက်အချက်အလက်များရှင်းလင်းရန်";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "အနည်းဆုံး SSL/TLS ဗားရှင်းအတွက် HTTPS ချိတ်ဆက်မှုများလိုအပ်ပါသည်၊ သက်ရောက်မှုရှိရန်အတွက် app ကိုအင်အားသုံးပိတ်ပစ်ရန်လိုအပ်ပါသည်။";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "အနည်းဆုံး SSL/TLS ဗားရှင်း";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "ချိတ်ဆက်မှုအခြေအနေပြောင်းလဲတိုင်းအသံထွက်ရန်";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "အသံ";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "ချိတ်ဆက်မှုအခြေအနေပြောင်းလဲတိုင်းတုန်ခါရန်";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "တုန်ခါရန်";
+

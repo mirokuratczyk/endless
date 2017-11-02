@@ -34,7 +34,10 @@ import yaml
 
 
 DEFAULT_LANGS = {
+    'am': 'am',         # Amharic
     'ar': 'ar',         # Arabic
+    'az@latin': 'az',   # Azerbaijani
+    'be': 'be',         # Belarusian
     'de': 'de',         # German
     'bo': 'bo',         # Tibetan
     'el_GR': 'el',      # Greek
@@ -44,10 +47,11 @@ DEFAULT_LANGS = {
     'fr': 'fr',         # French
     'hr': 'hr',         # Croation
     'id': 'id',         # Indonesian
-    #'it': 'it',         # Italian
-    #'kk': 'kk',         # Kazakh
+    'kk': 'kk',         # Kazakh
+    'ky': 'ky',         # Kyrgyz
     'km': 'km',         # Khmer
     'ko': 'ko',         # Korean
+    'my': 'my',         # Burmese
     'nb_NO': 'nb',      # Norwegian
     'nl': 'nl',         # Dutch
     'pt_BR': 'pt-BR',   # Portuguese-Brazil
@@ -55,8 +59,10 @@ DEFAULT_LANGS = {
     'ru': 'ru',         # Russian
     'th': 'th',         # Thai
     'tk': 'tk',         # Turkmen
+    'tg': 'tg',         # Tajik
     'tr': 'tr',         # Turkish
-    #'ug': 'ug@Latn',    # Uighur (latin script)
+    'uk': 'uk',         # Ukrainian
+    'uz': 'uz',         # Uzbek
     'vi': 'vi',         # Vietnamese
     'zh': 'zh-Hans',    # Chinese (simplified)
     'zh_TW': 'zh-Hant'  # Chinese (traditional)

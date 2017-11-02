@@ -1,155 +1,57 @@
-/* %ld will be replaced with the number 1 */
-"RULES_IN_USE_SINGULAR" = "%ld quy luật đang dùng";
-
-/* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "%ld quy luật đang dùng";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Trình duyệt Psiphon\" cần truy cập vào thư viện ảnh để lưu và tải hình";
-
-/* Title text on one of the on-boarding screens */
-"ONBOARDING_ACCESS_TITLE" = "Truy cập mạng";
-
 /* 'Add bookmark' dialog title */
 "ADD_BOOKMARK_TITLE" = "Thêm Dấu Trang";
 
-/* Title above a list of rules */
-"RULES_ALL_LIST_TITLE" = "Thêm quy luật";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Tên Trang (để trống để dùng liên kết)";
 
-/* Alert dialog text */
-"CLOSE_TABS_PROMPT" = "Cho phép trang này đóng tab lại?";
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "Điền chi tiết của liên kết để đánh dấu trang:";
 
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Có lỗi lúc tải xuống hình %@";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "Liên Kết";
 
-/* HTTP authentication alert title */
-"HTTP_AUTH_TITLE" = "Yêu cầu Xác thực";
-
-/* Field name for display in list */
-"CERT_BEGINS_ON" = "Bắt đầu Lúc";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"SERVER_REGION_BEST" = "Hiệu năng tốt nhất";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Chỉnh sửa";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"BOOKMARKS_TITLE" = "Dấu trang";
-
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"ONBOARDING_APP_SUBTITLE" = "LƯỚT MẠNG XUYÊN BIÊN GIỚI";
-
-/* Field name for display in list */
-"CERT_BUSCAT" = "Thể loại Kinh Doanh";
+"BOOKMARKS_TITLE" = "Đánh dấu liên kết";
 
 /* Cancel action */
 "CANCEL_ACTION" = "Hủy";
 
 /* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Thông tin Chứng chỉ";
+"CERT_BEGINS_ON" = "Bắt đầu Lúc";
 
-/* Text of button on alert which will redirect the user to the settings menu */
-"CHANGE_SETTINGS_BUTTON" = "Thay đổi Thiết đặt";
+/* Field name for display in list */
+"CERT_BUSCAT" = "Thể loại Kinh Doanh";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Thông tin Chứng chỉ";
 
 /* Field name for display in list */
 "CERT_CIPHER" = "Mã hóa";
 
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Làm sạch Cookies và Dữ liệu";
-
 /* Field name for display in list */
 "CERT_CN" = "Tên Thông Thường";
-
-/* Title for the 'Allow this page to close its tab?' alert */
-"CLOSE_TABS_CONFIRM" = "Xác nhận";
-
-/* Connection status initial splash modal dialog title for 'Connected' state */
-"CONNECTION_STATUS_CONNECTED" = "Đã kết nối!";
-
-/* Connection status initial splash modal dialog title for 'Connecting...' state */
-"CONNECTION_STATUS_CONNECTING" = "Đang kết nối...";
 
 /* Field name for display in list */
 "CERT_CONNECTION_INFORMATION" = "Thông tin kết nối";
 
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "Chép URL";
-
 /* Field name for display in list */
 "CERT_COUNTRY" = "Quốc gia";
 
-/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_DISCONNECTED" = "Ngắt kết nối!";
-
-/* Done action
-   Title of the button that dismisses the settings menu (InAppSettingsKit) */
-"DONE_ACTION" = "Xong";
-
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_TEXT" = "Tải xuống ảnh %@. Bạn sẽ được thông báo khi nào xong.";
-
-/* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Đang tải xuống...";
-
-/* Edit button at bottom of screen in bookmarks view */
-"BOOKMARKS_EDIT_BUTTON" = "Sửa";
-
-/* Edit Bookmark dialog title */
-"EDIT_BOOKMARK_TITLE" = "Sửa Dấu trang";
-
-/* 'Add Bookmark' dialog text
-   'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "Điền chi tiết của URL để dấu trang:";
-
-/* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_ERROR" = "Lỗi";
-
-/* Image download error alert title */
-"IMAGE_DOWNLOAD_ERROR_TITLE" = "Lỗi";
-
-/* Alert dialog title when webpage has failed to load */
-"WEB_LOAD_ERROR_TEXT" = "Lỗi";
-
-/* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Lỗi:";
-
-/* Field name for display in list */
-"CERT_EXPIRES_AFTER" = "Hết Hạn Sau";
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'lúc' HH:mm:ss zzz";
 
 /* Field name for display in list */
 "CERT_EV_ORG" = "Kiểm Nhận Thêm: Tổ Chức";
 
-/* FAQ link text */
-"FAQ_LINK_TEXT" = "Các câu hỏi thường gặp";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_DE" = "Đức";
-
-/* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "Vào Thiết Đặt";
-
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"ONBOARDING_BROWSING_TITLE" = "Lướt Mạng Vui Vẻ!";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_HK" = "Hồng Kông";
-
-/* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "Quy luật HTTPS Everywhere";
-
-/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"ABOUT_PAGE_URL" = "https://psiphon.ca/vi/about.html";
-
-/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"FAQ_URL" = "https://psiphon.ca/vi/faq.html";
-
-/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"LICENSE_PAGE_URL" = "https://psiphon.ca/vi/license.html";
-
-/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"PRIVACY_POLICY_URL" = "https://psiphon.ca/vi/privacy.html";
-
-/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"FEEDBACK_FOOTER_EMAIL" = "Nếu mẫu trên không chạy, hoặc bạn muốn gửi ảnh chụp màn hình, xin email cho chúng tôi qua địa chỉ %@";
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Hết Hạn Sau";
 
 /* Field name for display in list */
 "CERT_ISSUED_BY" = "Cấp phép Bởi";
@@ -157,57 +59,141 @@
 /* Field name for display in list */
 "CERT_ISSUED_TO" = "Cấp phép Cho";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_JP" = "Nhật Bản";
+/* Field name for display in list */
+"CERT_LOCALITY" = "Địa phương";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Object Identifier";
+
+/* Field name for display in list */
+"CERT_ORG" = "Tổ Chức";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Số Đơn Vị Tổ Chức";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "Thời gian Hiệu lực";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Mã số Bưu điện";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Giao thức";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Số Serial";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "Thuật Toán Chữ Ký";
+
+/* Field name for display in list */
+"CERT_STATE" = "Bang/Tỉnh";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Tên đường";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Tổ chức Vô danh";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Phiên bản";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "Thay đổi Thiết đặt";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "Xác nhận";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Cho phép trang này đóng tab lại?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Vào Thiết Đặt";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Thiết đặt";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Khu vực máy chủ:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "Đã kết nối!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "Đang kết nối...";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "Ngắt kết nối!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon không khởi động được vì lỗi nội bộ, xin gửi phản hồi.";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Đang chờ mạng...";
+
+/* Done action */
+"DONE_ACTION" = "Xong";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "Thêm...";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Đã hủy";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Lỗi";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "Sửa Dấu trang";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Đăng nhập";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Mật khẩu";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Yêu cầu Xác thực";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "Tên người dùng";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "Quy luật HTTPS Everywhere";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Có lỗi lúc tải xuống hình %@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Lỗi:";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Lỗi";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Mã số tình trạng:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Tải hình ảnh %@ xuống thành công";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Thành công!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Tải xuống ảnh %@. Bạn sẽ được thông báo khi nào xong.";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Đang tải xuống...";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Lưu hình ảnh";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
 "LANGUAGE_SELECT_TITLE" = "Ngôn ngữ";
 
-/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"FEEDBACK_FOOTER_DATA_COLLECTION" = "Tìm hiểu thêm về dữ liệu chúng tôi thu thập trong %@";
-
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_TITLE_FINAL" = "Thời gian học hỏi đã xong";
-
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_GO_BUTTON" = "Hãy bắt đầu!";
-
-/* Field name for display in list */
-"CERT_LOCALITY" = "Địa phương";
-
-/* HTTP authentication alert log in button action */
-"HTTP_AUTH_LOG_IN" = "Đăng nhập";
-
-/* Title of screen that displays logs */
-"LOGS_TITLE" = "Ký sự";
-
-/* Shown when the device is not configured for sending email. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED" = "Email chưa được cấu hình";
-
-/* No comment provided by engineer. */
-"NYALERT_TEXT" = "Dạng Văn Bản của Tin Nhắn";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_NL" = "Hà Lan";
-
-/* New browser tab title text */
-"NEW_TAB_TITLE" = "Tab mới";
-
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"ONBOARDING_NEXT_BUTTON" = "Kế tiếp";
-
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_BODY_FINAL" = "Bây giờ chúng tôi sẽ kết nối vào một máy chủ Psiphon để bạn bắt đầu lướt mạng.";
-
-/* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "Object Identifier";
-
-/* OK action */
-"OK_ACTION" = "OK";
-
-/* Alert OK Button. (InAppSettingsKit) */
-"OK_BUTTON" = "OK";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "Sao chép liên kết";
 
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN" = "Mở";
@@ -218,167 +204,99 @@
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN_SAFARI" = "Mở ra trong Safari";
 
-/* Field name for display in list */
-"CERT_ORG" = "Tổ Chức";
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "Tab mới";
 
-/* Field name for display in list */
-"CERT_ORG_UNIT_NUMBER" = "Số Đơn Vị Tổ Chức";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Dạng Văn Bản của Tin Nhắn";
 
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "Tên Trang (để trống để dùng URL)";
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "Tiêu Đề";
 
-/* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "Mật khẩu";
-
-/* Field name for display in list */
-"CERT_PERIOD_OF_VALIDITY" = "Thời gian Hiệu lực";
-
-/* Feedback footer text. */
-"FEEDBACK_FOOTER_DIAGNOSTIC" = "Lưu ý là dữ liệu chẩn đoán này không tiết lộ danh tính bạn, và nó chỉ giúp chúng tôi làm Psiphon tốt hơn.";
-
-/* Field name for display in list */
-"CERT_POSTAL_CODE" = "Mã số Bưu điện";
-
-/* Privacy Policy link text */
-"PRIVACY_POLICY_LINK_TEXT" = "Chính sách quyền Riêng Tư";
-
-/* Field name for display in list */
-"CERT_PROTOCOL" = "Giao thức";
-
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"ONBOARDING_APP_NAME" = "TRÌNH DUYỆT PSIPHON";
-
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon không khởi động được vì lỗi nội bộ, xin gửi phản hồi.";
-
-/* Text explaining thumbs up choice in feedback */
-"FEEDBACK_THUMBS_UP_TEXT" = "Psiphon kết nối\nvà làm việc\nđúng ý tôi.";
-
-/* Text explaining thumbs down choice in feedback */
-"FEEDBACK_THUMBS_DOWN_TEXT" = "Psiphon thường không\nkết nối được hoặc\nkhông làm việc đủ\ntốt.";
-
-/* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"PULL_TO_REFRESH_PAGE" = "Kéo để làm Mới Trang";
-
-/* Title of alert to clear local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Xóa tất cả cookies và dữ liệu lướt mạng?";
-
-/* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "Quy luật đang sử dụng cho trang hiện thời";
-
-/* Action title for long press on image dialog */
-"IMAGE_LONG_PRESS_SAVE" = "Lưu hình ảnh";
-
-/* Text of button to send feedback */
-"FEEDBACK_SEND_BUTTON" = "Gửi";
-
-/* Field name for display in list */
-"CERT_SERIAL_NUMBER" = "Số Serial";
-
-/* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "Khu vực máy chủ:";
-
-/* Button text on connection status modal that brings the user to the app Settings */
-"CONNECTION_ALERT_SETTINGS_ACTION" = "Thiết đặt";
-
-/* Title of the settings (aka preferences) view (InAppSettingsKit) */
-"SETTINGS_TITLE" = "Thiết đặt";
-
-/* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Thiết đặt & Trợ giúp";
-
-/* Field name for display in list */
-"CERT_SIG_ALGO" = "Thuật Toán Chữ Ký";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_SG" = "Singapore";
-
-/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"ONBOARDING_SKIP_BUTTON" = "BỎ";
-
-/* Text that can be clicked to skip the tutorial */
-"TUTORIAL_SKIP_BUTTON" = "BỎ CHỈ DẪN";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_ES" = "Tây Ban Nha";
-
-/* Text of button that user presses to complete onboarding and start tutorial */
-"START_TUTORIAL_BUTTON" = "Bắt đầu Chỉ Dẫn";
-
-/* Field name for display in list */
-"CERT_STATE" = "Bang/Tỉnh";
-
-/* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Mã số tình trạng:";
-
-/* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "Chỉ dấu Tình trạng:";
-
-/* Field name for display in list */
-"CERT_STREET_ADDR" = "Tên đường";
-
-/* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Thành công!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Tải hình ảnh %@ xuống thành công";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"TUTORIAL_BODY_STATUS" = "Dấu tíc xanh cho biết là Trình Duyệt Psiphon đã kết nối và sẵn sàng để bạn lướt mạng";
+/* OK action */
+"OK_ACTION" = "OK";
 
 /* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
 "ONBOARDING_ACCESS_TEXT" = "Internet nơi đầu ngón tay bạn";
 
-/* Description for the 'Mail not configured' message. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED_DESC" = "Thiết bị này chưa được cấu hình để gửi Email. Xin cấu hình thiết đặt email trong ứng dụng thiết đặt";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Truy cập mạng";
 
-/* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "Đây là nơi bạn xem các thiết đặt và tìm trợ giúp";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "TRÌNH DUYỆT PSIPHON";
 
-/* No comment provided by engineer. */
-"NYALERT_TITLE" = "Nhãn Tựa Đề";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "LƯỚT MẠNG BÊN KIA BIÊN GIỚI";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "Ứng dụng bạn ưa thích có giao diện web chạy tốt trong trình duyệt Psiphon";
+
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "Ứng dụng trong trình duyệt";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Lướt Mạng Vui Vẻ!";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Kế tiếp";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "BỎ QUA";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
 "PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Để cho phép, bấm vào nút 'Đổi Thiết Đặt'";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_GB" = "Anh Quốc";
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Trình duyệt Psiphon\" cần truy cập vào thư viện ảnh để lưu và tải hình";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_US" = "Hoa Kỳ";
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "Kéo để làm Mới Trang";
 
-/* No comment provided by engineer. */
-"CERT_UNKNOWN_ORGANIZATION" = "Tổ chức Vô danh";
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "Thêm quy luật";
 
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "URL";
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Quy luật đang sử dụng cho trang hiện thời";
 
-/* HTTP authentication alert user name input title */
-"HTTP_AUTH_USER_NAME" = "Tên người dùng";
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld quy luật đang dùng";
 
-/* Field name for display in list */
-"CERT_VERSION" = "Phiên bản";
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld quy luật đang dùng";
 
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "Đang chờ mạng...";
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Xóa tất cả cookies và dữ liệu lướt mạng?";
 
-/* Comments section placeholder text */
-"FEEDBACK_COMMENTS_PLACEHOLDER" = "Bạn có ý kiến gì? Xin phản hồi cho chúng tôi";
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Làm sạch Cookies và Dữ liệu";
 
-/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"FEEDBACK_FAQ_DIRECTION" = "Bạn có thể tìm các giải pháp cho những vấn đề thông thường trong  %@.";
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "Bắt đầu Chỉ Dẫn";
 
-/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TITLE" = "Your Apps in Your Browser";
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "Bây giờ chúng tôi sẽ kết nối vào một máy chủ Psiphon để bạn bắt đầu lướt mạng.";
 
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TEXT" = "Your favorite apps have a web interface that works great in Psiphon Browser";
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "Đây là nơi bạn xem các thiết đặt và tìm trợ giúp";
 
-/* Introduction text at top of feedback form */
-"FEEDBACK_INTRODUCTION" = "Phản hồi của bạn giúp Psiphon tốt hơn!";
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "Dấu tíc xanh cho biết là Trình Duyệt Psiphon đã kết nối và sẵn sàng để bạn lướt mạng";
 
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "yyyy-MM-dd 'lúc' HH:mm:ss zzz";
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "Hãy bắt đầu!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "BỎ QUA HƯỚNG DẪN";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Thời gian học hỏi đã xong";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Thiết đặt & Trợ giúp";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Chỉ dấu Tình trạng:";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Lỗi";
 

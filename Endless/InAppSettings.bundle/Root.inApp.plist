@@ -45,19 +45,28 @@
 				<string>ar</string>
 				<string>zh-Hans</string>
 				<string>zh-Hant</string>
+				<string>am</string>
+				<string>az</string>
+				<string>be</string>
 				<string>bo</string>
 				<string>de</string>
 				<string>es</string>
 				<string>fr</string>
 				<string>hr</string>
 				<string>id</string>
+				<string>kk</string>
 				<string>km</string>
+				<string>ky</string>
+				<string>my</string>
 				<string>nb</string>
 				<string>nl</string>
 				<string>pt-PT</string>
 				<string>ru</string>
+				<string>tg</string>
 				<string>tk</string>
 				<string>tr</string>
+				<string>uk</string>
+				<string>uz</string>
 				<string>vi</string>
 			</array>
 			<key>Titles</key>
@@ -90,6 +99,18 @@
 				</dict>
 				<dict>
 					<key>Title</key>
+					<string>ኣማርኛ</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Azərbaycanca</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Беларуская</string>
+				</dict>
+				<dict>
+					<key>Title</key>
 					<string>བོད་ཡིག</string>
 				</dict>
 				<dict>
@@ -114,7 +135,19 @@
 				</dict>
 				<dict>
 					<key>Title</key>
+					<string>Қазақша</string>
+				</dict>
+				<dict>
+					<key>Title</key>
 					<string>ភាសាខ្មែរ</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Кыргызча</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>မြန်မာစာ</string>
 				</dict>
 				<dict>
 					<key>Title</key>
@@ -134,11 +167,23 @@
 				</dict>
 				<dict>
 					<key>Title</key>
+					<string>тоҷики</string>
+				</dict>
+				<dict>
+					<key>Title</key>
 					<string>Türkmençe</string>
 				</dict>
 				<dict>
 					<key>Title</key>
 					<string>Türkçe</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Українська</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>O'zbekcha</string>
 				</dict>
 				<dict>
 					<key>Title</key>

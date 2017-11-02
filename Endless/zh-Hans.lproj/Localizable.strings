@@ -1,66 +1,120 @@
-/* %ld will be replaced with the number 1 */
-"RULES_IN_USE_SINGULAR" = "正在使用 %ld 条规则";
-
-/* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "正在使用 %ld 条规则";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "Psiphon 浏览器需要访问您的相册以保存和上传图像";
-
-/* Title text on one of the on-boarding screens */
-"ONBOARDING_ACCESS_TITLE" = "进入网页";
-
 /* 'Add bookmark' dialog title */
 "ADD_BOOKMARK_TITLE" = "添加书签";
 
-/* Title above a list of rules */
-"RULES_ALL_LIST_TITLE" = "所有规则";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "页面名称（使用 URL 请保留空白）";
 
-/* Alert dialog text */
-"CLOSE_TABS_PROMPT" = "允许本页面关闭该浏览器标签？";
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "输入书签 URL 的详细信息";
 
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_ERROR_GENERIC" = "在加载图片时出现了一个错误：%@";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "网址";
 
-/* HTTP authentication alert title */
-"HTTP_AUTH_TITLE" = "需要身份验证";
-
-/* Field name for display in list */
-"CERT_BEGINS_ON" = "开始";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"SERVER_REGION_BEST" = "最佳性能";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "编辑";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
 "BOOKMARKS_TITLE" = "书签";
 
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"ONBOARDING_APP_SUBTITLE" = "BROWSE BEYOND BORDERS";
-
-/* Field name for display in list */
-"CERT_BUSCAT" = "Business Category";
-
 /* Cancel action */
 "CANCEL_ACTION" = "取消";
 
 /* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Certificate Information";
+"CERT_BEGINS_ON" = "开始于";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "业务类别";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "证书信息";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "加密";
+
+/* Field name for display in list */
+"CERT_CN" = "共同名称";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "连接信息";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "国家";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd '的' HH:mm:ss zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "扩展验证：组织";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "到期时间";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "发自";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "发给";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "区域";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "对象标识符";
+
+/* Field name for display in list */
+"CERT_ORG" = "组织";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "组织单位编号";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "有效期";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "邮政编码";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "协议";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "序列号";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "签名算法";
+
+/* Field name for display in list */
+"CERT_STATE" = "州/省";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "街道地址";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "未知组织";
+
+/* Field name for display in list */
+"CERT_VERSION" = "版本";
 
 /* Text of button on alert which will redirect the user to the settings menu */
 "CHANGE_SETTINGS_BUTTON" = "更改设置";
 
-/* Field name for display in list */
-"CERT_CIPHER" = "Cipher";
-
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Clear Cookies and Data";
-
-/* Field name for display in list */
-"CERT_CN" = "Common Name";
-
 /* Title for the 'Allow this page to close its tab?' alert */
 "CLOSE_TABS_CONFIRM" = "确认";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "允许本页面关闭其标签页？";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "转至设置";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "设置";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "服务器区域：";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
 "CONNECTION_STATUS_CONNECTED" = "已连接！";
@@ -68,146 +122,78 @@
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "CONNECTION_STATUS_CONNECTING" = "正在连接...";
 
-/* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "Connection Information";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "复制URL";
-
-/* Field name for display in list */
-"CERT_COUNTRY" = "Country";
-
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "CONNECTION_STATUS_DISCONNECTED" = "已断开连接！";
 
-/* Done action
-   Title of the button that dismisses the settings menu (InAppSettingsKit) */
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "因内部错误，赛风无法启动，请发送反馈。";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "正在连接网络...";
+
+/* Done action */
 "DONE_ACTION" = "完成";
 
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_TEXT" = "Downloading image %@. You will be notified when the download completes.";
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "更多....";
 
-/* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Downloading…";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "已取消";
 
-/* Edit button at bottom of screen in bookmarks view */
-"BOOKMARKS_EDIT_BUTTON" = "Edit";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "错误";
 
 /* Edit Bookmark dialog title */
 "EDIT_BOOKMARK_TITLE" = "编辑书签";
 
-/* 'Add Bookmark' dialog text
-   'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "Enter the details of the URL to bookmark:";
-
-/* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_ERROR" = "cuo'w";
-
-/* Image download error alert title */
-"IMAGE_DOWNLOAD_ERROR_TITLE" = "cuo'w";
-
-/* Alert dialog title when webpage has failed to load */
-"WEB_LOAD_ERROR_TEXT" = "cuo'w";
-
-/* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Error:";
-
-/* Field name for display in list */
-"CERT_EXPIRES_AFTER" = "Expires After";
-
-/* Field name for display in list */
-"CERT_EV_ORG" = "Extended Validation: Organization";
-
-/* FAQ link text */
-"FAQ_LINK_TEXT" = "常见问题与解答";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_DE" = "德国";
-
-/* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "转至设置";
-
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"ONBOARDING_BROWSING_TITLE" = "Happy Browsing!";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_HK" = "香港";
-
-/* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "总是使用HTTP'S";
-
-/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"ABOUT_PAGE_URL" = "https://psiphon.ca/zh/about.html";
-
-/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"FAQ_URL" = "https://psiphon.ca/zh/faq.html";
-
-/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"LICENSE_PAGE_URL" = "https://psiphon.ca/zh/license.html";
-
-/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"PRIVACY_POLICY_URL" = "https://psiphon.ca/zh/privacy.html";
-
-/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"FEEDBACK_FOOTER_EMAIL" = "If the above form is not working or you would like to send screenshots, please email us at %@";
-
-/* Field name for display in list */
-"CERT_ISSUED_BY" = "Issued By";
-
-/* Field name for display in list */
-"CERT_ISSUED_TO" = "Issued To";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_JP" = "Japan";
-
-/* Text above language selection box
-   Title above language box which displays the current app language and all available languages that the app is localized for */
-"LANGUAGE_SELECT_TITLE" = "Language";
-
-/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"FEEDBACK_FOOTER_DATA_COLLECTION" = "Learn more about the data we collect in our %@";
-
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_TITLE_FINAL" = "Learning time is over";
-
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_GO_BUTTON" = "Let's Go!";
-
-/* Field name for display in list */
-"CERT_LOCALITY" = "Locality";
-
 /* HTTP authentication alert log in button action */
 "HTTP_AUTH_LOG_IN" = "登录";
 
-/* Title of screen that displays logs */
-"LOGS_TITLE" = "日志";
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "密码";
 
-/* Shown when the device is not configured for sending email. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED" = "邮件未配置";
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "需要身份验证";
 
-/* No comment provided by engineer. */
-"NYALERT_TEXT" = "消息文本视图";
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "用户名";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_NL" = "Netherlands";
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Everywhere 规则";
 
-/* New browser tab title text */
-"NEW_TAB_TITLE" = "新标签页";
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "下载图片时出现错误：%@";
 
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"ONBOARDING_NEXT_BUTTON" = "Next";
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "错误：";
 
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_BODY_FINAL" = "Now we'll connect to a Psiphon server so you can start browsing.";
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "错误";
 
-/* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "Object Identifier";
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "状态代码：";
 
-/* OK action */
-"OK_ACTION" = "确定";
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "成功下载的图片 %@";
 
-/* Alert OK Button. (InAppSettingsKit) */
-"OK_BUTTON" = "确定";
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "成功！";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "正下载图片：%@。下载完成将显示通知。";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "下载中....";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "保存图像";
+
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"LANGUAGE_SELECT_TITLE" = "语言";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "复制 URL";
 
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN" = "打开";
@@ -218,167 +204,99 @@
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN_SAFARI" = "在 Safari 中打开";
 
-/* Field name for display in list */
-"CERT_ORG" = "Organization";
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "新标签页";
 
-/* Field name for display in list */
-"CERT_ORG_UNIT_NUMBER" = "Organizational Unit Number";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "消息文本视图";
 
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "Page Name (leave blank to use URL)";
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "标题标签";
 
-/* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "密码";
+/* OK action */
+"OK_ACTION" = "确定";
 
-/* Field name for display in list */
-"CERT_PERIOD_OF_VALIDITY" = "Period of Validity";
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "现在轻点指尖即可畅游互联网";
 
-/* Feedback footer text. */
-"FEEDBACK_FOOTER_DIAGNOSTIC" = "Please note that this diagnostic data does not identify you, and it helps us keep Psiphon running smoothly.";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "访问网站";
 
-/* Field name for display in list */
-"CERT_POSTAL_CODE" = "Postal Code";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "赛风浏览器";
 
-/* Privacy Policy link text */
-"PRIVACY_POLICY_LINK_TEXT" = "隐私政策";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "超越国界浏览互联网";
 
-/* Field name for display in list */
-"CERT_PROTOCOL" = "Protocol";
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "喜爱的应用只要有网站，即可使用赛风浏览器正常访问。";
 
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"ONBOARDING_APP_NAME" = "PSIPHON BROWSER";
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "浏览器下的应用";
 
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon can not start due to an internal error, please send feedback.";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "开心浏网！";
 
-/* Text explaining thumbs up choice in feedback */
-"FEEDBACK_THUMBS_UP_TEXT" = "Psiphon connects\nand performs the\nway I want it to.";
-
-/* Text explaining thumbs down choice in feedback */
-"FEEDBACK_THUMBS_DOWN_TEXT" = "Psiphon often fails\nto connect or\ndoesn't perform well\nenough.";
-
-/* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"PULL_TO_REFRESH_PAGE" = "下拉刷新页面";
-
-/* Title of alert to clear local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Remove all cookies and browsing data?";
-
-/* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "目前页面上使用的规则";
-
-/* Action title for long press on image dialog */
-"IMAGE_LONG_PRESS_SAVE" = "保存图像";
-
-/* Text of button to send feedback */
-"FEEDBACK_SEND_BUTTON" = "发送";
-
-/* Field name for display in list */
-"CERT_SERIAL_NUMBER" = "Serial Number";
-
-/* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "服务器区域：";
-
-/* Button text on connection status modal that brings the user to the app Settings */
-"CONNECTION_ALERT_SETTINGS_ACTION" = "设置";
-
-/* Title of the settings (aka preferences) view (InAppSettingsKit) */
-"SETTINGS_TITLE" = "设置";
-
-/* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Settings & Help";
-
-/* Field name for display in list */
-"CERT_SIG_ALGO" = "Signature Algorithm";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_SG" = "Singapore";
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "下一步";
 
 /* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
 "ONBOARDING_SKIP_BUTTON" = "跳过";
 
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "如需授予权限，请点击“更改设置”按钮";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "为了保存和上传图片，赛风浏览器需要访问您的相册";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "下拉刷新页面";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "所有规则";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "当前页面所用规则";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "正在使用 %ld 条规则";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "正在使用 %ld 条规则";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "是否删除所有 cookie 和浏览数据？ ";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "清除 Cookie 和数据";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "开始教程";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "现在将连接至赛风服务器，以便用户开始浏览。";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "这里是您访问“设置”并获取帮助的地方";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "绿色选中标记表示赛风浏览器已连接，您可以开始浏览了";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "开始吧！";
+
 /* Text that can be clicked to skip the tutorial */
 "TUTORIAL_SKIP_BUTTON" = "跳过教程";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_ES" = "Spain";
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "学习时间结束";
 
-/* Text of button that user presses to complete onboarding and start tutorial */
-"START_TUTORIAL_BUTTON" = "Start Tutorial";
-
-/* Field name for display in list */
-"CERT_STATE" = "State/Province";
-
-/* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Status code:";
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "设置 & 帮助";
 
 /* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "状态标识符";
+"TUTORIAL_TITLE_STATUS" = "状态指示符";
 
-/* Field name for display in list */
-"CERT_STREET_ADDR" = "Street Address";
-
-/* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Success!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Successfully downloaded image %@";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"TUTORIAL_BODY_STATUS" = "The green checkmark indicates that Psiphon Browser is connected and ready for you to start browsing";
-
-/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"ONBOARDING_ACCESS_TEXT" = "The Internet at your fingertips";
-
-/* Description for the 'Mail not configured' message. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED_DESC" = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
-
-/* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "This is where you can access settings and find help";
-
-/* No comment provided by engineer. */
-"NYALERT_TITLE" = "Title Label";
-
-/* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "To give permissions tap on 'Change Settings' button";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_GB" = "United Kingdom";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_US" = "United States";
-
-/* No comment provided by engineer. */
-"CERT_UNKNOWN_ORGANIZATION" = "未知组织";
-
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "网址";
-
-/* HTTP authentication alert user name input title */
-"HTTP_AUTH_USER_NAME" = "User Name";
-
-/* Field name for display in list */
-"CERT_VERSION" = "Version";
-
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "正在等待网络...";
-
-/* Comments section placeholder text */
-"FEEDBACK_COMMENTS_PLACEHOLDER" = "What's on your mind? Please leave us your feedback";
-
-/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"FEEDBACK_FAQ_DIRECTION" = "You can find solutions to many common problems in our %@.";
-
-/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TITLE" = "Your Apps in Your Browser";
-
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TEXT" = "Your favorite apps have a web interface that works great in Psiphon Browser";
-
-/* Introduction text at top of feedback form */
-"FEEDBACK_INTRODUCTION" = "Your feedback makes Psiphon better!";
-
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "错误";
 

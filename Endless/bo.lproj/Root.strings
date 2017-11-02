@@ -1,5 +1,11 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "སཡི་ཕོན་བལྟ་ཆས།";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "བརྡ་ཐོ།";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "འཚོལ་ཆས།";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "གསང་དོན།";
@@ -7,78 +13,75 @@
 /* Settings item text. Leads to security related options. */
 "SECURITY_SUBSETTINGS_LABEL" = "སྲུང་སྐྱོབ།";
 
-/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "འཚོལ་ཆས།";
-
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "ཟུར་ཁྲིད།";
-
-/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_SOUND_LABEL" = "སྒྲ།";
-
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "འབྲེལ་མཐུད་འཕྲུལ་ཆས་ཀྱི་གནས་བབ་བརྗེ་སྐབས་སྐད་བརྡ་བཏང་རོགས།";
-
-/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "འབེར་རྒྱབ་པ།";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "འབྲེལ་གཏུགས་ཀྱི་གནས་བབ་འགྱུར་ཚེ་འབེར་རྒྱབ།:";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "མཉེན་ཆས་ནས་ཕྱིར་ཐོན་སྐབས་རྒྱབ་ལྗོངས་ཤུལ་དང་བཅས་་པ་གཙང་མ་བཟོས།";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "མཉེན་ཆས་གཞན་ལ་ཁ་སྤོས་པའི་སྐབས་སུ་དྲྭ་ཤོག་གསར་པ། ཡིག་ཆ་གསོག་ཉར། དྲྭ་ཚིགས་ཡིག་ཆ་ཚང་མ་བསུབ་ཀྱི་རེད།";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "\"རྫེས་ཤུལ་མ་གཏོང་། (Do-Not-Track)\" རེ་སྐུལ་གཏོང་།";
 
 /* Explanatory text for the "Do Not Track" setting. */
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "དྲྭ་ཚིགས་ཁག་དང་དེ་རྒྱུད་དེ་གནས་ཚུལ་སྤྲད་མཁན་གྱི་ཚོགས་སྡེ་གསུམ་པ་ལ་ཁྱེད་རང་བརྗེད་དེད་མ་བཏང་རོགས་ལབ།";
 
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "SSL/TLS ཐོན་ཉུང་ཤོས།";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"རྫེས་ཤུལ་མ་གཏོང་། (Do-Not-Track)\" རེ་སྐུལ་གཏོང་།";
 
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS མཐུད་རྒྱབ་པ་ལ་ཐོན SSL/TLS མ་མཐའ་ཡིན་ཡང་དགོས། མཉེན་ཆས་ལ་བསྒྱུབ་བ་ཐོན་པར་བཙན་ཤུགས་ཀྱིས་སྒོ་རྒྱབ་དགོས་པའང་ཐུག་སྲིད།";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "ཡིག་ཆ་གསོག་ཉར་བྱེད་དུ་འཇུག";
-
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་ཡིག་ཆ་གསོག་ཉར་ཀྱི་རིགས་གང་འདྲ་ཞིག་བཏང་འཛིན་དང་ངོས་ལེན་བྱས་སམ།";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "རྟག་ཏུ་བཀག";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "ཡོངས་རྫོགས་བཀག";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "ད་ལྟའི་དྲྭ་ཚིགས་གཅིག་པུར་ཆོག་མཆན་ཡོད།";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས་རྣམས་ལས་ཆོག་མཆན་སྤྲད་རོགས།";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "ཆོག་མཆན་རྟག་ཏུ་ཡོད།";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "ཚང་མར་ཆོག་མཆན་ཡོད།";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "ད་ལྟའི་དྲྭ་ཚིགས་གཅིག་པུར་ཆོག་མཆན་ཡོད།";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "ཡོངས་རྫོགས་བཀག";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "ད་ལྟའི་དྲྭ་ཚིགས་ཁོ་ན།";
 
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས་རྣམས་ལས་ཆོག་མཆན་སྤྲད་རོགས།";
-
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "ངས་བལྟས་པའི་དྲྭ་ཚིགས།";
 
-/* Explanatory text on the "Allow Cookies" setting options page. */
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "ཚང་མར་ཆོག་མཆན་ཡོད།";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "ཡིག་ཆ་གསོག་ཉར་བྱེད་དུ་འཇུག";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "བལྟ་ཆས་བེད་སྤྱོད་བྱས་སྐབས་རང་གི་ཡོ་བྱད་ཀྱིས་རང་ངོས་འཛིན་ཐུབ་པ་ལ་དྲྭ་རྒྱའི་ནང་ཡིག་ཆ་གསོག་ཉར་དང་ཡིག་ཚགས་གཞན་གསོག་ཉར་བྱེད་སྲིད། ཡིག་ཆས་ཁྱེད་རང་ལ་ཞབས་ཞུ་དང་ནང་དོན་བྱེ་བྲག་པ་མཐུན་སྦྱོར་བྱེད་ཀྱི་ཡོད། དེའི་ནང་ནང་འཛུལ་གནད་ཚུལ། གདམ་ཁ། སྒེར་གྱི་མིང་དང་གློག་འཕྲིན་ཁ་བྱང་སོགས་ཀྱི་གནས་ཚུལ་རྣམས་འདིའི་ནང་དུ་ཚུད་ཡོད། སཡི་ཕོན་བལྟ་ཆས་ཀྱིས་རང་གིས་བསྔོགས་བཞིན་པའི་དྲྭ་ཚིགས་ལས་གཞན་རྣམས་ཀྱི་ཡིག་ཆ་རང་སོར་བཞག་པའི་ཐོག་ནས་གསོག་ཉར་བཀག་གི་ཡོད། རྒྱུ་མཚན་ནི་རང་གི་ཡོ་བྱད་སྒང་ལ་ཁྱབ་བསྒྲགས་འདྲ་མིན་བྱས་པའི་ཡིག་ཆ་གསོག་ཉར་རྣམས་བཀག་པའི་ཆེད་དུ་ཡིན།";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "མཉེན་ཆས་གཞན་ལ་ཁ་སྤོས་པའི་སྐབས་སུ་དྲྭ་ཤོག་གསར་པ། ཡིག་ཆ་གསོག་ཉར། དྲྭ་ཚིགས་ཡིག་ཆ་ཚང་མ་བསུབ་ཀྱི་རེད།";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "མཉེན་ཆས་ནས་ཕྱིར་ཐོན་སྐབས་རྒྱབ་ལྗོངས་ཤུལ་དང་བཅས་་པ་གཙང་མ་བཟོས།";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ཡིག་ཆ་གསོག་ཉར་དང་ས་ཁུལ་གྱི་གསོག་ཉར་ཁང་གཉིས་གཙང་མ་བཟོ་རྒྱུ་ཡིན།";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "ཡིག་ཆ་གསོག་ཉར་དང་དྲྭ་ཚིགས་ཡིག་ཚགས་གཙང་བཟོ།";
 
-/* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ཡིག་ཆ་གསོག་ཉར་དང་ས་ཁུལ་གྱི་གསོག་ཉར་ཁང་གཉིས་གཙང་མ་བཟོ་རྒྱུ་ཡིན།";
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS མཐུད་རྒྱབ་པ་ལ་ཐོན SSL/TLS མ་མཐའ་ཡིན་ཡང་དགོས། མཉེན་ཆས་ལ་བསྒྱུབ་བ་ཐོན་པར་བཙན་ཤུགས་ཀྱིས་སྒོ་རྒྱབ་དགོས་པའང་ཐུག་སྲིད།";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "SSL/TLS ཐོན་ཉུང་ཤོས།";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "འབྲེལ་མཐུད་འཕྲུལ་ཆས་ཀྱི་གནས་བབ་བརྗེ་སྐབས་སྐད་བརྡ་བཏང་རོགས།";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "སྒྲ།";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "འབྲེལ་གཏུགས་ཀྱི་གནས་བབ་འགྱུར་ཚེ་འབེར་རྒྱབ།";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "འབེར་རྒྱབ་པ།";
 

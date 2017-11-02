@@ -1,0 +1,302 @@
+/* 'Add bookmark' dialog title */
+"ADD_BOOKMARK_TITLE" = "እልባት ጨምር ";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "የገጽ ስም ( URLን ለመጠቀም ባዶ ይተውት)";
+
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "እልባት የሚደረግለትን URL ዝርዝሮች አስገባ፡-";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
+
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "አርትእ ";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "እልባቶች ";
+
+/* Cancel action */
+"CANCEL_ACTION" = "ሰርዝ";
+
+/* Field name for display in list */
+"CERT_BEGINS_ON" = "የሚጀምረው በ";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "የንግድ ምድብ ";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "የሰርትፍኬት መረጃ ";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "አመስጥር ";
+
+/* Field name for display in list */
+"CERT_CN" = "የተለመደ ስም ";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "የግንኙነት መረጃ ";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "ሀገር ";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "አመት-ወር-ቀን 'በ' ሰአት:ደቂቃ:ሰከንድ ማይክሮ ሰከንድ";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "የተራዘመ የማረጋገጥ ሂደት፡- ድርጅት";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "ከሚከተለው ጊዜ በኋላ አገልግሎቱ ያበቃል ";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "የተሰጠው በ";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "የተሰጠው ለ";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "አካባቢ ";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "የነገር መለያ";
+
+/* Field name for display in list */
+"CERT_ORG" = "ድርጅት ";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "የድርጅት ክፍል ቁጥር";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "የሚሰራበት ወቅት ";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "የፖስታ ኮድ ";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "ፕሮቶኮል ";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "ልዩ ቁጥር ";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "የፊርማ አልጎሪዝም ";
+
+/* Field name for display in list */
+"CERT_STATE" = "ግዛት/ክልል";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "አድራሻ ";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "የማይታወቅ ድርጅት ";
+
+/* Field name for display in list */
+"CERT_VERSION" = "ስሪት";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "ቅንብሮችን ለውጥ ";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "አረጋግጥ ";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "ይህ ገጽ ትሩን እንዲዘጋ ይፈቀድለት？ ";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "ወደ ቅንብሮች ሂድ ";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "ቅንብሮች";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "የአገልጋይ ክልል፡-";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "ተገናኝቷል !";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "በመገናኘት ላይ....";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "ተለያይቷል!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "ሳይፈን በውስጣዊ ስህተት የተነሳ መጀመር አይችልም፣ እባክዎ ግብረ መልስ ይላኩ። ";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "ኔትወርኩን በመጠበቅ ላይ ...";
+
+/* Done action */
+"DONE_ACTION" = "ተሰርቷል";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "ተጨማሪ...";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "ተሰርዟል ";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "ስህተት ";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "እልባት አርትእ";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "ለይተህ ግባ ";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "የይለፍ ቃል ";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "ማረጋጋጥ ያስፈልጋል ";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "የተጠቃሚ ስም ";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "የHTTPS የሁሉም ስፍራ ህጎች ";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "ምስሉን በማውረድ ሂደት ስህተት ተፈጥሯል %@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "ስህተት፡-";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "ስህተት ";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "የሁኔታ ኮድ፡-";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "ምስል %@በስኬት አውርዷል";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "ተሳክቷል!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "ምስል በማውረድ ላይ%@። የማውረድ ሂደቱ ሲጠናቀቅ ያሳውቆታል። ";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "በማውረድ ላይ…";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "ምስል አስቀምጥ ";
+
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"LANGUAGE_SELECT_TITLE" = "ቋንቋ ";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "URL ቅዳ ";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "ክፈት ";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "በአዲስ ትር ክፈት ";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "በSafari ክፈት ";
+
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "አዲስ ትር ";
+
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "የጽሁፍ መልእክት እይታ ";
+
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "የርዕስ ጽሁፍ";
+
+/* OK action */
+"OK_ACTION" = "እሺ ";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "ኢንተርኔት በእጅዎ መዳፍ ላይ ";
+
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "ድር አግኝ ";
+
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "የሳይፈን መዳሰሻ ";
+
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "ድንበር አቋርጠው ይዳስሱ ";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "የሚወዷቸው መተግበሪያዎች በሳይፈን መዳሰሻ ላይ በጥሩ ሁኔታ የሚሰራ የድር በይነገጽ አላቸው ";
+
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "የርስዎ መተግበሪያዎች በርስዎ መዳሰሻ ላይ ";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "መልካም ዳሰሳ!";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "ቀጣይ ";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "ዝለል";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "ፈቃዶችን ለመስጠት 'ቅንብሮችን ለውጥ' የሚለውን አዝራር ጠቅ ያድርጉ ";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "“የሳይፈን መዳሰሻ” ምስሎችን ለማስቀመጥ እና ለመጫን የፎቶ ላይብረሪዎን ማግኘት ያስፈልገዋል። ";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "ገጹን ለማደስ ይጎትቱ ";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "ሁሉም ህጎች ";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "በአሁኑ ገጽ ላይ በጥቅም ላይ ያሉ ህጎች ";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld ህጎች በጥቅም ላይ ";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld ህግ በጥቅም ላይ ";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "ሁሉም ኩኪዎች እና የዳሰሳ ዳታ ይወገድ?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "የኩኪዎች እና ዳታን አጽዳ ";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "ገለጻውን ጀምር";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "አሁን እርስዎ መዳሰስ እንዲችሉ ከሳይፈን አገልጋይ ጋር እንገናኛለን። ";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "ይህ ቅንብሮችን የሚያገኙበት እና እገዛ የሚያገኙት ስፍራ ነው ";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "አረንጓዴው የምርጫ ምልክት የሳይፈን መዳሰሻ እንደተገናኘ እና መዳሰስ እንዲጀምሩ ዘግጁ እንደሆነ ያሳያል";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "እንጀምር!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "ገለጻውን ዝለል";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "የመማሪያ ጊዜው አልቋል ";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "ቅንብሮች እና እገዛ ";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "የሁኔታ ጠቋሚ ";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "ስህተት ";
+

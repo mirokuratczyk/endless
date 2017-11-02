@@ -1,155 +1,57 @@
-/* %ld will be replaced with the number 1 */
-"RULES_IN_USE_SINGULAR" = "%ld regler i bruk";
-
-/* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "%ld regler i bruk";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon-nettleser\" trenger tilgang til ditt billedbibliotek for å lagre og laste opp bilder";
-
-/* Title text on one of the on-boarding screens */
-"ONBOARDING_ACCESS_TITLE" = "Få tilgang til veven";
-
 /* 'Add bookmark' dialog title */
 "ADD_BOOKMARK_TITLE" = "Legg til bokmerke";
 
-/* Title above a list of rules */
-"RULES_ALL_LIST_TITLE" = "Alle regler";
-
-/* Alert dialog text */
-"CLOSE_TABS_PROMPT" = "Tillat denne siden å lukke sin egen fane?";
-
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_ERROR_GENERIC" = "En feil inntraff under nedlasting av bildet %@";
-
-/* HTTP authentication alert title */
-"HTTP_AUTH_TITLE" = "Identitetsbekreftelse kreves";
-
-/* Field name for display in list */
-"CERT_BEGINS_ON" = "Begynner den";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"SERVER_REGION_BEST" = "Best ytelse";
-
-/* Bookmarks main dialog title
-   Bookmarks table header title */
-"BOOKMARKS_TITLE" = "Bokmerker";
-
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"ONBOARDING_APP_SUBTITLE" = "SURF FORBI GRENSER";
-
-/* Field name for display in list */
-"CERT_BUSCAT" = "Firmakategori";
-
-/* Cancel action */
-"CANCEL_ACTION" = "Avbryt";
-
-/* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Sertifikatsinformasjon";
-
-/* Text of button on alert which will redirect the user to the settings menu */
-"CHANGE_SETTINGS_BUTTON" = "Endre innstillinger";
-
-/* Field name for display in list */
-"CERT_CIPHER" = "Krypteringsmetode";
-
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Fjern informasjonskapsler og data";
-
-/* Field name for display in list */
-"CERT_CN" = "Vanlig navn";
-
-/* Title for the 'Allow this page to close its tab?' alert */
-"CLOSE_TABS_CONFIRM" = "Bekreft";
-
-/* Connection status initial splash modal dialog title for 'Connected' state */
-"CONNECTION_STATUS_CONNECTED" = "Tilkoblet!";
-
-/* Connection status initial splash modal dialog title for 'Connecting...' state */
-"CONNECTION_STATUS_CONNECTING" = "Kobler til…";
-
-/* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "Tilkoblingsinformasjon";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "Kopier nettadresse";
-
-/* Field name for display in list */
-"CERT_COUNTRY" = "Land";
-
-/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_DISCONNECTED" = "Frakoblet!";
-
-/* Done action
-   Title of the button that dismisses the settings menu (InAppSettingsKit) */
-"DONE_ACTION" = "Ferdig";
-
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_TEXT" = "Laster ned bildet %@. Du vil få beskjed når det er fullført.";
-
-/* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Laster ned…";
-
-/* Edit button at bottom of screen in bookmarks view */
-"BOOKMARKS_EDIT_BUTTON" = "Rediger";
-
-/* Edit Bookmark dialog title */
-"EDIT_BOOKMARK_TITLE" = "Rediger bokmerke";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Sidenavn (la stå tomt for å bruke nettadresse)";
 
 /* 'Add Bookmark' dialog text
    'Edit Bookmark' dialog text */
 "ADD_EDIT_BOOKMARK_TEXT" = "Skriv detaljer for nettadressen tilhørende bokmerket:";
 
-/* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_ERROR" = "Feil";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "Nettadresse";
 
-/* Image download error alert title */
-"IMAGE_DOWNLOAD_ERROR_TITLE" = "Feil";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Rediger";
 
-/* Alert dialog title when webpage has failed to load */
-"WEB_LOAD_ERROR_TEXT" = "Feil";
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "Bokmerker";
 
-/* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Feil:";
+/* Cancel action */
+"CANCEL_ACTION" = "Avbryt";
 
 /* Field name for display in list */
-"CERT_EXPIRES_AFTER" = "Utløper etter";
+"CERT_BEGINS_ON" = "Begynner den";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "Firmakategori";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Sertifikatsinformasjon";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Krypteringsmetode";
+
+/* Field name for display in list */
+"CERT_CN" = "Vanlig navn";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "Tilkoblingsinformasjon";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "Land";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "dd-MM-yyyy 'klokka' HH:mm:ss zzz";
 
 /* Field name for display in list */
 "CERT_EV_ORG" = "Forlenget gyldighet: Organisasjon";
 
-/* FAQ link text */
-"FAQ_LINK_TEXT" = "Ofte Stilte Spørsmål";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_DE" = "Tyskland";
-
-/* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "Gå til innstillinger";
-
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"ONBOARDING_BROWSING_TITLE" = "Til lykke med surfingen!";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_HK" = "Hongkong";
-
-/* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS-everywhere eier";
-
-/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"ABOUT_PAGE_URL" = "https://psiphon.ca/nb/about.html";
-
-/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"FAQ_URL" = "https://psiphon.ca/nb/faq.html";
-
-/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"LICENSE_PAGE_URL" = "https://psiphon.ca/nb/license.html";
-
-/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"PRIVACY_POLICY_URL" = "https://psiphon.ca/nb/privacy.html";
-
-/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"FEEDBACK_FOOTER_EMAIL" = "Hvis skjemaet ovenfor ikke virker eller du ønsker å sende oss skjermbilder, send e-post til %@";
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Utløper etter";
 
 /* Field name for display in list */
 "CERT_ISSUED_BY" = "Utstedt av";
@@ -157,57 +59,141 @@
 /* Field name for display in list */
 "CERT_ISSUED_TO" = "Utstedt til";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_JP" = "Japan";
+/* Field name for display in list */
+"CERT_LOCALITY" = "Lokasjon";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Objektidentifikator";
+
+/* Field name for display in list */
+"CERT_ORG" = "Organisasjon";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Organisasjonsenhetsnummer";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "Gyldighetsperiode";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Postkode";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Protokoll";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Serienummer";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "Signaturalgoritme";
+
+/* Field name for display in list */
+"CERT_STATE" = "Fylke/provins";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Gateadresse";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Ukjent organisasjon";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Versjon";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "Endre innstillinger";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "Bekreft";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Tillat denne siden å lukke sin egen fane?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Gå til innstillinger";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Innstillinger";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Tjenerregion:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "Tilkoblet!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "Kobler til…";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "Frakoblet!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon kan ikke starte opp som følge av en intern feil, send tilbakemelding.";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Venter på nettverk…";
+
+/* Done action */
+"DONE_ACTION" = "Ferdig";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "Mer…";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Kansellert";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Feil";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "Rediger bokmerke";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Logg inn";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Passord";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Identitetsbekreftelse kreves";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "Brukernavn";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS-everywhere eier";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "En feil inntraff under nedlasting av bildet %@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Feil:";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Feil";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Statuskode:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Bilde lastet ned %@";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Vellykket!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Laster ned bildet %@. Du vil få beskjed når det er fullført.";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Laster ned…";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Lagre bilde";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
 "LANGUAGE_SELECT_TITLE" = "Språk";
 
-/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"FEEDBACK_FOOTER_DATA_COLLECTION" = "Lær mer om hvilken data vi samler inn i vår %@";
-
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_TITLE_FINAL" = "Læringstiden er over";
-
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_GO_BUTTON" = "La oss komme igang!";
-
-/* Field name for display in list */
-"CERT_LOCALITY" = "Lokasjon";
-
-/* HTTP authentication alert log in button action */
-"HTTP_AUTH_LOG_IN" = "Logg inn";
-
-/* Title of screen that displays logs */
-"LOGS_TITLE" = "Loggføring";
-
-/* Shown when the device is not configured for sending email. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED" = "E-post ikke oppsatt";
-
-/* No comment provided by engineer. */
-"NYALERT_TEXT" = "Meldingstekstvisning";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_NL" = "Holland";
-
-/* New browser tab title text */
-"NEW_TAB_TITLE" = "Ny fane";
-
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"ONBOARDING_NEXT_BUTTON" = "Neste";
-
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_BODY_FINAL" = "Vi vil nå koble til Psiphon-tjeneren slik at du kan starte å surfe.";
-
-/* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "Objektidentifikator";
-
-/* OK action */
-"OK_ACTION" = "OK";
-
-/* Alert OK Button. (InAppSettingsKit) */
-"OK_BUTTON" = "OK";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "Kopier nettadresse";
 
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN" = "Åpne";
@@ -218,167 +204,99 @@
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN_SAFARI" = "Åpne i Safari";
 
-/* Field name for display in list */
-"CERT_ORG" = "Organisasjon";
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "Ny fane";
 
-/* Field name for display in list */
-"CERT_ORG_UNIT_NUMBER" = "Organisasjonsenhetsnummer";
-
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "Sidenavn (la stå tomt for å bruke nettadresse)";
-
-/* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "Passord";
-
-/* Field name for display in list */
-"CERT_PERIOD_OF_VALIDITY" = "Gyldighetsperiode";
-
-/* Feedback footer text. */
-"FEEDBACK_FOOTER_DIAGNOSTIC" = "Merk at denne diagnostikk-dataen ikke identifiserer deg, og det hjelper Psiphon med å kjøre uten hakking.";
-
-/* Field name for display in list */
-"CERT_POSTAL_CODE" = "Postkode";
-
-/* Privacy Policy link text */
-"PRIVACY_POLICY_LINK_TEXT" = "Personverns-praksis";
-
-/* Field name for display in list */
-"CERT_PROTOCOL" = "Protokoll";
-
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"ONBOARDING_APP_NAME" = "PSIPHON-NETTLESER";
-
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon kan ikke starte opp som følge av en intern feil, send tilbakemelding.";
-
-/* Text explaining thumbs up choice in feedback */
-"FEEDBACK_THUMBS_UP_TEXT" = "Psiphon kobler til\nog fungerer\nslik jeg ønsker.";
-
-/* Text explaining thumbs down choice in feedback */
-"FEEDBACK_THUMBS_DOWN_TEXT" = "Psiphon klarer ofte ikke\nå koble til\neller fungerer ikke bra\nnok.";
-
-/* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"PULL_TO_REFRESH_PAGE" = "Innhent for å gjenoppfriske side";
-
-/* Title of alert to clear local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Fjern alle informasjonskapsler og nettleserhistorikk?";
-
-/* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "Regler i bruk på gjeldende side";
-
-/* Action title for long press on image dialog */
-"IMAGE_LONG_PRESS_SAVE" = "Lagre bilde";
-
-/* Text of button to send feedback */
-"FEEDBACK_SEND_BUTTON" = "Send";
-
-/* Field name for display in list */
-"CERT_SERIAL_NUMBER" = "Serienummer";
-
-/* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "Tjenerregion:";
-
-/* Button text on connection status modal that brings the user to the app Settings */
-"CONNECTION_ALERT_SETTINGS_ACTION" = "Innstillinger";
-
-/* Title of the settings (aka preferences) view (InAppSettingsKit) */
-"SETTINGS_TITLE" = "Innstillinger";
-
-/* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Innstillinger og hjelp";
-
-/* Field name for display in list */
-"CERT_SIG_ALGO" = "Signaturalgoritme";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_SG" = "Singapore";
-
-/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"ONBOARDING_SKIP_BUTTON" = "HOPP OVER";
-
-/* Text that can be clicked to skip the tutorial */
-"TUTORIAL_SKIP_BUTTON" = "HOPP OVER VEIVISNING";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_ES" = "Spania";
-
-/* Text of button that user presses to complete onboarding and start tutorial */
-"START_TUTORIAL_BUTTON" = "Start veiviser";
-
-/* Field name for display in list */
-"CERT_STATE" = "Fylke/provins";
-
-/* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Statuskode:";
-
-/* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "Statusindikator";
-
-/* Field name for display in list */
-"CERT_STREET_ADDR" = "Gateadresse";
-
-/* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Vellykket!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Bilde lastet ned %@";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"TUTORIAL_BODY_STATUS" = "Den grønne avhukningen indikerer at Psiphon-nettleseren er tilkoblet og klar til at du skal starte å surfe";
-
-/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"ONBOARDING_ACCESS_TEXT" = "Internett, for eget grep";
-
-/* Description for the 'Mail not configured' message. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED_DESC" = "Denne enheten er ikke oppsatt til forsendelse av E-post. Sett opp e-postinnstillingene i innstillingsprogrammet.";
-
-/* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "Her har du tilgang til innstillinger og hjelp";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Meldingstekstvisning";
 
 /* No comment provided by engineer. */
 "NYALERT_TITLE" = "Tittel-merkelapp";
 
-/* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "For å gi tilganger, trykk på 'Endre innstillinger'";
+/* OK action */
+"OK_ACTION" = "OK";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_GB" = "Storbritannia";
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "Internett, for eget grep";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_US" = "Amerikas forente stater";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Få tilgang til veven";
 
-/* No comment provided by engineer. */
-"CERT_UNKNOWN_ORGANIZATION" = "Ukjent organisasjon";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "PSIPHON-NETTLESER";
 
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "Nettadresse";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "SURF FORBI GRENSER";
 
-/* HTTP authentication alert user name input title */
-"HTTP_AUTH_USER_NAME" = "Brukernavn";
-
-/* Field name for display in list */
-"CERT_VERSION" = "Versjon";
-
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "Venter på nettverk…";
-
-/* Comments section placeholder text */
-"FEEDBACK_COMMENTS_PLACEHOLDER" = "Hva tenker du? Send oss din tilbakemelding";
-
-/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"FEEDBACK_FAQ_DIRECTION" = "Her finner du løsninger på mange vanlige problemer i vår %@.";
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "Dine favorittprogrammer har nettgrensesnitt som fungerer flott i Psiphon-nettleseren";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
 "ONBOARDING_APPS_TITLE" = "Dine programmer i din nettleser";
 
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TEXT" = "Dine favorittprogrammer har nettgrensesnitt som fungerer flott i Psiphon-nettleseren";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Til lykke med surfingen!";
 
-/* Introduction text at top of feedback form */
-"FEEDBACK_INTRODUCTION" = "Dine tilbakemeldinger gjør Psiphon bedre.";
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Neste";
 
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "dd-MM-yyyy 'klokka' HH:mm:ss zzz";
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "HOPP OVER";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "For å gi tilganger, trykk på 'Endre innstillinger'";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon-nettleser\" trenger tilgang til ditt billedbibliotek for å lagre og laste opp bilder";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "Innhent for å gjenoppfriske side";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "Alle regler";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Regler i bruk på gjeldende side";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld regler i bruk";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld regler i bruk";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Fjern alle informasjonskapsler og nettleserhistorikk?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Fjern informasjonskapsler og data";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "Start veiviser";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "Vi vil nå koble til Psiphon-tjeneren slik at du kan starte å surfe.";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "Her har du tilgang til innstillinger og hjelp";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "Den grønne avhukningen indikerer at Psiphon-nettleseren er tilkoblet og klar til at du skal starte å surfe";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "La oss komme igang!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "HOPP OVER VEIVISNING";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Læringstiden er over";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Innstillinger og hjelp";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Statusindikator";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Feil";
 

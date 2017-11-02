@@ -1,0 +1,302 @@
+/* 'Add bookmark' dialog title */
+"ADD_BOOKMARK_TITLE" = "စာမျက်နှာမှတ်သားချက်ထည့်ရန်";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "စာမျက်နှာအမည် (URL အသုံးပြုရန်အတွက် ကွက်လပ်ချန်ပါ)";
+
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "URL ၏အသေးစိတ်ကို စာမျက်နှာမှတ်သားမှုထဲတွင်ထည့်ရန်";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
+
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "တည္းျဖတ္ပါ။";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "အင္တာနက္စာမ်က္ႏွာမ်ား မွတ္သားထားရန္";
+
+/* Cancel action */
+"CANCEL_ACTION" = "ရပ်ဆိုင်းရန်";
+
+/* Field name for display in list */
+"CERT_BEGINS_ON" = "တွင် စရန်";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "စီးပွါးရေး အမျိုးအစား";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "အသိအမှတ်ပြုမှုဆိုင်ရာသတင်းအချက်အလက်";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "လျှို့ဝှက်စာ";
+
+/* Field name for display in list */
+"CERT_CN" = "အသုံးများသောအမည်";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "ချိတ်ဆက်မှုဆိုင်ရာသတင်းအချက်အလက်";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "နိုင်ငံ";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "တိုးချဲ့အတည်ပြုမှု : အဖွဲ့အစည်း";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "နောက်ပိုင်းဆက်လက်အသုံးမပြုနိုင်ပါ";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "မှထုတ်ပြန်သည်";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "အတွက်ထုတ်ပြန်သည်";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "နေရာဒေသ";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "အရာဝတ္ထု ခွဲခြားဖော်ပြမှု";
+
+/* Field name for display in list */
+"CERT_ORG" = "အဖွဲ့အစည်း";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "အဖွဲ့အစည်းဆိုင်ရာယူနစ်နံပါတ်";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "ဆီလျော်မှုအတွက်ကာလအပိုင်းအခြား";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "စာတိုက်လိပ်စာအမှတ်";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "လုပ်ထုံးလုပ်နည်း";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "အစီစဥ်လိုက်ကဏန်း";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "ကွန်ပြူတာမှတွက်ချက်ဖြေရှင်းမှုသင်္ကေတ";
+
+/* Field name for display in list */
+"CERT_STATE" = "ပြည်နယ်/နယ်";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "လမ်းလိပ်စာ";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "အမည်မသိအဖွဲ့အစည်း";
+
+/* Field name for display in list */
+"CERT_VERSION" = "မူကွဲ";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "အပြင်အဆင်များပြောင်းလဲရန်";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "အတည်ပြုရန်";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "ဤစာမျက်နှာ၏ tab ကိုပိတ်ခွင့်ပြုပါသလား။";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "အပြင်အဆင်များကိုသွားရန်";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "အပြင်အဆင်များ";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "ဆာဗာရှိရာဒေသ:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "ချိတ်ဆက်ပြီးပါပြီ";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "ချိတ်ဆက်နေပါသည်";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "ချိတ်ဆက်မှုဖြတ်တောက်ပြီးပါပြီ";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "အတွင်းပိုင်းပြဿနာတစ်ခုကြောင့် Psiphon ကိုမစတင်နိုင်ပါ၊ ကျေးဇူးပြု၍ သင်၏ အကြံပြုတုံ့ပြန်ချက် ပေးပို့ပါ။";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "ကွန်ယက်ချိတ်ဆက်နိုင်ရန်အတွက်စောင့်နေပါသည်...";
+
+/* Done action */
+"DONE_ACTION" = "ပြီးပါပြီ";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "နောက်ထပ်...";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "ရပ်ဆိုင်းပြီးပါပြီ";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "မှားယွင်းမှု";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "စာမျက်နှာမှတ်သားချက်ကို တည်းဖြတ်ရန်";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "ဝင်ရောက်ရန်";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "စကားဝှက် ";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "အတည်ပြုသတ်မှတ်ချက်လိုအပ်ပါသည်";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "အသုံးပြုသူအမည်";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "နေရာတိုင်းတွင် HTTPS ထည့်သွင်းခြင်း စည်းမျဥ်းများ";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "%@ရုပ်ပုံကို ဒေါင်းလုပ်လုပ်ရန်အတွက် ပြဿနာတက်နေပါသည်။";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "မှားယွင်းမှု";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "မှားယွင်းမှု";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "အခြေအနေပြကုတ်:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "%@ရုပ်ပုံကိုအောင်မြင်စွာဒေါင်းလုပ်လုပ် ရယူပြီးပါပြီ။";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "အောင်မြင်ပါသည်။";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "%@ ပုံကို ဒေါင်းလုပ်လုပ်နေပါသည်။ ဒေါင်းလုပ်ပြီးသွားသည့်အချိန်တွင် သင့်ကို အချက်ပြပါလိမ့်မည်။";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "ဒေါင်းလုပ်လုပ်နေပါသည် ...";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "ရုပ်ပုံသိမ်းဆည်းရန်";
+
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"LANGUAGE_SELECT_TITLE" = "ဘာသာစကား";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "URL ကူးရန်";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "ဖြင့္ပါ။";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "စာမျက်နှာအသစ်တွင်ဖွင့်ရန်";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "Safari တွင်ဖွင့်ရန်";
+
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "စာမျက်နှာအသစ်";
+
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "သတင်းမက်ဆေ့၏စာသားကို ကြည့်ရှုရန်";
+
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "တံဆိပ်ခေါင်းစဥ်";
+
+/* OK action */
+"OK_ACTION" = "အိုခေ";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "သင့်လက်ဝယ်က အင်တာနက်";
+
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Web သို့ဝင်ရောက်ရန်";
+
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "PSIPHON ဘရောက်ဇာ";
+
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "နယ်စည်းမျဥ်းများကိုကျော်လွန်၍ ကြည့်ရှုလေ့လာရန်";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "သင်အကြိုက်ဆုံး apps တွင် Psiphon ဘရောက်ဇာနှင့် အကောင်းမွန်ဆုံးလုပ်ဆောင်နိုင်ရန်အတွက် web interface ပါရှိပါသည်။";
+
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "သင်၏ဘရောက်ဇာတွင်းတွင်ရှိသော App များ";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "ပျော်ရွှင်စွာဝင်ရောက်ကြည့်ရှုလေ့လာပါ။";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "ရှေ့ဆက်ရန်";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "ကျော်ရန်";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "'အပြင်အဆင်များပြောင်းလဲရန်' ခလုတ်ကိုနှိပ်နိုင်ရန်အတွက် ခွင့်ပြုချက်ပေးရန်။";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"Psiphon ဘရောက်ဇာ\" သည် ဓာတ်ပုံများကို သိမ်းရန်နှင့် တင်ရန်အတွက် သင်၏ ဓာတ်ပုံများသိမ်းဆည်းထားသည့်နေရာကို ဝင်ရောက်ခွင့်ရှိရန်လိုအပ်သည်။ ";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "စာမျက်နှာကို ပြန်လည်စတင်အတွက် ဆွဲချပါ။";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "စည်းမျဥ်းများအားလုံး";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "လက်ရှိစာမျက်နှာတွင် အသုံးပြုလျက်ရှိသော စည်းမျဥ်းများ";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld စည်းမျဥ်းများကိုအသုံးပြုနေသေးသည်";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld စည်းမျဥ်းကိုအသုံးပြုနေသေးသည်";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "ကွတ်ကီးများနှင့် ဝင်ရောက်ကြည့်ရှုထားသော အချက်အလက်များအားလုံးရှင်းလင်းလိုပါသလား။";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "ကွတ်ကီးများနှင့် အချက်အလက်များရှင်းလင်းရန်";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "လမ်းညွှန်သင်ကြားပြသပေးမှုကိုစရန်";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "သင် အင်တာနက်တွင် ဝင်ရောက်ကြည့်ရှုနိုင်ရန်အတွက် Psiphon ဆာဗာနှင့် ကျွနု်ပ်တို့ ယခုချိတ်ဆက်ပါမည်။";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "ဤနေရာတွင် အပြင်အဆင်များနှင့် အကူအညီများရယူနိုင်ပါသည်။";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "အစိမ်းရောင်အမှန်ခြစ်အမှတ်အသားသည် Psiphon ဘရောက်ဇာနှင့် ချိတ်ဆက်ပြီးဖြစ်၍ သင်အနေဖြင့်စတင်ဝင်ရောက်ကြည့်ရှုနိုင်ရန်အတွက်အဆင်သင့်ဖြစ်ပါပြီဟု ဖော်ပြခြင်းဖြစ်သည်။";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "သွားကြစို့။";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "လမ်းညွှန်သင်ကြားပြသပေးမှုကိုကျော်ရန်";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "လေ့လာရန်အချိန်ကုန်သွားပါပြီ";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "အပြင်အဆင်များနှင့် အကူအညီ";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "အခြေအနေဖော်ပြမှု";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "မှားယွင်းမှု";
+

@@ -1,0 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Psiphon Browser";
+
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "Огоҳиҳо";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "Муҳаррики ҷустуҷӯ";
+
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "Махфият";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "Амният";
+
+/* Settings item text. Opens app tutorial. Should be kept short. */
+"SETTINGS_TUTORIAL" = "Дастурамал";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Аз сайтҳо ва таҳвилгарони берунии муҳтавои онҳо хоҳиш карда мешавад, ки шуморо пайгирӣ накунанд.";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "Дархостҳои “Пайгирӣ накардан” фиристодан";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Навъҳои Cookie-ҳоеро интихоб кунед, ки Psiphon Browser истифодаашонро иҷозат медиҳад.";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Ҳамеша мамнуъ кардан";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Танҳо аз вебсайтҳои ҷорӣ иҷозат додан";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Аз вебсайтҳои мекушодаам иҷозат додан";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Ҳамеша иҷозат додан";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Ҳамаро мамнуъ кардан";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Танҳо вебсайтҳои ҷорӣ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Вебсайтҳои мекушодаам";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Ҳамаро иҷозат додан";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Cookie-ҳоро иҷозат додан";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Вебсайтҳо метавонанд дар дастгоҳи шумо cookie ва иттилооти дигарро барои шуморо ҳангоми интернетро истифода бурдан муайян кардан нигоҳ доранд. Ин иттилоот одатан барои таъмини хизматрасониҳо ва муҳтавои махсусан барои шумо мувофиқ истифода бурда мешавад. тОн метавонад маълумоти воридшавӣ, танзимот ва маълумоти шахсии аз қабили ном ё суроғаи почтаи электронии шуморо дар бар гирад. Барои таблиғотчиҳоро аз нигоҳ доштани иттилооти худ дар дастгоҳи шумо пешгирӣ кардан, Psiphon Browser ба таври худкор cookie-ҳои сайтҳои ғайр аз сайтҳои мекушодаатонро (cookie-ҳои тарафҳои сеюм) мамнуъ мекунад.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Ҳамаи варақаҳо, кукиҳо ва иттилооти вебсайтҳо ҳангоми ба барномаи дигар гузаштан тоза карда мешаванд.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "Ҳангоми ба пасзамина фиристода шудан ҳамаро тоза кардан";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookie-ҳо ва захирагоҳи маҳаллӣ тоза карда мешаванд.";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Кукиҳо ва иттилооти вебсайтҳоро тоза кардан";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Версияи ҳадди ақали SSL/TLS, ки барои пайвастҳои HTTPS талаб карда мешавад; барои ҷорӣ шудани ин имкон, маҷбуран пӯшидани барнома метавонад лозим бошад.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "Версияи ҳадди ақали SSL/TLS";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Вақте ки ҳолати пайваст иваз мешавад, садо пахш карда мешавад";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "Садо";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Вақте ки ҳолати пайваст иваз мешавад, ларзиш дода мешавад";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "Ларзиш";
+
