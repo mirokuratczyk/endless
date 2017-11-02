@@ -374,7 +374,7 @@
 
 // MARK: TunneledAppDelegate protocol implementation
 
-- (NSString *) getPsiphonConfig {
+- (NSString *)getPsiphonConfig {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 
 	NSString *bundledConfigPath = [[[ NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psiphon_config"];
@@ -399,7 +399,16 @@
 	mutableConfigCopy[@"EgressRegion"] = selectedRegionCode;
 
 	NSString *upstreamProxyUrl = [[UpstreamProxySettings sharedInstance] getUpstreamProxyUrl];
-	mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
+	if ([upstreamProxyUrl length] > 0) {
+		mutableConfigCopy[@"UpstreamProxyUrl"] = upstreamProxyUrl;
+	}
+
+	if ([[UpstreamProxySettings sharedInstance] getUseCustomHeaders]) {
+		NSDictionary *customHeaders = [[UpstreamProxySettings sharedInstance] getUpstreamProxyCustomHeaders];
+		if ([customHeaders count] > 0) {
+			mutableConfigCopy[@"CustomHeaders"] = customHeaders;
+		}
+	}
 
 	BOOL disableTimeouts = [[NSUserDefaults standardUserDefaults] boolForKey:kDisableTimeouts];
 	if (disableTimeouts) {
