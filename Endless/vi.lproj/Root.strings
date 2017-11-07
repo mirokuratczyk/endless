@@ -1,5 +1,11 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Trình Duyệt Psiphon";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Thông báo";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "Công cụ tìm kiếm";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "Riêng tư";
@@ -7,78 +13,75 @@
 /* Settings item text. Leads to security related options. */
 "SECURITY_SUBSETTINGS_LABEL" = "Bảo mật";
 
-/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "Công cụ tìm kiếm";
-
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "Chỉ dẫn";
-
-/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_SOUND_LABEL" = "Âm thanh";
-
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "Phát âm thanh khi tình trạng kết nối thay đổi";
-
-/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "Rung";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Rung khi tình trạng kết nối thay đổi";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "Xóa hết khi chạy phía sau";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Tất cả các bảng, cookies, và dữ liệu trang web sẽ được dọn sạch khi đổi sang một ứng dụng khác.";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "Gửi yêu cầu \"Không-Theo-Dõi\"";
 
 /* Explanatory text for the "Do Not Track" setting. */
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Yêu cầu các trang và các nơi cung cấp nội dung bên thứ ba không theo dõi bạn.";
 
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "Phiên bản SSL/TLS tối thiểu";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "Gửi yêu cầu \"Không-Theo-Dõi\"";
 
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Phiên bản SSL/TLS tối thiểu cần có cho kết nối HTTPS; có thể cần phải buộc đóng ứng dụng lại để có hiệu lực.";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Cho phép Cookies";
-
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Quản lý các loại cookies nào Trình Duyệt Psiphon cho phép.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Luôn luôn Chặn";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Chặn Tất Cả";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Cho phép chỉ từ Trang Web Hiện Tại";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Cho phép từ các Trang web Tôi Xem";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Luôn luôn Cho phép";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Chặn Tất Cả";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Chỉ Trang Web Hiện Tại";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Các trang web tôi xem";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Cho phép Tất Cả";
 
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Cho phép chỉ từ Trang Web Hiện Thời";
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Cho phép Cookies";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Chỉ Trang Web Hiện Thời ";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Cho phép từ các Trang web Tôi Xem";
-
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Cá trang web tôi xem";
-
-/* Explanatory text on the "Allow Cookies" setting options page. */
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Trang web có thể lưu cookies và những dữ liệu khác trong máy bạn để nhận diện bạn khi lướt mạng. Dữ liệu này được dùng để cung cấp dịch vụ và nội dung đặc thù cho bạn. Có thể bao gồm thông tin đăng nhập, chọn lựa, và thông tin cá nhân như tên và địa chỉ email. Trình duyệt Psiphon mặc định chặn các cookies từ các trang khác với trang bạn đang xem (cookies bên thứ ba) để ngăn chặn các nhà quảng cáo lưu giữ dữ liệu trên máy tính của bạn.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Tất cả các bảng, cookies, và dữ liệu trang web sẽ được dọn sạch khi đổi sang một ứng dụng khác.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "Xóa hết khi chạy ẩn đằng sau";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies và kho chứa địa phương sẽ được dọn sạch.";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "Làm sạch các cookies và dữ liệu trang web";
 
-/* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies và kho chứa địa phương sẽ được dọn sạch.";
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Phiên bản SSL/TLS tối thiểu cần có cho kết nối HTTPS; có thể cần phải buộc đóng ứng dụng lại để có hiệu lực.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "Phiên bản SSL/TLS tối thiểu";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Phát âm thanh khi tình trạng kết nối thay đổi";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "Âm thanh";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Rung khi tình trạng kết nối thay đổi";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "Rung";
 

@@ -1,0 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "የሳይፈን መዳሰሻ ";
+
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "ማስታወቂያዎች ";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "የመፈለጊያ ማሽን ";
+
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "ግላዊነት";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "ደህንነት ";
+
+/* Settings item text. Opens app tutorial. Should be kept short. */
+"SETTINGS_TUTORIAL" = "የመጀመሪያ ገለጻ ";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "ድረ ገጾች እና ሶስተኛ ወገን ይዘት አቅራቢዎች እንዳይከተሉዎት ጥያቄ ያቅርቡ። ";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "“አትከተለኝ” የሚል ጥያቄ ላክ ";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "የሳይፈን መዳሰሻ ምን አይነት ኩኪዎችን እንደሚፈቅድ አስተዳድር። ";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "ሁልጊዜ አግድ ";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "ከአሁን ድረ ገጽ ላይ ብቻ ፍቀድ ";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ከምጎበኛቸው ድረ ገጾች ላይ ፍቀድ ";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "ሁልጊዜ ፍቀድ ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "ሁሉንም አግድ ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "የአሁን ድረ ገጽ ብቻ ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "የምጎበኛቸው ድረ ገጾች ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "ሁሉንም ፍቀድ ";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "ኩኪዎች ፍቀድ ";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "ድርን በሚዳስሱበት ወቅት ድረ ገጾች  እርስዎን ለመለየት የሚጠቅማቸውን ኩኪዎችን እና ሌሎች ዳታዎችን በመሳሪያዎ ላይ ሊያስቀምጡ ይችላሉ። ይህ ዳታ አብዛኛውን ጊዜ ይዘትን እና አገልግሎትን ለእርስዎ በተለየ መልኩ ለማቅረብ ጥቅም ላይ ይውላል። ይህም የመግቢያ መራጃዎን፣ ምርጫዎችዎን እና እንደ ስሞ እና የኢሜል አድራሻዎ ያሉ የግል መረጃዎን ሊጨምር ይችላል።  የሳይፈን መዳሰሻ አስተዋዋቂዎች ዳታን በእርሶ መሳሪያ ላይ እንዳይጭኑ ለመከላከል ከሚጎበኙት ድረ ገጽ ውጭ የሚመጡ ኩኪዎችን  (የሶስተኛ ወገን ኩኪዎችን) በነባሪው ይከለክላል።  ";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "ሁሉም  ትሮች፣ ኩኪዎች እና የድረ ገጽ ዳታዎች ወደ ሌላ መተግበሪያ ሲዘዋወሩ ይጸዳሉ። ";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "ከጀርባ በሚሆንበት ወቅት ሁሉንም አጽዳ ";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ኩኪዎች እና የአካባቢ ማጠራቀሚያዎች ይጸዳሉ። ";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "የኩኪዎች እና የድረ ገጽ ዳታን አጽዳ ";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = " ለHTTPS ግንኝነቶች ትንሹ የSSL/TLS ስሪት ያስፈልጋል፤ ተግባራዊ ለማድረግ መተግበሪያውን አስገድዶ መዝጋት ሊያስፈልግ ይችላል። ";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "ትንሹ SSL/TLS ስሪት ";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "የግንኝነት ደረጃ ለውጥ ሲኖር ድምጽ አሰማ ";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "ድምጽ";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "የግንኝነት ደረጃ ሲለወጥ ንዘር ";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "ንዘር ";
+

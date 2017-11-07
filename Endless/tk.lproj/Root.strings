@@ -1,5 +1,11 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Psiphon Brauzeri";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Duýduryş";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "Gözleg ulgamy";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "Gizlinlik";
@@ -7,78 +13,75 @@
 /* Settings item text. Leads to security related options. */
 "SECURITY_SUBSETTINGS_LABEL" = "Gorag";
 
-/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "Gözleg ulgamy";
-
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "Gollanma";
-
-/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_SOUND_LABEL" = "Ses";
-
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "Birikme statusy üýtgän halatynda ses çykar";
-
-/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "Titremek";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Birikmäniň  statusy üýtgände titre";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "\"Backgrounded\" halynda hemmesini arassala";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Başga programma geçilende, ähli äpişgeçikler, kökejikler we web saýt yazgylary pozular.";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "\"Yzarlama\" islegini ugrat";
 
 /* Explanatory text for the "Do Not Track" setting. */
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Saýtlardan we üpjünedijilerden seni yzarlamazlygy talap et.";
 
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "Iň az MSSL/TLS Wersiýasy";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"Yzarlama\" islegini ugrat";
 
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS birikmegi üçin iň az MSSL/TLS wersiýasy zerur;programanyň kadaly işlemegi üçin, öçürip yakmagy talap eder.";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Kökejiklere Rugsat ber";
-
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Psiphonyň kabul edip biljek kökejikleri düzet";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Hemmişe Gaba";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Hemmesi Gaba";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Diňe şuwagtky Websaýta rugsat ber";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Meniň girýän Websaýtlaryma rugsat ber";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Hemmişe Rugsat ber";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Hemmesine Rugsat ber";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Diňe şuwagtky Websaýta rugsat ber";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Hemmesini Gaba";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Diňe şuwagtky Websaýt";
 
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Meniň girýän Websaýtlaryma rugsat ber";
-
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Girýän Websaýtlarym";
 
-/* Explanatory text on the "Allow Cookies" setting options page. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Sizi tanamak üçin websaýtlar \"cookies\" we başga maglumatlary siziň enjamyňyzda  saklap biler. Bu maglumatlar siz üçin ýöriteşdirilen hyzmatlary we mazmunlary üpjün eder. Ulanyjy maglumatlary, saýlawlary we şahsy maglumatlary ýagny siziň adyňyz we emailiňizi öz içine alar. Psiphon Bruzeri siziň girýän saýtlaryňyzdan daşarky saýtlaryň \"cookies\"- lerini gabamak bilen, reklama berijileriň siziň enjamyňyzda maglumat saklamagynyň öňüni alar.";
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Hemmesine Rugsat ber";
 
-/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
-"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Websaýt maglumatlaryny we kökejikleri arassala";
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "\"Cookies\" Rugsat ber";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Sizi tanamak üçin websaýtlar \"cookies\" we başga maglumatlary siziň enjamyňyzda  saklap biler. Bu maglumatlar siz üçin ýöriteşdirilen hyzmatlary we mazmunlary üpjün eder. Ulanyjy maglumatlary, saýlawlary we şahsy maglumatlary ýagny siziň adyňyz we emailiňizi öz içine alar. Psiphon Bruzeri siziň girýän saýtlaryňyzdan (daşarky saýtlaryň \"cookies\"- lerini) gabamak bilen, reklama berijileriň siziň enjamyňyzda maglumat saklamagynyň öňüni alar.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Başga programma geçilende, ähli äpişgeçikler, \"cookies\" we web saýt ýazgylary pozular.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "\"Backgrounded\" halynda hemmesini arassala";
 
 /* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Kökejikler we ýerli saklanyşlar arassalandy.";
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "\"Cookies\" we ýerli saklanyşlar arassalandy.";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Websaýt maglumatlaryny we \"cookies \" arassala";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS birikmegi üçin iň az MSSL/TLS wersiýasy zerur;programanyň kadaly işlemegi üçin, öçürip yakmagy talap eder.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "Iň az MSSL/TLS Wersiýasy";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Birikme statusy üýtgän halatynda ses çykar";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "Ses";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Birikmäniň  statusy üýtgände titre";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "Titremek";
 

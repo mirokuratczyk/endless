@@ -1,5 +1,11 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "مرورگر سایفون";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "اطلاعیه‌ها";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "موتور جستجوگر";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "حریم خصوصی";
@@ -7,78 +13,75 @@
 /* Settings item text. Leads to security related options. */
 "SECURITY_SUBSETTINGS_LABEL" = "امنیت";
 
-/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "موتور جستجوگر";
-
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "خودآموز";
-
-/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_SOUND_LABEL" = "صدا ";
-
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال صدا پخش شود.";
-
-/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "ویبره";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال ویبره کند.";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "پاک کردن تمام کوکی‌ها در پس‌زمینه";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "اگر به اپلیکیشن دیگری بروید، تمام صفحه‌ها و کوکی‌های نامطمئن پاک خواهند شد.";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "درخواستِ «پیگیری- نکردن» بفرستید";
 
 /* Explanatory text for the "Do Not Track" setting. */
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "از وبسایت‌ها و مهیا کننده‌های شخص ثالث‌شان درخواست کنید تا شما را ردیابی نکنند.  ";
 
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "کمترین نسخه‌ی SSL/TLS";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "درخواستِ «پیگیری- نکردن» بفرستید";
 
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "کمترین نسخه‌ی  SSL/TLS  مورد نیاز برای اتصال به HTTPS، ممکن است اپلیکیشن را به اجبار ببندد.";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "اجازه به کوکی‌ها";
-
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "نوع کوکی‌های مجاز برای مرورگر سایفون را مدیریت کنید.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "همیشه بلاک کن";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "بلاک‌کردن همه";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "فقط به وبسایت فعلی اجازه داده شود";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "اجازه به وبسایت‌هایی که من می‌بینم";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "همیشه اجازه بده";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "اجازه دادن به همه";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "فقط به وبسایت فعلی اجازه داده شود";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "بلاک‌کردن همه";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "فقط وبسایت فعلی";
 
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "اجازه به وبسایت‌هایی که من می‌بینم";
-
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "وبسایت‌‌هایی که من می‌بینم";
 
-/* Explanatory text on the "Allow Cookies" setting options page. */
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "اجازه دادن به همه";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "اجازه به کوکی‌ها";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "وبسایت‌ها ممکن است به منظور شناسایی شما در هنگام استفاده از مرورگر، کوکی‌ها و داده‌های دستگاه شما را ذخیره کنند. این داده‌ها معمولا برای دادن سرویسی مشخص به شما استفاده می‌شوند و می‌توانند شامل مشخاصات ورود، اولویت‌ها، و اطلاعات شخصی مانند اسم یا آدرس ایمیل شما باشند. مرورگرسایفون به‌صورت پیش‌فرض کوکی‌های وبسایت‌ها را بلاک می‌کند تا از دسترسی تبلیغ‌کننده‌ها به داده‌های شما جلوگیری کند.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "اگر به اپلیکیشن دیگری بروید، تمام صفحه‌ها و کوکی‌های نامطمئن پاک خواهند شد.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "پاک کردن تمام کوکی‌ها در پس‌زمینه";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "کوکی‌ها و انباره‌‌ی محلی پاک ‌خواهند شد. ";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "پاک کردن کوکی‌ها و اطلاعات وبسایت";
 
-/* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "کوکی‌ها و انباره‌‌ی محلی پاک ‌خواهند شد. ";
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "کمترین نسخه‌ی  SSL/TLS  مورد نیاز برای اتصال به HTTPS، ممکن است اپلیکیشن را به اجبار ببندد.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "کمترین نسخه‌ی SSL/TLS";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال صدا پخش شود.";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "صدا ";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال ویبره کند.";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "ویبره";
 

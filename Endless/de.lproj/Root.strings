@@ -1,84 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "Psiphon Browser";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Benachrichtigungen";
-
-/* Settings item text. Leads to privacy related options. */
-"PRIVACY_SUBSETTINGS_LABEL" = "Datenschutz";
-
-/* Settings item text. Leads to security related options. */
-"SECURITY_SUBSETTINGS_LABEL" = "Sicherheit";
 
 /* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
 "SETTINGS_SEARCH_ENGINE" = "Suchmaschine";
 
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "Privatsphäre";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "Sicherheit";
+
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "Tutorial";
-
-/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_SOUND_LABEL" = "Ton";
-
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "Ton abspielen, wenn sich der Verbindungsstatus ändert";
-
-/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "Vibrieren";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Vibrieren, wenn sich der Verbindungsstatus ändert";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "Clear all when backgrounded";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "All tabs, cookies and website data will be cleared when switching to another app.";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "\"Do-Not-Track\"-Anforderungen senden";
 
 /* Explanatory text for the "Do Not Track" setting. */
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Internetseiten und ihre Anbieter von Drittinhalten auffordern, Sie nicht zu verfolgen.";
 
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "Minimale SSL/TLS-Version";
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"Do-Not-Track\"-Anforderungen senden";
 
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Cookies erlauben";
-
-/* Explanatory text for the "Allow Cookies" setting. */
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Verwalten Sie, welche Arten von Cookies der Psiphon-Browser erlaubt.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Immer blockieren";
 
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Alles blockieren";
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Nur von aktueller Internetseite erlauben";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Von Internetseiten erlauben  I Besuchen";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Immer erlauben";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Alles erlauben";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Nur von aktueller Internetseite erlauben";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Alles blockieren";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Nur aktuelle Internetseite";
 
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Von Internetseiten erlauben  I Besuchen";
-
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Internetseiten I Besuchen";
 
-/* Explanatory text on the "Allow Cookies" setting options page. */
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Alles erlauben";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Cookies erlauben";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "All tabs, cookies and website data will be cleared when switching to another app.";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "Clear all when backgrounded";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies und lokaler Speicher werden gelöscht.";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "Cookies und Internetseitendaten löschen";
 
-/* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies und lokaler Speicher werden gelöscht.";
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "Minimale SSL/TLS-Version";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Ton abspielen, wenn sich der Verbindungsstatus ändert";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "Ton";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Vibrieren, wenn sich der Verbindungsstatus ändert";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "Vibrieren";
 

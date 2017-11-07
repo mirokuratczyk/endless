@@ -1,0 +1,3 @@
+/* Text of prompt for user to grant app permission to access their photo library */
+"NSPhotoLibraryUsageDescription" = "ဤအရာသည်သင့်ကို ဓာတ်ပုံများသိမ်းရန်နှင့် တင်ရန်ခွင့်ပြုသည်။";
+

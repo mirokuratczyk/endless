@@ -1,0 +1,3 @@
+/* Text of prompt for user to grant app permission to access their photo library */
+"NSPhotoLibraryUsageDescription" = "Ин ба шумо имкон медиҳад, ки сурат захира ва бор кунед";
+

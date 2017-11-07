@@ -1,5 +1,11 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "កម្មវិធីរុករក Psiphon";
+
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "ការជូនដំណឹង";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "ការស្វែងរក";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "ឯកជនភាព";
@@ -7,78 +13,75 @@
 /* Settings item text. Leads to security related options. */
 "SECURITY_SUBSETTINGS_LABEL" = "សុវត្ថិភាព";
 
-/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "ការស្វែងរក";
-
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "ការណែនាំ";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "សួរគេហទំព័រ និងអ្នកផ្តល់ខ្លឹមសារបុគ្គលទីបី កុំឲ្យតាមដានអ្នក។";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "បញ្ជូនសំណើរ \"មិន-តាមដាន\" ";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "គ្រប់គ្រងប្រភេទឃុកឃីដែលកម្មវិធីរុករក Psiphon អនុញ្ញាត។";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "តែងតែហាមឃាត់";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "អនុញ្ញាតចេញពីគេហទំព័រនេះតែមួយគត់";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "អនុញ្ញាចេញពីគេហទំព័រ  I ចូលប្រើ";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "តែងតែអនុញ្ញាត";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "ហាមឃាត់ទាំងអស់";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "គេហទំព័រនេះតែមួយគត់";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "គេហទំព័រ I ចូលប្រើ";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "អនុញ្ញាតទាំងអស់";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "អនុញ្ញាត Cookies";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "គេហទំព័អាចរក្សាទុកឃូកឃី និងឯកសារផ្សេងៗលើឧបករណ៍របស់អ្នក ដើម្បីបញ្ជាក់អត្តសញ្ញាណអ្នកនៅពេលរុករក។ ទិន្នន័យនេះ ជាធម្មតាអាចត្រូវប្រើប្រាស់ក្នុងការផ្តល់សេវាកម្ម និងខ្លឹមសារជាក់លាក់ណាមួយមកកាន់អ្នក។ វាអាចរួមបញ្ចូលព័ត៌មានចូលប្រើប្រាស់, ចំណង់ចំណូលចិត្ត, និងព័ត៌មានផ្ទាល់ខ្លួន ដូចជាឈ្មោះរបស់អ្នក ឬអាសយដ្ឋានអ៊ីម៉ែល។ កម្មវិធីរុករក Psiphon មានលំនាំដើមហាមឃាត់ឃូកឃីពីគេហទំព័រ  ផ្សេងពីគេហទំព័រដែលអ្នកចូលមើល (ឃូកឃីរបស់ជនទីបី) ដើម្បីបង្ការអ្នកផ្សាយពាណិជ្ជកម្ម ពីការរក្សាទុកទិន្នន័យលើឧបករណ៍របស់អ្នក។";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "ផ្ទាំងទាំងអស់ ឃូកឃី និងទិន្នន័យគេហទំព័រ នឹងត្រូវសំអាត នៅពេលផ្លាស់ប្តូរកម្មវិធី។";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "សំអាតទាំងអស់នៅពេលដំណើរការពីក្រោយ";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "ឃូកឃី និងអង្គរក្សាទិន្នន័យខាងក្នុងនឹងត្រូវសំអាត។";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "សំអាតឃុកឃី និងទិន្នន័យគេហទំព័រ";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "ជំនាន់អប្បរមានៃ SSL/TLS ទាមទារ សម្រាប់ការតភ្ជាប់ HTTPS, អាចទាមទារបង្ខំឲ្យបិទកម្មវិធី ដើម្បីឲ្យមានប្រសិទ្ធភាព។";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "ជំនាន់ SSL/TLS អប្បរិមា";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "ចាក់សំឡេងពេលស្ថានភាពការតភ្ជាប់ផ្លាស់ប្តូរ";
 
 /* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
 "NOTIFICATIONS_SOUND_LABEL" = "សំឡេង";
 
-/* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "Play sound when connection status changes";
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "ញ័រពេលស្ថានភាពការតភ្ជាប់ផ្លាស់ប្តូរ";
 
 /* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
 "NOTIFICATIONS_VIBRATE_LABEL" = "ញ័រ";
-
-/* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Vibrate when connection status changes";
-
-/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "Clear all when backgrounded";
-
-/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "All tabs, cookies and website data will be cleared when switching to another app.";
-
-/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "Send \"Do-Not-Track\" requests";
-
-/* Explanatory text for the "Do Not Track" setting. */
-"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Ask sites and their third party content providers not to track you.";
-
-/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "Minimum SSL/TLS Version";
-
-/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
-
-/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Allow Cookies";
-
-/* Explanatory text for the "Allow Cookies" setting. */
-"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Manage what types of cookies Psiphon Browser allows.";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Always Block";
-
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Block All";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Always Allow";
-
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Allow All";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Allow from Current Website Only";
-
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Current Website Only";
-
-/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Allow from Websites I Visit";
-
-/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Websites I Visit";
-
-/* Explanatory text on the "Allow Cookies" setting options page. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
-
-/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
-"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Clear cookies and website data";
-
-/* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies and local storage will be cleared.";
 

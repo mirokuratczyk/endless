@@ -1,0 +1,3 @@
+/* Text of prompt for user to grant app permission to access their photo library */
+"NSPhotoLibraryUsageDescription" = "Bununla şəkilləri saxlaya və yükləyə bilərsiniz";
+

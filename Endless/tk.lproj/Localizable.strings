@@ -1,66 +1,120 @@
-/* %ld will be replaced with the number 1 */
-"RULES_IN_USE_SINGULAR" = "%ld düzgün ullanylyar";
-
-/* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "%ld düzgünler ulanylyar";
-
-/* Alert text telling user additional permissions must be granted to save and upload photos in the browser */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "Yüklenen suratlary aýamak üçin \"Psiphon Brauzera\" Siziñ suratlar kitaphanañyza girmäge rugsat bermegiñiz zerur";
-
-/* Title text on one of the on-boarding screens */
-"ONBOARDING_ACCESS_TITLE" = "Websayta geçelge ";
-
 /* 'Add bookmark' dialog title */
-"ADD_BOOKMARK_TITLE" = "Belliligi goš";
+"ADD_BOOKMARK_TITLE" = "Belligi goş";
 
-/* Title above a list of rules */
-"RULES_ALL_LIST_TITLE" = "Hemme düzguünler";
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Sahypanyñ Ady (URL ulanmak üçin boş goý)";
 
-/* Alert dialog text */
-"CLOSE_TABS_PROMPT" = "Bu sahypa hemme penjilere yapmaga rugsat berjekmi?";
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "Belliklere URL maglumatlaryny gir.";
 
-/* Image download error alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Surady yuklemekde säwlik ýüze çykdy %@";
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
 
-/* HTTP authentication alert title */
-"HTTP_AUTH_TITLE" = "Kesgitleme Zerur";
-
-/* Field name for display in list */
-"CERT_BEGINS_ON" = "Bašlanyar";
-
-/* The name of the pseudo-region a user can select if they want to use a Psiphon server with the best performance -- speed, latency, etc., rather than specify a particular region/country. This appears in a combo box and should be kept short. */
-"SERVER_REGION_BEST" = "Ýokary hil";
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Düzet";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"BOOKMARKS_TITLE" = "Ýer bellikleri";
-
-/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
-"ONBOARDING_APP_SUBTITLE" = " ÇÄKLERDEN DAŠARYN GÖZ AYLA";
-
-/* Field name for display in list */
-"CERT_BUSCAT" = "BIZNES KATEGORIYASY";
+"BOOKMARKS_TITLE" = "Bellikleri";
 
 /* Cancel action */
-"CANCEL_ACTION" = "Bes et";
+"CANCEL_ACTION" = "Goýbolsun et";
 
 /* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Šaýatnama Maglumaty";
-
-/* Text of button on alert which will redirect the user to the settings menu */
-"CHANGE_SETTINGS_BUTTON" = "Sazlamalary Çalyš";
+"CERT_BEGINS_ON" = "Başlanýar";
 
 /* Field name for display in list */
-"CERT_CIPHER" = "Šifr";
+"CERT_BUSCAT" = "Biznes Kategoriýasy";
 
-/* Accept button on alert which triggers clearing all local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = " Maglumatlaryny we Kökejikleri arassala";
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Şaýatnama Maglumaty";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Şifr";
 
 /* Field name for display in list */
 "CERT_CN" = "Umumy At";
 
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "Birikdirme Maglumaty";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "Ýurt";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "Uzaldylan Tassyknama: Gurama";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Wagty Dolýar";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "Tarapyndan Nešir Edildi";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "Neşir edilen";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "Ýer";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Obýekt Kesgitleýji";
+
+/* Field name for display in list */
+"CERT_ORG" = "Gurama";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Gurama Bölüminiñ Belgisi";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = " Ÿörgünlilik möhleti";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Poçta Kody";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Protokol";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Seriýasynyñ belgisi";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "Goluñ algoritmy";
+
+/* Field name for display in list */
+"CERT_STATE" = "Döwlet/Welayat";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Köçe Salgysy";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Näbelli Gurama";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Görnüş";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "Sazlamalary Çalyş";
+
 /* Title for the 'Allow this page to close its tab?' alert */
 "CLOSE_TABS_CONFIRM" = "Tassykla";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Bu sahypa penjiresini ýapmagy rugsat berjekmi?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Sazlamalara Geç";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Sazlamalar";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Serweriň ýurdy:";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
 "CONNECTION_STATUS_CONNECTED" = "Birikdirildi!";
@@ -68,317 +122,181 @@
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "CONNECTION_STATUS_CONNECTING" = "Birikdirilýär...";
 
-/* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "Birikdirme Maglumaty";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "URL-ni Göçür";
-
-/* Field name for display in list */
-"CERT_COUNTRY" = "Yurt";
-
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "CONNECTION_STATUS_DISCONNECTED" = "Birikmedi!";
 
-/* Done action
-   Title of the button that dismisses the settings menu (InAppSettingsKit) */
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Içerki säwlik sebäpli Psiphon başlamasy şowsuz, haýyş seslenme ugradyň.";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Networga garaşýar…";
+
+/* Done action */
 "DONE_ACTION" = "Boldy";
 
-/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_TEXT" = "Surat yüklenyär %@. Yuklemek tamamlandan soñ Sizi duydurarys.";
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "Köpräk...";
 
-/* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Yüklenyär...";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Goýbolsun edildi";
 
-/* Edit button at bottom of screen in bookmarks view */
-"BOOKMARKS_EDIT_BUTTON" = "Düzet";
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Näsazlyk";
 
 /* Edit Bookmark dialog title */
 "EDIT_BOOKMARK_TITLE" = "Ýer belligini redaktirle";
 
-/* 'Add Bookmark' dialog text
-   'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "URL-ynñ jikme-jikliklerini yer belligine giriz:";
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Içeri gir";
 
-/* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_ERROR" = "Ÿalňyş";
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Açarsözi";
 
-/* Image download error alert title */
-"IMAGE_DOWNLOAD_ERROR_TITLE" = "Ÿalňyş";
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Tassyklama Zerur";
 
-/* Alert dialog title when webpage has failed to load */
-"WEB_LOAD_ERROR_TEXT" = "Ÿalňyş";
-
-/* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "säwlik/näsazlyk/ýalňyşlyk: ";
-
-/* Field name for display in list */
-"CERT_EXPIRES_AFTER" = "Wagty Dolyar";
-
-/* Field name for display in list */
-"CERT_EV_ORG" = "Uzaldylan Dogurlama: Gurama";
-
-/* FAQ link text */
-"FAQ_LINK_TEXT" = "Beýleki köp soralýan soraglar";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_DE" = "Germaniýa";
-
-/* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "Sazlamalara Geç";
-
-/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
-"ONBOARDING_BROWSING_TITLE" = "Sapaly Göz Ayla!";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_HK" = "Gong Kong";
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "Ulanyjy ady";
 
 /* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Hemme yerde Höküm Edyär";
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Hemme ýerde Höküm edyär";
 
-/* External link to the about page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/about.html for french. */
-"ABOUT_PAGE_URL" = "https://psiphon.ca/tk/about.html";
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Surady yuklemekde säwlik ýüze çykdy %@";
 
-/* External link to the FAQ page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/faq.html for french. */
-"FAQ_URL" = "https://psiphon.ca/tk/faq.html";
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Näsazlyk:";
 
-/* External link to the license page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/license.html for french. */
-"LICENSE_PAGE_URL" = "https://psiphon.ca/tk/license.html";
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Näsazlyk";
 
-/* External link to the privacy policy page. Please update this with the correct language specific link (if available) e.g. https://psiphon.ca/fr/privacy.html for french. */
-"PRIVACY_POLICY_URL" = "https://psiphon.ca/tk/privacy.html";
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Koduñ statusy:";
 
-/* Feedback footer text referring users to feedback email. %@ is where the separate translation for the email will be placed. */
-"FEEDBACK_FOOTER_EMAIL" = "Eger-de yokardaky forma isšlemeyän bolsa ya-da ekran suradyñy ibersesiñiz gelse, hayyšt bize email ugradyñ %@";
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Üstünlikli ýüklenen surat %@";
 
-/* Field name for display in list */
-"CERT_ISSUED_BY" = "Tarapyndan Nešir Edildi";
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Üstünlik!";
 
-/* Field name for display in list */
-"CERT_ISSUED_TO" = "Nešir Edildi";
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Surat ýüklenýär %@. Ýükleme tamamlandan soñ size duýdurylar..";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_JP" = "Ýaponiýa";
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Ýüklenýär...";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Surady Sakla";
 
 /* Text above language selection box
    Title above language box which displays the current app language and all available languages that the app is localized for */
 "LANGUAGE_SELECT_TITLE" = "Dil";
 
-/* Feedback footer text referring users to privacy policy. %@ is where the separate translation for the phrase 'Privacy Policy' will be placed. */
-"FEEDBACK_FOOTER_DATA_COLLECTION" = "Tomplayan maglumatlarymyz barada köpräk öwren 1%@";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "URL-ni Göçür";
 
-/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_TITLE_FINAL" = "Örenmek wagty bitdi";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "Açyk";
 
-/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_GO_BUTTON" = "Bašlayly!";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "Täze panelda aç";
 
-/* Field name for display in list */
-"CERT_LOCALITY" = "Yer";
-
-/* HTTP authentication alert log in button action */
-"HTTP_AUTH_LOG_IN" = "Içeri gir";
-
-/* Title of screen that displays logs */
-"LOGS_TITLE" = "Ýazgylar";
-
-/* Shown when the device is not configured for sending email. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED" = "Mail ugurlaşmady";
-
-/* No comment provided by engineer. */
-"NYALERT_TEXT" = "Habar Tekstynyñ Görnüši";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_NL" = "Gollandiýa";
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "Safari-de aç";
 
 /* New browser tab title text */
-"NEW_TAB_TITLE" = "Täze Penjire";
+"NEW_TAB_TITLE" = "Täze Panel";
 
-/* Text of the button that the user presses to proceed to the next screen of onboarding */
-"ONBOARDING_NEXT_BUTTON" = "Indiki";
-
-/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
-"TUTORIAL_BODY_FINAL" = "Siz brauzingy bašlar yali Psiphony serweryna hazir baglarys";
-
-/* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "Obýekty Kesgitlemek";
-
-/* OK action */
-"OK_ACTION" = "Bolýar";
-
-/* Alert OK Button. (InAppSettingsKit) */
-"OK_BUTTON" = "Bolýar";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_OPEN" = "Aç";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_OPEN_NEW_TAB" = "Täze penjirede aç";
-
-/* Action title for long press on link dialog */
-"LINK_LONG_PRESS_OPEN_SAFARI" = "Safarida aç";
-
-/* Field name for display in list */
-"CERT_ORG" = "Gurama";
-
-/* Field name for display in list */
-"CERT_ORG_UNIT_NUMBER" = "Guramanyñ Bölüminiñ Belgisi";
-
-/* 'Edit Bookmark' dialog page name field
-   Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "Sahypanyñ Ady (URL ulanmak ücçin bosš goy)";
-
-/* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "Parol";
-
-/* Field name for display in list */
-"CERT_PERIOD_OF_VALIDITY" = " Ÿörgünlilik möhleti";
-
-/* Feedback footer text. */
-"FEEDBACK_FOOTER_DIAGNOSTIC" = "Siziñ dykgatyñyza: diagnostiki maglumatlary Sizi belli etmez. Ol bize Psiphon kadaly işletmegine kömek eder.";
-
-/* Field name for display in list */
-"CERT_POSTAL_CODE" = "Poçtanyñ Kody";
-
-/* Privacy Policy link text */
-"PRIVACY_POLICY_LINK_TEXT" = "Gizlinlik Ugry";
-
-/* Field name for display in list */
-"CERT_PROTOCOL" = "Protokol";
-
-/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. */
-"ONBOARDING_APP_NAME" = "PSIPHON BRAUZERY";
-
-/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "Içeri säwlik sebaäpli Psiphon basšlap bilenok, haýyş seslemäni ugrat.";
-
-/* Text explaining thumbs up choice in feedback */
-"FEEDBACK_THUMBS_UP_TEXT" = "Psiphon meniñ islegime göra išleyär we baglanyar.";
-
-/* Text explaining thumbs down choice in feedback */
-"FEEDBACK_THUMBS_DOWN_TEXT" = "Psiphon köplenç baglanšmany bašaranok yada kanagatlandyryjy iślanok. ";
-
-/* UI hint that the webpage can be refreshed by pulling(swiping) down */
-"PULL_TO_REFRESH_PAGE" = "Sahypany täzelemek üçin çek";
-
-/* Title of alert to clear local cookies and browsing data */
-"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Websaýtyñ maglumatlaryny we kökejikleri arassalaýynmy?";
-
-/* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "Śu sahypada düzgünler ulanylyar";
-
-/* Action title for long press on image dialog */
-"IMAGE_LONG_PRESS_SAVE" = "Surady sakla";
-
-/* Text of button to send feedback */
-"FEEDBACK_SEND_BUTTON" = "Iber";
-
-/* Field name for display in list */
-"CERT_SERIAL_NUMBER" = "Seriyasynynñ sany";
-
-/* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "Serweinñ yurdy:";
-
-/* Button text on connection status modal that brings the user to the app Settings */
-"CONNECTION_ALERT_SETTINGS_ACTION" = "Sazlamalar";
-
-/* Title of the settings (aka preferences) view (InAppSettingsKit) */
-"SETTINGS_TITLE" = "Sazlamalar";
-
-/* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Sazlamalar we Kömek";
-
-/* Field name for display in list */
-"CERT_SIG_ALGO" = "Goluñ algoritmy";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_SG" = "Singapur";
-
-/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
-"ONBOARDING_SKIP_BUTTON" = "BÖKÜP GEÇ";
-
-/* Text that can be clicked to skip the tutorial */
-"TUTORIAL_SKIP_BUTTON" = "Öwredijini Geçir";
-
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_ES" = "Ispaniýa";
-
-/* Text of button that user presses to complete onboarding and start tutorial */
-"START_TUTORIAL_BUTTON" = "Öwredijini Başla";
-
-/* Field name for display in list */
-"CERT_STATE" = "Döwlet/Welayat";
-
-/* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Kodunñ statusy:";
-
-/* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "Status Görkezicçi";
-
-/* Field name for display in list */
-"CERT_STREET_ADDR" = "Köçe Adresy";
-
-/* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Üstünlik!";
-
-/* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Surady üstünlik bilen yükledi %@";
-
-/* Text on first tutorial screen which highlights the connection indicator */
-"TUTORIAL_BODY_STATUS" = "Yašyl belgi Psiphon Brauzeryñ baglanandygyny we ulanmana tayyardygyny görkezyär";
-
-/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
-"ONBOARDING_ACCESS_TEXT" = "Internet Seninñ barmaklaryñ ujynda";
-
-/* Description for the 'Mail not configured' message. (InAppSettingsKit) */
-"MAIL_NOT_CONFIGURED_DESC" = "Bu enjam email ugratmaga ugurlaşmady. Hayyš, email sazlamalaryny Sazlama programmasynda tertibe sal.";
-
-/* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "Bu yerde Siz sazlamalara girip bilersiñiz we kömek taparsyñyz";
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Habar Ýazgysynyň Görnüşi";
 
 /* No comment provided by engineer. */
 "NYALERT_TITLE" = "Belgi Atlandyrmasy";
 
-/* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Rugsta bermek üçin \"Sazlamalary Çalyš\" düwmesine bas";
+/* OK action */
+"OK_ACTION" = "Bolýar";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_GB" = "Beýik Britaniýa";
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "Internet Seniñ barmaklaryñ ujynda";
 
-/* Name of a country/region where Psiphon servers are located. The user can choose to only use servers in that country. */
-"SERVER_REGION_US" = "Iň gowy ýerine ýetiriliş";
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "Websaýta geçelge ";
 
-/* No comment provided by engineer. */
-"CERT_UNKNOWN_ORGANIZATION" = "Näbelli Gurama";
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "PSIPHON BRAUZERY";
 
-/* 'Edit Bookmark' dialog URL field
-   Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "URL";
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = " ÇÄKLERDEN DAŞARY GÖZ AÝLA";
 
-/* HTTP authentication alert user name input title */
-"HTTP_AUTH_USER_NAME" = "Ulanyjy ady";
-
-/* Field name for display in list */
-"CERT_VERSION" = "Görnüş";
-
-/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "Networga garaşýar…";
-
-/* Comments section placeholder text */
-"FEEDBACK_COMMENTS_PLACEHOLDER" = "Naäme pikir edyarsiñiz? Bize seslenmani ibereniñ";
-
-/* Text referring user to frequently asked questions. %@ is where the separate translation for the phrase 'Frequently Asked Questions' will be placed. */
-"FEEDBACK_FAQ_DIRECTION" = "Biziñ %@ umumy meselelere çözgüt tapy bilersiñiz.";
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "Siziñ halaýan programañyzyñ gowy işleýän websaýt görnüşi Psiphon Brauzerde bar";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
 "ONBOARDING_APPS_TITLE" = "Seniñ Programmañ Brauzeryñdadyr";
 
-/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TEXT" = "Siziñ halayan programañyzyñ Psiphon Brauzerynda gowy išleyän website görnüši bar ";
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Sapaly Göz Ayla!";
 
-/* Introduction text at top of feedback form */
-"FEEDBACK_INTRODUCTION" = "Seniñ teswiriñ Psiphony gowlašdyryar!\n";
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Indiki";
 
-/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "GEÇ";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Rugsat bermek üçin \"Sazlamalary Çalyş\" düwmesine bas";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "Suratlary saklamak we ýüklemek üçin \"Psiphon Brauzer\" - ne siziñ suratlar toplumana girmegi rugsat bermegiñiz zerur";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "Sahypany täzelemek üçin çek";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "Ähli düzgünler";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Açyk sahypadaky düzgünler ulanyşda";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld düzgünler ulanylyar";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld düzgün ullanylyar";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Websaýtyñ maglumatlaryny we \"cookies\" arassalamalymy?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = " Maglumatlary we \"Cookies\" arassala";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "Öwredijini Başla";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "Siz brauwzerläp biler ýaly, Psiphon serwerini häzir birikdireris.";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "Bu ýerde siz sazlamalara girip bilersiñiz we kömek tapyp bilersiňiz";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "Ýaşyl belgi Psiphon Brauzeriñ birigendigini we ulanmana taýyndygy görkezyär";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "Başlaly!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "ÖWREDIJINI GEÇ";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Tälim wagty dyndy";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Sazlamalar we Kömek";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Status Görkezijisi";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Näsazlyk";
 

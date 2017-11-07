@@ -1,0 +1,302 @@
+/* 'Add bookmark' dialog title */
+"ADD_BOOKMARK_TITLE" = "Seçilmişlərə əlavə et";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "Səhifə adı (URL istifadəsi üçün boş buraxın)";
+
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "URL məlumatlarını seçilmişlərə daxil et:";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
+
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "Dəyiş";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "Seçilmişlər";
+
+/* Cancel action */
+"CANCEL_ACTION" = "Ləğv et";
+
+/* Field name for display in list */
+"CERT_BEGINS_ON" = "Başlanan yer";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "Biznes kateqoriya";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "Sertifikat məlumatı";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Kod";
+
+/* Field name for display in list */
+"CERT_CN" = "Ümumi ad";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "Qoşulma məlumatı";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "Ölkə";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "il-ay-gün -də saat:dəq:san zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "Uzadılmış yoxlama: Təşkilat";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = "Etibarlılıq müddəti bitir";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "İstehsalçı";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "Sahib";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "Məkan";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "Obyekti müəyyən edən";
+
+/* Field name for display in list */
+"CERT_ORG" = "Təşkilat";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "Təşkilatın sıra sayı";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = "Etibarlılıq müddəti";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "Poçt indeksi";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "Protokol";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "Seriya sayı";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "İmza alqoritmi";
+
+/* Field name for display in list */
+"CERT_STATE" = "Rayon/Qəsəbə";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "Küçə ünvanı";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "Naməlum təşkilat";
+
+/* Field name for display in list */
+"CERT_VERSION" = "Versiya";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "Quraşdırmaları dəyiş";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "Təsdiqlə";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "Bu səhifəyə öz bölməsini bağlamağa icazə verilsin?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "Quraşdırmalara keç";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "Quraşdırmalar";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "Server bölgəsi:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "Qoşuldu!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "Qoşulur...";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "Qoşulmayıb!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "Daxili xətaya görə Psiphon işləmir, zəhmət olmasa şərhinizi göndərin.";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "Şəbəkə yoxdur...";
+
+/* Done action */
+"DONE_ACTION" = "Hazır";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "Ətraflı...";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "Ləğv edilib";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "Xəta";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "Seçilmişi dəyiş";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "Daxil ol";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "Parol";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "Təsdiqləmə tələb olunur";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "İstifadəçi adı";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS Everywhere-nin qaydaları";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "Şəkil yüklənəndə xəta baş verdi %@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Xəta:";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "Xəta";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Status kodu:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Uğurla yüklənən şəkil %@";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "Uğurlu!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "Yüklənən şəkil %@. Yükləmə bitdikdə xəbər veriləcək.";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "Yüklənir...";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "Şəkli saxla";
+
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"LANGUAGE_SELECT_TITLE" = "Dil";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "URL kopyala";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "Açıq";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "Yeni pəncərədə aç";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "Safaridə aç";
+
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "Yeni pəncərə";
+
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "Məktub mətninin görüntüsü";
+
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "Başlıq";
+
+/* OK action */
+"OK_ACTION" = "Oldu";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "İnternet barmağınızın ucunda";
+
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "İnternetə çıxış";
+
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "PSIPHON SƏYYAHI";
+
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "SƏRHƏDSİZ İNTERNETƏ GİRİŞ";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "Sevimli tətbiqetmənizin veb interfeysi var və o, Psiphon Səyyahında əla işləyir";
+
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "Səyyahınızdakı tətbiqetmələr";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "Uğurlar!";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "Növbəti";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "KEÇ";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "İcazə vermək üçün \"Quraşdırmaları dəyiş\" düyməsini basın";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "Şəkilləri saxlamaq və yükləmək üçün Psiphon Səyyahına foto qalereyasına giriş verilməlidir";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "Səhifəni yeniləmək üçün çək";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "Bütün qaydalar";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "Hazırkı səhifədə qaydalar istifadə olunur";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "%ld qaydalar istifadə olunur";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "%ld qayda istifadə olunur";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "Bütün kukiləri və axtarış tarixçəsini təmizləyək?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "Kuki və məlumatları təmizlə";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "Dərsliyi başla";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "İndi Psiphon serverinə qoşulacağıq ki, internetdə işə başlayasınız.";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "Quraşdırmalara çıxışı və yardımı burdan əldə edə bilərsiniz";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "Yaşıl \"quş\" işarəsi Psiphon Səyyahın qoşulduğunu və internetdən istifadənin mümkün olduğunu göstərir";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "Getdik!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "DƏRSLİYİ KEÇ";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "Öyrənmə vaxtı bitdi";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "Quraşdırmalar və Yardım";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "Status göstəricisi";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "Xəta";
+
