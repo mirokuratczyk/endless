@@ -233,6 +233,10 @@
 		4E1ABB2C1FABBFE800C31618 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		4E1ABB2D1FABBFE800C31618 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E1ABB2E1FABBFE800C31618 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4E1FE1CC1FB264BF0031211C /* fa-AF */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-AF"; path = "fa-AF.lproj/Root.strings"; sourceTree = "<group>"; };
+		4E1FE1CD1FB264BF0031211C /* fa-AF */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-AF"; path = "fa-AF.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		4E1FE1CE1FB264BF0031211C /* fa-AF */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-AF"; path = "fa-AF.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4E1FE1CF1FB264BF0031211C /* fa-AF */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-AF"; path = "fa-AF.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4E628E9A1EF89D2C00F8B3B5 /* TutorialPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPageViewController.h; path = Endless/TutorialPageViewController.h; sourceTree = SOURCE_ROOT; };
 		4E628E9B1EF89D2C00F8B3B5 /* TutorialPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPageViewController.m; path = Endless/TutorialPageViewController.m; sourceTree = SOURCE_ROOT; };
 		4E628E9C1EF89D2C00F8B3B5 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialViewController.h; path = Endless/TutorialViewController.h; sourceTree = SOURCE_ROOT; };
@@ -689,6 +693,7 @@
 				tg,
 				uk,
 				uz,
+				"fa-AF",
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -958,6 +963,7 @@
 				4E1ABB231FABBFC600C31618 /* tg */,
 				4E1ABB271FABBFDE00C31618 /* uk */,
 				4E1ABB2B1FABBFE800C31618 /* uz */,
+				4E1FE1CC1FB264BF0031211C /* fa-AF */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -993,6 +999,7 @@
 				4E1ABB241FABBFC600C31618 /* tg */,
 				4E1ABB281FABBFDE00C31618 /* uk */,
 				4E1ABB2C1FABBFE800C31618 /* uz */,
+				4E1FE1CD1FB264BF0031211C /* fa-AF */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -1028,6 +1035,7 @@
 				4E1ABB251FABBFC600C31618 /* tg */,
 				4E1ABB291FABBFDE00C31618 /* uk */,
 				4E1ABB2D1FABBFE800C31618 /* uz */,
+				4E1FE1CE1FB264BF0031211C /* fa-AF */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1063,6 +1071,7 @@
 				4E1ABB261FABBFC600C31618 /* tg */,
 				4E1ABB2A1FABBFDE00C31618 /* uk */,
 				4E1ABB2E1FABBFE800C31618 /* uz */,
+				4E1FE1CF1FB264BF0031211C /* fa-AF */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

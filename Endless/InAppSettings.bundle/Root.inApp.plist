@@ -51,6 +51,7 @@
 				<string>bo</string>
 				<string>de</string>
 				<string>es</string>
+				<string>fa-AF</string>
 				<string>fr</string>
 				<string>hr</string>
 				<string>id</string>
@@ -120,6 +121,10 @@
 				<dict>
 					<key>Title</key>
 					<string>Español</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>درى</string>
 				</dict>
 				<dict>
 					<key>Title</key>

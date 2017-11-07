@@ -43,6 +43,7 @@ DEFAULT_LANGS = {
     'el_GR': 'el',      # Greek
     'es': 'es',         # Spanish
     'fa': 'fa',         # Farsi/Persian
+    'fa_AF': 'fa-AF',   # Farsi/Persian (Afghanistan)
     'fi_FI': 'fi',      # Finnish
     'fr': 'fr',         # French
     'hr': 'hr',         # Croation
