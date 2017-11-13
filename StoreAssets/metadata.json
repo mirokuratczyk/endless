@@ -1,0 +1,32 @@
+{
+    "_comments": "Screenshots will be displayed on the app store in the order they are defined",
+    "app_store_supported_languages": [
+        "de-DE",
+        "el",
+        "en-US",
+        "es-ES",
+        "fi",
+        "fr-FR",
+        "id",
+        "ko",
+        "no",
+        "nl-NL",
+        "pt-BR",
+        "pt-PT",
+        "ru",
+        "th",
+        "tr",
+        "vi",
+        "zh-Hans",
+        "zh-Hant"
+    ],
+    "language_code_mappings": {
+        "de": "de-DE",
+        "en": "en-US",
+        "es": "es-ES",
+        "fr": "fr-FR",
+        "nl": "nl-NL"
+    },
+    "display_targets": {},
+    "screenshots": []
+}

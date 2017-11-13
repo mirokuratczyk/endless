@@ -1,16 +1,32 @@
-.DS_Store
-build/*
-*.pbxuser
 !default.pbxuser
-*.xcworkspace
 !default.xcworkspace
-xcuserdata
-profile
-Pods
-psiphon_config
-embedded_server_entries
-exportOptions.plist
-*.otf
+
+.DS_Store
 .gitattributes
 
+*.pbxuser
+*.xcworkspace
+
+profile
+xcuserdata
+
+# Build Automation
+build/*
+exportOptions.plist
+
+# Cocoapods
+Pods
+
+# Intellij IDE
+.idea
+
+# itmsp packages
+*.itmsp
+
+# python bytecode files
+*.pyc
+
+psiphon_config
+embedded_server_entries
+*.otf
 transifex_conf.json
