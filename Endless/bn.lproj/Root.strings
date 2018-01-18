@@ -1,0 +1,87 @@
+/* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
+"PSIPHON_BROWSER" = "সাইফোন ব্রাউজার";
+
+/* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "প্রজ্ঞাপন";
+
+/* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
+"SETTINGS_SEARCH_ENGINE" = "সার্চ ইঞ্জিন";
+
+/* Settings item text. Leads to privacy related options. */
+"PRIVACY_SUBSETTINGS_LABEL" = "গোপনীয়তা";
+
+/* Settings item text. Leads to security related options. */
+"SECURITY_SUBSETTINGS_LABEL" = "নিরাপত্তা";
+
+/* Settings item text. Opens app tutorial. Should be kept short. */
+"SETTINGS_TUTORIAL" = "টিউটোরিয়াল";
+
+/* Explanatory text for the "Do Not Track" setting. */
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = " আপনি সাইটগুলি এবং তাদের তৃতীয় পক্ষের সামগ্রী সরবরাহকারীদের জিজ্ঞাসা করুন আপনাকে ট্র্যাক না করতে।";
+
+/* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
+"PRIVACY_DO_NOT_TRACK_LABEL" = "পাঠান \"do-not-ট্র্যাক\" অনুরোধ";
+
+/* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "কী ধরনের কুকিজ সাইফোন ব্রাউজার অনুমতি দেয় তা পরিচালনা করুন";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "সর্বদা ব্লক বা বাধা";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "বর্তমান ওয়েবসাইট থেকে শুধুমাত্র অনুমতি দিন";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "ওয়েবসাইট/ভিজিট থেকে অনুমতি দিন";
+
+/* One of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "সর্বদা অনুমতি দিন";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "সব অবরোধ করুন";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "বর্তমান ওয়েবসাইট শুধুমাত্র";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "ওয়েবসাইট/ভিজিট";
+
+/* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "সব অনুমোদন দিন";
+
+/* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
+"PRIVACY_ALLOW_COOKIES_LABEL" = "কুকিজকে  অনুমতি দিন";
+
+/* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "ওয়েবসাইট ব্রাউজ করার সময় আপনাকে সনাক্ত করতে আপনার ডিভাইসে কুকিজ এবং অন্যান্য তথ্য সঞ্চয় করতে পারে। এই ডেটা সাধারণত আপনার নির্দিষ্ট করা পরিষেবাগুলি এবং বিষয়বস্তু সরবরাহ করতে ব্যবহৃত হয়।এটি আপনার লগইন তথ্য, পছন্দগুলি এবং ব্যক্তিগত তথ্য যেমন আপনার নাম বা ইমেল ঠিকানা অন্তর্ভুক্ত করতে পারে।সাইফোন ব্রাউজার বিজ্ঞাপনদাতাদের আপনার ডিভাইসে ডেটা সংরক্ষণ থেকে বিরত থাকার জন্য ডিফল্টভাবে আপনি (তৃতীয় পক্ষের কুকিগুলি) পরিদর্শন করছেন অন্য কোনও সাইটের থেকে কুকিজ ব্লক করে।";
+
+/* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "অন্য অ্যাপে স্যুইচ করার সময় সমস্ত ট্যাব, কুকি এবং ওয়েবসাইট ডেটা সাফ করা হবে।";
+
+/* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
+"PRIVACY_CLEAR_DATA_LABEL" = "ব্যাকগ্রাউন্ডেডের সময় সবগুলি সাফ করুন";
+
+/* Explanatory text for the "Clear cookies and website data" command. */
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "কুকিজ এবং স্থানীয় স্টোরেজ সাফ করা হবে।";
+
+/* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "কুকিজ এবং ওয়েবসাইট ডেটা সাফ করুন";
+
+/* Explanatory text for the "Minimum SSL/TLS Version" setting. */
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS সংযোগগুলির জন্য প্রয়োজনীয় SSL / TLS এর ন্যূনতম সংস্করণ;জোর করে বন্ধ কার্যকরী করতে অ্যাপ প্রয়োজন হতে পারে।";
+
+/* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
+"SECURITY_TLS_MINIMUM_LABEL" = "সর্বনিম্ন SSL / TLS সংস্করণ";
+
+/* Settings explanatory text for the sound notification toggle. */
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "সংযোগ স্থিতি পরিবর্তন হলে শব্দটি প্লে করুন";
+
+/* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_SOUND_LABEL" = "শব্দ";
+
+/* Settings explanatory text for the vibration notification toggle. */
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "কম্পন যখন সংযোগ স্থিতি পরিবর্তন ";
+
+/* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
+"NOTIFICATIONS_VIBRATE_LABEL" = "কম্পন";
+

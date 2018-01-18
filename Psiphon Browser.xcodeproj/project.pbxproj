@@ -245,6 +245,10 @@
 		4E70945D1E4CD14A00679B3F /* OnboardingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingInfoViewController.m; path = Endless/OnboardingInfoViewController.m; sourceTree = SOURCE_ROOT; };
 		4E70945E1E4CD14A00679B3F /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = Endless/OnboardingViewController.h; sourceTree = SOURCE_ROOT; };
 		4E70945F1E4CD14A00679B3F /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingViewController.m; path = Endless/OnboardingViewController.m; sourceTree = SOURCE_ROOT; };
+		4E8E7E422011384B007CE579 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Root.strings; sourceTree = "<group>"; };
+		4E8E7E432011384B007CE579 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		4E8E7E442011384B007CE579 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4E8E7E452011384B007CE579 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E93A0C31F55F32A00731DE7 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = Endless/InAppSettings.bundle; sourceTree = "<group>"; };
 		4EB51ECC1E941FBD008676A7 /* AdjustableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdjustableLabel.h; path = Endless/AdjustableLabel.h; sourceTree = SOURCE_ROOT; };
 		4EB51ECD1E941FBD008676A7 /* AdjustableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdjustableLabel.m; path = Endless/AdjustableLabel.m; sourceTree = SOURCE_ROOT; };
@@ -694,6 +698,7 @@
 				uk,
 				uz,
 				"fa-AF",
+				bn,
 			);
 			mainGroup = 01801E891A32CA2A002B4718;
 			productRefGroup = 01801E931A32CA2A002B4718 /* Products */;
@@ -964,6 +969,7 @@
 				4E1ABB271FABBFDE00C31618 /* uk */,
 				4E1ABB2B1FABBFE800C31618 /* uz */,
 				4E1FE1CC1FB264BF0031211C /* fa-AF */,
+				4E8E7E422011384B007CE579 /* bn */,
 			);
 			name = Root.strings;
 			sourceTree = "<group>";
@@ -1000,6 +1006,7 @@
 				4E1ABB281FABBFDE00C31618 /* uk */,
 				4E1ABB2C1FABBFE800C31618 /* uz */,
 				4E1FE1CD1FB264BF0031211C /* fa-AF */,
+				4E8E7E432011384B007CE579 /* bn */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -1036,6 +1043,7 @@
 				4E1ABB291FABBFDE00C31618 /* uk */,
 				4E1ABB2D1FABBFE800C31618 /* uz */,
 				4E1FE1CE1FB264BF0031211C /* fa-AF */,
+				4E8E7E442011384B007CE579 /* bn */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1072,6 +1080,7 @@
 				4E1ABB2A1FABBFDE00C31618 /* uk */,
 				4E1ABB2E1FABBFE800C31618 /* uz */,
 				4E1FE1CF1FB264BF0031211C /* fa-AF */,
+				4E8E7E452011384B007CE579 /* bn */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

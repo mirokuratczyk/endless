@@ -2,7 +2,7 @@
 "PSIPHON_BROWSER" = "เบราเซอร์ของ Psiphon";
 
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
-"NOTIFICATIONS_SUBSETTINGS_LABEL" = "Notifications";
+"NOTIFICATIONS_SUBSETTINGS_LABEL" = "การแจ้งเตือน";
 
 /* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
 "SETTINGS_SEARCH_ENGINE" = "Search engine";
