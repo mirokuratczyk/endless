@@ -18,18 +18,6 @@
 	<string>1.1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.psiphon3.browser</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>endlesshttp</string>
-				<string>endlesshttps</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>1033</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

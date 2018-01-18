@@ -369,19 +369,6 @@
 {
 	NSURL *url = [request URL];
 
-	// `endlesshttps?://` links are used (mostly or always?) when launching the app with a URL.
-	/* treat endlesshttps?:// links clicked inside of web pages as normal links */
-	if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttp"]) {
-		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttp" length]) withString:@"http"]];
-		[self loadURL:url];
-		return NO;
-	}
-	else if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttps"]) {
-		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttps" length]) withString:@"https"]];
-		[self loadURL:url];
-		return NO;
-	}
-
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
 		if ([AppDelegate sharedAppDelegate].psiphonConectionState != ConnectionStateConnected) {
 			// We are not connected:
