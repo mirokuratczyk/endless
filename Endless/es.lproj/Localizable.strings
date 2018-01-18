@@ -132,7 +132,7 @@
 "CONNECTION_STATUS_WAITING" = "Esperando a la red...";
 
 /* Done action */
-"DONE_ACTION" = "Hecho";
+"DONE_ACTION" = "Terminado";
 
 /* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
 "DOWNLOAD_PREVIEW_MORE" = "Más...";
@@ -177,7 +177,7 @@
 "IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Se completó la descarga de la imagen %@";
 
 /* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "¡Completado!";
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "¡Éxito!";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
 "IMAGE_DOWNLOAD_TEXT" = "Descargando imagen %@. Se le notificará cuando se complete la descarga.";
@@ -292,7 +292,7 @@
 "TUTORIAL_TITLE_FINAL" = "Se acabó el tiempo de aprendizaje";
 
 /* Title of second tutorial screen which highlights the settings button */
-"TUTORIAL_TITLE_SETTINGS" = "Configuración y ayuda";
+"TUTORIAL_TITLE_SETTINGS" = "Configuraciónes y Ayuda";
 
 /* Title of first tutorial screen which highlights the connection indicator */
 "TUTORIAL_TITLE_STATUS" = "Indicador de estado";

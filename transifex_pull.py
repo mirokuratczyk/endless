@@ -38,8 +38,9 @@ DEFAULT_LANGS = {
     'ar': 'ar',         # Arabic
     'az@latin': 'az',   # Azerbaijani
     'be': 'be',         # Belarusian
-    'de': 'de',         # German
+    'bn': 'bn',         # Bengali
     'bo': 'bo',         # Tibetan
+    'de': 'de',         # German
     'el_GR': 'el',      # Greek
     'es': 'es',         # Spanish
     'fa': 'fa',         # Farsi/Persian

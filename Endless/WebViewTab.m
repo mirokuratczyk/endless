@@ -297,15 +297,16 @@
 
 - (void)loadURL:(NSURL *)u withForce:(BOOL)force
 {
-	[self.webView stopLoading];
-	[self reset];
-
 	NSMutableURLRequest *ur = [NSMutableURLRequest requestWithURL:u];
 	ur.timeoutInterval = INT_MAX; // 2^31 - 1 (this is the default timeout seen on requests formed internally by UIWebView)
 	if (force)
 		[ur setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 
-	[self.webView loadRequest:ur];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self.webView stopLoading];
+		[self reset];
+		[self.webView loadRequest:ur];
+	});
 }
 
 - (void)searchFor:(NSString *)query
@@ -368,19 +369,6 @@
 - (BOOL)webView:(UIWebView *)__webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
 	NSURL *url = [request URL];
-
-	// `endlesshttps?://` links are used (mostly or always?) when launching the app with a URL.
-	/* treat endlesshttps?:// links clicked inside of web pages as normal links */
-	if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttp"]) {
-		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttp" length]) withString:@"http"]];
-		[self loadURL:url];
-		return NO;
-	}
-	else if ([[[url scheme] lowercaseString] isEqualToString:@"endlesshttps"]) {
-		url = [NSURL URLWithString:[[url absoluteString] stringByReplacingCharactersInRange:NSMakeRange(0, [@"endlesshttps" length]) withString:@"https"]];
-		[self loadURL:url];
-		return NO;
-	}
 
 	if (![[url scheme] isEqualToString:@"endlessipc"]) {
 		if ([AppDelegate sharedAppDelegate].psiphonConectionState != ConnectionStateConnected) {

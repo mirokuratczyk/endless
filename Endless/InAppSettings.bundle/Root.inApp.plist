@@ -48,6 +48,7 @@
 				<string>am</string>
 				<string>az</string>
 				<string>be</string>
+				<string>bn</string>
 				<string>bo</string>
 				<string>de</string>
 				<string>es</string>
@@ -109,6 +110,10 @@
 				<dict>
 					<key>Title</key>
 					<string>Беларуская</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>বাংলা</string>
 				</dict>
 				<dict>
 					<key>Title</key>

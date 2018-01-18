@@ -1,0 +1,3 @@
+/* Text of prompt for user to grant app permission to access their photo library */
+"NSPhotoLibraryUsageDescription" = "এটি আপনাকে ফটো সংরক্ষণ এবং আপলোড করতে দেয়";
+

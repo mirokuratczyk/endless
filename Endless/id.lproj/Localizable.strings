@@ -138,7 +138,7 @@
 "DOWNLOAD_PREVIEW_MORE" = "Lebih banyak...";
 
 /* Text displayed on navigation bar reflecting file download state */
-"DOWNLOAD_STATE_CANCELLED" = "Cancelled";
+"DOWNLOAD_STATE_CANCELLED" = "Dibatalkan";
 
 /* Text displayed on navigation bar reflecting file download state */
 "DOWNLOAD_STATE_ERROR" = "Kesalahan";

@@ -18,7 +18,7 @@
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"BOOKMARKS_TITLE" = "ការចំណាំ";
+"BOOKMARKS_TITLE" = "ការកំណត់ចំណាំ";
 
 /* Cancel action */
 "CANCEL_ACTION" = "បោះបង់";
@@ -39,7 +39,7 @@
 "CERT_CN" = "ឈ្មោះទូទៅ";
 
 /* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "ព័ត៌មានការតភ្ជាប់";
+"CERT_CONNECTION_INFORMATION" = "ការតភ្ជាប់ព័ត៌មាន";
 
 /* Field name for display in list */
 "CERT_COUNTRY" = "ប្រទេស";
@@ -108,7 +108,7 @@
 "CLOSE_TABS_PROMPT" = "អនុញ្ញាតទំព័រនេះបិទផ្ទាំងរបស់វា?";
 
 /* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "ទៅការកំណត់";
+"CONNECTING_GO_TO_SETTINGS" = "ទៅកាន់ការកំណត់";
 
 /* Button text on connection status modal that brings the user to the app Settings */
 "CONNECTION_ALERT_SETTINGS_ACTION" = "ការកំណត់";

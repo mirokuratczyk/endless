@@ -1,0 +1,302 @@
+/* 'Add bookmark' dialog title */
+"ADD_BOOKMARK_TITLE" = "বুকমার্ক যোগ করুন";
+
+/* 'Edit Bookmark' dialog page name field
+   Add bookmark page name field */
+"ADD_EDIT_BOOKMARK_NAME" = "পৃষ্ঠা নাম (URL ব্যবহার করতে ফাঁকা রাখুন)";
+
+/* 'Add Bookmark' dialog text
+   'Edit Bookmark' dialog text */
+"ADD_EDIT_BOOKMARK_TEXT" = "বুকমার্ক করতে URL এর বিবরণ লিখুন:";
+
+/* 'Edit Bookmark' dialog URL field
+   Add bookmark URL field */
+"ADD_EDIT_BOOKMARK_URL" = "URL";
+
+/* Edit button at bottom of screen in bookmarks view */
+"BOOKMARKS_EDIT_BUTTON" = "এডিট ";
+
+/* Bookmarks main dialog title
+   Bookmarks table header title */
+"BOOKMARKS_TITLE" = "বুকমার্ক";
+
+/* Cancel action */
+"CANCEL_ACTION" = "বাতিল";
+
+/* Field name for display in list */
+"CERT_BEGINS_ON" = "শুরু হয়";
+
+/* Field name for display in list */
+"CERT_BUSCAT" = "ব্যবসা বিভাগ";
+
+/* Field name for display in list */
+"CERT_CERTIFICATE_INFORMATION" = "প্রশংসাপত্র তথ্য";
+
+/* Field name for display in list */
+"CERT_CIPHER" = "Cipher";
+
+/* Field name for display in list */
+"CERT_CN" = "সাধারণ নাম";
+
+/* Field name for display in list */
+"CERT_CONNECTION_INFORMATION" = "সংযোগ তথ্য";
+
+/* Field name for display in list */
+"CERT_COUNTRY" = "দেশ";
+
+/* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
+"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+
+/* Field name for display in list */
+"CERT_EV_ORG" = "এক্সটেন্ডেড ভ্যালিডেশন: সংস্থা";
+
+/* Field name for display in list */
+"CERT_EXPIRES_AFTER" = " মেয়াদ শেষ এর পরে";
+
+/* Field name for display in list */
+"CERT_ISSUED_BY" = "দ্বারা ইস্যু করা";
+
+/* Field name for display in list */
+"CERT_ISSUED_TO" = "ইস্যু করা হয়েছে";
+
+/* Field name for display in list */
+"CERT_LOCALITY" = "বসতি এলাকা";
+
+/* Field name for display in list */
+"CERT_OBJECT_IDENTIFIER" = "অবজেক্ট সনাক্তকারী";
+
+/* Field name for display in list */
+"CERT_ORG" = "সংগঠন";
+
+/* Field name for display in list */
+"CERT_ORG_UNIT_NUMBER" = "সাংগঠনিক ইউনিট সংখ্যা";
+
+/* Field name for display in list */
+"CERT_PERIOD_OF_VALIDITY" = " মেয়াদকালের বৈধতা";
+
+/* Field name for display in list */
+"CERT_POSTAL_CODE" = "পোস্টাল কোড";
+
+/* Field name for display in list */
+"CERT_PROTOCOL" = "প্রোটোকল";
+
+/* Field name for display in list */
+"CERT_SERIAL_NUMBER" = "ক্রমিক সংখ্যা";
+
+/* Field name for display in list */
+"CERT_SIG_ALGO" = "স্বাক্ষর আলগোরিদিম";
+
+/* Field name for display in list */
+"CERT_STATE" = "রাজ্য / প্রদেশ";
+
+/* Field name for display in list */
+"CERT_STREET_ADDR" = "রাস্তার ঠিকানা";
+
+/* No comment provided by engineer. */
+"CERT_UNKNOWN_ORGANIZATION" = "অজানা সংস্থা";
+
+/* Field name for display in list */
+"CERT_VERSION" = "সংস্করণ";
+
+/* Text of button on alert which will redirect the user to the settings menu */
+"CHANGE_SETTINGS_BUTTON" = "সেটিংস্ পরিবর্তন করুন";
+
+/* Title for the 'Allow this page to close its tab?' alert */
+"CLOSE_TABS_CONFIRM" = "নিশ্চিত করা";
+
+/* Alert dialog text */
+"CLOSE_TABS_PROMPT" = "এই পৃষ্ঠাটিকে তার ট্যাবটি বন্ধ করার অনুমতি দেবেন?";
+
+/* Action button in connection dialog that will open the app settings */
+"CONNECTING_GO_TO_SETTINGS" = "সেটিংস এ যান";
+
+/* Button text on connection status modal that brings the user to the app Settings */
+"CONNECTION_ALERT_SETTINGS_ACTION" = "বিন্যাস";
+
+/* Title that is showing above selected server region */
+"CONNECTION_SERVER_REGION_TITLE" = "সার্ভার অঞ্চল:";
+
+/* Connection status initial splash modal dialog title for 'Connected' state */
+"CONNECTION_STATUS_CONNECTED" = "সংযুক্ত হয়েছে!";
+
+/* Connection status initial splash modal dialog title for 'Connecting...' state */
+"CONNECTION_STATUS_CONNECTING" = "সংযুক্ত হচ্ছে ...";
+
+/* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
+"CONNECTION_STATUS_DISCONNECTED" = "সংযোগ বিচ্ছিন্ন হয়েছে!";
+
+/* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
+"CONNECTION_STATUS_ERROR_MESSAGE" = "একটি অভ্যন্তরীণ ত্রুটির কারণে সাইফন শুরু করতে পারে না, অনুগ্রহ করে প্রতিক্রিয়া পাঠান।";
+
+/* Connection status initial splash modal dialog title for 'Waiting for network...' state */
+"CONNECTION_STATUS_WAITING" = "নেটওয়ার্কের জন্য অপেক্ষা...";
+
+/* Done action */
+"DONE_ACTION" = "সমাপ্ত";
+
+/* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
+"DOWNLOAD_PREVIEW_MORE" = "আরো ...";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_CANCELLED" = "বাতিল করা হয়েছে";
+
+/* Text displayed on navigation bar reflecting file download state */
+"DOWNLOAD_STATE_ERROR" = "সমস্যা";
+
+/* Edit Bookmark dialog title */
+"EDIT_BOOKMARK_TITLE" = "বুকমার্ক সম্পাদনা করুন";
+
+/* HTTP authentication alert log in button action */
+"HTTP_AUTH_LOG_IN" = "লগ ইন করুন";
+
+/* HTTP authentication alert password input title */
+"HTTP_AUTH_PASSWORD" = "পাসওয়ার্ড";
+
+/* HTTP authentication alert title */
+"HTTP_AUTH_TITLE" = "প্রমাণীকরণ প্রয়োজন";
+
+/* HTTP authentication alert user name input title */
+"HTTP_AUTH_USER_NAME" = "ব্যবহারকারীর নাম";
+
+/* HTTPS Everywhere menu title */
+"HTTPSEVERYWHERE_MENU_TITLE" = "HTTPS দ্বারা সর্বত্র রুলস";
+
+/* Image download error alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_ERROR_GENERIC" = "চিত্র ডাউনলোড করার সময় একটি ত্রুটি ঘটেছে%@";
+
+/* Text preceeding error description */
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "ত্রুটি:";
+
+/* Image download error alert title */
+"IMAGE_DOWNLOAD_ERROR_TITLE" = "ত্রুটি";
+
+/* Text preceeding http response status code */
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "অবস্থা কোড:";
+
+/* Image download success alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "সফলভাবে ডাউনলোড করা ছবি%@";
+
+/* Image download success alert title */
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "সাফল্য!";
+
+/* Image download in progress alert text. %@ will be replaced with the URL of the image. */
+"IMAGE_DOWNLOAD_TEXT" = "ছবি ডাউনলোড করা হচ্ছে %@।যখন ডাউনলোড সম্পূর্ণ হবে তখন আপনাকে জানানো হবে।";
+
+/* Image download in progress alert title */
+"IMAGE_DOWNLOAD_TITLE" = "ডাউনলোড করা হচ্ছে ...";
+
+/* Action title for long press on image dialog */
+"IMAGE_LONG_PRESS_SAVE" = "ছবি সংরক্ষন করুন";
+
+/* Text above language selection box
+   Title above language box which displays the current app language and all available languages that the app is localized for */
+"LANGUAGE_SELECT_TITLE" = "ভাষা";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_COPY_URL" = "URL অনুলিপি করুন";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN" = "উম্মুক্ত";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_NEW_TAB" = "একটি নতুন ট্যাবে খুলুন";
+
+/* Action title for long press on link dialog */
+"LINK_LONG_PRESS_OPEN_SAFARI" = "Safari এ খুলুন";
+
+/* New browser tab title text */
+"NEW_TAB_TITLE" = "নতুন ট্যাব";
+
+/* No comment provided by engineer. */
+"NYALERT_TEXT" = "বার্তা পাঠ্য রূপ";
+
+/* No comment provided by engineer. */
+"NYALERT_TITLE" = "শিরোনাম লেবেল";
+
+/* OK action */
+"OK_ACTION" = "ঠিক আছে";
+
+/* Body text on one of the on-boarding screens. It is indicating to the user that Psiphon Browser allows them to access the Internet (without censorship). */
+"ONBOARDING_ACCESS_TEXT" = "আপনার নখদর্পণে ইন্টারনেট";
+
+/* Title text on one of the on-boarding screens */
+"ONBOARDING_ACCESS_TITLE" = "ওয়েব অ্যাক্সেস করুন";
+
+/* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APP_NAME" = "সাইফন ব্রাউজার";
+
+/* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
+"ONBOARDING_APP_SUBTITLE" = "সীমান্ত অতিক্রম করে ব্রাউজ করুন";
+
+/* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
+"ONBOARDING_APPS_TEXT" = "আপনার পছন্দের অ্যাপ্লিকেশানগুলির একটি ওয়েব ইন্টারফেস রয়েছে যা সাইফন ব্রাউজারে চমৎকার কাজ করে";
+
+/* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
+"ONBOARDING_APPS_TITLE" = "আপনার ব্রাউজারে আপনার অ্যাপস";
+
+/* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
+"ONBOARDING_BROWSING_TITLE" = "শুভ ব্রাউজিং!";
+
+/* Text of the button that the user presses to proceed to the next screen of onboarding */
+"ONBOARDING_NEXT_BUTTON" = "পরবর্তী";
+
+/* Text of button at the top right or left (depending on rtl) of the onboarding screens which allows user to skip onboarding */
+"ONBOARDING_SKIP_BUTTON" = "এড়িয়ে যাওয়া ";
+
+/* Alert text telling user which button to press if they want to be redirected to the settings menu */
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "অনুমতি পরিবর্তন করতে 'সেটিংস পরিবর্তন করুন' বাটন ক্লিক করুন";
+
+/* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\" সাইফন ব্রাউজার\" ছবিগুলি সংরক্ষণ এবং আপলোড করার জন্য আপনার ফটো লাইব্রেরিতে অ্যাক্সেসের প্রয়োজন";
+
+/* UI hint that the webpage can be refreshed by pulling(swiping) down */
+"PULL_TO_REFRESH_PAGE" = "রিফ্রেশ করতে পৃষ্ঠা টানুন";
+
+/* Title above a list of rules */
+"RULES_ALL_LIST_TITLE" = "সব নিয়ম";
+
+/* Title above a list of rules in use */
+"RULES_CURRENT_PAGE_LIST_TITLE" = "বর্তমান পৃষ্ঠায় ব্যবহারের নিয়ম";
+
+/* %ld will be replaced with a natural number */
+"RULES_IN_USE_PLURAL" = "% ld ব্যবহারের নিয়ম";
+
+/* %ld will be replaced with the number 1 */
+"RULES_IN_USE_SINGULAR" = "% ld নিয়ম ব্যবহার";
+
+/* Title of alert to clear local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT" = "সমস্ত কুকি এবং ব্রাউজিং ডেটা সরান?";
+
+/* Accept button on alert which triggers clearing all local cookies and browsing data */
+"SETTINGS_CLEAR_ALL_COOKIES_PROMPT_BUTTON" = "কুকিজ এবং ডেটা সাফ করুন";
+
+/* Text of button that user presses to complete onboarding and start tutorial */
+"START_TUTORIAL_BUTTON" = "টিউটোরিয়াল শুরু করুন";
+
+/* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_FINAL" = "এখন আমরা একটি সাইফন সার্ভারের সাথে সংযোগ করব যাতে আপনি ব্রাউজিং শুরু করতে পারেন।";
+
+/* Text on second tutorial screen which highlights the settings button */
+"TUTORIAL_BODY_SETTINGS" = "এই যেখানে আপনি সেটিংস অ্যাক্সেস করতে পারেন এবং সাহায্য পেতে পারেন";
+
+/* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
+"TUTORIAL_BODY_STATUS" = "সবুজ চেকমার্ক নির্দেশ করে যে সাইফন ব্রাউজার সংযুক্ত এবং আপনার ব্রাউজিং শুরু করার জন্য প্রস্তুত";
+
+/* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_GO_BUTTON" = "চলো যাই!";
+
+/* Text that can be clicked to skip the tutorial */
+"TUTORIAL_SKIP_BUTTON" = "টিউটোরিয়াল ছেড়ে যান";
+
+/* Title of third tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser */
+"TUTORIAL_TITLE_FINAL" = "শেখার সময় শেষ হয়ে গেছে";
+
+/* Title of second tutorial screen which highlights the settings button */
+"TUTORIAL_TITLE_SETTINGS" = "সেটিংস এবং সাহায্য";
+
+/* Title of first tutorial screen which highlights the connection indicator */
+"TUTORIAL_TITLE_STATUS" = "স্থিতি নির্দেশক";
+
+/* Alert dialog title when webpage has failed to load */
+"WEB_LOAD_ERROR_TEXT" = "সমস্যা";
+
