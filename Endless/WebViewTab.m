@@ -297,15 +297,16 @@
 
 - (void)loadURL:(NSURL *)u withForce:(BOOL)force
 {
-	[self.webView stopLoading];
-	[self reset];
-
 	NSMutableURLRequest *ur = [NSMutableURLRequest requestWithURL:u];
 	ur.timeoutInterval = INT_MAX; // 2^31 - 1 (this is the default timeout seen on requests formed internally by UIWebView)
 	if (force)
 		[ur setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 
-	[self.webView loadRequest:ur];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self.webView stopLoading];
+		[self reset];
+		[self.webView loadRequest:ur];
+	});
 }
 
 - (void)searchFor:(NSString *)query
