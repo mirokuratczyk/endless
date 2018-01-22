@@ -18,7 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import argparse
-import datetime
 import plistlib
 import sys
 
@@ -42,6 +41,8 @@ class CFBundleShortVersionString:
 
 class InfoPlist:
 
+    bundle_name_key = 'CFBundleName'
+    bundle_identifier_key = 'CFBundleIdentifier'
     version_key = 'CFBundleVersion'  # for internal use, development
     short_version_key = 'CFBundleShortVersionString'  # for release versions, app store
 
@@ -55,15 +56,25 @@ class InfoPlist:
     def sync(self):
         if self.plist[self.version_key] != str(self.version_key):
             if self.debug:
-                print '{0} updated from {1} to {2}'.format(self.version_key, self.plist[self.version_key], self.version)
+                print('{0} updated from {1} to {2}'.format(self.version_key, self.plist[self.version_key], self.version))
         if self.plist[self.short_version_key] != str(self.short_version):
             if self.debug:
-                print '{0} updated from {1} to {2}'.format(self.short_version_key,
+                print('{0} updated from {1} to {2}'.format(self.short_version_key,
                                                            self.plist[self.short_version_key],
-                                                           self.short_version)
+                                                           self.short_version))
         self.plist[self.version_key] = str(self.version)
         self.plist[self.short_version_key] = str(self.short_version)
         plistlib.writePlist(self.plist, self.plist_path)
+
+    def update(self, key, val):
+        self.plist[key] = val
+        self.sync()
+
+    def update_bundle_name(self, bundle_name):
+        self.update(self.bundle_name_key, bundle_name)
+
+    def update_bundle_identifier(self, bundle_identifier):
+        self.update(self.bundle_identifier_key, bundle_identifier)
 
     def increment_for_release(self):
         self.version += 1
@@ -132,13 +143,10 @@ if __name__ == "__main__":
 
     if args.output is not None:
         if args.output == 'version':
-            print info_plist.testflight_version_string()
+            print(info_plist.testflight_version_string())
         elif args.output == 'short_version':
-            print info_plist.release_version_string()
+            print(info_plist.release_version_string())
         elif args.output == 'human_readable':
-            print info_plist.human_readable_version_string()
+            print(info_plist.human_readable_version_string())
         else:
             sys.exit('Invalid output specified. Must be "short_version" or "version".')
-
-else:
-    print "[%s] Initialized as a library" % (datetime.datetime.now())

@@ -1,0 +1,5 @@
+Jinja2==2.9.6
+jsonschema==2.2.0
+localizable==0.1.2
+requests==2.5.1
+PyYAML==3.12

@@ -26,7 +26,15 @@ Pods
 # python bytecode files
 *.pyc
 
+# Config files
 psiphon_config
 embedded_server_entries
 *.otf
 transifex_conf.json
+psi_ops_config.py
+
+# Logging
+psi_export_doc.log
+
+# Temp output
+CipherShare
