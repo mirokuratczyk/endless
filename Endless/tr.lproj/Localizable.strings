@@ -90,7 +90,7 @@
 "CERT_STATE" = "State/Province";
 
 /* Field name for display in list */
-"CERT_STREET_ADDR" = "Street Address";
+"CERT_STREET_ADDR" = "Cadde Adresi";
 
 /* No comment provided by engineer. */
 "CERT_UNKNOWN_ORGANIZATION" = "Bilinmeyen Organizasyon";
@@ -183,7 +183,7 @@
 "IMAGE_DOWNLOAD_TEXT" = "Downloading image %@. You will be notified when the download completes.";
 
 /* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Downloading…";
+"IMAGE_DOWNLOAD_TITLE" = "İndiriliyor…";
 
 /* Action title for long press on image dialog */
 "IMAGE_LONG_PRESS_SAVE" = "Resmi Kaydet";

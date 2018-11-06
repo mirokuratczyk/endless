@@ -17,7 +17,7 @@
 "SETTINGS_TUTORIAL" = "خودآموز";
 
 /* Explanatory text for the "Do Not Track" setting. */
-"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "از وبسایت‌ها و مهیا کننده‌های شخص ثالث‌شان درخواست کنید تا شما را ردیابی نکنند.  ";
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "از وبسایت‌ها و تولیدکنندگان محتوای آن‌ها درخواست کنید تا شما را ردیابی نکنند.  ";
 
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
 "PRIVACY_DO_NOT_TRACK_LABEL" = "درخواستِ «پیگیری- نکردن» بفرستید";
@@ -56,7 +56,7 @@
 "PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "وبسایت‌ها ممکن است به منظور شناسایی شما در هنگام استفاده از مرورگر، کوکی‌ها و داده‌های دستگاه شما را ذخیره کنند. این داده‌ها معمولا برای دادن سرویسی مشخص به شما استفاده می‌شوند و می‌توانند شامل مشخاصات ورود، اولویت‌ها، و اطلاعات شخصی مانند اسم یا آدرس ایمیل شما باشند. مرورگرسایفون به‌صورت پیش‌فرض کوکی‌های وبسایت‌ها را بلاک می‌کند تا از دسترسی تبلیغ‌کننده‌ها به داده‌های شما جلوگیری کند.";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "اگر به اپلیکیشن دیگری بروید، تمام صفحه‌ها و کوکی‌های نامطمئن پاک خواهند شد.";
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "اگر به برنامه دیگری بروید، تمام کوکی‌ها و اطلاعات وبسایت پاک خواهند شد.";
 
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
 "PRIVACY_CLEAR_DATA_LABEL" = "پاک کردن تمام کوکی‌ها در پس‌زمینه";
@@ -68,20 +68,20 @@
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "پاک کردن کوکی‌ها و اطلاعات وبسایت";
 
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "کمترین نسخه‌ی  SSL/TLS  مورد نیاز برای اتصال به HTTPS، ممکن است اپلیکیشن را به اجبار ببندد.";
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "کمترین نسخه‌ی  SSL/TLS  مورد نیاز برای اتصال به HTTPS، ممکن است برنامه را به اجبار ببندد.";
 
 /* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
 "SECURITY_TLS_MINIMUM_LABEL" = "کمترین نسخه‌ی SSL/TLS";
 
 /* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال صدا پخش شود.";
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال، صدا پخش شود.";
 
 /* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
 "NOTIFICATIONS_SOUND_LABEL" = "صدا ";
 
 /* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال ویبره کند.";
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "در صورت تغییر در وضعیت اتصال بلرزد.";
 
 /* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "ویبره";
+"NOTIFICATIONS_VIBRATE_LABEL" = "لرزش";
 

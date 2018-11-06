@@ -90,7 +90,7 @@
 "CERT_STATE" = "State/Province";
 
 /* Field name for display in list */
-"CERT_STREET_ADDR" = "Street Address";
+"CERT_STREET_ADDR" = "Endereço da rua";
 
 /* No comment provided by engineer. */
 "CERT_UNKNOWN_ORGANIZATION" = "Unknown Organization";
@@ -117,13 +117,13 @@
 "CONNECTION_SERVER_REGION_TITLE" = "Server region:";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"CONNECTION_STATUS_CONNECTED" = "Connected!";
+"CONNECTION_STATUS_CONNECTED" = "Conectado!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "CONNECTION_STATUS_CONNECTING" = "Conectando...";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
-"CONNECTION_STATUS_DISCONNECTED" = "Disconnected!";
+"CONNECTION_STATUS_DISCONNECTED" = "Desconectado!";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
 "CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon can not start due to an internal error, please send feedback.";
@@ -183,7 +183,7 @@
 "IMAGE_DOWNLOAD_TEXT" = "Downloading image %@. You will be notified when the download completes.";
 
 /* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Downloading…";
+"IMAGE_DOWNLOAD_TITLE" = "Baixando...";
 
 /* Action title for long press on image dialog */
 "IMAGE_LONG_PRESS_SAVE" = "Save Image";
@@ -205,7 +205,7 @@
 "LINK_LONG_PRESS_OPEN_SAFARI" = "Open in Safari";
 
 /* New browser tab title text */
-"NEW_TAB_TITLE" = "New Tab";
+"NEW_TAB_TITLE" = "Nova Aba";
 
 /* No comment provided by engineer. */
 "NYALERT_TEXT" = "Message Text View";

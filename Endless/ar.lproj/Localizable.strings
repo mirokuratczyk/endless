@@ -33,7 +33,7 @@
 "CERT_CERTIFICATE_INFORMATION" = "معلومات الشهادة";
 
 /* Field name for display in list */
-"CERT_CIPHER" = "Cipher";
+"CERT_CIPHER" = "تشفير";
 
 /* Field name for display in list */
 "CERT_CN" = "الاسم الشائع";

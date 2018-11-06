@@ -17,55 +17,55 @@
 "SETTINGS_TUTORIAL" = "Tutorial";
 
 /* Explanatory text for the "Do Not Track" setting. */
-"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Ask sites and their third party content providers not to track you.";
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Minta pada situs dan pihak ketiga penyedia konten tidak melacak Anda.";
 
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
 "PRIVACY_DO_NOT_TRACK_LABEL" = "Kirim \"Do-Not-Track\" Permintaaan";
 
 /* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Manage what types of cookies Psiphon Browser allows.";
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Kelola tipe cookies seperti apa yang diperbolehkan Psiphon Browser.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Always Block";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Selalu Blokir";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Allow from Current Website Only";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Izinkan hanya dari situs web ini saja.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Allow from Websites I Visit";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Izinkan dari Situsweb yang Saya Kunjungi";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Always Allow";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Selalu Izinkan";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Block All";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Blokir Semua";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Current Website Only";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Hanya situs web ini saja";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Websites I Visit";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Situsweb yang Saya Kunjungi";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Allow All";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Izinkan Semua";
 
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Allow Cookies";
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Izinkan Cookies";
 
 /* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Situs web mungkin akan menampilkan cookie dan  data lainnya di perangkat untuk mengindentifikasi ketika Anda berselancar. Data ini biasanya digunakan untuk menyediakan layanan dan konten spesifik untuk Anda. Ini bisa termasuk informasi pendaftaran, kesukaan, dan informasi pribadi seperti nama atau alamat surel. Peramban Psiphon memblokir cookies dari situs lain yang Anda kunjungi (cookies pihak ketiga) secara bawaan untuk membantu mengantisipasi pengiklan menyimpan data di gadget Anda. ";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "All tabs, cookies and website data will be cleared when switching to another app.";
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Semua data tab, kukis, dan situs web akan dibersihkan ketika beralih ke aplikasi lain.";
 
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
 "PRIVACY_CLEAR_DATA_LABEL" = "Menghapus semua ketika dilatarbelakangi";
 
 /* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies and local storage will be cleared.";
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies dan penyimpanan lokal akan dibersihkan.";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
-"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Clear cookies and website data";
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Bersihkan cookies dan data situs web. ";
 
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
 "SECURITY_TLS_MINIMUM_DESCRIPTION" = "Versi minimum SSL / TLS diperlukan untuk koneksi HTTPS; mungkin memerlukan kekuatan-menutup aplikasi tersebut akan diterapkan.";

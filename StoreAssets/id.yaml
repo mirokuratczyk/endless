@@ -1,1 +1,11 @@
-id: {app_name: Peramban Psiphon}
+id:
+  app_name: Peramban Psiphon
+  subtitle: Peramban melampaui batas Anda.
+  description: |
+      Setelah membantu puluhan juta pengguna untuk mengakses situs yang mereka inginkan, Psiphone telah meluncurkan aplikasi resmi untuk IOS. Aplikasi peramban baru ini dengan mulus terintegrasi dengan jaringan Psiphon, mengamankan koneksi Anda. Di manapun Anda berada, aplikasi Peramban Psiphon akan menghubungkan Anda dengan website tujuan Anda. Aplikasi ini juga menyediakan tambahan proteksi tambahan ketika menggunakan layanan WI-FI publik atau jaringan lain yang tidak kemungkinan kurang aman.
+      Fitur Kunci Termasuk
+      * Gratis, pemakaian personal tanda batas.
+      * Mudah mengunduh, memasang, dan menggunakan. Tidak membutuhkan pendaftaran atau diperlukan konfigurasi tertentu.
+      * Protokol automatis untuk menyediakan layanan yang cepat, dapat diandalkan, dan setiap saat.
+      * Pilihan multibahasa dan  lokasi peladen yang dapat dikonfigurasi.
+  keywords: Psiphon, peramban, VPN, dan proksi

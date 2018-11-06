@@ -7,7 +7,7 @@
 
 /* 'Add Bookmark' dialog text
    'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "Saisir les détails de l’URL à mettre en signet :";
+"ADD_EDIT_BOOKMARK_TEXT" = "Saisir les détails de l’URL à mettre en signet :";
 
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
@@ -48,7 +48,7 @@
 "CERT_DATE_TIME" = "yyyy-MM-dd 'à' HH:mm:ss zzz";
 
 /* Field name for display in list */
-"CERT_EV_ORG" = "Validation étendue : organisation";
+"CERT_EV_ORG" = "Validation étendue : organisation";
 
 /* Field name for display in list */
 "CERT_EXPIRES_AFTER" = "Expire après";
@@ -114,13 +114,13 @@
 "CONNECTION_ALERT_SETTINGS_ACTION" = "Paramètres";
 
 /* Title that is showing above selected server region */
-"CONNECTION_SERVER_REGION_TITLE" = "Région du serveur :";
+"CONNECTION_SERVER_REGION_TITLE" = "Région du serveur :";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
 "CONNECTION_STATUS_CONNECTED" = "Connecté !";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
-"CONNECTION_STATUS_CONNECTING" = "Connexion...";
+"CONNECTION_STATUS_CONNECTING" = "Connexion…";
 
 /* Connection status initial splash modal dialog title for 'Psiphon can not start due to an internal error' state */
 "CONNECTION_STATUS_DISCONNECTED" = "Déconnecté !";
@@ -129,13 +129,13 @@
 "CONNECTION_STATUS_ERROR_MESSAGE" = "Psiphon ne peut pas démarrer en raison d’une erreur interne, veuillez envoyer une rétroaction.";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "En attente du réseau...";
+"CONNECTION_STATUS_WAITING" = "En attente du réseau…";
 
 /* Done action */
 "DONE_ACTION" = "Terminé";
 
 /* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
-"DOWNLOAD_PREVIEW_MORE" = "Plus...";
+"DOWNLOAD_PREVIEW_MORE" = "Plus…";
 
 /* Text displayed on navigation bar reflecting file download state */
 "DOWNLOAD_STATE_CANCELLED" = "Annulé";
@@ -165,13 +165,13 @@
 "IMAGE_DOWNLOAD_ERROR_GENERIC" = "Une erreur est survenue lors du téléchargement de l’image %@";
 
 /* Text preceeding error description */
-"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Erreur :";
+"IMAGE_DOWNLOAD_ERROR_PREFIX" = "Erreur :";
 
 /* Image download error alert title */
 "IMAGE_DOWNLOAD_ERROR_TITLE" = "Erreur";
 
 /* Text preceeding http response status code */
-"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Code d’état :";
+"IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "Code d’état :";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
 "IMAGE_DOWNLOAD_SUCCESS_TEXT" = "Vous avez téléchargé l’image %@ avec succès";
@@ -183,7 +183,7 @@
 "IMAGE_DOWNLOAD_TEXT" = "Téléchargement de l’image %@. La fin du téléchargement vous sera signalée.";
 
 /* Image download in progress alert title */
-"IMAGE_DOWNLOAD_TITLE" = "Téléchargement...";
+"IMAGE_DOWNLOAD_TITLE" = "Téléchargement…";
 
 /* Action title for long press on image dialog */
 "IMAGE_LONG_PRESS_SAVE" = "Enregistrer l’image";
@@ -247,7 +247,7 @@
 "PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Pour accorder les droits, touchez le bouton 'Changer les paramètres'";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "Le « navigateur Psiphon » doit accéder à votre photothèque pour enregistrer et téléverser des images";
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "Le « navigateur Psiphon » doit accéder à votre photothèque pour enregistrer et téléverser des images";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "PULL_TO_REFRESH_PAGE" = "Tirer pour actualiser la page";
