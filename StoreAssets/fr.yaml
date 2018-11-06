@@ -1,6 +1,7 @@
 fr:
   app_name: Navigateur Psiphon
-  subtitle: Naviguez par-delà vos frontières
+  subtitle: Browse beyond your borders
+
   description: |
       Après avoir aidé des millions d’utilisateurs à obtenir l’accès aux sites qu’ils aiment, Psiphon a lancé sa première appli officielle pour iOS ! Notre nouvelle appli de navigation intègre de façon transparente l’accès au réseau de Psiphon, vous connectant en toute sécurité à vos sites.
 
