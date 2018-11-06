@@ -111,11 +111,13 @@ typedef NS_ENUM(NSInteger, PsiphonConnectionState)
  See the tunnel-core config code for details about the fields.
  https://github.com/Psiphon-Labs/psiphon-tunnel-core/blob/master/psiphon/config.go
 
- @return  JSON string with config that should used to run the Psiphon tunnel, or NULL on error.
+ @return Either JSON NSString with config that should be used to run the Psiphon tunnel,
+         or return already parsed JSON as NSDictionary,
+         or nil on error.
 
- Swift: @code func getPsiphonConfig() -> String? @endcode
+ Swift: @code func getPsiphonConfig() -> Any? @endcode
  */
-- (NSString * _Nullable)getPsiphonConfig;
+- (id _Nullable)getPsiphonConfig;
 
 /*!
  Called when the tunnel is starting to get the initial server entries (typically embedded in the app) that will be used to bootstrap the Psiphon tunnel connection. This value is in a particular format and will be supplied by Psiphon Inc.
@@ -201,7 +203,7 @@ This may mean that it had connectivity and now doesn't, or went from Wi-Fi to
 WWAN or vice versa or VPN state changed
 Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachability) @endcode
 */
-- (void)onInternetReachabilityChanged:(Reachability*_Nonnull)currentReachability;
+- (void)onInternetReachabilityChanged:(Reachability * _Nonnull)currentReachability;
 
 /*!
  Called when tunnel-core determines which server egress regions are available
@@ -299,6 +301,13 @@ Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachabil
  */
 - (void)onServerTimestamp:(NSString * _Nonnull)timestamp;
 
+/*!
+ Called when tunnel-core receives an array of active authorization IDs in the handshake
+ @param authorizations  A string array containing active authorization IDs.
+ Swift: @code func onActiveAuthorizationIDs(_ authorizations: [Any]) @endcode
+ */
+- (void)onActiveAuthorizationIDs:(NSArray * _Nonnull)authorizations;
+
 @end
 
 /*!
@@ -322,6 +331,25 @@ Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachabil
  */
 - (BOOL)start:(BOOL)ifNeeded;
 
+
+/*!
+ Reconnect a previously started PsiphonTunnel with the specified config changes.
+ reconnectWithConfig has no effect if there is no running PsiphonTunnel.
+ */
+- (void)reconnectWithConfig:(NSString * _Nullable) newSponsorID :(NSArray<NSString *> *_Nullable)newAuthorizations;
+
+/*!
+ Force stops the tunnel and reconnects with the current session ID.
+ Retuns with FALSE immediately if no session ID has already been generated.
+
+ @note On the first connection `start:` method should always be used to generate a
+ session ID.
+
+ @return TRUE if the connection start was successful, FALSE otherwise.
+ Swift: @code func startWithCurrentSessionID() @endcode
+ */
+- (BOOL)stopAndReconnectWithCurrentSessionID;
+
 /*!
  Stop the tunnel (regardless of its current connection state).
  Swift: @code func stop() @endcode
@@ -329,11 +357,25 @@ Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachabil
 - (void)stop;
 
 /*!
+ Indicate if the device is sleeping. This logs a diagnostic message and forces hasNetworkConnectivity to false when sleeping.
+ Swift: @code func setSleeping(_ isSleeping: Bool) @endcode
+ */
+- (void)setSleeping:(BOOL)isSleeping;
+
+/*!
  Returns the current tunnel connection state.
  @return  The current connection state.
  Swift: @code func getConnectionState() -> PsiphonConnectionState @endcode
  */
 - (PsiphonConnectionState)getConnectionState;
+
+/*!
+ Returns the current network reachability status, if Psiphon tunnel is not in a
+ disconnected state.
+ @return The current reachability status.
+ Swift: @code func getNetworkReachabilityStatus(_ status: UnsafeMutablePointer<NetworkStatus>!) -> Bool  @endcode
+ */
+- (BOOL)getNetworkReachabilityStatus:(NetworkStatus * _Nonnull)status;
 
 /*!
  Provides the port number of the local SOCKS proxy. Only valid when currently connected (will return 0 otherwise).
@@ -390,5 +432,15 @@ Swift: @code func onInternetReachabilityChanged(_ currentReachability: Reachabil
  Swift: @code func getBuildInfo() -> String @endcode
  */
 + (NSString * _Nonnull)getBuildInfo;
+
+#pragma mark - Profiling utitlities
+
+/*!
+ Writes Go runtime profile information to a set of files in the specifiec output directory.
+ @param cpuSampleDurationSeconds determines how to long to wait and sample profiles that require active sampling. When set to 0, these profiles are skipped.
+ @param blockSampleDurationSeconds determines how to long to wait and sample profiles that require active sampling. When set to 0, these profiles are skipped.
+ Swift: @code func writeRuntimeProfilesTo(_ outputDirectory: String, withCPUSampleDurationSeconds cpuSampleDurationSecond: Int, withBlockSampleDurationSeconds blockSampleDurationSeconds: Int) @endcode
+ */
+- (void)writeRuntimeProfilesTo:(NSString * _Nonnull)outputDirectory withCPUSampleDurationSeconds:(int)cpuSampleDurationSeconds withBlockSampleDurationSeconds:(int)blockSampleDurationSeconds;
 
  @end
