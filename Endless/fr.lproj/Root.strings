@@ -20,7 +20,7 @@
 "PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Demander aux sites et à leurs fournisseurs de contenu tiers de ne pas vous suivre à la trace.";
 
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "Envoyer des requêtes « Ne pas me suivre à la trace »";
+"PRIVACY_DO_NOT_TRACK_LABEL" = "Envoyer des requêtes « Ne pas me suivre à la trace »";
 
 /* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
 "PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Gérer quels types de témoins le navigateur Psiphon autorise.";
@@ -59,7 +59,7 @@
 "PRIVACY_CLEAR_DATA_DESCRIPTION" = "Tous les onglets, témoins et données de sites Web seront effacés lors du passage à une autre appli.";
 
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "Tout effacer lorsque mis en arrière-plan";
+"PRIVACY_CLEAR_DATA_LABEL" = "Tout effacer si mis en arrière-plan";
 
 /* Explanatory text for the "Clear cookies and website data" command. */
 "PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Les témoins et le stockage local seront effacés";
@@ -68,7 +68,7 @@
 "PRIVACY_CLEAR_DATA_NOW_LABEL" = "Effacer les témoins et les données de sites Web";
 
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Version minimale de SSL/TLS exigée pour les connexion HTTPS ; il pourrait être nécessaire de forcer la fermeture de l’appli pour que cette option prenne effet.";
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Version minimale de SSL/TLS exigée pour les connexion HTTPS ; il pourrait être nécessaire de forcer la fermeture de l’appli pour que cette option prenne effet.";
 
 /* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
 "SECURITY_TLS_MINIMUM_LABEL" = "Version minimale de SSL/TLS";

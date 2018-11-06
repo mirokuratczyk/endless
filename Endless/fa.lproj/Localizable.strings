@@ -1,24 +1,24 @@
 /* 'Add bookmark' dialog title */
-"ADD_BOOKMARK_TITLE" = "اضافه کردن بوکمارک";
+"ADD_BOOKMARK_TITLE" = "افزودن نشانک";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
-"ADD_EDIT_BOOKMARK_NAME" = "نام صفحه ( برای استفاده‌ی نشانی وب،‌ این قسمت را خالی بگذارید )";
+"ADD_EDIT_BOOKMARK_NAME" = "نام صفحه (برای استفاده از آدرس اینترنتی،‌ این قسمت را خالی بگذارید)";
 
 /* 'Add Bookmark' dialog text
    'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "جزئیات وبسایت را برای بوکمارک وارد کنید:";
+"ADD_EDIT_BOOKMARK_TEXT" = "جزئیات آدرس اینترنتی را برای نشانک وارد کنید:";
 
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
-"ADD_EDIT_BOOKMARK_URL" = "نشانی وب";
+"ADD_EDIT_BOOKMARK_URL" = "آدرس اینترنتی";
 
 /* Edit button at bottom of screen in bookmarks view */
 "BOOKMARKS_EDIT_BUTTON" = "ویرایش";
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"BOOKMARKS_TITLE" = "بوکمارک‌ها";
+"BOOKMARKS_TITLE" = "نشانک‌ها";
 
 /* Cancel action */
 "CANCEL_ACTION" = "لغو";
@@ -33,7 +33,7 @@
 "CERT_CERTIFICATE_INFORMATION" = "اطلاعات گواهی‌نامه";
 
 /* Field name for display in list */
-"CERT_CIPHER" = "صفر";
+"CERT_CIPHER" = "رمزگذاری";
 
 /* Field name for display in list */
 "CERT_CN" = "نام عمومی";
@@ -45,7 +45,7 @@
 "CERT_COUNTRY" = "کشور";
 
 /* This string will end up as '<date> 'at' <time>'. For example 2016-03-01 at 19:00:00 EST. Only 'at' should be translated with apostrophes preserved and the date and time strings placed where appropriate. */
-"CERT_DATE_TIME" = "yyyy-MM-dd 'at' HH:mm:ss zzz";
+"CERT_DATE_TIME" = "روز-ماه-سال به وقت ثانیه:دقیقه:ساعت ";
 
 /* Field name for display in list */
 "CERT_EV_ORG" = "اعتبار تمدید شده: سازمان";
@@ -57,13 +57,13 @@
 "CERT_ISSUED_BY" = "صادر‌شده توسط";
 
 /* Field name for display in list */
-"CERT_ISSUED_TO" = "صادرشده به";
+"CERT_ISSUED_TO" = "صادرشده برای";
 
 /* Field name for display in list */
 "CERT_LOCALITY" = "محل";
 
 /* Field name for display in list */
-"CERT_OBJECT_IDENTIFIER" = "معرف شئ";
+"CERT_OBJECT_IDENTIFIER" = "شناسه وسیله";
 
 /* Field name for display in list */
 "CERT_ORG" = "سازمان";
@@ -126,13 +126,13 @@
 "CONNECTION_STATUS_DISCONNECTED" = "قطع شد!";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "سایفون به‌دلیل خطا در اپلیکیشن قادر به باز شدن نیست، لطفا بازخورد‌های خود را برای ما بفرستید. ";
+"CONNECTION_STATUS_ERROR_MESSAGE" = "به‌دلیل خطای داخلی، سایفون قادر به باز شدن نیست، لطفا بازخورد‌های خود را برای ما بفرستید. ";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
-"CONNECTION_STATUS_WAITING" = "انتظار برای اتصال به شبکه...";
+"CONNECTION_STATUS_WAITING" = "منتظر اتصال به شبکه...";
 
 /* Done action */
-"DONE_ACTION" = "تمام";
+"DONE_ACTION" = "انجام شد";
 
 /* Text of button on download preview screen which allows users to see what other actions they can perform with the file */
 "DOWNLOAD_PREVIEW_MORE" = "بیشتر...";
@@ -144,13 +144,13 @@
 "DOWNLOAD_STATE_ERROR" = "خطا ";
 
 /* Edit Bookmark dialog title */
-"EDIT_BOOKMARK_TITLE" = "ویرایش بوکمارک";
+"EDIT_BOOKMARK_TITLE" = "ویرایش نشانک";
 
 /* HTTP authentication alert log in button action */
 "HTTP_AUTH_LOG_IN" = "ورود";
 
 /* HTTP authentication alert password input title */
-"HTTP_AUTH_PASSWORD" = "رمز عبور";
+"HTTP_AUTH_PASSWORD" = "گذرواژه";
 
 /* HTTP authentication alert title */
 "HTTP_AUTH_TITLE" = "نیاز به احراز هویت است";
@@ -159,7 +159,7 @@
 "HTTP_AUTH_USER_NAME" = "نام کاربری";
 
 /* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "قوانین HTTPS Everywhere Rules";
+"HTTPSEVERYWHERE_MENU_TITLE" = "قوانین HTTPS Everywhere ";
 
 /* Image download error alert text. %@ will be replaced with the URL of the image. */
 "IMAGE_DOWNLOAD_ERROR_GENERIC" = "خطا در دانلود عکس %@";
@@ -174,10 +174,10 @@
 "IMAGE_DOWNLOAD_STATUS_CODE_PREFIX" = "کد وضعیت:";
 
 /* Image download success alert text. %@ will be replaced with the URL of the image. */
-"IMAGE_DOWNLOAD_SUCCESS_TEXT" = "عکس %@با موفقیت دانلود شد";
+"IMAGE_DOWNLOAD_SUCCESS_TEXT" = " %@عکس با موفقیت دانلود شد";
 
 /* Image download success alert title */
-"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "با موفقیت دانلود شد";
+"IMAGE_DOWNLOAD_SUCCESS_TITLE" = "موفق شد!";
 
 /* Image download in progress alert text. %@ will be replaced with the URL of the image. */
 "IMAGE_DOWNLOAD_TEXT" = "در حال دانلود عکس %@. بعد از اتمام دانلود به شما اطلاع خواهیم داد.  ";
@@ -193,7 +193,7 @@
 "LANGUAGE_SELECT_TITLE" = "زبان";
 
 /* Action title for long press on link dialog */
-"LINK_LONG_PRESS_COPY_URL" = "کپی کردن نشانی وب";
+"LINK_LONG_PRESS_COPY_URL" = "کپی کردن آدرس اینترنتی";
 
 /* Action title for long press on link dialog */
 "LINK_LONG_PRESS_OPEN" = "بازکردن";
@@ -229,10 +229,10 @@
 "ONBOARDING_APP_SUBTITLE" = "فراتر از مرزها را پیدا کن";
 
 /* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
-"ONBOARDING_APPS_TEXT" = "اگر اپلیکیشن مورد علاقه‌ی شما فیلتر‌شده، نسخه‌ی وب آن را با مرورگر سایفون امتحان کنید";
+"ONBOARDING_APPS_TEXT" = "اگر برنامه مورد علاقه‌ی شما فیلتر‌شده، نسخه‌ی وب آن را با مرورگر سایفون امتحان کنید";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
-"ONBOARDING_APPS_TITLE" = "اپلیکیشن‌های شما در مرورگر شما";
+"ONBOARDING_APPS_TITLE" = "برنامههای شما در مرورگر شما";
 
 /* Title text on one of the on-boarding screens. This is the final page of the on-boarding and is sending the user off on their journey across the Internet. */
 "ONBOARDING_BROWSING_TITLE" = "گردش خوبی داشته باشی! ";
@@ -244,7 +244,7 @@
 "ONBOARDING_SKIP_BUTTON" = "پرش";
 
 /* Alert text telling user which button to press if they want to be redirected to the settings menu */
-"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "برای دادن مجوز به اپلیکیشن به «تغییر تنظیمات» بروید";
+"PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "برای دادن مجوز به برنامه به «تغییر تنظیمات» بروید";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
 "PHOTO_LIBRARY_ACCESS_PROMPT" = "«مرورگر سایفون» برای ذخیره و بارگذاری عکس‌ها، نیازمند دسترسی به آلبوم عکس شما است. ";
@@ -256,10 +256,10 @@
 "RULES_ALL_LIST_TITLE" = "تمام قوانین";
 
 /* Title above a list of rules in use */
-"RULES_CURRENT_PAGE_LIST_TITLE" = "دستورهای این صفحه در حال اجرا هستند. ";
+"RULES_CURRENT_PAGE_LIST_TITLE" = "دستورها در این صفحه در حال اجرا هستند. ";
 
 /* %ld will be replaced with a natural number */
-"RULES_IN_USE_PLURAL" = "%ld دستور در حال استفاده است";
+"RULES_IN_USE_PLURAL" = "%ld دستورها در حال استفاده است";
 
 /* %ld will be replaced with the number 1 */
 "RULES_IN_USE_SINGULAR" = "%ld دستور در حال استفاده است";
@@ -277,10 +277,10 @@
 "TUTORIAL_BODY_FINAL" = "حالا شما را به یکی از سرورهای سایفون وصل می‌کنیم تا در اینترنت بچرخید";
 
 /* Text on second tutorial screen which highlights the settings button */
-"TUTORIAL_BODY_SETTINGS" = "از اینجا می‌توانید به تنظیمات و پشتیبانی دسترسی پیدا کنید.";
+"TUTORIAL_BODY_SETTINGS" = "از اینجا می‌توانید به تنظیمات و پشتیبانی دسترسی داشته‌ باشید.";
 
 /* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
-"TUTORIAL_BODY_STATUS" = "علامت تیک سبز نشان‌ دهنده‌ی این است که همه چیز به خوبی در حال کار کردن است و برای شما آماده است!";
+"TUTORIAL_BODY_STATUS" = "علامت تیک سبز نشان‌ دهنده‌ی این است که مرورگر سایفون وصل شده و برای استفاده شما آماده است!";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
 "TUTORIAL_GO_BUTTON" = "بزن بریم! ";
@@ -295,7 +295,7 @@
 "TUTORIAL_TITLE_SETTINGS" = "تنظیمات و پشتیبانی";
 
 /* Title of first tutorial screen which highlights the connection indicator */
-"TUTORIAL_TITLE_STATUS" = "وضعیت نمایشگر";
+"TUTORIAL_TITLE_STATUS" = "نمایشگر وضعیت";
 
 /* Alert dialog title when webpage has failed to load */
 "WEB_LOAD_ERROR_TEXT" = "خطا ";

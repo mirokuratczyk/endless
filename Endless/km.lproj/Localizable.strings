@@ -78,7 +78,7 @@
 "CERT_POSTAL_CODE" = "លេខ​កូដ​ប្រៃ​ស​ណី​យ";
 
 /* Field name for display in list */
-"CERT_PROTOCOL" = "ច្រក";
+"CERT_PROTOCOL" = "ប្រូតូខូល";
 
 /* Field name for display in list */
 "CERT_SERIAL_NUMBER" = "លេខ​សម្គាល់";
