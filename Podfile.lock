@@ -1,63 +1,63 @@
 PODS:
-  - DTFoundation (1.7.12):
-    - DTFoundation/AppKit (= 1.7.12)
-    - DTFoundation/Core (= 1.7.12)
-    - DTFoundation/Debug (= 1.7.12)
-    - DTFoundation/DTAnimatedGIF (= 1.7.12)
-    - DTFoundation/DTASN1 (= 1.7.12)
-    - DTFoundation/DTAsyncFileDeleter (= 1.7.12)
-    - DTFoundation/DTAWS (= 1.7.12)
-    - DTFoundation/DTHTMLParser (= 1.7.12)
-    - DTFoundation/DTProgressHUD (= 1.7.12)
-    - DTFoundation/DTReachability (= 1.7.12)
-    - DTFoundation/DTScripting (= 1.7.12)
-    - DTFoundation/DTSidePanel (= 1.7.12)
-    - DTFoundation/DTSQLite (= 1.7.12)
-    - DTFoundation/DTUTI (= 1.7.12)
-    - DTFoundation/DTZipArchive (= 1.7.12)
-    - DTFoundation/Runtime (= 1.7.12)
-    - DTFoundation/UIKit (= 1.7.12)
-    - DTFoundation/UIKit_BlocksAdditions (= 1.7.12)
-  - DTFoundation/Core (1.7.12)
-  - DTFoundation/Debug (1.7.12):
+  - DTFoundation (1.7.13):
+    - DTFoundation/AppKit (= 1.7.13)
+    - DTFoundation/Core (= 1.7.13)
+    - DTFoundation/Debug (= 1.7.13)
+    - DTFoundation/DTAnimatedGIF (= 1.7.13)
+    - DTFoundation/DTASN1 (= 1.7.13)
+    - DTFoundation/DTAsyncFileDeleter (= 1.7.13)
+    - DTFoundation/DTAWS (= 1.7.13)
+    - DTFoundation/DTHTMLParser (= 1.7.13)
+    - DTFoundation/DTProgressHUD (= 1.7.13)
+    - DTFoundation/DTReachability (= 1.7.13)
+    - DTFoundation/DTScripting (= 1.7.13)
+    - DTFoundation/DTSidePanel (= 1.7.13)
+    - DTFoundation/DTSQLite (= 1.7.13)
+    - DTFoundation/DTUTI (= 1.7.13)
+    - DTFoundation/DTZipArchive (= 1.7.13)
+    - DTFoundation/Runtime (= 1.7.13)
+    - DTFoundation/UIKit (= 1.7.13)
+    - DTFoundation/UIKit_BlocksAdditions (= 1.7.13)
+  - DTFoundation/Core (1.7.13)
+  - DTFoundation/Debug (1.7.13):
     - DTFoundation/Core
     - DTFoundation/Runtime
-  - DTFoundation/DTAnimatedGIF (1.7.12)
-  - DTFoundation/DTASN1 (1.7.12):
+  - DTFoundation/DTAnimatedGIF (1.7.13)
+  - DTFoundation/DTASN1 (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTAsyncFileDeleter (1.7.12):
+  - DTFoundation/DTAsyncFileDeleter (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTAWS (1.7.12):
+  - DTFoundation/DTAWS (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTHTMLParser (1.7.12):
+  - DTFoundation/DTHTMLParser (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTProgressHUD (1.7.12):
+  - DTFoundation/DTProgressHUD (1.7.13):
     - DTFoundation/Core
     - DTFoundation/UIKit
-  - DTFoundation/DTReachability (1.7.12):
+  - DTFoundation/DTReachability (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTScripting (1.7.12):
+  - DTFoundation/DTScripting (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTSidePanel (1.7.12):
+  - DTFoundation/DTSidePanel (1.7.13):
     - DTFoundation/UIKit
-  - DTFoundation/DTSQLite (1.7.12):
+  - DTFoundation/DTSQLite (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/DTUTI (1.7.12)
-  - DTFoundation/DTZipArchive (1.7.12):
-    - DTFoundation/DTZipArchive/Minizip (= 1.7.12)
-  - DTFoundation/DTZipArchive/Minizip (1.7.12)
-  - DTFoundation/Runtime (1.7.12)
-  - DTFoundation/UIKit (1.7.12):
+  - DTFoundation/DTUTI (1.7.13)
+  - DTFoundation/DTZipArchive (1.7.13):
+    - DTFoundation/DTZipArchive/Minizip (= 1.7.13)
+  - DTFoundation/DTZipArchive/Minizip (1.7.13)
+  - DTFoundation/Runtime (1.7.13)
+  - DTFoundation/UIKit (1.7.13):
     - DTFoundation/Core
-  - DTFoundation/UIKit_BlocksAdditions (1.7.12):
+  - DTFoundation/UIKit_BlocksAdditions (1.7.13):
     - DTFoundation/Core
   - InAppSettingsKit (2.9.4)
-  - MarqueeLabel (3.1.2):
-    - MarqueeLabel/ObjC (= 3.1.2)
-  - MarqueeLabel/ObjC (3.1.2)
+  - MarqueeLabel (3.2.0):
+    - MarqueeLabel/ObjC (= 3.2.0)
+  - MarqueeLabel/ObjC (3.2.0)
   - OCMock (3.3.1)
   - OrderedDictionary (1.4)
-  - PsiphonClientCommonLibrary (0.2.25):
+  - PsiphonClientCommonLibrary (1.2.0):
     - InAppSettingsKit
 
 DEPENDENCIES:
@@ -66,14 +66,14 @@ DEPENDENCIES:
   - MarqueeLabel
   - OCMock
   - OrderedDictionary
-  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `c39fce5`)
+  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `2e53a34`)
 
 EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   PsiphonClientCommonLibrary:
-    :commit: c39fce5
+    :commit: 2e53a34
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 CHECKOUT OPTIONS:
@@ -81,17 +81,17 @@ CHECKOUT OPTIONS:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   PsiphonClientCommonLibrary:
-    :commit: c39fce5
+    :commit: 2e53a34
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 SPEC CHECKSUMS:
-  DTFoundation: 26a164ef510877387906fb92bff524a792db4bf8
+  DTFoundation: f03be9fd786f11e505bb8fc44e2a3732bf0917df
   InAppSettingsKit: 567ef538698cd6cf3afb9c5529b89a8936fdacb5
-  MarqueeLabel: fcd7057a779422d86589be759036f1510b08c6a0
+  MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
-  PsiphonClientCommonLibrary: 857ad08ea6b0b0e5482c44a9c1620460fcf966d3
+  PsiphonClientCommonLibrary: bc9d6f5656e557d6c4395d34196a98825e39479b
 
-PODFILE CHECKSUM: 580e1ed28b93c561f2bb9c47bdb8c5976e2729b7
+PODFILE CHECKSUM: 07e544332f0a5c85b487c8569a82ab8e3c52d4c4
 
 COCOAPODS: 1.4.0
