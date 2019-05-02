@@ -6,7 +6,7 @@ en:
   # The name of the app, as it appears in the App Store
   app_name: Psiphon Browser
 
-  # The "subtitle" for the app, which appears under the app name in the App Store (subtitle cannot be longer than 30 characters)
+  # The "subtitle" for the app, which appears under the app name in the App Store (subtitle cannot be longer than 30 characters). If it is difficult to get this short enough, you can use "Browse beyond borders" or even "Browse widely". We want to capture the idea that the user can and should read and learn and interact beyond the limitations of their country/region.
   subtitle: Browse beyond your borders
 
   # The description of the App, as it appears in the App Store. Note that the "bullets" must be the character -- • -- and not an HTML entity like &bull;.
