@@ -76,9 +76,10 @@
 		4EEC58371E3FF48B006D4087 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEC58391E3FF48B006D4087 /* InfoPlist.strings */; };
 		4EEE09FB1DF873B700CEA8C2 /* psiphon-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE09FA1DF873B700CEA8C2 /* psiphon-banner.png */; };
 		4EF89B6F1F040D2A007C74BF /* DownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF89B6E1F040D2A007C74BF /* DownloadHelper.m */; };
-		54C466FC220702F7ECB722F6 /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3886A2D791A9C01680CF5513 /* libPods-Psiphon Browser Tests.a */; };
 		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
-		D9DC1672327832105CAA6941 /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFA49385DC92549CB256273 /* libPods-Psiphon Browser.a */; };
+		7F1EA282F5FFF65F893BD73A /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */; };
+		CA7305DD054FDBDCCCC74C2C /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */; };
+		CEC4C8692284BAF70040582E /* OCSP.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC4C8682284BAF70040582E /* OCSP.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,8 +162,6 @@
 		01F8794A1A41232E00A63654 /* credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = credits.html; path = Endless/Resources/credits.html; sourceTree = "<group>"; };
 		01F8794D1A412F8E00A63654 /* urlblocker_targets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = urlblocker_targets.plist; path = Endless/Resources/urlblocker_targets.plist; sourceTree = "<group>"; };
 		01FC0E561B38FB6B00955D9A /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Endless/Resources/Launch Screen.xib"; sourceTree = "<group>"; };
-		2AFA49385DC92549CB256273 /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3886A2D791A9C01680CF5513 /* libPods-Psiphon Browser Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		444CEFAF1E54DA2D0085F3D4 /* NYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NYAlertView.h; path = NYAlertViewController/NYAlertView.h; sourceTree = "<group>"; };
 		444CEFB01E54DA2D0085F3D4 /* NYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NYAlertView.m; path = NYAlertViewController/NYAlertView.m; sourceTree = "<group>"; };
 		444CEFB11E54DA2D0085F3D4 /* NYAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NYAlertViewController.h; path = NYAlertViewController/NYAlertViewController.h; sourceTree = "<group>"; };
@@ -332,8 +331,12 @@
 		66D92B531F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		66D92B541F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		66D92B551F4E1A1A005A06DF /* tk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tk; path = tk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5506E12B0ABA07F832A7D00 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC15F6DC777A8D47F3D12C3 /* Pods-Psiphon Browser Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.release.xcconfig"; sourceTree = "<group>"; };
+		ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC4C8672284BAF70040582E /* OCSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCSP.h; sourceTree = "<group>"; };
+		CEC4C8682284BAF70040582E /* OCSP.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSP.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +346,7 @@
 			files = (
 				44E779481DE6040100854379 /* PsiphonTunnel.framework in Frameworks */,
 				016B2FCD1A5648AE002D2730 /* WebKit.framework in Frameworks */,
-				D9DC1672327832105CAA6941 /* libPods-Psiphon Browser.a in Frameworks */,
+				CA7305DD054FDBDCCCC74C2C /* libPods-Psiphon Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54C466FC220702F7ECB722F6 /* libPods-Psiphon Browser Tests.a in Frameworks */,
+				7F1EA282F5FFF65F893BD73A /* libPods-Psiphon Browser Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +405,8 @@
 				018333D11A35291200670CD1 /* HTTPSEverywhereRule.m */,
 				0182AD991AACC55400F3B7ED /* HTTPSEverywhereRuleController.h */,
 				0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */,
+				CEC4C8672284BAF70040582E /* OCSP.h */,
+				CEC4C8682284BAF70040582E /* OCSP.m */,
 				4E1175171DD6310A009527EB /* SettingsViewController.h */,
 				4E1175181DD63123009527EB /* SettingsViewController.m */,
 				01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */,
@@ -586,8 +591,8 @@
 			children = (
 				016B2FCC1A5648AE002D2730 /* WebKit.framework */,
 				018333EB1A357D8B00670CD1 /* libPods-OCMock.a */,
-				2AFA49385DC92549CB256273 /* libPods-Psiphon Browser.a */,
-				3886A2D791A9C01680CF5513 /* libPods-Psiphon Browser Tests.a */,
+				ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */,
+				7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -605,8 +610,8 @@
 				01801E901A32CA2A002B4718 /* Resources */,
 				44E778FD1DDB73A500854379 /* CopyFiles */,
 				440FB7731E3A9ADC00B10B9E /* ShellScript */,
-				B9280E655C31F7B4E23DC57B /* [CP] Embed Pods Frameworks */,
-				10080ED1F0EFE2B4687070FD /* [CP] Copy Pods Resources */,
+				E6FF98A1B125E6E1E5030808 /* [CP] Copy Pods Resources */,
+				CE9BE4B1FDF90F128A565163 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -625,8 +630,8 @@
 				018333D31A35727C00670CD1 /* Sources */,
 				018333D41A35727C00670CD1 /* Frameworks */,
 				018333D51A35727C00670CD1 /* Resources */,
-				682C2DFACA866D063DD7F1C9 /* [CP] Embed Pods Frameworks */,
-				03D8CB605F8596E7BE680400 /* [CP] Copy Pods Resources */,
+				111F0C9774F069615E9DA657 /* [CP] Embed Pods Frameworks */,
+				C2639ADC41D1C2F0EB8D2E3F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -669,6 +674,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				ar,
 				de,
@@ -758,39 +764,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03D8CB605F8596E7BE680400 /* [CP] Copy Pods Resources */ = {
+		111F0C9774F069615E9DA657 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		10080ED1F0EFE2B4687070FD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/PsiphonClientCommonLibrary/PsiphonClientCommonLibrary.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PsiphonClientCommonLibrary.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		440FB7731E3A9ADC00B10B9E /* ShellScript */ = {
@@ -824,34 +814,66 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		682C2DFACA866D063DD7F1C9 /* [CP] Embed Pods Frameworks */ = {
+		C2639ADC41D1C2F0EB8D2E3F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B9280E655C31F7B4E23DC57B /* [CP] Embed Pods Frameworks */ = {
+		CE9BE4B1FDF90F128A565163 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6FF98A1B125E6E1E5030808 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PsiphonClientCommonLibrary/PsiphonClientCommonLibrary.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PsiphonClientCommonLibrary.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psiphon Browser/Pods-Psiphon Browser-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EA4D18EF3258311ED2A8C115 /* [CP] Check Pods Manifest.lock */ = {
@@ -897,6 +919,7 @@
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
 				4EF89B6F1F040D2A007C74BF /* DownloadHelper.m in Sources */,
 				44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */,
+				CEC4C8692284BAF70040582E /* OCSP.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */,

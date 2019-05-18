@@ -49,6 +49,7 @@
 #import "CookieJar.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
+#import "OCSP.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
 #import "JAHPCanonicalRequest.h"
@@ -66,6 +67,36 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 @end
 
+@interface TemporarilyAllowedURL : NSObject
+
+@property (atomic, strong) NSURL *url;
+@property (atomic, strong) WebViewTab *wvt;
+@property (atomic, assign) BOOL ocspRequest;
+
+- (instancetype)initWithUrl:(NSURL*)url
+			  andWebViewTab:(WebViewTab*)wvt
+		   andIsOCSPRequest:(BOOL)isOCSPRequest;
+
+@end
+
+@implementation TemporarilyAllowedURL
+
+- (instancetype)initWithUrl:(NSURL*)url
+			  andWebViewTab:(WebViewTab*)wvt
+		   andIsOCSPRequest:(BOOL)isOCSPRequest {
+	self = [super init];
+
+	if (self) {
+		self.url = url;
+		self.wvt = wvt;
+		self.ocspRequest = isOCSPRequest;
+	}
+
+	return self;
+}
+
+@end
+
 @interface JAHPAuthenticatingHTTPProtocol () <NSURLSessionDataDelegate> {
 	NSUInteger _contentType;
 	Boolean _isFirstChunk;
@@ -75,6 +106,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 	NSURLRequest *_actualRequest;
 	BOOL _isOrigin;
 	BOOL _isTemporarilyAllowed;
+	BOOL _isOCSPRequest;
 }
 
 @property (atomic, strong, readwrite) NSThread *                        clientThread;       ///< The thread on which we should call the client.
@@ -106,7 +138,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 static JAHPWeakDelegateHolder* weakDelegateHolder;
 
-static NSMutableArray *tmpAllowed;
+static NSMutableArray<TemporarilyAllowedURL*> *tmpAllowed;
 
 static NSString *_javascriptToInject;
 
@@ -121,27 +153,42 @@ static NSString *_javascriptToInject;
 }
 
 + (void)temporarilyAllow:(NSURL *)url
-{
-	if (!tmpAllowed)
-		tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
+		   forWebViewTab:(WebViewTab*)webViewTab {
 
-	[tmpAllowed addObject:url];
+	return [self temporarilyAllowURL:url forWebViewTab:webViewTab isOCSPRequest:NO];
 }
 
-+ (BOOL)isURLTemporarilyAllowed:(NSURL *)url
++ (void)temporarilyAllowURL:(NSURL *)url
+			  forWebViewTab:(WebViewTab*)webViewTab
+			  isOCSPRequest:(BOOL)isOCSPRequest
 {
+	if (tmpAllowed == NULL) {
+		tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
+	}
+
+	TemporarilyAllowedURL *allowedURL = [[TemporarilyAllowedURL alloc] initWithUrl:url
+																	 andWebViewTab:webViewTab
+																  andIsOCSPRequest:isOCSPRequest];
+	[tmpAllowed addObject:allowedURL];
+}
+
++ (TemporarilyAllowedURL*)popTemporarilyAllowedURL:(NSURL *)url
+{
+	TemporarilyAllowedURL *ret = NULL;
 	int found = -1;
 
 	for (int i = 0; i < [tmpAllowed count]; i++) {
-		if ([[tmpAllowed[i] absoluteString] isEqualToString:[url absoluteString]])
+		if ([[tmpAllowed[i].url absoluteString] isEqualToString:[url absoluteString]]) {
 			found = i;
+			ret = tmpAllowed[i];
+		}
 	}
 
 	if (found > -1) {
 		[tmpAllowed removeObjectAtIndex:found];
 	}
 
-	return (found > -1);
+	return ret;
 }
 
 + (NSString *)prependDirectivesIfExisting:(NSDictionary *)directives inCSPHeader:(NSString *)header
@@ -465,12 +512,17 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		}
 	}
 
-	if (_wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]]) {
-		_isTemporarilyAllowed = YES;
-		_wvt = [[[[AppDelegate sharedAppDelegate] webViewController] webViewTabs] firstObject];
+	if (_wvt == nil) {
+		TemporarilyAllowedURL *allowedUrl = [[self class] popTemporarilyAllowedURL:[request URL]];
+		if (allowedUrl != NULL) {
+			_isTemporarilyAllowed = YES;
+			_wvt = allowedUrl.wvt;
+			_isOCSPRequest = allowedUrl.ocspRequest;
+		}
 	}
 
 	if (_wvt == nil) {
+
 		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash];
 		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 
@@ -1002,40 +1054,94 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(completionHandler != nil);
 	assert([NSThread currentThread] == self.clientThread);
 
-
 	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+
+		[[self class] authenticatingHTTPProtocol:nil logWithFormat:
+		 @"Got SSL certificate for %@, mainDocumentURL: %@, URL: %@",
+		 challenge.protectionSpace.host,
+		 [task.currentRequest mainDocumentURL],
+		 [task.currentRequest URL]];
+
 		SecTrustRef trust = challenge.protectionSpace.serverTrust;
 		if (trust == nil) {
 			assert(NO);
 		}
 
-		SecTrustResultType trustResultType;
-		SecTrustEvaluate(challenge.protectionSpace.serverTrust, &trustResultType);
+		SecPolicyRef policy = SecPolicyCreateRevocation(kSecRevocationOCSPMethod |
+														kSecRevocationRequirePositiveResponse |
+														kSecRevocationNetworkAccessDisabled);
+		SecTrustSetPolicies(trust, policy);
 
-		if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
-			[[self class ]authenticatingHTTPProtocol:nil logWithFormat:@"Got SSL certificate for %@, mainDocumentURL: %@, URL: %@",
-			 challenge.protectionSpace.host,
-			 [task.currentRequest mainDocumentURL],
-			 [task.currentRequest URL]];
+		NSError *e;
 
-			if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
-				SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-				if (certificate != nil) {
-					[_wvt setSSLCertificate:certificate];
-					// Also cache the cert for displaying when
-					// -URLSession:task:didReceiveChallenge: is not getting called
-					// due to NSURLSession internal TLS caching
-					// or UIWebView content caching
-					[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
-				}
-			}
-			NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-			assert(credential != nil);
-			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+		NSArray <NSURLRequest*>* ocspReqs = [OCSP ocspRequests:trust error:&e];
+		if (e != nil) {
+			[[self class] authenticatingHTTPProtocol:nil logWithFormat:
+			 @"Error constructing OCSP requests: %@", e.localizedDescription];
+			completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 			return;
 		}
-		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+
+		if ([ocspReqs count] == 0) {
+			[[self class] authenticatingHTTPProtocol:nil logWithFormat:
+			 @"Error no OCSP URLs in the Certificate Authority Information Access "
+			  "(1.3.6.1.5.5.7.1.1) extension."];
+			completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+			return;
+		}
+
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+			for (NSURLRequest *ocspReq in ocspReqs) {
+				NSURLResponse *resp = nil;
+				NSError *e = nil;
+
+				[JAHPAuthenticatingHTTPProtocol temporarilyAllowURL:ocspReq.URL
+													  forWebViewTab:_wvt
+													  isOCSPRequest:YES];
+
+				NSData *data = [NSURLConnection sendSynchronousRequest:ocspReq
+													 returningResponse:&resp
+																 error:&e];
+
+				if (e != nil) {
+					[[self class] authenticatingHTTPProtocol:nil logWithFormat:
+					 @"Error with OCSP request: %@", e.localizedDescription];
+					continue;
+				}
+
+				CFDataRef d = (__bridge CFDataRef)data;
+				SecTrustSetOCSPResponse(trust, d);
+
+				SecTrustResultType trustResultType;
+				SecTrustEvaluate(trust, &trustResultType);
+
+				if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
+					if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
+						SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+						if (certificate != nil) {
+							[_wvt setSSLCertificate:certificate];
+							// Also cache the cert for displaying when
+							// -URLSession:task:didReceiveChallenge: is not getting called
+							// due to NSURLSession internal TLS caching
+							// or UIWebView content caching
+							[[[AppDelegate sharedAppDelegate] sslCertCache]
+							 setObject:certificate
+							 forKey:challenge.protectionSpace.host];
+						}
+					}
+					NSURLCredential *credential = [NSURLCredential credentialForTrust:
+												   challenge.protectionSpace.serverTrust];
+					assert(credential != nil);
+					completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+					return;
+				}
+
+				completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+				return;
+			}
+		});
+
 		return;
 	}
 
@@ -1217,7 +1323,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 				[responseHeaders setObject:hv forKey:h];
 		}
 	}
-	else if(CSPheader != nil) {
+	else if (CSPheader != nil) {
 		// No CSP present in the original response, so we set our own
 		NSString *newCSPValue = [[self class] prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
 		[responseHeaders setObject:newCSPValue forKey:@"Content-Security-Policy"];
@@ -1240,7 +1346,10 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		}
 	}
 
-	if ([_wvt secureMode] > WebViewTabSecureModeInsecure && ![[[[_actualRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
+	// OCSP requests are performed out-of-band
+	if (!_isOCSPRequest &&
+		[_wvt secureMode] > WebViewTabSecureModeInsecure &&
+		![[[[_actualRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
 		/* an element on the page was not sent over https but the initial request was, downgrade to mixed */
 		if ([_wvt secureMode] > WebViewTabSecureModeInsecure) {
 			[_wvt setSecureMode:WebViewTabSecureModeMixed];

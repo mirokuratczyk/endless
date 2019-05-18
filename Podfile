@@ -1,9 +1,10 @@
-platform :ios, "7.0"
+platform :ios, "8.0"
 
 # Disable sending stats
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 target "Psiphon Browser" do 
+	pod 'OpenSSL', '1.0.210'
 	pod "DTFoundation"
 	pod "OrderedDictionary"
 	pod "MarqueeLabel"
