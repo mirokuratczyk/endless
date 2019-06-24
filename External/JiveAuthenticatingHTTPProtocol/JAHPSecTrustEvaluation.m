@@ -50,7 +50,7 @@
 		self->completionHandler = completionHandler;
 		self->ocspCache = [AppDelegate sharedAppDelegate].ocspCache;
 		self->logQueue =
-		dispatch_queue_create_with_target("com.psiphon3.JAHPSecTrustEvaluation.LogQueue",
+		dispatch_queue_create_with_target("com.psiphon3.browser.JAHPSecTrustEvaluation.LogQueue",
 										  DISPATCH_QUEUE_SERIAL,
 										  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
 	}
