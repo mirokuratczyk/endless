@@ -162,30 +162,35 @@ static NSString *_javascriptToInject;
 			  forWebViewTab:(WebViewTab*)webViewTab
 			  isOCSPRequest:(BOOL)isOCSPRequest
 {
-	if (tmpAllowed == NULL) {
-		tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
-	}
+	@synchronized (tmpAllowed) {
+		if (tmpAllowed == NULL) {
+			tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
+		}
 
-	TemporarilyAllowedURL *allowedURL = [[TemporarilyAllowedURL alloc] initWithUrl:url
-																	 andWebViewTab:webViewTab
-																  andIsOCSPRequest:isOCSPRequest];
-	[tmpAllowed addObject:allowedURL];
+		TemporarilyAllowedURL *allowedURL = [[TemporarilyAllowedURL alloc] initWithUrl:url
+																		 andWebViewTab:webViewTab
+																	  andIsOCSPRequest:isOCSPRequest];
+		[tmpAllowed addObject:allowedURL];
+	}
 }
 
 + (TemporarilyAllowedURL*)popTemporarilyAllowedURL:(NSURL *)url
 {
 	TemporarilyAllowedURL *ret = NULL;
-	int found = -1;
 
-	for (int i = 0; i < [tmpAllowed count]; i++) {
-		if ([[tmpAllowed[i].url absoluteString] isEqualToString:[url absoluteString]]) {
-			found = i;
-			ret = tmpAllowed[i];
+	@synchronized (tmpAllowed) {
+		int found = -1;
+
+		for (int i = 0; i < [tmpAllowed count]; i++) {
+			if ([[tmpAllowed[i].url absoluteString] isEqualToString:[url absoluteString]]) {
+				found = i;
+				ret = tmpAllowed[i];
+			}
 		}
-	}
 
-	if (found > -1) {
-		[tmpAllowed removeObjectAtIndex:found];
+		if (found > -1) {
+			[tmpAllowed removeObjectAtIndex:found];
+		}
 	}
 
 	return ret;
@@ -1076,7 +1081,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 			};
 #endif
-			
+
 			JAHPSecTrustEvaluation *evaluation =
 			[[JAHPSecTrustEvaluation alloc]
 			 initWithTrust:trust
