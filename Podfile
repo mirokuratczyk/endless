@@ -4,7 +4,6 @@ platform :ios, "8.0"
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 target "Psiphon Browser" do 
-	pod 'OpenSSL', '1.0.210'
 	pod "DTFoundation"
 	pod "OrderedDictionary"
 	pod "MarqueeLabel"
@@ -13,6 +12,7 @@ target "Psiphon Browser" do
 	#pod "InAppSettingsKit", :path => "../InAppSettingsKit"
 	pod 'PsiphonClientCommonLibrary', :git => "https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git", :commit => '2e53a34'
 	#pod 'PsiphonClientCommonLibrary', :path => "../psiphon-ios-client-common-library/"
+	pod 'OCSPCache', :path => "../OCSPCache/"
 end
 
 target "Psiphon Browser Tests" do

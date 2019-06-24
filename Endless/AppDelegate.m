@@ -61,6 +61,16 @@
 	[Bookmark retrieveList];
 	self.sslCertCache = [[NSCache alloc] init];
 
+#ifdef TRACE
+	self.ocspCache =
+	[[OCSPCache alloc] initWithLogger:
+	 ^(NSString * _Nonnull logLine) {
+		NSLog(@"[OCSPCache] %@", logLine);
+	 }];
+#else
+	self.ocspCache = [[OCSPCache alloc] init];
+#endif
+
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
 

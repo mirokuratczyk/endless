@@ -116,6 +116,10 @@
 + (void)temporarilyAllowURL:(NSURL *__nullable)url
 			  forWebViewTab:(WebViewTab *__nullable)webViewTab;
 
++ (void)temporarilyAllowURL:(NSURL *)url
+			  forWebViewTab:(WebViewTab*)webViewTab
+			  isOCSPRequest:(BOOL)isOCSPRequest;
+
 @end
 
 /*! The delegate for the JAHPAuthenticatingHTTPProtocol class (not its instances).
