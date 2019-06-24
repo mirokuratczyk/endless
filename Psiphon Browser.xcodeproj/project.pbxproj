@@ -79,7 +79,7 @@
 		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
 		7F1EA282F5FFF65F893BD73A /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */; };
 		CA7305DD054FDBDCCCC74C2C /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */; };
-		CEC4C8692284BAF70040582E /* OCSP.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC4C8682284BAF70040582E /* OCSP.m */; };
+		CE25899C22BAE0640017C133 /* JAHPSecTrustEvaluation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,8 +335,8 @@
 		A5506E12B0ABA07F832A7D00 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC15F6DC777A8D47F3D12C3 /* Pods-Psiphon Browser Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEC4C8672284BAF70040582E /* OCSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCSP.h; sourceTree = "<group>"; };
-		CEC4C8682284BAF70040582E /* OCSP.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSP.m; sourceTree = "<group>"; };
+		CE25899A22BAE0640017C133 /* JAHPSecTrustEvaluation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JAHPSecTrustEvaluation.h; sourceTree = "<group>"; };
+		CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JAHPSecTrustEvaluation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -405,8 +405,6 @@
 				018333D11A35291200670CD1 /* HTTPSEverywhereRule.m */,
 				0182AD991AACC55400F3B7ED /* HTTPSEverywhereRuleController.h */,
 				0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */,
-				CEC4C8672284BAF70040582E /* OCSP.h */,
-				CEC4C8682284BAF70040582E /* OCSP.m */,
 				4E1175171DD6310A009527EB /* SettingsViewController.h */,
 				4E1175181DD63123009527EB /* SettingsViewController.m */,
 				01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */,
@@ -524,6 +522,8 @@
 				44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */,
 				44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */,
 				44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */,
+				CE25899A22BAE0640017C133 /* JAHPSecTrustEvaluation.h */,
+				CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */,
 				44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */,
 				44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */,
 			);
@@ -919,7 +919,6 @@
 				01F2AE401B82666900D5651A /* SSLCertificateViewController.m in Sources */,
 				4EF89B6F1F040D2A007C74BF /* DownloadHelper.m in Sources */,
 				44864F911E708EE900865705 /* JAHPQNSURLSessionDemux.m in Sources */,
-				CEC4C8692284BAF70040582E /* OCSP.m in Sources */,
 				018333CA1A3505FB00670CD1 /* HTTPSEverywhere.m in Sources */,
 				01F7CB491A5253DD00F42B73 /* HSTSCache.m in Sources */,
 				4E7094611E4CD14A00679B3F /* OnboardingViewController.m in Sources */,
@@ -934,6 +933,7 @@
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */,
+				CE25899C22BAE0640017C133 /* JAHPSecTrustEvaluation.m in Sources */,
 				4E1175191DD63123009527EB /* SettingsViewController.m in Sources */,
 				4EE4E25F1ED4B51900167C0B /* LanguageSelectionViewController.m in Sources */,
 				4E628E9E1EF89D2C00F8B3B5 /* TutorialPageViewController.m in Sources */,

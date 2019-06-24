@@ -27,6 +27,7 @@
 #import <PsiphonTunnel/PsiphonTunnel.h>
 #import "CookieJar.h"
 #import "HSTSCache.h"
+#import "OCSPCache.h"
 #import "RegionAdapter.h"
 #import "WebViewController.h"
 #import "JAHPAuthenticatingHTTPProtocol.h"
@@ -65,6 +66,7 @@
 @property NSInteger httpProxyPort;
 @property ConnectionState psiphonConectionState;
 @property NSCache *sslCertCache;
+@property OCSPCache *ocspCache;
 
 - (void) startIfNeeded;
 - (void) reloadAndOpenSettings;

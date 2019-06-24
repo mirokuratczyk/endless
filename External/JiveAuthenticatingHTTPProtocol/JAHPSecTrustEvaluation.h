@@ -17,20 +17,28 @@
  *
  */
 
+
 #import <Foundation/Foundation.h>
+
+#import "OCSPCache.h"
+#import "JAHPAuthenticatingHTTPProtocol.h"
+#import "WebViewTab.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OCSP : NSObject
+@interface JAHPSecTrustEvaluation : NSObject
 
-/*
- * Check in SecTrustRef (X.509 cert) for Online Certificate Status Protocol (1.3.6.1.5.5.7.48.1)
- * authority information access method. This is found in the
- * Certificate Authority Information Access (1.3.6.1.5.5.7.1.1) X.509v3 extension.
- *
- * X.509 Authority Information Access: https://tools.ietf.org/html/rfc2459#section-4.2.2.1
- */
-+ (NSArray<NSURLRequest*>*_Nullable)ocspRequests:(SecTrustRef)secTrustRef error:(NSError**)error;
+- (instancetype)initWithTrust:(SecTrustRef)trust
+						  wvt:(WebViewTab*)wvt
+						 task:(NSURLSessionTask*)task
+					challenge:(NSURLAuthenticationChallenge *)challenge
+					   logger:(void (^__nullable)(NSString *))logger
+			completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition,
+										NSURLCredential *))completionHandler;
+
+/// Evaluate trust and call completion handler.
+/// Must only be called once.
+- (void)evaluate;
 
 @end
 
