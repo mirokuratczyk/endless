@@ -1058,26 +1058,36 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+			SecTrustRef trust = challenge.protectionSpace.serverTrust;
+			if (trust == nil) {
+				assert(NO);
+			}
 
-		SecTrustRef trust = challenge.protectionSpace.serverTrust;
-		if (trust == nil) {
-			assert(NO);
-		}
+			void (^logger)(NSString * _Nonnull logLine) = nil;
 
-		JAHPSecTrustEvaluation *evaluation =
-		[[JAHPSecTrustEvaluation alloc]
-		 initWithTrust:trust
-		 wvt:_wvt
-		 task:task
-		 challenge:challenge
-		 logger:^(NSString * _Nonnull logLine) {
-			 [[self class] authenticatingHTTPProtocol:nil
-										logWithFormat:@"[ServerTrust] %@", logLine];
+#ifdef TRACE
+			logger =
+			^(NSString * _Nonnull logLine) {
+				[[self class] authenticatingHTTPProtocol:nil
+										   logWithFormat:@"[ServerTrust] (%@) %@",
+				 challenge.protectionSpace.host,
+				 logLine];
 
-		 }
-		 completionHandler:completionHandler];
+			};
+#endif
+			
+			JAHPSecTrustEvaluation *evaluation =
+			[[JAHPSecTrustEvaluation alloc]
+			 initWithTrust:trust
+			 wvt:_wvt
+			 task:task
+			 challenge:challenge
+			 logger:logger
+			 completionHandler:completionHandler];
 
-		[evaluation evaluate];
+			[evaluation evaluate];
+		});
 
 		return;
 	}

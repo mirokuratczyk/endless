@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 						  wvt:(WebViewTab*)wvt
 						 task:(NSURLSessionTask*)task
 					challenge:(NSURLAuthenticationChallenge *)challenge
-					   logger:(void (^)(NSString *))logger
+					   logger:(void (^__nullable)(NSString *))logger
 			completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition,
 										NSURLCredential *))completionHandler;
 

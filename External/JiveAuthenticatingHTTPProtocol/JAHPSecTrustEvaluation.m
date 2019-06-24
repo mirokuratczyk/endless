@@ -29,7 +29,7 @@
 	void (^completionHandler)(NSURLSessionAuthChallengeDisposition,
 							  NSURLCredential *);
 	OCSPCache *ocspCache;
-
+	dispatch_queue_t logQueue;
 }
 
 - (instancetype)initWithTrust:(SecTrustRef)trust
@@ -49,6 +49,10 @@
 		self->logger = logger;
 		self->completionHandler = completionHandler;
 		self->ocspCache = [AppDelegate sharedAppDelegate].ocspCache;
+		self->logQueue =
+		dispatch_queue_create_with_target("com.psiphon3.JAHPSecTrustEvaluation.LogQueue",
+										  DISPATCH_QUEUE_SERIAL,
+										  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
 	}
 
 	return self;
@@ -64,20 +68,20 @@
 	 [task.currentRequest mainDocumentURL],
 	 [task.currentRequest URL]];
 
-	logger(debugURLInfo);
+	[self log:debugURLInfo];
 
 	// Check if there is a pinned or cached OCSP response
 
 	[self trySystemOCSPNoRemote:&completed completedWithError:&completedWithError];
 
 	if (completed) {
-		logger(@"Pinned or cached OCSP response found by the system");
+		[self log:@"Pinned or cached OCSP response found by the system"];
 		return;
 	}
 
 	// No pinned OCSP response, try fetching one
 
-	logger(@"Fetching OCSP response through OCSPCache");
+	[self log:@"Fetching OCSP response through OCSPCache"];
 
 	OCSPCache *ocspCache = [[AppDelegate sharedAppDelegate] ocspCache];
 
@@ -101,7 +105,7 @@
 				  evictedResponse:&evictedResponse];
 
 	if (completed) {
-		logger(@"Completed with OCSP response");
+		[self log:@"Completed with OCSP response"];
 		return;
 	}
 
@@ -119,7 +123,7 @@
 				   completedWithError:&completedWithError
 					  evictedResponse:&evictedResponse];
 		if (completed) {
-			logger(@"Completed with OCSP response after evict and fetch");
+			[self log:@"Completed with OCSP response after evict and fetch"];
 			return;
 		}
 	}
@@ -129,7 +133,7 @@
 	[self trySystemCRL:&completed completedWithError:&completedWithError];
 
 	if (completed) {
-		logger(@"Evaluate completed by successful system CRL check");
+		[self log:@"Evaluate completed by successful system CRL check"];
 		return;
 	}
 
@@ -138,7 +142,7 @@
 	[self tryFallback:&completed completedWithError:&completedWithError];
 
 	if (completed) {
-		logger(@"Completed with fallback system check");
+		[self log:@"Completed with fallback system check"];
 		return;
 	}
 
@@ -180,14 +184,14 @@
 	*evictedResponse = FALSE;
 
 	if (result.err != nil) {
-		logger([NSString stringWithFormat:@"Error from OCSPCache %@", result.err]);
+		[self log:[NSString stringWithFormat:@"Error from OCSPCache %@", result.err]];
 		return;
 	} else {
 
 		if (result.cached) {
-			logger(@"Got cached OCSP response");
+			[self log:@"Got cached OCSP response"];
 		} else {
-			logger(@"Fetched OCSP response from remote");
+			[self log:@"Fetched OCSP response from remote"];
 		}
 
 		CFDataRef d = (__bridge CFDataRef)result.response.data;
@@ -204,8 +208,8 @@
 						   completedWithError:completedWithError
 							completionHandler:completionHandler];
 
-		if (!completed || (completed && completedWithError)) {
-			logger(@"Evaluate failed with OCSP response from cache");
+		if (!*completed || (*completed && *completedWithError)) {
+			[self log:@"Evaluate failed with OCSP response from cache"];
 
 			// Remove the cached value. There is no way to tell if it was the reason for
 			// rejection since the iOS OCSP cache is a black box; so we should remove it
@@ -216,7 +220,7 @@
 				SecCertificateRef cert = SecTrustGetCertificateAtIndex(trust, 0);
 				[ocspCache removeCacheValueForCert:cert];
 			} else {
-				logger(@"No certs in trust");
+				[self log:@"No certs in trust"];
 			}
 		}
 
@@ -238,8 +242,8 @@
 					   completedWithError:completedWithError
 						completionHandler:completionHandler];
 
-	if (completed) {
-		logger(@"Evaluate completed by successful CRL check");
+	if (*completed) {
+		[self log:@"Evaluate completed by successful CRL check"];
 		return;
 	}
 }
@@ -257,8 +261,8 @@
 	 completedWithError:completedWithError
 	  completionHandler:completionHandler];
 
-	if (completed) {
-		logger(@"Evaluate completed by fallback revocation check");
+	if (*completed) {
+		[self log:@"Evaluate completed by fallback revocation check"];
 		return;
 	}
 }
@@ -308,6 +312,20 @@
 	*completed = FALSE;
 	*completedWithError = FALSE;
 	return;
+}
+
+- (void)log:(NSString*)log {
+	__weak JAHPSecTrustEvaluation *weakSelf = self;
+
+	dispatch_async(logQueue, ^{
+		__strong JAHPSecTrustEvaluation *strongSelf = weakSelf;
+		if (!strongSelf) {
+			return;
+		}
+		if (strongSelf->logger) {
+			self->logger(log);
+		}
+	});
 }
 
 @end
