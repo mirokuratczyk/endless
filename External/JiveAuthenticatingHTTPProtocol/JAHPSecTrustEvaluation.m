@@ -106,7 +106,7 @@
 	}
 
 	// Check if check failed and a response was evicted from the cache
-	if (!completed && result.cached) {
+	if (!completed && evictedResponse && result.cached) {
 
 		// The response may have been evicted if it was expired or invalid. Retry once.
 

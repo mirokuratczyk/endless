@@ -1078,6 +1078,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 		 completionHandler:completionHandler];
 
 		[evaluation evaluate];
+
+		return;
 	}
 
 	// Ask our delegate whether it wants this challenge.  We do this from this thread, not the main thread,
