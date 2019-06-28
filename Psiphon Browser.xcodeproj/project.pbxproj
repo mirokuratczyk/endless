@@ -79,7 +79,6 @@
 		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
 		7F1EA282F5FFF65F893BD73A /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */; };
 		CA7305DD054FDBDCCCC74C2C /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */; };
-		CE25899C22BAE0640017C133 /* JAHPSecTrustEvaluation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,8 +334,6 @@
 		A5506E12B0ABA07F832A7D00 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC15F6DC777A8D47F3D12C3 /* Pods-Psiphon Browser Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE25899A22BAE0640017C133 /* JAHPSecTrustEvaluation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JAHPSecTrustEvaluation.h; sourceTree = "<group>"; };
-		CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JAHPSecTrustEvaluation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -522,8 +519,6 @@
 				44864F891E708EE900865705 /* JAHPCacheStoragePolicy.m */,
 				44864F8A1E708EE900865705 /* JAHPCanonicalRequest.h */,
 				44864F8B1E708EE900865705 /* JAHPCanonicalRequest.m */,
-				CE25899A22BAE0640017C133 /* JAHPSecTrustEvaluation.h */,
-				CE25899B22BAE0640017C133 /* JAHPSecTrustEvaluation.m */,
 				44864F8C1E708EE900865705 /* JAHPQNSURLSessionDemux.h */,
 				44864F8D1E708EE900865705 /* JAHPQNSURLSessionDemux.m */,
 			);
@@ -933,7 +928,6 @@
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */,
-				CE25899C22BAE0640017C133 /* JAHPSecTrustEvaluation.m in Sources */,
 				4E1175191DD63123009527EB /* SettingsViewController.m in Sources */,
 				4EE4E25F1ED4B51900167C0B /* LanguageSelectionViewController.m in Sources */,
 				4E628E9E1EF89D2C00F8B3B5 /* TutorialPageViewController.m in Sources */,

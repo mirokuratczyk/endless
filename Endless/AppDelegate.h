@@ -25,6 +25,7 @@
 #import <CoreData/CoreData.h>
 
 #import <PsiphonTunnel/PsiphonTunnel.h>
+#import "OCSPAuthURLSessionDelegate.h"
 #import "CookieJar.h"
 #import "HSTSCache.h"
 #import "OCSPCache.h"
@@ -65,6 +66,7 @@
 @property NSInteger socksProxyPort;
 @property NSInteger httpProxyPort;
 @property ConnectionState psiphonConectionState;
+@property OCSPAuthURLSessionDelegate *authURLSessionDelegate;
 @property NSCache *sslCertCache;
 @property OCSPCache *ocspCache;
 

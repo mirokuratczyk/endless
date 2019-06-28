@@ -70,7 +70,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Psiphon-Inc/InAppSettingsKit.git`, commit `598c498`)
   - MarqueeLabel
   - OCMock
-  - OCSPCache (from `https://github.com/Psiphon-Labs/OCSPCache.git`, commit `647c7b0`)
+  - OCSPCache (from `https://github.com/Psiphon-Labs/OCSPCache.git`, commit `1a0ca41`)
   - OrderedDictionary
   - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `2e53a34`)
 
@@ -79,7 +79,7 @@ EXTERNAL SOURCES:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   OCSPCache:
-    :commit: 647c7b0
+    :commit: 1a0ca41
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
     :commit: 2e53a34
@@ -90,7 +90,7 @@ CHECKOUT OPTIONS:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   OCSPCache:
-    :commit: 647c7b0
+    :commit: 1a0ca41
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
     :commit: 2e53a34
@@ -107,6 +107,6 @@ SPEC CHECKSUMS:
   PsiphonClientCommonLibrary: bc9d6f5656e557d6c4395d34196a98825e39479b
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
 
-PODFILE CHECKSUM: 6d83ddc73e3447a281ad8e7982f49ed3d8b9ca7b
+PODFILE CHECKSUM: 6582ccc75967e4240e4ee03b8551fbe5cc10c07b
 
 COCOAPODS: 1.4.0

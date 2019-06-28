@@ -64,18 +64,35 @@ NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhe
 	[Bookmark retrieveList];
 	self.sslCertCache = [[NSCache alloc] init];
 
-	void (^logger)(NSString * _Nonnull logLine) = nil;
+	void (^ocspLogger)(NSString * _Nonnull logLine) = nil;
 
 #ifdef TRACE
-	logger = ^(NSString * _Nonnull logLine) {
+	ocspLogger =
+	^(NSString * _Nonnull logLine) {
 		NSLog(@"[OCSPCache] %@", logLine);
 	};
 #endif
 
 	self.ocspCache =
-	[[OCSPCache alloc] initWithLogger:logger
+	[[OCSPCache alloc] initWithLogger:ocspLogger
 			  andLoadFromUserDefaults:[NSUserDefaults standardUserDefaults]
 							  withKey:OCSPCacheUserDefaultsKey];
+
+	void (^authLogger)(NSString * _Nonnull logLine) = nil;
+
+#ifdef TRACE
+	authLogger =
+	^(NSString * _Nonnull logLine) {
+		NSLog(@"[ServerTrust] %@", logLine);
+	};
+#endif
+
+
+	self.authURLSessionDelegate =
+	[[OCSPAuthURLSessionDelegate alloc] initWithLogger:authLogger
+											 ocspCache:self.ocspCache
+										 modifyOCSPURL:nil
+										 sessionConfig:nil];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);

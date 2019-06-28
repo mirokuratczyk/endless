@@ -49,7 +49,7 @@
 #import "CookieJar.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
-#import "JAHPSecTrustEvaluation.h"
+#import "OCSPAuthURLSessionDelegate.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
 #import "JAHPCanonicalRequest.h"
@@ -305,54 +305,9 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 {
 	@synchronized(self) {
 		if (sharedDemuxInstance == nil) {
-			NSURLSessionConfiguration *config;
+			NSURLSessionConfiguration *config = [JAHPAuthenticatingHTTPProtocol
+												 proxiedSessionConfiguration];
 
-			config = [NSURLSessionConfiguration defaultSessionConfiguration];
-
-			// You have to explicitly configure the session to use your own protocol subclass here
-			// otherwise you don't see redirects <rdar://problem/17384498>.
-			if (config.protocolClasses) {
-				config.protocolClasses = [config.protocolClasses arrayByAddingObject:self];
-			} else {
-				config.protocolClasses = @[ self ];
-			}
-
-			// Set TLSMinimumSupportedProtocol from user settings.
-			// NOTE: TLSMaximumSupportedProtocol is always set to the max supported by the system
-			// by default so there is no need to set it.
-			NSString *tlsVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kMinTlsVersion];
-
-			if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
-				config.TLSMinimumSupportedProtocol = kTLSProtocol12;
-			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]){
-				config.TLSMinimumSupportedProtocol = kTLSProtocol11;
-			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]){
-				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
-			} else {
-				// Have a safe default if userDefaults are corrupted
-				// or have a deprecated value for kMinTlsVersion
-				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
-			}
-
-			// Set proxy
-			NSString* proxyHost = @"localhost";
-			NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].socksProxyPort];
-			NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].httpProxyPort];
-
-			NSDictionary *proxyDict = @{
-										@"SOCKSEnable" : [NSNumber numberWithInt:0],
-										(NSString *)kCFStreamPropertySOCKSProxyHost : proxyHost,
-										(NSString *)kCFStreamPropertySOCKSProxyPort : socksProxyPort,
-
-										@"HTTPEnable"  : [NSNumber numberWithInt:1],
-										(NSString *)kCFStreamPropertyHTTPProxyHost  : proxyHost,
-										(NSString *)kCFStreamPropertyHTTPProxyPort  : httpProxyPort,
-
-										@"HTTPSEnable" : [NSNumber numberWithInt:1],
-										(NSString *)kCFStreamPropertyHTTPSProxyHost : proxyHost,
-										(NSString *)kCFStreamPropertyHTTPSProxyPort : httpProxyPort,
-										};
-			config.connectionProxyDictionary = proxyDict;
 			sharedDemuxInstance = [[JAHPQNSURLSessionDemux alloc] initWithConfiguration:config];
 		}
 	}
@@ -366,6 +321,59 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 	}
 }
 
+#pragma mark - Proxied session configuration
+
++ (NSURLSessionConfiguration*)proxiedSessionConfiguration {
+
+	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+
+	// You have to explicitly configure the session to use your own protocol subclass here
+	// otherwise you don't see redirects <rdar://problem/17384498>.
+	if (config.protocolClasses) {
+		config.protocolClasses = [config.protocolClasses arrayByAddingObject:self];
+	} else {
+		config.protocolClasses = @[ self ];
+	}
+
+	// Set TLSMinimumSupportedProtocol from user settings.
+	// NOTE: TLSMaximumSupportedProtocol is always set to the max supported by the system
+	// by default so there is no need to set it.
+	NSString *tlsVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kMinTlsVersion];
+
+	if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
+		config.TLSMinimumSupportedProtocol = kTLSProtocol12;
+	} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]){
+		config.TLSMinimumSupportedProtocol = kTLSProtocol11;
+	} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]){
+		config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+	} else {
+		// Have a safe default if userDefaults are corrupted
+		// or have a deprecated value for kMinTlsVersion
+		config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+	}
+
+	// Set proxy
+	NSString* proxyHost = @"localhost";
+	NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].socksProxyPort];
+	NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].httpProxyPort];
+
+	NSDictionary *proxyDict = @{
+								@"SOCKSEnable" : [NSNumber numberWithInt:0],
+								(NSString *)kCFStreamPropertySOCKSProxyHost : proxyHost,
+								(NSString *)kCFStreamPropertySOCKSProxyPort : socksProxyPort,
+
+								@"HTTPEnable"  : [NSNumber numberWithInt:1],
+								(NSString *)kCFStreamPropertyHTTPProxyHost  : proxyHost,
+								(NSString *)kCFStreamPropertyHTTPProxyPort  : httpProxyPort,
+
+								@"HTTPSEnable" : [NSNumber numberWithInt:1],
+								(NSString *)kCFStreamPropertyHTTPSProxyHost : proxyHost,
+								(NSString *)kCFStreamPropertyHTTPSProxyPort : httpProxyPort,
+								};
+	config.connectionProxyDictionary = proxyDict;
+
+	return config;
+}
 
 /*! Called by by both class code and instance code to log various bits of information.
  *  Can be called on any thread.
@@ -888,11 +896,11 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 			//
 			// [[self class] authenticatingHTTPProtocol:self logWithFormat:@"challenge not cancelled; no challenge pending"];
 		} else {
-			id<JAHPAuthenticatingHTTPProtocolDelegate>  strongeDelegate;
+			id<JAHPAuthenticatingHTTPProtocolDelegate>  strongDelegate;
 			NSURLAuthenticationChallenge *  challenge;
 			JAHPDidCancelAuthenticationChallengeHandler  didCancelAuthenticationChallengeHandler;
 
-			strongeDelegate = [[self class] delegate];
+			strongDelegate = [[self class] delegate];
 
 			challenge = self.pendingChallenge;
 			didCancelAuthenticationChallengeHandler = self.pendingDidCancelAuthenticationChallengeHandler;
@@ -900,12 +908,12 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 			self.pendingChallengeCompletionHandler = nil;
 			self.pendingDidCancelAuthenticationChallengeHandler = nil;
 
-			if ([strongeDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:didCancelAuthenticationChallenge:)]) {
+			if ([strongDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:didCancelAuthenticationChallenge:)]) {
 				[[self class] authenticatingHTTPProtocol:self logWithFormat:@"challenge %@ cancellation passed to delegate", [[challenge protectionSpace] authenticationMethod]];
 				if (didCancelAuthenticationChallengeHandler) {
 					didCancelAuthenticationChallengeHandler(self, challenge);
 				}
-				[strongeDelegate authenticatingHTTPProtocol:self didCancelAuthenticationChallenge:challenge];
+				[strongDelegate authenticatingHTTPProtocol:self didCancelAuthenticationChallenge:challenge];
 			} else if (didCancelAuthenticationChallengeHandler) {
 				didCancelAuthenticationChallengeHandler(self, challenge);
 			} else {
@@ -1052,7 +1060,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 	if (!self.task) { return; }
 
 	BOOL        result;
-	id<JAHPAuthenticatingHTTPProtocolDelegate> strongeDelegate;
+	id<JAHPAuthenticatingHTTPProtocolDelegate> strongDelegate;
 
 #pragma unused(session)
 #pragma unused(task)
@@ -1069,6 +1077,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 				assert(NO);
 			}
 
+			// Logger
 			void (^logger)(NSString * _Nonnull logLine) = nil;
 
 #ifdef TRACE
@@ -1082,16 +1091,40 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 			};
 #endif
 
-			JAHPSecTrustEvaluation *evaluation =
-			[[JAHPSecTrustEvaluation alloc]
-			 initWithTrust:trust
-			 wvt:_wvt
-			 task:task
-			 challenge:challenge
-			 logger:logger
-			 completionHandler:completionHandler];
+			// Allow each URL to be loaded through JAHP
+			NSURL* (^modifyOCSPURL)(NSURL *url) = ^NSURL*(NSURL *url) {
+				[JAHPAuthenticatingHTTPProtocol temporarilyAllowURL:url
+													  forWebViewTab:_wvt
+													  isOCSPRequest:YES];
+				return nil;
+			};
 
-			[evaluation evaluate];
+			NSURLSessionConfiguration *config = [JAHPAuthenticatingHTTPProtocol
+												 proxiedSessionConfiguration];
+
+			OCSPAuthURLSessionDelegate *authURLSessionDelegate = [[AppDelegate sharedAppDelegate] authURLSessionDelegate];
+
+			BOOL successfulAuth =
+			[authURLSessionDelegate evaluateTrust:trust
+							modifyOCSPURLOverride:modifyOCSPURL
+							sessionConfigOverride:config
+								completionHandler:completionHandler];
+
+			if (successfulAuth) {
+				if ([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
+					SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+					if (certificate != nil) {
+						[_wvt setSSLCertificate:certificate];
+						// Also cache the cert for displaying when
+						// -URLSession:task:didReceiveChallenge: is not getting called
+						// due to NSURLSession internal TLS caching
+						// or UIWebView content caching
+						[[[AppDelegate sharedAppDelegate] sslCertCache]
+						 setObject:certificate
+						 forKey:challenge.protectionSpace.host];
+					}
+				}
+			}
 		});
 
 		return;
@@ -1101,11 +1134,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 	// to avoid the overload of bouncing to the main thread for challenges that aren't going to be customised
 	// anyway.
 
-	strongeDelegate = [[self class] delegate];
+	strongDelegate = [[self class] delegate];
 
 	result = NO;
-	if ([strongeDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:canAuthenticateAgainstProtectionSpace:)]) {
-		result = [strongeDelegate authenticatingHTTPProtocol:self canAuthenticateAgainstProtectionSpace:[challenge protectionSpace]];
+	if ([strongDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:canAuthenticateAgainstProtectionSpace:)]) {
+		result = [strongDelegate authenticatingHTTPProtocol:self canAuthenticateAgainstProtectionSpace:[challenge protectionSpace]];
 	}
 
 	// If the client wants the challenge, kick off that process.  If not, resolve it by doing the default thing.
