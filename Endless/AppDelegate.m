@@ -92,7 +92,7 @@ NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhe
 	[[OCSPAuthURLSessionDelegate alloc] initWithLogger:authLogger
 											 ocspCache:self.ocspCache
 										 modifyOCSPURL:nil
-										 sessionConfig:nil];
+											   session:nil];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);

@@ -1099,15 +1099,12 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 				return nil;
 			};
 
-			NSURLSessionConfiguration *config = [JAHPAuthenticatingHTTPProtocol
-												 proxiedSessionConfiguration];
-
 			OCSPAuthURLSessionDelegate *authURLSessionDelegate = [[AppDelegate sharedAppDelegate] authURLSessionDelegate];
 
 			BOOL successfulAuth =
 			[authURLSessionDelegate evaluateTrust:trust
 							modifyOCSPURLOverride:modifyOCSPURL
-							sessionConfigOverride:config
+								  sessionOverride:sharedDemuxInstance.session
 								completionHandler:completionHandler];
 
 			if (successfulAuth) {
