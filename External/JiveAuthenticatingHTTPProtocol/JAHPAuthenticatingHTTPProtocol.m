@@ -49,6 +49,7 @@
 #import "CookieJar.h"
 #import "HSTSCache.h"
 #import "HTTPSEverywhere.h"
+#import "OCSPAuthURLSessionDelegate.h"
 
 #import "JAHPAuthenticatingHTTPProtocol.h"
 #import "JAHPCanonicalRequest.h"
@@ -66,6 +67,36 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 @end
 
+@interface TemporarilyAllowedURL : NSObject
+
+@property (atomic, strong) NSURL *url;
+@property (atomic, strong) WebViewTab *wvt;
+@property (atomic, assign) BOOL ocspRequest;
+
+- (instancetype)initWithUrl:(NSURL*)url
+			  andWebViewTab:(WebViewTab*)wvt
+		   andIsOCSPRequest:(BOOL)isOCSPRequest;
+
+@end
+
+@implementation TemporarilyAllowedURL
+
+- (instancetype)initWithUrl:(NSURL*)url
+			  andWebViewTab:(WebViewTab*)wvt
+		   andIsOCSPRequest:(BOOL)isOCSPRequest {
+	self = [super init];
+
+	if (self) {
+		self.url = url;
+		self.wvt = wvt;
+		self.ocspRequest = isOCSPRequest;
+	}
+
+	return self;
+}
+
+@end
+
 @interface JAHPAuthenticatingHTTPProtocol () <NSURLSessionDataDelegate> {
 	NSUInteger _contentType;
 	Boolean _isFirstChunk;
@@ -75,6 +106,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 	NSURLRequest *_actualRequest;
 	BOOL _isOrigin;
 	BOOL _isTemporarilyAllowed;
+	BOOL _isOCSPRequest;
 }
 
 @property (atomic, strong, readwrite) NSThread *                        clientThread;       ///< The thread on which we should call the client.
@@ -106,7 +138,7 @@ typedef void (^JAHPChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposit
 
 static JAHPWeakDelegateHolder* weakDelegateHolder;
 
-static NSMutableArray *tmpAllowed;
+static NSMutableArray<TemporarilyAllowedURL*> *tmpAllowed;
 
 static NSString *_javascriptToInject;
 
@@ -120,28 +152,48 @@ static NSString *_javascriptToInject;
 	return _javascriptToInject;
 }
 
-+ (void)temporarilyAllow:(NSURL *)url
-{
-	if (!tmpAllowed)
-		tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
++ (void)temporarilyAllowURL:(NSURL *)url
+			  forWebViewTab:(WebViewTab*)webViewTab {
 
-	[tmpAllowed addObject:url];
+	return [self temporarilyAllowURL:url forWebViewTab:webViewTab isOCSPRequest:NO];
 }
 
-+ (BOOL)isURLTemporarilyAllowed:(NSURL *)url
++ (void)temporarilyAllowURL:(NSURL *)url
+			  forWebViewTab:(WebViewTab*)webViewTab
+			  isOCSPRequest:(BOOL)isOCSPRequest
 {
-	int found = -1;
+	@synchronized (tmpAllowed) {
+		if (tmpAllowed == NULL) {
+			tmpAllowed = [[NSMutableArray alloc] initWithCapacity:1];
+		}
 
-	for (int i = 0; i < [tmpAllowed count]; i++) {
-		if ([[tmpAllowed[i] absoluteString] isEqualToString:[url absoluteString]])
-			found = i;
+		TemporarilyAllowedURL *allowedURL = [[TemporarilyAllowedURL alloc] initWithUrl:url
+																		 andWebViewTab:webViewTab
+																	  andIsOCSPRequest:isOCSPRequest];
+		[tmpAllowed addObject:allowedURL];
+	}
+}
+
++ (TemporarilyAllowedURL*)popTemporarilyAllowedURL:(NSURL *)url
+{
+	TemporarilyAllowedURL *ret = NULL;
+
+	@synchronized (tmpAllowed) {
+		int found = -1;
+
+		for (int i = 0; i < [tmpAllowed count]; i++) {
+			if ([[tmpAllowed[i].url absoluteString] isEqualToString:[url absoluteString]]) {
+				found = i;
+				ret = tmpAllowed[i];
+			}
+		}
+
+		if (found > -1) {
+			[tmpAllowed removeObjectAtIndex:found];
+		}
 	}
 
-	if (found > -1) {
-		[tmpAllowed removeObjectAtIndex:found];
-	}
-
-	return (found > -1);
+	return ret;
 }
 
 + (NSString *)prependDirectivesIfExisting:(NSDictionary *)directives inCSPHeader:(NSString *)header
@@ -253,54 +305,9 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 {
 	@synchronized(self) {
 		if (sharedDemuxInstance == nil) {
-			NSURLSessionConfiguration *config;
+			NSURLSessionConfiguration *config = [JAHPAuthenticatingHTTPProtocol
+												 proxiedSessionConfiguration];
 
-			config = [NSURLSessionConfiguration defaultSessionConfiguration];
-
-			// You have to explicitly configure the session to use your own protocol subclass here
-			// otherwise you don't see redirects <rdar://problem/17384498>.
-			if (config.protocolClasses) {
-				config.protocolClasses = [config.protocolClasses arrayByAddingObject:self];
-			} else {
-				config.protocolClasses = @[ self ];
-			}
-
-			// Set TLSMinimumSupportedProtocol from user settings.
-			// NOTE: TLSMaximumSupportedProtocol is always set to the max supported by the system
-			// by default so there is no need to set it.
-			NSString *tlsVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kMinTlsVersion];
-
-			if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
-				config.TLSMinimumSupportedProtocol = kTLSProtocol12;
-			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]){
-				config.TLSMinimumSupportedProtocol = kTLSProtocol11;
-			} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]){
-				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
-			} else {
-				// Have a safe default if userDefaults are corrupted
-				// or have a deprecated value for kMinTlsVersion
-				config.TLSMinimumSupportedProtocol = kTLSProtocol1;
-			}
-
-			// Set proxy
-			NSString* proxyHost = @"localhost";
-			NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].socksProxyPort];
-			NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].httpProxyPort];
-
-			NSDictionary *proxyDict = @{
-										@"SOCKSEnable" : [NSNumber numberWithInt:0],
-										(NSString *)kCFStreamPropertySOCKSProxyHost : proxyHost,
-										(NSString *)kCFStreamPropertySOCKSProxyPort : socksProxyPort,
-
-										@"HTTPEnable"  : [NSNumber numberWithInt:1],
-										(NSString *)kCFStreamPropertyHTTPProxyHost  : proxyHost,
-										(NSString *)kCFStreamPropertyHTTPProxyPort  : httpProxyPort,
-
-										@"HTTPSEnable" : [NSNumber numberWithInt:1],
-										(NSString *)kCFStreamPropertyHTTPSProxyHost : proxyHost,
-										(NSString *)kCFStreamPropertyHTTPSProxyPort : httpProxyPort,
-										};
-			config.connectionProxyDictionary = proxyDict;
 			sharedDemuxInstance = [[JAHPQNSURLSessionDemux alloc] initWithConfiguration:config];
 		}
 	}
@@ -314,6 +321,59 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 	}
 }
 
+#pragma mark - Proxied session configuration
+
++ (NSURLSessionConfiguration*)proxiedSessionConfiguration {
+
+	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+
+	// You have to explicitly configure the session to use your own protocol subclass here
+	// otherwise you don't see redirects <rdar://problem/17384498>.
+	if (config.protocolClasses) {
+		config.protocolClasses = [config.protocolClasses arrayByAddingObject:self];
+	} else {
+		config.protocolClasses = @[ self ];
+	}
+
+	// Set TLSMinimumSupportedProtocol from user settings.
+	// NOTE: TLSMaximumSupportedProtocol is always set to the max supported by the system
+	// by default so there is no need to set it.
+	NSString *tlsVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kMinTlsVersion];
+
+	if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_2]) {
+		config.TLSMinimumSupportedProtocol = kTLSProtocol12;
+	} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_1]){
+		config.TLSMinimumSupportedProtocol = kTLSProtocol11;
+	} else if ([tlsVersion isEqualToString:kMinTlsVersionTLS_1_0]){
+		config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+	} else {
+		// Have a safe default if userDefaults are corrupted
+		// or have a deprecated value for kMinTlsVersion
+		config.TLSMinimumSupportedProtocol = kTLSProtocol1;
+	}
+
+	// Set proxy
+	NSString* proxyHost = @"localhost";
+	NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].socksProxyPort];
+	NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedAppDelegate].httpProxyPort];
+
+	NSDictionary *proxyDict = @{
+								@"SOCKSEnable" : [NSNumber numberWithInt:0],
+								(NSString *)kCFStreamPropertySOCKSProxyHost : proxyHost,
+								(NSString *)kCFStreamPropertySOCKSProxyPort : socksProxyPort,
+
+								@"HTTPEnable"  : [NSNumber numberWithInt:1],
+								(NSString *)kCFStreamPropertyHTTPProxyHost  : proxyHost,
+								(NSString *)kCFStreamPropertyHTTPProxyPort  : httpProxyPort,
+
+								@"HTTPSEnable" : [NSNumber numberWithInt:1],
+								(NSString *)kCFStreamPropertyHTTPSProxyHost : proxyHost,
+								(NSString *)kCFStreamPropertyHTTPSProxyPort : httpProxyPort,
+								};
+	config.connectionProxyDictionary = proxyDict;
+
+	return config;
+}
 
 /*! Called by by both class code and instance code to log various bits of information.
  *  Can be called on any thread.
@@ -465,12 +525,17 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		}
 	}
 
-	if (_wvt == nil && [[self class] isURLTemporarilyAllowed:[request URL]]) {
-		_isTemporarilyAllowed = YES;
-		_wvt = [[[[AppDelegate sharedAppDelegate] webViewController] webViewTabs] firstObject];
+	if (_wvt == nil) {
+		TemporarilyAllowedURL *allowedUrl = [[self class] popTemporarilyAllowedURL:[request URL]];
+		if (allowedUrl != nil) {
+			_isTemporarilyAllowed = YES;
+			_wvt = allowedUrl.wvt;
+			_isOCSPRequest = allowedUrl.ocspRequest;
+		}
 	}
 
 	if (_wvt == nil) {
+
 		[[self class] authenticatingHTTPProtocol:self logWithFormat:@"request for %@ with no matching WebViewTab! (main URL %@, UA hash %@)", [request URL], [request mainDocumentURL], wvthash];
 		[client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: @YES }]];
 
@@ -831,11 +896,11 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 			//
 			// [[self class] authenticatingHTTPProtocol:self logWithFormat:@"challenge not cancelled; no challenge pending"];
 		} else {
-			id<JAHPAuthenticatingHTTPProtocolDelegate>  strongeDelegate;
+			id<JAHPAuthenticatingHTTPProtocolDelegate>  strongDelegate;
 			NSURLAuthenticationChallenge *  challenge;
 			JAHPDidCancelAuthenticationChallengeHandler  didCancelAuthenticationChallengeHandler;
 
-			strongeDelegate = [[self class] delegate];
+			strongDelegate = [[self class] delegate];
 
 			challenge = self.pendingChallenge;
 			didCancelAuthenticationChallengeHandler = self.pendingDidCancelAuthenticationChallengeHandler;
@@ -843,12 +908,12 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 			self.pendingChallengeCompletionHandler = nil;
 			self.pendingDidCancelAuthenticationChallengeHandler = nil;
 
-			if ([strongeDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:didCancelAuthenticationChallenge:)]) {
+			if ([strongDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:didCancelAuthenticationChallenge:)]) {
 				[[self class] authenticatingHTTPProtocol:self logWithFormat:@"challenge %@ cancellation passed to delegate", [[challenge protectionSpace] authenticationMethod]];
 				if (didCancelAuthenticationChallengeHandler) {
 					didCancelAuthenticationChallengeHandler(self, challenge);
 				}
-				[strongeDelegate authenticatingHTTPProtocol:self didCancelAuthenticationChallenge:challenge];
+				[strongDelegate authenticatingHTTPProtocol:self didCancelAuthenticationChallenge:challenge];
 			} else if (didCancelAuthenticationChallengeHandler) {
 				didCancelAuthenticationChallengeHandler(self, challenge);
 			} else {
@@ -982,7 +1047,9 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	[[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:@{ ORIGIN_KEY: (_isOrigin ? @YES : @NO )}]];
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
+-  (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
 {
 	// rdar://21484589
 	// this is called from JAHPQNSURLSessionDemuxTaskInfo,
@@ -993,7 +1060,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	if (!self.task) { return; }
 
 	BOOL        result;
-	id<JAHPAuthenticatingHTTPProtocolDelegate> strongeDelegate;
+	id<JAHPAuthenticatingHTTPProtocolDelegate> strongDelegate;
 
 #pragma unused(session)
 #pragma unused(task)
@@ -1002,40 +1069,61 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	assert(completionHandler != nil);
 	assert([NSThread currentThread] == self.clientThread);
 
-
 	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-		SecTrustRef trust = challenge.protectionSpace.serverTrust;
-		if (trust == nil) {
-			assert(NO);
-		}
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+			SecTrustRef trust = challenge.protectionSpace.serverTrust;
+			if (trust == nil) {
+				assert(NO);
+			}
 
-		SecTrustResultType trustResultType;
-		SecTrustEvaluate(challenge.protectionSpace.serverTrust, &trustResultType);
+			// Logger
+			void (^logger)(NSString * _Nonnull logLine) = nil;
 
-		if (trustResultType == kSecTrustResultProceed || trustResultType == kSecTrustResultUnspecified) {
-			[[self class ]authenticatingHTTPProtocol:nil logWithFormat:@"Got SSL certificate for %@, mainDocumentURL: %@, URL: %@",
-			 challenge.protectionSpace.host,
-			 [task.currentRequest mainDocumentURL],
-			 [task.currentRequest URL]];
+#ifdef TRACE
+			logger =
+			^(NSString * _Nonnull logLine) {
+				[[self class] authenticatingHTTPProtocol:nil
+										   logWithFormat:@"[ServerTrust] (%@) %@",
+				 challenge.protectionSpace.host,
+				 logLine];
 
-			if([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
-				SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
-				if (certificate != nil) {
-					[_wvt setSSLCertificate:certificate];
-					// Also cache the cert for displaying when
-					// -URLSession:task:didReceiveChallenge: is not getting called
-					// due to NSURLSession internal TLS caching
-					// or UIWebView content caching
-					[[[AppDelegate sharedAppDelegate] sslCertCache] setObject:certificate forKey:challenge.protectionSpace.host];
+			};
+#endif
+
+			// Allow each URL to be loaded through JAHP
+			NSURL* (^modifyOCSPURL)(NSURL *url) = ^NSURL*(NSURL *url) {
+				[JAHPAuthenticatingHTTPProtocol temporarilyAllowURL:url
+													  forWebViewTab:_wvt
+													  isOCSPRequest:YES];
+				return nil;
+			};
+
+			OCSPAuthURLSessionDelegate *authURLSessionDelegate = [[AppDelegate sharedAppDelegate] authURLSessionDelegate];
+
+			BOOL successfulAuth =
+			[authURLSessionDelegate evaluateTrust:trust
+							modifyOCSPURLOverride:modifyOCSPURL
+								  sessionOverride:sharedDemuxInstance.session
+								completionHandler:completionHandler];
+
+			if (successfulAuth) {
+				if ([[task.currentRequest mainDocumentURL] isEqual:[task.currentRequest URL]]) {
+					SSLCertificate *certificate = [[SSLCertificate alloc] initWithSecTrustRef:trust];
+					if (certificate != nil) {
+						[_wvt setSSLCertificate:certificate];
+						// Also cache the cert for displaying when
+						// -URLSession:task:didReceiveChallenge: is not getting called
+						// due to NSURLSession internal TLS caching
+						// or UIWebView content caching
+						[[[AppDelegate sharedAppDelegate] sslCertCache]
+						 setObject:certificate
+						 forKey:challenge.protectionSpace.host];
+					}
 				}
 			}
-			NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-			assert(credential != nil);
-			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-			return;
-		}
-		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+		});
+
 		return;
 	}
 
@@ -1043,11 +1131,11 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 	// to avoid the overload of bouncing to the main thread for challenges that aren't going to be customised
 	// anyway.
 
-	strongeDelegate = [[self class] delegate];
+	strongDelegate = [[self class] delegate];
 
 	result = NO;
-	if ([strongeDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:canAuthenticateAgainstProtectionSpace:)]) {
-		result = [strongeDelegate authenticatingHTTPProtocol:self canAuthenticateAgainstProtectionSpace:[challenge protectionSpace]];
+	if ([strongDelegate respondsToSelector:@selector(authenticatingHTTPProtocol:canAuthenticateAgainstProtectionSpace:)]) {
+		result = [strongDelegate authenticatingHTTPProtocol:self canAuthenticateAgainstProtectionSpace:[challenge protectionSpace]];
 	}
 
 	// If the client wants the challenge, kick off that process.  If not, resolve it by doing the default thing.
@@ -1217,7 +1305,7 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 				[responseHeaders setObject:hv forKey:h];
 		}
 	}
-	else if(CSPheader != nil) {
+	else if (CSPheader != nil) {
 		// No CSP present in the original response, so we set our own
 		NSString *newCSPValue = [[self class] prependDirectivesIfExisting:wantedDirectives inCSPHeader:CSPheader];
 		[responseHeaders setObject:newCSPValue forKey:@"Content-Security-Policy"];
@@ -1240,7 +1328,10 @@ static NSString * kJAHPRecursiveRequestFlagProperty = @"com.jivesoftware.JAHPAut
 		}
 	}
 
-	if ([_wvt secureMode] > WebViewTabSecureModeInsecure && ![[[[_actualRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
+	// OCSP requests are performed out-of-band
+	if (!_isOCSPRequest &&
+		[_wvt secureMode] > WebViewTabSecureModeInsecure &&
+		![[[[_actualRequest URL] scheme] lowercaseString] isEqualToString:@"https"]) {
 		/* an element on the page was not sent over https but the initial request was, downgrade to mixed */
 		if ([_wvt secureMode] > WebViewTabSecureModeInsecure) {
 			[_wvt setSecureMode:WebViewTabSecureModeMixed];

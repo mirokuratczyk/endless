@@ -780,7 +780,7 @@
 
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			NSURL *imgurl = [NSURL URLWithString:img];
-			[JAHPAuthenticatingHTTPProtocol temporarilyAllow:imgurl];
+			[JAHPAuthenticatingHTTPProtocol temporarilyAllowURL:imgurl forWebViewTab:self];
 
 			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:imgurl];
 			[request setValue:[[AppDelegate sharedAppDelegate] defaultUserAgent] forHTTPHeaderField:@"User-Agent"]; // TODO: we could always set user agent to default if nil in JAHPAuthenticatingHTTPProtocol.m

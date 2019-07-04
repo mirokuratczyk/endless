@@ -35,6 +35,9 @@
 #import "UpstreamProxySettings.h"
 #import "PsiphonClientCommonLibraryHelpers.h"
 
+NSString* _Nonnull const OCSPCacheUserDefaultsKey = @"OCSPCache.ocsp_cache_1";
+NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhenBackgrounded";
+
 @implementation AppDelegate {
 	// Array of home pages from the handshake.
 	// We will pick only one URL from this array
@@ -60,6 +63,36 @@
 	[CookieJar syncCookieAcceptPolicy];
 	[Bookmark retrieveList];
 	self.sslCertCache = [[NSCache alloc] init];
+
+	void (^ocspLogger)(NSString * _Nonnull logLine) = nil;
+
+#ifdef TRACE
+	ocspLogger =
+	^(NSString * _Nonnull logLine) {
+		NSLog(@"[OCSPCache] %@", logLine);
+	};
+#endif
+
+	self.ocspCache =
+	[[OCSPCache alloc] initWithLogger:ocspLogger
+			  andLoadFromUserDefaults:[NSUserDefaults standardUserDefaults]
+							  withKey:OCSPCacheUserDefaultsKey];
+
+	void (^authLogger)(NSString * _Nonnull logLine) = nil;
+
+#ifdef TRACE
+	authLogger =
+	^(NSString * _Nonnull logLine) {
+		NSLog(@"[ServerTrust] %@", logLine);
+	};
+#endif
+
+
+	self.authURLSessionDelegate =
+	[[OCSPAuthURLSessionDelegate alloc] initWithLogger:authLogger
+											 ocspCache:self.ocspCache
+										 modifyOCSPURL:nil
+											   session:nil];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
@@ -171,16 +204,16 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
 	if (![self areTesting]) {
 		[[self hstsCache] persist];
 	}
 
-	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"]) {
+	if ([self clearAllWhenBackgrounded]) {
 		[[self webViewController] removeAllTabsForBackgrounded];
 		[CookieJar clearAllData];
 		[DownloadHelper deleteDownloadsDirectory];
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:OCSPCacheUserDefaultsKey];
 	}
 
 	if(_appActiveTimer && [_appActiveTimer isValid]) {
@@ -267,9 +300,20 @@
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[self.psiphonTunnel stop];
 	});
+
+	// Notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
-	[application ignoreSnapshotOnNextApplicationLaunch];
+
+	// Downloads
 	[DownloadHelper deleteDownloadsDirectory];
+
+	// OCSPCache
+	if (![self clearAllWhenBackgrounded]) {
+		[self.ocspCache persistToUserDefaults:[NSUserDefaults standardUserDefaults]
+									  withKey:@"OCSPCache.ocsp_cache"];
+	}
+
+	[application ignoreSnapshotOnNextApplicationLaunch];
 }
 
 - (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
@@ -298,8 +342,9 @@
 		return NO;
 
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	if ([userDefaults boolForKey:@"clearAllWhenBackgrounded"])
+	if ([self clearAllWhenBackgrounded]) {
 		return NO;
+	}
 
 	return YES;
 }
@@ -740,6 +785,13 @@
 			[authAlertController dismissViewControllerAnimated:NO completion:nil];
 		}
 	}
+}
+
+#pragma mark - User defaults
+
+- (BOOL)clearAllWhenBackgrounded {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults boolForKey:clearAllWhenBackgroundedUserDefaultsKey];
 }
 
 @end
