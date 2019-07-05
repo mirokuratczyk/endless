@@ -17,10 +17,11 @@
  *
  */
 
-#import "FeedbackUpload.h"
-#import "HTTPSEverywhereRuleController.h"
 #import "SettingsViewController.h"
 
+#import "FeedbackUpload.h"
+#import "HTTPSEverywhereRuleController.h"
+#import "Privacy.h"
 
 static AppDelegate *appDelegate;
 
@@ -81,7 +82,7 @@ static AppDelegate *appDelegate;
 		// do nothing, user has cancelled
 	} else if (buttonIndex == [alertView firstOtherButtonIndex]) {
 		// clear history and website data
-		[CookieJar clearAllData];
+		[Privacy clearWebsiteData];
 	}
 }
 

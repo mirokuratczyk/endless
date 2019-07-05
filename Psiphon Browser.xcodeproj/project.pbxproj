@@ -79,6 +79,8 @@
 		6631B2341EB3B6DB003DFBE1 /* embedded_server_entries in Resources */ = {isa = PBXBuildFile; fileRef = 6631B2331EB3B6DB003DFBE1 /* embedded_server_entries */; };
 		7F1EA282F5FFF65F893BD73A /* libPods-Psiphon Browser Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5C913DBB94F8C230370E60 /* libPods-Psiphon Browser Tests.a */; };
 		CA7305DD054FDBDCCCC74C2C /* libPods-Psiphon Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */; };
+		CEE4744522CFB5FB00E00AF1 /* Privacy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4744422CFB5FB00E00AF1 /* Privacy.m */; };
+		CEE4744822CFB73400E00AF1 /* CertificateAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4744722CFB73400E00AF1 /* CertificateAuthentication.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +336,10 @@
 		A5506E12B0ABA07F832A7D00 /* Pods-Psiphon Browser Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC15F6DC777A8D47F3D12C3 /* Pods-Psiphon Browser Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psiphon Browser Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psiphon Browser Tests/Pods-Psiphon Browser Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ADA1E150C1440D00C553EC37 /* libPods-Psiphon Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psiphon Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE4744322CFB5FB00E00AF1 /* Privacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Privacy.h; sourceTree = "<group>"; };
+		CEE4744422CFB5FB00E00AF1 /* Privacy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Privacy.m; sourceTree = "<group>"; };
+		CEE4744622CFB73400E00AF1 /* CertificateAuthentication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CertificateAuthentication.h; sourceTree = "<group>"; };
+		CEE4744722CFB73400E00AF1 /* CertificateAuthentication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CertificateAuthentication.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +398,8 @@
 				01AFEB481B4ED48000A02482 /* Bookmark.m */,
 				01AFEB351B4DBA8D00A02482 /* BookmarkController.h */,
 				01AFEB361B4DBA8D00A02482 /* BookmarkController.m */,
+				CEE4744622CFB73400E00AF1 /* CertificateAuthentication.h */,
+				CEE4744722CFB73400E00AF1 /* CertificateAuthentication.m */,
 				010EEA671A43C8CF001E8B65 /* CookieJar.h */,
 				010EEA681A43C8CF001E8B65 /* CookieJar.m */,
 				01F7CB471A5253DD00F42B73 /* HSTSCache.h */,
@@ -402,6 +410,8 @@
 				018333D11A35291200670CD1 /* HTTPSEverywhereRule.m */,
 				0182AD991AACC55400F3B7ED /* HTTPSEverywhereRuleController.h */,
 				0182AD9A1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m */,
+				CEE4744322CFB5FB00E00AF1 /* Privacy.h */,
+				CEE4744422CFB5FB00E00AF1 /* Privacy.m */,
 				4E1175171DD6310A009527EB /* SettingsViewController.h */,
 				4E1175181DD63123009527EB /* SettingsViewController.m */,
 				01F2AE371B7FEF5E00D5651A /* SSLCertificate.h */,
@@ -926,6 +936,8 @@
 				4E628E9F1EF89D2C00F8B3B5 /* TutorialViewController.m in Sources */,
 				4EB51ECE1E941FBD008676A7 /* AdjustableLabel.m in Sources */,
 				0182AD9B1AACC55400F3B7ED /* HTTPSEverywhereRuleController.m in Sources */,
+				CEE4744522CFB5FB00E00AF1 /* Privacy.m in Sources */,
+				CEE4744822CFB73400E00AF1 /* CertificateAuthentication.m in Sources */,
 				010EEA691A43C8CF001E8B65 /* CookieJar.m in Sources */,
 				444CEFB41E54DA2D0085F3D4 /* NYAlertViewController.m in Sources */,
 				4E1175191DD63123009527EB /* SettingsViewController.m in Sources */,

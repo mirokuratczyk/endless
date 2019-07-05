@@ -1099,7 +1099,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 				return nil;
 			};
 
-			OCSPAuthURLSessionDelegate *authURLSessionDelegate = [[AppDelegate sharedAppDelegate] authURLSessionDelegate];
+			OCSPAuthURLSessionDelegate *authURLSessionDelegate =
+			AppDelegate.sharedAppDelegate.certificateAuthentication.authURLSessionDelegate;
 
 			BOOL successfulAuth =
 			[authURLSessionDelegate evaluateTrust:trust

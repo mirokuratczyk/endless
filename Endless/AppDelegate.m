@@ -31,11 +31,11 @@
 #import "AppDelegate.h"
 #import "Bookmark.h"
 #import "HTTPSEverywhere.h"
+#import "Privacy.h"
 #import "PsiphonData.h"
-#import "UpstreamProxySettings.h"
 #import "PsiphonClientCommonLibraryHelpers.h"
+#import "UpstreamProxySettings.h"
 
-NSString* _Nonnull const OCSPCacheUserDefaultsKey = @"OCSPCache.ocsp_cache_1";
 NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhenBackgrounded";
 
 @implementation AppDelegate {
@@ -64,35 +64,7 @@ NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhe
 	[Bookmark retrieveList];
 	self.sslCertCache = [[NSCache alloc] init];
 
-	void (^ocspLogger)(NSString * _Nonnull logLine) = nil;
-
-#ifdef TRACE
-	ocspLogger =
-	^(NSString * _Nonnull logLine) {
-		NSLog(@"[OCSPCache] %@", logLine);
-	};
-#endif
-
-	self.ocspCache =
-	[[OCSPCache alloc] initWithLogger:ocspLogger
-			  andLoadFromUserDefaults:[NSUserDefaults standardUserDefaults]
-							  withKey:OCSPCacheUserDefaultsKey];
-
-	void (^authLogger)(NSString * _Nonnull logLine) = nil;
-
-#ifdef TRACE
-	authLogger =
-	^(NSString * _Nonnull logLine) {
-		NSLog(@"[ServerTrust] %@", logLine);
-	};
-#endif
-
-
-	self.authURLSessionDelegate =
-	[[OCSPAuthURLSessionDelegate alloc] initWithLogger:authLogger
-											 ocspCache:self.ocspCache
-										 modifyOCSPURL:nil
-											   session:nil];
+	self.certificateAuthentication = [[CertificateAuthentication alloc] init];
 
 	NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"blip1" withExtension:@"wav"];
 	AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &_notificationSound);
@@ -211,9 +183,7 @@ NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhe
 
 	if ([self clearAllWhenBackgrounded]) {
 		[[self webViewController] removeAllTabsForBackgrounded];
-		[CookieJar clearAllData];
-		[DownloadHelper deleteDownloadsDirectory];
-		[[NSUserDefaults standardUserDefaults] removeObjectForKey:OCSPCacheUserDefaultsKey];
+		[Privacy clearWebsiteData];
 	}
 
 	if(_appActiveTimer && [_appActiveTimer isValid]) {
@@ -309,8 +279,7 @@ NSString* _Nonnull const clearAllWhenBackgroundedUserDefaultsKey = @"clearAllWhe
 
 	// OCSPCache
 	if (![self clearAllWhenBackgrounded]) {
-		[self.ocspCache persistToUserDefaults:[NSUserDefaults standardUserDefaults]
-									  withKey:@"OCSPCache.ocsp_cache"];
+		[self.certificateAuthentication persist];
 	}
 
 	[application ignoreSnapshotOnNextApplicationLaunch];
