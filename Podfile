@@ -12,7 +12,7 @@ target "Psiphon Browser" do
 	#pod "InAppSettingsKit", :path => "../InAppSettingsKit"
 	pod 'PsiphonClientCommonLibrary', :git => "https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git", :commit => '0fd8d41'
 	#pod 'PsiphonClientCommonLibrary', :path => "../psiphon-ios-client-common-library/"
-	pod 'OCSPCache', :git => "https://github.com/Psiphon-Labs/OCSPCache.git", :commit => 'c11ab4a'
+	pod 'OCSPCache', :git => "https://github.com/Psiphon-Labs/OCSPCache.git", :commit => 'b945a57'
 	#pod 'OCSPCache', :path => "../OCSPCache/"
 end
 
