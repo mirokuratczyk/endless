@@ -1416,6 +1416,14 @@ static BOOL (^safeStringsEqual)(NSString *, NSString *) = ^BOOL(NSString *a, NSS
 	appSettingsViewController.hiddenKeys = hiddenKeys;
 
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appSettingsViewController];
+	if (@available(iOS 13, *)) {
+		// By default, presented view controllers are not presented in fullscreen on iOS 13. This
+		// means that viewDidDisappear is not called on the active view controller; when the
+		// presented view controller is dismissed viewDidAppear is not called presenting view controller.
+		// Currently WebViewController expects viewDidAppear to be called when the settings view
+		// controller is dismissed so we force fullscreen presentation.
+		navController.modalPresentationStyle = UIModalPresentationFullScreen;
+	}
 
 	__weak WebViewController* weakSelf = self;
 
