@@ -1,5 +1,5 @@
 /* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
-"PSIPHON_BROWSER" = "Psiphon Браузер";
+"PSIPHON_BROWSER" = "Веб-переглядач Psiphon";
 
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Сповіщення";

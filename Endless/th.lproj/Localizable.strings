@@ -108,7 +108,7 @@
 "CLOSE_TABS_PROMPT" = "Allow this page to close its tab?";
 
 /* Action button in connection dialog that will open the app settings */
-"CONNECTING_GO_TO_SETTINGS" = "Go to Settings";
+"CONNECTING_GO_TO_SETTINGS" = "ไปที่ติดตั้ง";
 
 /* Button text on connection status modal that brings the user to the app Settings */
 "CONNECTION_ALERT_SETTINGS_ACTION" = "ตั้งค่า";
@@ -147,7 +147,7 @@
 "EDIT_BOOKMARK_TITLE" = "Edit Bookmark";
 
 /* HTTP authentication alert log in button action */
-"HTTP_AUTH_LOG_IN" = "Log In";
+"HTTP_AUTH_LOG_IN" = "เข้าสู่ระบบ";
 
 /* HTTP authentication alert password input title */
 "HTTP_AUTH_PASSWORD" = "รหัสผ่าน";

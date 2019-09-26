@@ -5,7 +5,7 @@
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Bildirimler";
 
 /* Settings item text. Leads user to be able to change which search engine is used when they enter words (not an address) into the address bar. Should be kept short. */
-"SETTINGS_SEARCH_ENGINE" = "Search Engine";
+"SETTINGS_SEARCH_ENGINE" = "Arama Motoru";
 
 /* Settings item text. Leads to privacy related options. */
 "PRIVACY_SUBSETTINGS_LABEL" = "Gizlilik";
@@ -14,74 +14,74 @@
 "SECURITY_SUBSETTINGS_LABEL" = "Güvenlik";
 
 /* Settings item text. Opens app tutorial. Should be kept short. */
-"SETTINGS_TUTORIAL" = "Tutorial";
+"SETTINGS_TUTORIAL" = "Eğitim";
 
 /* Explanatory text for the "Do Not Track" setting. */
-"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Ask sites and their third party content providers not to track you.";
+"PRIVACY_DO_NOT_TRACK_DESCRIPTION" = "Sitelerden ve onların üçüncü taraf içerik sağlayıcılarından sizi izlememelerini isteyin.";
 
 /* Item label for a settings toggle. "Do Not Track" is the standard name for a browser header that opts the user out of sites tracking thing. Text should be kept short. */
-"PRIVACY_DO_NOT_TRACK_LABEL" = "Send \"Do-Not-Track\" requests";
+"PRIVACY_DO_NOT_TRACK_LABEL" = "\"Do-Not-Track\" istekleri gönderin";
 
 /* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Manage what types of cookies Psiphon Browser allows.";
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Psiphon Browser tarafından kullanılmasına izin verilecek çerez türlerini yönetin.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Always Block";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Her Zaman Engellensin";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Allow from Current Website Only";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE" = "Yalnız Geçerli Web Sitesine İzin Verilsin";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Allow from Websites I Visit";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED" = "Ziyaret Ettiğim Web Sitelerine İzin Verilsin";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Always Allow";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW" = "Her Zaman İzin Verilsin";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Block All";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK_SHORT" = "Tümü Engellensin";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Current Website Only";
+"PRIVACY_ALLOW_COOKIES_CURRENT_WEBSITE_SHORT" = "Yalnız Geçerli Web Sitesinde";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Websites I Visit";
+"PRIVACY_ALLOW_COOKIES_WEBSITES_VISITED_SHORT" = "Ziyaret Ettiğim Web Sitelerinde";
 
 /* Short version of one of the options for the "Allow Cookies" setting. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Allow All";
+"PRIVACY_ALLOW_COOKIES_ALWAYS_ALLOW_SHORT" = "Tümüne İzin Verilsin";
 
 /* Label for a privacy-related setting. This provides different browser cookie acceptance options, from blocking all cookies to allowing all cookies. This text should be kept short. */
-"PRIVACY_ALLOW_COOKIES_LABEL" = "Allow Cookies";
+"PRIVACY_ALLOW_COOKIES_LABEL" = "Çerezlere İzin Verilsin";
 
 /* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Websites may store cookies and other data on your device to identify you when browsing. This data is usually used to provide services and content specific to you. It can include your login information, preferences, and personal information such as your name or email address. Psiphon Browser blocks cookies from sites other than the one you are visiting (third party cookies) by default to help prevent advertisers from storing data on your device.";
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Tarama sırasında, ziyaret ettiğiniz web siteleri, sizi tanımlamak için aygıtınıza çerezler ve diğer veriler kaydedebilir. Bu veriler genellikle size özel hizmet ve içerik sunmak için kullanılır. Bu bilgiler içinde oturum açma bilgileriniz, profil ayarlarınız, adınız ve e-posta adresiniz gibi kişisel bilgiler de bulunabilir. Psiphon Browser, reklam verenlerin aygıtınıza bu türden verileri kaydetmesini engellemek için, varsayılan olarak ziyaret ettiğiniz siteler dışında kalan (üçüncü taraf) sitelerin çerezlerini engeller.";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
-"PRIVACY_CLEAR_DATA_DESCRIPTION" = "All tabs, cookies and website data will be cleared when switching to another app.";
+"PRIVACY_CLEAR_DATA_DESCRIPTION" = "Başka bir uygulamaya geçildiğinde tüm sekmeler, çerezler ve web sitesi verileri silinir.";
 
 /* Label for a settings toggle in the 'Cookie Control' section. So this is setting is for clearing all browser cookies when the user leaves the app (which results in it being 'backgrounded'). Text should be kept short. */
-"PRIVACY_CLEAR_DATA_LABEL" = "Clear all when backgrounded";
+"PRIVACY_CLEAR_DATA_LABEL" = "Arka plana alındığında tümü silinsin";
 
 /* Explanatory text for the "Clear cookies and website data" command. */
-"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Cookies and local storage will be cleared.";
+"PRIVACY_CLEAR_DATA_NOW_DESCRIPTION" = "Çerezler ve yerel depolama silinecek.";
 
 /* On the Privacy settings page, this is the label for a command that will clear the browser's cookies and cached data. This text should be kept short. */
-"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Clear cookies and website data";
+"PRIVACY_CLEAR_DATA_NOW_LABEL" = "Çerez ve web sitesi verilerini sil";
 
 /* Explanatory text for the "Minimum SSL/TLS Version" setting. */
-"SECURITY_TLS_MINIMUM_DESCRIPTION" = "Minimum version of SSL/TLS required for HTTPS connections; may require force-closing the app to take effect.";
+"SECURITY_TLS_MINIMUM_DESCRIPTION" = "HTTPS bağlantıları için kullanılacak en düşük SSL/TLS sürümü. Değiştirildikten sonra uygulamanın yeniden başlatılması gerekebilir.";
 
 /* Label of a setting. It allows the user to set the minimum TLS version that the browser should accept. TLS is "Transport Layer Security"; it is the successor to SSL ("Secure Sockets Layer"). This text should be kept short. */
-"SECURITY_TLS_MINIMUM_LABEL" = "Minimum SSL/TLS Version";
+"SECURITY_TLS_MINIMUM_LABEL" = "En Düşük SSL/TLS Sürümü";
 
 /* Settings explanatory text for the sound notification toggle. */
-"NOTIFICATIONS_SOUND_DESCRIPTION" = "Bağlantı durumu değiştiğinde ses çal";
+"NOTIFICATIONS_SOUND_DESCRIPTION" = "Bağlantı durumu değiştiğinde ses çıkarılsın";
 
 /* Settings item text. This settings toggles on/off a sound when the Psiphon connection status changes. Text should be kept short. */
 "NOTIFICATIONS_SOUND_LABEL" = "Ses";
 
 /* Settings explanatory text for the vibration notification toggle. */
-"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Bağlantı durumu değiştiğinde titret";
+"NOTIFICATIONS_VIBRATE_DESCRIPTION" = "Bağlantı durumu değiştiğinde titresin";
 
 /* Settings item text. This settings toggles on/off a vibration when the Psiphon connection status changes. Text should be kept short. */
-"NOTIFICATIONS_VIBRATE_LABEL" = "Titretişim";
+"NOTIFICATIONS_VIBRATE_LABEL" = "Titreşim";
 

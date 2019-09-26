@@ -1,5 +1,5 @@
 /* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
-"PSIPHON_BROWSER" = "賽風瀏覽器";
+"PSIPHON_BROWSER" = "Psiphon 瀏覽器";
 
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "通知";
@@ -23,7 +23,7 @@
 "PRIVACY_DO_NOT_TRACK_LABEL" = "傳送“不可追踪”請求";
 
 /* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "管理賽風瀏覽器許可的 cookies 類型";
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "管理Psiphon瀏覽器許可的 cookies 類型";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "全程封鎖";
@@ -53,7 +53,7 @@
 "PRIVACY_ALLOW_COOKIES_LABEL" = "允許 Cookies";
 
 /* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "網站可能會把 cookies 或其它數據儲存在本地的設備上，當用戶上網可以用來識別。這樣的數據通常是為了提供用戶個人化的服務或內容。它可能包含了用戶的登入資訊、偏用和姓名、電郵地址等個人資料。賽風瀏覽器默認地會封鎖訪問網站以外的第三方 cookies ，以防止廣告商在用戶的設備上儲存資料。";
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "網站可能會把 cookies 或其它數據儲存在本地的設備上，當用戶上網可以用來識別。這樣的數據通常是為了提供用戶個人化的服務或內容。它可能包含了用戶的登入資訊、偏用和姓名、電郵地址等個人資料。Psiphon瀏覽器默認地會封鎖訪問網站以外的第三方 cookies ，以防止廣告商在用戶的設備上儲存資料。";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
 "PRIVACY_CLEAR_DATA_DESCRIPTION" = "當轉換到另一個應用時，所有的標籤頁, cookies 和網站資料都會清除。 　";

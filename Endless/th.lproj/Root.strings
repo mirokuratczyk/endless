@@ -11,7 +11,7 @@
 "PRIVACY_SUBSETTINGS_LABEL" = "ความเป็นส่วนตัว";
 
 /* Settings item text. Leads to security related options. */
-"SECURITY_SUBSETTINGS_LABEL" = "Security";
+"SECURITY_SUBSETTINGS_LABEL" = "ความปลอดภัย";
 
 /* Settings item text. Opens app tutorial. Should be kept short. */
 "SETTINGS_TUTORIAL" = "Tutorial";

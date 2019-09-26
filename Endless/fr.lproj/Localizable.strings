@@ -1,5 +1,5 @@
 /* 'Add bookmark' dialog title */
-"ADD_BOOKMARK_TITLE" = "Ajouter un signet";
+"ADD_BOOKMARK_TITLE" = "Ajouter un marque-page";
 
 /* 'Edit Bookmark' dialog page name field
    Add bookmark page name field */
@@ -7,7 +7,7 @@
 
 /* 'Add Bookmark' dialog text
    'Edit Bookmark' dialog text */
-"ADD_EDIT_BOOKMARK_TEXT" = "Saisir les détails de l’URL à mettre en signet :";
+"ADD_EDIT_BOOKMARK_TEXT" = "Saisir les détails de l’URL à mettre en marque-page :";
 
 /* 'Edit Bookmark' dialog URL field
    Add bookmark URL field */
@@ -18,7 +18,7 @@
 
 /* Bookmarks main dialog title
    Bookmarks table header title */
-"BOOKMARKS_TITLE" = "Signets";
+"BOOKMARKS_TITLE" = "Marque-pages";
 
 /* Cancel action */
 "CANCEL_ACTION" = "Annuler ";
@@ -30,7 +30,7 @@
 "CERT_BUSCAT" = "Catégorie d’entreprise";
 
 /* Field name for display in list */
-"CERT_CERTIFICATE_INFORMATION" = "Informations de certificat";
+"CERT_CERTIFICATE_INFORMATION" = "Renseignements de certificat";
 
 /* Field name for display in list */
 "CERT_CIPHER" = "Chiffrement";
@@ -39,7 +39,7 @@
 "CERT_CN" = "Nom commun";
 
 /* Field name for display in list */
-"CERT_CONNECTION_INFORMATION" = "Informations de connexion";
+"CERT_CONNECTION_INFORMATION" = "Renseignements de connexion";
 
 /* Field name for display in list */
 "CERT_COUNTRY" = "Pays";
@@ -144,7 +144,7 @@
 "DOWNLOAD_STATE_ERROR" = "Erreur";
 
 /* Edit Bookmark dialog title */
-"EDIT_BOOKMARK_TITLE" = "Modifier le signet";
+"EDIT_BOOKMARK_TITLE" = "Modifier le marque-page";
 
 /* HTTP authentication alert log in button action */
 "HTTP_AUTH_LOG_IN" = "Authentifiant";
@@ -159,7 +159,7 @@
 "HTTP_AUTH_USER_NAME" = "Nom d’utilisateur";
 
 /* HTTPS Everywhere menu title */
-"HTTPSEVERYWHERE_MENU_TITLE" = "Règles de HTTPS partout";
+"HTTPSEVERYWHERE_MENU_TITLE" = "Règles de HTTPS partout";
 
 /* Image download error alert text. %@ will be replaced with the URL of the image. */
 "IMAGE_DOWNLOAD_ERROR_GENERIC" = "Une erreur est survenue lors du téléchargement de l’image %@";
@@ -229,7 +229,7 @@
 "ONBOARDING_APP_SUBTITLE" = "NAVIGUER PAR-DELÀ LES FRONTIÈRES";
 
 /* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
-"ONBOARDING_APPS_TEXT" = "Vos applis favorites ont une interface Web qui fonctionne à merveille dans le navigateur Psiphon";
+"ONBOARDING_APPS_TEXT" = "Vos applis favorites ont une interface Web qui fonctionne à merveille dans le Navigateur Psiphon";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
 "ONBOARDING_APPS_TITLE" = "Vos applis dans votre navigateur";
@@ -247,7 +247,7 @@
 "PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "Pour accorder les droits, touchez le bouton 'Changer les paramètres'";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "Le « navigateur Psiphon » doit accéder à votre photothèque pour enregistrer et téléverser des images";
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "Le « Navigateur Psiphon » doit accéder à votre photothèque pour enregistrer et téléverser des images";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "PULL_TO_REFRESH_PAGE" = "Tirer pour actualiser la page";
@@ -280,7 +280,7 @@
 "TUTORIAL_BODY_SETTINGS" = "C’est ici que vous pouvez accéder aux paramètres et trouver de l’aide.";
 
 /* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
-"TUTORIAL_BODY_STATUS" = "La coche verte indique que le navigateur Psiphon est connecté et prêt pour que vous commenciez à naviguer";
+"TUTORIAL_BODY_STATUS" = "La coche verte indique que le Navigateur Psiphon est connecté et prêt pour que vous commenciez à naviguer";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
 "TUTORIAL_GO_BUTTON" = "Allons-y !";

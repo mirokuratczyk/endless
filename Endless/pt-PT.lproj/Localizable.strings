@@ -54,10 +54,10 @@
 "CERT_EXPIRES_AFTER" = "Expira Depois de";
 
 /* Field name for display in list */
-"CERT_ISSUED_BY" = "Issued By";
+"CERT_ISSUED_BY" = "Emitido por";
 
 /* Field name for display in list */
-"CERT_ISSUED_TO" = "Issued To";
+"CERT_ISSUED_TO" = "Emitido a";
 
 /* Field name for display in list */
 "CERT_LOCALITY" = "Localmente";

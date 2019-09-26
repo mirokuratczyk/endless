@@ -117,7 +117,7 @@
 "CONNECTION_SERVER_REGION_TITLE" = "Server region:";
 
 /* Connection status initial splash modal dialog title for 'Connected' state */
-"CONNECTION_STATUS_CONNECTED" = "Connected!";
+"CONNECTION_STATUS_CONNECTED" = "연결됨!";
 
 /* Connection status initial splash modal dialog title for 'Connecting...' state */
 "CONNECTION_STATUS_CONNECTING" = "접속중...";

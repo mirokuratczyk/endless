@@ -126,7 +126,7 @@
 "CONNECTION_STATUS_DISCONNECTED" = "已斷線！";
 
 /* Connection status initial splash modal dialog message for 'Psiphon can not start due to an internal error' state. DO NOT translate 'Psiphon'. */
-"CONNECTION_STATUS_ERROR_MESSAGE" = "由於內部錯誤無法啟動賽風，請回報此問題。";
+"CONNECTION_STATUS_ERROR_MESSAGE" = "由於內部錯誤無法啟動 Psiphon，請回報此問題。";
 
 /* Connection status initial splash modal dialog title for 'Waiting for network...' state */
 "CONNECTION_STATUS_WAITING" = "等待網路....";
@@ -223,13 +223,13 @@
 "ONBOARDING_ACCESS_TITLE" = "接取網頁";
 
 /* Title displayed at top of all onboarding screens. This should be in all-caps if that makes sense in your language. DO NOT translate 'Psiphon'. */
-"ONBOARDING_APP_NAME" = "賽風瀏覽器";
+"ONBOARDING_APP_NAME" = " Psiphon 瀏覽器";
 
 /* Title displayed at the top of all onboardings screens. This should be in all-caps if that makes sense in your language. This is a slogan and should be kept short and punchy. */
 "ONBOARDING_APP_SUBTITLE" = "超越邊界的瀏網";
 
 /* Body text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. DO NOT translate 'Psiphon'. */
-"ONBOARDING_APPS_TEXT" = "您喜愛的應用有網頁介面，可順利地運行在賽風瀏覽器。";
+"ONBOARDING_APPS_TEXT" = "您喜愛的應用有網頁介面，可順利地運行在  Psiphon 瀏覽器。";
 
 /* Title text on one of the on-boarding screens. The intention of this screen is to let the user know that their sites and services -- Facebook, Twitter, etc. -- can be accessed within Psiphon Browser via web pages. */
 "ONBOARDING_APPS_TITLE" = "瀏覽器下的應用";
@@ -247,7 +247,7 @@
 "PHOTO_LIBRARY_ACCESS_INSTRUCTION" = "點擊“變更設定”按鈕授予許可。";
 
 /* Alert text telling user additional permissions must be granted to save and upload photos in the browser. DO NOT translate 'Psiphon'. */
-"PHOTO_LIBRARY_ACCESS_PROMPT" = "\"賽風瀏覽器\" 需要使用照片資源庫的權限以儲存和上傳圖片。";
+"PHOTO_LIBRARY_ACCESS_PROMPT" = "\" Psiphon 瀏覽器\" 需要使用照片資源庫的權限以儲存和上傳圖片。";
 
 /* UI hint that the webpage can be refreshed by pulling(swiping) down */
 "PULL_TO_REFRESH_PAGE" = "下拉以重新載入頁面";
@@ -274,13 +274,13 @@
 "START_TUTORIAL_BUTTON" = "開始教學";
 
 /* Text on last tutorial screen which prompts the user to exit tutorial and start browsing with Psiphon Browser. DO NOT translate 'Psiphon'. */
-"TUTORIAL_BODY_FINAL" = "現在要連線到賽風伺服器，好讓您可開始瀏網。";
+"TUTORIAL_BODY_FINAL" = "現在要連線到 Psiphon 伺服器，好讓您可開始瀏網。";
 
 /* Text on second tutorial screen which highlights the settings button */
 "TUTORIAL_BODY_SETTINGS" = "這裏可以進行設定或找尋協助";
 
 /* Text on first tutorial screen which highlights the connection indicator. DO NOT translate 'Psiphon'. */
-"TUTORIAL_BODY_STATUS" = "綠色的檢查勾顯示賽風瀏覽器已連上，你可以開始瀏網了";
+"TUTORIAL_BODY_STATUS" = "綠色的檢查勾顯示 Psiphon 瀏覽器已連上，你可以開始瀏網了";
 
 /* Final button in tutorial which user clicks to exit tutorial and start browsing with Psiphon Browser */
 "TUTORIAL_GO_BUTTON" = "開始吧！";

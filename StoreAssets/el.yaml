@@ -1,1 +1,3 @@
-el: {app_name: Περιηγητής Psiphon, keywords: 'Psiphon, browser, VPN, proxy'}
+el:
+  app_name: Περιηγητής Psiphon
+  keywords: Psiphon, browser, VPN, proxy

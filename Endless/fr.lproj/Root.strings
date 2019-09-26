@@ -1,5 +1,5 @@
 /* Settings view subheading for Psiphon-specific settings. DO NOT translate 'Psiphon'. */
-"PSIPHON_BROWSER" = "Navigateur Psiphon";
+"PSIPHON_BROWSER" = "Navigateur Psiphon";
 
 /* Settings item text. Leads to options for enabling/disabling sound and vibration on connection status change. */
 "NOTIFICATIONS_SUBSETTINGS_LABEL" = "Notifications";
@@ -23,7 +23,7 @@
 "PRIVACY_DO_NOT_TRACK_LABEL" = "Envoyer des requêtes « Ne pas me suivre à la trace »";
 
 /* Explanatory text for the "Allow Cookies" setting. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Gérer quels types de témoins le navigateur Psiphon autorise.";
+"PRIVACY_ALLOW_COOKIES_DESCRIPTION" = "Gérer quels types de témoins le Navigateur Psiphon autorise.";
 
 /* One of the options for the "Allow Cookies" setting. This text should be kept short. */
 "PRIVACY_ALLOW_COOKIES_ALWAYS_BLOCK" = "Toujours bloquer";
@@ -53,7 +53,7 @@
 "PRIVACY_ALLOW_COOKIES_LABEL" = "Autoriser les témoins";
 
 /* Explanatory text on the "Allow Cookies" setting options page. DO NOT translate 'Psiphon'. */
-"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Les sites Web peuvent enregistrer des témoins et d’autres données sur votre appareil pour vous identifier lors de votre navigation. Ces données sont habituellement utilisées pour fournir des services et du contenu qui vous sont spécifiques. Cela peut inclure des informations de connexion, des préférences et des informations personnelles telles que votre nom et votre adresse courriel. Le navigateur Psiphon bloque par défaut les témoins provenant de sites autres que ceux que vous visitez (témoins tiers) afin d’aider à empêcher les annonceurs publicitaires de stocker des données sur votre appareil.";
+"PRIVACY_ALLOW_COOKIES_CHOICES_DESCRIPTION" = "Les sites Web peuvent enregistrer des témoins et d’autres données sur votre appareil pour vous identifier lors de votre navigation. Ces données sont habituellement utilisées pour fournir des services et du contenu qui vous sont spécifiques. Cela peut comprendre des renseignements de connexion, des préférences et des renseignements personnels tels que votre nom et votre adresse courriel. Le Navigateur Psiphon bloque par défaut les témoins provenant de sites autres que ceux que vous visitez (témoins tiers) afin d’aider à empêcher les annonceurs publicitaires de stocker des données sur votre appareil.";
 
 /* Explanatory text for the 'Clear all when backgrounded' privacy setting. */
 "PRIVACY_CLEAR_DATA_DESCRIPTION" = "Tous les onglets, témoins et données de sites Web seront effacés lors du passage à une autre appli.";

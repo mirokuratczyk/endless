@@ -1,1 +1,14 @@
-tr: {app_name: Psiphon Tarayıcı, keywords: 'Psiphon, tarayıcı, VPN, proxy, vekil sunucu'}
+tr:
+  app_name: Psiphon Browser
+  subtitle: Sınırlamaları aşın
+  description: |
+      On milyonlarca kullanıcının istedikleri sitelere erişmesine yardımcı olduktan sonra Psiphon ilk resmi iOS uygulamasını yayınladı!  Yeni tarayıcı uygulamamız Psiphon ağı ile kesintisiz olarak bütünleşir ve istediğiniz sitelere güvenli olarak erişebilmenizi sağlar.
+
+      Dünyanın neresinde bulunduğunuzdan bağımsız olarak, istediğiniz web sitelerine Psiphon Browser uygulaması üzerinden erişebilirsiniz. Uygulama ayrıca herkese açık ya da güvenilmez olabilecek Wi-Fi hizmetleri kullanılırken ek bir koruma katmanı sağlar..
+
+      Temel özellikleri şunlardır:
+      • Özgür, ücretsiz, kişisel kullanım için ücretsiz.
+      • İndirmesi, kurması ve kullanması kolay. Kayıt olmanız ya da yapılandırmanız gerekmez.
+      • Her zaman hızlı ve güvenilir erişim sağlamak için otomatik iletişim kuralı seçimi.
+      • Çeşitli dillerde kullanabilme ve yapılandırılabilir sunucu konumu.
+  keywords: Psiphon, tarayıcı, VPN, proxy, vekil sunucu
