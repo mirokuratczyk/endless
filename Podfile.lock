@@ -61,7 +61,7 @@ PODS:
     - ReactiveObjC (= 3.1.1)
   - OpenSSL-Universal (1.0.2.17)
   - OrderedDictionary (1.4)
-  - PsiphonClientCommonLibrary (1.2.1):
+  - PsiphonClientCommonLibrary (1.2.2):
     - InAppSettingsKit
   - ReactiveObjC (3.1.1)
 
@@ -72,7 +72,7 @@ DEPENDENCIES:
   - OCMock
   - OCSPCache (from `https://github.com/Psiphon-Labs/OCSPCache.git`, commit `71e9f5d`)
   - OrderedDictionary
-  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `0fd8d41`)
+  - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `f97b258`)
 
 EXTERNAL SOURCES:
   InAppSettingsKit:
@@ -82,7 +82,7 @@ EXTERNAL SOURCES:
     :commit: 71e9f5d
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
-    :commit: 0fd8d41
+    :commit: f97b258
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 CHECKOUT OPTIONS:
@@ -93,7 +93,7 @@ CHECKOUT OPTIONS:
     :commit: 71e9f5d
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
-    :commit: 0fd8d41
+    :commit: f97b258
     :git: https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git
 
 SPEC CHECKSUMS:
@@ -104,9 +104,9 @@ SPEC CHECKSUMS:
   OCSPCache: 96237607aa9f77ba2fd9119e383b9fb1ef41cfa2
   OpenSSL-Universal: ff04c2e6befc3f1247ae039e60c93f76345b3b5a
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
-  PsiphonClientCommonLibrary: da44de9be38f5bddd404f46e4d8a1d23d7810c21
+  PsiphonClientCommonLibrary: 8ac2c3a40332aaf3a8c9c9a7e1a71997878e21af
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
 
-PODFILE CHECKSUM: bfedbc61c9a78e43504e37e08c7625d585e616c7
+PODFILE CHECKSUM: e336f127694a4a307142a7f21174cbde67a22c28
 
 COCOAPODS: 1.4.0
