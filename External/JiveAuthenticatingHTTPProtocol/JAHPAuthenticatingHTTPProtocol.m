@@ -1071,7 +1071,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 	// Resolve NSURLAuthenticationMethodServerTrust ourselves
 	if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 			SecTrustRef trust = challenge.protectionSpace.serverTrust;
 			if (trust == nil) {
 				assert(NO);
