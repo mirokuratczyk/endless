@@ -56,7 +56,7 @@ PODS:
     - MarqueeLabel/ObjC (= 3.2.0)
   - MarqueeLabel/ObjC (3.2.0)
   - OCMock (3.3.1)
-  - OCSPCache (0.1.0):
+  - OCSPCache (0.1.1):
     - OpenSSL-Universal (= 1.0.2.17)
     - ReactiveObjC (= 3.1.1)
   - OpenSSL-Universal (1.0.2.17)
@@ -70,7 +70,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Psiphon-Inc/InAppSettingsKit.git`, commit `598c498`)
   - MarqueeLabel
   - OCMock
-  - OCSPCache (from `https://github.com/Psiphon-Labs/OCSPCache.git`, commit `71e9f5d`)
+  - OCSPCache (from `https://github.com/Psiphon-Labs/OCSPCache.git`, commit `5149e73`)
   - OrderedDictionary
   - PsiphonClientCommonLibrary (from `https://github.com/Psiphon-Inc/psiphon-ios-client-common-library.git`, commit `f97b258`)
 
@@ -79,7 +79,7 @@ EXTERNAL SOURCES:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   OCSPCache:
-    :commit: 71e9f5d
+    :commit: 5149e73
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
     :commit: f97b258
@@ -90,7 +90,7 @@ CHECKOUT OPTIONS:
     :commit: 598c498
     :git: https://github.com/Psiphon-Inc/InAppSettingsKit.git
   OCSPCache:
-    :commit: 71e9f5d
+    :commit: 5149e73
     :git: https://github.com/Psiphon-Labs/OCSPCache.git
   PsiphonClientCommonLibrary:
     :commit: f97b258
@@ -101,12 +101,12 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 567ef538698cd6cf3afb9c5529b89a8936fdacb5
   MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
-  OCSPCache: 96237607aa9f77ba2fd9119e383b9fb1ef41cfa2
+  OCSPCache: 090d054dbf8f31602896d2527a8bd69d49515695
   OpenSSL-Universal: ff04c2e6befc3f1247ae039e60c93f76345b3b5a
   OrderedDictionary: 138c8d2e358d3a0c9adda15c6c7db24e8e3b09e6
   PsiphonClientCommonLibrary: 8ac2c3a40332aaf3a8c9c9a7e1a71997878e21af
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
 
-PODFILE CHECKSUM: e336f127694a4a307142a7f21174cbde67a22c28
+PODFILE CHECKSUM: fa389be342278a8c237c06937208faf109fd5c5a
 
 COCOAPODS: 1.4.0
